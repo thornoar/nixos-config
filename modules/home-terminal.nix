@@ -133,5 +133,3 @@
         };
     };
 }
-
-# PS1="[%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
