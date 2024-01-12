@@ -15,6 +15,7 @@
                     "browser.search.defaultenginename" = "Google";
                     "browser.search.order.1" = "Google";
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                    "signon.rememberSignons" = false;
                 };
                 extensions = with inputs.firefox-addons.packages.${system}; [
                     darkreader
@@ -50,6 +51,11 @@
                         name = "MyNixOS";
                         url = "https://mynixos.com";
                         keyword = "mn";
+                    }
+                    {
+                        name = "RuTracker";
+                        url = "https://rutracker.org";
+                        keyword = "tr";
                     }
                 ];
                 search = {
