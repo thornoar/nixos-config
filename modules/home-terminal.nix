@@ -47,9 +47,8 @@
                 TERM = "xterm-256color";
             };
             font = {
-                size = 11
+                size = 11;
             };
-            
             font.bold = {
                 family = "Hack";
                 style = "Bold";

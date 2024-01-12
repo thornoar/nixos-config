@@ -21,8 +21,8 @@
     };
 
     imports = [
-        ./specifics/nixos/hardware-configuration.nix
-        ./specifics/optional-configuration.nix
+        /etc/nixos/hardware-configuration.nix
+        /etc/nixos/optional-configuration.nix
     ];
 
     boot.loader.systemd-boot = {
