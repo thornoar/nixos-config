@@ -3,8 +3,76 @@
 {
     programs.alacritty = {
         enable = true;
+        settings = {
+            colors.bright = {
+                black = "0x5c6370";
+                blue = "0x61afef";
+                cyan = "0x56b6c2";
+                green = "0x329c48";
+                magenta = "0xc678dd";
+                red = "0xe06c75";
+                white = "0xe6efff";
+                yellow = "0xd19a66";
+            };
+            colors.dim = {
+                black = "0x1e2127";
+                blue = "0x61afef";
+                cyan = "0x56b6c2";
+                green = "0x329c48";
+                magenta = "0xc678dd";
+                red = "0xe06c75";
+                white = "0x828791";
+                yellow = "0xd19a66";
+            };
+            colors.normal = {
+                black = "0x1e2127";
+                blue = "0x61afef";
+                cyan = "0x56b6c2";
+                green = "0x329c48";
+                magenta = "0xc678dd";
+                red = "0xe06c75";
+                white = "0xffffff";
+                yellow = "0xd19a66";
+            };
+            colors.primary = {
+                background = "0x1e2127";
+                bright_foreground = "0x00bc96";
+                foreground = "0x17a88b";
+            };
+            cursor = {
+                style = "Underline";
+            };
+            env = {
+                COLORTERM = "truecolor";
+                TERM = "xterm-256color";
+            };
+            font = {
+                size = enviroment.variables.FONTSIZE;
+            };
+            
+            font.bold = {
+                family = "Hack";
+                style = "Bold";
+            };
+            font.bold_italic = {
+                family = "Hack";
+                style = "Bold Italic";
+            };
+            font.italic = {
+                family = "Hack";
+                style = "Italic";
+            };
+            font.normal = {
+                family = "Hack";
+                style = "Regular";
+            };
+            window.padding = {
+                x = 6;
+                y = 5;
+            };
+        };
     };
-    xdg.configFile."alacritty".source = ../dotfiles/alacritty;
+    # xdg.configFile."alacritty".source = ../dotfiles/alacritty;
 
     programs.neovim = {
         enable = true;

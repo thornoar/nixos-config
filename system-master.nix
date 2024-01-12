@@ -1,13 +1,28 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
+    environment.variables = rec {
+        NIXPKGS_ALLOW_UNFREE = "1";
+        XDG_CONFIG_HOME = "$HOME/.config";
+        XDG_DATA_HOME = "$HOME/.local/share";
+        XDG_STATE_HOME = "$HOME/.local/state";
+        XDG_CACHE_HOME = "$HOME/.cache";
+        NIXOS_CONFIG = "$HOME/nixos-config";
+        PROJECTS = "$HOME/projects";
+        MEDIA = "$HOME/media";
+        DE = "generic";
+        NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
+        TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
+        EDITOR="nvim";
+        TERMINAL="alacritty";
+        BROWSER="firefox";
+        READER="zathura";
+        FILEMANAGER = "ranger";
+    };
+
     imports = [
-        /etc/nixos/hardware-configuration.nix
-        /etc/nixos/specific-configuration.nix
+        ./specifics/nixos/hardware-configuration.nix
+        ./specifics/optional-configuration.nix
     ];
 
     boot.loader.systemd-boot = {
@@ -114,25 +129,6 @@
         noto-fonts-emoji
         nerdfonts
     ];
-
-    environment.variables = rec {
-        NIXPKGS_ALLOW_UNFREE = "1";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-        XDG_CACHE_HOME = "$HOME/.cache";
-        NIXOS_CONFIG = "$HOME/nixos-config";
-        PROJECTS = "$HOME/projects";
-        MEDIA = "$HOME/media";
-        DE = "generic";
-        NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
-        TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
-        EDITOR="nvim";
-        TERMINAL="alacritty";
-        BROWSER="firefox";
-        READER="zathura";
-        FILEMANAGER = "ranger";
-    };
 
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
