@@ -42,6 +42,8 @@
     hardware.pulseaudio.support32Bit = true;
     nixpkgs.config.pulseaudio = true;
 
+    programs.light.enable = true;
+
     # Configure keymap in X11
     services.xserver = {
         enable = true;
