@@ -82,10 +82,6 @@ configDir = "/home/ramak/.config/xmonad/"
 
 myStartupHook :: X ()
 myStartupHook = spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
--- myStartupHook = spawnOnce "feh --randomize --bg-fill /home/ramak/media/wallpapers/Neon"
--- myStartupHook = spawnOnce "alacritty --hold -e sh -c 'echo Setting wallpapers...; feh --randomize --bg-fill $WALLPAPERS; echo Finished.'"
--- myStartupHook = spawnOnce "alacritty --hold -e sh -c 'echo Setting wallpapers...; feh --randomize --bg-fill /home/ramak/media/wallpapers/Neon; echo Finished.'"
--- myStartupHook = spawn "echo 'TEST'"
 
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 "]

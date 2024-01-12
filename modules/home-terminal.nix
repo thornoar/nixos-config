@@ -103,6 +103,7 @@
             hm = "home-manager";
             sncfg = "${sc} && git fetch && git pull";
             pushcfg = "${sc} && git add . && git commit -m '--' && git push";
+            ns = "nix-shell --command zsh -p ";
             cdir = "cd ~/.config/nvim";
             sbdir = "cd ~/projects/sandbox";
             media = "cd ~/media";
