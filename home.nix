@@ -54,6 +54,7 @@
             gnutar
             gawk
             zstd
+            shellcheck
             
             glow
             thefuck
