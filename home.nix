@@ -19,6 +19,7 @@
         mpv
         w3m
         feh
+        ncdu
         playerctl
         keynav
         sxiv
