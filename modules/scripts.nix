@@ -59,5 +59,10 @@
                 fi
             ''
         )
+        (
+            writeShellScriptBin "gitpush" ''
+                nohup git status || (echo "not a git repository!" && exit 1)
+            ''
+        )
     ];
 }
