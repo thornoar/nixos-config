@@ -47,7 +47,7 @@
                 TERM = "xterm-256color";
             };
             font = {
-                size = 11;
+                size = config.fontsize;
             };
             font.bold = {
                 family = "Hack";
@@ -93,7 +93,7 @@
         '';
         shellAliases = rec {
             rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
-            rb-home = "home-manager switch --flake $NIXOS_CONFIG/";
+            rb-home = "home-manager switch --impure --flake $NIXOS_CONFIG/";
             rb-master = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
             rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
             rb-both = "${rb}#master && ${rb-home}";
