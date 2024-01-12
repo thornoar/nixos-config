@@ -6,6 +6,13 @@
         /etc/nixos/system-options.nix
     ];
 
+    options = {
+        wallpaperDir = lib.mkOption {
+            type = lib.types.str;
+            default = "Japan";
+        };
+    };
+
     config = {
         environment.variables = rec {
             NIXPKGS_ALLOW_UNFREE = "1";
@@ -16,6 +23,7 @@
             NIXOS_CONFIG = "$HOME/nixos-config";
             PROJECTS = "$HOME/projects";
             MEDIA = "$HOME/media";
+            WALLPAPERS = "$MEDIA/wallpapers/"+"${config.wallpaperDir}";
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";

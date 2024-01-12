@@ -94,13 +94,14 @@
         shellAliases = rec {
             rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
             rb-home = "home-manager switch --impure --flake $NIXOS_CONFIG/";
-            rb-master = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
+            rb-system = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
             rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
             rb-both = "${rb}#master && ${rb-home}";
             fullrb = "${rb-both} && ${gc}";
             gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
             fullgc = "${gc} && ${rb-boot}";
             hm = "home-manager";
+            sncfg = "git fetch && git pull";
             cdir = "cd ~/.config/nvim";
             sbdir = "cd ~/projects/sandbox";
             media = "cd ~/media";

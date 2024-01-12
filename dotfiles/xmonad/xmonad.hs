@@ -81,7 +81,11 @@ configDir :: String
 configDir = "/home/ramak/.config/xmonad/"
 
 myStartupHook :: X ()
-myStartupHook = spawnOnce "feh --randomize --bg-fill $HOME/wallpapers/Japan"
+myStartupHook = spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
+-- myStartupHook = spawnOnce "feh --randomize --bg-fill /home/ramak/media/wallpapers/Neon"
+-- myStartupHook = spawnOnce "alacritty --hold -e sh -c 'echo Setting wallpapers...; feh --randomize --bg-fill $WALLPAPERS; echo Finished.'"
+-- myStartupHook = spawnOnce "alacritty --hold -e sh -c 'echo Setting wallpapers...; feh --randomize --bg-fill /home/ramak/media/wallpapers/Neon; echo Finished.'"
+-- myStartupHook = spawn "echo 'TEST'"
 
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 "]
@@ -366,6 +370,6 @@ defaults = def {
         layoutHook         = minimize . BW.boringWindows $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        -- startupHook        = myStartupHook,
+        startupHook        = myStartupHook,
 		logHook            = myLogHook
     } `additionalKeysP` myKeys
