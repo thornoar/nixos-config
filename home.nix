@@ -78,9 +78,9 @@
         home.file.".moc/config".text = ''
             Theme = nightly_theme
             Keymap = keymap
-            #Repeat = no
+            Repeat = yes
             #Shuffle = no
-            #AutoNext = yes
+            AutoNext = no
         '';
         home.file.".moc/keymap".text = ''
             go    = ENTER RIGHT
