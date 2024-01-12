@@ -89,7 +89,8 @@
         prezto.prompt.theme = "pure";
         initExtra = ''
             autoload -U colors && colors
-            PS1="[%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+            # PS1="[%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+            PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
         '';
         shellAliases = rec {
             rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
