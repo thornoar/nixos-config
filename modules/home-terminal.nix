@@ -101,8 +101,8 @@
             gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
             fullgc = "${gc} && ${rb-boot}";
             hm = "home-manager";
-            sncfg = "${sc} && git fetch && git pull";
-            pushcfg = "${sc} && git add . && git commit -m '--' && git push";
+            pull-cfg = "${sc} && git fetch && git pull";
+            push-cfg = "${sc} && git add . && git commit -m '--' && git push";
             ns = "nix-shell --command zsh -p ";
             cdir = "cd ~/.config/nvim";
             sbdir = "cd ~/projects/sandbox";
