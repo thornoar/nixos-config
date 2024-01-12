@@ -3,6 +3,10 @@
 {
     boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
 
+    environment.variables = {
+        PCTYPE = "station";
+    };
+
     hardware.opengl = {
         enable = true;
         driSupport = true;
@@ -14,6 +18,7 @@
         displayManager = {
             sessionCommands = ''
                 nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+                feh --randomize --bg-fill $HOME/wallpapers/SpiderWallpapers
                 setxkbmap -layout us,ru,de
                 xset -dpms
                 setterm -blank 0 -powerdown 0
