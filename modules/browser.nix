@@ -9,7 +9,7 @@
                 name = "default";
                 isDefault = true;
                 settings = {
-                    "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
+                    "browser.startup.homepage" = "about:home";
                     "browser.tabs.inTitlebar" = 0;
                     "browser.toolbars.bookmarks.visibility" = "never";
                     "browser.search.defaultenginename" = "Google";

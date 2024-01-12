@@ -121,7 +121,7 @@
         xdg.configFile."keynav/keynavrc".source = ./dotfiles/keynav/keynavrc;
 
         xresources.properties = {
-            "Xcursor.size" = 32;
+            "Xcursor.size" = 16;
             "Xcursor.theme" = "Adwaita";
         };
         home.stateVersion = "23.11";

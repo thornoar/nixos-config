@@ -126,10 +126,9 @@
             fzf
         ];
 
-        services.unclutter = {
+        services.unclutter-xfixes = {
             enable = true;
             timeout = 1;
-            extraOptions = [ "grab" "noevent" ];
         };
 
         fonts.packages = with pkgs; [
