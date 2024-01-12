@@ -50,6 +50,7 @@
 
         telegram-desktop
         discord
+        flameshot
     ];
 
     programs.git = {
