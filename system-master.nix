@@ -129,6 +129,7 @@
         services.unclutter = {
             enable = true;
             timeout = 1;
+            extraOptions = [ "grab" "noevent" ];
         };
 
         fonts.packages = with pkgs; [
