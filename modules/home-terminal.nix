@@ -31,7 +31,7 @@
             rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
             rb-both = "${rb}#master && ${rb-home}";
             fullrb = "${rb-both} && ${gc}";
-            gc = "sudo nix-collect-garbage --delete-old";
+            gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
             fullgc = "${gc} && ${rb-boot}";
             hm = "home-manager";
             cdir = "cd ~/.config/nvim";

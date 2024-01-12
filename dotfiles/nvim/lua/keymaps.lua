@@ -20,6 +20,10 @@ km.set('n', 'dw', 'diw')
 km.set('x', '<leader>p', '\"_dP')
 km.set('n', '<leader>f', 'zf%')
 km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
+km.set('v', '>', '>gv')
+km.set('v', '<', '<gv')
+km.set('n', '>', '>>')
+km.set('n', '<', '<<')
 
 -- $insert keymaps
 km.set('n', 'x', 'i')

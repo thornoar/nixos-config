@@ -83,6 +83,7 @@
         usbutils
         pciutils
         gcc
+        git
 
         # archives
         zip
