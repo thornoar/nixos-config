@@ -2,7 +2,9 @@
     description = "Flake";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs = {
+            url = "github:NixOS/nixpkgs/nixos-unstable";
+        };
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -17,12 +19,12 @@
         };
     };
 
-    outputs = { self, nixpkgs, home-manager, firefox-addons, nix-index-database }@inputs:
+    outputs = inputs:
     let
         system = "x86_64-linux";
         masterSystem = "master";
-        lib = nixpkgs.lib;
-        pkgs = nixpkgs.legacyPackages.${system};
+        lib = inputs.nixpkgs.lib;
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
     {
         nixosConfigurations.${masterSystem} = lib.nixosSystem {
@@ -32,12 +34,12 @@
             ];
         };
 
-        homeConfigurations.ramak = home-manager.lib.homeManagerConfiguration {
+        homeConfigurations.ramak = inputs.home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; inherit system; };
             modules = [
                 ./home.nix
-                nix-index-database.hmModules.nix-index
+                inputs.nix-index-database.hmModules.nix-index
             ];
         };
     };
