@@ -18,7 +18,7 @@
     config = {
         home.username = "ramak";
         home.homeDirectory = "/home/ramak";
-        
+
         programs.nix-index.enable = true;
 
         nixpkgs.config.allowUnfree = true;
@@ -104,7 +104,7 @@
 
         # ranger setup
         xdg.configFile."ranger/rc.conf".text = ''
-            set preview_images_method w3m
+            set preview_images_method ueberzug
             set show_hidden false
             map ;h cd /home/ramak/
             map ;p cd /home/ramak/projects/
