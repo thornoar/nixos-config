@@ -249,7 +249,7 @@ myKeys = [
         , ("M-C-<Up>", sendMessage FirstLayout)           -- Switch to next layout
 		, ("M-C-/", sendMessage (MT.Toggle NBFULL)) -- Toggles noborder
 		-- , ("M-t", sendMessage ToggleStruts)
-	    , ("M-C-p", spawn "feh --randomize --bg-fill $MEDIA/wallpapers/Japan")
+	    , ("M-C-p", spawn "feh --randomize --bg-fill $WALLPAPERS")
         , ("M-C-l", spawn "sleep 1 && xset dpms force off")
         , ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")) -- Toggles my 'floats' layout
         , ("M-C-<Page_Down>", withFocused $ windows . W.sink)  -- Push floating window back to tile
@@ -268,9 +268,9 @@ myKeys = [
         , ("M-C-;", sendMessage MirrorExpand)          -- Expand vert window width
 
 	-- Keyboard Layouts
-		, ("M-1", spawn "setxkbmap -layout us")
-		, ("M-2", spawn "setxkbmap -layout ru")
-		, ("M-3", spawn "setxkbmap -layout de")
+		, ("M-1", spawn "chlang us")
+		, ("M-2", spawn "chlang ru")
+		, ("M-3", spawn "chlang de")
 
     -- Multimedia Keys
 		, ("M-S-<Page_Down>", spawn "amixer sset Master 5%-")
