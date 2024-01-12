@@ -1,0 +1,4 @@
+go    = ENTER RIGHT
+go_up = U LEFT
+#seek_forward  = RIGHT
+#seek_backward = LEFT

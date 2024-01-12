@@ -1,0 +1,455 @@
+  -- {
+  --   'neovim/nvim-lspconfig',
+  --   dependencies = {
+  --     { 'williamboman/mason.nvim', config = true },
+  --     'williamboman/mason-lspconfig.nvim',
+  --
+  --     { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+  --
+  --     'folke/neodev.nvim',
+  --   },
+  -- },
+
+  -- {
+  --   'hrsh7th/nvim-cmp',
+  --   dependencies = {
+  --     'L3MON4D3/LuaSnip',
+  --     'saadparwaiz1/cmp_luasnip',
+  --
+  --     'hrsh7th/cmp-nvim-lsp',
+  --
+  --     'rafamadriz/friendly-snippets',
+  --   },
+  -- },
+
+  -- { 'folke/which-key.nvim', opts = {} },
+  -- {
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {
+  --     on_attach = function(bufnr)
+  --       vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+  --       vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+  --       vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+  --     end,
+  --   },
+  -- },
+
+
+
+
+-- newcmd('Asytest', function ()
+-- 	local pwd = vim.fn.expand('%:p:h')
+-- 	vim.cmd('cd ' .. testdir)
+-- 	vim.cmd('!asy -noV ' .. testdir .. 'asytest.asy')
+-- 	vim.cmd('cd ' .. pwd)
+-- end)
+-- newcmd('AsytestSilent', function ()
+-- 	local pwd = vim.fn.expand('%:p:h')
+-- 	vim.cmd('cd ' .. testdir)
+-- 	vim.cmd('silent !asy -noV ' .. testdir .. 'asytest.asy')
+-- 	vim.cmd('cd ' .. pwd)
+-- end)
+-- newcmd('AsytestView', function ()
+-- 	local file_exists_gif = io.open(testdir .. 'asytest.gif', 'r') ~= nil
+-- 	local file_exists_pdf = io.open(testdir .. 'asytest.pdf', 'r') ~= nil
+-- 	if file_exists_gif then
+-- 		vim.cmd('silent !sxiv -a ' .. testdir .. 'asytest.gif&')
+-- 	elseif file_exists_pdf then
+-- 		vim.cmd('silent !zathura ' .. testdir .. 'asytest.pdf&')
+-- 	end
+-- end)
+-- km.set('n', '<leader>xo', ':Asytest<CR>')
+-- km.set('n', '<leader>xk', function () vim.cmd('AsytestSilent') end)
+-- km.set('n', '<leader>xv', function () vim.cmd('AsytestView') end)
+
+
+
+
+
+-- -- $nvim-tree setup
+-- local function on_attach (bufnr)
+-- 	local api = require('nvim-tree.api')
+--
+-- 	local function opts(desc)
+-- 		return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+-- 	end
+--
+-- 	km.set('n', '<M-Right>',				api.tree.change_root_to_node,      	   opts('CD'))
+-- 	km.set('n', 'i',						api.node.show_info_popup,              opts('Info'))
+-- 	km.set('n', '<C-r>',					api.fs.rename_sub,                     opts('Rename: Omit Filename'))
+-- 	km.set('n', '<C-t>',				    api.node.open.tab,                     opts('Open: New Tab'))
+-- 	km.set('n', '<C-v>',				    api.node.open.vertical,                opts('Open: Vertical Split'))
+-- 	km.set('n', '<C-x>',				    api.node.open.horizontal,              opts('Open: Horizontal Split'))
+-- 	km.set('n', '<Left>',  				function()
+-- 		api.node.navigate.parent_close()
+-- 		api.node.open.edit()
+-- 	end,  								   opts("Navigate Back"))
+-- 	km.set('n', '<Right>',  				api.node.open.edit,                    opts('Open'))
+-- 	km.set('n', '<Tab>', 					api.node.open.preview,                 opts('Open Preview'))
+-- 	km.set('n', '<C-Down>',     			api.node.navigate.sibling.next,        opts('Next Sibling'))
+-- 	km.set('n', '<C-Up>',					api.node.navigate.sibling.prev,   	   opts('Previous Sibling'))
+-- 	km.set('n', '.',    					api.node.run.cmd,                      opts('Run Command'))
+-- 	km.set('n', 'a',    					api.fs.create,                         opts('Create'))
+-- 	km.set('n', 'B',    					api.tree.toggle_no_buffer_filter,      opts('Toggle Filter: No Buffer'))
+-- 	km.set('n', 'zh',   					api.tree.toggle_hidden_filter,         opts('Toggle Filter: Dotfiles'))
+-- 	km.set('n', 'I',    					api.tree.toggle_gitignore_filter,      opts('Toggle Filter: Git Ignore'))
+-- 	km.set('n', 'c',    					api.fs.copy.node,                      opts('Copy'))
+-- 	km.set('n', 'C',    					api.tree.toggle_git_clean_filter,      opts('Toggle Filter: Git Clean'))
+-- 	km.set('n', '[c',   					api.node.navigate.git.prev,            opts('Prev Git'))
+-- 	km.set('n', ']c',   					api.node.navigate.git.next,            opts('Next Git'))
+-- 	km.set('n', 'd',    					api.fs.remove,                         opts('Delete'))
+-- 	km.set('n', 'D',    					api.fs.trash,                          opts('Trash'))
+-- 	km.set('n', 'E',    					api.tree.expand_all,                   opts('Expand All'))
+-- 	km.set('n', 'W',    					api.tree.collapse_all,                 opts('Collapse'))
+-- 	km.set('n', 'e',    					api.fs.rename_basename,                opts('Rename: Basename'))
+-- 	km.set('n', 'g?',   					api.tree.toggle_help,                  opts('Help'))
+-- 	km.set('n', 'gy',   					api.fs.copy.absolute_path,             opts('Copy Absolute Path'))
+-- 	km.set('n', 'r',    					api.fs.rename,                         opts('Rename'))
+-- 	km.set('n', 'R',    					api.tree.reload,                       opts('Refresh'))
+-- 	km.set('n', 's',    					api.node.run.system,                   opts('Run System'))
+-- 	km.set('n', 'U',    					api.tree.toggle_custom_filter,         opts('Toggle Filter: Hidden'))
+-- 	km.set('n', 'p',    					api.fs.paste,                          opts('Paste'))
+-- 	km.set('n', 'x',    					api.fs.cut,                            opts('Cut'))
+-- 	km.set('n', 'y',    					api.fs.copy.filename,                  opts('Copy Name'))
+-- 	km.set('n', 'Y',    					api.fs.copy.relative_path,             opts('Copy Relative Path'))
+-- end
+-- km.set('n', '<C-f>', function ()
+-- 	vim.cmd('NvimTreeToggle')
+-- end)
+-- require("nvim-tree").setup({
+-- 	actions = {
+-- 		open_file = {
+-- 			quit_on_open = true,
+-- 		},
+-- 	},
+-- 	renderer = {
+-- 		group_empty = true,
+-- 		icons = {
+-- 			symlink_arrow = " >> ",
+-- 			glyphs = {
+-- 				folder = {
+-- 					arrow_closed = " ",
+-- 					arrow_open = ">",
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- 	update_cwd = true,
+-- 	update_focused_file = {
+-- 		enable = true,
+-- 		update_cwd = true,
+-- 	},
+-- 	filters = {
+-- 		dotfiles = true,
+-- 	},
+-- 	on_attach = on_attach
+-- })
+
+
+
+-- $nvim-tree settings
+-- vim.g.nvim_tree_quit_on_open = 1
+-- vim.g.nvim_tree_indent_markers = 1
+-- vim.g.nvim_tree_git_hl = 1
+-- vim.g.nvim_tree_highlight_opened_files = 1
+-- vim.g.nvim_tree_root_folder_modifier = ':~'
+-- vim.g.nvim_tree_add_trailing = 1
+-- vim.g.nvim_tree_group_empty = 1
+-- vim.g.nvim_tree_icon_padding = ' '
+-- vim.g.nvim_tree_symlink_arrow = ' >> '
+-- vim.g.nvim_tree_respect_buf_cwd = 1
+-- vim.g.nvim_tree_create_in_closed_folder = 0
+-- vim.g.nvim_tree_refresh_wait = 500
+
+
+
+
+-- local autochange = true
+-- local updatecomment = function ()
+-- 	local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	local strings = vim.api.nvim_buf_get_lines(0,0,r,true)
+-- 	for index = 1, #strings do
+-- 		local str = strings[#strings + 1 - index]
+-- 		if string.len(str) > 3 and string.sub(str, 0, 4) == '///<' then
+-- 			ft.set('tex', { '//%s', '/*%s*/' })
+-- 			return
+-- 		elseif string.len(str) > 3 and string.sub(str, 0, 4) == '///>' then
+-- 			ft.set('tex', '%%s')
+-- 			return
+-- 		end
+-- 	end
+-- 	ft.set('tex', '%%s')
+-- end
+-- vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+-- 	pattern = '*.tex',
+-- 	callback = function ()
+-- 		if autochange then
+-- 			updatecomment()
+-- 		end
+-- 	end
+-- })
+-- vim.keymap.set('n', '<leader>zc', updatecomment)
+-- newcmd('CC', function ()
+-- 	autochange = not autochange
+-- 	print('autochange: '..tostring(autochange))
+-- end)
+
+
+
+
+
+
+-- -- $toggleterm setup
+-- require('toggleterm').setup{
+--   size = function(term)
+--     if term.direction == 'horizontal' then
+--       return 20
+--     elseif term.direction == 'vertical' then
+--       return vim.o.columns * 0.4
+--     end
+--   end,
+--   open_mapping = [[<c-`>]],
+--   hide_numbers = true,
+--   autochdir = true,
+--   terminal_mappings = true,
+--   direction = 'float',
+--   shell = vim.o.shell,
+--   border = 'single'
+-- }
+
+
+
+
+
+
+-- -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+--
+-- -- $servers for languages
+-- local servers = {
+--   lua_ls = {
+--     Lua = {
+--       workspace = { checkThirdParty = false },
+--       telemetry = { enable = false },
+--     },
+--   },
+-- }
+--
+-- -- This function gets run when an LSP connects to a particular buffer.
+-- local on_attach = function(_, bufnr)
+--   local nmap = function(keys, func, desc)
+--     if desc then
+--       desc = 'LSP: ' .. desc
+--     end
+--
+--     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+--   end
+--
+--   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+--   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+--
+--   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+--   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+--   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+--   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+--   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+--   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+--
+--   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+--   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+--
+--   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+--   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+--   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+--   nmap('<leader>wl', function()
+--     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+--   end, '[W]orkspace [L]ist Folders')
+--
+--   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+--     vim.lsp.buf.format()
+--   end, { desc = 'Format current buffer with LSP' })
+-- end
+-- local mason_lspconfig = require 'mason-lspconfig'
+-- mason_lspconfig.setup {
+--   ensure_installed = vim.tbl_keys(servers),
+-- }
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require('lspconfig')[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       settings = servers[server_name],
+--     }
+--   end,
+-- }
+--
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     underline = false,
+--     virtual_text = false,
+--     signs = true,
+--     update_in_insert = false,
+--   }
+-- )
+--
+-- -- $cmp completion settings
+-- local cmp = require 'cmp'
+-- local luasnip = require 'luasnip'
+-- require('luasnip.loaders.from_vscode').lazy_load()
+-- luasnip.config.setup {}
+--
+-- cmp.setup({
+--   snippet = {
+--     expand = function(args)
+--       luasnip.lsp_expand(args.body)
+--     end,
+--   },
+--   mapping = cmp.mapping.preset.insert {
+--     ['<C-n>'] = cmp.mapping.select_next_item(),
+--     ['<C-p>'] = cmp.mapping.select_prev_item(),
+--     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+--     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+--     ['<C-Space>'] = cmp.mapping.complete {},
+--     ['<CR>'] = cmp.mapping.confirm {
+--       behavior = cmp.ConfirmBehavior.Replace,
+--       select = false,
+--     },
+--     ['<Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_next_item()
+--       elseif luasnip.expand_or_locally_jumpable() then
+--         luasnip.expand_or_jump()
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--     ['<S-Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_prev_item()
+--       elseif luasnip.locally_jumpable(-1) then
+--         luasnip.jump(-1)
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--   },
+--   sources = {
+--     { name = 'nvim_lsp' },
+--     { name = 'luasnip' },
+--   },
+--   preselect = 'None',
+-- })
+--
+-- local cmpenablepattern = { '*.lua', '*.py', '*.vim', }
+-- local cmpdisablepattern = { '*.tex', '*.asy' }
+--
+-- vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
+--   pattern = cmpenablepattern,
+--   callback = function ()
+--     require('cmp').setup.buffer{ enabled = true }
+--   end
+-- })
+-- vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
+--   pattern = cmpdisablepattern,
+--   callback = function ()
+--     require('cmp').setup.buffer{ enabled = false }
+--   end
+-- })
+
+
+
+
+
+
+-- $fold settings
+-- vim.o.foldenable = true
+-- vim.o.foldmethod = 'manual'
+-- local foldpattern = {'*.*'}
+-- local savepath = '/home/ramak/.local/state/nvim/view/'
+-- local foldgroup = vim.api.nvim_create_augroup('folds', { clear = true })
+-- vim.api.nvim_create_autocmd({ 'BufWinLeave', 'BufLeave', 'BufDelete' }, {
+--   pattern = foldpattern,
+--   group = foldgroup,
+--   command = 'mkview',
+-- })
+-- local loadfolds = true
+-- vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
+--   pattern = foldpattern,
+--   group = foldgroup,
+--   callback = function ()
+--     if not loadfolds then
+--       return
+--     end
+--     local svpath = vim.fn.expand('%:p')
+--     svpath = string.gsub(svpath, '/home/ramak', '~')
+--     svpath = savepath .. string.gsub(svpath, '/', '=+') .. '='
+--     local svexists = io.open(svpath, 'r') ~= nil
+--     if svexists then
+--       vim.cmd('loadview')
+--     end
+--   end
+-- })
+--
+
+
+-- -- $dashboard setup
+-- vim.g.dashboard_default_executive = 'telescope'
+-- require('dashboard').setup({
+-- 	theme = 'hyper',
+-- 	event = 'VimLeave',
+-- 	config = {
+-- 		packages = {enable = true},
+-- 		header = {
+-- 			[[                                   ░▓▓                                 ]],
+-- 			[[                                ▓▓▓▓▓▓▓▓▓                              ]],
+-- 			[[                         ▓░  ▓▓▓▓▓▓▓▓▓▓▓                               ]],
+-- 			[[                       ▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓                               ]],
+-- 			[[                 ▓    ▓▓▓   ▓▒      ░▓▓▓▓▓                             ]],
+-- 			[[               ▒▓▓   ▓▓▓▓          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒                 ]],
+-- 			[[               ▓▓▓  ▓▓▓▓▓   ▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓             ]],
+-- 			[[               ▓▓▓▓▒▓▓▓▓▓ ▓▓▓▓▒   ▓▓░      ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           ]],
+-- 			[[              ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                   ▒▓▓▓▓▓▓▓▓▓▓▓          ]],
+-- 			[[              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓         ]],
+-- 			[[              ▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓          ▓         ]],
+-- 			[[              ▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓▓▓▓▓▓▓▓▓▓                     ]],
+-- 			[[             ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓                    ]],
+-- 			[[            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓                   ]],
+-- 			[[     ▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓                ]],
+-- 			[[    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   ▓▓▓▓▓▓▓▓▓▒           ▓▓▓▓▓▓▓▓▓▓▓▓              ]],
+-- 			[[     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓     ▓▓▓▓▓▓▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓            ]],
+-- 			[[     ▓▓▓▓▓▓▓▓▓▓▓▓       ▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           ]],
+-- 			[[      ▓▓▓▓▓ ▓▓        ▓▓▓▓▓▓▓         ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒          ]],
+-- 			[[        ▓▓▓       ▓▓▓▓▓▓▓▓▓▓            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           ]],
+-- 			[[                ▓▓▓▓▓▓▓  ▒▓▓            ▓▓▓▓▓▓▓▓▓▓▓▓      ▓▓           ]],
+-- 			[[             ▓▓▓▓▓▓▓▓                  ▓▓▓▓▓▓▓▓▓▓▓▓                    ]],
+-- 			[[               ▓▓▓▓▓▓                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓                    ]],
+-- 			[[                  ▓▓▓▓▓          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                    ]],
+-- 			[[                            ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                   ]],
+-- 			[[																		]],
+-- 			[[																		]],
+-- 		},
+-- 		footer = {
+-- 			[[]],
+-- 			[[]],
+-- 			[[You wanna do something already?]]
+-- 		},
+-- 		shortcut = {
+-- 			{ desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+-- 			{
+-- 				desc = ' Files',
+-- 				group = 'Label',
+-- 				action = 'Telescope find_files hidden=true',
+-- 				key = '/',
+-- 			},
+-- 			{
+-- 				desc = ' Config',
+-- 				group = 'Label',
+-- 				action = 'edit ~/.config/nvim/init.lua',
+-- 				key = 'c',
+-- 			},
+-- 		},
+-- 	},
+-- })
+
+
