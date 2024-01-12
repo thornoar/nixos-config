@@ -1,2 +1,0 @@
-/home/ramak/projects/sandbox/asytest.asy
-/home/ramak/projects/sandbox/paths.asy

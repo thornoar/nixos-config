@@ -62,7 +62,7 @@
     programs.gh = { enable = true; };
 
     # asymptote setup
-    home.file.".asy/config.asy".source = ./dotfiles/asy/config.asy;
+    home.file.".asy/config.asy".source = ./dotfiles/config.asy;
 
     # moc setup
     home.file.".moc/config".text = ''
