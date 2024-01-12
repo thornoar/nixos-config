@@ -61,7 +61,7 @@
             telegram-desktop
             discord
             flameshot
-            obs
+            obs-studio
         ];
 
         programs.git = {
