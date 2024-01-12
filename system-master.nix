@@ -84,6 +84,7 @@
         pciutils
         gcc
         git
+        lshw
 
         # archives
         zip
