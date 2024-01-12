@@ -44,7 +44,6 @@
             python3
             R
 
-            cowsay
             bc
             neofetch
             file
