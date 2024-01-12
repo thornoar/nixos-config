@@ -47,7 +47,7 @@
                 TERM = "xterm-256color";
             };
             font = {
-                size = enviroment.variables.FONTSIZE;
+                size = 11
             };
             
             font.bold = {
