@@ -9,6 +9,9 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        flake-utils = {
+            url = "github:numtide/flake-utils";
+        };
         firefox-addons = {
             url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +29,7 @@
         lib = inputs.nixpkgs.lib;
         pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
-    {
+    {   
         nixosConfigurations.${masterSystem} = lib.nixosSystem {
             system = system;
             modules = [
