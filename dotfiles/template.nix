@@ -14,5 +14,5 @@
             fsType = "ext4";
             options = [ "nofail" "rw" "user" "auto" ];
         };
-    }
+    };
 }
