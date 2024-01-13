@@ -193,7 +193,6 @@ myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
         ("M-M1-<Home>", spawn (myTerminal ++ " --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
-        , ("M-M1-<Insert>", spawn (myTerminal ++ " --hold -e sh -c 'xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
 
     -- Run Prompt
         , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
