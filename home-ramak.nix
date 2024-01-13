@@ -13,18 +13,11 @@
             type = lib.types.int;
             default = 11;
         };
-        wallpaperDir = lib.mkOption {
-            type = lib.types.str;
-            default = "Landscapes";
-        };
     };
 
     config = {
         home.username = usrname;
         home.homeDirectory = "/home/"+usrname;
-        home.sessionVariables = {
-            WALLPAPERS = "$MEDIA/wallpapers/"+"${config.wallpaperDir}";
-        };
 
         programs.nix-index.enable = true;
 
