@@ -1,13 +1,6 @@
-{ system, config, pkgs, lib, inputs, ... }:
+{ inputs, usrname, config, pkgs, lib, ... }:
 
 {
-    options = {
-        fontsize = lib.mkOption {
-            type = lib.types.int;
-            default = 11;
-        };
-    };
-
     imports = [
         /etc/nixos/home-options.nix
         ./modules/home-terminal.nix
@@ -15,9 +8,23 @@
         ./modules/scripts.nix
     ];
 
+    options = {
+        fontsize = lib.mkOption {
+            type = lib.types.int;
+            default = 11;
+        };
+        wallpaperDir = lib.mkOption {
+            type = lib.types.str;
+            default = "Japan";
+        };
+    };
+
     config = {
-        home.username = "ramak";
-        home.homeDirectory = "/home/ramak";
+        home.username = usrname;
+        home.homeDirectory = "/home/"+usrname;
+        home.sessionVariables = {
+            WALLPAPERS = "$MEDIA/wallpapers/"+"${config.wallpaperDir}";
+        };
 
         programs.nix-index.enable = true;
 
@@ -54,7 +61,10 @@
             gawk
             zstd
             shellcheck
-            
+            nix-du
+            sysstat
+            lm_sensors
+            ethtool
             glow
             thefuck
 
@@ -106,14 +116,14 @@
         xdg.configFile."ranger/rc.conf".text = ''
             set preview_images_method ueberzug
             set show_hidden false
-            map ;h cd /home/ramak/
-            map ;p cd /home/ramak/projects/
-            map ;l cd /home/ramak/.config
+            map ;h cd /home/${usrname}/
+            map ;p cd /home/${usrname}/projects/
+            map ;l cd /home/${usrname}/.config
             map ;e cd /etc/
-            map ;m cd /home/ramak/media
-            map ;c cd /home/ramak/.config/nvim
-            map ;k cd /run/media/ramak
-            map ;d cd /home/ramak/Downloads
+            map ;m cd /home/${usrname}/media
+            map ;c cd /home/${usrname}/.config/nvim
+            map ;k cd /run/media/${usrname}
+            map ;d cd /home/${usrname}/Downloads
         '';
 
         # keynav setup
