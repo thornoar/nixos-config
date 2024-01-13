@@ -250,12 +250,6 @@ myKeys = [
         , ("M-C-<Page_Down>", withFocused $ windows . W.sink)  -- Push floating window back to tile
         , ("M-C-t", sinkAll)                       -- Push ALL floating windows to tile
 
-    -- Increase/decrease windows in the master pane or the stack
-        -- , ("M-S-,", sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
-        -- , ("M-S-.", sendMessage (IncMasterN (-1))) -- Decrease number of clients in master pane
-        -- , ("M-C-<Up>", increaseLimit)                   -- Increase number of windows
-        -- , ("M-C-<Down>", decreaseLimit)                 -- Decrease number of windows
-
     -- Window resizing
         , ("M-C-,", sendMessage Shrink)                   -- Shrink horiz window width
         , ("M-C-.", sendMessage Expand)                   -- Expand horiz window width
