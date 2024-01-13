@@ -24,7 +24,7 @@
             NIXOS_CONFIG = "$HOME/nixos-config";
             PROJECTS = "$HOME/projects";
             MEDIA = "$HOME/media";
-            WALLPAPERS = "$MEDIA/wallpapers/"+"${config.wallpaperDir}";
+            WALLPAPERS = "$MEDIA/wallpapers/${config.wallpaperDir}";
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
@@ -35,62 +35,6 @@
             FILEMANAGER = "ranger";
         };
 
-        boot.loader.systemd-boot = {
-            enable = true;
-            configurationLimit = 5;
-        };
-        boot.loader.timeout = 35996;
-        boot.loader.efi.canTouchEfiVariables = true;
-
-        nix.gc = {
-            automatic = true;
-            dates = "daily";
-            options = "--delete-older-than 1d";
-        };
-        nix.settings.auto-optimise-store = true;
-
-        networking.hostName = sysname; # Define your hostname.
-
-        # Enable networking
-        networking.networkmanager.enable = true;
-        networking.wireless.iwd.enable = true;
-        networking.networkmanager.wifi.backend = "iwd";
-
-        # Set your time zone.
-        time.timeZone = "Europe/Belgrade";
-
-        # Select internationalisation properties.
-        i18n.defaultLocale = "en_US.UTF-8";
-
-        sound.enable = true;
-        hardware.pulseaudio.enable = true;
-        hardware.pulseaudio.support32Bit = true;
-        nixpkgs.config.pulseaudio = true;
-
-        programs.light.enable = true;
-
-        # Configure keymap in X11
-        services.xserver = {
-            enable = true;
-            layout = "us";
-            xkbVariant = "";
-            displayManager = {
-                lightdm.enable = true;
-                lightdm.greeters.enso.enable = true;
-            };
-            windowManager.xmonad = {
-                enable = true;
-                enableContribAndExtras = true;
-            };
-        };
-
-        # Define a user account. Don't forget to set a password with ‘passwd’.
-        users.users = usrs;
-
-        # Allow unfree packages
-        nixpkgs.config.allowUnfree = true;
-
-        # List packages installed in system profile. To search, run:
         environment.systemPackages = with pkgs; [
             home-manager
 
@@ -117,6 +61,54 @@
             eza
             fzf
         ];
+
+        boot.loader.systemd-boot = {
+            enable = true;
+            configurationLimit = 5;
+        };
+        boot.loader.timeout = 35996;
+        boot.loader.efi.canTouchEfiVariables = true;
+
+        nix.gc = {
+            automatic = true;
+            dates = "daily";
+            options = "--delete-older-than 1d";
+        };
+        nix.settings.auto-optimise-store = true;
+
+        networking.hostName = sysname;
+
+        networking.networkmanager.enable = true;
+        networking.wireless.iwd.enable = true;
+        networking.networkmanager.wifi.backend = "iwd";
+
+        time.timeZone = "Europe/Belgrade";
+        i18n.defaultLocale = "en_US.UTF-8";
+
+        sound.enable = true;
+        hardware.pulseaudio.enable = true;
+        hardware.pulseaudio.support32Bit = true;
+        nixpkgs.config.pulseaudio = true;
+
+        programs.light.enable = true;
+
+        services.xserver = {
+            enable = true;
+            layout = "us";
+            xkbVariant = "";
+            displayManager = {
+                lightdm.enable = true;
+                lightdm.greeters.enso.enable = true;
+            };
+            windowManager.xmonad = {
+                enable = true;
+                enableContribAndExtras = true;
+            };
+        };
+
+        users.users = usrs;
+
+        nixpkgs.config.allowUnfree = true;
 
         services.unclutter-xfixes = {
             enable = true;

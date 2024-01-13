@@ -125,11 +125,11 @@
             music = "transmission-remote -w ~/media/Music -a ";
             w3mimgdisplay = "w3m";
             c = "ping google.com";
-            ll = "ls -la";
+            la = "exa -la";
             open = "xdg-open";
             zc = "zle-keymap-select";
             svim = "sudo -E nvim";
             sc = "cd $NIXOS_CONFIG";
-        };
+        };    
     };
 }

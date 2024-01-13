@@ -19,6 +19,9 @@
         home.username = usrname;
         home.homeDirectory = "/home/"+usrname;
 
+        home.sessionVariables = {
+        };
+
         programs.nix-index.enable = true;
 
         nixpkgs.config.allowUnfree = true;
@@ -60,6 +63,7 @@
             ethtool
             glow
             thefuck
+            bat
 
             telegram-desktop
             discord
