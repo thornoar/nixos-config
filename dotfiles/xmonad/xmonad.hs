@@ -89,22 +89,22 @@ myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y 
 
 myFont :: String
 -- myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
-myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
+myFont = "xft:Hack Mono:mono:size=11:bold=false:antialias=true:hinting=true"
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
-archwiki, news, reddit :: S.SearchEngine
+archwiki, nixoswiki, reddit :: S.SearchEngine
 archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
-news     = S.searchEngine "news" "https://news.google.com/search?q="
+nixoswiki     = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="
 reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
 
 searchList :: [(String, S.SearchEngine)]
 searchList = [ ("a", archwiki)
+             , ("n", nixoswiki)
              , ("g", S.google)
              , ("h", S.hoogle)
              , ("i", S.images)
-             , ("n", news)
              , ("r", reddit)
              , ("s", S.stackage)
              , ("t", S.thesaurus)
@@ -238,7 +238,7 @@ myKeys = [
 		, ("M-<Home>", windows W.focusUp)
 		, ("M-<End>", windows W.focusDown)
 		, ("M-d", withFocused minimizeWindow)
-		, ("M-b", withLastMinimized maximizeWindow)
+		, ("M-b", withLastMinimized maximizeWindowAndFocus)
 
     -- Layouts
         , ("M-C-<Down>", sendMessage NextLayout)           -- Switch to next layout
@@ -271,8 +271,8 @@ myKeys = [
     -- Multimedia Keys
 		, ("M-S-<Page_Down>", spawn "amixer sset Master 5%-")
 		, ("M-S-<Page_Up>", spawn "amixer sset Master 5%+")
-        , ("M-S-,", spawn "inc_bright -500")
-        , ("M-S-.", spawn "inc_bright 500")
+        , ("M-S-,", spawn "light -U -50")
+        , ("M-S-.", spawn "light -U +50")
 		, ("M-S-<Home>", spawn "mocp --seek -500")
 		, ("M-S-<Down>", spawn "mocp --next") 
 		, ("M-S-<Up>", spawn "mocp --previous")
@@ -291,7 +291,7 @@ myKeys = [
         ++ [("M-S-f " ++ k, S.selectSearch f) | (k,f) <- searchList ]
 		++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
-------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
 -- Layouts:
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
@@ -353,7 +353,6 @@ myLogHook = return ()
 -- Now run xmonad with all the defaults we set up.
 
 main = xmonad defaults
-
 defaults = def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
