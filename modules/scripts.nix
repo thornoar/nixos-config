@@ -40,17 +40,6 @@
             ''
         )
         (
-            writeShellScriptBin "bright" ''
-                brightfile=""
-                if [ $PCTYPE = "laptop" ]; then
-                    brightfile="/sys/class/backlight/intel_backlight/brightness"
-                else
-                    brightfile="/sys/class/backlight/intel_backlight/brightness"
-                fi
-                echo "$1" > "$brightfile"
-            ''
-        )
-        (
             writeShellScriptBin "inc_bright" ''
                 brightfile=""
                 if [ $PCTYPE = "laptop" ]; then
@@ -63,6 +52,9 @@
             writeShellScriptBin "gitpush" ''
                 nohup git status || (echo "not a git repository!" && exit 1)
             ''
+        )
+        (
+            writeShellScriptBin "run" "nix run nixpkgs#$1 \${@:2}"
         )
     ];
 }
