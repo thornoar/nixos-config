@@ -15,7 +15,7 @@
         };
         wallpaperDir = lib.mkOption {
             type = lib.types.str;
-            default = "Japan";
+            default = "Landscapes";
         };
     };
 

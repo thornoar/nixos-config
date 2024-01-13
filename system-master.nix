@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ sysname, usrs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -6,12 +6,7 @@
         /etc/nixos/system-options.nix
     ];
 
-    options = {
-        wallpaperDir = lib.mkOption {
-            type = lib.types.str;
-            default = "Japan";
-        };
-    };
+    options = { };
 
     config = {
         environment.variables = rec {
@@ -23,7 +18,6 @@
             NIXOS_CONFIG = "$HOME/nixos-config";
             PROJECTS = "$HOME/projects";
             MEDIA = "$HOME/media";
-            WALLPAPERS = "$MEDIA/wallpapers/"+"${config.wallpaperDir}";
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
@@ -48,7 +42,7 @@
         };
         nix.settings.auto-optimise-store = true;
 
-        networking.hostName = "nixos"; # Define your hostname.
+        networking.hostName = sysname; # Define your hostname.
 
         # Enable networking
         networking.networkmanager.enable = true;
@@ -84,12 +78,7 @@
         };
 
         # Define a user account. Don't forget to set a password with ‘passwd’.
-        users.users.ramak = {
-            isNormalUser = true;
-            description = "Roman Maksimovich";
-            extraGroups = [ "networkmanager" "wheel" "sys" "root" "audio" "sound" "video" "networkmanager" ];
-            packages = with pkgs; [];
-        };
+        users.users = usrs;
 
         # Allow unfree packages
         nixpkgs.config.allowUnfree = true;
@@ -99,10 +88,6 @@
             home-manager
 
             # system tools
-            nix-du
-            sysstat
-            lm_sensors
-            ethtool
             vim
             wget
             curl

@@ -89,7 +89,7 @@ myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y 
 
 myFont :: String
 -- myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
-myFont = "xft:Hack Mono:mono:size=11:bold=false:antialias=true:hinting=true"
+myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
