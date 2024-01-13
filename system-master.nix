@@ -6,8 +6,7 @@
         /etc/nixos/system-options.nix
     ];
 
-    options = 
-    {
+    options = {
         wallpaperDir = lib.mkOption {
             type = lib.types.str;
             default = "Landscapes";
