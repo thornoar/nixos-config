@@ -67,6 +67,7 @@
             thefuck
             bat
             tldr
+            most
 
             telegram-desktop
             discord
