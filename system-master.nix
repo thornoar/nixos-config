@@ -25,6 +25,7 @@
             MEDIA = "$HOME/media";
             WALLPAPERS = "$MEDIA/wallpapers/${config.wallpaperDir}";
             DE = "generic";
+            PAGER = "most";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
             EDITOR="nvim";
