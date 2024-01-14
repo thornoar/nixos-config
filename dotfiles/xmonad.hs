@@ -92,7 +92,7 @@ myStartupHook :: X ()
 myStartupHook = setWallpaperCmd--spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
 
 myWorkspaces :: [String]
-myWorkspaces = [" 1 ", " 2 ", " 3 "]
+myWorkspaces = ["net", "dev", "aux"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 myFont :: String
@@ -341,7 +341,7 @@ myXmobarPP :: PP
 myXmobarPP = def
     { ppSep             = ppSep
     , ppTitleSanitize   = xmobarStrip
-    , ppCurrent         = magenta . cutwrap "[" "]"-- . xmobarBorder "Top" "#8be9fd" 2
+    , ppCurrent         = magenta . wrap "[" "]"-- . xmobarBorder "Top" "#8be9fd" 2
     , ppHidden          = blue-- . wrap "" ""
     , ppHiddenNoWindows = lowWhite-- . wrap "" ""
     , ppUrgent          = red . wrap (yellow "!") (yellow "!")
@@ -367,7 +367,7 @@ myXmobarPP = def
         concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
 
         -- cutwrap str1 str2 xs = wrap str1 str2 (tail (init xs))
-        cutwrap d1 d2 = (wrap d1 d2) . trim
+        -- cutwrap d1 d2 = (wrap d1 d2) . trim
 
         -- myPPLayout = (++" ") . (" "++) . drop 9
         myPPLayout = drop 9
