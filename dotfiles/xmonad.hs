@@ -59,17 +59,16 @@ import Control.Arrow (first)
 -- Utilities
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP)
--- import qualified XMonad.Util.ExtensibleState as XS
 import XMonad.Util.NamedWindows
+import XMonad.Util.Loggers
 
 -- Xmobar
-import XMonad.Hooks.DynamicLog
+-- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Util.Loggers
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
+-- import XMonad.Hooks.ManageHelpers
 
 myTerminal :: String
 myTerminal = "$TERMINAL"
@@ -174,7 +173,7 @@ myXPConfig :: XPConfig
 myXPConfig = def
       { font                = myFont
       , bgColor             = myBgColor--"#282c34"
-      , fgColor             = myFgColor--"#bbc2cf"
+      , fgColor             = colorWhite--"#bbc2cf"
       , bgHLight            = "#c792ea"
       , fgHLight            = "#000000"
       , borderColor         = "#535974"
@@ -329,6 +328,7 @@ threeCol = renamed [ Replace "ThreeColumns" ]
            $ ThreeCol 1 (3/100) (1/2)
 tabs = renamed [ Replace "Tabs" ]
            $ windowNavigation
+           $ avoidStruts
            $ mySpacing' mySpace
            $ tabbed shrinkText myTabTheme
 
@@ -337,26 +337,40 @@ myManageHook = insertPosition Below Newer
 myEventHook = mempty
 myLogHook = return ()
 
-
-minimizedLogger :: Logger
-minimizedLogger = withMinimized $ (\wins -> return (Just ((show . length) wins)))
-
 myXmobarPP :: PP
 myXmobarPP = def
-    { ppSep             = " | "
+    { ppSep             = ppSep
     , ppTitleSanitize   = xmobarStrip
-    , ppLayout          = myPPLayout
     , ppCurrent         = magenta . cutwrap "[" "]"-- . xmobarBorder "Top" "#8be9fd" 2
     , ppHidden          = blue-- . wrap "" ""
     , ppHiddenNoWindows = lowWhite-- . wrap "" ""
     , ppUrgent          = red . wrap (yellow "!") (yellow "!")
-    -- , ppExtras          = [minimizedLogger]
-    , ppOrder           = \[ws, l, _] -> [ws, white l]
+    , ppOrder           = \[ws, l, _, wins] -> [ws, wins]
+    , ppExtras          = return $ concatLoggers [
+                            onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
+                            onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) logF,
+                            onLogger (white . drop 9) logLayout
+                          ]
     }
     where
-        cutwrap str1 str2 xs = wrap str1 str2 (tail (init xs))
+        logF :: Logger
+        logF = do
+            windows <- gets (W.index . windowset)
+            return . Just . show $ (length windows)
 
-        myPPLayout = (" "++) . drop 9
+        minimizedLogger :: Logger
+        minimizedLogger = withMinimized $ return . return . show . length
+        -- minimizedLogger = withMinimized $ (\wins -> return (Just ((show . length) wins)))
+
+        ppSep = " | "
+        concatLoggers :: [Logger] -> Logger
+        concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
+
+        -- cutwrap str1 str2 xs = wrap str1 str2 (tail (init xs))
+        cutwrap d1 d2 = (wrap d1 d2) . trim
+
+        -- myPPLayout = (++" ") . (" "++) . drop 9
+        myPPLayout = drop 9
 
         formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
         formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
@@ -372,9 +386,11 @@ myXmobarPP = def
         red      = xmobarColor "#ff5555" ""
         lowWhite = xmobarColor "#bbbbbb" ""
 
+
 main = xmonad $
        ewmhFullscreen .
        ewmh .
+       -- withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey $
        withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
        defaults
 
