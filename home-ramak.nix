@@ -13,7 +13,9 @@
     {
         fontsize = opt {
             type = tp.int;
-            default = 11;
+        };
+        fontsizeBar = opt {
+            type = tp.int;
         };
         wallpaperDir = opt {
             type = tp.str;
@@ -54,8 +56,8 @@
         };
         colorMagenta_alt = opt {
             type = tp.str;
-            # default = "#c678dd";
-            default = config.colorBlue;
+            default = "#c678dd";
+            # default = config.colorBlue;
         };
         font = opt {
             type = tp.str;
@@ -189,7 +191,7 @@
             colorMagenta = "${config.colorMagenta}"
         '';
         home.file.".xmobarrc".text = ''
-            Config { font     = "xft:${config.font} Nerd Font Mono-13"
+            Config { font     = "xft:${config.font} Nerd Font Mono-${config.fontsizeBar}"
                    , bgColor  = "${config.bgColor}"
                    , fgColor  = "${config.fgColor}"
                    , position = TopH ${builtins.toString config.barheight}
