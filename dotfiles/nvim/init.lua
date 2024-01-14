@@ -1,8 +1,9 @@
 -- VARIABLES --
+km = vim.keymap
+km.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
 newcmd = function (name, command)
 	vim.api.nvim_create_user_command(name, command, {})
 end
-km = vim.keymap
 P = function (v)
     print(vim.inspect(v))
     return v
@@ -14,14 +15,11 @@ R = function (name)
     RELOAD(name)
     return require(name)
 end
-home = '$PROJECTS'
+home = os.getenv('PROJECTS')
 testdir = home..'/sandbox'
-shell = '$SHELL'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ';'
-
-km.set('n', 'ec', ':e ~/.config/nvim/init.lua<CR>')
 
 -- INSTALL --
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -540,7 +538,6 @@ vim.o.linebreak = true
 vim.o.list = false
 vim.o.breakat = '   '
 vim.opt.autochdir=true
-vim.o.shell = '/usr/bin/sh'
 vim.o.shell = '/bin/sh'
 vim.wo.number = true
 -- vim.wo.relativenumber = true
@@ -624,9 +621,10 @@ vim.cmd(
     highlight Keyword guifg=plum
 ]])
 
--- package.path = package.path .. ';'..home..'/programming/nvim-subfiles/lua/?.lua'
--- require('nvim-subfiles').setup({
---   ['subfile'] = 'SF',
---   ['subfigure'] = 'CF',
--- })
+package.path = package.path .. ';'..home..'/programming/nvim-subfiles/lua/?.lua'
+-- package.path = package.path .. ';/home/ramak/projects/programming/nvim-subfiles/lua/?.lua'
+require('nvim-subfiles').setup({
+  ['subfile'] = 'SF',
+  ['subfigure'] = 'F',
+})
 -- require('nvim-subfiles').setup({})

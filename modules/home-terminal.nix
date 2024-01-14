@@ -69,6 +69,10 @@
                 x = 6;
                 y = 5;
             };
+            keyboard.bindings = [
+                { key = "ArrowUp"; mods = "Alt"; action = "ScrollLineUp"; }
+                { key = "ArrowDown"; mods = "Alt"; action = "ScrollLineDown"; }
+            ];
         };
     };
     # xdg.configFile."alacritty".source = ../dotfiles/alacritty;
@@ -86,7 +90,7 @@
         enableCompletion = true;
         enableAutosuggestions = true;
         syntaxHighlighting.enable = true;
-        prezto.prompt.theme = "pure";
+        # prezto.prompt.theme = "pure";
         initExtra = ''
             autoload -U colors && colors
             PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
@@ -101,18 +105,15 @@
             gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
             fullgc = "${gc} && ${rb-boot}";
             hm = "home-manager";
-            pull-cfg = "${sc} && git fetch && git pull";
-            push-cfg = "${sc} && git add . && git commit -m '--' && git push";
+            gitpush = "git add . && git commit -m '--' && git push";
+            gitpull = "git fetch && git pull";
             ns = "nix-shell --command zsh -p ";
             cdir = "cd ~/.config/nvim";
             sbdir = "cd ~/projects/sandbox";
             media = "cd ~/media";
             films = "cd ~/media/Films";
             books = "cd ~/media/Books";
-            up = "sudo pacman -Syu";
-            get = "sudo pacman -S --noconfirm";
             q = "exit";
-            getsetup = "pacman -Qqe";
             ls = "ls $LS_OPTIONS";
             wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
             cp = "cp -i";
