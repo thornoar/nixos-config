@@ -75,6 +75,37 @@
             type = tp.str;
             default = "tall ||| Full ||| magnified ||| tabs ||| spirals";
         };
+        xmobarOptions = opt {
+            type = tp.str;
+            default = ''
+                Config { font     = "xft:${config.font} Nerd Font Mono-${builtins.toString config.fontsizeBar}"
+                       , bgColor  = "${config.bgColor}"
+                       , fgColor  = "${config.fgColor}"
+                       , position = TopH ${builtins.toString config.barheight}
+                       , persistent = False
+                       , hideOnStart = False
+                       , allDesktops = True
+                       , lowerOnStart = True
+                       , commands = [
+                                    Run Alsa "default" "Master"
+                                        [ "--template", "<fc=${config.colorWhite}><volumestatus></fc>"
+                                        , "--suffix"  , "True"
+                                        , "--"
+                                        , "--on", ""
+                                    ]
+                                    , Run Date "<fc=${config.colorMagenta}>%H:%M:%S</fc> | <fc=${config.colorBlue}>%a %Y-%m-%d</fc>" "date" 10
+                                    , Run XMonadLog
+                                    , Run Kbd [ ("us", "<fc=${config.colorWhite}>US</fc>")
+                                                , ("ru", "<fc=${config.colorWhite}>RU</fc>")
+                                                , ("de", "<fc=${config.colorWhite}>DE</fc>")
+                                    ]
+                       ]
+                       , sepChar  = "%"
+                       , alignSep = "}{"
+                       , template = " %XMonadLog% }{ %date% | %alsa:default:Master% "
+                       }
+            '';
+        };
     };
 
     config = {
@@ -190,30 +221,7 @@
             colorWhite = "${config.colorWhite}"
             colorMagenta = "${config.colorMagenta}"
         '';
-        home.file.".xmobarrc".text = ''
-            Config { font     = "xft:${config.font} Nerd Font Mono-${builtins.toString config.fontsizeBar}"
-                   , bgColor  = "${config.bgColor}"
-                   , fgColor  = "${config.fgColor}"
-                   , position = TopH ${builtins.toString config.barheight}
-                   , persistent = False
-                   , hideOnStart = False
-                   , allDesktops = True
-                   , lowerOnStart = True
-                   , commands = [
-                                Run Alsa "default" "Master"
-                                    [ "--template", "<fc=${config.colorWhite}><volumestatus></fc>"
-                                    , "--suffix"  , "True"
-                                    , "--"
-                                    , "--on", ""
-                                    ]
-                                , Run Date "<fc=${config.colorMagenta}>%H:%M:%S</fc> | <fc=${config.colorBlue}>%a %Y-%m-%d</fc>" "date" 10
-                                , Run XMonadLog
-                                ]
-                   , sepChar  = "%"
-                   , alignSep = "}{"
-                   , template = " %XMonadLog% }{ %date% | %alsa:default:Master% "
-                   }
-        '';
+        home.file.".xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
