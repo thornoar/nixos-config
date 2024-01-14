@@ -70,8 +70,10 @@
                 y = 5;
             };
             keyboard.bindings = [
-                { key = "ArrowUp"; mods = "Control"; action = "ScrollLineUp"; }
-                { key = "ArrowDown"; mods = "Control"; action = "ScrollLineDown"; }
+                # { key = "ArrowUp"; mods = "Control"; action = "ScrollLineUp"; }
+                # { key = "ArrowDown"; mods = "Control"; action = "ScrollLineDown"; }
+                { key = "PageUp"; action = "ScrollLineUp"; }
+                { key = "PageDown"; action = "ScrollLineDown"; }
             ];
         };
     };
