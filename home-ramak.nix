@@ -39,6 +39,7 @@
             btop
             iftop
             transmission
+            brightnessctl
 
             ghostscript
             pkgs.texlive.combined.scheme-full
