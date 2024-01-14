@@ -191,7 +191,7 @@
             colorMagenta = "${config.colorMagenta}"
         '';
         home.file.".xmobarrc".text = ''
-            Config { font     = "xft:${config.font} Nerd Font Mono-${config.fontsizeBar}"
+            Config { font     = "xft:${config.font} Nerd Font Mono-${builtins.toString config.fontsizeBar}"
                    , bgColor  = "${config.bgColor}"
                    , fgColor  = "${config.fgColor}"
                    , position = TopH ${builtins.toString config.barheight}
