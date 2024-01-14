@@ -264,8 +264,8 @@ myKeys = [
     -- Multimedia Keys
 		, ("M-S-<Page_Down>", spawn "amixer sset Master 5%-")
 		, ("M-S-<Page_Up>", spawn "amixer sset Master 5%+")
-        , ("M-S-,", spawn "light -U -50")
-        , ("M-S-.", spawn "light -U +50")
+        , ("M-S-,", spawn "light -U 20")
+        , ("M-S-.", spawn "light -A 20")
 		, ("M-S-<Home>", spawn "mocp --seek -500")
 		, ("M-S-<Down>", spawn "mocp --next") 
 		, ("M-S-<Up>", spawn "mocp --previous")
