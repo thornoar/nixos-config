@@ -101,7 +101,7 @@
             rb-system = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
             rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
             rb-both = "${rb}#master && ${rb-home}";
-            fullrb = "${rb-both} && ${gc}";
+            fullrb = "${rb-both} && ${gc} && xmonad --recompile && xmonad --restart";
             gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
             fullgc = "${gc} && ${rb-boot}";
             hm = "home-manager";
