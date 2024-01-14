@@ -115,11 +115,8 @@
             media = "cd ~/media";
             films = "cd ~/media/Films";
             books = "cd ~/media/Books";
-            q = "exit";
             wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
             cp = "cp -i";
-            # df = "df -h";
-            # free = "free -m";
             tr = "transmission-remote";
             film = "transmission-remote -w ~/media/Films -a ";
             music = "transmission-remote -w ~/media/Music -a ";
