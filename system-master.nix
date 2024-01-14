@@ -89,8 +89,6 @@
         hardware.pulseaudio.support32Bit = true;
         nixpkgs.config.pulseaudio = true;
 
-        programs.light.enable = true;
-
         services.xserver = {
             enable = true;
             layout = "us";
