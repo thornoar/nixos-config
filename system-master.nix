@@ -9,7 +9,6 @@
     options = {
         wallpaperDir = lib.mkOption {
             type = lib.types.str;
-            default = "Landscapes";
         };
     };
 
