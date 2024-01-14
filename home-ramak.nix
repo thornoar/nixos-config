@@ -40,6 +40,7 @@
             iftop
             transmission
             brightnessctl
+            acpi
 
             ghostscript
             pkgs.texlive.combined.scheme-full
