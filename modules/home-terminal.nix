@@ -70,8 +70,8 @@
                 y = 5;
             };
             keyboard.bindings = [
-                { key = "ArrowUp"; mods = "Alt"; action = "ScrollLineUp"; }
-                { key = "ArrowDown"; mods = "Alt"; action = "ScrollLineDown"; }
+                { key = "ArrowUp"; mods = "Control"; action = "ScrollLineUp"; }
+                { key = "ArrowDown"; mods = "Control"; action = "ScrollLineDown"; }
             ];
         };
     };
@@ -114,21 +114,16 @@
             films = "cd ~/media/Films";
             books = "cd ~/media/Books";
             q = "exit";
-            ls = "ls $LS_OPTIONS";
             wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
             cp = "cp -i";
-            df = "df -h";
-            free = "free -m";
-            gitu = "git add . && git commit && git push";
-            dgit = "cd $HOME/Downloads/git";
+            # df = "df -h";
+            # free = "free -m";
             tr = "transmission-remote";
             film = "transmission-remote -w ~/media/Films -a ";
             music = "transmission-remote -w ~/media/Music -a ";
-            w3mimgdisplay = "w3m";
             c = "ping google.com";
             la = "exa -la";
             open = "xdg-open";
-            zc = "zle-keymap-select";
             svim = "sudo -E nvim";
             sc = "cd $NIXOS_CONFIG";
         };    

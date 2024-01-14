@@ -64,6 +64,7 @@
             glow
             thefuck
             bat
+            tldr
 
             telegram-desktop
             discord
