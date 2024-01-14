@@ -2,6 +2,7 @@
 import XMonad
 import qualified XMonad.StackSet as W
 import System.Exit
+import Data.List
 
 -- Actions
 import XMonad.Actions.CycleWS
@@ -58,9 +59,20 @@ import Control.Arrow (first)
 -- Utilities
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP)
+-- import qualified XMonad.Util.ExtensibleState as XS
+import XMonad.Util.NamedWindows
+
+-- Xmobar
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Util.Loggers
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "$TERMINAL"
 
 myBrowser :: String
 myBrowser = "firefox"
@@ -77,18 +89,14 @@ myBorderWidth = 0
 myModMask :: KeyMask
 myModMask = mod4Mask
 
-configDir :: String
-configDir = "/home/ramak/.config/xmonad/"
-
 myStartupHook :: X ()
-myStartupHook = spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
+myStartupHook = setWallpaperCmd--spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
 
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 myFont :: String
--- myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
 
 windowCount :: X (Maybe String)
@@ -115,7 +123,6 @@ searchList = [ ("a", archwiki)
              , ("y", S.youtube)
              ]
 
--- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
                  , activeColor         = "#89a870"  
                  , inactiveColor       = "#313846"
@@ -123,11 +130,8 @@ myTabTheme = def { fontName            = myFont
                  , inactiveBorderColor = "#282c34"
                  , activeTextColor     = "#03051e"
                  , inactiveTextColor   = "#a2afbe"
-				 , decoHeight		   = 25
+                 , decoHeight		   = myBarHeight
                  }
-
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myXPKeymap = M.fromList $
@@ -169,15 +173,15 @@ myXPKeymap = M.fromList $
 myXPConfig :: XPConfig
 myXPConfig = def
       { font                = myFont
-      , bgColor             = "#282c34"
-      , fgColor             = "#bbc2cf"
+      , bgColor             = myBgColor--"#282c34"
+      , fgColor             = myFgColor--"#bbc2cf"
       , bgHLight            = "#c792ea"
       , fgHLight            = "#000000"
       , borderColor         = "#535974"
       , promptBorderWidth   = 0
       , promptKeymap        = myXPKeymap
       , position            = Top
-      , height              = 30
+      , height              = myBarHeight
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
@@ -194,7 +198,7 @@ myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "go
 myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
-        ("M-M1-<Home>", spawn (myTerminal ++ " --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
+         ("M-M1-<Home>", spawn (myTerminal ++ " --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
 
     -- Run Prompt
         , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
@@ -245,8 +249,7 @@ myKeys = [
         , ("M-C-<Down>", sendMessage NextLayout)           -- Switch to next layout
         , ("M-C-<Up>", sendMessage FirstLayout)           -- Switch to next layout
 		, ("M-C-/", sendMessage (MT.Toggle NBFULL)) -- Toggles noborder
-		-- , ("M-t", sendMessage ToggleStruts)
-	    , ("M-C-p", spawn "feh --randomize --bg-fill $WALLPAPERS")
+	    , ("M-C-p", setWallpaperCmd)
         , ("M-C-l", spawn "sleep 1 && xset dpms force off")
         , ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")) -- Toggles my 'floats' layout
         , ("M-C-<Page_Down>", withFocused $ windows . W.sink)  -- Push floating window back to tile
@@ -257,6 +260,8 @@ myKeys = [
         , ("M-C-.", sendMessage Expand)                   -- Expand horiz window width
         , ("M-C-'", sendMessage MirrorShrink)          -- Shrink vert window width
         , ("M-C-;", sendMessage MirrorExpand)          -- Expand vert window width
+        , ("M-C-j", sequence_ [decScreenSpacing 1, decWindowSpacing 1]) 
+        , ("M-C-k", sequence_ [incScreenSpacing 1, incWindowSpacing 1]) 
 
 	-- Keyboard Layouts
 		, ("M-1", spawn "chlang us")
@@ -280,74 +285,99 @@ myKeys = [
 		, ("M-s", spawn "flameshot gui --path $HOME/media/Pictures")
         , ("M-S-s", spawn "flameshot full --path $HOME/media/Pictures")
         ]
-    -- Appending search engine prompts to keybindings list.
-    -- Look at "search engines" section of this config for values for "k".
         ++ [("M-f " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
         ++ [("M-S-f " ++ k, S.selectSearch f) | (k,f) <- searchList ]
 		++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
------------------------------------------------------------------------------------------------------------------
 -- Layouts:
-
---Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
--- Below is a variation of the above except no borders are applied
--- if fewer than two windows. So a single window has no gaps.
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
-mySpace, mySpace' :: Integer
--- mySpace = 0
--- mySpace' = 0
-mySpace = 5
-mySpace' = 4
-
-myLayout = tall ||| Full ||| tabs ||| magnified ||| spirals
-
-tall = windowNavigation
+tall = renamed [ Replace "Master & Slaves" ]
+           $ windowNavigation
+           $ avoidStruts
            $ limitWindows 5
            $ mySpacing' mySpace
            $ ResizableTall 1 (3/100) (1/2) []
-magnified = windowNavigation
+magnified = renamed [ Replace "Magnified" ]
+           $ windowNavigation
+           $ avoidStruts
            $ magnifier
 		   $ mySpacing' mySpace
            $ limitWindows 12
            $ ResizableTall 1 (3/100) (1/2) []
-grid = windowNavigation
+grid = renamed [ Replace "Grid" ]
+           $ windowNavigation
+           $ avoidStruts
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing' mySpace
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
-spirals = mySpacing mySpace
+spirals = renamed [ Replace "Spirals" ]
+           $ mySpacing mySpace
+           $ avoidStruts
 		   $ windowNavigation
 		   $ spiral (6/7)
-threeCol = windowNavigation
+threeCol = renamed [ Replace "ThreeColumns" ]
+           $ windowNavigation
+           $ avoidStruts
            $ limitWindows 7
            $ ThreeCol 1 (3/100) (1/2)
-tabs = windowNavigation $ mySpacing' mySpace' $ tabbed shrinkText myTabTheme
+tabs = renamed [ Replace "Tabs" ]
+           $ windowNavigation
+           $ mySpacing' mySpace
+           $ tabbed shrinkText myTabTheme
 
-------------------------------------------------------------------------
 -- Window rules:
-
 myManageHook = insertPosition Below Newer
-
-------------------------------------------------------------------------
--- Event handling
-
 myEventHook = mempty
-
-------------------------------------------------------------------------
--- Status bars and logging
-
 myLogHook = return ()
 
-------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
 
-main = xmonad defaults
+minimizedLogger :: Logger
+minimizedLogger = withMinimized $ (\wins -> return (Just ((show . length) wins)))
+
+myXmobarPP :: PP
+myXmobarPP = def
+    { ppSep             = " | "
+    , ppTitleSanitize   = xmobarStrip
+    , ppLayout          = myPPLayout
+    , ppCurrent         = magenta . cutwrap "[" "]"-- . xmobarBorder "Top" "#8be9fd" 2
+    , ppHidden          = blue-- . wrap "" ""
+    , ppHiddenNoWindows = lowWhite-- . wrap "" ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    -- , ppExtras          = [minimizedLogger]
+    , ppOrder           = \[ws, l, _] -> [ws, white l]
+    }
+    where
+        cutwrap str1 str2 xs = wrap str1 str2 (tail (init xs))
+
+        myPPLayout = (" "++) . drop 9
+
+        formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+        formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
+        ppWindow :: String -> String
+        ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
+        blue, lowWhite, magenta, red, white, yellow :: String -> String
+        magenta  = xmobarColor colorMagenta ""
+        blue     = xmobarColor colorBlue ""
+        white    = xmobarColor colorWhite ""
+        yellow   = xmobarColor "#f1fa8c" ""
+        red      = xmobarColor "#ff5555" ""
+        lowWhite = xmobarColor "#bbbbbb" ""
+
+main = xmonad $
+       ewmhFullscreen .
+       ewmh .
+       withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
+       defaults
+
 defaults = def {
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -355,8 +385,6 @@ defaults = def {
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
         workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
         layoutHook         = minimize . BW.boringWindows $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,

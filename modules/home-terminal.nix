@@ -5,39 +5,39 @@
         enable = true;
         settings = {
             colors.bright = {
-                black = "0x5c6370";
-                blue = "0x61afef";
-                cyan = "0x56b6c2";
-                green = "0x329c48";
-                magenta = "0xc678dd";
-                red = "0xe06c75";
-                white = "0xe6efff";
-                yellow = "0xd19a66";
+                black = "#5c6370";
+                blue = "${config.colorBlue_alt}";
+                cyan = "#56b6c2";
+                green = "#329c48";
+                magenta = "${config.colorMagenta_alt}";
+                red = "#e06c75";
+                white = "#e6efff";
+                yellow = "#d19a66";
             };
             colors.dim = {
-                black = "0x1e2127";
-                blue = "0x61afef";
-                cyan = "0x56b6c2";
-                green = "0x329c48";
-                magenta = "0xc678dd";
-                red = "0xe06c75";
-                white = "0x828791";
-                yellow = "0xd19a66";
+                black = "#1e2127";
+                blue = "${config.colorBlue_alt}";
+                cyan = "#56b6c2";
+                green = "#329c48";
+                magenta = "${config.colorMagenta_alt}";
+                red = "#e06c75";
+                white = "#828791";
+                yellow = "#d19a66";
             };
             colors.normal = {
-                black = "0x1e2127";
-                blue = "0x61afef";
-                cyan = "0x56b6c2";
-                green = "0x329c48";
-                magenta = "0xc678dd";
-                red = "0xe06c75";
-                white = "0xffffff";
-                yellow = "0xd19a66";
+                black = "#1e2127";
+                blue = "${config.colorBlue_alt}";
+                cyan = "#56b6c2";
+                green = "#329c48";
+                magenta = "${config.colorMagenta_alt}";
+                red = "#e06c75";
+                white = "#ffffff";
+                yellow = "#d19a66";
             };
             colors.primary = {
-                background = "0x1e2127";
-                bright_foreground = "0x00bc96";
-                foreground = "0x17a88b";
+                background = config.bgColor;
+                bright_foreground = config.brfgColor;
+                foreground = config.fgColor;
             };
             cursor = {
                 style = "Underline";
@@ -50,28 +50,26 @@
                 size = config.fontsize;
             };
             font.bold = {
-                family = "Hack";
+                family = config.font;
                 style = "Bold";
             };
             font.bold_italic = {
-                family = "Hack";
+                family = config.font;
                 style = "Bold Italic";
             };
             font.italic = {
-                family = "Hack";
+                family = config.font;
                 style = "Italic";
             };
             font.normal = {
-                family = "Hack";
+                family = config.font;
                 style = "Regular";
             };
             window.padding = {
-                x = 6;
-                y = 5;
+                x = config.padding.x;
+                y = config.padding.y;
             };
             keyboard.bindings = [
-                # { key = "ArrowUp"; mods = "Control"; action = "ScrollLineUp"; }
-                # { key = "ArrowDown"; mods = "Control"; action = "ScrollLineDown"; }
                 { key = "PageUp"; action = "ScrollLineUp"; }
                 { key = "PageDown"; action = "ScrollLineDown"; }
             ];
@@ -118,8 +116,8 @@
             wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
             cp = "cp -i";
             tr = "transmission-remote";
-            film = "transmission-remote -w ~/media/Films -a ";
-            music = "transmission-remote -w ~/media/Music -a ";
+            film = "transmission-remote -w ~/media/films -a ";
+            music = "transmission-remote -w ~/media/music -a ";
             c = "ping google.com";
             la = "exa -la";
             open = "xdg-open";

@@ -7,9 +7,6 @@
     ];
 
     options = {
-        wallpaperDir = lib.mkOption {
-            type = lib.types.str;
-        };
     };
 
     config = {
@@ -22,7 +19,6 @@
             NIXOS_CONFIG = "$HOME/nixos-config";
             PROJECTS = "$HOME/projects";
             MEDIA = "$HOME/media";
-            WALLPAPERS = "$MEDIA/wallpapers/${config.wallpaperDir}";
             DE = "generic";
             PAGER = "most";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
