@@ -57,6 +57,11 @@
                         url = "https://rutracker.org";
                         keyword = "tr";
                     }
+                    {
+                        name = "LibGen";
+                        url = "https://libgen.is";
+                        keyword = "li";
+                    }
                 ];
                 search = {
                     force = true;

@@ -94,10 +94,11 @@ myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
-archwiki, nixoswiki, reddit :: S.SearchEngine
+archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
 archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
 nixoswiki     = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="
 reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+libgen   = S.searchEngine "libgen" "https://www.libgen.is/search.php?req="
 
 searchList :: [(String, S.SearchEngine)]
 searchList = [ ("a", archwiki)
@@ -106,6 +107,7 @@ searchList = [ ("a", archwiki)
              , ("h", S.hoogle)
              , ("i", S.images)
              , ("r", reddit)
+             , ("l", libgen)
              , ("s", S.stackage)
              , ("t", S.thesaurus)
              , ("v", S.vocabulary)
