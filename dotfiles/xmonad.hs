@@ -381,7 +381,7 @@ myManageHook = composeAll
       insertPosition Below Newer
     , title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6))
     -- , title =? "Compiling" --> doRectFloat (W.RationalRect (2 % 3) (1 % 6) (1 % 3) (4 % 6))
-    , (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura" ])) --> (viewShift ( last myWorkspaces ))
+    , (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces ))
     ]
 -- myManageHook = insertPosition Below Newer
 

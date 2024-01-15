@@ -61,6 +61,7 @@
             libqalculate
             python311Packages.ipython
             eza
+            ueberzug
 
             telegram-desktop
             discord
