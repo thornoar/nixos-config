@@ -17,8 +17,8 @@ R = function (name)
 end
 home = os.getenv('PROJECTS')
 testdir = home..'/sandbox'
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ';'
 
 -- INSTALL --
@@ -51,6 +51,7 @@ require('lazy').setup({
 	-- 'folke/zen-mode.nvim',
 	'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
+    'ap/vim-css-color',
 	-- 'serenevoid/kiwi.nvim',
     'nvim-tree/nvim-web-devicons',
 	-- {

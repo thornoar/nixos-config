@@ -83,18 +83,17 @@
         vimAlias = true;
         vimdiffAlias = true;
     };
-    xdg.configFile."nvim".source = ../dotfiles/nvim;
+    xdg.configFile."nvim/init.lua".source = ../dotfiles/nvim/init.lua;
+    xdg.configFile."nvim/ftdetect".source = ../dotfiles/nvim/ftdetect;
+    xdg.configFile."nvim/syntax".source = ../dotfiles/nvim/syntax;
+    xdg.configFile."nvim/UltiSnips".source = ../dotfiles/nvim/UltiSnips;
+    xdg.configFile."nvim/after".source = ../dotfiles/nvim/after;
 
     programs.zsh = {
         enable = true;
         enableCompletion = true;
         enableAutosuggestions = true;
         syntaxHighlighting.enable = true;
-        # prezto.prompt.theme = "pure";
-        initExtra = ''
-            autoload -U colors && colors
-            PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
-        '';
         shellAliases = rec {
             rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
             rb-home = "home-manager switch --impure --flake $NIXOS_CONFIG/";
@@ -126,5 +125,10 @@
             calc = "qalc -c";
             quit = "exit";
         };    
+        initExtra = ''
+            autoload -U colors && colors
+            PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+            eval $(thefuck --alias)
+        '';
     };
 }
