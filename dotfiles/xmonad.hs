@@ -9,6 +9,8 @@ import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.Minimize
 import qualified XMonad.Actions.Search as S
+import XMonad.Actions.WindowGo
+import XMonad.Actions.GroupNavigation
 
 -- Data
 import Data.Char (isSpace, toUpper)
@@ -16,11 +18,13 @@ import Data.Maybe (fromJust)
 import Data.Maybe (isJust)
 import qualified Data.Map as M
 import Data.List
+import Data.Ratio
 import Control.Monad (liftM2)
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Hooks.RefocusLast
 
 -- Layouts
 import XMonad.Layout.Accordion
@@ -31,6 +35,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Minimize
+import XMonad.Layout.TwoPane
 import qualified XMonad.Layout.BoringWindows as BW
 
 -- Layouts modifiers
@@ -64,6 +69,8 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedWindows
 import XMonad.Util.Loggers
+import XMonad.Util.NamedScratchpad
+import XMonad.ManageHook
 
 -- Xmobar
 -- import XMonad.Hooks.DynamicLog
@@ -71,7 +78,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
--- import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ManageHelpers
 
 myTerminal :: String
 myTerminal = "$TERMINAL"
@@ -177,9 +184,9 @@ myXPConfig = def
       { font                = myFont
       , bgColor             = myBgColor--"#282c34"
       , fgColor             = colorWhite--"#bbc2cf"
-      , bgHLight            = "#c792ea"
-      , fgHLight            = "#000000"
-      , borderColor         = "#535974"
+      , bgHLight            = colorBlue
+      , fgHLight            = colorBlack
+      , borderColor         = colorBlueLight
       , promptBorderWidth   = 0
       , promptKeymap        = myXPKeymap
       , position            = Top
@@ -199,10 +206,21 @@ myXPConfig = def
 myPrograms :: [String]
 myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "goldendict" ]
 
+scratchpads = [ NS 
+                "Scratchpad"
+                (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad")
+                (customFloating $ W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
+              ]
+
+nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
+
+killAllFloating :: X ()
+killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindow) (return ())
+
 myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
-         ("M-M1-<Home>", spawn (myTerminal ++ " --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
+         ("M-M1-<Home>", spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/ && xmonad --recompile && xmonad --restart && echo Congratulations!'"))
 
     -- Prompts
         , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
@@ -212,17 +230,20 @@ myKeys = [
     -- Kill windows
         , ("M-c", kill)     -- Kill the currently focused client
         , ("M-M1-k", killAll)   -- Kill all windows on current workspace
+        , ("M-<Delete>", killAllFloating)
 
 	-- Quick Programs
-		, ("M-e", spawn ( myTerminal ++ " -e $FILEMANAGER" ))
-		, ("M-x", spawn ( myTerminal ++ " -e zsh -c 'cd $PROJECTS && nvim'" ))
-		, ("M-v", spawn ( myTerminal ++ " -e mocp" ))
+		, ("M-e", spawn ( myTerminal ++ " --title 'Filemanager' -e $FILEMANAGER" ))
+		, ("M-x", spawn ( myTerminal ++ " --title 'Neovim' -e zsh -c 'cd $PROJECTS && nvim'" ))
+		, ("M-v", spawn ( myTerminal ++ " --title 'Music Player' -e mocp" ))
 		, ("M-w", spawn myBrowser)
 		, ("M-a", spawn myTerminal)
 	
     -- Workspaces
-	    , ("M-<Page_Down>", nextWS)
-		, ("M-<Page_Up>", prevWS)
+        -- , ("M-<Page_Down>", nextWS)
+		-- , ("M-<Page_Up>", prevWS)
+        , ("M-<Page_Down>", moveTo Next nonNSP)
+		, ("M-<Page_Up>", moveTo Prev nonNSP)
 		, ("M-M1-<Page_Down>", do
 			shiftToNext
   			nextWS
@@ -231,6 +252,11 @@ myKeys = [
 			shiftToPrev
 			prevWS
   		)
+        , ("M-g", toggleWS' ["NSP"])
+
+    -- Scratchpads
+        -- , ("M-p", withFocused $ toggleDynamicNSP "dnsp")
+        , ("M-f", namedScratchpadAction scratchpads "Scratchpad")
 
     -- Windows navigation
 		, ("M-<Down>", sendMessage $ Go D)
@@ -281,14 +307,14 @@ myKeys = [
 		, ("M-S-<Right>", spawn "mocp --seek +5")
 		, ("M-S-<Left>", spawn "mocp --seek -5")
 		, ("M-<Space>", spawn "mocp --toggle-pause")
-        , ("M-z <Space>", spawn "playerctl play-pause")
-        , ("M-z <Right>", spawn "playerctl next")
-        , ("M-z <Left>", spawn "playerctl previous")
-		, ("M-s", spawn "flameshot gui --path $HOME/media/pictures")
-        , ("M-S-s", spawn "flameshot full --path $HOME/media/pictures")
+        , ("M-<Tab> <Space>", spawn "playerctl play-pause")
+        , ("M-<Tab> <Right>", spawn "playerctl next")
+        , ("M-<Tab> <Left>", spawn "playerctl previous")
+		, ("M-p", spawn "flameshot gui --path $HOME/media/pictures")
+        , ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
         ]
-        ++ [("M-f " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-        ++ [("M-S-f " ++ k, S.selectSearch f) | (k,f) <- searchList ]
+        ++ [("M-s " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
+        -- ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
 		++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
 -- Layouts:
@@ -298,20 +324,23 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
-tall = renamed [ Replace "Master & Slaves" ]
+named :: String -> l a -> ModifiedLayout Rename l a
+named s = renamed [ Replace s ]
+
+tall = named "Master & Slaves"
     $ windowNavigation
     $ avoidStruts
     $ limitWindows 5
     $ mySpacing' mySpace
     $ ResizableTall 1 (3/100) (1/2) []
-magnified = renamed [ Replace "Magnified" ]
+magnified = named "Magnified" 
     $ windowNavigation
     $ avoidStruts
     $ magnifier
     $ mySpacing' mySpace
     $ limitWindows 12
     $ ResizableTall 1 (3/100) (1/2) []
-grid = renamed [ Replace "Grid" ]
+grid = named "Grid"
     $ windowNavigation
     $ avoidStruts
     $ subLayout [] (smartBorders Simplest)
@@ -319,25 +348,16 @@ grid = renamed [ Replace "Grid" ]
     $ mySpacing' mySpace
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
-spirals = renamed [ Replace "Spirals" ]
+spirals = named "Spirals"
     $ mySpacing mySpace
     $ avoidStruts
     $ windowNavigation
     $ spiral (6/7)
-threeCol = renamed [ Replace "ThreeColumns" ]
-    $ windowNavigation
-    $ avoidStruts
-    $ limitWindows 7
-    $ ThreeCol 1 (3/100) (1/2)
-tabs = renamed [ Replace "Tabs" ]
+tabs = named "Tabs" 
     $ windowNavigation
     $ avoidStruts
     $ mySpacing' 0
     $ tabbed shrinkText myTabTheme
-accordion = renamed [ Replace "Accordion" ]
-    $ windowNavigation
-    $ avoidStruts
-    $ Accordion
 
 -- Window rules:
 
@@ -349,22 +369,29 @@ q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
 
 viewShift = doF . liftM2 (.) W.greedyView W.shift
 
+myAnd' :: Query Bool -> Bool -> Query Bool
+myAnd' a b = (fmap (&& b)) a
+
+myAnd :: Query Bool -> Query Bool -> Query Bool
+myAnd a b = b >>= myAnd' a
+
+myManageHook :: ManageHook
 myManageHook = composeAll
     [
       insertPosition Below Newer
-    , (className /? [ "firefox", "Alacritty" ]) --> (viewShift ( last myWorkspaces ))
+    , title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6))
+    -- , title =? "Compiling" --> doRectFloat (W.RationalRect (2 % 3) (1 % 6) (1 % 3) (4 % 6))
+    , (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura" ])) --> (viewShift ( last myWorkspaces ))
     ]
 -- myManageHook = insertPosition Below Newer
-
-myLogHook = return ()
 
 myXmobarPP :: PP
 myXmobarPP = def
     { ppSep             = ppSep
     , ppTitleSanitize   = xmobarStrip
-    , ppCurrent         = magenta . wrap "[" "]"-- . xmobarBorder "Top" "#8be9fd" 2
-    , ppHidden          = blue-- . wrap "" ""
-    , ppHiddenNoWindows = lowWhite-- . wrap "" ""
+    , ppCurrent         = magenta . wrap "[" "]"
+    , ppHidden          = blue
+    , ppHiddenNoWindows = lowWhite
     , ppUrgent          = red . wrap (yellow "!") (yellow "!")
     , ppOrder           = \[ws, l, _, wins] -> [ws, wins]
     , ppExtras          = return $ concatLoggers [
@@ -387,9 +414,6 @@ myXmobarPP = def
         concatLoggers :: [Logger] -> Logger
         concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
 
-        -- myPPLayout = (++" ") . (" "++) . drop 9
-        myPPLayout = drop 9
-
         formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
         formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
 
@@ -400,8 +424,8 @@ myXmobarPP = def
         magenta  = xmobarColor colorMagenta ""
         blue     = xmobarColor colorBlue ""
         white    = xmobarColor colorWhite ""
-        yellow   = xmobarColor "#f1fa8c" ""
-        red      = xmobarColor "#ff5555" ""
+        yellow   = xmobarColor colorYellow ""
+        red      = xmobarColor colorRed ""
         lowWhite = xmobarColor colorLowWhite""
 
 
@@ -419,8 +443,8 @@ defaults = def {
         modMask            = myModMask,
         workspaces         = myWorkspaces,
         layoutHook         = minimize . BW.boringWindows $ myLayout,
-        manageHook         = myManageHook,
-        handleEventHook    = swallowEventHook (className =? "Alacritty") (return True),
+        manageHook         = myManageHook <+> namedScratchpadManageHook scratchpads,
+        handleEventHook    = mempty, --swallowEventHook (className =? "Alacritty") (return True),
         startupHook        = myStartupHook,
-		logHook            = myLogHook
+		logHook            = refocusLastLogHook
     } `additionalKeysP` myKeys

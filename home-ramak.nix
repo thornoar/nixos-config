@@ -4,7 +4,6 @@
     imports = [
         ./modules/options.nix
         /etc/nixos/home-options.nix
-        ./modules/terminal.nix
         ./modules/browser.nix
         ./modules/scripts.nix
     ];
@@ -12,9 +11,6 @@
     config = {
         home.username = usrname;
         home.homeDirectory = "/home/"+usrname;
-
-        home.sessionVariables = {
-        };
 
         programs.nix-index.enable = true;
 
@@ -70,9 +66,65 @@
             discord
             flameshot
             obs-studio
+            libnotify
 
             xmobar
         ];
+
+        programs.zsh = {
+            enable = true;
+            enableCompletion = true;
+            enableAutosuggestions = true;
+            syntaxHighlighting.enable = true;
+            shellAliases = rec {
+                rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
+                rb-home = "home-manager switch --impure --flake $NIXOS_CONFIG/";
+                rb-system = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
+                rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
+                rb-both = "${rb}#master && ${rb-home}";
+                fullrb = "${rb-both} && ${gc} && xmonad --recompile && xmonad --restart";
+                gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
+                fullgc = "${gc} && ${rb-boot}";
+                hm = "home-manager";
+                gitpush = "git add . && git commit -m '--' && git push";
+                gitpull = "git fetch && git pull";
+                ns = "nix-shell --command zsh -p ";
+                cdir = "cd ~/.config/nvim";
+                sbdir = "cd ~/projects/sandbox";
+                media = "cd ~/media";
+                films = "cd ~/media/Films";
+                books = "cd ~/media/Books";
+                wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
+                cp = "cp -i";
+                tr-remote = "transmission-remote";
+                film = "transmission-remote -w ~/media/films -a ";
+                music = "transmission-remote -w ~/media/music -a ";
+                c = "ping google.com";
+                la = "exa -la";
+                open = "xdg-open";
+                svim = "sudo -E nvim";
+                sc = "cd $NIXOS_CONFIG";
+                calc = "qalc -c";
+                quit = "exit";
+            };    
+            initExtra = ''
+                autoload -U colors && colors
+                PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+                eval $(thefuck --alias)
+            '';
+        };
+
+        programs.neovim = {
+            enable = true;
+            viAlias = true;
+            vimAlias = true;
+            vimdiffAlias = true;
+        };
+        xdg.configFile."nvim/init.lua".source = ./dotfiles/nvim/init.lua;
+        xdg.configFile."nvim/ftdetect".source = ./dotfiles/nvim/ftdetect;
+        xdg.configFile."nvim/syntax".source = ./dotfiles/nvim/syntax;
+        xdg.configFile."nvim/UltiSnips".source = ./dotfiles/nvim/UltiSnips;
+        xdg.configFile."nvim/after".source = ./dotfiles/nvim/after;
 
         programs.git = {
             enable = true;
@@ -103,82 +155,11 @@
         # R setup
         home.file.".Rprofile".source = ./dotfiles/Rprofile;
 
-        # xmonad setup
-        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ./dotfiles/xmonad.hs) + ''
-            -- Home-Manager settings
-
-            setWallpaperCmd = spawn "feh --randomize --bg-fill $MEDIA/wallpapers/${config.wallpaperDir}"
-
-            mySpace :: Integer
-            mySpace = ${builtins.toString config.windowSpace}
-
-            configDir :: String
-            configDir = "/home/${usrname}/.config/xmonad/"
-
-            myBgColor = "${config.bgColor}"
-            myFgColor = "${config.fgColor}"
-            myBarHeight = ${builtins.toString config.barheight}
-
-            myLayout = ${config.xmonadLayouts}
-
-            colorBlue = "${config.colorBlue}"
-            colorWhite = "${config.colorWhite}"
-            colorLowWhite = "${config.colorWhite_alt}"
-            colorMagenta = "${config.colorMagenta}"
-        '';
         home.file.".xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
 
-        # zathura setup
-        xdg.configFile."zathura/zathurarc".text = ''
-            set window-title-basename "true"
-            set selection-clipboard "clipboard"
-
-            set notification-error-bg       "#ff5555" # Red
-            set notification-error-fg       "${config.colorWhite}" # Foreground
-            set notification-warning-bg     "#ffb86c" # Orange
-            set notification-warning-fg     "#44475a" # Selection
-            set notification-bg             "${config.bgColor}" # Background
-            set notification-fg             "${config.colorWhite}" # Foreground
-            set completion-bg               "${config.bgColor}" # Background
-            set completion-fg               "#6272a4" # Comment
-            set completion-group-bg         "${config.bgColor}" # Background
-            set completion-group-fg         "#6272a4" # Comment
-            set completion-highlight-bg     "#44475a" # Selection
-            set completion-highlight-fg     "${config.colorWhite}" # Foreground
-            set index-bg                    "${config.bgColor}" # Background
-            set index-fg                    "${config.colorWhite}" # Foreground
-            set index-active-bg             "#44475a" # Current Line
-            set index-active-fg             "${config.colorWhite}" # Foreground
-            set inputbar-bg                 "${config.bgColor}" # Background
-            set inputbar-fg                 "${config.colorWhite}" # Foreground
-            set statusbar-bg                "${config.bgColor}" # Background
-            set statusbar-fg                "${config.colorWhite}" # Foreground
-            set highlight-color             "#ffb86c" # Orange
-            set highlight-active-color      "${config.colorMagenta}" # Pink
-            set default-bg                  "${config.bgColor}" # Background
-            set default-fg                  "${config.colorWhite}" # Foreground
-            set render-loading              true
-            set render-loading-fg           "${config.bgColor}" # Background
-            set render-loading-bg           "${config.colorWhite}" # Foreground
-
-            set recolor-lightcolor          "${config.bgColor}" # Background
-            set recolor-darkcolor           "${config.colorWhite}" # Foreground
-
-            set adjust-open width
-            # set recolor true
-            set guioptions none
-
-            map <S-Up> feedkeys "zI"
-            map <S-Down> feedkeys "zO"
-
-            set zoom-max 50000
-
-            set synctex true
-            set synctex-editor-command "nvr --remote-silent +%{line} %{input}"
-        '';
 
         # ranger setup
         xdg.configFile."ranger/rc.conf".text = ''
