@@ -126,12 +126,12 @@ searchList = [ ("a", archwiki)
              ]
 
 myTabTheme = def { fontName            = myFont
-                 , activeColor         = "#89a870"  
-                 , inactiveColor       = "#313846"
-                 , activeBorderColor   = "#89a870"
-                 , inactiveBorderColor = "#282c34"
-                 , activeTextColor     = "#03051e"
-                 , inactiveTextColor   = "#a2afbe"
+                 , activeColor         = myBgColor --"#89a870"  
+                 , inactiveColor       = myBgColor --"#313846"
+                 , activeBorderColor   = myBgColor --"#89a870"
+                 , inactiveBorderColor = myBgColor --"#282c34"
+                 , activeTextColor     = colorMagenta --"#03051e"
+                 , inactiveTextColor   = colorLowWhite --"#a2afbe"
                  , decoHeight		   = myBarHeight
                  }
 
@@ -332,7 +332,7 @@ threeCol = renamed [ Replace "ThreeColumns" ]
 tabs = renamed [ Replace "Tabs" ]
     $ windowNavigation
     $ avoidStruts
-    $ mySpacing' mySpace
+    $ mySpacing' 0
     $ tabbed shrinkText myTabTheme
 accordion = renamed [ Replace "Accordion" ]
     $ windowNavigation
@@ -402,7 +402,7 @@ myXmobarPP = def
         white    = xmobarColor colorWhite ""
         yellow   = xmobarColor "#f1fa8c" ""
         red      = xmobarColor "#ff5555" ""
-        lowWhite = xmobarColor "#bbbbbb" ""
+        lowWhite = xmobarColor colorLowWhite""
 
 
 main = xmonad $

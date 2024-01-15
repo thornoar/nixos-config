@@ -23,42 +23,42 @@
                 ];
                 bookmarks = [
                     {
-                        name = "YouTube";
+                        name = "yt | YouTube";
                         url = "https://youtube.com";
                         keyword = "yt";
                     }
                     {
-                        name = "YTMusic";
+                        name = "ym | YouTube Music";
                         url = "https://music.youtube.com";
                         keyword = "ym";
                     }
                     {
-                        name = "GitHub";
+                        name = "gh | GitHub";
                         url = "https://github.com/thornoar";
                         keyword = "gh";
                     }
                     {
-                        name = "Work Mail";
+                        name = "qw | Work Mail";
                         url = "https://mail.google.com/mail/u/1/#inbox";
                         keyword = "qw";
                     }
                     {
-                        name = "Personal Mail";
+                        name = "as | Personal Mail";
                         url = "https://mail.google.com/mail/u/0/#inbox";
                         keyword = "as";
                     }
                     {
-                        name = "MyNixOS";
+                        name = "mn | MyNixOS";
                         url = "https://mynixos.com";
                         keyword = "mn";
                     }
                     {
-                        name = "RuTracker";
+                        name = "tr | RuTracker";
                         url = "https://rutracker.org";
                         keyword = "tr";
                     }
                     {
-                        name = "LibGen";
+                        name = "li | LibGen";
                         url = "https://libgen.is";
                         keyword = "li";
                     }

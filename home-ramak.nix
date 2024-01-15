@@ -42,6 +42,10 @@
             type = tp.str;
             default = "#f8f8f2";
         };
+        colorWhite_alt = opt {
+            type = tp.str;
+            default = "#bbbbbb";
+        };
         colorBlue = opt {
             type = tp.str;
             default = "#bd93f9" ;
@@ -73,7 +77,7 @@
         };
         xmonadLayouts = opt {
             type = tp.str;
-            default = "tall ||| Full ||| magnified ||| tabs ||| spirals ||| accordion";
+            default = "tall ||| Full ||| tabs ||| magnified ||| spirals ||| accordion";
         };
         xmobarOptions = opt {
             type = tp.str;
@@ -222,6 +226,7 @@
 
             colorBlue = "${config.colorBlue}"
             colorWhite = "${config.colorWhite}"
+            colorLowWhite = "${config.colorWhite_alt}"
             colorMagenta = "${config.colorMagenta}"
         '';
         home.file.".xmobarrc".text = config.xmobarOptions;
