@@ -73,7 +73,7 @@
         };
         xmonadLayouts = opt {
             type = tp.str;
-            default = "tall ||| Full ||| magnified ||| tabs ||| spirals";
+            default = "tall ||| Full ||| magnified ||| tabs ||| spirals ||| accordion";
         };
         xmobarOptions = opt {
             type = tp.str;
@@ -161,6 +161,9 @@
             bat
             tldr
             most
+            libqalculate
+            python311Packages.ipython
+            eza
 
             telegram-desktop
             discord

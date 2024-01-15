@@ -123,6 +123,7 @@
             open = "xdg-open";
             svim = "sudo -E nvim";
             sc = "cd $NIXOS_CONFIG";
+            calc = "qalc -c";
         };    
     };
 }

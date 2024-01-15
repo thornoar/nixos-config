@@ -2,7 +2,6 @@
 import XMonad
 import qualified XMonad.StackSet as W
 import System.Exit
-import Data.List
 
 -- Actions
 import XMonad.Actions.CycleWS
@@ -15,8 +14,9 @@ import qualified XMonad.Actions.Search as S
 import Data.Char (isSpace, toUpper)
 import Data.Maybe (fromJust)
 import Data.Maybe (isJust)
--- import Data.Tree
 import qualified Data.Map as M
+import Data.List
+import Control.Monad (liftM2)
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
@@ -52,9 +52,11 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 -- Prompts
 import XMonad.Prompt
 import XMonad.Prompt.Input
+import Data.Char (isSpace)
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
-import XMonad.Prompt.XMonad
+import XMonad.Prompt.Window
+import XMonad.Prompt.FuzzyMatch
 import Control.Arrow (first)
 
 -- Utilities
@@ -93,7 +95,7 @@ myStartupHook :: X ()
 myStartupHook = setWallpaperCmd--spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
 
 myWorkspaces :: [String]
-myWorkspaces = ["net", "dev", "aux"]
+myWorkspaces = ["fst", "snd", "aux"]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 myFont :: String
@@ -185,6 +187,8 @@ myXPConfig = def
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
+      , searchPredicate     = fuzzyMatch
+      , sorter              = fuzzySort
       , autoComplete        = Nothing  -- set Just 100000 for .1 sec
       , showCompletionOnTab = False
       , defaultPrompter     = id $ map toUpper  -- change prompt to UPPER
@@ -200,16 +204,14 @@ myKeys = [
     -- Xmonad
          ("M-M1-<Home>", spawn (myTerminal ++ " --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile; xmonad --restart; echo Done!'")) -- Recompiles xmonad
 
-    -- Run Prompt
+    -- Prompts
         , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
-
-    -- Other Prompts
-        , ("M-<Tab> m", manPrompt myXPConfig)          -- manPrompt
-        , ("M-<Tab> x", xmonadPrompt myXPConfig)       -- xmonadPrompt
+        , ("M-M1-<Return>", manPrompt myXPConfig)          -- manPrompt
+        , ("M-S-<Return>", windowPrompt myXPConfig Goto allWindows)          -- manPrompt
 
     -- Kill windows
         , ("M-c", kill)     -- Kill the currently focused client
-        , ("M-M1-a", killAll)   -- Kill all windows on current workspace
+        , ("M-M1-k", killAll)   -- Kill all windows on current workspace
 
 	-- Quick Programs
 		, ("M-e", spawn ( myTerminal ++ " -e $FILEMANAGER" ))
@@ -297,44 +299,63 @@ mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spac
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 tall = renamed [ Replace "Master & Slaves" ]
-           $ windowNavigation
-           $ avoidStruts
-           $ limitWindows 5
-           $ mySpacing' mySpace
-           $ ResizableTall 1 (3/100) (1/2) []
+    $ windowNavigation
+    $ avoidStruts
+    $ limitWindows 5
+    $ mySpacing' mySpace
+    $ ResizableTall 1 (3/100) (1/2) []
 magnified = renamed [ Replace "Magnified" ]
-           $ windowNavigation
-           $ avoidStruts
-           $ magnifier
-		   $ mySpacing' mySpace
-           $ limitWindows 12
-           $ ResizableTall 1 (3/100) (1/2) []
+    $ windowNavigation
+    $ avoidStruts
+    $ magnifier
+    $ mySpacing' mySpace
+    $ limitWindows 12
+    $ ResizableTall 1 (3/100) (1/2) []
 grid = renamed [ Replace "Grid" ]
-           $ windowNavigation
-           $ avoidStruts
-           $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 12
-           $ mySpacing' mySpace
-           $ mkToggle (single MIRROR)
-           $ Grid (16/10)
+    $ windowNavigation
+    $ avoidStruts
+    $ subLayout [] (smartBorders Simplest)
+    $ limitWindows 12
+    $ mySpacing' mySpace
+    $ mkToggle (single MIRROR)
+    $ Grid (16/10)
 spirals = renamed [ Replace "Spirals" ]
-           $ mySpacing mySpace
-           $ avoidStruts
-		   $ windowNavigation
-		   $ spiral (6/7)
+    $ mySpacing mySpace
+    $ avoidStruts
+    $ windowNavigation
+    $ spiral (6/7)
 threeCol = renamed [ Replace "ThreeColumns" ]
-           $ windowNavigation
-           $ avoidStruts
-           $ limitWindows 7
-           $ ThreeCol 1 (3/100) (1/2)
+    $ windowNavigation
+    $ avoidStruts
+    $ limitWindows 7
+    $ ThreeCol 1 (3/100) (1/2)
 tabs = renamed [ Replace "Tabs" ]
-           $ windowNavigation
-           $ avoidStruts
-           $ mySpacing' mySpace
-           $ tabbed shrinkText myTabTheme
+    $ windowNavigation
+    $ avoidStruts
+    $ mySpacing' mySpace
+    $ tabbed shrinkText myTabTheme
+accordion = renamed [ Replace "Accordion" ]
+    $ windowNavigation
+    $ avoidStruts
+    $ Accordion
 
 -- Window rules:
-myManageHook = insertPosition Below Newer
+
+myIntersect :: [Bool] -> Bool
+myIntersect = foldr (\a b -> a && b) True
+
+(/?) :: Eq a => Query a -> [a] -> Query Bool
+q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
+
+viewShift = doF . liftM2 (.) W.greedyView W.shift
+
+myManageHook = composeAll
+    [
+      insertPosition Below Newer
+    , (className /? [ "firefox", "Alacritty" ]) --> (viewShift ( last myWorkspaces ))
+    ]
+-- myManageHook = insertPosition Below Newer
+
 myLogHook = return ()
 
 myXmobarPP :: PP

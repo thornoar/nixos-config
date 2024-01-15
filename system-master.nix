@@ -29,7 +29,6 @@
             READER="zathura";
             FILEMANAGER = "ranger";
         };
-
         environment.systemPackages = with pkgs; [
             home-manager
 
@@ -42,6 +41,7 @@
             gcc
             git
             lshw
+            cups
 
             # archives
             zip
@@ -53,9 +53,26 @@
             ripgrep
             xclip
             xsel
-            eza
             fzf
         ];
+
+        services.printing = {
+            enable = true;
+            drivers = [ pkgs.gutenprint ];
+        };
+
+        # hardware.printers = {
+        #     ensurePrinters = [
+        #         {
+        #             name = "Xerox_WorkCentre_3025";
+        #             location  = "Home";
+        #             deviceUri = "usb://Xerox/WorkCentre%203025?serial=5311640013&interface=1";
+        #             ppdOptions = {
+        #                 PageSize = "A4";
+        #             };
+        #         }
+        #     ];
+        # };
 
         boot.loader.systemd-boot = {
             enable = true;
