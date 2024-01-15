@@ -20,6 +20,7 @@ import qualified Data.Map as M
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.WindowSwallowing
 
 -- Layouts
 import XMonad.Layout.Accordion
@@ -281,8 +282,8 @@ myKeys = [
         , ("M-z <Space>", spawn "playerctl play-pause")
         , ("M-z <Right>", spawn "playerctl next")
         , ("M-z <Left>", spawn "playerctl previous")
-		, ("M-s", spawn "flameshot gui --path $HOME/media/Pictures")
-        , ("M-S-s", spawn "flameshot full --path $HOME/media/Pictures")
+		, ("M-s", spawn "flameshot gui --path $HOME/media/pictures")
+        , ("M-S-s", spawn "flameshot full --path $HOME/media/pictures")
         ]
         ++ [("M-f " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
         ++ [("M-S-f " ++ k, S.selectSearch f) | (k,f) <- searchList ]
@@ -334,7 +335,6 @@ tabs = renamed [ Replace "Tabs" ]
 
 -- Window rules:
 myManageHook = insertPosition Below Newer
-myEventHook = mempty
 myLogHook = return ()
 
 myXmobarPP :: PP
@@ -366,9 +366,6 @@ myXmobarPP = def
         concatLoggers :: [Logger] -> Logger
         concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
 
-        -- cutwrap str1 str2 xs = wrap str1 str2 (tail (init xs))
-        -- cutwrap d1 d2 = (wrap d1 d2) . trim
-
         -- myPPLayout = (++" ") . (" "++) . drop 9
         myPPLayout = drop 9
 
@@ -390,7 +387,6 @@ myXmobarPP = def
 main = xmonad $
        ewmhFullscreen .
        ewmh .
-       -- withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey $
        withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
        defaults
 
@@ -403,7 +399,7 @@ defaults = def {
         workspaces         = myWorkspaces,
         layoutHook         = minimize . BW.boringWindows $ myLayout,
         manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
+        handleEventHook    = swallowEventHook (className =? "Alacritty") (return True),
         startupHook        = myStartupHook,
 		logHook            = myLogHook
     } `additionalKeysP` myKeys
