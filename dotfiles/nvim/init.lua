@@ -430,29 +430,6 @@ require('Comment').setup({
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
 -- $tabby setup
-local theme = {
-	fill = 'TabLineFill',
-	head = 'TabLine',
-	current_tab = { fg = '#000000', bg = '#89a870', style = 'italic' },--'TabLineSel',
-	tab = 'TabLine',
-	win = 'TabLine',
-	tail = 'TabLine',
-}
-require('tabby.tabline').set(function(line)
-	return {
-		line.tabs().foreach(function(tab)
-			local hl = tab.is_current() and theme.current_tab or theme.tab
-			return {
-				line.sep('', hl, theme.fill),
-				-- tab.is_current() and '' or '󰆣',
-				tab.name(),
-				line.sep('', hl, theme.fill),
-				hl = hl,
-				margin = ' ',
-			}
-		end),
-	}
-end)
 -- $treesitter setup
 require('nvim-treesitter.configs').setup {
 	modules = {},
@@ -478,22 +455,6 @@ local function keymap()
 	end
 	return 'en'
 end
-require('lualine').setup{
-	options = {
-		icons_enabled = true,
-		-- theme = 'onedark',
-		component_separators = '|',
-		section_separators = '',
-	},
-	sections = {
-		lualine_a = {'mode'},
-		lualine_b = {'branch', 'diff', 'diagnostics'},
-		lualine_c = {'filename', keymap},
-		lualine_x = {'filetype'},
-		lualine_y = {'progress'},
-		lualine_z = {'location'},
-	},
-}
 require('onedark').setup  {
 	style = 'dark',
 	transparent = true,  -- Show/hide background
@@ -509,9 +470,9 @@ require('onedark').setup  {
 		strings = 'none',
 		variables = 'none'
 	},
-	-- lualine = {
-	-- 	transparent = false,
-	-- },
+	lualine = {
+		transparent = false,
+	},
 	colors = {},
 	highlights = {},
 	diagnostics = {

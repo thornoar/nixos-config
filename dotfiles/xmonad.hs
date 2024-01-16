@@ -184,9 +184,9 @@ myXPConfig = def
       { font                = myFont
       , bgColor             = myBgColor--"#282c34"
       , fgColor             = colorWhite--"#bbc2cf"
-      , bgHLight            = colorBlue
+      , bgHLight            = colorBlue0
       , fgHLight            = colorBlack
-      , borderColor         = colorBlueLight
+      , borderColor         = colorBlue2
       , promptBorderWidth   = 0
       , promptKeymap        = myXPKeymap
       , position            = Top
@@ -422,7 +422,7 @@ myXmobarPP = def
 
         blue, lowWhite, magenta, red, white, yellow :: String -> String
         magenta  = xmobarColor colorMagenta ""
-        blue     = xmobarColor colorBlue ""
+        blue     = xmobarColor colorBlue0 ""
         white    = xmobarColor colorWhite ""
         yellow   = xmobarColor colorYellow ""
         red      = xmobarColor colorRed ""

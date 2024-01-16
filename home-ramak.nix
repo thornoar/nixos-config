@@ -115,18 +115,6 @@
             '';
         };
 
-        programs.neovim = {
-            enable = true;
-            viAlias = true;
-            vimAlias = true;
-            vimdiffAlias = true;
-        };
-        xdg.configFile."nvim/init.lua".source = ./dotfiles/nvim/init.lua;
-        xdg.configFile."nvim/ftdetect".source = ./dotfiles/nvim/ftdetect;
-        xdg.configFile."nvim/syntax".source = ./dotfiles/nvim/syntax;
-        xdg.configFile."nvim/UltiSnips".source = ./dotfiles/nvim/UltiSnips;
-        xdg.configFile."nvim/after".source = ./dotfiles/nvim/after;
-
         programs.git = {
             enable = true;
             userName = "Roman Maksimovich";
