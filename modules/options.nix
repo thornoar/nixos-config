@@ -15,7 +15,7 @@
         wallpaperDir = mkOpt "str" "Landscapes";
         windowSpace = mkOpt "int" 5;
 
-        bgColor0 = mkOpt "str" "#000000";#"#1e2127";
+        bgColor0 = mkOpt "str" "#0b1012";#"#1e2127";
         bgColor1 = mkOpt "str" config.bgColor0;#"#2f3440";
         bgColor2 = mkOpt "str" config.bgColor0;#"#3a4147";
         fgColor = mkOpt "str" "#17a88b";
@@ -294,6 +294,8 @@
                 keyboard.bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
+                    { key = "PageUp"; mods = "Control"; action = "ScrollPageUp"; }
+                    { key = "PageDown"; mods = "Control"; action = "ScrollPageDown"; }
                 ];
             };
         };
