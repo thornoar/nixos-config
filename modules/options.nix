@@ -16,8 +16,8 @@
         windowSpace = mkOpt "int" 5;
 
         bgColor0 = mkOpt "str" "#0b1012";#"#1e2127";
-        bgColor1 = mkOpt "str" config.bgColor0;#"#2f3440";
-        bgColor2 = mkOpt "str" config.bgColor0;#"#3a4147";
+        bgColor1 = mkOpt "str" config.bgColor0;#"#2c3037";
+        bgColor2 = mkOpt "str" "#43565c";
         fgColor = mkOpt "str" "#17a88b";
         brfgColor = mkOpt "str" "#00bc96";
 
@@ -173,7 +173,7 @@
                     theme = {
                         normal = {
                             a = { fg = "${config.bgColor0}", bg = "${config.colorBlue0}", gui = 'bold' },
-                            b = { fg = "${config.colorWhite3}", bg = "${config.bgColor2}" },
+                            b = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
                             c = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
                         },
                         command = { a = { fg = "${config.bgColor0}", bg = "${config.colorYellow1}", gui = 'bold' } },
@@ -227,7 +227,7 @@
             enable = true;
             settings = {
                 colors.bright = {
-                    black = "${config.bgColor1}";
+                    black = "${config.bgColor2}";
                     blue = "${config.colorBlue1}";
                     cyan = "${config.colorCyan}";
                     green = "${config.colorGreen1}";
@@ -294,8 +294,8 @@
                 keyboard.bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
-                    { key = "PageUp"; mods = "Control"; action = "ScrollPageUp"; }
-                    { key = "PageDown"; mods = "Control"; action = "ScrollPageDown"; }
+                    { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
+                    { key = "PageDown"; mods = "Alt"; action = "ScrollPageDown"; }
                 ];
             };
         };
