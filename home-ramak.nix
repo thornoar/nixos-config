@@ -63,6 +63,7 @@
             eza
             ueberzug
             lazygit
+            cheat
 
             telegram-desktop
             discord
@@ -90,6 +91,7 @@
                 hm = "home-manager";
                 gitpush = "git add . && git commit -m '--' && git push";
                 gitpull = "git fetch && git pull";
+                gst = "git status";
                 ns = "nix-shell --command zsh -p ";
                 cdir = "cd ~/.config/nvim";
                 sbdir = "cd ~/projects/sandbox";
@@ -102,12 +104,13 @@
                 film = "transmission-remote -w ~/media/films -a ";
                 music = "transmission-remote -w ~/media/music -a ";
                 c = "ping google.com";
-                la = "exa -la";
+                la = "exa -lAh";
                 open = "xdg-open";
                 svim = "sudo -E nvim";
                 sc = "cd $NIXOS_CONFIG";
                 calc = "qalc -c";
                 quit = "exit";
+                grep = "grep --color=auto";
             };    
             initExtra = ''
                 autoload -U colors && colors

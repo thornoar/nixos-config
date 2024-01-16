@@ -221,7 +221,7 @@ killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindo
 myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
-         ("M-M1-<Home>", spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/ && xmonad --recompile && xmonad --restart && echo Congratulations!'"))
+         ("M-M1-<Home>", spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart && echo Congratulations!'"))
 
     -- Prompts
         , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
@@ -237,6 +237,7 @@ myKeys = [
 		, ("M-e", spawn ( myTerminal ++ " --title 'Filemanager' -e $FILEMANAGER" ))
 		, ("M-x", spawn ( myTerminal ++ " --title 'Neovim' -e zsh -c 'cd $PROJECTS && nvim'" ))
 		, ("M-v", spawn ( myTerminal ++ " --title 'Music Player' -e mocp" ))
+		, ("M-g", spawn ( myTerminal ++ " --title 'Calculator' -e qalc -c" ))
 		, ("M-w", spawn myBrowser)
 		, ("M-a", spawn myTerminal)
 	
@@ -253,7 +254,7 @@ myKeys = [
 			shiftTo Prev nonNSP
 			moveTo Prev nonNSP
 		)
-        , ("M-g", toggleWS' ["NSP"])
+        , ("M-s", toggleWS' ["NSP"])
 
     -- Scratchpads
         -- , ("M-p", withFocused $ toggleDynamicNSP "dnsp")
@@ -264,7 +265,7 @@ myKeys = [
 		, ("M-<Up>", sendMessage $ Go U)
 		, ("M-<Left>", sendMessage $ Go L)
 		, ("M-<Right>", sendMessage $ Go R)
-		, ("M-/", windows W.focusDown)
+		-- , ("M-/", windows W.focusDown)
 		, ("M-M1-<Left>", windows W.swapMaster)
 		, ("M-M1-<Down>", windows W.swapDown)
 		, ("M-M1-<Up>", windows W.swapUp)
@@ -308,13 +309,13 @@ myKeys = [
 		, ("M-S-<Right>", spawn "mocp --seek +5")
 		, ("M-S-<Left>", spawn "mocp --seek -5")
 		, ("M-<Space>", spawn "mocp --toggle-pause")
-        , ("M-<Tab> <Space>", spawn "playerctl play-pause")
-        , ("M-<Tab> <Right>", spawn "playerctl next")
-        , ("M-<Tab> <Left>", spawn "playerctl previous")
+        , ("M-z <Space>", spawn "playerctl play-pause")
+        , ("M-z <Right>", spawn "playerctl next")
+        , ("M-z <Left>", spawn "playerctl previous")
 		, ("M-p", spawn "flameshot gui --path $HOME/media/pictures")
         , ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
         ]
-        ++ [("M-s " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
+        ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
         -- ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
 		++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 

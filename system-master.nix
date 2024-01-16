@@ -23,10 +23,11 @@
             PAGER = "most";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
-            EDITOR="nvim";
-            TERMINAL="alacritty";
-            BROWSER="firefox";
-            READER="zathura";
+            EDITOR = "nvim";
+            TERMINAL = "alacritty";
+            HISTCONTROL = "ignoreboth";
+            BROWSER = "firefox";
+            READER = "zathura";
             FILEMANAGER = "ranger";
         };
         environment.systemPackages = with pkgs; [
