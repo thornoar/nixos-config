@@ -240,6 +240,9 @@ myKeys = [
 		, ("M-g", spawn ( myTerminal ++ " --title 'Calculator' -e qalc -c" ))
 		, ("M-w", spawn myBrowser)
 		, ("M-a", spawn myTerminal)
+
+    -- Type email
+        , ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'")
 	
     -- Workspaces
         -- , ("M-<Page_Down>", nextWS)
@@ -257,7 +260,6 @@ myKeys = [
         , ("M-s", toggleWS' ["NSP"])
 
     -- Scratchpads
-        -- , ("M-p", withFocused $ toggleDynamicNSP "dnsp")
         , ("M-f", namedScratchpadAction scratchpads "Scratchpad")
 
     -- Windows navigation
@@ -386,7 +388,6 @@ myManageHook = composeAll
     [
       insertPosition Below Newer
     , title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6))
-    -- , title =? "Compiling" --> doRectFloat (W.RationalRect (2 % 3) (1 % 6) (1 % 3) (4 % 6))
     , (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces ))
     ]
 -- myManageHook = insertPosition Below Newer

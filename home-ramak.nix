@@ -73,6 +73,8 @@
             zoom-us
 
             xmobar
+            # xdotool
+            xvkbd
         ];
 
         programs.zsh = {
