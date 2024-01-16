@@ -179,10 +179,11 @@ end)
 newcmd('E', function () vim.bo.keymap = '' end)
 newcmd('R', function () vim.bo.keymap = 'russian-jcuken' end)
 newcmd('J', function () vim.bo.keymap = 'kana' end)
-newcmd('G', function () vim.bo.keymap = 'german-qwertz' end)
+newcmd('D', function () vim.bo.keymap = 'german-qwertz' end)
 newcmd('L', function () vim.cmd('Lazy') end)
 newcmd('S', function () vim.wo.spell = not vim.wo.spell end)
 newcmd('NS', function () vim.cmd('set nospell') end)
+newcmd('G', function () vim.cmd('LazyGit') end)
 -- Autocommands
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix' }
