@@ -52,7 +52,7 @@
             type = tp.str;
             default = ''
                 Config { font     = "xft:${config.font} Nerd Font Mono-${builtins.toString config.fontsizeBar}"
-                       , bgColor0  = "${config.bgColor0}"
+                       , bgColor  = "${config.bgColor0}"
                        , fgColor  = "${config.fgColor}"
                        , position = TopH ${builtins.toString config.barheight}
                        , persistent = False
