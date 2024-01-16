@@ -60,6 +60,13 @@ require('lazy').setup({
 	-- 	opts = {}
 	-- },
     {
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
+    {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
         branch='v0.6', --recomended as each new version will have breaking changes

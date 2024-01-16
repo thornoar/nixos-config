@@ -62,6 +62,7 @@
             python311Packages.ipython
             eza
             ueberzug
+            lazygit
 
             telegram-desktop
             discord
