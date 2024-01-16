@@ -200,10 +200,12 @@
                 },
             }
             local theme = {
-                fill = 'TabLineFill',
+                -- fill = 'TabLineFill',
+                fill = { bg = "${config.bgColor1}" },
                 head = 'TabLine',
-                current_tab = { fg = "${config.colorBlack}", bg = "${config.colorBlue0}", style = 'italic' },--'TabLineSel',
-                tab = 'TabLine',
+                -- current_tab = { fg = "${config.colorBlack}", bg = "${config.colorBlue0}", style = 'italic' },--'TabLineSel',
+                current_tab = { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' },--'TabLineSel',
+                tab = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
                 win = 'TabLine',
                 tail = 'TabLine',
             }

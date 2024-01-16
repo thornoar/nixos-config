@@ -36,11 +36,12 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Minimize
 import XMonad.Layout.TwoPane
+import XMonad.Layout.LimitWindows
 import qualified XMonad.Layout.BoringWindows as BW
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+-- import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
@@ -133,12 +134,12 @@ searchList = [ ("a", archwiki)
              ]
 
 myTabTheme = def { fontName            = myFont
-                 , activeColor         = myBgColor --"#89a870"  
-                 , inactiveColor       = myBgColor --"#313846"
-                 , activeBorderColor   = myBgColor --"#89a870"
-                 , inactiveBorderColor = myBgColor --"#282c34"
-                 , activeTextColor     = colorMagenta0 --"#03051e"
-                 , inactiveTextColor   = colorLowWhite --"#a2afbe"
+                 , activeColor         = myBgColor
+                 , inactiveColor       = myBgColor
+                 , activeBorderColor   = myBgColor
+                 , inactiveBorderColor = myBgColor
+                 , activeTextColor     = colorMagenta0
+                 , inactiveTextColor   = colorLowWhite
                  , decoHeight		   = myBarHeight
                  }
 
@@ -182,8 +183,8 @@ myXPKeymap = M.fromList $
 myXPConfig :: XPConfig
 myXPConfig = def
       { font                = myFont
-      , bgColor             = myBgColor--"#282c34"
-      , fgColor             = colorWhite--"#bbc2cf"
+      , bgColor             = myBgColor
+      , fgColor             = colorWhite
       , bgHLight            = colorBlue0
       , fgHLight            = colorBlack
       , borderColor         = colorBlue2
@@ -333,13 +334,15 @@ tall = named "Master & Slaves"
     $ limitWindows 5
     $ mySpacing' mySpace
     $ ResizableTall 1 (3/100) (1/2) []
+
 magnified = named "Magnified" 
     $ windowNavigation
     $ avoidStruts
-    $ magnifier
-    $ mySpacing' mySpace
     $ limitWindows 12
+    $ mySpacing' mySpace
+    $ magnifier
     $ ResizableTall 1 (3/100) (1/2) []
+
 grid = named "Grid"
     $ windowNavigation
     $ avoidStruts
@@ -348,11 +351,13 @@ grid = named "Grid"
     $ mySpacing' mySpace
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
+
 spirals = named "Spirals"
     $ mySpacing mySpace
     $ avoidStruts
     $ windowNavigation
     $ spiral (6/7)
+
 tabs = named "Tabs" 
     $ windowNavigation
     $ avoidStruts
