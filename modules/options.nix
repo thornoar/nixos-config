@@ -38,10 +38,11 @@
         colorBlue2 = mkOpt "str" "#6272a4";
         colorBlue1 = mkOpt "str" "#61afef";
         colorCyan = mkOpt "str" "#56b6c2";
-        colorGreen = mkOpt "str" "#89a870";
+        colorGreen0 = mkOpt "str" "#89a870";
+        colorGreen1 = mkOpt "str" "#329c48";
 
-        colorMagenta = mkOpt "str" "#ff79c6";
-        colorMagentaP = mkOpt "str" "#c678dd";
+        colorMagenta0 = mkOpt "str" "#ff79c6";
+        colorMagenta1 = mkOpt "str" "#c678dd";
 
         font = mkOpt "str" "Hack";
         padding = mkOpt "attrs" { x = 6; y = 6; };
@@ -65,7 +66,7 @@
                                         , "--"
                                         , "--on", ""
                                     ]
-                                    , Run Date "<fc=${config.colorMagenta}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10
+                                    , Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10
                                     , Run XMonadLog
                                     , Run Kbd [ ("us", "<fc=${config.colorWhite1}>US</fc>")
                                                 , ("ru", "<fc=${config.colorWhite1}>RU</fc>")
@@ -101,7 +102,7 @@
             colorWhite = "${config.colorWhite0}"
             colorBlack = "${config.colorBlack}"
             colorLowWhite = "${config.colorWhite3}"
-            colorMagenta = "${config.colorMagenta}"
+            colorMagenta0 = "${config.colorMagenta0}"
             colorYellow = "${config.colorYellow0}"
             colorRed = "${config.colorRed0}"
         '';
@@ -132,7 +133,7 @@
             set statusbar-bg                "${config.bgColor0}" # Background
             set statusbar-fg                "${config.colorWhite1}" # Foreground
             set highlight-color             "${config.colorOrange}" # Orange
-            set highlight-active-color      "${config.colorMagenta}" # Pink
+            set highlight-active-color      "${config.colorMagenta0}" # Pink
             set default-bg                  "${config.bgColor0}" # Background
             set default-fg                  "${config.colorWhite1}" # Foreground
             set render-loading              true
@@ -177,7 +178,7 @@
                         },
                         command = { a = { fg = "${config.bgColor0}", bg = "${config.colorYellow1}", gui = 'bold' } },
                         insert = { a = { fg = "${config.bgColor0}", bg = "${config.colorRed1}", gui = 'bold' } },
-                        visual = { a = { fg = "${config.bgColor0}", bg = "${config.colorMagenta}", gui = 'bold' } },
+                        visual = { a = { fg = "${config.bgColor0}", bg = "${config.colorMagenta0}", gui = 'bold' } },
                         terminal = { a = { fg = "${config.bgColor0}", bg = "${config.colorCyan}", gui = 'bold' } },
                         replace = { a = { fg = "${config.bgColor0}", bg = "${config.colorBlue0}", gui = 'bold' } },
                         inactive = {
@@ -229,8 +230,8 @@
                     black = "${config.bgColor1}";
                     blue = "${config.colorBlue1}";
                     cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen}";
-                    magenta = "${config.colorMagentaP}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
                     red = "${config.colorRed1}";
                     white = "${config.colorWhite1}";
                     yellow = "${config.colorYellow1}";
@@ -239,8 +240,8 @@
                     black = "${config.bgColor0}";
                     blue = "${config.colorBlue1}";
                     cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen}";
-                    magenta = "${config.colorMagentaP}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
                     red = "${config.colorRed1}";
                     white = "${config.bgColor2}";
                     yellow = "${config.colorYellow1}";
@@ -249,8 +250,8 @@
                     black = "${config.bgColor0}";
                     blue = "${config.colorBlue1}";
                     cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen}";
-                    magenta = "${config.colorMagentaP}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
                     red = "${config.colorRed1}";
                     white = "${config.colorWhite0}";
                     yellow = "${config.colorYellow1}";

@@ -137,7 +137,7 @@ myTabTheme = def { fontName            = myFont
                  , inactiveColor       = myBgColor --"#313846"
                  , activeBorderColor   = myBgColor --"#89a870"
                  , inactiveBorderColor = myBgColor --"#282c34"
-                 , activeTextColor     = colorMagenta --"#03051e"
+                 , activeTextColor     = colorMagenta0 --"#03051e"
                  , inactiveTextColor   = colorLowWhite --"#a2afbe"
                  , decoHeight		   = myBarHeight
                  }
@@ -421,7 +421,7 @@ myXmobarPP = def
         ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
         blue, lowWhite, magenta, red, white, yellow :: String -> String
-        magenta  = xmobarColor colorMagenta ""
+        magenta  = xmobarColor colorMagenta0 ""
         blue     = xmobarColor colorBlue0 ""
         white    = xmobarColor colorWhite ""
         yellow   = xmobarColor colorYellow ""
