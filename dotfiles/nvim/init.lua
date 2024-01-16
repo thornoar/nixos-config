@@ -199,10 +199,14 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 -- $text keymaps
 km.set('v', '<S-Left>', 'ygv<Esc>')
 km.set('n', '<S-Left>', 'yy')
-km.set('v', '<C-S-Left>', '\"+y')
-km.set('n', '<C-S-Left>', '\"+yy')
+km.set('n', '<C-S-Left>', '<<')
+km.set('n', '<C-S-Right>', '>>')
+km.set('v', '<C-S-Left>', '<gv')
+km.set('v', '<C-S-Right>', '>gv')
+km.set('v', '<S-M-Left>', '\"+y')
+km.set('n', '<S-M-Left>', '\"+yy')
 km.set({'n', 'v'}, '<S-Right>', 'p')
-km.set({'n', 'v'}, '<C-S-Right>', '\"+p')
+km.set({'n', 'v'}, '<S-M-Right>', '\"+p')
 km.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
 km.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -218,10 +222,11 @@ km.set('n', 'dw', 'diw')
 km.set('x', '<leader>p', '\"_dP')
 km.set('n', '<leader>f', 'zf%')
 km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
-km.set('v', '>', '>gv')
-km.set('v', '<', '<gv')
-km.set('n', '>', '>>')
-km.set('n', '<', '<<')
+km.set('v', '<M-End>', 'J')
+-- km.set('v', '>', '>gv')
+-- km.set('v', '<', '<gv')
+-- km.set('n', '>', '>>')
+-- km.set('n', '<', '<<')
 -- $insert keymaps
 km.set('n', 'x', 'i')
 km.set('i', '<M-z>', '<C-n>')
@@ -251,14 +256,14 @@ km.set('n', 'N', 'Nzz')
 km.set('n', '<C-M-left>', '<C-^>')
 km.set('n', '<C-M-right>', 'gf')
 -- $window keymaps
-km.set('n', '<C-left>', '<C-w>h')
+km.set('n', '<C-Left>', '<C-w>h')
 km.set('n', '<C-Down>', '<C-w>j')
 km.set('n', '<C-Up>', '<C-w>k')
-km.set('n', '<C-right>', '<C-w>l')
--- km.set('i', '<C-Left>', '<C-o><C-w>h')
--- km.set('i', '<C-Down>', '<C-o><C-w>j')
--- km.set('i', '<C-Up>', '<C-o><C-w>k')
--- km.set('i', '<C-Right>', '<C-o><C-w>l')
+km.set('n', '<C-Right>', '<C-w>l')
+km.set('i', '<C-Left>', '<C-o><C-w>h')
+km.set('i', '<C-Down>', '<C-o><C-w>j')
+km.set('i', '<C-Up>', '<C-o><C-w>k')
+km.set('i', '<C-Right>', '<C-o><C-w>l')
 km.set('n', '<C-w><Left>', '<C-w>H')
 km.set('n', '<C-w><Right>', '<C-w>L')
 km.set('n', '<C-w><Up>', '<C-w>K')
@@ -278,7 +283,7 @@ km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim
 km.set('n', '<leader>K', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 km.set('n', '<leader>o', ':Compile<CR>')
 km.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
-km.set({'n','i'}, '<C-s>', function () vim.cmd('CompileSilent') end)
+km.set({'n','i'}, '<M-s>', function () vim.cmd('CompileSilent') end)
 km.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
 km.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
 km.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -286,19 +291,19 @@ km.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic mess
 km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 -- $telescope keymaps
-km.set('n', '<C-x>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+km.set('n', '<C-s>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 km.set('n', '<C-_>', function()
-	require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-		previewer = false,
-		theme = 'ivy',
-	})
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        previewer = false,
+        theme = 'ivy',
+    })
 end)
 km.set('n', '<M-/>', require('telescope.builtin').live_grep)
 km.set('n', '<leader>cd', require('telescope.builtin').builtin)
 km.set('n', '<leader>:', require('telescope.builtin').commands)
-km.set('n', '<M-S-Right>', require('telescope').extensions.neoclip['a'])
-km.set('n', '<C-x>', function () require('telescope').extensions.file_browser.file_browser({ path = vim.loop.cwd() }) end)
-km.set('n', '<C-f>', require('telescope.builtin').find_files)
+km.set('n', '>', require('telescope').extensions.neoclip['a'])
+km.set('n', '<C-f>', function () require('telescope').extensions.file_browser.file_browser({ path = vim.loop.cwd() }) end)
+km.set('n', '<C-x>', require('telescope.builtin').find_files)
 km.set('n', '<C-d>', require('telescope.builtin').oldfiles)
 km.set('n', '<M-CR>', require('telescope.builtin').help_tags)
 km.set('n', '<leader>s', require('telescope.builtin').grep_string)
@@ -311,15 +316,15 @@ km.set('n', '<C-z>', 'u')
 local state = require("telescope.state")
 local action_state = require("telescope.actions.state")
 local slow_scroll = function(prompt_bufnr, direction)
-	local previewer = action_state.get_current_picker(prompt_bufnr).previewer
-	local status = state.get_status(prompt_bufnr)
+    local previewer = action_state.get_current_picker(prompt_bufnr).previewer
+    local status = state.get_status(prompt_bufnr)
 
-	-- Check if we actually have a previewer and a preview window
-	if type(previewer) ~= "table" or previewer.scroll_fn == nil or status.preview_win == nil then
-		return
-	end
+    -- Check if we actually have a previewer and a preview window
+    if type(previewer) ~= "table" or previewer.scroll_fn == nil or status.preview_win == nil then
+        return
+    end
 
-	previewer:scroll_fn(1 * direction)
+    previewer:scroll_fn(1 * direction)
 end
 local fb_actions = require "telescope._extensions.file_browser.actions"
 require('telescope').setup {

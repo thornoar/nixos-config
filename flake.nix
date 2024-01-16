@@ -66,21 +66,5 @@
                 ];
             }
         );
-
-        # nixosConfigurations.${masterSystem} = lib.nixosSystem {
-        #     system = system;
-        #     modules = [
-        #         ./system-${masterSystem}.nix
-        #     ];
-        # };
-
-        # homeConfigurations.ramak = inputs.home-manager.lib.homeManagerConfiguration {
-        #     inherit pkgs;
-        #     extraSpecialArgs = { inherit inputs; inherit system; };
-        #     modules = [
-        #         ./home.nix
-        #         inputs.nix-index-database.hmModules.nix-index
-        #     ];
-        # };
     };
 }

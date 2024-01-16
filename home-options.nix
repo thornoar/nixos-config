@@ -83,7 +83,7 @@
 
     config = {
         # xmonad setup
-        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ../dotfiles/xmonad.hs) + ''
+        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ./dotfiles/xmonad.hs) + ''
             -- Home-Manager settings
 
             setWallpaperCmd = spawn "feh --randomize --bg-fill $MEDIA/wallpapers/${config.wallpaperDir}"
@@ -162,11 +162,11 @@
             vimAlias = true;
             vimdiffAlias = true;
         };
-        xdg.configFile."nvim/ftdetect".source = ../dotfiles/nvim/ftdetect;
-        xdg.configFile."nvim/syntax".source = ../dotfiles/nvim/syntax;
-        xdg.configFile."nvim/UltiSnips".source = ../dotfiles/nvim/UltiSnips;
-        xdg.configFile."nvim/after".source = ../dotfiles/nvim/after;
-        xdg.configFile."nvim/init.lua".text = (builtins.readFile ../dotfiles/nvim/init.lua) + ''
+        xdg.configFile."nvim/ftdetect".source = ./dotfiles/nvim/ftdetect;
+        xdg.configFile."nvim/syntax".source = ./dotfiles/nvim/syntax;
+        xdg.configFile."nvim/UltiSnips".source = ./dotfiles/nvim/UltiSnips;
+        xdg.configFile."nvim/after".source = ./dotfiles/nvim/after;
+        xdg.configFile."nvim/init.lua".text = (builtins.readFile ./dotfiles/nvim/init.lua) + ''
             require('lualine').setup{
                 options = {
                     icons_enabled = true,

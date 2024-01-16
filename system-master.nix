@@ -3,7 +3,7 @@
 {
     imports = [
         /etc/nixos/hardware-configuration.nix
-        /etc/nixos/system-options.nix
+        /etc/nixos/system-local.nix
     ];
 
     options = {
@@ -16,13 +16,13 @@
             XDG_DATA_HOME = "$HOME/.local/share";
             XDG_STATE_HOME = "$HOME/.local/state";
             XDG_CACHE_HOME = "$HOME/.cache";
-            NIXOS_CONFIG = "$HOME/nixos-config";
             PROJECTS = "$HOME/projects";
+            NIXOS_CONFIG = "${PROJECTS}/nixos-config";
             MEDIA = "$HOME/media";
             DE = "generic";
             PAGER = "most";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
-            TEXINPUTS = ".:$PROJECTS/libs:$TEXINPUTS";
+            TEXINPUTS = ".:${PROJECTS}/libs:$TEXINPUTS";
             EDITOR = "nvim";
             TERMINAL = "alacritty";
             HISTCONTROL = "ignoreboth";

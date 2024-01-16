@@ -41,7 +41,6 @@ import qualified XMonad.Layout.BoringWindows as BW
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
--- import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
@@ -74,7 +73,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.ManageHook
 
 -- Xmobar
--- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
@@ -100,11 +98,11 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myStartupHook :: X ()
-myStartupHook = setWallpaperCmd--spawnOnce "feh --randomize --bg-fill $WALLPAPERS"
+myStartupHook = setWallpaperCmd
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "aux"]
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myFont :: String
 myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
@@ -113,105 +111,96 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
-archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
-nixoswiki     = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="
-reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
-libgen   = S.searchEngine "libgen" "https://www.libgen.is/search.php?req="
+archwiki    = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+nixoswiki   = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="
+reddit      = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+libgen      = S.searchEngine "libgen" "https://www.libgen.is/search.php?req="
 
 searchList :: [(String, S.SearchEngine)]
-searchList = [ ("a", archwiki)
-             , ("n", nixoswiki)
-             , ("g", S.google)
-             , ("h", S.hoogle)
-             , ("i", S.images)
-             , ("r", reddit)
-             , ("l", libgen)
-             , ("s", S.stackage)
-             , ("t", S.thesaurus)
-             , ("v", S.vocabulary)
-             , ("w", S.wikipedia)
-             , ("y", S.youtube)
-             ]
+searchList = [
+    ("a", archwiki),
+    ("n", nixoswiki),
+    ("g", S.google),
+    ("h", S.hoogle),
+    ("i", S.images),
+    ("r", reddit),
+    ("l", libgen),
+    ("s", S.stackage),
+    ("t", S.thesaurus),
+    ("v", S.vocabulary),
+    ("w", S.wikipedia),
+    ("y", S.youtube)
+    ]
 
-myTabTheme = def { fontName            = myFont
-                 , activeColor         = myBgColor
-                 , inactiveColor       = myBgColor
-                 , activeBorderColor   = myBgColor
-                 , inactiveBorderColor = myBgColor
-                 , activeTextColor     = colorMagenta0
-                 , inactiveTextColor   = colorLowWhite
-                 , decoHeight		   = myBarHeight
-                 }
+myTabTheme = def {
+    fontName            = myFont,
+    activeColor         = myBgColor,
+    inactiveColor       = myBgColor,
+    activeBorderColor   = myBgColor,
+    inactiveBorderColor = myBgColor,
+    activeTextColor     = colorMagenta0,
+    inactiveTextColor   = colorLowWhite,
+    decoHeight		    = myBarHeight }
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myXPKeymap = M.fromList $
-     map (first $ (,) controlMask)      -- control + <key>
-     [ (xK_z, killBefore)               -- kill line backwards
-     , (xK_x, killAfter)                -- kill line forwards
-     , (xK_Home, startOfLine)              -- move to the beginning of the line
-     , (xK_End, endOfLine)                -- move to the end of the line
-     , (xK_Left, moveCursor Prev)          -- move cursor forward
-     , (xK_Right, moveCursor Next)          -- move cursor backward
-     , (xK_BackSpace, killWord Prev)    -- kill the previous word
-     , (xK_v, pasteString)              -- paste a string
-     ]
-     ++
-     map (first $ (,) myModMask)          -- meta key + <key>
-     [ (xK_BackSpace, killWord Prev)    -- kill the prev word
-     , (xK_c, quit)                     -- quit out of prompt
-     , (xK_f, moveWord Next)            -- move a word forward
-     , (xK_b, moveWord Prev)            -- move a word backward
-     , (xK_d, killWord Next)            -- kill the next word
-     , (xK_n, moveHistory W.focusUp')   -- move up thru history
-     , (xK_p, moveHistory W.focusDown') -- move down thru history
-     ]
-     ++
-     map (first $ (,) 0) -- <key>
-     [ (xK_Return, setSuccess True >> setDone True)
-     , (xK_KP_Enter, setSuccess True >> setDone True)
-     , (xK_BackSpace, deleteString Prev)
-     , (xK_Delete, deleteString Next)
-     , (xK_Left, moveCursor Prev)
-     , (xK_Right, moveCursor Next)
-     , (xK_Home, startOfLine)
-     , (xK_End, endOfLine)
-     , (xK_Down, moveHistory W.focusUp')
-     , (xK_Up, moveHistory W.focusDown')
-     , (xK_Escape, quit)
-     ]
+    map (first $ (,) controlMask) [
+    (xK_z, killBefore),
+    (xK_x, killAfter),
+    (xK_Home, startOfLine),
+    (xK_End, endOfLine),
+    (xK_Left, moveCursor Prev),
+    (xK_Right, moveCursor Next),
+    (xK_BackSpace, killWord Prev),
+    (xK_v, pasteString) ] ++
+    map (first $ (,) myModMask) [
+    (xK_BackSpace, killWord Prev),
+    (xK_c, quit),
+    (xK_f, moveWord Next),
+    (xK_b, moveWord Prev),
+    (xK_d, killWord Next),
+    (xK_n, moveHistory W.focusUp'),
+    (xK_p, moveHistory W.focusDown') ] ++
+    map (first $ (,) 0) [
+    (xK_Return, setSuccess True >> setDone True),
+    (xK_KP_Enter, setSuccess True >> setDone True),
+    (xK_BackSpace, deleteString Prev),
+    (xK_Delete, deleteString Next),
+    (xK_Left, moveCursor Prev),
+    (xK_Right, moveCursor Next),
+    (xK_Home, startOfLine),
+    (xK_End, endOfLine),
+    (xK_Down, moveHistory W.focusUp'),
+    (xK_Up, moveHistory W.focusDown'),
+    (xK_Escape, quit) ]
 
 myXPConfig :: XPConfig
-myXPConfig = def
-      { font                = myFont
-      , bgColor             = myBgColor
-      , fgColor             = colorWhite
-      , bgHLight            = colorBlue0
-      , fgHLight            = colorBlack
-      , borderColor         = colorBlue2
-      , promptBorderWidth   = 0
-      , promptKeymap        = myXPKeymap
-      , position            = Top
-      , height              = myBarHeight
-      , historySize         = 256
-      , historyFilter       = id
-      , defaultText         = []
-      , searchPredicate     = fuzzyMatch
-      , sorter              = fuzzySort
-      , autoComplete        = Nothing  -- set Just 100000 for .1 sec
-      , showCompletionOnTab = False
-      , defaultPrompter     = id $ map toUpper  -- change prompt to UPPER
-      , alwaysHighlight     = True
-      , maxComplRows        = Just 5      -- set to 'Just 5' for 5 rows
-      }
+myXPConfig = def {
+    font                = myFont,
+    bgColor             = myBgColor,
+    fgColor             = colorWhite,
+    bgHLight            = colorBlue0,
+    fgHLight            = colorBlack,
+    borderColor         = colorBlue2,
+    promptBorderWidth   = 0,
+    promptKeymap        = myXPKeymap,
+    position            = Top,
+    height              = myBarHeight,
+    historySize         = 256,
+    historyFilter       = id,
+    defaultText         = [],
+    searchPredicate     = fuzzyMatch,
+    sorter              = fuzzySort,
+    autoComplete        = Nothing,
+    showCompletionOnTab = False,
+    defaultPrompter     = id $ map toUpper,
+    alwaysHighlight     = True,
+    maxComplRows        = Just 5 }
 
 myPrograms :: [String]
 myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "goldendict" ]
 
-scratchpads = [ NS 
-                "Scratchpad"
-                (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad")
-                (customFloating $ W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
-              ]
+scratchpads = [ NS "Scratchpad" (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad") (customFloating $ W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3)) ]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -221,105 +210,107 @@ killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindo
 myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
-         ("M-M1-<Home>", spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart && echo Congratulations!'"))
+    ("M-M1-<Home>", do
+        spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart'")
+        spawn "killall xmobar && xmobar --recompile &"
+    ),
+    ("M-M1-<End>", spawn "killall xmobar && xmobar --recompile &"),
 
     -- Prompts
-        , ("M-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
-        , ("M-M1-<Return>", manPrompt myXPConfig)          -- manPrompt
-        , ("M-S-<Return>", windowPrompt myXPConfig Goto allWindows)          -- manPrompt
+    ("M-<Return>", shellPrompt myXPConfig),
+    ("M-M1-<Return>", manPrompt myXPConfig),
+    ("M-S-<Return>", windowPrompt myXPConfig Goto allWindows),
 
     -- Kill windows
-        , ("M-c", kill)     -- Kill the currently focused client
-        , ("M-M1-k", killAll)   -- Kill all windows on current workspace
-        , ("M-<Delete>", killAllFloating)
+    ("M-c", kill),
+    ("M-M1-k", killAll),
+    ("M-<Delete>", killAllFloating),
 
-	-- Quick Programs
-		, ("M-e", spawn ( myTerminal ++ " --title 'Filemanager' -e $FILEMANAGER" ))
-		, ("M-x", spawn ( myTerminal ++ " --title 'Neovim' -e zsh -c 'cd $PROJECTS && nvim'" ))
-		, ("M-v", spawn ( myTerminal ++ " --title 'Music Player' -e mocp" ))
-		, ("M-g", spawn ( myTerminal ++ " --title 'Calculator' -e qalc -c" ))
-		, ("M-w", spawn myBrowser)
-		, ("M-a", spawn myTerminal)
+    -- Quick Programs
+    ("M-e", spawn ( myTerminal ++ " --title 'Filemanager' -e $FILEMANAGER" )),
+    ("M-x", spawn ( myTerminal ++ " --title 'Neovim' -e zsh -c 'cd $PROJECTS && nvim'" )),
+    ("M-v", spawn ( myTerminal ++ " --title 'Music Player' -e mocp" )),
+    ("M-g", spawn ( myTerminal ++ " --title 'Calculator' -e qalc -c" )),
+    ("M-w", spawn myBrowser),
+    ("M-a", spawn myTerminal),
 
     -- Type email
-        , ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'")
-	
+    ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
+
     -- Workspaces
-        -- , ("M-<Page_Down>", nextWS)
-		-- , ("M-<Page_Up>", prevWS)
-        , ("M-<Page_Down>", moveTo Next nonNSP)
-		, ("M-<Page_Up>", moveTo Prev nonNSP)
-		, ("M-M1-<Page_Down>", do
-			shiftTo Next nonNSP
-			moveTo Next nonNSP
-		)
-		, ("M-M1-<Page_Up>", do
-			shiftTo Prev nonNSP
-			moveTo Prev nonNSP
-		)
-        , ("M-s", toggleWS' ["NSP"])
+    -- ("M-<Page_Down>", nextWS),
+    -- ("M-<Page_Up>", prevWS),
+    ("M-<Page_Down>", moveTo Next nonNSP),
+    ("M-<Page_Up>", moveTo Prev nonNSP),
+    ("M-M1-<Page_Down>", do
+        shiftTo Next nonNSP
+        moveTo Next nonNSP
+    ),
+    ("M-M1-<Page_Up>", do
+        shiftTo Prev nonNSP
+        moveTo Prev nonNSP
+    ),
+    ("M-s", toggleWS' ["NSP"]),
 
     -- Scratchpads
-        , ("M-f", namedScratchpadAction scratchpads "Scratchpad")
+    ("M-f", namedScratchpadAction scratchpads "Scratchpad"),
 
     -- Windows navigation
-		, ("M-<Down>", sendMessage $ Go D)
-		, ("M-<Up>", sendMessage $ Go U)
-		, ("M-<Left>", sendMessage $ Go L)
-		, ("M-<Right>", sendMessage $ Go R)
-		-- , ("M-/", windows W.focusDown)
-		, ("M-M1-<Left>", windows W.swapMaster)
-		, ("M-M1-<Down>", windows W.swapDown)
-		, ("M-M1-<Up>", windows W.swapUp)
-        , ("M-M1-<Right>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
-		, ("M-<Home>", windows W.focusUp)
-		, ("M-<End>", windows W.focusDown)
-		, ("M-d", withFocused minimizeWindow)
-		, ("M-b", withLastMinimized maximizeWindowAndFocus)
+    ("M-<Down>", sendMessage $ Go D),
+    ("M-<Up>", sendMessage $ Go U),
+    ("M-<Left>", sendMessage $ Go L),
+    ("M-<Right>", sendMessage $ Go R),
+    -- ("M-/", windows W.focusDown),
+    ("M-M1-<Left>", windows W.swapMaster),
+    ("M-M1-<Down>", windows W.swapDown),
+    ("M-M1-<Up>", windows W.swapUp),
+    ("M-M1-<Right>", rotSlavesDown),
+    ("M-<Home>", windows W.focusUp),
+    ("M-<End>", windows W.focusDown),
+    ("M-d", withFocused minimizeWindow),
+    ("M-b", withLastMinimized maximizeWindowAndFocus),
 
     -- Layouts
-        , ("M-C-<Down>", sendMessage NextLayout)           -- Switch to next layout
-        , ("M-C-<Up>", sendMessage FirstLayout)           -- Switch to next layout
-		, ("M-C-/", sendMessage (MT.Toggle NBFULL)) -- Toggles noborder
-	    , ("M-C-p", setWallpaperCmd)
-        , ("M-C-l", spawn "sleep 1 && xset dpms force off")
-        , ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")) -- Toggles my 'floats' layout
-        , ("M-C-<Page_Down>", withFocused $ windows . W.sink)  -- Push floating window back to tile
-        , ("M-C-t", sinkAll)                       -- Push ALL floating windows to tile
+    ("M-C-<Down>", sendMessage NextLayout),
+    ("M-C-<Up>", sendMessage FirstLayout),
+    ("M-C-/", sendMessage (MT.Toggle NBFULL)),
+    ("M-C-p", setWallpaperCmd),
+    ("M-C-l", spawn "sleep 1 && xset dpms force off"),
+    ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
+    ("M-C-<Page_Down>", withFocused $ windows . W.sink),
+    ("M-C-t", sinkAll),
 
     -- Window resizing
-        , ("M-C-,", sendMessage Shrink)                   -- Shrink horiz window width
-        , ("M-C-.", sendMessage Expand)                   -- Expand horiz window width
-        , ("M-C-'", sendMessage MirrorShrink)          -- Shrink vert window width
-        , ("M-C-;", sendMessage MirrorExpand)          -- Expand vert window width
-        , ("M-C-j", sequence_ [decScreenSpacing 1, decWindowSpacing 1]) 
-        , ("M-C-k", sequence_ [incScreenSpacing 1, incWindowSpacing 1]) 
+    ("M-C-,", sendMessage Shrink),
+    ("M-C-.", sendMessage Expand),
+    ("M-C-'", sendMessage MirrorShrink),
+    ("M-C-;", sendMessage MirrorExpand),
+    ("M-C-j", sequence_ [decScreenSpacing 1, decWindowSpacing 1]),
+    ("M-C-k", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
 
-	-- Keyboard Layouts
-		, ("M-1", spawn "chlang us")
-		, ("M-2", spawn "chlang ru")
-		, ("M-3", spawn "chlang de")
+    -- Keyboard Layouts
+    ("M-1", spawn "chlang us"),
+    ("M-2", spawn "chlang ru"),
+    ("M-3", spawn "chlang de"),
 
     -- Multimedia Keys
-		, ("M-S-<Page_Down>", spawn "amixer sset Master 5%-")
-		, ("M-S-<Page_Up>", spawn "amixer sset Master 5%+")
-        , ("M-S-,", spawn "brightnessctl set 1%-")
-        , ("M-S-.", spawn "brightnessctl set 1%+")
-		, ("M-S-<Home>", spawn "mocp --seek -500")
-		, ("M-S-<Down>", spawn "mocp --next") 
-		, ("M-S-<Up>", spawn "mocp --previous")
-		, ("M-S-<Right>", spawn "mocp --seek +5")
-		, ("M-S-<Left>", spawn "mocp --seek -5")
-		, ("M-<Space>", spawn "mocp --toggle-pause")
-        , ("M-z <Space>", spawn "playerctl play-pause")
-        , ("M-z <Right>", spawn "playerctl next")
-        , ("M-z <Left>", spawn "playerctl previous")
-		, ("M-p", spawn "flameshot gui --path $HOME/media/pictures")
-        , ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
-        ]
-        ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-        -- ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
-		++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
+    ("M-S-<Page_Down>", spawn "amixer sset Master 5%-"),
+    ("M-S-<Page_Up>", spawn "amixer sset Master 5%+"),
+    ("M-S-,", spawn "brightnessctl set 1%-"),
+    ("M-S-.", spawn "brightnessctl set 1%+"),
+    ("M-S-<Home>", spawn "mocp --seek -500"),
+    ("M-S-<Down>", spawn "mocp --next") ,
+    ("M-S-<Up>", spawn "mocp --previous"),
+    ("M-S-<Right>", spawn "mocp --seek +5"),
+    ("M-S-<Left>", spawn "mocp --seek -5"),
+    ("M-<Space>", spawn "mocp --toggle-pause"),
+    ("M-z <Space>", spawn "playerctl play-pause"),
+    ("M-z <Right>", spawn "playerctl next"),
+    ("M-z <Left>", spawn "playerctl previous"),
+    ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
+    ("M-S-p", spawn "flameshot full --path $HOME/media/pictures") ]
+    ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
+    ++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
 -- Layouts:
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -331,14 +322,16 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 named :: String -> l a -> ModifiedLayout Rename l a
 named s = renamed [ Replace s ]
 
-tall = named "Master & Slaves"
+tall = 
+    named "Master & Slaves"
     $ windowNavigation
     $ avoidStruts
     $ limitWindows 5
     $ mySpacing' mySpace
     $ ResizableTall 1 (3/100) (1/2) []
 
-magnified = named "Magnified" 
+magnified =
+    named "Magnified" 
     $ windowNavigation
     $ avoidStruts
     $ limitWindows 12
@@ -346,7 +339,8 @@ magnified = named "Magnified"
     $ magnifier
     $ ResizableTall 1 (3/100) (1/2) []
 
-grid = named "Grid"
+grid =
+    named "Grid"
     $ windowNavigation
     $ avoidStruts
     $ subLayout [] (smartBorders Simplest)
@@ -355,13 +349,15 @@ grid = named "Grid"
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
 
-spirals = named "Spirals"
+spirals =
+    named "Spirals"
     $ mySpacing mySpace
     $ avoidStruts
     $ windowNavigation
     $ spiral (6/7)
 
-tabs = named "Tabs" 
+tabs =
+    named "Tabs" 
     $ windowNavigation
     $ avoidStruts
     $ mySpacing' 0
@@ -384,74 +380,69 @@ myAnd :: Query Bool -> Query Bool -> Query Bool
 myAnd a b = b >>= myAnd' a
 
 myManageHook :: ManageHook
-myManageHook = composeAll
-    [
-      insertPosition Below Newer
-    , title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6))
-    , (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces ))
-    ]
--- myManageHook = insertPosition Below Newer
+myManageHook = composeAll [
+    insertPosition Below Newer,
+    title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
+    (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
-myXmobarPP = def
-    { ppSep             = ppSep
-    , ppTitleSanitize   = xmobarStrip
-    , ppCurrent         = magenta . wrap "[" "]"
-    , ppHidden          = blue
-    , ppHiddenNoWindows = lowWhite
-    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
-    , ppOrder           = \[ws, l, _, wins] -> [ws, wins]
-    , ppExtras          = return $ concatLoggers [
-                            onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
-                            onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) logF,
-                            onLogger (white . drop 9) logLayout
-                          ]
-    }
-    where
-        logF :: Logger
-        logF = do
-            windows <- gets (W.index . windowset)
-            return . Just . show $ (length windows)
+myXmobarPP = def {
+    ppSep               = ppSep,
+    ppTitleSanitize     = xmobarStrip,
+    ppCurrent           = magenta . wrap "[" "]",
+    ppHidden            = blue,
+    ppHiddenNoWindows   = lowWhite,
+    ppUrgent            = red . wrap (yellow "!") (yellow "!"),
+    ppOrder             = \[ws, l, _, wins] -> [ws, wins],
+    ppExtras            = return $ concatLoggers    [
+        onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
+        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
+        onLogger (white . drop 9) logLayout
+        ]
+    } where
+    totalLogger :: Logger
+    totalLogger = do
+        windows <- gets (W.index . windowset)
+        return . Just . show $ (length windows)
 
-        minimizedLogger :: Logger
-        minimizedLogger = withMinimized $ return . return . show . length
-        -- minimizedLogger = withMinimized $ (\wins -> return (Just ((show . length) wins)))
+    minimizedLogger :: Logger
+    minimizedLogger = withMinimized $ return . return . show . length
 
-        ppSep = " | "
-        concatLoggers :: [Logger] -> Logger
-        concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
+    ppSep = " | "
+    concatLoggers :: [Logger] -> Logger
+    concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
 
-        formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
-        formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
 
-        ppWindow :: String -> String
-        ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-        blue, lowWhite, magenta, red, white, yellow :: String -> String
-        magenta  = xmobarColor colorMagenta0 ""
-        blue     = xmobarColor colorBlue0 ""
-        white    = xmobarColor colorWhite ""
-        yellow   = xmobarColor colorYellow ""
-        red      = xmobarColor colorRed ""
-        lowWhite = xmobarColor colorLowWhite""
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor colorMagenta0 ""
+    blue     = xmobarColor colorBlue0 ""
+    white    = xmobarColor colorWhite ""
+    yellow   = xmobarColor colorYellow ""
+    red      = xmobarColor colorRed ""
+    lowWhite = xmobarColor colorLowWhite""
 
-
-main = xmonad $
-       ewmhFullscreen .
-       ewmh .
-       withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
-       defaults
+main =
+    xmonad $
+    ewmhFullscreen .
+    ewmh .
+    withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
+    defaults
 
 defaults = def {
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        layoutHook         = minimize . BW.boringWindows $ myLayout,
-        manageHook         = myManageHook <+> namedScratchpadManageHook scratchpads,
-        handleEventHook    = mempty, --swallowEventHook (className =? "Alacritty") (return True),
-        startupHook        = myStartupHook,
-		logHook            = refocusLastLogHook
-    } `additionalKeysP` myKeys
+    terminal           = myTerminal,
+    focusFollowsMouse  = myFocusFollowsMouse,
+    clickJustFocuses   = myClickJustFocuses,
+    borderWidth        = myBorderWidth,
+    modMask            = myModMask,
+    workspaces         = myWorkspaces,
+    layoutHook         = minimize . BW.boringWindows $ myLayout,
+    manageHook         = myManageHook <+> namedScratchpadManageHook scratchpads,
+    handleEventHook    = mempty,
+    startupHook        = myStartupHook,
+    logHook            = refocusLastLogHook }
+    `additionalKeysP` myKeys

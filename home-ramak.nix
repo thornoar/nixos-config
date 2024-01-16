@@ -1,11 +1,10 @@
-{ inputs, usrname, config, pkgs, lib, ... }:
+{ inputs, system, usrname, config, pkgs, lib, ... }:
 
 {
     imports = [
-        ./modules/options.nix
-        /etc/nixos/home-options.nix
-        ./modules/browser.nix
-        ./modules/scripts.nix
+        ./home-options.nix
+        /etc/nixos/home-local.nix
+        ./home-scripts.nix
     ];
 
     config = {
@@ -88,8 +87,9 @@
                 rb-system = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
                 rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
                 rb-both = "${rb}#master && ${rb-home}";
-                fullrb = "${rb-both} && ${gc} && xmonad --recompile && xmonad --restart";
+                fullrb = "${rb-both} && ${gc} && ${xc}";
                 gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
+                xc = "xmonad --recompile && xmonad --restart";
                 fullgc = "${gc} && ${rb-boot}";
                 hm = "home-manager";
                 gitpush = "git add . && git commit -m '--' && git push";
@@ -126,6 +126,104 @@
             enable = true;
             userName = "Roman Maksimovich";
             userEmail = "r.a.maksimovich@gmail.com";
+        };
+
+        programs.firefox = {
+            enable = true;
+            profiles = {
+                default = {
+                    id = 0;
+                    name = "default";
+                    isDefault = true;
+                    settings = {
+                        "browser.startup.homepage" = "about:home";
+                        "browser.tabs.inTitlebar" = 0;
+                        "browser.toolbars.bookmarks.visibility" = "never";
+                        "browser.search.defaultenginename" = "Google";
+                        "browser.search.order.1" = "Google";
+                        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                        "signon.rememberSignons" = false;
+                    };
+                    extensions = with inputs.firefox-addons.packages.${system}; [
+                        darkreader
+                        vimium
+                    ];
+                    bookmarks = [
+                        {
+                            name = "yt | YouTube";
+                            url = "https://youtube.com";
+                            keyword = "yt";
+                        }
+                        {
+                            name = "ym | YouTube Music";
+                            url = "https://music.youtube.com";
+                            keyword = "ym";
+                        }
+                        {
+                            name = "gh | GitHub";
+                            url = "https://github.com/thornoar";
+                            keyword = "gh";
+                        }
+                        {
+                            name = "qw | Work Mail";
+                            url = "https://mail.google.com/mail/u/1/#inbox";
+                            keyword = "qw";
+                        }
+                        {
+                            name = "as | Personal Mail";
+                            url = "https://mail.google.com/mail/u/0/#inbox";
+                            keyword = "as";
+                        }
+                        {
+                            name = "mn | MyNixOS";
+                            url = "https://mynixos.com";
+                            keyword = "mn";
+                        }
+                        {
+                            name = "tr | RuTracker";
+                            url = "https://rutracker.org";
+                            keyword = "tr";
+                        }
+                        {
+                            name = "li | LibGen";
+                            url = "https://libgen.is";
+                            keyword = "li";
+                        }
+                        {
+                            name = "ni | Nixhub.io";
+                            url = "https://www.nixhub.io/";
+                            keyword = "ni";
+                        }
+                    ];
+                    search = {
+                        force = true;
+                        default = "Google";
+                        order = [ "Google" "Searx" ];
+                    };
+                    userChrome = ''
+                        #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon{
+                        width: 0px !important;
+                        padding: 0px !important;
+                        }
+
+                        .titlebar-buttonbox-container{ display:none }
+
+                        #back-button, #forward-button { display:none!important; }
+
+                        #PanelUI-button { display:none!important; }
+
+                        #alltabs-button {
+                            display: none !important;
+                        }
+
+                        #urlbar ::-moz-selection,
+                        .searchbar-textbox ::-moz-selection {
+                        background-color: #0078d7 !important;
+                        color: #fff !important;
+                        }
+                    '';
+                };
+            };
         };
 
         programs.gh = { enable = true; };
