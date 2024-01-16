@@ -70,6 +70,7 @@
             flameshot
             obs-studio
             libnotify
+            zoom-us
 
             xmobar
         ];
