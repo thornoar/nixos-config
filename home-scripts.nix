@@ -54,7 +54,7 @@
             ''
         )
         (
-            writeShellScriptBin "run" "nix run nixpkgs#$1 \${@:2}"
+            writeShellScriptBin "run" "nix run nixpkgs#$1 -- \${@:2}"
         )
     ];
 }

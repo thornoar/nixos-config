@@ -63,6 +63,7 @@
             ueberzug
             lazygit
             cheat
+            # speedread
 
             telegram-desktop
             discord
@@ -72,7 +73,6 @@
             zoom-us
 
             xmobar
-            # xdotool
             xvkbd
         ];
 
