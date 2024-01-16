@@ -35,7 +35,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
-	'tpope/vim-fugitive',
+	-- 'tpope/vim-fugitive',
 	'tpope/vim-rhubarb',
 	'tpope/vim-surround',
 	'nanozuki/tabby.nvim',
@@ -45,20 +45,12 @@ require('lazy').setup({
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
 	'nvim-lualine/lualine.nvim',
-	-- 'archibate/lualine-time',
 	'dkarter/bullets.vim',
 	-- 'cljoly/telescope-repo.nvim',
-	-- 'folke/zen-mode.nvim',
 	'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
     'ap/vim-css-color',
-	-- 'serenevoid/kiwi.nvim',
     'nvim-tree/nvim-web-devicons',
-	-- {
-	-- 	'windwp/nvim-autopairs',
-	-- 	event = 'InsertEnter',
-	-- 	opts = {}
-	-- },
     {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration

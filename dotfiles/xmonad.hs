@@ -247,12 +247,12 @@ myKeys = [
 		, ("M-<Page_Up>", moveTo Prev nonNSP)
 		, ("M-M1-<Page_Down>", do
 			shiftTo Next nonNSP
-  			moveTo Next nonNSP
-  		)
+			moveTo Next nonNSP
+		)
 		, ("M-M1-<Page_Up>", do
 			shiftTo Prev nonNSP
-  			moveTo Prev nonNSP
-  		)
+			moveTo Prev nonNSP
+		)
         , ("M-g", toggleWS' ["NSP"])
 
     -- Scratchpads
