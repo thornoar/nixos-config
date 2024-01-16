@@ -223,10 +223,6 @@ km.set('x', '<leader>p', '\"_dP')
 km.set('n', '<leader>f', 'zf%')
 km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
 km.set('v', '<M-End>', 'J')
--- km.set('v', '>', '>gv')
--- km.set('v', '<', '<gv')
--- km.set('n', '>', '>>')
--- km.set('n', '<', '<<')
 -- $insert keymaps
 km.set('n', 'x', 'i')
 km.set('i', '<M-z>', '<C-n>')
@@ -236,8 +232,6 @@ km.set('i', '<M-s>', '<C-o>$;')
 km.set('i', '<C-q>', '<Esc>[s1z=A')
 km.set('i', '<C-w>', function () vim.cmd('silent write') end)
 -- $navigation keymaps
--- km.set('n', '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- km.set('n', '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 km.set('n', '<Up>', 'gk')
 km.set('n', '<Down>', 'gj')
 km.set('i', '<Up>', '<C-o>gk')
@@ -438,7 +432,6 @@ require('Comment').setup({
 })
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
--- $tabby setup
 -- $treesitter setup
 require('nvim-treesitter.configs').setup {
 	modules = {},
@@ -466,10 +459,10 @@ local function keymap()
 end
 require('onedark').setup  {
 	style = 'dark',
-	transparent = true,  -- Show/hide background
-	term_colors = true, -- Change terminal color as per the selected theme style
-	ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-	cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+	transparent = true,
+	term_colors = true,
+	ending_tildes = false,
+	cmp_itemkind_reverse = false,
 	toggle_style_key = "<leader>wt",
 	toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'},
 	code_style = {
@@ -497,8 +490,6 @@ require 'ibl'.setup({
 	whitespace = {
 		remove_blankline_trail = true,
 	},
-	-- char = ,
-	-- show_trailing_blankline_indent = false,
 })
 
 -- SETTINGS --
@@ -511,7 +502,7 @@ vim.o.breakat = '   '
 vim.opt.autochdir=true
 vim.o.shell = '/bin/sh'
 vim.wo.number = true
--- vim.wo.relativenumber = true
+vim.wo.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.breakindent = true
 vim.o.undofile = true

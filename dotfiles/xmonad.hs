@@ -212,7 +212,7 @@ myKeys = [
     -- Xmonad
     ("M-M1-<Home>", do
         spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart'")
-        spawn "killall xmobar && xmobar --recompile &"
+        -- spawn "killall xmobar && xmobar --recompile &"
     ),
     ("M-M1-<End>", spawn "killall xmobar && xmobar --recompile &"),
 
@@ -335,8 +335,8 @@ magnified =
     $ windowNavigation
     $ avoidStruts
     $ limitWindows 12
-    $ mySpacing' mySpace
     $ magnifier
+    $ mySpacing' mySpace
     $ ResizableTall 1 (3/100) (1/2) []
 
 grid =
@@ -351,9 +351,9 @@ grid =
 
 spirals =
     named "Spirals"
-    $ mySpacing mySpace
-    $ avoidStruts
     $ windowNavigation
+    $ avoidStruts
+    $ mySpacing mySpace
     $ spiral (6/7)
 
 tabs =
