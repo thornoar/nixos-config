@@ -15,7 +15,6 @@
 
         nixpkgs.config.allowUnfree = true;
         home.packages = with pkgs; [
-            # ranger
             moc
             mpv
             w3m
@@ -63,7 +62,6 @@
             cheat
             toipe
             broot
-            # speedread
             telegram-desktop
             discord
             flameshot
@@ -74,6 +72,7 @@
             xvkbd
             xwallpaper
             trash-cli
+            goldendict-ng
         ];
 
         programs.zsh = {
@@ -220,8 +219,8 @@
 
                         #urlbar ::-moz-selection,
                         .searchbar-textbox ::-moz-selection {
-                        background-color: #0078d7 !important;
-                        color: #fff !important;
+                        background-color: ${config.colorBlue1} !important;
+                        color: ${config.colorWhite2} !important;
                         }
                     '';
                 };
@@ -257,33 +256,9 @@
         xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
 
 
-        # # ranger setup
-        # xdg.configFile."ranger/rc.conf".text = ''
-        #     set preview_images_method ueberzug
-        #     set show_hidden false
-        #     map ;h cd /home/${usrname}/
-        #     map ;p cd /home/${usrname}/projects/
-        #     map ;l cd /home/${usrname}/.config
-        #     map ;e cd /etc/
-        #     map ;m cd /home/${usrname}/media
-        #     map ;c cd /home/${usrname}/.config/nvim
-        #     map ;k cd /run/media/${usrname}
-        #     map ;d cd /home/${usrname}/Downloads
-        # '';
-
         # keynav setup
         services.keynav.enable = true;
         xdg.configFile."keynav/keynavrc".source = ./dotfiles/keynavrc;
-
-        # xdg.mimeApps = {
-        #     enable = true;
-        #     associations.added = {
-        #         "image/jpg" = ["sxiv.desktop"];
-        #     };
-        #     defaultApplications = {
-        #         "image/jpg" = ["sxiv.desktop"];
-        #     };
-        # };
 
         xresources.properties = {
             "Xcursor.size" = 16;
