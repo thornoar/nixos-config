@@ -38,7 +38,7 @@ require('lazy').setup({
 	-- 'tpope/vim-fugitive',
 	'tpope/vim-rhubarb',
 	'tpope/vim-surround',
-	'nanozuki/tabby.nvim',
+	-- 'nanozuki/tabby.nvim',
 	'lervag/vimtex',
 	'farmergreg/vim-lastplace',
 	-- 'Xe/lolcode.vim',
@@ -50,18 +50,6 @@ require('lazy').setup({
 	'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
     'ap/vim-css-color',
-    'nvim-tree/nvim-web-devicons',
-    {
-        "kdheepak/lazygit.nvim",
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        config = function()
-            require("telescope").load_extension("lazygit")
-        end,
-    },
     {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
@@ -79,15 +67,6 @@ require('lazy').setup({
 		main = 'ibl',
 		opts = {},
 	},
-	{
-		'nvim-telescope/telescope-file-browser.nvim',
-		dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' }
-	},
-	{
-		'AckslD/nvim-neoclip.lua',
-		config = function() require('neoclip').setup() end,
-	},
-	{ 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 	{
 		'nvim-treesitter/nvim-treesitter',
 		dependencies = {
@@ -179,7 +158,7 @@ newcmd('D', function () vim.bo.keymap = 'german-qwertz' end)
 newcmd('L', function () vim.cmd('Lazy') end)
 newcmd('S', function () vim.wo.spell = not vim.wo.spell end)
 newcmd('NS', function () vim.cmd('set nospell') end)
-newcmd('G', function () vim.cmd('LazyGit') end)
+-- newcmd('G', function () vim.cmd('LazyGit') end)
 -- Autocommands
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson' }
@@ -197,36 +176,42 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 vim.cmd([[
 command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
 function! s:Dec2hex(line1, line2, arg) range
-  if empty(a:arg)
-    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
-      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    if empty(a:arg)
+        if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+            let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+        else
+            let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+        endif
+        try
+            execute a:line1 . ',' . a:line2 . cmd
+            catch
+                echo 'Error: No decimal number found'
+        endtry
     else
-      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+        echo printf('%x', a:arg + 0)
     endif
-    try
-      execute a:line1 . ',' . a:line2 . cmd
-    catch
-      echo 'Error: No decimal number found'
-    endtry
-  else
-    echo printf('%x', a:arg + 0)
-  endif
 endfunction
 ]])
 
 
 -- KEYMAPS --
 -- $text keymaps
-km.set('v', '<S-Left>', 'ygv<Esc>')
-km.set('n', '<S-Left>', 'yy')
 km.set('n', '<C-S-Left>', '<<')
 km.set('n', '<C-S-Right>', '>>')
 km.set('v', '<C-S-Left>', '<gv')
 km.set('v', '<C-S-Right>', '>gv')
-km.set('v', '<S-M-Left>', '\"+y')
-km.set('n', '<S-M-Left>', '\"+yy')
-km.set({'n', 'v'}, '<S-Right>', 'p')
-km.set({'n', 'v'}, '<S-M-Right>', '\"+p')
+
+km.set('v', '<S-M-Left>', 'ygv<Esc>')
+km.set('n', '<S-M-Left>', 'yy')
+km.set({'v', 'n'}, 'S-M-d', 'd')
+km.set({'n', 'v'}, '<S-M-Right>', 'p')
+
+km.set('v', 'd', '\"+d')
+km.set('n', 'dd', '\"+dd')
+km.set('v', '<S-Left>', '\"+y')
+km.set('n', '<S-Left>', '\"+yy')
+km.set({'n', 'v'}, '<S-Right>', '\"+p')
+
 km.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
 km.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -243,11 +228,12 @@ km.set('x', '<leader>p', '\"_dP')
 km.set('n', '<leader>f', 'zf%')
 km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
 km.set('v', '<M-End>', 'J')
+km.set('n', '<C-z>', 'u')
 -- $insert keymaps
 km.set('n', 'x', 'i')
-km.set('i', '<M-z>', '<C-n>')
-km.set('i', '<C-z>', '<C-o>:R<CR>')
-km.set('i', '<C-x>', '<C-o>:E<CR>')
+km.set('i', '<C-x>', '<C-n>')
+-- km.set('i', '<C-z>', '<C-o>:R<CR>')
+-- km.set('i', '<C-x>', '<C-o>:E<CR>')
 km.set('i', '<M-s>', '<C-o>$;')
 km.set('i', '<C-q>', '<Esc>[s1z=A')
 km.set('i', '<C-w>', function () vim.cmd('silent write') end)
@@ -289,7 +275,7 @@ km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 km.set('n', 'Z', function () vim.cmd('quit') end)
-km.set('n', '<leader>tr', function () vim.cmd('silent !$TERMINAL -e $FILEMANAGER&') end)
+km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e $FILEMANAGER&') end)
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 km.set('n', '<leader>l', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak.nix') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak.nix') end)
@@ -304,126 +290,8 @@ km.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic 
 km.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
--- $telescope keymaps
-km.set('n', '<C-s>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-km.set('n', '<C-_>', function()
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        previewer = false,
-        theme = 'ivy',
-    })
-end)
-km.set('n', '<M-/>', require('telescope.builtin').live_grep)
-km.set('n', '<leader>cd', require('telescope.builtin').builtin)
-km.set('n', '<leader>:', require('telescope.builtin').commands)
-km.set('n', '>', require('telescope').extensions.neoclip['a'])
-km.set('n', '<C-f>', function () require('telescope').extensions.file_browser.file_browser({ path = vim.loop.cwd() }) end)
-km.set('n', '<C-x>', require('telescope.builtin').find_files)
-km.set('n', '<C-d>', require('telescope.builtin').oldfiles)
-km.set('n', '<M-CR>', require('telescope.builtin').help_tags)
-km.set('n', '<leader>s', require('telescope.builtin').grep_string)
-km.set('n', '<leader>q', require('telescope.builtin').quickfix)
-km.set('n', '<leader>cs', require('telescope.builtin').colorscheme)
-km.set('n', '<C-j>', require('telescope.builtin').jumplist)
-km.set('n', '<C-z>', 'u')
-
--- TELESCOPE --
-local state = require("telescope.state")
-local action_state = require("telescope.actions.state")
-local slow_scroll = function(prompt_bufnr, direction)
-    local previewer = action_state.get_current_picker(prompt_bufnr).previewer
-    local status = state.get_status(prompt_bufnr)
-
-    -- Check if we actually have a previewer and a preview window
-    if type(previewer) ~= "table" or previewer.scroll_fn == nil or status.preview_win == nil then
-        return
-    end
-
-    previewer:scroll_fn(1 * direction)
-end
-local fb_actions = require "telescope._extensions.file_browser.actions"
-require('telescope').setup {
-	extensions = {
-		file_browser = {
-			theme = 'ivy',
-			path = vim.loop.cwd(),
-			cwd = vim.loop.cwd(),
-			cwd_to_path = true,
-			grouped = true,
-			files = true,
-			add_dirs = true,
-			depth = 1,
-			auto_depth = false,
-			select_buffer = false,
-			hidden = { file_browser = false, folder_browser = false },
-			respect_gitignore = vim.fn.executable "fd" == 1,
-			no_ignore = false,
-			follow_symlinks = true,
-			browse_files = require("telescope._extensions.file_browser.finders").browse_files,
-			browse_folders = require("telescope._extensions.file_browser.finders").browse_folders,
-			hide_parent_dir = false,
-			collapse_dirs = false,
-			prompt_path = false,
-			quiet = false,
-			dir_icon = "",
-			dir_icon_hl = "Default",
-			display_stat = { date = true, size = true, mode = true },
-			hijack_netrw = true,
-			use_fd = true,
-			git_status = true,
-			mappings = {
-				["i"] = {
-					["<C-a>"] = fb_actions.create,
-					["<S-CR>"] = fb_actions.create_from_prompt,
-					["<C-r>"] = fb_actions.rename,
-					["<C-x>"] = fb_actions.move,
-					["<C-v>"] = fb_actions.copy,
-					["<C-d>"] = fb_actions.remove,
-					["<C-s>"] = fb_actions.open,
-					["<C-w>"] = fb_actions.goto_home_dir,
-					["<C-CR>"] = fb_actions.goto_cwd,
-					["<C-e>"] = fb_actions.change_cwd,
-					["<C-f>"] = fb_actions.toggle_browser,
-					["<A-s>"] = fb_actions.toggle_hidden,
-					["<A-a>"] = fb_actions.toggle_all,
-					["<S-Left>"] = fb_actions.goto_parent_dir,
-					-- ["<C-t>"] = require('telescope.actions').select_tab,
-				},
-				["n"] = {
-					["a"] = fb_actions.create,
-					["r"] = fb_actions.rename,
-					["x"] = fb_actions.move,
-					["c"] = fb_actions.copy,
-					["d"] = fb_actions.remove,
-					["s"] = fb_actions.open,
-					["g"] = fb_actions.goto_parent_dir,
-					["w"] = fb_actions.goto_home_dir,
-					["<CR>"] = fb_actions.goto_cwd,
-					["e"] = fb_actions.change_cwd,
-					["f"] = fb_actions.toggle_browser,
-					["h"] = fb_actions.toggle_hidden,
-					["t"] = fb_actions.toggle_all,
-				},
-			},
-		},
-    },
-	defaults = {
-		mappings = {
-			i = {
-                ['<C-Right>'] = require('telescope.actions').select_tab,
-                ['<C-Up>'] = require('telescope.actions').select_horizontal,
-                ['<C-Left>'] = require('telescope.actions').select_vertical,
-				['<M-Up>'] = function (bufnr) slow_scroll(bufnr, -2) end,
-				['<M-Down>'] = function (bufnr) slow_scroll(bufnr, 2) end,
-				['<S-Right>'] = function (bufnr) vim.cmd('call feedkeys("\\<CR>")') end 
-			},
-			n = {
-				["<C-c>"] = function (bufnr) vim.cmd('call feedkeys("i")') end
-			}
-		},
-	},
-}
-pcall(require'telescope'.load_extension, 'neoclip')
-require'telescope'.load_extension 'file_browser'
+-- $new keybinds
+km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit') end)
 
 -- REMAINDER --
 -- $Comment setup
@@ -604,9 +472,7 @@ vim.cmd(
 ]])
 
 package.path = package.path .. ';'..home..'/programming/nvim-subfiles/lua/?.lua'
--- package.path = package.path .. ';/home/ramak/projects/programming/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
   ['subfile'] = 'SF',
   ['subfigure'] = 'F',
 })
--- require('nvim-subfiles').setup({})

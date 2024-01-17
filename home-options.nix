@@ -200,30 +200,6 @@
                     lualine_z = {'location'},
                 },
             }
-            local theme = {
-                -- fill = 'TabLineFill',
-                fill = { bg = "${config.bgColor1}" },
-                head = 'TabLine',
-                -- current_tab = { fg = "${config.colorBlack}", bg = "${config.colorBlue0}", style = 'italic' },--'TabLineSel',
-                current_tab = { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' },--'TabLineSel',
-                tab = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
-                win = 'TabLine',
-                tail = 'TabLine',
-            }
-            require('tabby.tabline').set(function(line)
-                return {
-                    line.tabs().foreach(function(tab)
-                        local hl = tab.is_current() and theme.current_tab or theme.tab
-                        return {
-                            line.sep("", hl, theme.fill),
-                            tab.name(),
-                            line.sep("", hl, theme.fill),
-                            hl = hl,
-                            margin = ' ',
-                        }
-                    end),
-                }
-            end)
         '';
 
         programs.alacritty = {
@@ -305,7 +281,7 @@
 
         xdg.configFile."broot/conf.hjson".source = ./dotfiles/broot/conf.hjson;
         xdg.configFile."broot/verbs.hjson".source = ./dotfiles/broot/verbs.hjson;
-        home.file.".local/share/fonts/vscode.ttf".source = ./dotfiles/vscode.ttf;
+        # home.file.".local/share/fonts/vscode.ttf".source = ./dotfiles/vscode.ttf;
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 #default: #235219178 none / #189174147 none

@@ -114,26 +114,14 @@
                 quit = "exit";
                 grep = "grep --color=auto";
                 spank = "mommy";
+                q = "qalc -c";
             };    
             initExtra = ''
                 autoload -U colors && colors
                 PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
                 eval $(thefuck --alias)
                 source $NIXOS_CONFIG/dotfiles/shell-billy.sh
-
-                function br {
-                    local cmd cmd_file code
-                    cmd_file=$(mktemp)
-                    if broot --outcmd "$cmd_file" "$@"; then
-                        cmd=$(<"$cmd_file")
-                        command rm -f "$cmd_file"
-                        eval "$cmd"
-                    else
-                        code=$?
-                        command rm -f "$cmd_file"
-                        return "$code"
-                    fi
-                }
+                source $NIXOS_CONFIG/dotfiles/br.sh
             '';
         };
 
@@ -268,7 +256,6 @@
 
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
-
 
         # keynav setup
         services.keynav.enable = true;

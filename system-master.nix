@@ -29,7 +29,7 @@
             HISTCONTROL = "ignoreboth";
             BROWSER = "firefox";
             READER = "zathura";
-            FILEMANAGER = "broot";
+            FILEMANAGER = "br";
         };
         environment.systemPackages = with pkgs; [
             home-manager

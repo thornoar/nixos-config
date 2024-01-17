@@ -111,6 +111,9 @@ myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
+myFloatingRectangle :: W.RationalRect
+myFloatingRectangle = W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3)
+
 archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
 archwiki    = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
 nixoswiki   = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="
@@ -201,7 +204,11 @@ myXPConfig = def {
 myPrograms :: [String]
 myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "goldendict" ]
 
-scratchpads = [ NS "Scratchpad" (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad") (customFloating $ W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3)) ]
+myScratchpads = [
+    NS "Scratchpad" (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator' --class 'Scratchpad'") (title =? "Calculator") (customFloating myFloatingRectangle),
+    NS "GoldenDict" ("goldendict") (title =? "GoldenDict") (customFloating myFloatingRectangle),
+    NS "Music Player" (myTerminal++" --title 'Music Player' --class 'Scratchpad' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -228,10 +235,7 @@ myKeys = [
     ("M-<Delete>", killAllFloating),
 
     -- Quick Programs
-    ("M-e", spawn ( myTerminal ++ " --title 'Filemanager' -e $FILEMANAGER" )),
-    ("M-x", spawn ( myTerminal ++ " --title 'Neovim' -e zsh -c 'cd $PROJECTS && nvim'" )),
-    ("M-v", spawn ( myTerminal ++ " --title 'Music Player' -e mocp" )),
-    ("M-g", spawn ( myTerminal ++ " --title 'Calculator' -e qalc -c" )),
+    ("M-x", spawn ( myTerminal ++ " --title 'File Manager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-w", spawn myBrowser),
     ("M-a", spawn myTerminal),
 
@@ -239,8 +243,6 @@ myKeys = [
     ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
 
     -- Workspaces
-    -- ("M-<Page_Down>", nextWS),
-    -- ("M-<Page_Up>", prevWS),
     ("M-<Page_Down>", moveTo Next nonNSP),
     ("M-<Page_Up>", moveTo Prev nonNSP),
     ("M-M1-<Page_Down>", do
@@ -253,15 +255,17 @@ myKeys = [
     ),
     ("M-s", toggleWS' ["NSP"]),
 
-    -- Scratchpads
-    ("M-f", namedScratchpadAction scratchpads "Scratchpad"),
+    -- myScratchpads
+    ("M-f", namedScratchpadAction myScratchpads "Scratchpad"),
+    ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
+    ("M-v", namedScratchpadAction myScratchpads "Music Player"),
+    ("M-q", namedScratchpadAction myScratchpads "Calculator"),
 
     -- Windows navigation
     ("M-<Down>", sendMessage $ Go D),
     ("M-<Up>", sendMessage $ Go U),
     ("M-<Left>", sendMessage $ Go L),
     ("M-<Right>", sendMessage $ Go R),
-    -- ("M-/", windows W.focusDown),
     ("M-M1-<Left>", windows W.swapMaster),
     ("M-M1-<Down>", windows W.swapDown),
     ("M-M1-<Up>", windows W.swapUp),
@@ -311,7 +315,7 @@ myKeys = [
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures") ]
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-    ++ [("M-q " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
+    ++ [("M-e " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
 -- Layouts:
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -385,7 +389,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll [
     insertPosition Below Newer,
     title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim", "Calculator" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
+    (myAnd (title /? [ "Alacritty", "File Manager", "Compiling", "Neovim", "Calculator", "GoldenDict" ]) (className /? [ "firefox", "Zathura", "Scratchpad", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -428,6 +432,10 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
+-- myHandleEventHook = swallowEventHook (title =? "File Manager") (return True)
+-- myHandleEventHook = swallowEventHook (return True) (return True)
+myHandleEventHook = mempty
+
 main =
     xmonad $
     ewmhFullscreen .
@@ -445,8 +453,8 @@ defaults = def {
     modMask            = myModMask,
     workspaces         = myWorkspaces,
     layoutHook         = minimize . BW.boringWindows $ myLayout,
-    manageHook         = myManageHook <+> namedScratchpadManageHook scratchpads,
-    handleEventHook    = mempty,
+    manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
+    handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,
     logHook            = refocusLastLogHook }
     `additionalKeysP` myKeys
