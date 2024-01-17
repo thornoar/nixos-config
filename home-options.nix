@@ -305,6 +305,7 @@
 
         xdg.configFile."broot/conf.hjson".source = ./dotfiles/broot/conf.hjson;
         xdg.configFile."broot/verbs.hjson".source = ./dotfiles/broot/verbs.hjson;
+        home.file.".local/share/fonts/vscode.ttf".source = ./dotfiles/vscode.ttf;
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 #default: #235219178 none / #189174147 none

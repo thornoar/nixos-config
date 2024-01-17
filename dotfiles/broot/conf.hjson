@@ -92,7 +92,7 @@ show_selection_mark: true
 # If you want to display icons in broot, uncomment this line
 # (see https://dystroy.org/broot/icons for installation and
 # troubleshooting)
-#
+
 # icon_theme: vscode
 
 ###############################################################

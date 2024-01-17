@@ -266,8 +266,8 @@ myKeys = [
     ("M-M1-<Down>", windows W.swapDown),
     ("M-M1-<Up>", windows W.swapUp),
     ("M-M1-<Right>", rotSlavesDown),
-    ("M-<Home>", windows W.focusUp),
-    ("M-<End>", windows W.focusDown),
+    ("M-<Home>", BW.focusUp),
+    ("M-<End>", BW.focusDown),
     ("M-d", withFocused minimizeWindow),
     ("M-b", withLastMinimized maximizeWindowAndFocus),
 
