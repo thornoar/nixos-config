@@ -27,6 +27,7 @@
         colorWhite1 = mkOpt "str" "#f8f8f2";
         colorWhite2 = mkOpt "str" "#e6efff";
         colorWhite3 = mkOpt "str" "#bbbbbb";
+        colorWhite4 = mkOpt "str" "#6b6b6b";
 
         colorYellow0 = mkOpt "str" "#f1fa8c";
         colorYellow1 = mkOpt "str" "#d19a66";
@@ -35,8 +36,8 @@
         colorOrange = mkOpt "str" "#ffb86c";
 
         colorBlue0 = mkOpt "str" "#bd93f9";
-        colorBlue2 = mkOpt "str" "#6272a4";
         colorBlue1 = mkOpt "str" "#61afef";
+        colorBlue2 = mkOpt "str" "#6272a4";
         colorCyan = mkOpt "str" "#56b6c2";
         colorGreen0 = mkOpt "str" "#89a870";
         colorGreen1 = mkOpt "str" "#329c48";
@@ -86,7 +87,7 @@
         xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ./dotfiles/xmonad.hs) + ''
             -- Home-Manager settings
 
-            setWallpaperCmd = spawn "feh --randomize --bg-fill $MEDIA/wallpapers/${config.wallpaperDir}"
+            setWallpaperCmd = spawn "xwallpaper --center $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
 
             mySpace :: Integer
             mySpace = ${builtins.toString config.windowSpace}
@@ -293,7 +294,7 @@
                     x = config.padding.x;
                     y = config.padding.y;
                 };
-                keyboard.bindings = [
+                key_bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
                     { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
@@ -301,5 +302,90 @@
                 ];
             };
         };
+
+        xdg.configFile."broot/conf.hjson".source = ./dotfiles/broot/conf.hjson;
+        xdg.configFile."broot/verbs.hjson".source = ./dotfiles/broot/verbs.hjson;
+        xdg.configFile."broot/colorscheme.hjson".text = ''
+            skin: {
+                #default: #235219178 none / #189174147 none
+                default: "${config.colorWhite3} None / ${config.colorWhite4} None"
+                tree: "#707080 None / #606060 None"
+                parent: "${config.colorYellow0} None / ${config.colorYellow1} None"
+                file: "None None / None  None Italic"
+                directory: "${config.colorBlue1} None Bold / ${config.colorBlue1} None"
+                exe: "#b8bb26 None"
+                link: "#689d6a None"
+                pruning: "#7c6f64 None"
+                perm__: "None None"
+                # perm_r: "#d79921 None"
+                # perm_w: "#cc241d None"
+                # perm_x: "#98971a None"
+                perm_r: "${config.colorYellow0} None"
+                perm_w: "${config.colorRed1} None"
+                perm_x: "${config.colorOrange} None"
+                owner: "${config.colorBlue0} None Bold"
+                group: "${config.colorMagenta1} None"
+                count: "#458588 #32302f"
+                dates: "#a89984 None"
+                sparse: "#fabd2f None"
+                content_extract: "ansi(29) None"
+                content_match: ""${config.colorMagenta0} None Bold""
+                git_branch: "#fbf1c7 None"
+                git_insertions: "${config.colorGreen0} None"
+                git_deletions: "#be0f17 None"
+                git_status_current: "#3c3836 None"
+                git_status_modified: "${config.colorGreen0} None"
+                git_status_new: "#68bb26 None Bold"
+                git_status_ignored: "#d5c4a1 None"
+                git_status_conflicted: "#cc241d None"
+                git_status_other: "#cc241d None"
+                selected_line: "None #3c3836 / None #32302f"
+                char_match: "${config.colorYellow1} None"
+                file_error: "${config.colorRed1} None"
+                flag_label: "#bdae93 None"
+                flag_value: "#d3869b None Bold"
+                input: "#fbf1c7 None / #bdae93 None"
+                status_error: "#d5c4a1 #cc241d"
+                status_job: "${config.colorYellow1} #3c3836"
+                status_normal: "None #282625 / None None"
+                status_italic: "#d3869b #282625 / None None"
+                status_bold: "#d3869b #282625 Bold / None None"
+                status_code: "#fbf1c7 #282625 / None None"
+                status_ellipsis: "#fbf1c7 #282625  Bold / None None"
+                purpose_normal: "None None"
+                purpose_italic: "#b16286 None"
+                purpose_bold: "#b16286 None Bold"
+                purpose_ellipsis: "None None"
+                scrollbar_track: "#504945 None / #32302f None"
+                scrollbar_thumb: "#d5c4a1 None / #665c54 None"
+                help_paragraph: "None None"
+                help_bold: "#d65d0e None Bold"
+                help_italic: "#d3869b None"
+                help_code: "#8ec07c #32302f"
+                help_headers: "#fe8019 None Bold"
+                help_table_border: "#504945 None"
+                preview_title: "#ebdbb2 #282828 / #bdae93 #282828"
+                preview: "#ebdbb2 #282828 / #ebdbb2 #282828"
+                preview_line_number: "#7c6f64 None / #7c6f64 #282828"
+                preview_match: "None ansi(29) Bold"
+                hex_null: "#bdae93 None"
+                hex_ascii_graphic: "#d5c4a1 None"
+                hex_ascii_whitespace: "#98971a None"
+                hex_ascii_other: "#fe8019 None"
+                hex_non_ascii: "#d65d0e None"
+                staging_area_title: "#ebdbb2 #282828 / #bdae93 #282828"
+                mode_command_mark: "gray(5) ansi(204) Bold"
+                good_to_bad_0: "ansi(28)"
+                good_to_bad_1: "ansi(29)"
+                good_to_bad_2: "ansi(29)"
+                good_to_bad_3: "ansi(29)"
+                good_to_bad_4: "ansi(29)"
+                good_to_bad_5: "ansi(100)"
+                good_to_bad_6: "ansi(136)"
+                good_to_bad_7: "ansi(172)"
+                good_to_bad_8: "ansi(166)"
+                good_to_bad_9: "ansi(196)"
+            }
+        '';
     };
 }

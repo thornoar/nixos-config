@@ -24,11 +24,12 @@
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:${PROJECTS}/libs:$TEXINPUTS";
             EDITOR = "nvim";
+            VISUAL = "${EDITOR}";
             TERMINAL = "alacritty";
             HISTCONTROL = "ignoreboth";
             BROWSER = "firefox";
             READER = "zathura";
-            FILEMANAGER = "ranger";
+            FILEMANAGER = "broot";
         };
         environment.systemPackages = with pkgs; [
             home-manager

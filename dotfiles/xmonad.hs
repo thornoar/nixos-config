@@ -38,6 +38,7 @@ import XMonad.Layout.Minimize
 import XMonad.Layout.TwoPane
 import XMonad.Layout.LimitWindows
 import qualified XMonad.Layout.BoringWindows as BW
+import XMonad.Layout.NoBorders
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -325,6 +326,7 @@ named s = renamed [ Replace s ]
 tall = 
     named "Master & Slaves"
     $ windowNavigation
+    -- $ smartBorders
     $ avoidStruts
     $ limitWindows 5
     $ mySpacing' mySpace
@@ -383,7 +385,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll [
     insertPosition Below Newer,
     title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
+    (myAnd (title /? [ "Alacritty", "Filemanager", "Scratchpad", "Neovim", "Calculator" ]) (className /? [ "firefox", "Floating", "Zathura", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -436,6 +438,8 @@ main =
 defaults = def {
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
+    focusedBorderColor = colorMagenta0,
+    normalBorderColor  = colorBlue0,
     clickJustFocuses   = myClickJustFocuses,
     borderWidth        = myBorderWidth,
     modMask            = myModMask,

@@ -1,0 +1,117 @@
+###############################################################
+# This file contains the verb definitions for broot
+#
+# Some verbs here are examples and not enabled by default: you
+#  need to uncomment them if you want to use them.
+#
+# Documentation at https://dystroy.org/broot/verbs/
+###############################################################
+
+verbs: [
+
+    # You should customize this standard opening of text files.
+    # If you edit text files in your terminal (vi, emacs, helix, eg.), then
+    #  you'll find it convenient to change the 'key' from 'ctrl-e' to 'enter'.
+    #
+    # If $EDITOR isn't set on your computer, you should either set it using
+    #  something similar to
+    #    export EDITOR=/usr/local/bin/nvim
+    #  or just replace it with your editor of choice in the 'execution'
+    #  pattern.
+    # If your editor is able to open a file on a specific line, use {line}
+    #  so that you may jump directly at the right line from a preview or
+    #  a content search.
+    # Examples depending on your favourite editor:
+    #    execution: "nvim +{line} {file}"
+    #    execution: "helix {file}:{line}"
+    {
+        invocation: edit
+        shortcut: e
+        key: shift-Right
+        apply_to: text_file
+        execution: "$EDITOR {file}"
+        leave_broot: false
+    }
+
+    {
+        invocation: esc
+        key: ctrl-c
+        internal: escape
+        leave_broot: false
+    }
+
+    {
+        internal: focus
+        key: shift-Right
+        apply_to: directory
+        leave_broot: false
+    }
+
+    {
+        name: touch
+        invocation: touch {new_file}
+        execution: "touch {directory}/{new_file}"
+        leave_broot: false
+    }
+
+    {
+        invocation: create {subpath}
+        shortcut: cr
+        execution: "$EDITOR {directory}/{subpath}"
+        leave_broot: false
+    }
+
+    {
+        invocation: git_diff
+        shortcut: gd
+        leave_broot: false
+        execution: "git difftool -y {file}"
+    }
+
+    # On ctrl-b, propose the creation of a copy of the selection.
+    # While this might occasionally be useful, this verb is mostly here
+    # as an example to demonstrate rare standard groups like {file-stem}
+    # and {file-dot-extension} and the auto_exec verb property which
+    # allows verbs to stay unexecuted until you hit enter
+    {
+        invocation: "backup {version}"
+        key: ctrl-b
+        leave_broot: false
+        auto_exec: false
+        execution: "cp -r {file} {parent}/{file-stem}-{version}{file-dot-extension}"
+    }
+
+    {
+        invocation: terminal
+        key: ctrl-a
+        execution: "$SHELL"
+        set_working_dir: true
+        leave_broot: false
+    }
+
+    {
+        invocation: "cpa {dest}"
+        external: "cp -r {directory}/* {dest}"
+        from_shell: true
+    }
+
+    {
+        invocation: home
+        key: ctrl-home
+        execution: ":focus ~"
+    }
+
+    # Here's going to the work-dir root of the current git repository
+    {
+        invocation: gtr
+        execution: ":focus {git-root}"
+    }
+
+    # If you develop using git, you might like to often switch
+    # to the git status filter:
+    # {
+    #     key: alt-g
+    #     execution: ":toggle_git_status"
+    # }
+]
+

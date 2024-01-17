@@ -182,7 +182,7 @@ newcmd('NS', function () vim.cmd('set nospell') end)
 newcmd('G', function () vim.cmd('LazyGit') end)
 -- Autocommands
 autosave = true
-autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix' }
+autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 	pattern = autosavepattern,
 	callback = function()
@@ -193,6 +193,26 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 	pattern = {'*.md', '*.txt'},
 	command = 'setlocal spell! spelllang=en_us'
 })
+
+vim.cmd([[
+command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+function! s:Dec2hex(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    else
+      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No decimal number found'
+    endtry
+  else
+    echo printf('%x', a:arg + 0)
+  endif
+endfunction
+]])
 
 
 -- KEYMAPS --
@@ -269,8 +289,8 @@ km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 km.set('n', 'Z', function () vim.cmd('quit') end)
-km.set('n', '<leader>tr', function () vim.cmd('silent !alacritty -e ranger&') end)
-km.set('n', '<C-a>', function () vim.cmd('silent !alacritty&') end)
+km.set('n', '<leader>tr', function () vim.cmd('silent !$TERMINAL -e $FILEMANAGER&') end)
+km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 km.set('n', '<leader>l', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak.nix') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak.nix') end)
 km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)

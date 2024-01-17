@@ -15,11 +15,10 @@
 
         nixpkgs.config.allowUnfree = true;
         home.packages = with pkgs; [
-            ranger
+            # ranger
             moc
             mpv
             w3m
-            feh
             ncdu
             playerctl
             keynav
@@ -30,14 +29,13 @@
             transmission
             brightnessctl
             acpi
-
             ghostscript
             pkgs.texlive.combined.scheme-full
             zathura
             ghc
             python3
             R
-
+            manim
             bc
             neofetch
             file
@@ -63,17 +61,19 @@
             ueberzug
             lazygit
             cheat
+            toipe
+            broot
             # speedread
-
             telegram-desktop
             discord
             flameshot
             obs-studio
             libnotify
             zoom-us
-
             xmobar
             xvkbd
+            xwallpaper
+            trash-cli
         ];
 
         programs.zsh = {
@@ -114,11 +114,13 @@
                 calc = "qalc -c";
                 quit = "exit";
                 grep = "grep --color=auto";
+                spank = "mommy";
             };    
             initExtra = ''
                 autoload -U colors && colors
                 PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
                 eval $(thefuck --alias)
+                source $NIXOS_CONFIG/dotfiles/shell-billy.sh
             '';
         };
 
@@ -255,23 +257,33 @@
         xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
 
 
-        # ranger setup
-        xdg.configFile."ranger/rc.conf".text = ''
-            set preview_images_method ueberzug
-            set show_hidden false
-            map ;h cd /home/${usrname}/
-            map ;p cd /home/${usrname}/projects/
-            map ;l cd /home/${usrname}/.config
-            map ;e cd /etc/
-            map ;m cd /home/${usrname}/media
-            map ;c cd /home/${usrname}/.config/nvim
-            map ;k cd /run/media/${usrname}
-            map ;d cd /home/${usrname}/Downloads
-        '';
+        # # ranger setup
+        # xdg.configFile."ranger/rc.conf".text = ''
+        #     set preview_images_method ueberzug
+        #     set show_hidden false
+        #     map ;h cd /home/${usrname}/
+        #     map ;p cd /home/${usrname}/projects/
+        #     map ;l cd /home/${usrname}/.config
+        #     map ;e cd /etc/
+        #     map ;m cd /home/${usrname}/media
+        #     map ;c cd /home/${usrname}/.config/nvim
+        #     map ;k cd /run/media/${usrname}
+        #     map ;d cd /home/${usrname}/Downloads
+        # '';
 
         # keynav setup
         services.keynav.enable = true;
         xdg.configFile."keynav/keynavrc".source = ./dotfiles/keynavrc;
+
+        # xdg.mimeApps = {
+        #     enable = true;
+        #     associations.added = {
+        #         "image/jpg" = ["sxiv.desktop"];
+        #     };
+        #     defaultApplications = {
+        #         "image/jpg" = ["sxiv.desktop"];
+        #     };
+        # };
 
         xresources.properties = {
             "Xcursor.size" = 16;
