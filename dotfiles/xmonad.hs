@@ -432,9 +432,9 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
--- myHandleEventHook = swallowEventHook (title =? "File Manager") (return True)
+myHandleEventHook = swallowEventHook (title =? "File Manager") (return True)
 -- myHandleEventHook = swallowEventHook (return True) (return True)
-myHandleEventHook = mempty
+-- myHandleEventHook = mempty
 
 main =
     xmonad $

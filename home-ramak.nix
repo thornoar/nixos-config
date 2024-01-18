@@ -73,6 +73,7 @@
             xwallpaper
             trash-cli
             goldendict-ng
+            gource
         ];
 
         programs.zsh = {
