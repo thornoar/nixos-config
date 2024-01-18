@@ -253,7 +253,7 @@ myKeys = [
         shiftTo Prev nonNSP
         moveTo Prev nonNSP
     ),
-    ("M-s", toggleWS' ["NSP"]),
+    ("M-<Tab>", toggleWS' ["NSP"]),
 
     -- myScratchpads
     ("M-f", namedScratchpadAction myScratchpads "Scratchpad"),
@@ -272,6 +272,7 @@ myKeys = [
     ("M-M1-<Right>", rotSlavesDown),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
+    ("M-s", toggleFocus),
     ("M-d", withFocused minimizeWindow),
     ("M-b", withLastMinimized maximizeWindowAndFocus),
 
@@ -310,8 +311,8 @@ myKeys = [
     ("M-S-<Left>", spawn "mocp --seek -5"),
     ("M-<Space>", spawn "mocp --toggle-pause"),
     ("M-z <Space>", spawn "playerctl play-pause"),
-    ("M-z <Right>", spawn "playerctl next"),
-    ("M-z <Left>", spawn "playerctl previous"),
+    ("M-z <Down>", spawn "playerctl next"),
+    ("M-z <Up>", spawn "playerctl previous"),
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures") ]
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]

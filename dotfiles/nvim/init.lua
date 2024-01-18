@@ -291,7 +291,7 @@ km.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic mess
 km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 -- $new keybinds
-km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit') end)
+km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
 
 -- REMAINDER --
 -- $Comment setup
@@ -444,7 +444,7 @@ vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line 
 -- vim.g.vimtex_view_automatic = 1
 vim.g.vimtex_mappings_prefix = '\\'
 -- vim.g.vimtex_compiler_method = 'latexmk'
-vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 1, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
+vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 -- vim.o.conceallevel = 1
 -- vim.g.tex_conceal = 'abdmg'
 -- vim.cmd('hi Conceal ctermbg=none')

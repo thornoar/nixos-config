@@ -111,5 +111,13 @@ verbs: [
         invocation: gtr
         execution: ":focus {git-root}"
     }
+    {
+        key: alt-s
+        cmd: ":toggle_stage;:line_down"
+    }
+    {
+        key: ctrl-r
+        cmd: ":toggle_hidden"
+    }
 ]
 
