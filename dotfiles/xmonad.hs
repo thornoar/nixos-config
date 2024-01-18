@@ -389,7 +389,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll [
     insertPosition Below Newer,
     title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (myAnd (title /? [ "Alacritty", "File Manager", "Compiling", "Neovim", "Calculator", "GoldenDict" ]) (className /? [ "firefox", "Zathura", "Scratchpad", "Sxiv" ])) --> (viewShift ( last myWorkspaces )) ]
+    (className /? [ "firefox", "Alacritty", "Zathura", "Scratchpad", "Sxiv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -432,7 +432,7 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = swallowEventHook (title =? "File Manager") (return True)
+myHandleEventHook = swallowEventHook (title =? "File Manager") ((fmap not) $ title =? "Alacritty")
 -- myHandleEventHook = swallowEventHook (return True) (return True)
 -- myHandleEventHook = mempty
 
