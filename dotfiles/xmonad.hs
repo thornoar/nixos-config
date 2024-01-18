@@ -205,10 +205,10 @@ myPrograms :: [String]
 myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "goldendict" ]
 
 myScratchpads = [
-    NS "Scratchpad" (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
-    NS "Calculator" (myTerminal++" --title 'Calculator' --class 'Scratchpad' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
-    NS "GoldenDict" ("goldendict") (title =? "GoldenDict") (customFloating myFloatingRectangle),
-    NS "Music Player" (myTerminal++" --title 'Music Player' --class 'Scratchpad' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
+    NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
+    NS "GoldenDict" ("goldendict") (title =? "GoldenDict-ng") (customFloating myFloatingRectangle),
+    NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -374,7 +374,7 @@ tabs =
 myIntersect :: [Bool] -> Bool
 myIntersect = foldr (\a b -> a && b) True
 myUnion :: [Bool] -> Bool
-myUnion = foldr (\a b -> a || b) True
+myUnion = foldr (\a b -> a || b) False
 
 (/?) :: Eq a => Query a -> [a] -> Query Bool
 q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
@@ -394,7 +394,8 @@ myManageHook :: ManageHook
 myManageHook = composeAll [
     insertPosition Below Newer,
     title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (className /? [ "firefox", "Alacritty", "Zathura", "Scratchpad", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
+    (className /? [ "firefox", "Alacritty", "Zathura", "GoldenDict-ng", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
+    -- (className |? [  ]) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
