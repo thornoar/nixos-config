@@ -116,6 +116,7 @@
                 grep = "grep --color=auto";
                 fucking = "mommy";
                 q = "qalc -c";
+                sxiv = "sxiv -b";
             };    
             initExtra = ''
                 autoload -U colors && colors
