@@ -373,9 +373,14 @@ tabs =
 
 myIntersect :: [Bool] -> Bool
 myIntersect = foldr (\a b -> a && b) True
+myUnion :: [Bool] -> Bool
+myUnion = foldr (\a b -> a || b) True
 
 (/?) :: Eq a => Query a -> [a] -> Query Bool
 q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
+
+(|?) :: Eq a => Query a -> [a] -> Query Bool
+q |? xs = (fmap myUnion) $ sequence [ (q =? x) | x <- xs ]
 
 viewShift = doF . liftM2 (.) W.greedyView W.shift
 
@@ -389,7 +394,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll [
     insertPosition Below Newer,
     title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (className /? [ "firefox", "Alacritty", "Zathura", "Scratchpad", "Sxiv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
+    (className /? [ "firefox", "Alacritty", "Zathura", "Scratchpad", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -432,7 +437,7 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = swallowEventHook (title =? "File Manager") ((fmap not) $ title =? "Alacritty")
+myHandleEventHook = swallowEventHook (title =? "File Manager") (className |? ["Zathura", "mpv"])
 -- myHandleEventHook = swallowEventHook (return True) (return True)
 -- myHandleEventHook = mempty
 
