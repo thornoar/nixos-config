@@ -207,7 +207,7 @@ myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "go
 myScratchpads = [
     NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
-    NS "GoldenDict" ("goldendict") (title =? "GoldenDict-ng") (customFloating myFloatingRectangle),
+    NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))

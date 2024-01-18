@@ -191,6 +191,7 @@ content_search_max_file_size: 10MB
 # it has a light one.
 imports: [
     verbs.hjson
+
     {
         luma: [
             dark
