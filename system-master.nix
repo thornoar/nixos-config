@@ -30,6 +30,15 @@
             BROWSER = "firefox";
             READER = "zathura";
             FILEMANAGER = "br";
+            IPYTHONDIR="${XDG_CONFIG_HOME}/ipython";
+            CARGO_HOME="${XDG_DATA_HOME}/cargo";
+            LESSHISTFILE="${XDG_CACHE_HOME}/less/history";
+            CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
+            ERRFILE="${XDG_CACHE_HOME}/X11/xsession-errors";
+            XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
+            # ZPLUG_HOME="${XDG_DATA_HOME}/zplug";
+            # ZDOTDIR="$HOME/.config/zsh";
+            # PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc";
         };
         environment.systemPackages = with pkgs; [
             home-manager

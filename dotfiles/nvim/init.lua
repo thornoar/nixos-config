@@ -275,7 +275,7 @@ km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 km.set('n', '<C-c>', function () vim.cmd('quit') end)
-km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e $FILEMANAGER&') end)
+km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 km.set('n', '<leader>l', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak.nix') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak.nix') end)
