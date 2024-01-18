@@ -117,6 +117,7 @@
                 fucking = "mommy";
                 q = "qalc -c";
                 sxiv = "sxiv -b";
+                lg = "lazygit";
             };    
             initExtra = ''
                 autoload -U colors && colors
