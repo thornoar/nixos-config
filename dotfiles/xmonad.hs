@@ -206,7 +206,7 @@ myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "go
 
 myScratchpads = [
     NS "Scratchpad" (myTerminal++" --title 'Scratchpad' --class 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
-    NS "Calculator" (myTerminal++" --title 'Calculator' --class 'Scratchpad'") (title =? "Calculator") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator' --class 'Scratchpad' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (title =? "GoldenDict") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player' --class 'Scratchpad' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
 

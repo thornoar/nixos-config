@@ -208,7 +208,7 @@ km.set({'n', 'v'}, '<S-M-Right>', 'p')
 
 km.set('v', 'd', '\"+d')
 km.set('n', 'dd', '\"+dd')
-km.set('v', '<S-Left>', '\"+y')
+km.set('v', '<S-Left>', '\"+ygv<Esc>')
 km.set('n', '<S-Left>', '\"+yy')
 km.set({'n', 'v'}, '<S-Right>', '\"+p')
 
