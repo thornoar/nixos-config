@@ -82,7 +82,7 @@ verbs: [
         shortcut: e
         keys: [
             enter
-            alt-right
+            right
         ]
         apply_to: text_file
         execution: "$EDITOR {file}"
@@ -91,7 +91,7 @@ verbs: [
     {
         invocation: edit_line
         shortcut: el
-        key: shift-enter
+        key: shift-right
         apply_to: text_file
         execution: "$EDITOR +{line} {file}"
         leave_broot: false

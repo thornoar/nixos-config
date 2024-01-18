@@ -161,9 +161,9 @@ newcmd('NS', function () vim.cmd('set nospell') end)
 -- newcmd('G', function () vim.cmd('LazyGit') end)
 -- Autocommands
 autosave = true
-autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson' }
+autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	pattern = autosavepattern,
+	pattern = '*.*',
 	callback = function()
 		if autosave then vim.cmd('silent write') end
 	end
@@ -413,7 +413,7 @@ vim.o.shiftwidth = 4
 vim.o.compatible = false
 vim.o.hlsearch = false
 vim.o.synmaxcol = 0
--- vim.o.cursorline = true
+vim.o.cursorline = true
 -- vim.o.guicursor=''
 
 
