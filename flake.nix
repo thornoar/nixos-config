@@ -62,8 +62,7 @@
                 inherit pkgs;
                 extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
                 modules = [
-                    # lib.path.append ./. ("/" + usrname + "/main.nix")
-                    ./ramak/main.nix
+                    ./${usrname}/main.nix
                     inputs.nix-index-database.hmModules.nix-index
                 ];
             }
