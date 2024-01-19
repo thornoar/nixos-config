@@ -119,5 +119,10 @@ verbs: [
         key: ctrl-r
         cmd: ":toggle_hidden"
     }
+    {
+        invocation: trash
+        shortcut: tr
+        external: "trash-put {file}"
+    }
 ]
 
