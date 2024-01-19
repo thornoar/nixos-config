@@ -36,7 +36,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 	-- 'tpope/vim-fugitive',
-	'tpope/vim-rhubarb',
+    'tpope/vim-rhubarb',
 	'tpope/vim-surround',
 	-- 'nanozuki/tabby.nvim',
 	'lervag/vimtex',
@@ -48,8 +48,10 @@ require('lazy').setup({
 	'dkarter/bullets.vim',
 	-- 'cljoly/telescope-repo.nvim',
 	'numToStr/Comment.nvim',
-    'lewis6991/gitsigns.nvim',
-    'ap/vim-css-color',
+	'lewis6991/gitsigns.nvim',
+	'ap/vim-css-color',
+	'junegunn/fzf',
+	'junegunn/fzf.vim',
     {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
@@ -105,7 +107,8 @@ local compilefunc = {
 	['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-	['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
+	-- ['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
+	['tex'] = function (name) return ('VimtexCompile') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
 	['lolcode'] = function (name) return ('!lci ' .. name) end,
 	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
@@ -158,7 +161,9 @@ newcmd('D', function () vim.bo.keymap = 'german-qwertz' end)
 newcmd('L', function () vim.cmd('Lazy') end)
 newcmd('S', function () vim.wo.spell = not vim.wo.spell end)
 newcmd('NS', function () vim.cmd('set nospell') end)
--- newcmd('G', function () vim.cmd('LazyGit') end)
+newcmd('G', function () vim.cmd('GitFiles') end)
+newcmd('X', function () vim.cmd('Files') end)
+newcmd('C', function () vim.cmd('Jumps') end)
 -- Autocommands
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
@@ -212,6 +217,7 @@ km.set('v', '<S-Left>', '\"+ygv<Esc>')
 km.set('n', '<S-Left>', '\"+yy')
 km.set({'n', 'v'}, '<S-Right>', '\"+p')
 
+km.set('n', '<M-CR>', '*ggn')
 km.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
 km.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -406,14 +412,14 @@ vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
 vim.o.colorcolumn = 20
-vim.o.tabstop = 4
 vim.o.expandtab = true
-vim.cmd('set shiftwidth=4 smarttab')
-vim.o.shiftwidth = 4
 vim.o.compatible = false
 vim.o.hlsearch = false
 vim.o.synmaxcol = 0
 vim.o.cursorline = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.cmd('set shiftwidth=4 smarttab')
 -- vim.o.guicursor=''
 
 

@@ -16,7 +16,7 @@
         windowSpace = mkOpt "int" 5;
 
         bgColor0 = mkOpt "str" "#0b1012";#"#1e2127";
-        bgColor1 = mkOpt "str" config.bgColor0;#"#2c3037";
+        bgColor1 = mkOpt "str" "#2c3037";
         bgColor2 = mkOpt "str" "#43565c";
         fgColor = mkOpt "str" "#17a88b";
         brfgColor = mkOpt "str" "#00bc96";
