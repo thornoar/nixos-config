@@ -62,7 +62,8 @@
                 inherit pkgs;
                 extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
                 modules = [
-                    ./+"${usrname}"+/.nix
+                    # lib.path.append ./. ("/" + usrname + "/main.nix")
+                    ./main.nix
                     inputs.nix-index-database.hmModules.nix-index
                 ];
             }

@@ -1,9 +1,13 @@
 { lib, pkgs, config, ... }:
+
 {
-    config = {
-        config.dotfiledir = lib.mkForce ../dotfiles;
+    config = 
+    let dotfile = str: lib.path.append config.dotfiledir str;
+    in 
+    {
+        config.dotfiledir = lib.mkForce ./dotfiles;
         # xmonad setup
-        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ("${config.dotfiledir}"/xmonad.hs)) + ''
+        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + ''
             -- Home-Manager settings
 
             setWallpaperCmd = spawn "xwallpaper --center $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
@@ -82,11 +86,11 @@
             vimAlias = true;
             vimdiffAlias = true;
         };
-        xdg.configFile."nvim/ftdetect".source = "${config.dotfiledir}"/nvim/ftdetect;
-        xdg.configFile."nvim/syntax".source = "${config.dotfiledir}"/nvim/syntax;
-        xdg.configFile."nvim/UltiSnips".source = "${config.dotfiledir}"/nvim/UltiSnips;
-        xdg.configFile."nvim/after".source = "${config.dotfiledir}"/nvim/after;
-        xdg.configFile."nvim/init.lua".text = (builtins.readFile ("${config.dotfiledir}"/nvim/init.lua)) + ''
+        xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
+        xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
+        xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
+        xdg.configFile."nvim/after".source = dotfile "nvim/after";
+        xdg.configFile."nvim/init.lua".text = (builtins.readFile (dotfile "nvim/init.lua")) + ''
             require('lualine').setup{
                 options = {
                     icons_enabled = true,
@@ -198,9 +202,9 @@
             };
         };
 
-        xdg.configFile."broot/conf.hjson".source = "${config.dotfiledir}"/broot/conf.hjson;
-        xdg.configFile."broot/verbs.hjson".source = "${config.dotfiledir}"/broot/verbs.hjson;
-        # home.file.".local/share/fonts/vscode.ttf".source = "${config.dotfiledir}"/vscode.ttf;
+        xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
+        xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
+        # home.file.".local/share/fonts/vscode.ttf".source = dotfile "vscode.ttf";
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 #default: #235219178 none / #189174147 none
@@ -285,7 +289,7 @@
         '';
 
         # asymptote setup
-        home.file.".asy/config.asy".source = "${config.dotfiledir}"/config.asy;
+        home.file.".asy/config.asy".source = dotfile "config.asy";
 
         # moc setup
         home.file.".moc/config".text = ''
@@ -302,16 +306,114 @@
             #seek_backward = LEFT
         '';
 
+        programs.firefox = {
+            enable = true;
+            profiles = {
+                default = {
+                    id = 0;
+                    name = "default";
+                    isDefault = true;
+                    settings = {
+                        "browser.startup.homepage" = "about:home";
+                        "browser.tabs.inTitlebar" = 0;
+                        "browser.toolbars.bookmarks.visibility" = "never";
+                        "browser.search.defaultenginename" = "Google";
+                        "browser.search.order.1" = "Google";
+                        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                        "signon.rememberSignons" = false;
+                    };
+                    extensions = with inputs.firefox-addons.packages.${system}; [
+                        darkreader
+                        vimium
+                    ];
+                    bookmarks = [
+                        {
+                            name = "yt | YouTube";
+                            url = "https://youtube.com";
+                            keyword = "yt";
+                        }
+                        {
+                            name = "ym | YouTube Music";
+                            url = "https://music.youtube.com";
+                            keyword = "ym";
+                        }
+                        {
+                            name = "gh | GitHub";
+                            url = "https://github.com/thornoar";
+                            keyword = "gh";
+                        }
+                        {
+                            name = "qw | Work Mail";
+                            url = "https://mail.google.com/mail/u/1/#inbox";
+                            keyword = "qw";
+                        }
+                        {
+                            name = "as | Personal Mail";
+                            url = "https://mail.google.com/mail/u/0/#inbox";
+                            keyword = "as";
+                        }
+                        {
+                            name = "mn | MyNixOS";
+                            url = "https://mynixos.com";
+                            keyword = "mn";
+                        }
+                        {
+                            name = "tr | RuTracker";
+                            url = "https://rutracker.org";
+                            keyword = "tr";
+                        }
+                        {
+                            name = "li | LibGen";
+                            url = "https://libgen.is";
+                            keyword = "li";
+                        }
+                        {
+                            name = "ni | Nixhub.io";
+                            url = "https://www.nixhub.io/";
+                            keyword = "ni";
+                        }
+                    ];
+                    search = {
+                        force = true;
+                        default = "Google";
+                        order = [ "Google" "Searx" ];
+                    };
+                    userChrome = ''
+                        #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon{
+                        width: 0px !important;
+                        padding: 0px !important;
+                        }
+
+                        .titlebar-buttonbox-container{ display:none }
+
+                        #back-button, #forward-button { display:none!important; }
+
+                        #PanelUI-button { display:none!important; }
+
+                        #alltabs-button {
+                            display: none !important;
+                        }
+
+                        #urlbar ::-moz-selection,
+                        .searchbar-textbox ::-moz-selection {
+                        background-color: ${config.colorBlue1} !important;
+                        color: ${config.colorWhite2} !important;
+                        }
+                    '';
+                };
+            };
+        };
+
         # R setup
-        home.file.".Rprofile".source = "${config.dotfiledir}"/Rprofile;
+        home.file.".Rprofile".source = dotfile "Rprofile";
 
         xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
-        xdg.configFile."neofetch/config.conf".source = "${config.dotfiledir}"/neofetch.conf;
+        xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
 
         # keynav setup
         services.keynav.enable = true;
-        xdg.configFile."keynav/keynavrc".source = "${config.dotfiledir}"/keynavrc;
+        xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
     };
 }
