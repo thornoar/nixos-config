@@ -103,9 +103,10 @@
             enable = true;
             layout = "us";
             xkbVariant = "";
-            displayManager = {
-                lightdm.enable = true;
-                lightdm.greeters.enso.enable = true;
+            displayManager.lightdm = {
+                enable = true;
+                greeters.enso.enable = true;
+                background = ${config.environment.variables.NIXOS_CONFIG}/dotfiles/dm-background.jpg;
             };
             windowManager.xmonad = {
                 enable = true;
