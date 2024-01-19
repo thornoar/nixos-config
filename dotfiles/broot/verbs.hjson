@@ -123,6 +123,7 @@ verbs: [
         invocation: trash
         shortcut: tr
         external: "trash-put {file}"
+        leave_broot: false
     }
 ]
 
