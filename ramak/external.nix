@@ -3,7 +3,7 @@
     config = {
         config.dotfiledir = lib.mkForce ../dotfiles;
         # xmonad setup
-        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (${config.dotfiledir}+/xmonad.hs)) + ''
+        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile ("${config.dotfiledir}"/xmonad.hs)) + ''
             -- Home-Manager settings
 
             setWallpaperCmd = spawn "xwallpaper --center $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
@@ -82,11 +82,11 @@
             vimAlias = true;
             vimdiffAlias = true;
         };
-        xdg.configFile."nvim/ftdetect".source = ${config.dotfiledir}+/nvim/ftdetect;
-        xdg.configFile."nvim/syntax".source = ${config.dotfiledir}+/nvim/syntax;
-        xdg.configFile."nvim/UltiSnips".source = ${config.dotfiledir}+/nvim/UltiSnips;
-        xdg.configFile."nvim/after".source = ${config.dotfiledir}+/nvim/after;
-        xdg.configFile."nvim/init.lua".text = (builtins.readFile (${config.dotfiledir}+/nvim/init.lua)) + ''
+        xdg.configFile."nvim/ftdetect".source = "${config.dotfiledir}"/nvim/ftdetect;
+        xdg.configFile."nvim/syntax".source = "${config.dotfiledir}"/nvim/syntax;
+        xdg.configFile."nvim/UltiSnips".source = "${config.dotfiledir}"/nvim/UltiSnips;
+        xdg.configFile."nvim/after".source = "${config.dotfiledir}"/nvim/after;
+        xdg.configFile."nvim/init.lua".text = (builtins.readFile ("${config.dotfiledir}"/nvim/init.lua)) + ''
             require('lualine').setup{
                 options = {
                     icons_enabled = true,
@@ -198,9 +198,9 @@
             };
         };
 
-        xdg.configFile."broot/conf.hjson".source = ${config.dotfiledir}+/broot/conf.hjson;
-        xdg.configFile."broot/verbs.hjson".source = ${config.dotfiledir}+/broot/verbs.hjson;
-        # home.file.".local/share/fonts/vscode.ttf".source = ${config.dotfiledir}+/vscode.ttf;
+        xdg.configFile."broot/conf.hjson".source = "${config.dotfiledir}"/broot/conf.hjson;
+        xdg.configFile."broot/verbs.hjson".source = "${config.dotfiledir}"/broot/verbs.hjson;
+        # home.file.".local/share/fonts/vscode.ttf".source = "${config.dotfiledir}"/vscode.ttf;
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 #default: #235219178 none / #189174147 none
@@ -285,7 +285,7 @@
         '';
 
         # asymptote setup
-        home.file.".asy/config.asy".source = ${config.dotfiledir}+/config.asy;
+        home.file.".asy/config.asy".source = "${config.dotfiledir}"/config.asy;
 
         # moc setup
         home.file.".moc/config".text = ''
@@ -303,15 +303,15 @@
         '';
 
         # R setup
-        home.file.".Rprofile".source = ${config.dotfiledir}+/Rprofile;
+        home.file.".Rprofile".source = "${config.dotfiledir}"/Rprofile;
 
         xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
-        xdg.configFile."neofetch/config.conf".source = ${config.dotfiledir}+/neofetch.conf;
+        xdg.configFile."neofetch/config.conf".source = "${config.dotfiledir}"/neofetch.conf;
 
         # keynav setup
         services.keynav.enable = true;
-        xdg.configFile."keynav/keynavrc".source = ${config.dotfiledir}+/keynavrc;
+        xdg.configFile."keynav/keynavrc".source = "${config.dotfiledir}"/keynavrc;
     };
 }
