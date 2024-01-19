@@ -2,9 +2,10 @@
 
 {
     imports = [
-        ./home-options.nix
+        ../home-options.nix
         /etc/nixos/home-local.nix
-        ./home-scripts.nix
+        ../home-scripts.nix
+        ./configuration.nix
     ];
 
     config = {
