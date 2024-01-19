@@ -5,7 +5,7 @@
         ../home-options.nix
         /etc/nixos/home-local.nix
         ../home-scripts.nix
-        ./configuration.nix
+        ./external.nix
     ];
 
     config = {
@@ -237,36 +237,6 @@
         };
 
         programs.gh = { enable = true; };
-
-        # asymptote setup
-        home.file.".asy/config.asy".source = ./dotfiles/config.asy;
-
-        # moc setup
-        home.file.".moc/config".text = ''
-            Theme = nightly_theme
-            Keymap = keymap
-            Repeat = yes
-            #Shuffle = no
-            AutoNext = no
-        '';
-        home.file.".moc/keymap".text = ''
-            go    = ENTER RIGHT
-            go_up = U LEFT
-            #seek_forward  = RIGHT
-            #seek_backward = LEFT
-        '';
-
-        # R setup
-        home.file.".Rprofile".source = ./dotfiles/Rprofile;
-
-        xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
-
-        # neofetch setup
-        xdg.configFile."neofetch/config.conf".source = ./dotfiles/neofetch.conf;
-
-        # keynav setup
-        services.keynav.enable = true;
-        xdg.configFile."keynav/keynavrc".source = ./dotfiles/keynavrc;
 
         xresources.properties = {
             "Xcursor.size" = 16;

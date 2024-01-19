@@ -62,7 +62,7 @@
                 inherit pkgs;
                 extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
                 modules = [
-                    ./home-${usrname}.nix
+                    ./+"${usrname}"+/.nix
                     inputs.nix-index-database.hmModules.nix-index
                 ];
             }

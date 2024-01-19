@@ -12,6 +12,7 @@
     {
         fontsize = opt { type = tp.int; };
         fontsizeBar = opt { type = tp.int; };
+        dotfiledir = mkOpt "path" ./dotfiles;
         wallpaperDir = mkOpt "str" "Landscapes";
         windowSpace = mkOpt "int" 5;
 
