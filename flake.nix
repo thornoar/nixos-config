@@ -1,5 +1,5 @@
 {
-    description = "Flake";
+    description = "NixOS Flake";
 
     inputs = {
         nixpkgs = {
@@ -52,7 +52,7 @@
                 system = system;
                 modules = [
                     ./system-${sysname}.nix
-                    { _module.args = { inherit sysname; inherit usrs; }; }
+                    { _module.args = { inherit sysname; inherit usrs; inherit inputs; }; }
                 ];
             }
         );

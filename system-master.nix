@@ -1,4 +1,4 @@
-{ sysname, usrs, config, lib, pkgs, ... }:
+{ sysname, usrs, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -10,6 +10,18 @@
     };
 
     config = {
+        users.users = usrs;
+
+        nix.registry = {
+            nixpkgs.flake = inputs.nixpkgs;
+
+            # inputs.self is a reference to this flake, which allows self-references.
+            # In this case, adding this flake to the registry under the name `my`,
+            # which is the name I use any time I'm customising stuff.
+            # (at time of writing, this is only used for `nix flake init -t my#...`)
+            ${sysname}.flake = inputs.self;
+        };
+
         environment.variables = rec {
             NIXPKGS_ALLOW_UNFREE = "1";
             XDG_CONFIG_HOME = "$HOME/.config";
@@ -36,9 +48,6 @@
             CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
             ERRFILE="${XDG_CACHE_HOME}/X11/xsession-errors";
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
-            # ZPLUG_HOME="${XDG_DATA_HOME}/zplug";
-            # ZDOTDIR="$HOME/.config/zsh";
-            # PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc";
         };
         environment.systemPackages = with pkgs; [
             home-manager
@@ -52,19 +61,12 @@
             gcc
             git
             lshw
-            cups
 
             # archives
             zip
             xz
             unzip
             p7zip
-
-            # utils
-            ripgrep
-            xclip
-            xsel
-            fzf
         ];
 
         services.printing = {
@@ -73,19 +75,6 @@
         };
 
         security.sudo.package = pkgs.sudo.override { withInsults = true; };
-
-        # hardware.printers = {
-        #     ensurePrinters = [
-        #         {
-        #             name = "Xerox_WorkCentre_3025";
-        #             location  = "Home";
-        #             deviceUri = "usb://Xerox/WorkCentre%203025?serial=5311640013&interface=1";
-        #             ppdOptions = {
-        #                 PageSize = "A4";
-        #             };
-        #         }
-        #     ];
-        # };
 
         boot.loader.systemd-boot = {
             enable = true;
@@ -128,8 +117,6 @@
                 enableContribAndExtras = true;
             };
         };
-
-        users.users = usrs;
 
         nixpkgs.config.allowUnfree = true;
 
