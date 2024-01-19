@@ -63,7 +63,7 @@
                 extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
                 modules = [
                     # lib.path.append ./. ("/" + usrname + "/main.nix")
-                    ./main.nix
+                    ./ramak/main.nix
                     inputs.nix-index-database.hmModules.nix-index
                 ];
             }

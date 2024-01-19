@@ -1,11 +1,11 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, inputs, system, config, ... }:
 
 {
     config = 
     let dotfile = str: lib.path.append config.dotfiledir str;
     in 
     {
-        config.dotfiledir = lib.mkForce ./dotfiles;
+        dotfiledir = lib.mkForce ../dotfiles;
         # xmonad setup
         xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + ''
             -- Home-Manager settings
