@@ -18,6 +18,7 @@
         };
 
         environment.variables = rec {
+            # HOME = "/home/"+(head lib.attrsets.attrNames usrs);
             NIXPKGS_ALLOW_UNFREE = "1";
             XDG_CONFIG_HOME = "$HOME/.config";
             XDG_DATA_HOME = "$HOME/.local/share";
@@ -106,7 +107,7 @@
             displayManager.lightdm = {
                 enable = true;
                 greeters.enso.enable = true;
-                background = ${config.environment.variables.NIXOS_CONFIG}/dotfiles/dm-background.jpg;
+                background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
             };
             windowManager.xmonad = {
                 enable = true;
