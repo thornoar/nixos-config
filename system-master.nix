@@ -18,7 +18,6 @@
         };
 
         environment.variables = rec {
-            # HOME = "/home/"+(head lib.attrsets.attrNames usrs);
             NIXPKGS_ALLOW_UNFREE = "1";
             XDG_CONFIG_HOME = "$HOME/.config";
             XDG_DATA_HOME = "$HOME/.local/share";
@@ -135,7 +134,6 @@
 
         system.stateVersion = "23.11";
 
-        nix.settings.use-xdg-base-directories = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
     };
 }
