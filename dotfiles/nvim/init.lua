@@ -50,6 +50,8 @@ require('lazy').setup({
 	'numToStr/Comment.nvim',
 	'lewis6991/gitsigns.nvim',
 	'ap/vim-css-color',
+    -- 'ixru/nvim-markdown',
+    -- 'ThePrimeagen/harpoon',
 	'junegunn/fzf',
 	'junegunn/fzf.vim',
     {
@@ -227,7 +229,7 @@ km.set('v', '<S-Down>', '<Down>')
 km.set('n', '<S-Down>', '<S-v>j')
 km.set('n', '<S-Up>', '<S-v>k')
 km.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
-km.set('n', '<leader>cw', ":%s/\\<<C-r><C-w>\\>/")
+km.set('n', '<leader>cw', ":%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/")
 km.set('n', 'cw', 'ciw')
 km.set('n', 'dw', 'diw')
 km.set('x', '<leader>p', '\"_dP')

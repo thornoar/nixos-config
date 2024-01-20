@@ -11,7 +11,7 @@
 
     config = {
         users.users = usrs;
-
+    
         nix.registry = {
             nixpkgs.flake = inputs.nixpkgs;
             ${sysname}.flake = inputs.self;
@@ -135,6 +135,7 @@
 
         system.stateVersion = "23.11";
 
+        nix.settings.use-xdg-base-directories = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
     };
 }
