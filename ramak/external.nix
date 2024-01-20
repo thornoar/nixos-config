@@ -82,9 +82,6 @@
 
         programs.neovim = {
             enable = true;
-            # viAlias = true;
-            # vimAlias = true;
-            # vimdiffAlias = true;
         };
         xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
         xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
@@ -406,6 +403,7 @@
         # R setup
         home.file.".Rprofile".source = dotfile "Rprofile";
 
+        # xmobar setup
         xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
