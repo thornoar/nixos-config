@@ -264,34 +264,34 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '').replace('^', '**').re
 `
 endsnippet
 
-snippet == "equals" iA
+snippet == "equals" i
 &= $1
 endsnippet
 
-snippet != "not equals" iA
+snippet != "not equals" i
 \\neq 
 endsnippet
 
 context "math()"
-snippet ceil "ceil" iA
+snippet ceil "ceil" i
 \\left\\lceil $1 \\right\\rceil $0
 endsnippet
 
 context "math()"
-snippet floor "floor" iA
+snippet floor "floor" i
 \\left\\lfloor $1 \\right\\rfloor $0
 endsnippet
 
-snippet pmat "pmat" iA
+snippet pmat "pmat" i
 \\begin{pmatrix} $1 \\end{pmatrix} $0
 endsnippet
 
-snippet bmat "bmat" iA
+snippet bmat "bmat" i
 \\begin{bmatrix} $1 \\end{bmatrix} $0
 endsnippet
 
 context "math()"
-snippet tp "Triangular parenthesis" wA
+snippet tp "Triangular parenthesis" w
 \\langle $1 \\rangle $0
 endsnippet
 
@@ -341,7 +341,7 @@ snippet prod "product" w
 endsnippet
 
 snippet part "d/dx" w
-\\frac{\\partial $1}}{\\partial ${2:x}}
+\\frac{\\partial $1}{\\partial ${2:x}}
 endsnippet
 
 context "math()"
