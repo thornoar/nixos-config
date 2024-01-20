@@ -4,10 +4,12 @@ for profile in ${(z)NIX_PROFILES}; do
   fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
 done
 
-HELPDIR="/nix/store/8w9j3mad46cz0xwwy7j08xy0804ichkr-zsh-5.9/share/zsh/$ZSH_VERSION/help"
+# HELPDIR="/nix/store/8w9j3mad46cz0xwwy7j08xy0804ichkr-zsh-5.9/share/zsh/$ZSH_VERSION/help"
 
-source $NIXOS_CONFIG/dotfiles/zshhighlight.sh
-source $NIXOS_CONFIG/dotfiles/zshautosuggestions.sh
+source /nix/store/k6s5dm3j2hl0xa9g5vy1ssf813hb0wfy-zsh-autosuggestions-0.7.0/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /nix/store/4abranhpdszjvb4chvnj6g1sbh7fbgi9-zsh-syntax-highlighting-0.7.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source $NIXOS_CONFIG/dotfiles/zshhighlight.sh
+# source $NIXOS_CONFIG/dotfiles/zshautosuggestions.sh
 ZSH_HIGHLIGHT_HIGHLIGHTERS+=()
 
 # History options should be set in .zshrc and after oh-my-zsh sourcing.
@@ -71,4 +73,5 @@ PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
 source $NIXOS_CONFIG/dotfiles/br.sh
 eval $(thefuck --alias)
 
+# source /nix/store/16zriv515p5bw9mdkzw1iwj6b4b5c1g3-nix-index-with-db-0.1.7/etc/profile.d/command-not-found.sh
 . $NIXOS_CONFIG/dotfiles/zsh.command-not-found
