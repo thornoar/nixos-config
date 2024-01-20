@@ -77,7 +77,7 @@
                        ]
                        , sepChar  = "%"
                        , alignSep = "}{"
-                       , template = " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% "
+                       , template = " | %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% | "
                        }
             '';
         };
