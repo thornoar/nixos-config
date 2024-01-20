@@ -82,9 +82,9 @@
 
         programs.neovim = {
             enable = true;
-            viAlias = true;
-            vimAlias = true;
-            vimdiffAlias = true;
+            # viAlias = true;
+            # vimAlias = true;
+            # vimdiffAlias = true;
         };
         xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
         xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";

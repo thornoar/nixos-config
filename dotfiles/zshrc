@@ -1,0 +1,74 @@
+typeset -U path cdpath fpath manpath
+
+for profile in ${(z)NIX_PROFILES}; do
+  fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
+done
+
+HELPDIR="/nix/store/8w9j3mad46cz0xwwy7j08xy0804ichkr-zsh-5.9/share/zsh/$ZSH_VERSION/help"
+
+source $NIXOS_CONFIG/dotfiles/zshhighlight.sh
+source $NIXOS_CONFIG/dotfiles/zshautosuggestions.sh
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=()
+
+# History options should be set in .zshrc and after oh-my-zsh sourcing.
+# See https://github.com/nix-community/home-manager/issues/177.
+HISTSIZE="10000"
+SAVEHIST="10000"
+
+HISTFILE="$HOME/.zsh_history"
+mkdir -p "$(dirname "$HISTFILE")"
+
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_DUPS
+unsetopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+unsetopt HIST_EXPIRE_DUPS_FIRST
+setopt SHARE_HISTORY
+unsetopt EXTENDED_HISTORY
+
+# Aliases
+alias vimdiff='nvim -d'
+alias books='cd ~/media/Books'
+alias c='ping google.com'
+alias calc='qalc -c'
+alias cdir='cd ~/.config/nvim'
+alias cp='cp -i'
+alias film='transmission-remote -w ~/media/films -a '
+alias films='cd ~/media/Films'
+alias fucking='mommy'
+alias fullgc='nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old && sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master'
+alias fullrb='sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master && home-manager switch --impure --flake $NIXOS_CONFIG/ && nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old && xmonad --recompile && xmonad --restart'
+alias gc='nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old'
+alias gitpull='git fetch && git pull'
+alias gitpush='git add . && git commit -m '\''--'\'' && git push'
+alias grep='grep --color=auto'
+alias gst='git status'
+alias hm='home-manager'
+alias la='exa -lAh'
+alias lg='lazygit'
+alias media='cd ~/media'
+alias music='transmission-remote -w ~/media/music -a '
+alias ns='nix-shell --command zsh -p '
+alias open='xdg-open'
+alias q='qalc -c'
+alias quit='exit'
+alias rb='sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/'
+alias rb-boot='sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master'
+alias rb-both='sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master && home-manager switch --impure --flake $NIXOS_CONFIG/'
+alias rb-home='home-manager switch --impure --flake $NIXOS_CONFIG/'
+alias rb-system='sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master'
+alias sbdir='cd ~/projects/sandbox'
+alias sc='cd $NIXOS_CONFIG'
+alias svim='sudo -E nvim'
+alias sxiv='sxiv -b'
+alias tr-remote='transmission-remote'
+alias vimdiff='nvim -d'
+alias wget='wget --hsts-file = $XDG_DATA_HOME/wget-hsts'
+alias xc='xmonad --recompile && xmonad --restart'
+
+autoload -U colors && colors
+PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+source $NIXOS_CONFIG/dotfiles/br.sh
+eval $(thefuck --alias)
+
+. $NIXOS_CONFIG/dotfiles/zsh.command-not-found
