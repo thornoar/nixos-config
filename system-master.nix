@@ -41,13 +41,10 @@
             CARGO_HOME="${XDG_DATA_HOME}/cargo";
             LESSHISTFILE="${XDG_CACHE_HOME}/less/history";
             CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
-            ERRFILE="${XDG_CACHE_HOME}/X11/xsession-errors";
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
         };
         environment.systemPackages = with pkgs; [
             home-manager
-
-            # system tools
             vim
             wget
             curl
@@ -56,8 +53,6 @@
             gcc
             git
             lshw
-
-            # archives
             zip
             xz
             unzip
