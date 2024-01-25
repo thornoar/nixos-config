@@ -78,6 +78,8 @@
             xclip
             xsel
             fzf
+            imagemagick
+            ffmpeg
         ];
 
         programs.zsh = {
