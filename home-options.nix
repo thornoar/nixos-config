@@ -58,11 +58,14 @@
         colorMagenta0 = mkStrOpt "#ff79c6";
         colorMagenta1 = mkStrOpt "#c678dd";
 
-        xmonadLayouts = mkStrOpt "grid ||| Full ||| magnified ||| tabs ||| spirals";
+        xmonadLayouts = mkStrOpt "grid ||| Full ||| spirals ||| magnified ||| tabs";
 
         xmobarTemplate = mkStrOpt " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ";
         xmobarExtraCommands = mkStrOpt ''
         '';
+        xmobarExtraOptions = mkStrOpt ''
+        '';
+        # alpha = ${ts (builtins.floor (255*config.windowOpacity))},
         xmobarOptions = mkStrOpt ''
             Config {
                 font     = "xft:${config.font} Nerd Font Mono-${ts config.fontsizeBar}",
@@ -71,9 +74,9 @@
                 position = TopH ${ts config.barheight},
                 persistent = False,
                 hideOnStart = False,
-                alpha = ${ts (builtins.floor (255*config.windowOpacity))},
                 allDesktops = True,
                 lowerOnStart = True,
+                ${config.xmobarExtraOptions}
                 commands = [
                     Run Alsa "default" "Master" [
                         "--template", "<fc=${config.colorWhite1}><volumestatus></fc>",

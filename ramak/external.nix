@@ -190,7 +190,7 @@
                     x = config.padding.x;
                     y = config.padding.y;
                 };
-                window.opacity = 0.9;
+                window.opacity = config.windowOpacity;
                 key_bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }

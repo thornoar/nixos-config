@@ -343,8 +343,9 @@ magnified =
     $ avoidStruts
     $ limitWindows 12
     $ magnifier
-    $ mySpacing' mySpace
-    $ ResizableTall 1 (3/100) (1/2) []
+    $ mySpacing mySpace
+    $ Grid (16/10)
+    -- $ ResizableTall 1 (3/100) (1/2) []
 
 grid =
     named "Grid"
@@ -364,10 +365,10 @@ spirals =
     $ spiral (6/7)
 
 tabs =
-    named "Tabs" 
+    named "Tabs"
     $ windowNavigation
     $ avoidStruts
-    $ mySpacing' 0
+    $ spacing (fromIntegral mySpace)
     $ tabbed shrinkText myTabTheme
 
 -- Window rules:

@@ -300,6 +300,7 @@ km.set('n', '<leader>l', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak.ni
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak.nix') end)
 km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 km.set('n', '<leader>K', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+km.set('n', '<leader>N', function () vim.cmd('edit /etc/nixos/home-local.nix') end)
 km.set('n', '<leader>o', ':Compile<CR>')
 km.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
 km.set({'n','i'}, '<M-s>', function () vim.cmd('CompileSilent') end)
