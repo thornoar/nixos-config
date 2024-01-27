@@ -10,7 +10,7 @@
         xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + ''
             -- Home-Manager settings
 
-            setWallpaperCmd = spawn "xwallpaper --center $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
+            setWallpaperCmd = spawn "xwallpaper --maximize $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
 
             mySpace :: Integer
             mySpace = ${builtins.toString config.windowSpace}
