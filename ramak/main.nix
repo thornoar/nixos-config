@@ -70,7 +70,6 @@
             zoom-us
             xmobar
             xvkbd
-            # xwallpaper
             hsetroot
             trash-cli
             goldendict-ng

@@ -392,6 +392,8 @@
                             display: none !important;
                         }
 
+                        #navigator-toolbox { font-family:Hack !important }
+
                         #urlbar ::-moz-selection,
                         .searchbar-textbox ::-moz-selection {
                         background-color: ${config.colorBlue1} !important;
