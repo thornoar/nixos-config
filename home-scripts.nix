@@ -29,8 +29,8 @@
             writeShellScriptBin "chlang" ''
                 setxkbmap -layout us,ru,de
                 xkb-switch -s "$1"
-                if [ $LAPTOP ]; then
-                    xmodmap $HOME/.Xmodmap
+                if [ "$LAPTOP" ]; then
+                    xmodmap "$HOME"/.Xmodmap
                 fi
             ''
         )
@@ -42,17 +42,17 @@
         (
             writeShellScriptBin "inc_bright" ''
                 brightfile=""
-                if [ $PCTYPE = "laptop" ]; then
+                if [ "$PCTYPE" = "laptop" ]; then
                     brightfile="/sys/class/backlight/intel_backlight/brightness"
                     bc <<< "$1 + $(<$brightfile)" > "$brightfile"
                 fi
             ''
         )
-        (
-            writeShellScriptBin "gitpush" ''
-                nohup git status || (echo "not a git repository!" && exit 1)
-            ''
-        )
+        # (
+        #     writeShellScriptBin "gitpush" ''
+        #         nohup git status || (echo "not a git repository!" && exit 1)
+        #     ''
+        # )
         (
             writeShellScriptBin "run" "nix run nixpkgs#$1 -- \${@:2}"
         )

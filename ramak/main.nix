@@ -70,7 +70,8 @@
             zoom-us
             xmobar
             xvkbd
-            xwallpaper
+            # xwallpaper
+            hsetroot
             trash-cli
             goldendict-ng
             gource

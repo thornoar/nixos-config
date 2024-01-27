@@ -19,6 +19,7 @@
         fontsizeBar = opt { type = tp.int; };
         dotfiledir = mkOpt "path" ./dotfiles;
         wallpaperDir = mkStrOpt "Landscapes";
+        wallpaperGamma = mkOpt "float" 0.5;
         windowSpace = mkOpt "int" 7;
         windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;

@@ -116,7 +116,7 @@ verbs: [
         cmd: ":toggle_stage;:line_down"
     }
     {
-        key: ctrl-r
+        key: ctrl-s
         cmd: ":toggle_hidden"
     }
     {
