@@ -5,81 +5,90 @@
         opt = lib.mkOption;
         tp = lib.types;
         mkOpt = typ: df: opt {
-            type = tp.${typ};
+            type = tp."${typ}";
             default = df;
         };
+        mkStrOpt = df: opt {
+            type = tp.str;
+            default = df;
+        };
+        ts = builtins.toString;
     in
     {
         fontsize = opt { type = tp.int; };
         fontsizeBar = opt { type = tp.int; };
         dotfiledir = mkOpt "path" ./dotfiles;
-        wallpaperDir = mkOpt "str" "Landscapes";
-        windowSpace = mkOpt "int" 5;
-
-        bgColor0 = mkOpt "str" "#0b1012";#"#1e2127";
-        bgColor1 = mkOpt "str" "#2c3037";
-        bgColor2 = mkOpt "str" "#43565c";
-        fgColor = mkOpt "str" "#17a88b";
-        brfgColor = mkOpt "str" "#00bc96";
-
-        colorBlack = mkOpt "str" "#000000";
-
-        colorWhite0 = mkOpt "str" "#ffffff";
-        colorWhite1 = mkOpt "str" "#f8f8f2";
-        colorWhite2 = mkOpt "str" "#e6efff";
-        colorWhite3 = mkOpt "str" "#bbbbbb";
-        colorWhite4 = mkOpt "str" "#6b6b6b";
-
-        colorYellow0 = mkOpt "str" "#f1fa8c";
-        colorYellow1 = mkOpt "str" "#d19a66";
-        colorRed0 = mkOpt "str" "#ff5555";
-        colorRed1 = mkOpt "str" "#e06c75";
-        colorOrange = mkOpt "str" "#ffb86c";
-
-        colorBlue0 = mkOpt "str" "#bd93f9";
-        colorBlue1 = mkOpt "str" "#61afef";
-        colorBlue2 = mkOpt "str" "#6272a4";
-        colorCyan = mkOpt "str" "#56b6c2";
-        colorGreen0 = mkOpt "str" "#89a870";
-        colorGreen1 = mkOpt "str" "#329c48";
-
-        colorMagenta0 = mkOpt "str" "#ff79c6";
-        colorMagenta1 = mkOpt "str" "#c678dd";
-
-        font = mkOpt "str" "Hack";
-        padding = mkOpt "attrs" { x = 6; y = 6; };
+        wallpaperDir = mkStrOpt "Landscapes";
+        windowSpace = mkOpt "int" 7;
+        windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;
-        xmonadLayouts = mkOpt "str" "tall ||| Full ||| tabs ||| magnified ||| spirals";
-        xmobarOptions = opt {
-            type = tp.str;
-            default = ''
-                Config { font     = "xft:${config.font} Nerd Font Mono-${builtins.toString config.fontsizeBar}"
-                       , bgColor  = "${config.bgColor0}"
-                       , fgColor  = "${config.fgColor}"
-                       , position = TopH ${builtins.toString config.barheight}
-                       , persistent = False
-                       , hideOnStart = False
-                       , allDesktops = True
-                       , lowerOnStart = True
-                       , commands = [
-                                    Run Alsa "default" "Master"
-                                        [ "--template", "<fc=${config.colorWhite1}><volumestatus></fc>"
-                                        , "--suffix"  , "True"
-                                        , "--"
-                                        , "--on", ""
-                                    ]
-                                    , Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10
-                                    , Run XMonadLog
-                                    , Run Kbd [ ("us", "<fc=${config.colorWhite1}>US</fc>")
-                                                , ("ru", "<fc=${config.colorWhite1}>RU</fc>")
-                                                , ("de", "<fc=${config.colorWhite1}>DE</fc>")
-                                    ]
-                       ]
-                       , sepChar  = "%"
-                       , alignSep = "}{"
-                       , template = " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% "
-                       }
-            '';
+        font = mkStrOpt "Hack";
+        padding = opt {
+            type = tp.attrs;
+            default = { x = 4; y = 4; };
         };
+
+        bgColor0 = mkStrOpt "#0b1012";#"#1e2127";
+        bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
+        bgColor2 = mkStrOpt "#43565c";
+        fgColor = mkStrOpt "#17a88b";
+        brfgColor = mkStrOpt "#00bc96";
+
+        colorBlack = mkStrOpt "#000000";
+
+        colorWhite0 = mkStrOpt "#ffffff";
+        colorWhite1 = mkStrOpt "#f8f8f2";
+        colorWhite2 = mkStrOpt "#e6efff";
+        colorWhite3 = mkStrOpt "#bbbbbb";
+        colorWhite4 = mkStrOpt "#6b6b6b";
+
+        colorYellow0 = mkStrOpt "#f1fa8c";
+        colorYellow1 = mkStrOpt "#d19a66";
+        colorRed0 = mkStrOpt "#ff5555";
+        colorRed1 = mkStrOpt "#e06c75";
+        colorOrange = mkStrOpt "#ffb86c";
+
+        colorBlue0 = mkStrOpt "#bd93f9";
+        colorBlue1 = mkStrOpt "#61afef";
+        colorBlue2 = mkStrOpt "#6272a4";
+        colorCyan = mkStrOpt "#56b6c2";
+        colorGreen0 = mkStrOpt "#89a870";
+        colorGreen1 = mkStrOpt "#329c48";
+
+        colorMagenta0 = mkStrOpt "#ff79c6";
+        colorMagenta1 = mkStrOpt "#c678dd";
+
+        xmonadLayouts = mkStrOpt "grid ||| Full ||| magnified ||| tabs ||| spirals";
+        xmobarOptions = mkStrOpt ''
+            Config {
+                font     = "xft:${config.font} Nerd Font Mono-${ts config.fontsizeBar}",
+                bgColor  = "${config.bgColor0}",
+                fgColor  = "${config.fgColor}",
+                position = TopH ${ts config.barheight},
+                persistent = False,
+                hideOnStart = False,
+                alpha = ${ts (builtins.floor (255*config.windowOpacity))},
+                allDesktops = True,
+                lowerOnStart = True,
+                commands = [
+                    Run Alsa "default" "Master" [
+                        "--template", "<fc=${config.colorWhite1}><volumestatus></fc>",
+                        "--suffix", "True",
+                        "--",
+                        "--on", ""
+                    ],
+                    Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10,
+                    Run XMonadLog,
+                    Run Kbd [
+                        ("us", "<fc=${config.colorWhite1}>US</fc>"),
+                        ("ru", "<fc=${config.colorWhite1}>RU</fc>"),
+                        ("de", "<fc=${config.colorWhite1}>DE</fc>")
+                    ]
+                ],
+                sepChar  = "%",
+                alignSep = "}{",
+                template = " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ",
+            }
+        '';
     };
 }

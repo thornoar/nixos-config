@@ -80,6 +80,8 @@
             fzf
             imagemagick
             ffmpeg
+            cargo
+            rustc
         ];
 
         programs.zsh = {

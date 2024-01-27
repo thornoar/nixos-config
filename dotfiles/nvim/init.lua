@@ -48,12 +48,22 @@ require('lazy').setup({
 	'dkarter/bullets.vim',
 	-- 'cljoly/telescope-repo.nvim',
 	'numToStr/Comment.nvim',
-	'lewis6991/gitsigns.nvim',
+	-- 'lewis6991/gitsigns.nvim',
 	'ap/vim-css-color',
     -- 'ixru/nvim-markdown',
     -- 'ThePrimeagen/harpoon',
 	'junegunn/fzf',
 	'junegunn/fzf.vim',
+    {
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            on_attach = function(bufnr)
+                vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+                vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+                vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+            end,
+        },
+    },
     {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
@@ -170,7 +180,7 @@ newcmd('C', function () vim.cmd('Jumps') end)
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	pattern = '*',
+	pattern = '*.*',
 	callback = function()
 		if autosave then vim.cmd('silent write') end
 	end
@@ -418,7 +428,7 @@ vim.o.expandtab = true
 vim.o.compatible = false
 vim.o.hlsearch = false
 vim.o.synmaxcol = 0
-vim.o.cursorline = true
+-- vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.cmd('set shiftwidth=4 smarttab')

@@ -328,14 +328,14 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 named :: String -> l a -> ModifiedLayout Rename l a
 named s = renamed [ Replace s ]
 
-tall = 
-    named "Master & Slaves"
-    $ windowNavigation
-    -- $ smartBorders
-    $ avoidStruts
-    $ limitWindows 5
-    $ mySpacing' mySpace
-    $ ResizableTall 1 (3/100) (1/2) []
+-- tall = 
+--     named "Master & Slaves"
+--     $ windowNavigation
+--     -- $ smartBorders
+--     $ avoidStruts
+--     $ limitWindows 5
+--     $ mySpacing' mySpace
+--     $ ResizableTall 1 (3/100) (1/2) []
 
 magnified =
     named "Magnified" 
@@ -352,7 +352,7 @@ grid =
     $ avoidStruts
     $ subLayout [] (smartBorders Simplest)
     $ limitWindows 12
-    $ mySpacing' mySpace
+    $ mySpacing mySpace
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
 

@@ -116,6 +116,11 @@
             timeout = 1;
         };
 
+        services.picom = {
+            enable = true;
+            backend = "glx";
+        };
+
         fonts.packages = with pkgs; [
             hack-font
             noto-fonts
