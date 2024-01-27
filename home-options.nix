@@ -59,6 +59,10 @@
         colorMagenta1 = mkStrOpt "#c678dd";
 
         xmonadLayouts = mkStrOpt "grid ||| Full ||| magnified ||| tabs ||| spirals";
+
+        xmobarTemplate = mkStrOpt " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ";
+        xmobarExtraCommands = mkStrOpt ''
+        '';
         xmobarOptions = mkStrOpt ''
             Config {
                 font     = "xft:${config.font} Nerd Font Mono-${ts config.fontsizeBar}",
@@ -79,6 +83,7 @@
                     ],
                     Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10,
                     Run XMonadLog,
+                    ${config.xmobarExtraCommands}
                     Run Kbd [
                         ("us", "<fc=${config.colorWhite1}>US</fc>"),
                         ("ru", "<fc=${config.colorWhite1}>RU</fc>"),
@@ -87,7 +92,7 @@
                 ],
                 sepChar  = "%",
                 alignSep = "}{",
-                template = " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ",
+                template = "${config.xmobarTemplate}",
             }
         '';
     };
