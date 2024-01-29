@@ -159,7 +159,7 @@ myXPKeymap = M.fromList $
     (xK_v, pasteString) ] ++
     map (first $ (,) myModMask) [
     (xK_BackSpace, killWord Prev),
-    (xK_c, quit),
+    (xK_Delete, quit),
     (xK_f, moveWord Next),
     (xK_b, moveWord Prev),
     (xK_d, killWord Next),
@@ -208,7 +208,9 @@ myScratchpads = [
     NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
-    NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)]
+    NS "File Manager" (myTerminal ++ " --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
+    NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)
+    ]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -227,12 +229,11 @@ myKeys = [
     -- Prompts
     ("M-<Return>", shellPrompt myXPConfig),
     ("M-M1-<Return>", manPrompt myXPConfig),
-    ("M-S-<Return>", windowPrompt myXPConfig Goto allWindows),
 
     -- Kill windows
-    ("M-c", kill),
+    ("M-<Delete>", kill),
     ("M-M1-k", killAll),
-    ("M-<Delete>", killAllFloating),
+    ("M-M1-<Delete>", killAllFloating),
 
     -- Quick Programs
     ("M-x", spawn ( myTerminal ++ " --title 'File Manager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
@@ -256,9 +257,10 @@ myKeys = [
     ("M-<Tab>", toggleWS' ["NSP"]),
 
     -- myScratchpads
-    ("M-f", namedScratchpadAction myScratchpads "Scratchpad"),
+    ("M-c", namedScratchpadAction myScratchpads "Scratchpad"),
     ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
+    ("M-f", namedScratchpadAction myScratchpads "File Manager"),
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
 
     -- Windows navigation
