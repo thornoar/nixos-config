@@ -218,16 +218,9 @@ km.set('n', '<C-S-Right>', '>>')
 km.set('v', '<C-S-Left>', '<gv')
 km.set('v', '<C-S-Right>', '>gv')
 
-km.set('v', '<S-M-Left>', 'ygv<Esc>')
-km.set('n', '<S-M-Left>', 'yy')
-km.set({'v', 'n'}, 'S-M-d', 'd')
-km.set({'n', 'v'}, '<S-M-Right>', 'p')
-
-km.set('v', 'd', '\"+d')
-km.set('n', 'dd', '\"+dd')
-km.set('v', '<S-Left>', '\"+ygv<Esc>')
-km.set('n', '<S-Left>', '\"+yy')
-km.set({'n', 'v'}, '<S-Right>', '\"+p')
+km.set('v', '<S-Left>', 'ygv<Esc>')
+km.set('n', '<S-Left>', 'yy')
+km.set({'n', 'v'}, '<S-Right>', 'p')
 
 km.set('n', '<M-CR>', 'md*ggn')
 km.set('n', '<M-]>', '\'d')
@@ -251,8 +244,6 @@ km.set('n', '<C-z>', 'u')
 -- $insert keymaps
 km.set('n', 'x', 'i')
 km.set('i', '<C-x>', '<C-n>')
--- km.set('i', '<C-z>', '<C-o>:R<CR>')
--- km.set('i', '<C-x>', '<C-o>:E<CR>')
 km.set('i', '<M-s>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('i', '<C-w>', function () vim.cmd('silent write') end)
@@ -434,8 +425,7 @@ vim.o.synmaxcol = 0
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.cmd('set shiftwidth=4 smarttab')
--- vim.o.guicursor=''
-
+vim.cmd('set clipboard+=unnamedplus')
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
