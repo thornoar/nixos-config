@@ -19,7 +19,8 @@
         fontsizeBar = opt { type = tp.int; };
         dotfiledir = mkOpt "path" ./dotfiles;
         wallpaperDir = mkStrOpt "Landscapes";
-        wallpaperGamma = mkOpt "float" 0.5;
+        wallpaperGamma = mkOpt "float" 0.9;
+        wallpaperContrast = mkOpt "float" 1.0;
         windowSpace = mkOpt "int" 7;
         windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;
@@ -31,7 +32,7 @@
 
         bgColor0 = mkStrOpt "#0b1012";#"#1e2127";
         bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
-        bgColor2 = mkStrOpt "#43565c";
+        bgColor2 = mkStrOpt "#1e2127";#"#43565c";
         fgColor = mkStrOpt "#17a88b";
         brfgColor = mkStrOpt "#00bc96";
 

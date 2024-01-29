@@ -11,7 +11,7 @@
             -- Home-Manager settings
 
             -- setWallpaperCmd = spawn "xwallpaper --maximize $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
-            setWallpaperCmd = spawn "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${builtins.toString config.wallpaperGamma}"
+            setWallpaperCmd = spawn "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${builtins.toString config.wallpaperGamma} -contrast ${builtins.toString config.wallpaperContrast}"
 
             mySpace :: Integer
             mySpace = ${builtins.toString config.windowSpace}
@@ -40,18 +40,18 @@
             set notification-error-bg       "${config.colorRed0}" # Red
             set notification-error-fg       "${config.colorWhite1}" # Foreground
             set notification-warning-bg     "${config.colorOrange}" # Orange
-            set notification-warning-fg     "${config.bgColor1}" # Selection
+            set notification-warning-fg     "${config.bgColor2}" # Selection
             set notification-bg             "${config.bgColor0}" # Background
             set notification-fg             "${config.colorWhite1}" # Foreground
             set completion-bg               "${config.bgColor0}" # Background
             set completion-fg               "${config.colorBlue2}" # Comment
             set completion-group-bg         "${config.bgColor0}" # Background
             set completion-group-fg         "${config.colorBlue2}" # Comment
-            set completion-highlight-bg     "${config.bgColor1}" # Selection
+            set completion-highlight-bg     "${config.bgColor2}" # Selection
             set completion-highlight-fg     "${config.colorWhite1}" # Foreground
             set index-bg                    "${config.bgColor0}" # Background
             set index-fg                    "${config.colorWhite1}" # Foreground
-            set index-active-bg             "${config.bgColor1}" # Current Line
+            set index-active-bg             "${config.bgColor2}" # Current Line
             set index-active-fg             "${config.colorWhite1}" # Foreground
             set inputbar-bg                 "${config.bgColor0}" # Background
             set inputbar-fg                 "${config.colorWhite1}" # Foreground

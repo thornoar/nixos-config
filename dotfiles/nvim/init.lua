@@ -254,7 +254,7 @@ km.set('i', '<C-x>', '<C-n>')
 -- km.set('i', '<C-z>', '<C-o>:R<CR>')
 -- km.set('i', '<C-x>', '<C-o>:E<CR>')
 km.set('i', '<M-s>', '<C-o>$;')
-km.set('i', '<C-q>', '<Esc>[s1z=A')
+km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('i', '<C-w>', function () vim.cmd('silent write') end)
 -- $navigation keymaps
 km.set('n', '<Up>', 'gk')
