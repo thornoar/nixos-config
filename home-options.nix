@@ -32,7 +32,7 @@
 
         bgColor0 = mkStrOpt "#0b1012";#"#1e2127";
         bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
-        bgColor2 = mkStrOpt "#1e2127";#"#43565c";
+        bgColor2 = mkStrOpt "#43565c";
         fgColor = mkStrOpt "#17a88b";
         brfgColor = mkStrOpt "#00bc96";
 
