@@ -80,6 +80,9 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
+ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
+ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
+
 myTerminal :: String
 myTerminal = "$TERMINAL"
 
@@ -412,7 +415,7 @@ myXmobarPP = def {
     ppOrder             = \[ws, l, _, wins] -> [(unwords . (take 3) . words) ws, wins],
     ppExtras            = return $ concatLoggers    [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
-        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
+        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
         onLogger (white . drop 9) logLayout
         ]
     } where
@@ -423,6 +426,13 @@ myXmobarPP = def {
 
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
+
+    strsb :: String -> String -> String
+    strsb s1 s2 = show $ (read s1) - (read s2)
+    subtract :: Logger -> Logger -> Logger
+    subtract = ffmap (ffmap strsb)
+    maximizedLogger :: Logger
+    maximizedLogger = subtract totalLogger minimizedLogger
 
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
