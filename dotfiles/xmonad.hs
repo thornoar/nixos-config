@@ -26,6 +26,16 @@ import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.RefocusLast
 
+-- Layouts
+import XMonad.Layout.Accordion
+import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Spiral
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Minimize
+import qualified XMonad.Layout.BoringWindows as BW
+import XMonad.Layout.NoBorders
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -66,18 +76,6 @@ import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-
--- Layouts
-import XMonad.Layout.Accordion
-import XMonad.Layout.GridVariants (Grid(Grid))
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spiral
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed
-import XMonad.Layout.Minimize
-import XMonad.Layout.Simplest
-import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.NoBorders
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -416,7 +414,7 @@ myXmobarPP = def {
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
     ppOrder             = \[ws, l, _, wins] -> [(unwords . (take 3) . words) ws, wins],
-    ppExtras            = return $ concatLoggers    [
+    ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
         onLogger (white . drop 9) logLayout

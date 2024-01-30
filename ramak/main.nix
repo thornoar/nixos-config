@@ -8,7 +8,16 @@
         ./external.nix
     ];
 
-    config = {
+    config = 
+    let 
+        my-python-packages = ps: with ps; [
+            ipython
+            sympy
+            numpy
+            # other python packages
+        ];
+    in
+    {
         home.username = usrname;
         home.homeDirectory = "/home/"+usrname;
 
@@ -32,7 +41,7 @@
             pkgs.texlive.combined.scheme-full
             zathura
             ghc
-            python3
+            # python3
             R
             manim
             bc
@@ -55,7 +64,9 @@
             tldr
             most
             libqalculate
-            python311Packages.ipython
+            # python311Packages.ipython
+            # python311Packages.sympy
+            (python3.withPackages my-python-packages)
             eza
             ueberzug
             lazygit
