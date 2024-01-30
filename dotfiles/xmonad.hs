@@ -67,7 +67,6 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
-
 -- Layouts
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
@@ -75,17 +74,10 @@ import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
--- import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Minimize
--- import XMonad.Layout.TwoPane
 import XMonad.Layout.Simplest
-import XMonad.Layout.CircleEx
--- import XMonad.Layout.LimitWindows
--- import XMonad.Layout.BinaryColumn
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.NoBorders
-
-myLayout = grid ||| Simplest ||| CircleEx ||| magnified ||| tabs
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -232,11 +224,10 @@ killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindo
 myKeys :: [(String, X ())]
 myKeys = [
     -- Xmonad
-    ("M-M1-<Home>", do
-        spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' --hold -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart'")
-        -- spawn "killall xmobar && xmobar --recompile &"
-    ),
-    ("M-M1-<End>", spawn "killall xmobar && xmobar --recompile &"),
+    -- ("M-M1-<Home>", do
+    --     spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart; exit'")
+    -- ),
+    -- ("M-M1-<End>", spawn "killall xmobar && xmobar --recompile &"),
 
     -- Prompts
     ("M-<Return>", shellPrompt myXPConfig),
@@ -384,6 +375,8 @@ tabs =
     $ avoidStruts
     $ spacing (fromIntegral mySpace)
     $ tabbed shrinkText myTabTheme
+
+myLayout = grid ||| Simplest ||| magnified ||| tabs
 
 -- Window rules:
 
