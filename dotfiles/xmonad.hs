@@ -392,7 +392,7 @@ q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
 (|?) :: Eq a => Query a -> [a] -> Query Bool
 q |? xs = (fmap myUnion) $ sequence [ (q =? x) | x <- xs ]
 
-viewShift = doF . liftM2 (.) W.greedyView W.shift
+-- viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 myAnd' :: Query Bool -> Bool -> Query Bool
 myAnd' a b = (fmap (&& b)) a
@@ -401,10 +401,10 @@ myAnd :: Query Bool -> Query Bool -> Query Bool
 myAnd a b = b >>= myAnd' a
 
 myManageHook :: ManageHook
-myManageHook = composeAll [
-    insertPosition Below Newer,
-    title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    (className /? [ "firefox", "Alacritty", "Zathura", "GoldenDict-ng", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )) ]
+myManageHook = insertPosition Below Newer
+-- myManageHook = composeAll [ insertPosition Below Newer ]
+    -- (className /? [ "firefox", "Alacritty", "Zathura", "GoldenDict-ng", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )),
+    -- title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
     -- (className |? [  ]) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
