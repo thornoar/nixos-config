@@ -235,8 +235,8 @@ myKeys = [
 
     -- Kill windows
     ("M-<Delete>", kill),
-    ("M-M1-k", killAll),
-    ("M-M1-<Delete>", killAllFloating),
+    ("M-M1-<End>", killAllFloating),
+    ("M-M1-<Delete>", killAll),
 
     -- Quick Programs
     ("M-x", spawn ( myTerminal ++ " --title 'File Manager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
@@ -259,7 +259,7 @@ myKeys = [
     ),
     ("M-<Tab>", toggleWS' ["NSP"]),
 
-    -- myScratchpads
+    -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Scratchpad"),
     ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
@@ -322,7 +322,8 @@ myKeys = [
     ("M-z <Down>", spawn "playerctl next"),
     ("M-z <Up>", spawn "playerctl previous"),
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
-    ("M-S-p", spawn "flameshot full --path $HOME/media/pictures") ]
+    ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
+    ]
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
     ++ [("M-e " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
 
@@ -376,7 +377,7 @@ tabs =
     $ spacing (fromIntegral mySpace)
     $ tabbed shrinkText myTabTheme
 
-myLayout = grid ||| Simplest ||| magnified ||| tabs
+myLayout = grid ||| Full ||| magnified ||| tabs
 
 -- Window rules:
 
