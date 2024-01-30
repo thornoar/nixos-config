@@ -6,7 +6,7 @@ import System.Exit
 -- Actions
 import XMonad.Actions.CycleWS
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import XMonad.Actions.WithAll (sinkAll, killAll)
+import XMonad.Actions.WithAll (sinkAll, killAll, withAll)
 import XMonad.Actions.Minimize
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo
@@ -147,7 +147,8 @@ myTabTheme = def {
     inactiveBorderColor = myBgColor,
     activeTextColor     = colorMagenta0,
     inactiveTextColor   = colorLowWhite,
-    decoHeight		    = myBarHeight }
+    decoHeight		    = myBarHeight
+    }
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myXPKeymap = M.fromList $
@@ -179,7 +180,8 @@ myXPKeymap = M.fromList $
     (xK_End, endOfLine),
     (xK_Down, moveHistory W.focusUp'),
     (xK_Up, moveHistory W.focusDown'),
-    (xK_Escape, quit) ]
+    (xK_Escape, quit)
+    ]
 
 myXPConfig :: XPConfig
 myXPConfig = def {
@@ -278,8 +280,11 @@ myKeys = [
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-s", toggleFocus),
-    ("M-d", withFocused minimizeWindow),
-    ("M-b", withLastMinimized maximizeWindowAndFocus),
+    -- ("M-d", withFocused minimizeWindow),
+    ("M-d", do
+        hasMinimized <- withMinimized $ return . (>0) . length
+        if (hasMinimized) then withAll maximizeWindow else withAll minimizeWindow        
+    ),
 
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
