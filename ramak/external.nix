@@ -20,8 +20,6 @@
             myFgColor = "${config.fgColor}"
             myBarHeight = ${builtins.toString config.barheight}
 
-            myLayout = ${config.xmonadLayouts}
-
             colorBlue0 = "${config.colorBlue0}"
             colorBlue2 = "${config.colorBlue2}"
             colorWhite = "${config.colorWhite0}"
@@ -192,7 +190,7 @@
                     y = config.padding.y;
                 };
                 window.opacity = config.windowOpacity;
-                key_bindings = [
+                keyboard.bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
                     { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }

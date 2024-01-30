@@ -60,7 +60,7 @@
         colorMagenta0 = mkStrOpt "#ff79c6";
         colorMagenta1 = mkStrOpt "#c678dd";
 
-        xmonadLayouts = mkStrOpt "grid ||| Full ||| spirals ||| magnified ||| tabs";
+        # xmonadLayouts = mkStrOpt "grid ||| Full ||| spirals ||| magnified ||| tabs";
 
         xmobarTemplate = mkStrOpt " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ";
         xmobarExtraCommands = mkStrOpt ''

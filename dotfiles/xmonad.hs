@@ -26,19 +26,6 @@ import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.RefocusLast
 
--- Layouts
-import XMonad.Layout.Accordion
-import XMonad.Layout.GridVariants (Grid(Grid))
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spiral
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Minimize
-import XMonad.Layout.TwoPane
-import XMonad.Layout.LimitWindows
-import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.NoBorders
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -79,6 +66,26 @@ import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+
+
+-- Layouts
+import XMonad.Layout.Accordion
+import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Spiral
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Tabbed
+-- import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Minimize
+-- import XMonad.Layout.TwoPane
+import XMonad.Layout.Simplest
+import XMonad.Layout.CircleEx
+-- import XMonad.Layout.LimitWindows
+-- import XMonad.Layout.BinaryColumn
+import qualified XMonad.Layout.BoringWindows as BW
+import XMonad.Layout.NoBorders
+
+myLayout = grid ||| Simplest ||| CircleEx ||| magnified ||| tabs
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -347,32 +354,29 @@ named s = renamed [ Replace s ]
 --     $ mySpacing' mySpace
 --     $ ResizableTall 1 (3/100) (1/2) []
 
+-- spirals =
+--     named "Spirals"
+--     $ windowNavigation
+--     $ avoidStruts
+--     $ mySpacing mySpace
+--     $ spiral (6/7)
+
 magnified =
     named "Magnified" 
     $ windowNavigation
     $ avoidStruts
-    $ limitWindows 12
     $ magnifier
     $ mySpacing mySpace
     $ Grid (16/10)
-    -- $ ResizableTall 1 (3/100) (1/2) []
 
 grid =
     named "Grid"
     $ windowNavigation
     $ avoidStruts
     $ subLayout [] (smartBorders Simplest)
-    $ limitWindows 12
     $ mySpacing mySpace
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
-
-spirals =
-    named "Spirals"
-    $ windowNavigation
-    $ avoidStruts
-    $ mySpacing mySpace
-    $ spiral (6/7)
 
 tabs =
     named "Tabs"
