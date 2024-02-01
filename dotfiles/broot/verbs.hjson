@@ -25,6 +25,10 @@ verbs: [
     #    execution: "nvim +{line} {file}"
     #    execution: "helix {file}:{line}"
     {
+        invocation: xs
+        cmd: ":focus;:cd"
+    }
+    {
         invocation: esc
         key: ctrl-c
         internal: escape
@@ -78,6 +82,12 @@ verbs: [
         cmd: ":escape;:focus ~"
     }
     {
+        key: ctrl-a
+        invocation: terminal
+        external: "sh -c \"$TERMINAL --hold -e sh -c 'cd {directory}; $SHELL' &\""
+        leave_broot: false
+    }
+    {
         invocation: edit
         shortcut: e
         keys: [
@@ -126,4 +136,3 @@ verbs: [
         leave_broot: false
     }
 ]
-
