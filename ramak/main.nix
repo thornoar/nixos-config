@@ -14,7 +14,8 @@
             ipython
             sympy
             numpy
-            # other python packages
+            pandas
+            matplotlib
         ];
     in
     {
@@ -25,74 +26,81 @@
 
         nixpkgs.config.allowUnfree = true;
         home.packages = with pkgs; [
-            moc
-            mpv
-            ncdu
+            # terminal utilities
             playerctl
             keynav
-            sxiv
-            xkb-switch
-            btop
-            iftop
-            transmission
-            brightnessctl
-            acpi
-            ghostscript
-            pkgs.texlive.combined.scheme-full
-            zathura
-            ghc
-            # python3
-            R
-            manim
-            bc
-            neofetch
-            file
-            which
-            tree
-            gnused
-            gnutar
-            gawk
-            zstd
-            shellcheck
-            nix-du
-            sysstat
-            lm_sensors
-            ethtool
-            glow
-            thefuck
-            bat
-            tldr
-            most
-            libqalculate
-            # python311Packages.ipython
-            # python311Packages.sympy
-            (python3.withPackages my-python-packages)
-            eza
-            ueberzug
-            lazygit
-            cheat
-            toipe
-            broot
-            telegram-desktop
-            discord
-            flameshot
-            obs-studio
-            libnotify
-            zoom-us
-            xmobar
-            xvkbd
-            hsetroot
             trash-cli
-            goldendict-ng
-            gource
             ripgrep
             xclip
             xsel
             fzf
             imagemagick
             ffmpeg
+            neofetch
+            file
+            which
+            transmission
+            gawk
+            shellcheck
+            nix-du
+            sysstat
+            thefuck
+            bat
+            tldr
+            most
+            eza
+            cheat
+            # gnused
+            # gnutar
+            # ueberzug
+            # glow
+            # lm_sensors
+            # ethtool
+            # zstd
+            # tree
+            # bc
+            # acpi
+            # brightnessctl
+
+            # terminal applications
+            broot
+            yazi
+            moc
+            ncdu
+            btop
+            iftop
+            lazygit
+            toipe
+            libqalculate
+
+            # languages
+            ghostscript
+            pkgs.texlive.combined.scheme-full
+            ghc
+            R
             cargo
             rustc
+            (python3.withPackages my-python-packages)
+            manim
+
+            # GUI applications
+            telegram-desktop
+            discord
+            flameshot
+            obs-studio
+            zoom-us
+            goldendict-ng
+            mpv
+            zathura
+            sxiv
+            gource
+
+            # Desktop
+            xkb-switch
+            libnotify
+            xmobar
+            xvkbd
+            hsetroot
         ];
 
         programs.zsh = {
@@ -104,7 +112,7 @@
                 # rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
                 # fullgc = "${gc} && ${rb-boot}";
                 rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
-                hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/ && xmonad --recompile && xmonad --restart";
+                hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart";
                 srb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
                 brb = "${rb}#master && ${hrb}";
                 frb = "${brb} && ${gc} && ${xc}";
@@ -137,6 +145,7 @@
                 q = "qalc -c";
                 sxiv = "sxiv -b";
                 lg = "lazygit";
+                ip = "ipython";
             };    
             initExtra = ''
                 autoload -U colors && colors

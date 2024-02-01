@@ -240,6 +240,7 @@ myKeys = [
     ("M-x", spawn ( myTerminal ++ " --title 'File Manager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-w", spawn myBrowser),
     ("M-a", spawn myTerminal),
+    ("M-b", spawn (myTerminal ++ " --title 'Editor' -e sh -c 'cd $PROJECTS/sandbox && nvim'")),
 
     -- Type email
     ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
