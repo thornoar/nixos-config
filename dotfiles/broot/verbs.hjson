@@ -25,6 +25,10 @@ verbs: [
     #    execution: "nvim +{line} {file}"
     #    execution: "helix {file}:{line}"
     {
+        key: ctrl-q
+        internal: start_end_panel
+    }
+    {
         invocation: xs
         cmd: ":focus;:cd"
     }
