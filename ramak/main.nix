@@ -112,7 +112,7 @@
                 # rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
                 # fullgc = "${gc} && ${rb-boot}";
                 rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
-                hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart";
+                hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; recompile_xmonad && xmonad --restart";
                 srb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
                 brb = "${rb}#master && ${hrb}";
                 frb = "${brb} && ${gc} && ${xc}";

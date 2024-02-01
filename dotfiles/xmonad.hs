@@ -203,8 +203,14 @@ myXPConfig = def {
     alwaysHighlight     = True,
     maxComplRows        = Just 5 }
 
-myPrograms :: [String]
-myPrograms = [ myTerminal++" -e btop", "telegram-desktop", "discord", "obs", "goldendict" ]
+myPrograms :: [(String, String)]
+myPrograms = [
+    ("b", myTerminal++" -e btop"),
+    ("y", myTerminal++" -e yazi"),
+    ("t", "telegram-desktop"),
+    ("d", "discord"),
+    ("s", "obs")
+    ]
 
 myScratchpads = [
     NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
@@ -221,12 +227,6 @@ killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindo
 
 myKeys :: [(String, X ())]
 myKeys = [
-    -- Xmonad
-    -- ("M-M1-<Home>", do
-    --     spawn (myTerminal ++ " --title 'Compiling' --class 'Floating' -e sh -c 'home-manager switch --impure --flake $NIXOS_CONFIG/; xmonad --recompile && xmonad --restart; exit'")
-    -- ),
-    -- ("M-M1-<End>", spawn "killall xmobar && xmobar --recompile &"),
-
     -- Prompts
     ("M-<Return>", shellPrompt myXPConfig),
     ("M-M1-<Return>", manPrompt myXPConfig),
@@ -324,7 +324,7 @@ myKeys = [
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
     ]
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-    ++ [("M-e " ++ (show k), spawn prog) | (k, prog) <- zip [1..(length myPrograms)] myPrograms]
+    ++ [("M-e " ++ k, spawn prog) | (k, prog) <- myPrograms]
 
 -- Layouts:
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
