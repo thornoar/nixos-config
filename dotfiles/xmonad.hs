@@ -357,8 +357,8 @@ magnified =
     named "Magnified" 
     $ windowNavigation
     $ avoidStruts
-    $ magnifier
     $ mySpacing mySpace
+    $ magnifiercz 1.635
     $ Grid (16/10)
 
 grid =

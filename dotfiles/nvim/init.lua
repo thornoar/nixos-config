@@ -303,6 +303,8 @@ km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating dia
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 -- $new keybinds
 km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
+km.set('n', '<C-x>', function () vim.cmd('Files') end)
+km.set('n', '<C-e>', function () vim.cmd('GitFiles') end)
 
 -- REMAINDER --
 -- $Comment setup
