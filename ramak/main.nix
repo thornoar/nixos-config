@@ -82,6 +82,7 @@
             rustc
             (python3.withPackages my-python-packages)
             manim
+            lua
 
             # GUI applications
             telegram-desktop

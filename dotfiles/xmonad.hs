@@ -205,8 +205,8 @@ myXPConfig = def {
 
 myPrograms :: [(String, String)]
 myPrograms = [
-    ("b", myTerminal++" -e btop"),
-    ("y", myTerminal++" -e yazi"),
+    ("b", myTerminal++" --title 'System Monitor' -e btop"),
+    ("y", myTerminal++" --title 'File Manager' -e yazi"),
     ("t", "telegram-desktop"),
     ("d", "discord"),
     ("s", "obs")
@@ -233,6 +233,7 @@ myKeys = [
 
     -- Kill windows
     ("M-<Delete>", kill),
+    ("M-y", kill),
     ("M-M1-<End>", killAllFloating),
     ("M-M1-<Delete>", killAll),
 
@@ -374,7 +375,7 @@ tabs =
     $ windowNavigation
     $ avoidStruts
     $ spacing (fromIntegral mySpace)
-    $ tabbed shrinkText myTabTheme
+    $ tabbedAlways shrinkText myTabTheme
 
 myLayout = grid ||| Full ||| magnified ||| tabs
 
