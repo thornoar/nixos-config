@@ -24,7 +24,9 @@
         windowSpace = mkOpt "int" 7;
         windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;
+        magnifiedScale = mkOpt "float" 1.5;
         font = mkStrOpt "Hack";
+
         padding = opt {
             type = tp.attrs;
             default = { x = 4; y = 4; };

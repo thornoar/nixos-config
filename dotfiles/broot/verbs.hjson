@@ -96,11 +96,17 @@ verbs: [
         shortcut: e
         keys: [
             enter
-            right
             alt-right
         ]
         apply_to: text_file
         execution: "$EDITOR {file}"
+        leave_broot: false
+    }
+    {
+        invocation: open
+        shortcut: o
+        key: alt-enter
+        internal: open_stay
         leave_broot: false
     }
     {

@@ -19,6 +19,7 @@
             myBgColor = "${config.bgColor0}"
             myFgColor = "${config.fgColor}"
             myBarHeight = ${builtins.toString config.barheight}
+            myMagnifiedScale = ${builtins.toString config.magnifiedScale}
 
             colorBlue0 = "${config.colorBlue0}"
             colorBlue2 = "${config.colorBlue2}"

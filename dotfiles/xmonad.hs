@@ -36,6 +36,7 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutCombinators
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -289,18 +290,18 @@ myKeys = [
     ("M-C-<Up>", sendMessage FirstLayout),
     ("M-C-/", sendMessage (MT.Toggle NBFULL)),
     ("M-C-p", setWallpaperCmd),
-    ("M-C-l", spawn "sleep 1 && xset dpms force off"),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
     ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
+    ("M-C-f", sendMessage $ JumpToLayout "Full"),
 
     -- Window resizing
     ("M-C-,", sendMessage Shrink),
     ("M-C-.", sendMessage Expand),
     ("M-C-'", sendMessage MirrorShrink),
     ("M-C-;", sendMessage MirrorExpand),
-    ("M-C-j", sequence_ [decScreenSpacing 1, decWindowSpacing 1]),
-    ("M-C-k", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
+    ("M-C-k", sequence_ [decScreenSpacing 1, decWindowSpacing 1]),
+    ("M-C-l", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
 
     -- Keyboard Layouts
     ("M-1", spawn "chlang us"),
@@ -308,6 +309,7 @@ myKeys = [
     ("M-3", spawn "chlang de"),
 
     -- Multimedia Keys
+    ("M-S-l", spawn "sleep 1 && xset dpms force off"),
     ("M-S-<Page_Down>", spawn "amixer sset Master 5%-"),
     ("M-S-<Page_Up>", spawn "amixer sset Master 5%+"),
     ("M-S-,", spawn "brightnessctl set 1%-"),
@@ -358,7 +360,7 @@ magnified =
     $ windowNavigation
     $ avoidStruts
     $ mySpacing mySpace
-    $ magnifiercz 1.635
+    $ magnifiercz myMagnifiedScale
     $ Grid (16/10)
 
 grid =
@@ -377,7 +379,7 @@ tabs =
     $ spacing (fromIntegral mySpace)
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| Full ||| magnified ||| tabs
+myLayout = grid ||| magnified ||| tabs ||| Full
 
 -- Window rules:
 

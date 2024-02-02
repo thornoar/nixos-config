@@ -50,17 +50,6 @@
             most
             eza
             cheat
-            # gnused
-            # gnutar
-            # ueberzug
-            # glow
-            # lm_sensors
-            # ethtool
-            # zstd
-            # tree
-            # bc
-            # acpi
-            # brightnessctl
 
             # terminal applications
             broot
@@ -72,6 +61,7 @@
             lazygit
             toipe
             libqalculate
+            graphviz
 
             # languages
             ghostscript
