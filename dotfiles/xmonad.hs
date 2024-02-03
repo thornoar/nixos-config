@@ -289,12 +289,13 @@ myKeys = [
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
+    ("M-C-<Right>", sendMessage $ JumpToLayout "Full"),
+    ("M-C-<Left>", sendMessage $ JumpToLayout "Grid"),
     ("M-C-/", sendMessage (MT.Toggle NBFULL)),
     ("M-C-p", setWallpaperCmd),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
     ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
-    ("M-C-f", sendMessage $ JumpToLayout "Full"),
 
     -- Window resizing
     ("M-C-,", sendMessage Shrink),
@@ -339,22 +340,6 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 named :: String -> l a -> ModifiedLayout Rename l a
 named s = renamed [ Replace s ]
-
--- tall = 
---     named "Master & Slaves"
---     $ windowNavigation
---     -- $ smartBorders
---     $ avoidStruts
---     $ limitWindows 5
---     $ mySpacing' mySpace
---     $ ResizableTall 1 (3/100) (1/2) []
-
--- spirals =
---     named "Spirals"
---     $ windowNavigation
---     $ avoidStruts
---     $ mySpacing mySpace
---     $ spiral (6/7)
 
 magnified =
     named "Magnified" 
@@ -405,10 +390,6 @@ myAnd a b = b >>= myAnd' a
 
 myManageHook :: ManageHook
 myManageHook = insertPosition Below Newer
--- myManageHook = composeAll [ insertPosition Below Newer ]
-    -- (className /? [ "firefox", "Alacritty", "Zathura", "GoldenDict-ng", "Sxiv", "mpv", "Floating" ]) --> (viewShift ( last myWorkspaces )),
-    -- title =? "Compiling" --> doRectFloat (W.RationalRect (3 % 5) (1 % 6) (7 % 20) (4 % 6)),
-    -- (className |? [  ]) --> (viewShift ( last myWorkspaces )) ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -458,8 +439,6 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
--- myHandleEventHook = swallowEventHook (title =? "File Manager") (className |? ["Zathura", "mpv"])
--- myHandleEventHook = swallowEventHook (return True) (return True)
 myHandleEventHook = mempty
 
 main =
