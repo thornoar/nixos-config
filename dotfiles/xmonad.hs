@@ -152,58 +152,59 @@ myTabTheme = def {
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myXPKeymap = M.fromList $
     map (first $ (,) controlMask) [
-    (xK_z, killBefore),
-    (xK_x, killAfter),
-    (xK_Home, startOfLine),
-    (xK_End, endOfLine),
-    (xK_Left, moveCursor Prev),
-    (xK_Right, moveCursor Next),
-    (xK_BackSpace, killWord Prev),
-    (xK_v, pasteString) ] ++
-    map (first $ (,) myModMask) [
-    (xK_BackSpace, killWord Prev),
-    (xK_Delete, quit),
-    (xK_f, moveWord Next),
-    (xK_b, moveWord Prev),
-    (xK_d, killWord Next),
-    (xK_n, moveHistory W.focusUp'),
-    (xK_p, moveHistory W.focusDown') ] ++
-    map (first $ (,) 0) [
-    (xK_Return, setSuccess True >> setDone True),
-    (xK_KP_Enter, setSuccess True >> setDone True),
-    (xK_BackSpace, deleteString Prev),
-    (xK_Delete, deleteString Next),
-    (xK_Left, moveCursor Prev),
-    (xK_Right, moveCursor Next),
-    (xK_Home, startOfLine),
-    (xK_End, endOfLine),
-    (xK_Down, moveHistory W.focusUp'),
-    (xK_Up, moveHistory W.focusDown'),
-    (xK_Escape, quit)
+        (xK_z, killBefore),
+        (xK_x, killAfter),
+        (xK_Home, startOfLine),
+        (xK_End, endOfLine),
+        (xK_Left, moveCursor Prev),
+        (xK_Right, moveCursor Next),
+        (xK_BackSpace, killWord Prev),
+        (xK_v, pasteString) ] ++
+        map (first $ (,) myModMask) [
+        (xK_BackSpace, killWord Prev),
+        (xK_Delete, quit),
+        (xK_f, moveWord Next),
+        (xK_b, moveWord Prev),
+        (xK_d, killWord Next),
+        (xK_n, moveHistory W.focusUp'),
+        (xK_p, moveHistory W.focusDown') ] ++
+        map (first $ (,) 0) [
+        (xK_Return, setSuccess True >> setDone True),
+        (xK_KP_Enter, setSuccess True >> setDone True),
+        (xK_BackSpace, deleteString Prev),
+        (xK_Delete, deleteString Next),
+        (xK_Left, moveCursor Prev),
+        (xK_Right, moveCursor Next),
+        (xK_Home, startOfLine),
+        (xK_End, endOfLine),
+        (xK_Down, moveHistory W.focusUp'),
+        (xK_Up, moveHistory W.focusDown'),
+        (xK_Escape, quit)
     ]
 
 myXPConfig :: XPConfig
 myXPConfig = def {
-    font                = myFont,
-    bgColor             = myBgColor,
-    fgColor             = colorWhite,
-    bgHLight            = colorBlue0,
-    fgHLight            = colorBlack,
-    borderColor         = colorBlue2,
-    promptBorderWidth   = 0,
-    promptKeymap        = myXPKeymap,
-    position            = Top,
-    height              = myBarHeight,
-    historySize         = 256,
-    historyFilter       = id,
-    defaultText         = [],
-    searchPredicate     = fuzzyMatch,
-    sorter              = fuzzySort,
-    autoComplete        = Nothing,
-    showCompletionOnTab = False,
-    defaultPrompter     = id $ map toUpper,
-    alwaysHighlight     = True,
-    maxComplRows        = Just 5 }
+        font                = myFont,
+        bgColor             = myBgColor,
+        fgColor             = colorWhite,
+        bgHLight            = colorBlue0,
+        fgHLight            = colorBlack,
+        borderColor         = colorBlue2,
+        promptBorderWidth   = 0,
+        promptKeymap        = myXPKeymap,
+        position            = Top,
+        height              = myBarHeight,
+        historySize         = 256,
+        historyFilter       = id,
+        defaultText         = [],
+        searchPredicate     = fuzzyMatch,
+        sorter              = fuzzySort,
+        autoComplete        = Nothing,
+        showCompletionOnTab = False,
+        defaultPrompter     = id $ map toUpper,
+        alwaysHighlight     = True,
+        maxComplRows        = Just 5
+    }
 
 myPrograms :: [(String, String)]
 myPrograms = [
@@ -214,7 +215,8 @@ myPrograms = [
     ("s", "obs")
     ]
 
-myScratchpads = [
+myScratchpads =
+    [
     NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
@@ -389,7 +391,9 @@ myAnd :: Query Bool -> Query Bool -> Query Bool
 myAnd a b = b >>= myAnd' a
 
 myManageHook :: ManageHook
-myManageHook = insertPosition Below Newer
+myManageHook = composeAll [
+    insertPosition Below Newer
+    ]
 
 myXmobarPP :: PP
 myXmobarPP = def {
@@ -461,5 +465,5 @@ defaults = def {
     manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,
-    logHook            = refocusLastLogHook }
-    `additionalKeysP` myKeys
+    logHook            = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
+    } `additionalKeysP` myKeys
