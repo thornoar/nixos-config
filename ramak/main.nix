@@ -21,6 +21,11 @@
     {
         home.username = usrname;
         home.homeDirectory = "/home/"+usrname;
+        xdg.userDirs = {
+            enable = true;
+            download = "${config.home.homeDirectory}/dls";
+            documents = "${config.home.homeDirectory}/docs";
+        };
 
         programs.nix-index.enable = true;
 

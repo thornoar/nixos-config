@@ -104,6 +104,7 @@ myStartupHook = setWallpaperCmd
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "aux"]
+myWorkspaceLength = length myWorkspaces
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
 
 myFont :: String
@@ -113,7 +114,7 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myFloatingRectangle :: W.RationalRect
-myFloatingRectangle = W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3)
+myFloatingRectangle = W.RationalRect (1 % 6) (1 % 6) (2 % 3) (19 % 30)
 
 archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
 archwiki    = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
@@ -417,7 +418,7 @@ myXmobarPP = def {
     ppHidden            = blue,
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
-    ppOrder             = \[ws, l, _, wins] -> [(unwords . (take 3) . words) ws, wins],
+    ppOrder             = \[ws, l, _, wins] -> [(unwords . (take myWorkspaceLength) . words) ws, wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
