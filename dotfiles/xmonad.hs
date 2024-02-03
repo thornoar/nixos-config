@@ -30,6 +30,7 @@ import XMonad.Hooks.RefocusLast
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Simplest
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
@@ -37,6 +38,7 @@ import XMonad.Layout.Minimize
 import qualified XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.PerWorkspace
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -114,7 +116,7 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myFloatingRectangle :: W.RationalRect
-myFloatingRectangle = W.RationalRect (1 % 6) (1 % 6) (2 % 3) (19 % 30)
+myFloatingRectangle = W.RationalRect (11 % 60) (1 % 6) (19 % 30) (19 % 30)
 
 archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
 archwiki    = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
@@ -367,8 +369,6 @@ tabs =
     $ spacing (fromIntegral mySpace)
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| magnified ||| tabs ||| Full
-
 -- Window rules:
 
 myIntersect :: [Bool] -> Bool
@@ -452,6 +452,8 @@ main =
     withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
     defaults
 
+myLayout = grid ||| magnified ||| tabs ||| Full
+
 defaults = def {
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
@@ -461,7 +463,11 @@ defaults = def {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    layoutHook         = minimize . BW.boringWindows $ myLayout,
+    layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
+        onWorkspace (myWorkspaces!!0) myLayout $
+        onWorkspace (myWorkspaces!!1) myLayout $
+        onWorkspace (myWorkspaces!!2) (Full ||| grid) $
+        Simplest,
     manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,
