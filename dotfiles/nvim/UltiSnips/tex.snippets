@@ -163,26 +163,26 @@ snippet pac "Package" b
 \\usepackage[$1]{${2:package}}
 endsnippet
 
-snippet newcmd "newcommand" bA
+snippet newcmd "newcommand" b
 \\newcommand{${1:command}}[$2]{${3:definition}}
 endsnippet
 
 context "math()"
-snippet ==> "implies" Ai
+snippet ==> "implies" i
 \\implies
 endsnippet
 
 context "math()"
-snippet <== "implied by" Ai
+snippet <== "implied by" i
 \\impliedby
 endsnippet
 
 context "math()"
-snippet iff "iff" Ai
+snippet iff "iff" i
 \\iff
 endsnippet
 
-snippet mk "Math" wA
+snippet mk "Math" w
 $ ${1:${VISUAL}} $
 endsnippet
 
@@ -190,11 +190,11 @@ snippet ref "ref"
 \\ref{$0}
 endsnippet
 
-snippet dm "Display Math" wA
+snippet dm "Display Math" w
 \\[ ${1:${VISUAL}} \\] $0
 endsnippet
 
-snippet sdm "Super display math" bA
+snippet sdm "Super display math" b
 \\[
 ${1:${VISUAL}}
 \\]
@@ -213,7 +213,7 @@ ${1:${VISUAL}}
 endsnippet
 
 context "math()"
-snippet // "Fraction" iA
+snippet // "Fraction" i
 \\frac{${1:${VISUAL}}}{$0}
 endsnippet
 
@@ -224,7 +224,7 @@ endsnippet
 
 priority 1000
 context "math()"
-snippet '^.*\)/' "() frac" wrA
+snippet '^.*\)/' "() frac" wr
 `!p
 stripped = match.string[:-1]
 depth = 0
@@ -359,7 +359,7 @@ _{$0}
 endsnippet
 
 context "math()"
-snippet oo "\infty" iA
+snippet oo "\infty" i
 \\infty
 endsnippet
 
@@ -441,7 +441,7 @@ snippet r0+ "R0+" iA
 endsnippet
 
 context "math()"
-snippet mcal "mathcal" iA
+snippet mcal "mathcal" i
 \\mathcal{$1}$0
 endsnippet
 
@@ -606,7 +606,7 @@ snippet case "cases" w
 \\end{cases}
 endsnippet
 
-snippet bigfun "Big function" iA
+snippet bigfun "Big function" i
 \\begin{align*}
 	$1: $2 &\\longrightarrow $3 \\\\
 	$4 &\\longmapsto $1($4) = $0
