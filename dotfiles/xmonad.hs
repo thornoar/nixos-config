@@ -349,10 +349,10 @@ named s = renamed [ Replace s ]
 
 magnified =
     named "Magnified" 
-    $ windowNavigation
     $ avoidStruts
     $ mySpacing mySpace
     $ magnifiercz myMagnifiedScale
+    $ windowNavigation
     $ Grid (16/10)
 
 grid =
