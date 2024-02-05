@@ -219,7 +219,8 @@ km.set('v', '<C-S-Right>', '>gv')
 
 km.set('v', '<S-Left>', 'ygv<Esc>')
 km.set('n', '<S-Left>', 'yy')
-km.set({'n', 'v', 'i'}, '<S-Right>', 'p')
+km.set({'n', 'v'}, '<S-Right>', 'p')
+km.set('i', '<S-Right>', '<C-o>p')
 
 km.set('n', '<M-CR>', 'md*ggn')
 km.set('n', '<M-]>', '\'d')
