@@ -71,6 +71,8 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedWindows
 import XMonad.Util.Loggers
 import XMonad.Util.NamedScratchpad
+-- import XMonad.Util.ExclusiveScratchpads
+import qualified XMonad.Util.ExtensibleState as ES
 import XMonad.ManageHook
 
 -- Xmobar
@@ -217,14 +219,30 @@ myPrograms = [
     ("s", "obs")
     ]
 
+myScratchpadClasses :: [String]
+myScratchpadClasses = ["Scratchpad", "GoldenDict-ng"]
+
 myScratchpads =
     [
-    NS "Scratchpad" (myTerminal++" --title 'Scratchpad'") (title =? "Scratchpad") (customFloating myFloatingRectangle),
-    NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
+    NS "Terminal" (myTerminal++" --class 'Scratchpad' --title 'Terminal'") (title =? "Terminal") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --class 'Scratchpad' --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
-    NS "File Manager" (myTerminal ++ " --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
-    NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)
+    NS "File Manager" (myTerminal ++ " --class 'Scratchpad' --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
+    NS "Music Player" (myTerminal++" --class 'Scratchpad' --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)
     ]
+
+-- exclusiveSps = mkXScratchpads [
+--        ("Terminal", (myTerminal++" --class 'Scratchpad' --title 'Terminal'"), (title =? "Terminal")),
+--        ("Calculator", (myTerminal++" --class 'Scratchpad' --title 'Calculator' -e qalc"), (title =? "Calculator")),
+--        ("GoldenDict", ("goldendict"), (className =? "GoldenDict-ng")),
+--        ("File Manager", (myTerminal ++ " --class 'Scratchpad' --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'"), (title =? "File Scratchpad")),
+--        ("Music Player", (myTerminal++" --class 'Scratchpad' --title 'Music Player' -e mocp"), (title =? "Music Player"))
+--         ] $ customFloating $ myFloatingRectangle
+
+-- myExclusives = addExclusives [ (map getName) myScratchpads ]
+--     where
+--         getName :: NamedScratchpad -> String
+--         getName (NS name _ _ _) = name
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -266,11 +284,16 @@ myKeys = [
     ("M-<Tab>", toggleWS' ["NSP"]),
 
     -- Scratchpads
-    ("M-c", namedScratchpadAction myScratchpads "Scratchpad"),
+    ("M-c", namedScratchpadAction myScratchpads "Terminal"),
     ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
     ("M-f", namedScratchpadAction myScratchpads "File Manager"),
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
+    -- ("M-c", scratchpadAction exclusiveSps "Terminal"),
+    -- ("M-g", scratchpadAction exclusiveSps "GoldenDict"),
+    -- ("M-v", scratchpadAction exclusiveSps "Music Player"),
+    -- ("M-f", scratchpadAction exclusiveSps "File Manager"),
+    -- ("M-q", scratchpadAction exclusiveSps "Calculator"),
 
     -- Windows navigation
     ("M-<Down>", sendMessage $ Go D),
@@ -456,6 +479,43 @@ main =
 
 myLayout = grid ||| magnified ||| tabs ||| Full
 
+-- contains :: Eq a => a -> [a] -> Bool
+-- contains = \elem -> \myList ->
+--     case myList of
+--         [] -> False -- if all elements checked, return False
+--         x:xs | x == elem -> True -- If head matches elem, return True
+--         _:xs -> contains elem xs -- Check for element membership in remaining list
+--
+-- data MyFocus = NoFocus | MyFocus Window deriving (Eq, Read, Show, Typeable)
+--
+-- instance ExtensionClass MyFocus where
+--   initialValue = NoFocus
+--
+-- hideScratchpadsOnFocusLoss :: X ()
+-- hideScratchpadsOnFocusLoss = do
+--     xState <- get
+--     let ws = windowset xState
+--         ext = extensibleState xState
+--         focus = maybe NoFocus MyFocus $ peek ws
+--         (prevVal, ext') = M.insertLookupWithKey update "prevFocus" (Right $ StateExtension focus) ext
+--         prevFocus = maybe NoFocus (either (const NoFocus) tryCast) prevVal
+--     ES.put xState{ extensibleState = ext' }
+--     case prevFocus of
+--         MyFocus prevWin -> do
+--             c <- runQuery className prevWin
+--             t <- runQuery title prevWin
+--             ES.when (contains c myScratchpadClasses) $ do
+--                 case focus of
+--                     MyFocus currentWin -> ES.when (currentWin /= prevWin) (namedScratchpadAction myScratchpads t)
+--                     NoFocus -> namedScratchpadAction myScratchpads t
+--         _ -> return ()
+--     where
+--         update :: k -> v -> v -> v
+--         update _ newValue _ = newValue
+--         tryCast :: StateExtension -> MyFocus
+--         tryCast (StateExtension val) = fromMaybe initialValue $ ES.cast val
+--         tryCast _ = NoFocus
+
 defaults = def {
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
@@ -471,7 +531,8 @@ defaults = def {
         onWorkspace (myWorkspaces!!2) (Full ||| grid) $
         Simplest,
     manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
+    -- manageHook         = myManageHook <+> xScratchpadsManageHook exclusiveSps,
     handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,
-    logHook            = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
+    logHook            = refocusLastLogHook
     } `additionalKeysP` myKeys
