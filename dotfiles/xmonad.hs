@@ -8,6 +8,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WithAll (sinkAll, killAll, withAll)
 import XMonad.Actions.Minimize
+import XMonad.Actions.Volume
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo
 import XMonad.Actions.GroupNavigation
@@ -49,7 +50,6 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
-import XMonad.Layout.Hidden
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
@@ -282,8 +282,6 @@ myKeys = [
     ("M-M1-<Up>", windows W.swapUp),
     ("M-M1-<Left>", withFocused minimizeWindow),
     ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
-    -- ("M-M1-<Left>", withFocused hideWindow),
-    -- ("M-M1-<Right>", popOldestHiddenWindow),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-s", toggleFocus),
@@ -319,8 +317,11 @@ myKeys = [
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),
-    ("M-S-<Page_Down>", spawn "amixer sset Master 5%-"),
-    ("M-S-<Page_Up>", spawn "amixer sset Master 5%+"),
+    -- ("M-S-<Page_Down>", spawn "amixer sset Master 5%-"),
+    -- ("M-S-<Page_Up>", spawn "amixer sset Master 5%+"),
+    ("M-S-<Page_Down>", lowerVolume 5 >> return ()),
+    ("M-S-<Page_Up>", raiseVolume 5 >> return ()),
+    ("M-S-<End>", toggleMute >> return ()),
     ("M-S-,", spawn "brightnessctl set 1%-"),
     ("M-S-.", spawn "brightnessctl set 1%+"),
     ("M-S-<Home>", spawn "mocp --seek -500"),
