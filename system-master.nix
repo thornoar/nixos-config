@@ -96,8 +96,8 @@
 
         services.xserver = {
             enable = true;
-            layout = "us";
-            xkbVariant = "";
+            xkb.layout = "us";
+            xkb.variant = "";
             displayManager.lightdm = {
                 enable = true;
                 greeters.enso.enable = true;
