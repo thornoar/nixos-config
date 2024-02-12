@@ -2,7 +2,9 @@
 
 {
     config = 
-    let dotfile = str: lib.path.append config.dotfiledir str;
+    let
+        dotfile = str: lib.path.append config.dotfiledir str;
+        ts = builtins.toString;
     in 
     {
         dotfiledir = lib.mkForce ../dotfiles;
@@ -11,15 +13,20 @@
             -- Home-Manager settings
 
             -- setWallpaperCmd = spawn "xwallpaper --maximize $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
-            setWallpaperCmd = spawn "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${builtins.toString config.wallpaperGamma} -contrast ${builtins.toString config.wallpaperContrast}"
+            setWallpaperCmd = spawn "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${ts config.wallpaperGamma} -contrast ${ts config.wallpaperContrast}"
 
-            mySpace :: Integer
-            mySpace = ${builtins.toString config.windowSpace}
+            myBorderWidth :: Dimension
+            myBorderWidth = ${ts config.windowBorderWidth}
+            -- myBorderWidth = 0
+
+            mySpace :: Int
+            mySpace = ${ts config.windowSpace} `div` 2
+            -- mySpace = 0
 
             myBgColor = "${config.bgColor0}"
             myFgColor = "${config.fgColor}"
-            myBarHeight = ${builtins.toString config.barheight}
-            myMagnifiedScale = ${builtins.toString config.magnifiedScale}
+            myBarHeight = ${ts config.barheight}
+            myMagnifiedScale = ${ts config.magnifiedScale}
 
             colorBlue0 = "${config.colorBlue0}"
             colorBlue2 = "${config.colorBlue2}"

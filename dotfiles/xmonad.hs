@@ -36,25 +36,23 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
-import qualified XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.NoBorders
-import XMonad.Layout.LayoutCombinators
-import XMonad.Layout.PerWorkspace
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
+import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.PerWorkspace
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import qualified XMonad.Layout.BoringWindows as BW
 
 -- Prompts
 import XMonad.Prompt
@@ -95,9 +93,6 @@ myFocusFollowsMouse = False
 
 myClickJustFocuses :: Bool
 myClickJustFocuses = False
-
-myBorderWidth :: Dimension
-myBorderWidth = 0
 
 myModMask :: KeyMask
 myModMask = mod4Mask
@@ -340,11 +335,11 @@ myKeys = [
     ++ [("M-e " ++ k, spawn prog) | (k, prog) <- myPrograms]
 
 -- Layouts:
-mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
-
-mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
-mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+-- mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+-- mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+--
+-- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+-- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 named :: String -> l a -> ModifiedLayout Rename l a
 named s = renamed [ Replace s ]
@@ -352,7 +347,7 @@ named s = renamed [ Replace s ]
 magnified =
     named "Magnified" 
     $ avoidStruts
-    $ mySpacing mySpace
+    $ spacingWithEdge mySpace
     $ magnifiercz myMagnifiedScale
     $ windowNavigation
     $ Grid (16/10)
@@ -361,8 +356,8 @@ grid =
     named "Grid"
     $ windowNavigation
     $ avoidStruts
-    $ subLayout [] (smartBorders Simplest)
-    $ mySpacing mySpace
+    $ spacingWithEdge mySpace
+    -- $ subLayout [] (smartBorders Simplest)
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
 
@@ -370,8 +365,10 @@ tabs =
     named "Tabs"
     $ windowNavigation
     $ avoidStruts
-    $ spacing (fromIntegral mySpace)
+    $ spacingWithEdge mySpace
     $ tabbedAlways shrinkText myTabTheme
+
+myLayout = grid ||| magnified ||| tabs ||| Full
 
 -- Window rules:
 
@@ -456,8 +453,6 @@ main =
     withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
     defaults
 
-myLayout = grid ||| magnified ||| tabs ||| Full
-
 defaults = def {
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
@@ -467,12 +462,13 @@ defaults = def {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
-    -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
-        onWorkspace (myWorkspaces!!0) myLayout $
-        onWorkspace (myWorkspaces!!1) myLayout $
-        onWorkspace (myWorkspaces!!2) (Full ||| grid) $
-        Simplest,
+    layoutHook         = (minimize . BW.boringWindows) $ myLayout,
+    -- layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
+    -- -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
+    --     onWorkspace (myWorkspaces!!0) myLayout $
+    --     onWorkspace (myWorkspaces!!1) myLayout $
+    --     onWorkspace (myWorkspaces!!2) (Full ||| grid) $
+    --     Simplest,
     manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,

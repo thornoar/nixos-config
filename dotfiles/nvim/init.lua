@@ -305,7 +305,7 @@ km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating dia
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 -- $new keybinds
 km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
-km.set('n', '<C-e>', function () vim.cmd('Files') end)
+km.set('n', '<C-f>', function () vim.cmd('Files') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split'}]])
 
@@ -406,7 +406,7 @@ vim.o.breakat = '   '
 vim.opt.autochdir=true
 vim.o.shell = '/bin/sh'
 vim.wo.number = true
-vim.wo.relativenumber = true
+-- vim.wo.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.breakindent = true
 vim.o.undofile = true

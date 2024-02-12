@@ -21,7 +21,8 @@
         wallpaperDir = mkStrOpt "Landscapes";
         wallpaperGamma = mkOpt "float" 0.9;
         wallpaperContrast = mkOpt "float" 1.0;
-        windowSpace = mkOpt "int" 7;
+        windowSpace = mkOpt "int" 14;
+        windowBorderWidth = mkOpt "int" 0;
         windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;
         magnifiedScale = mkOpt "float" 1.5;
@@ -32,7 +33,7 @@
             default = { x = 4; y = 4; };
         };
 
-        bgColor0 = mkStrOpt "#0b1012";#"#1e2127";
+        bgColor0 = mkStrOpt "#0b0c0d";#"#0b1012";#"#1e2127";
         bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
         bgColor2 = mkStrOpt "#43565c";
         fgColor = mkStrOpt "#17a88b";
