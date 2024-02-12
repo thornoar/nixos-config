@@ -1,4 +1,4 @@
-{ sysname, usrs, curusrname, inputs, config, lib, pkgs, ... }:
+{ sysname, usrs, usrname, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -9,7 +9,12 @@
     options = {};
 
     config = {
-        users.users = usrs;
+        users.users."${usrname}" = {
+            isNormalUser = true;
+            description = usrname;
+            extraGroups = [ "networkmanager" "wheel" "sys" "root" "audio" "sound" "video" "networkmanager" ];
+            packages = with pkgs; [];
+        };
     
         nix.registry = {
             nixpkgs.flake = inputs.nixpkgs;
@@ -122,7 +127,7 @@
 
         services.syncthing = rec {
             enable = true;
-            user = curusrname;
+            user = usrname;
             dataDir = "/home/${user}/dls";
             configDir = "/home/${user}/.config/syncthing";
             # overrideFolders = true;     # overrides any folders added or deleted through the WebUI

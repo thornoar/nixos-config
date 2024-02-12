@@ -27,8 +27,8 @@
     let
         system = "x86_64-linux";
         sysnames = [ "master" ];
-        curusrname = "ramak";
-        usrnames = [ curusrname ];
+        usrname = "ramak";
+        usrnames = [ usrname ];
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         hmlib = inputs.home-manager.lib;
@@ -40,12 +40,6 @@
                 lst
                 (lib.lists.forEach lst fn)
         );
-        usrs = listToAttrset usrnames (name: {
-            isNormalUser = true;
-            description = name;
-            extraGroups = [ "networkmanager" "wheel" "sys" "root" "audio" "sound" "video" "networkmanager" ];
-            packages = with pkgs; [];
-        });
     in
     {
         nixosConfigurations = listToAttrset sysnames (sysname:
@@ -53,20 +47,18 @@
                 system = system;
                 modules = [
                     ./system-${sysname}.nix
-                    { _module.args = { inherit sysname; inherit usrs; inherit curusrname; inherit inputs; }; }
+                    { _module.args = { inherit sysname; inherit usrname; inherit inputs; }; }
                 ];
             }
         );
 
-        homeConfigurations = listToAttrset usrnames (usrname: 
-            hmlib.homeManagerConfiguration {
-                inherit pkgs;
-                extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
-                modules = [
-                    ./${usrname}/main.nix
-                    inputs.nix-index-database.hmModules.nix-index
-                ];
-            }
-        );
+        homeConfigurations."${usrname}" = hmlib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
+            modules = [
+                ./${usrname}/main.nix
+                inputs.nix-index-database.hmModules.nix-index
+            ];
+        };
     };
 }
