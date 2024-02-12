@@ -364,6 +364,11 @@
                             keyword = "yt";
                         }
                         {
+                            name = "st | Syncthing";
+                            url = "http://127.0.0.1:8384/";
+                            keyword = "st";
+                        }
+                        {
                             name = "ym | YouTube Music";
                             url = "https://music.youtube.com";
                             keyword = "ym";
