@@ -27,7 +27,8 @@
     let
         system = "x86_64-linux";
         sysnames = [ "master" ];
-        usrnames = [ "ramak" ];
+        curusrname = "ramak";
+        usrnames = [ curusrname ];
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         hmlib = inputs.home-manager.lib;
@@ -52,7 +53,7 @@
                 system = system;
                 modules = [
                     ./system-${sysname}.nix
-                    { _module.args = { inherit sysname; inherit usrs; inherit inputs; }; }
+                    { _module.args = { inherit sysname; inherit usrs; inherit curusrname; inherit inputs; }; }
                 ];
             }
         );

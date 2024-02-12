@@ -1,4 +1,4 @@
-{ sysname, usrs, inputs, config, lib, pkgs, ... }:
+{ sysname, usrs, curusrname, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -6,8 +6,7 @@
         /etc/nixos/system-local.nix
     ];
 
-    options = {
-    };
+    options = {};
 
     config = {
         users.users = usrs;
@@ -119,6 +118,25 @@
         services.picom = {
             enable = true;
             backend = "glx";
+        };
+
+        services.syncthing = rec {
+            enable = true;
+            user = curusrname;
+            dataDir = "/home/${user}/dls";
+            configDir = "/home/${user}/.config/syncthing";
+            # overrideFolders = true;     # overrides any folders added or deleted through the WebUI
+            settings = {
+                folders = {
+                    "music" = {
+                        path = "~/media/music";
+                    };
+                    "books" = {
+                        path = "~/media/books";
+                        ignorePerms = false;
+                    };
+                };
+            };
         };
 
         fonts.packages = with pkgs; [

@@ -111,7 +111,7 @@
                 hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; recompile_xmonad && xmonad --restart";
                 srb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
                 brb = "${rb}#master && ${hrb}";
-                frb = "${brb} && ${gc} && ${xc}";
+                frb = "${brb} && ${gc}";
                 gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
                 xc = "xmonad --recompile && xmonad --restart";
                 hm = "home-manager";
