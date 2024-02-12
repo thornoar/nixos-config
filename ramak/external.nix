@@ -80,6 +80,8 @@
 
             map <S-Up> feedkeys "zI"
             map <S-Down> feedkeys "zO"
+            map <M-Up> feedkeys "<PageUp>"
+            map <M-Down> feedkeys "<PageDown>"
 
             set zoom-max 50000
 
