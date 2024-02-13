@@ -56,8 +56,8 @@
         )
         (
             writeShellScriptBin "fgps" ''
-                cd $PROJECTS
                 basewd=$PWD
+                cd $PROJECTS
                 for dir in */
                 do
                     echo "Entering $dir..."
@@ -74,8 +74,8 @@
         )
         (
             writeShellScriptBin "fgpl" ''
-                cd $PROJECTS
                 basewd=$PWD
+                cd $PROJECTS
                 for dir in */
                 do
                     echo "Entering $dir..."
