@@ -78,7 +78,7 @@
                 cd $PROJECTS
                 for dir in */
                 do
-                    echo "Entering $dir..."
+                    echo -e "\e[34m> Entering $dir... \e[0m"
                     cd $dir
                     if [ -d .git ]; then
                         git fetch && git pull
