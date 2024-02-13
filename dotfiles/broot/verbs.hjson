@@ -25,12 +25,17 @@ verbs: [
     #    execution: "nvim +{line} {file}"
     #    execution: "helix {file}:{line}"
     {
+        invocation: "cmd {command}"
+        external: "sh -c \"{command} {file}&\""
+        leave_broot: false
+    }
+    {
         key: ctrl-q
         internal: start_end_panel
     }
     {
         invocation: xs
-        cmd: ":focus;:cd"
+        cmd: ":focus;:escape;:focus;:cd"
     }
     {
         invocation: esc
