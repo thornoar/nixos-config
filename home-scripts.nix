@@ -60,7 +60,7 @@
                 cd $PROJECTS
                 for dir in */
                 do
-                    echo "\e[34m > Entering $dir... \e[0m"
+                    echo -e "\e[34m> Entering $dir... \e[0m"
                     cd $dir
                     if [ -d .git ]; then
                         git add . && git commit -m "--" && git push
