@@ -48,11 +48,21 @@
                 fi
             ''
         )
-        # (
-        #     writeShellScriptBin "gitpush" ''
-        #         nohup git status || (echo "not a git repository!" && exit 1)
-        #     ''
-        # )
+        (
+            writeShellScriptBin "gitpush" "git add . && git commit -m '--' && git push"
+        )
+        (
+            writeShellScriptBin "gitpull" "git fetch && git pull"
+        )
+        (
+            writeShellScriptBin "fgps" ''
+                basewd=$PWD
+                for dir in ./*/ do
+                    cd dir
+                done
+                cd $basewd
+            ''
+        )
         (
             writeShellScriptBin "run" "nix run nixpkgs#$1 -- \${@:2}"
         )

@@ -115,8 +115,6 @@
                 gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
                 xc = "xmonad --recompile && xmonad --restart";
                 hm = "home-manager";
-                gitpush = "git add . && git commit -m '--' && git push";
-                gitpull = "git fetch && git pull";
                 gst = "git status";
                 ns = "nix-shell --command zsh -p ";
                 cdir = "cd ~/.config/nvim";
