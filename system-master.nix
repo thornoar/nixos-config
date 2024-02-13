@@ -135,9 +135,14 @@
                 folders = {
                     "music" = {
                         path = "~/media/music";
+                        ignorePerms = false;
                     };
                     "books" = {
                         path = "~/media/books";
+                        ignorePerms = false;
+                    };
+                    "wallpapers" = {
+                        path = "~/media/wallpapers";
                         ignorePerms = false;
                     };
                 };
