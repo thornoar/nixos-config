@@ -56,11 +56,38 @@
         )
         (
             writeShellScriptBin "fgps" ''
+                cd $PROJECTS
                 basewd=$PWD
-                for dir in ./*/ do
-                    cd dir
+                for dir in */
+                do
+                    echo "Entering $dir..."
+                    cd $dir
+                    if [ -d .git ]; then
+                        git add . && git commit -m "--" && git push
+                    else
+                        echo "Not a git repository, skipping..."
+                    fi
+                    cd ..
                 done
-                cd $basewd
+                cd "$basewd"
+            ''
+        )
+        (
+            writeShellScriptBin "fgpl" ''
+                cd $PROJECTS
+                basewd=$PWD
+                for dir in */
+                do
+                    echo "Entering $dir..."
+                    cd $dir
+                    if [ -d .git ]; then
+                        git fetch && git pull
+                    else
+                        echo "Not a git repository, skipping..."
+                    fi
+                    cd ..
+                done
+                cd "$basewd"
             ''
         )
         (
