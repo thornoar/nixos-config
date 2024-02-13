@@ -365,7 +365,7 @@ tabs =
     named "Tabs"
     $ windowNavigation
     $ avoidStruts
-    $ spacingWithEdge mySpace
+    $ spacing mySpace
     $ tabbedAlways shrinkText myTabTheme
 
 myLayout = grid ||| magnified ||| tabs ||| Full
