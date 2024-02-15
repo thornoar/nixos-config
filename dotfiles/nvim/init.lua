@@ -306,6 +306,7 @@ km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics 
 -- $new keybinds
 km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
 km.set('n', '<C-f>', function () vim.cmd('Files') end)
+km.set('n', '<C-e>', function () vim.cmd('Buf') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split'}]])
 
