@@ -63,7 +63,7 @@ syn keyword   asyConstant      springgreen purple royalblue salmon brown
 syn keyword   asyConstant      olive darkbrown pink palegrey lightgrey
 syn keyword   asyConstant      mediumgrey grey heavygrey deepgrey darkgrey
 
-syn keyword   asyConstant      dn ucircle usquare smoothcolor subsetcolor convexpath concavepath cartesian free plain deferredPaths savedDeferredPaths
+syn keyword   asyConstant      dn ucircle usquare smoothcolor subsetcolor convexpath concavepath cartesian free plain deferredPaths savedDeferredPaths simple simples
 
 
 syn keyword asyConstant      GreenYellow Yellow Goldenrod Dandelion
@@ -131,7 +131,7 @@ syn keyword asyConstant      unitdisk unittube
 " syn keyword asyReference     this
 " highlight asyReference guifg=lightsteelblue gui=italic cterm=italic
 
-syn match asyModule display       "\(\(import\|acess\|unravel\)\s\+\)\@<=\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\|export\|pathmethods\)"
+syn match asyModule display       "\(\(import\|acess\|unravel\|include\)\s\+\)\@<=\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\|export\|pathmethods\)"
 " syn match asyModule display       "\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\)\(\.\)\@="
 
 syn match   asyConst       "default\w*"

@@ -212,6 +212,9 @@ endfunction
 
 -- KEYMAPS --
 -- $text keymaps
+km.set('n', '<S-End>', 'o<Esc>')
+km.set('n', '<S-Home>', 'ddk')
+
 km.set('n', '<C-S-Left>', '<<')
 km.set('n', '<C-S-Right>', '>>')
 km.set('v', '<C-S-Left>', '<gv')

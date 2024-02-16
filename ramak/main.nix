@@ -107,6 +107,7 @@
             shellAliases = rec {
                 # rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
                 # fullgc = "${gc} && ${rb-boot}";
+                rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
                 rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
                 hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; recompile_xmonad && xmonad --restart";
                 srb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";

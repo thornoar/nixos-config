@@ -131,22 +131,6 @@
             dataDir = "/home/${user}/dls";
             configDir = "/home/${user}/.config/syncthing";
             # overrideFolders = true;     # overrides any folders added or deleted through the WebUI
-            settings = {
-                folders = {
-                    "music" = {
-                        path = "~/media/music";
-                        ignorePerms = false;
-                    };
-                    "books" = {
-                        path = "~/media/books";
-                        ignorePerms = false;
-                    };
-                    "wallpapers" = {
-                        path = "~/media/wallpapers";
-                        ignorePerms = false;
-                    };
-                };
-            };
         };
 
         fonts.packages = with pkgs; [
