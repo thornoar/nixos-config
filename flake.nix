@@ -29,7 +29,7 @@
         sysnames = [ "master" ];
         usrname = "ramak";
         usrnames = [ usrname ];
-        projects-dir = /home/${usrname}/projects;
+        projects-dir = "/home/${usrname}/projects";
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         hmlib = inputs.home-manager.lib;
