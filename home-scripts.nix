@@ -3,17 +3,17 @@
 {
     home.packages = with pkgs; [
         (
-            writeShellScriptBin "bulkcompile" ''
+            writeShellScriptBin "blkcmd" ''
                 cwd="$PWD"
                 while IFS= read -r -d "" dir
                 do
                     cd "$dir" || exit 1
-                    $0 "$1" "$2"
+                    $0 "$@"
                 done <   <(find "$cwd" -mindepth 1 -maxdepth 1 -type d -print0)
 
                 for file in *.$1; do
-                    echo -e "\e[34m> Executing \"$2\" on $PWD/$file... \e[0m"
-                    "$2" "$file"
+                    echo -e "\e[34m> Executing \"$2 ''${@:3}\" on $PWD/$file... \e[0m"
+                    "$2" "''${@:3}" "$file"
                 done
 
                 # find "$cwd" -mindepth 1 -maxdepth 1 -name "*.$1" -exec "$2" {} \;
@@ -61,7 +61,7 @@
         )
         (
             writeShellScriptBin "fgps" ''
-                echo -e "\e[32m Git Push \e[0m"
+                echo -e "\e[32m [bulk git push script] \e[0m"
                 basewd=$PWD
                 cd $PROJECTS
                 for dir in */
