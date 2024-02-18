@@ -60,6 +60,7 @@
                 cd $PROJECTS
                 for dir in */
                 do
+                    echo ""
                     echo -e "\e[34m> Entering $dir... \e[0m"
                     cd $dir
                     if [ -d .git ]; then
@@ -78,6 +79,7 @@
                 cd $PROJECTS
                 for dir in */
                 do
+                    echo ""
                     echo -e "\e[34m> Entering $dir... \e[0m"
                     cd $dir
                     if [ -d .git ]; then
