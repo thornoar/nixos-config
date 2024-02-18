@@ -1,4 +1,4 @@
-{ sysname, usrs, usrname, inputs, config, lib, pkgs, ... }:
+{ sysname, usrs, usrname, projects-dir, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -27,7 +27,7 @@
             XDG_DATA_HOME = "$HOME/.local/share";
             XDG_STATE_HOME = "$HOME/.local/state";
             XDG_CACHE_HOME = "$HOME/.cache";
-            PROJECTS = "$HOME/projects";
+            PROJECTS = "${projects-dir}";
             NIXOS_CONFIG = "${PROJECTS}/nixos-config";
             MEDIA = "$HOME/media";
             DE = "generic";
