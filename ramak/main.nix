@@ -55,6 +55,7 @@
             most
             eza
             cheat
+            xcolor
 
             # terminal applications
             broot

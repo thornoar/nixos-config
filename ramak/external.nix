@@ -337,6 +337,11 @@
             #seek_backward = LEFT
         '';
 
+        # mpv setup
+        xdg.configFile."mpv/mpv.conf".text = ''
+            loop-file=inf
+        '';
+
         programs.firefox = {
             enable = true;
             profiles = {

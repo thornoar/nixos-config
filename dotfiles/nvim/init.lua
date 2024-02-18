@@ -37,6 +37,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 	-- 'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
+    'sagarrakshe/toggle-bool',
 	'tpope/vim-surround',
 	'nanozuki/tabby.nvim',
 	'lervag/vimtex',
@@ -311,6 +312,7 @@ km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
 km.set('n', '<C-f>', function () vim.cmd('Files') end)
 km.set('n', '<C-e>', function () vim.cmd('Buf') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
+km.set('n', 'X', function () vim.cmd('ToggleBool') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split'}]])
 
 -- REMAINDER --
