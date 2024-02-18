@@ -110,5 +110,34 @@
                 $tmp/xmonad --recompile
             ''
         )
+        (
+            writeShellScriptBin "rb" ''
+                sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/$1
+            ''
+        )
+        (
+            writeShellScriptBin "hrb" ''
+                home-manager switch --impure --flake $NIXOS_CONFIG/ || exit 1
+                recompile_xmonad && xmonad --restart
+            ''
+        )
+        (
+            writeShellScriptBin "srb" ''
+                sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master
+            ''
+        )
+        (
+            writeShellScriptBin "gcollect" ''
+                nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old
+            ''
+        )
+        (
+            writeShellScriptBin "frb" ''
+                sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master || exit 1
+                home-manager switch --impure --flake $NIXOS_CONFIG/ || exit 1
+                nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old || exit 1
+                recompile_xmonad && xmonad --restart
+            ''
+        )
     ];
 }
