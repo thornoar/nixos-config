@@ -7,12 +7,17 @@
                 cwd="$PWD"
                 while IFS= read -r -d "" dir
                 do
-                    cd "$dir" || exit
+                    cd "$dir" || exit 1
                     $0 "$1" "$2"
                 done <   <(find "$cwd" -mindepth 1 -maxdepth 1 -type d -print0)
 
-                find "$cwd" -mindepth 1 -maxdepth 1 -name "*.$1" -exec "$2" {} \;
-                cd "$cwd" || exit
+                for file in *.$1; do
+                    echo -e "\e[34m> Executing \"$2\" on $PWD/$file... \e[0m"
+                    "$2" "$file"
+                done
+
+                # find "$cwd" -mindepth 1 -maxdepth 1 -name "*.$1" -exec "$2" {} \;
+                cd "$cwd" || exit 1
             ''
         )
         (
@@ -56,6 +61,7 @@
         )
         (
             writeShellScriptBin "fgps" ''
+                echo -e "\e[32m Git Push \e[0m"
                 basewd=$PWD
                 cd $PROJECTS
                 for dir in */
