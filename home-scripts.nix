@@ -81,6 +81,7 @@
         )
         (
             writeShellScriptBin "fgpl" ''
+                echo -e "\e[32m [bulk git pull script] \e[0m"
                 basewd=$PWD
                 cd $PROJECTS
                 for dir in */
