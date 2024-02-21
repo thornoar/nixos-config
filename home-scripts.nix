@@ -103,6 +103,9 @@
             writeShellScriptBin "run" "nix run nixpkgs#$1 -- \${@:2}"
         )
         (
+            writeShellScriptBin "call" "$1 $(broot .) \${@:2}"
+        )
+        (
             writeShellScriptBin "recompile_xmonad" ''
                 echo "Custom XMonad recompilation"
                 tmp=$(mktemp -d)
