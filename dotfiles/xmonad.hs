@@ -11,6 +11,7 @@ import XMonad.Actions.Minimize
 import XMonad.Actions.Volume
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo
+import XMonad.Actions.WindowMenu
 import XMonad.Actions.GroupNavigation
 
 -- Data
@@ -50,17 +51,21 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.CircleEx
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import qualified XMonad.Layout.BoringWindows as BW
 
 -- Prompts
 import XMonad.Prompt
-import XMonad.Prompt.Input
+-- import XMonad.Prompt.Input
 import Data.Char (isSpace)
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
-import XMonad.Prompt.Window
+-- import XMonad.Prompt.Zsh
+-- import XMonad.Prompt.Window
+import XMonad.Prompt.XMonad
+-- import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.FuzzyMatch
 import Control.Arrow (first)
 
@@ -78,6 +83,32 @@ import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+
+magnified =
+    named "Magnified" 
+    $ avoidStruts
+    $ spacingWithEdge mySpace
+    $ magnifiercz myMagnifiedScale
+    $ windowNavigation
+    $ Grid (16/10)
+
+grid =
+    named "Grid"
+    $ windowNavigation
+    $ avoidStruts
+    $ spacingWithEdge mySpace
+    -- $ subLayout [] (smartBorders Simplest)
+    $ mkToggle (single MIRROR)
+    $ Grid (16/10)
+
+tabs =
+    named "Tabs"
+    $ windowNavigation
+    $ avoidStruts
+    $ spacing mySpace
+    $ tabbedAlways shrinkText myTabTheme
+
+myLayout = grid ||| magnified ||| tabs ||| Full
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -232,6 +263,7 @@ myKeys = [
     -- Prompts
     ("M-<Return>", shellPrompt myXPConfig),
     ("M-M1-<Return>", manPrompt myXPConfig),
+    ("M-S-<Return>", xmonadPrompt myXPConfig),
 
     -- Kill windows
     ("M-<Delete>", kill),
@@ -341,35 +373,6 @@ myKeys = [
 -- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 -- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
-named :: String -> l a -> ModifiedLayout Rename l a
-named s = renamed [ Replace s ]
-
-magnified =
-    named "Magnified" 
-    $ avoidStruts
-    $ spacingWithEdge mySpace
-    $ magnifiercz myMagnifiedScale
-    $ windowNavigation
-    $ Grid (16/10)
-
-grid =
-    named "Grid"
-    $ windowNavigation
-    $ avoidStruts
-    $ spacingWithEdge mySpace
-    -- $ subLayout [] (smartBorders Simplest)
-    $ mkToggle (single MIRROR)
-    $ Grid (16/10)
-
-tabs =
-    named "Tabs"
-    $ windowNavigation
-    $ avoidStruts
-    $ spacing mySpace
-    $ tabbedAlways shrinkText myTabTheme
-
-myLayout = grid ||| magnified ||| tabs ||| Full
-
 -- Window rules:
 
 myIntersect :: [Bool] -> Bool
@@ -472,7 +475,7 @@ defaults = def {
     manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook    = myHandleEventHook,
     startupHook        = myStartupHook,
-    logHook            = refocusLastLogHook
+    logHook            = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
     }
     `additionalKeysP` myKeys
     -- `remapKeysP` [("M-<End>", "M-j"), ("M-<Home>", "M-k")]
