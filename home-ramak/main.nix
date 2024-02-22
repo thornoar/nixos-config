@@ -56,6 +56,7 @@
             eza
             cheat
             xcolor
+            killall
 
             # terminal applications
             broot

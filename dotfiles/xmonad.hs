@@ -49,29 +49,26 @@ import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
-import XMonad.Layout.LayoutCombinators
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.CircleEx
+-- import XMonad.Layout.LayoutCombinators
+-- import XMonad.Layout.PerWorkspace
+-- import XMonad.Layout.CircleEx
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+-- import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import qualified XMonad.Layout.BoringWindows as BW
+import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- Prompts
 import XMonad.Prompt
--- import XMonad.Prompt.Input
 import Data.Char (isSpace)
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
--- import XMonad.Prompt.Zsh
--- import XMonad.Prompt.Window
 import XMonad.Prompt.XMonad
--- import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.FuzzyMatch
 import Control.Arrow (first)
 
 -- Utilities
 -- import XMonad.Util.SpawnOnce
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig (additionalKeysP, remapKeysP)
 import XMonad.Util.NamedWindows
 import XMonad.Util.Loggers
 import XMonad.Util.NamedScratchpad
@@ -108,7 +105,7 @@ tabs =
     $ spacing mySpace
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| magnified ||| tabs ||| Full
+myLayout = grid ||| magnified ||| tabs
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -246,11 +243,11 @@ myPrograms = [
 
 myScratchpads =
     [
-    NS "Terminal" (myTerminal++" --title 'Terminal'") (title =? "Terminal") (customFloating myFloatingRectangle),
-    NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator") (customFloating myFloatingRectangle),
+    NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "File Manager" (myTerminal ++ " --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
-    NS "Music Player" (myTerminal++" --title 'Music Player' -e mocp") (title =? "Music Player") (customFloating myFloatingRectangle)
+    NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
     ]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
@@ -272,9 +269,9 @@ myKeys = [
     ("M-M1-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn ( myTerminal ++ " --title 'File Manager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    ("M-x", spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-w", spawn myBrowser),
-    ("M-a", spawn myTerminal),
+    ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
     ("M-b", spawn (myTerminal ++ " --title 'Editor' -e sh -c 'cd $PROJECTS/sandbox && nvim'")),
 
     -- Type email
@@ -307,12 +304,10 @@ myKeys = [
     ("M-<Right>", sendMessage $ Go R),
     ("M-M1-<Down>", windows W.swapDown),
     ("M-M1-<Up>", windows W.swapUp),
-    ("M-M1-<Left>", withFocused minimizeWindow),
-    ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
+    ("M-M1-<Left>", windows W.swapMaster),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-s", toggleFocus),
-    -- ("M-d", withFocused minimizeWindow),
     ("M-d", do
         hasMinimized <- withMinimized $ return . (>0) . length
         if (hasMinimized) then withAll maximizeWindow else withAll minimizeWindow        
@@ -321,9 +316,9 @@ myKeys = [
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
-    ("M-C-<Right>", sendMessage $ JumpToLayout "Full"),
-    ("M-C-<Left>", sendMessage $ JumpToLayout "Grid"),
-    ("M-C-/", sendMessage (MT.Toggle NBFULL)),
+    ("M-C-<Left>", withFocused minimizeWindow),
+    ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
+    ("M-C-f", sendMessage $ TL.ToggleLayout),
     ("M-C-p", setWallpaperCmd),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
     ("M-C-<Page_Down>", withFocused $ windows . W.sink),
@@ -465,7 +460,8 @@ defaults = def {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    layoutHook         = (minimize . BW.boringWindows) $ myLayout,
+    layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts myLayout Full,
+    -- layoutHook         = hiddenWindows $ myLayout,
     -- layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
     -- -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
     --     onWorkspace (myWorkspaces!!0) myLayout $
