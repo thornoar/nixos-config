@@ -143,7 +143,6 @@
         )
         (
             writeShellScriptBin "frb" ''
-                nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old || exit 1
                 sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master || exit 1
                 home-manager switch --impure --flake $NIXOS_CONFIG/ || exit 1
                 recompile_xmonad && xmonad --restart

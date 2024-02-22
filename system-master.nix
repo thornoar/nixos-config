@@ -31,7 +31,6 @@
             NIXOS_CONFIG = "${PROJECTS}/nixos-config";
             MEDIA = "$HOME/media";
             DE = "generic";
-            PAGER = "most";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:${PROJECTS}/libs:$TEXINPUTS";
             EDITOR = "nvim";
