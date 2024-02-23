@@ -213,6 +213,14 @@ endfunction
 
 -- KEYMAPS --
 -- $text keymaps
+km.set('n', 'w1', 'mL')
+km.set('n', 'w2', 'mN')
+km.set('n', 'w3', 'mM')
+km.set('n', 'w4', 'mO')
+km.set('n', '<C-1>', '\'L')
+km.set('n', '<C-2>', '\'N')
+km.set('n', '<C-3>', '\'M')
+km.set('n', '<C-4>', '\'O')
 km.set('n', '<S-End>', 'o<Esc>')
 km.set('n', '<S-Home>', 'ddk')
 
@@ -310,7 +318,7 @@ km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics 
 -- $new keybinds
 km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
 km.set('n', '<C-f>', function () vim.cmd('Files') end)
-km.set('n', '<C-e>', function () vim.cmd('Buf') end)
+-- km.set('n', '<C-e>', function () vim.cmd('Buf') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 km.set('n', 'X', function () vim.cmd('ToggleBool') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])

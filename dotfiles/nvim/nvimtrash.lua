@@ -623,3 +623,19 @@
 --         end),
 --     }
 -- end)
+
+-- $harpoon setup
+-- local harpoon = require('harpoon')
+-- harpoon.setup()
+--
+-- km.set('n', '<leader>a', function()
+--     harpoon:list():append()
+--     print('appended to harpoon list')
+-- end)
+-- km.set('n', '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+-- km.set('n', '<C-1>', function() harpoon:list():select(1) end)
+-- km.set('n', '<C-2>', function() harpoon:list():select(2) end)
+-- km.set('n', '<C-3>', function() harpoon:list():select(3) end)
+-- km.set('n', '<C-4>', function() harpoon:list():select(4) end)
+-- km.set('n', '<S-M-Left>', function() harpoon:list():prev() end)
+-- km.set('n', '<S-M-Right>', function() harpoon:list():next() end)

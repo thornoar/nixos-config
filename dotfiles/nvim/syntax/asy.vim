@@ -1,7 +1,5 @@
 " Vim syntax file
 " Language:     Asymptote
-" Maintainer:   Andy Hammerlindl
-" Last Change:  2022 Jan 05
 
 if version < 600
   syn clear
