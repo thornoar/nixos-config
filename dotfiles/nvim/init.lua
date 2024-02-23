@@ -492,8 +492,8 @@ vim.cmd(
     highlight Keyword guifg=plum
 ]])
 
-package.path = package.path .. ';'..home..'/programming/nvim-subfiles/lua/?.lua'
+package.path = package.path .. ';'..home..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
   ['subfile'] = 'SF',
   ['subfigure'] = 'F',
-})
+}, { })
