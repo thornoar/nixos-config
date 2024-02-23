@@ -288,7 +288,7 @@ myKeys = [
         shiftTo Prev nonNSP
         moveTo Prev nonNSP
     ),
-    ("M-<Tab>", toggleWS' ["NSP"]),
+    -- ("M-<Tab>", toggleWS' ["NSP"]),
 
     -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
@@ -318,8 +318,8 @@ myKeys = [
     ("M-C-<Up>", sendMessage FirstLayout),
     ("M-C-<Left>", withFocused minimizeWindow),
     ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
-    ("M-C-f", sendMessage $ TL.ToggleLayout),
     ("M-C-p", setWallpaperCmd),
+    ("M-<Tab>", sendMessage $ TL.ToggleLayout),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
     ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
