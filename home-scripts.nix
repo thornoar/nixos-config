@@ -127,7 +127,7 @@
         )
         (
             writeShellScriptBin "hrb" ''
-                home-manager switch --impure --flake $NIXOS_CONFIG/ || exit 1
+                home-manager switch --impure --flake $NIXOS_CONFIG/
                 recompile_xmonad && xmonad --restart
             ''
         )
@@ -144,7 +144,7 @@
         (
             writeShellScriptBin "frb" ''
                 sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master || exit 1
-                home-manager switch --impure --flake $NIXOS_CONFIG/ || exit 1
+                home-manager switch --impure --flake $NIXOS_CONFIG/
                 recompile_xmonad && xmonad --restart
             ''
         )
