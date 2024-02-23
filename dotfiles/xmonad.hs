@@ -244,7 +244,7 @@ myPrograms = [
 myScratchpads =
     [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
-    NS "Calculator" (myTerminal++" --title 'Calculator' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "File Manager" (myTerminal ++ " --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
