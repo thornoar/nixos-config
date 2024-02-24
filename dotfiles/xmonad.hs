@@ -37,6 +37,7 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
+import XMonad.Layout.Hidden
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -83,6 +84,8 @@ import XMonad.Hooks.ManageHelpers
 
 magnified =
     named "Magnified" 
+    $ (minimize . BW.boringWindows)
+    -- $ hiddenWindows
     $ avoidStruts
     $ spacingWithEdge mySpace
     $ magnifiercz myMagnifiedScale
@@ -91,6 +94,8 @@ magnified =
 
 grid =
     named "Grid"
+    $ (minimize . BW.boringWindows)
+    -- $ hiddenWindows
     $ windowNavigation
     $ avoidStruts
     $ spacingWithEdge mySpace
@@ -100,6 +105,8 @@ grid =
 
 tabs =
     named "Tabs"
+    $ (minimize . BW.boringWindows)
+    -- $ hiddenWindows
     $ windowNavigation
     $ avoidStruts
     $ spacing mySpace
@@ -304,7 +311,9 @@ myKeys = [
     ("M-<Right>", sendMessage $ Go R),
     ("M-M1-<Down>", windows W.swapDown),
     ("M-M1-<Up>", windows W.swapUp),
-    ("M-M1-<Left>", windows W.swapMaster),
+    ("M-M1-<Left>", withFocused minimizeWindow),
+    ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
+    -- ("M-M1-<Left>", windows W.swapMaster),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-s", toggleFocus),
@@ -316,8 +325,8 @@ myKeys = [
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
-    ("M-C-<Left>", withFocused minimizeWindow),
-    ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
+    -- ("M-C-<Left>", withFocused hideWindow),
+    -- ("M-C-<Right>", popNewestHiddenWindow),
     ("M-C-p", setWallpaperCmd),
     ("M-<Tab>", sendMessage $ TL.ToggleLayout),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
@@ -406,7 +415,8 @@ myXmobarPP = def {
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
-        onLogger (white . drop 9) logLayout
+        onLogger (white) logLayout
+        -- onLogger (white . drop 9) logLayout
         ]
     } where
     totalLogger :: Logger
@@ -460,8 +470,8 @@ defaults = def {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts Full myLayout,
-    -- layoutHook         = hiddenWindows $ myLayout,
+    layoutHook         = TL.toggleLayouts Full myLayout,
+    -- layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts Full myLayout,
     -- layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
     -- -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
     --     onWorkspace (myWorkspaces!!0) myLayout $

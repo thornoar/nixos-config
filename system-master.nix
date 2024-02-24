@@ -45,6 +45,7 @@
             LESSHISTFILE="${XDG_CACHE_HOME}/less/history";
             CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
+            ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
         };
         environment.systemPackages = with pkgs; [
             home-manager
