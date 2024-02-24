@@ -84,7 +84,7 @@ import XMonad.Hooks.ManageHelpers
 
 magnified =
     named "Magnified" 
-    $ (minimize . BW.boringWindows)
+    -- $ (minimize . BW.boringWindows)
     -- $ hiddenWindows
     $ avoidStruts
     $ spacingWithEdge mySpace
@@ -94,7 +94,7 @@ magnified =
 
 grid =
     named "Grid"
-    $ (minimize . BW.boringWindows)
+    -- $ (minimize . BW.boringWindows)
     -- $ hiddenWindows
     $ windowNavigation
     $ avoidStruts
@@ -105,7 +105,7 @@ grid =
 
 tabs =
     named "Tabs"
-    $ (minimize . BW.boringWindows)
+    -- $ (minimize . BW.boringWindows)
     -- $ hiddenWindows
     $ windowNavigation
     $ avoidStruts
@@ -415,8 +415,8 @@ myXmobarPP = def {
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
-        onLogger (white) logLayout
-        -- onLogger (white . drop 9) logLayout
+        -- onLogger (white) logLayout
+        onLogger (white . drop 9) logLayout
         ]
     } where
     totalLogger :: Logger
@@ -470,8 +470,8 @@ defaults = def {
     borderWidth        = myBorderWidth,
     modMask            = myModMask,
     workspaces         = myWorkspaces,
-    layoutHook         = TL.toggleLayouts Full myLayout,
-    -- layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts Full myLayout,
+    -- layoutHook         = TL.toggleLayouts Full myLayout,
+    layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts Full myLayout,
     -- layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
     -- -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
     --     onWorkspace (myWorkspaces!!0) myLayout $
