@@ -270,8 +270,8 @@ myKeys = [
     ("M-S-<Return>", xmonadPrompt myXPConfig),
 
     -- Kill windows
-    ("M-<Delete>", kill),
-    ("M-y", kill),
+    ("M-<Delete>", sequence_ [kill, BW.focusUp]),
+    -- ("M-y", kill),
     ("M-M1-<End>", killAllFloating),
     ("M-M1-<Delete>", killAll),
 
