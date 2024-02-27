@@ -271,7 +271,7 @@ myKeys = [
 
     -- Kill windows
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
-    -- ("M-y", kill),
+    ("M-n", kill),
     ("M-M1-<End>", killAllFloating),
     ("M-M1-<Delete>", killAll),
 
