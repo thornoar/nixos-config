@@ -295,7 +295,6 @@ myKeys = [
         shiftTo Prev nonNSP
         moveTo Prev nonNSP
     ),
-    -- ("M-<Tab>", toggleWS' ["NSP"]),
 
     -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
@@ -313,13 +312,13 @@ myKeys = [
     ("M-M1-<Up>", windows W.swapUp),
     ("M-M1-<Left>", withFocused minimizeWindow),
     ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
-    -- ("M-M1-<Left>", windows W.swapMaster),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-s", toggleFocus),
     ("M-d", do
-        hasMinimized <- withMinimized $ return . (>0) . length
-        if (hasMinimized) then withAll maximizeWindow else withAll minimizeWindow        
+        minimizedCount <- withMinimized $ return . length
+        totalCount <- length . W.index . windowset <$> get
+        if (minimizedCount /= totalCount) then withAll minimizeWindow else withAll maximizeWindow
     ),
 
     -- Layouts
@@ -348,8 +347,6 @@ myKeys = [
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),
-    -- ("M-S-<Page_Down>", spawn "amixer sset Master 5%-"),
-    -- ("M-S-<Page_Up>", spawn "amixer sset Master 5%+"),
     ("M-S-<Page_Down>", lowerVolume 5 >> return ()),
     ("M-S-<Page_Up>", raiseVolume 5 >> return ()),
     ("M-S-<End>", toggleMute >> return ()),
