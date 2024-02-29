@@ -37,8 +37,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 	-- 'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
-    'sagarrakshe/toggle-bool',
 	'tpope/vim-surround',
+    'sagarrakshe/toggle-bool',
 	'nanozuki/tabby.nvim',
 	'lervag/vimtex',
 	'farmergreg/vim-lastplace',
@@ -49,7 +49,6 @@ require('lazy').setup({
 	'dkarter/bullets.vim',
 	-- 'cljoly/telescope-repo.nvim',
 	'numToStr/Comment.nvim',
-	-- 'lewis6991/gitsigns.nvim',
 	'ap/vim-css-color',
     -- 'ixru/nvim-markdown',
     -- 'ThePrimeagen/harpoon',
@@ -70,7 +69,17 @@ require('lazy').setup({
         event={'InsertEnter','CmdlineEnter'},
         branch='v0.6', --recomended as each new version will have breaking changes
         opts={
-            --Config goes here
+            space2 = { enable = true },
+            tabout = { enable = true },
+            fastwarp = {
+                enable = true,
+                enable_normal = true,
+                enable_reverse = true,
+                hopout = false,
+                faster = false,
+				map = '<C-/>',
+				rmap = '<C-S-/>',
+            },
         },
     },
 	{
@@ -89,10 +98,8 @@ require('lazy').setup({
 		},
 		build = ':TSUpdate',
 	},
-   -- 'thornoar/nvim-subfiles',
-}, {})
-
-require('gitsigns').setup()
+    -- 'thornoar/nvim-subfiles',
+}, {}) require('gitsigns').setup()
 
 -- COMMANDS --
 local emptycompile = 'echo \"not set to compile\"';
@@ -322,6 +329,9 @@ km.set('n', '<C-f>', function () vim.cmd('Files') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 km.set('n', 'X', function () vim.cmd('ToggleBool') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])
+
+-- km.set('i', 'M-;', '<End>;<CR>')
+km.set('i', '<M-a>', '<C-o>$;')
 
 -- REMAINDER --
 -- $Comment setup

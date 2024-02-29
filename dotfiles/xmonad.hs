@@ -179,7 +179,7 @@ myTabTheme = def {
     inactiveBorderColor = myBgColor,
     activeTextColor     = colorMagenta0,
     inactiveTextColor   = colorLowWhite,
-    decoHeight		    = myBarHeight
+    decoHeight          = myBarHeight
     }
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
