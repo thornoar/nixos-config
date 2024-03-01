@@ -352,7 +352,7 @@ myKeys = [
     ("M-S-<End>", toggleMute >> return ()),
     ("M-S-,", spawn "brightnessctl set 1%-"),
     ("M-S-.", spawn "brightnessctl set 1%+"),
-    ("M-S-<Home>", spawn "mocp --seek -500"),
+    ("M-S-<Home>", spawn "mocp --seek -50000"),
     ("M-S-<Down>", spawn "mocp --next") ,
     ("M-S-<Up>", spawn "mocp --previous"),
     ("M-S-<Right>", spawn "mocp --seek +5"),
