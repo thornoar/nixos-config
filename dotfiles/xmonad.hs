@@ -63,6 +63,7 @@ import XMonad.Prompt
 import Data.Char (isSpace)
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
+import XMonad.Prompt.RunOrRaise
 import XMonad.Prompt.XMonad
 import XMonad.Prompt.FuzzyMatch
 import Control.Arrow (first)
@@ -267,7 +268,7 @@ myKeys = [
     -- Prompts
     ("M-<Return>", shellPrompt myXPConfig),
     ("M-M1-<Return>", manPrompt myXPConfig),
-    ("M-S-<Return>", xmonadPrompt myXPConfig),
+    ("M-S-<Return>", runOrRaisePrompt myXPConfig),
 
     -- Kill windows
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
