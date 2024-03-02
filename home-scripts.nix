@@ -128,7 +128,7 @@
         )
         (
             writeShellScriptBin "hrb" ''
-                nix run home-manager -- switch --impure --flake $NIXOS_CONFIG/
+                home-manager switch --impure --flake $NIXOS_CONFIG/
                 recompile_xmonad && xmonad --restart
             ''
         )
