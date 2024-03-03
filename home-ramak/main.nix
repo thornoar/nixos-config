@@ -27,6 +27,20 @@
             documents = "${config.home.homeDirectory}/docs";
         };
 
+        xdg.mimeApps = {
+            enable = true;
+            associations.added = {
+                "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
+                "audio/mpeg" = ["mpv.desktop"];
+                "audio/mp3" = ["mpv.desktop"];
+            };
+            defaultApplications = {
+                "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
+                "audio/mpeg" = ["mpv.desktop"];
+                "audio/mp3" = ["mpv.desktop"];
+            };
+        };
+
         programs.nix-index.enable = true;
 
         nixpkgs.config.allowUnfree = true;

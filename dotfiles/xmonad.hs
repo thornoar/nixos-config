@@ -266,9 +266,20 @@ killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindo
 myKeys :: [(String, X ())]
 myKeys = [
     -- Prompts
-    ("M-<Return>", shellPrompt myXPConfig),
-    ("M-M1-<Return>", manPrompt myXPConfig),
-    ("M-S-<Return>", runOrRaisePrompt myXPConfig),
+    ("M-<Return>", do
+        spawn "chlang us"
+        shellPrompt myXPConfig
+    ),
+    ("M-M1-<Return>", do
+        spawn "chlang us"
+        manPrompt myXPConfig
+    ),
+    ("M-S-<Return>", do
+        spawn "chlang us"
+        runOrRaisePrompt myXPConfig
+    ),
+    -- ("M-M1-<Return>", manPrompt myXPConfig),
+    -- ("M-S-<Return>", runOrRaisePrompt myXPConfig),
 
     -- Kill windows
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
