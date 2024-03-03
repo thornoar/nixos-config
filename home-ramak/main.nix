@@ -92,6 +92,7 @@
             zathura
             sxiv
             gource
+            audacity
 
             # Desktop
             xkb-switch
