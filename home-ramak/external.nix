@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, system, config, ... }:
+{ lib, pkgs, firefox-pkgs, config, ... }:
 
 {
     config = 
@@ -358,7 +358,7 @@
                         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                         "signon.rememberSignons" = false;
                     };
-                    extensions = with inputs.firefox-addons.packages.${system}; [
+                    extensions = with firefox-pkgs; [
                         darkreader
                         vimium
                     ];

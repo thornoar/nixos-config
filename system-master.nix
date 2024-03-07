@@ -1,4 +1,4 @@
-{ sysname, usrs, usrname, projects-dir, inputs, config, lib, pkgs, ... }:
+{ sysname, usrname, projects-dir, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
@@ -20,6 +20,11 @@
             nixpkgs.flake = inputs.nixpkgs;
             ${sysname}.flake = inputs.self;
         };
+        programs.nix-index = {
+            enable = true;
+            enableZshIntegration = true;
+        };
+        programs.command-not-found.enable = false;
 
         environment.variables = rec {
             NIXPKGS_ALLOW_UNFREE = "1";

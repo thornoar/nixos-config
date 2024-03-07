@@ -1,4 +1,4 @@
-{ inputs, system, usrname, config, pkgs, lib, ... }:
+{ system, usrname, inputs, config, pkgs, lib, ... }:
 
 {
     imports = [
@@ -40,8 +40,6 @@
                 "audio/mp3" = ["mpv.desktop"];
             };
         };
-
-        programs.nix-index.enable = true;
 
         nixpkgs.config.allowUnfree = true;
         home.packages = with pkgs; [
@@ -122,15 +120,7 @@
             enableAutosuggestions = true;
             syntaxHighlighting.enable = true;
             shellAliases = rec {
-                # rb-boot = "sudo nixos-rebuild boot --impure --flake $NIXOS_CONFIG/#master";
-                # fullgc = "${gc} && ${rb-boot}";
                 rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
-                # rb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/";
-                # hrb = "home-manager switch --impure --flake $NIXOS_CONFIG/; recompile_xmonad && xmonad --restart";
-                # srb = "sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master";
-                # brb = "rb#master && hrb";
-                # frb = "${brb} && ${gc}";
-                # gc = "nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old";
                 xc = "xmonad --recompile && xmonad --restart";
                 hm = "home-manager";
                 gst = "git status";
