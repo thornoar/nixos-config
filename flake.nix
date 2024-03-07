@@ -26,52 +26,32 @@
     outputs = inputs:
     let
         system = "x86_64-linux";
-        sysnames = [ "master" ];
+        sysname = "master";
         usrname = "ramak";
-        usrnames = [ usrname ];
         projects-dir = "/home/${usrname}/projects";
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         hmlib = inputs.home-manager.lib;
         lib = inputs.nixpkgs.lib;
         firefox-pkgs = inputs.firefox-addons.packages.${system};
-        listToAttrset = lst: fn: lib.attrsets.mergeAttrsList
-        (
-            lib.lists.zipListsWith
-                (str: val: { ${str} = val; })
-                lst
-                (lib.lists.forEach lst fn)
-        );
     in
     {
-        nixosConfigurations = listToAttrset sysnames (sysname:
-            lib.nixosSystem {
-                system = system;
-                modules = [
-                    "${projects-dir}/nixos-config/system-${sysname}.nix"
-                    { _module.args = { inherit sysname; inherit usrname; inherit projects-dir; inherit inputs; }; }
-                    inputs.home-manager.nixosModules.home-manager
-                    {
-                        home-manager = {
-                            useGlobalPkgs = true;
-                            useUserPackages = true;
-                            users.${usrname} = import ./home-${usrname}/main.nix;
-                            extraSpecialArgs = { inherit usrname; inherit firefox-pkgs; };
-                        };
-                    }
-                    inputs.nix-index-database.nixosModules.nix-index
-                ];
-            }
-        );
-
-        # homeConfigurations."${usrname}" = hmlib.homeManagerConfiguration {
-        #     inherit pkgs;
-        #     extraSpecialArgs = { inherit inputs; inherit system; inherit usrname; };
-        #     modules = [
-        #         "${projects-dir}/nixos-config/home-${usrname}/main.nix"
-        #         # ./${usrname}/main.nix
-        #         inputs.nix-index-database.hmModules.nix-index
-        #     ];
-        # };
+        nixosConfigurations.${sysname} = lib.nixosSystem {
+            system = system;
+            modules = [
+                "${projects-dir}/nixos-config/system-${sysname}.nix"
+                { _module.args = { inherit sysname; inherit usrname; inherit projects-dir; inherit inputs; }; }
+                inputs.home-manager.nixosModules.home-manager
+                {
+                    home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.${usrname} = import ./home-${usrname}/main.nix;
+                        extraSpecialArgs = { inherit usrname; inherit firefox-pkgs; };
+                    };
+                }
+                inputs.nix-index-database.nixosModules.nix-index
+            ];
+        };
     };
 }
