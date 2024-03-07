@@ -121,7 +121,7 @@
                 };
                 # startx.enable = true;
                 autoLogin.enable = true;
-                autoLogin.user = "ramak";
+                autoLogin.user = usrname;
             };
             windowManager.xmonad = {
                 enable = true;
