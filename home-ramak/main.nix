@@ -132,7 +132,7 @@
                 books = "cd ~/media/books";
                 wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
                 cp = "cp -i";
-                tr-remote = "transmission-remote";
+                trr = "transmission-remote";
                 film = "transmission-remote -w ~/media/films -a ";
                 music = "transmission-remote -w ~/media/music -a ";
                 c = "ping google.com";

@@ -7,7 +7,7 @@
                 cwd="$PWD"
                 while IFS= read -r -d "" dir
                 do
-                    echo -e "\e[34m> Entering $dir... \e[0m"
+                    echo -e "\e[34m> Entering $dir...\e[0m"
                     cd "$dir" || exit 1
                     $0 "$@"
                 done <   <(find "$cwd" -mindepth 1 -maxdepth 1 -type d -print0)
@@ -55,25 +55,31 @@
             ''
         )
         (
-            writeShellScriptBin "gitpush" "git add . && git commit -m '--' && git push"
+            writeShellScriptBin "gitpush" ''
+                echo -e "\e[34m> Pushing to remote repository...\e[0m"
+                git add . && git commit -m '--' && git push
+            ''
         )
         (
-            writeShellScriptBin "gitpull" "git fetch && git pull"
+            writeShellScriptBin "gitpull" ''
+                echo -e "\e[34m> Pulling from remote repository...\e[0m"
+                git fetch && git pull
+            ''
         )
         (
             writeShellScriptBin "fgps" ''
-                echo -e "\e[32m [bulk git push script] \e[0m"
+                echo -e "\e[35m| Push All Git Repositories |\e[0m"
                 basewd=$PWD
                 cd $PROJECTS
                 for dir in */
                 do
                     echo ""
-                    echo -e "\e[34m> Entering $dir... \e[0m"
+                    echo -e "\e[34m> Entering $dir...\e[0m"
                     cd $dir
                     if [ -d .git ]; then
                         git add . && git commit -m "--" && git push
                     else
-                        echo "Not a git repository, skipping..."
+                        echo -e "\e[33mNot a git repository, skipping...\e[0m"
                     fi
                     cd ..
                 done
@@ -82,18 +88,18 @@
         )
         (
             writeShellScriptBin "fgpl" ''
-                echo -e "\e[32m [bulk git pull script] \e[0m"
+                echo -e "\e[35m| Pull All Git Repositories |\e[0m"
                 basewd=$PWD
                 cd $PROJECTS
                 for dir in */
                 do
                     echo ""
-                    echo -e "\e[34m> Entering $dir... \e[0m"
+                    echo -e "\e[34m> Entering $dir...\e[0m"
                     cd $dir
                     if [ -d .git ]; then
                         git fetch && git pull
                     else
-                        echo "Not a git repository, skipping..."
+                        echo -e "\e[33mNot a git repository, skipping...\e[0m"
                     fi
                     cd ..
                 done
@@ -108,7 +114,6 @@
         )
         (
             writeShellScriptBin "recompile_xmonad" ''
-                echo "Custom XMonad recompilation"
                 tmp=$(mktemp -d)
                 touch $tmp/xmessage
                 chmod +x $tmp/xmessage
@@ -134,7 +139,10 @@
         )
         (
             writeShellScriptBin "srb" ''
+                echo -e "\e[35m| Update The System |\e[0m"
+                echo -e "\e[34m> Building configuration...\e[0m"
                 sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master || exit 1
+                echo -e "\e[34m> Recompiling window manager...\e[0m"
                 recompile_xmonad && xmonad --restart
             ''
         )
