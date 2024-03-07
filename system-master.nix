@@ -16,10 +16,17 @@
             packages = with pkgs; [];
         };
     
-        nix.registry = {
-            nixpkgs.flake = inputs.nixpkgs;
-            ${sysname}.flake = inputs.self;
+        nix = {
+            settings.experimental-features = [ "nix-command" "flakes" ];
+            extraOptions = ''
+                warn-dirty = false
+            '';
+            registry = {
+                nixpkgs.flake = inputs.nixpkgs;
+                ${sysname}.flake = inputs.self;
+            };
         };
+
         programs.nix-index = {
             enable = true;
             enableZshIntegration = true;
@@ -90,7 +97,6 @@
         nix.settings.auto-optimise-store = true;
 
         networking.hostName = sysname;
-
         networking.networkmanager.enable = true;
         networking.wireless.iwd.enable = true;
         networking.networkmanager.wifi.backend = "iwd";
@@ -107,10 +113,15 @@
             enable = true;
             xkb.layout = "us";
             xkb.variant = "";
-            displayManager.lightdm = {
-                enable = true;
-                greeters.enso.enable = true;
-                background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+            displayManager = {
+                lightdm = {
+                    enable = true;
+                    # greeters.enso.enable = true;
+                    # background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+                };
+                # startx.enable = true;
+                autoLogin.enable = true;
+                autoLogin.user = "ramak";
             };
             windowManager.xmonad = {
                 enable = true;
@@ -151,7 +162,6 @@
             user = usrname;
             dataDir = "/home/${user}/dls";
             configDir = "/home/${user}/.config/syncthing";
-            # overrideFolders = true;     # overrides any folders added or deleted through the WebUI
         };
 
         fonts.packages = with pkgs; [
@@ -169,10 +179,5 @@
         users.defaultUserShell = pkgs.zsh;
 
         system.stateVersion = "23.11";
-
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
-        nix.extraOptions = ''
-            warn-dirty = false
-        '';
     };
 }
