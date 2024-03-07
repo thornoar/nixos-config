@@ -45,6 +45,7 @@ require('lazy').setup({
 	-- 'Xe/lolcode.vim',
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
+	'hjson/vim-hjson',
 	'nvim-lualine/lualine.nvim',
 	'dkarter/bullets.vim',
 	-- 'cljoly/telescope-repo.nvim',
@@ -308,10 +309,10 @@ km.set('n', '<C-M-k>', '<C-w>=')
 km.set('n', '<C-c>', function () vim.cmd('quit') end)
 km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
-km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
-km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
-km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
-km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
+km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
+km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 km.set('n', '<leader>n', function () vim.cmd('edit /etc/nixos/home-local.nix') end)
 km.set('n', '<leader>N', function () vim.cmd('edit /etc/nixos/system-local.nix') end)
 km.set('n', '<leader>o', ':Compile<CR>')
@@ -361,6 +362,7 @@ require('Comment').setup({
 })
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
+ft.set('hjson', { '#%s' })
 -- $treesitter setup
 require('nvim-treesitter.configs').setup {
 	modules = {},
