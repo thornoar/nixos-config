@@ -57,16 +57,17 @@
             enableAutosuggestions = true;
             syntaxHighlighting.enable = true;
             shellAliases = rec {
+                cd = "z";
                 rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
                 xc = "xmonad --recompile && xmonad --restart";
                 hm = "home-manager";
                 gst = "git status";
                 ns = "nix-shell --command zsh -p ";
-                cdir = "cd ~/.config/nvim";
-                sbdir = "cd ~/projects/sandbox";
-                media = "cd ~/media";
-                films = "cd ~/media/films";
-                books = "cd ~/media/books";
+                cdir = "${cd} ~/.config/nvim";
+                sbdir = "${cd} ~/projects/sandbox";
+                media = "${cd} ~/media";
+                films = "${cd} ~/media/films";
+                books = "${cd} ~/media/books";
                 wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
                 cp = "cp -i";
                 trr = "transmission-remote";
@@ -76,7 +77,7 @@
                 la = "exa -lAh";
                 open = "xdg-open";
                 svim = "sudo -E nvim";
-                sc = "cd $NIXOS_CONFIG";
+                sc = "${cd} $NIXOS_CONFIG";
                 calc = "qalc -c";
                 quit = "exit";
                 grep = "grep --color=auto";
@@ -86,7 +87,6 @@
                 lg = "lazygit";
                 ip = "ipython";
                 def = "dict -h dict.org";
-                xs = "z";
             };    
             initExtra = ''
                 autoload -U colors && colors
