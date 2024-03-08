@@ -160,6 +160,9 @@
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
 
+                bindkey "^[[1;3D" backward-word 
+                bindkey "^[[1;3C" forward-word
+
                 export ATUIN_NOBIND="true"
                 eval "$(atuin init zsh)"
 
