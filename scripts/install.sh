@@ -5,5 +5,4 @@ if grep -q $1 "$NIXOS_CONFIG/home-packages"; then
 fi
 echo -e "\e[34m> Prepending \"\e[0m\e[35m$1\e[0m\e[34m\" to package list...\e[0m"
 echo "$1" >> "$NIXOS_CONFIG/home-packages"
-echo -e "\e[34m> Rebuilding system configuration...\e[0m"
 srb
