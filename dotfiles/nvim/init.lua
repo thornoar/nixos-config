@@ -399,7 +399,7 @@ require('nvim-treesitter.configs').setup {
                 ['@function.outer'] = 'V', -- linewise
                 ['@class.outer'] = '<c-v>', -- blockwise
             },
-            include_surrounding_whitespace = true,
+            include_surrounding_whitespace = false,
         },
     },
 }
