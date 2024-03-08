@@ -189,7 +189,7 @@ newcmd('C', function () vim.cmd('Jumps') end)
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	pattern = '*.*',
+	pattern = '*',
 	callback = function()
 		if autosave then vim.cmd('silent write') end
 	end
