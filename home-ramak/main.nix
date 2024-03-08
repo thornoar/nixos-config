@@ -87,6 +87,10 @@
                 lg = "lazygit";
                 ip = "ipython";
                 def = "dict -h dict.org";
+                rm = "rmtrash";
+                rmdir = "rmdirtrash";
+                unrm = "trash-restore";
+                xrm = "trash-restore";
             };    
             initExtra = ''
                 autoload -U colors && colors
