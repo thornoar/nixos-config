@@ -90,7 +90,7 @@
                 rm = "rmtrash";
                 rmdir = "rmdirtrash";
                 unrm = "trash-restore";
-                xrm = "trash-restore";
+                xrm = "trash-empty";
             };    
             initExtra = ''
                 autoload -U colors && colors
