@@ -42,79 +42,10 @@
         };
 
         nixpkgs.config.allowUnfree = true;
-        home.packages = with pkgs; [
-            # terminal utilities
-            playerctl
-            keynav
-            trash-cli
-            ripgrep
-            xclip
-            xsel
-            fzf
-            imagemagick
-            ffmpeg
-            neofetch
-            file
-            which
-            transmission
-            gawk
-            shellcheck
-            nix-du
-            sysstat
-            thefuck
-            bat
-            tldr
-            most
-            eza
-            cheat
-            xcolor
-            killall
-            dict
-            gifgen
-
-            # terminal applications
-            broot
-            yazi
-            moc
-            ncdu
-            btop
-            iftop
-            lazygit
-            toipe
-            libqalculate
-            graphviz
-
-            # languages
-            ghostscript
-            pkgs.texlive.combined.scheme-full
-            ghc
-            R
-            cargo
-            rustc
-            (python3.withPackages my-python-packages)
-            manim
-            lua
-
-            # GUI applications
-            telegram-desktop
-            discord
-            flameshot
-            obs-studio
-            zoom-us
-            goldendict-ng
-            mpv
-            zathura
-            sxiv
-            gource
-            audacity
-
-            # Desktop
-            xkb-switch
-            libnotify
-            xmobar
-            xvkbd
-            hsetroot
-        ];
+        home.packages = lib.lists.forEach (lib.strings.split "\n" (builtins.readFile ./home-packages)) (name:
+            pkgs.${name}
+        );
+        # [./home-packages]
 
         programs.zsh = {
             enable = true;
