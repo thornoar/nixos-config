@@ -4,6 +4,6 @@ if grep -q $1 "$NIXOS_CONFIG/home-packages"; then
 	exit 0
 fi
 echo -e "\[34m> Prepending \"$1\" to package list...\[0m"
-echo $1 >> "$NIXOS_CONFIG/home-packages"
+echo "\n$1" >> "$NIXOS_CONFIG/home-packages"
 echo -e "\[34m> Rebuilding system configuration...\[0m"
 srb

@@ -57,4 +57,5 @@ xkb-switch
 libnotify
 xmobar
 xvkbd
-hsetrootrmlint
+hsetroot
+\nrmlint
