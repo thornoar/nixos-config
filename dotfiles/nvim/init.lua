@@ -136,7 +136,10 @@ local compilefunc = {
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
-newcmd("AS", function() autosave = not autosave end)
+newcmd("AS", function() 
+	autosave = not autosave
+	print("autosave is " .. (autosave and "enabled" or "disabled"))
+end)
 newcmd('C', function () vim.cmd('tabclose') end)
 newcmd('Compile', function () 
 	local ccmd = compilefunc[vim.bo.filetype]
