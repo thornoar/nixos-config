@@ -2,47 +2,17 @@
 
 {
     config = {
-        boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
-
         environment.variables = {
-            PCTYPE = "station";
-        };
-
-        hardware.opengl = {
-            enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
-        };
-
-        services.syncthing.settings = {
-            devices = {
-                "laptop" = { id = "HJOFBO5-JPN4NRT-PKCJJCE-KPLE7VH-MHKHIGB-Z2SEB4F-J533LPH-C3TTOQV"; };
-                "phone" = { id = "RLHSCWU-KTCTYQL-FXTBMN5-CEEH3FB-3TP3B2Y-2T5FE64-SENTOZR-SE5B5QQ"; };
-            };
-            folders = {
-                "music" = {
-                    path = "~/media/music";
-                    ignorePerms = false;
-                    devices = [ "laptop" ];
-                };
-                "books" = {
-                    path = "~/media/books";
-                    ignorePerms = false;
-                    devices = [ "laptop" ];
-                };
-                "wallpapers" = {
-                    path = "~/media/wallpapers";
-                    ignorePerms = false;
-                    devices = [ "laptop" ];
-                };
-            };
+            PCTYPE = "laptop";
+            MUTTER_DEBUG_KMS_THREAD_TYPE="user";
         };
 
         services.xserver = {
-            videoDrivers = [ "nvidia" ];
+            videoDrivers = [ "nvidiaLegacy390" ];
+            # videoDrivers = [ "nvidia" ];
             displayManager = {
                 sessionCommands = ''
-                    nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+                    # nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
                     setxkbmap -layout us,ru,de
                     xset -dpms
                     setterm -blank 0 -powerdown 0
@@ -51,10 +21,19 @@
                     transmission-daemon
                 '';
             };
+            libinput = {
+                enable = true;
+                touchpad = {
+                    naturalScrolling = true;
+                    tapping = true;
+                    clickMethod = "clickfinger";
+                    disableWhileTyping = true;
+                };
+            };
         };
 
         fileSystems."/home/ramak/media" = {
-            device = "/dev/disk/by-uuid/baf7b861-a1fa-4261-b38f-b7200bee9faf";
+            device = "/dev/disk/by-uuid/d365c266-1fdd-42b1-a576-e7e9efd3e53f";
             fsType = "ext4";
             options = [ "nofail" "rw" "user" "auto" ];
         };
@@ -64,13 +43,48 @@
         #     options = [ "nofail" "rw" "user" ];
         # };
 
-        hardware.nvidia = {
-            modesetting.enable = true;
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-            open = false;
-            nvidiaSettings = true;
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+        services.syncthing.settings = {
+            devices = {
+                "station" = { id = "QI6LC7P-7I62ZQ3-X6SBRVR-ECVBFTY-WCJ4555-RQU5B3Z-JMXUXDK-TSLBGA4"; };
+                "phone" = { id = "RLHSCWU-KTCTYQL-FXTBMN5-CEEH3FB-3TP3B2Y-2T5FE64-SENTOZR-SE5B5QQ"; };
+            };
+            folders = {
+                "music" = {
+                    path = "~/media/music";
+                    ignorePerms = false;
+                    devices = [ "station" ];
+                };
+                "books" = {
+                    path = "~/media/books";
+                    ignorePerms = false;
+                    devices = [ "station" ];
+                };
+                "wallpapers" = {
+                    path = "~/media/wallpapers";
+                    ignorePerms = false;
+                    devices = [ "station" ];
+                };
+            };
         };
+
+        # hardware.opengl = {
+        #     enable = true;
+        #     driSupport = true;
+        #     driSupport32Bit = true;
+        # };
+        # hardware.nvidia = {
+        #     modesetting.enable = true;
+        #     powerManagement.enable = false;
+        #     powerManagement.finegrained = false;
+        #     nvidiaSettings = true;
+        #     forceFullCompositionPipeline = true;
+        #     open = false;
+        #     # package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+        #     package = config.boot.kernelPackages.nvidiaPackages.stable;
+        # };
+        hardware.nvidia = {
+            forceFullCompositionPipeline = true;
+        };
+        boot.blacklistedKernelModules = [ "nouveau" ];
     };
 }
