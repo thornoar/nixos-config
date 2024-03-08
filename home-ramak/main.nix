@@ -105,7 +105,7 @@ libnotify
 xmobar
 xvkbd
 hsetroot
-        ]
+        ];
         # home.packages = lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
         #     pkgs.${name}
         # );
