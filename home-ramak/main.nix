@@ -106,9 +106,12 @@
 # xvkbd
 # hsetroot
 #         ];
-        home.packages = lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
+        home.packages = (lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
             pkgs.${name}
-        );
+        )) ++ with pkgs; [
+			pkgs.texlive.combined.scheme-full
+			(python3.withPackages my-python-packages)
+		];
         # [../home-packages]
 
         programs.zsh = {
