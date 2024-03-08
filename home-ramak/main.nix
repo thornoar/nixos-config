@@ -88,6 +88,7 @@
                 ip = "ipython";
                 def = "dict -h dict.org";
                 rm = "rmtrash";
+                rmlist = "trash-list";
                 rmdir = "rmdirtrash";
                 unrm = "trash-restore";
                 xrm = "trash-empty";
