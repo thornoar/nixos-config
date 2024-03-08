@@ -2,8 +2,8 @@
 
 {
     imports = [
-        ./hardware-configuration.local.nix
-        ./system.local.nix
+        /etc/nixos/hardware-configuration.nix
+        /etc/nixos/system-local.nix
     ];
 
     options = {};
