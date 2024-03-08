@@ -151,6 +151,7 @@
                 lg = "lazygit";
                 ip = "ipython";
                 def = "dict -h dict.org";
+                xs = "z";
             };    
             initExtra = ''
                 autoload -U colors && colors
