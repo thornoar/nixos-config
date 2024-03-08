@@ -43,9 +43,9 @@
 
         nixpkgs.config.allowUnfree = true;
 
-        home.packages = (lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
-            pkgs.${name}
-        )) ++ (with pkgs; [
+        home.packages = (lib.lists.forEach (lib.lists.partition (x: 0 < lib.strings.stringLength x) 
+		(lib.strings.splitString "\n" (builtins.readFile ../home-packages))).right (name: pkgs.${name}))
+		++ (with pkgs; [
 			texlive.combined.scheme-full
 			(python3.withPackages my-python-packages)
 		]);

@@ -459,8 +459,8 @@ vim.o.synmaxcol = 0
 -- vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.binary = true
-vim.o.eol = false
+-- vim.o.binary = true
+-- vim.o.eol = false
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
 
