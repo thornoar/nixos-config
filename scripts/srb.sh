@@ -7,4 +7,5 @@ cd $cwd
 echo -e "\e[34m> Building configuration...\e[0m"
 sudo nixos-rebuild switch --impure --flake $NIXOS_CONFIG/#master || exit 1
 echo -e "\e[34m> Recompiling window manager...\e[0m"
+killall xmobar
 recompile_xmonad && xmonad --restart
