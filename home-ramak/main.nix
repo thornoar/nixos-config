@@ -42,7 +42,7 @@
         };
 
         nixpkgs.config.allowUnfree = true;
-        home.packages = lib.lists.forEach (lib.strings.split "\n" (builtins.readFile ./home-packages)) (name:
+        home.packages = lib.lists.forEach (lib.strings.split "\n" (builtins.readFile ../home-packages)) (name:
             pkgs.${name}
         );
         # [./home-packages]
