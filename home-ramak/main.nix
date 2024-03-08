@@ -42,73 +42,73 @@
         };
 
         nixpkgs.config.allowUnfree = true;
-        home.packages = with pkgs; [
-playerctl
-keynav
-trash-cli
-ripgrep
-xclip
-xsel
-fzf
-imagemagick
-ffmpeg
-neofetch
-file
-which
-transmission
-gawk
-shellcheck
-nix-du
-sysstat
-thefuck
-bat
-tldr
-most
-eza
-cheat
-xcolor
-killall
-dict
-gifgen
-broot
-yazi
-moc
-ncdu
-btop
-iftop
-lazygit
-toipe
-libqalculate
-graphviz
-ghostscript
-pkgs.texlive.combined.scheme-full
-ghc
-R
-cargo
-rustc
-(python3.withPackages my-python-packages)
-manim
-lua
-telegram-desktop
-discord
-flameshot
-obs-studio
-zoom-us
-goldendict-ng
-mpv
-zathura
-sxiv
-gource
-audacity
-xkb-switch
-libnotify
-xmobar
-xvkbd
-hsetroot
-        ];
-        # home.packages = lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
-        #     pkgs.${name}
-        # );
+#         home.packages = with pkgs; [
+# playerctl
+# keynav
+# trash-cli
+# ripgrep
+# xclip
+# xsel
+# fzf
+# imagemagick
+# ffmpeg
+# neofetch
+# file
+# which
+# transmission
+# gawk
+# shellcheck
+# nix-du
+# sysstat
+# thefuck
+# bat
+# tldr
+# most
+# eza
+# cheat
+# xcolor
+# killall
+# dict
+# gifgen
+# broot
+# yazi
+# moc
+# ncdu
+# btop
+# iftop
+# lazygit
+# toipe
+# libqalculate
+# graphviz
+# ghostscript
+# pkgs.texlive.combined.scheme-full
+# ghc
+# R
+# cargo
+# rustc
+# (python3.withPackages my-python-packages)
+# manim
+# lua
+# telegram-desktop
+# discord
+# flameshot
+# obs-studio
+# zoom-us
+# goldendict-ng
+# mpv
+# zathura
+# sxiv
+# gource
+# audacity
+# xkb-switch
+# libnotify
+# xmobar
+# xvkbd
+# hsetroot
+#         ];
+        home.packages = lib.lists.forEach (lib.strings.splitString "\n" (builtins.readFile ../home-packages)) (name:
+            pkgs.${name}
+        );
         # [../home-packages]
 
         programs.zsh = {
