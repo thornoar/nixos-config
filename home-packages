@@ -36,7 +36,7 @@ toipe
 libqalculate
 graphviz
 ghostscript
-pkgs.texlive.combined.scheme-full
+texlive.combined.scheme-full
 ghc
 R
 cargo
