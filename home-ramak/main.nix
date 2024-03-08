@@ -69,6 +69,8 @@
             cheat
             xcolor
             killall
+            dict
+            gifgen
 
             # terminal applications
             broot
@@ -148,6 +150,7 @@
                 sxiv = "sxiv -b";
                 lg = "lazygit";
                 ip = "ipython";
+                def = "dict -h dict.org";
             };    
             initExtra = ''
                 autoload -U colors && colors
@@ -155,6 +158,15 @@
                 source $NIXOS_CONFIG/dotfiles/shell-billy.sh
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
+
+                export ATUIN_NOBIND="true"
+                eval "$(atuin init zsh)"
+
+                # bindkey '^z' atuin-search
+
+                # bind to the up key, which depends on terminal mode
+                bindkey '^[[1;5A' atuin-up-search
+                # bindkey '^[OA' atuin-up-search
             '';
         };
 
@@ -165,6 +177,19 @@
         };
 
         programs.gh = { enable = true; };
+
+        programs.atuin = {
+            enable = true;
+            enableZshIntegration = true;
+            flags = [
+              "--disable-up-arrow"
+            ];
+        };
+
+        programs.zoxide = {
+            enable = true;
+            enableZshIntegration = true;
+        };
 
         xresources.properties = {
             "Xcursor.size" = 16;
