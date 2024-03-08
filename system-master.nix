@@ -2,8 +2,8 @@
 
 {
     imports = [
-        ./local/hardware-configuration.nix
-        ./local/system-local.nix
+        ./local/hardware-configuration.local.nix
+        ./local/system.local.nix
     ];
 
     options = {};
