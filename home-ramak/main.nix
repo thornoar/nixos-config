@@ -99,17 +99,17 @@
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
 
+                echo -ne '\e[5 q'
+                preexec() {
+                   echo -ne '\e[5 q'
+                }
+
                 bindkey "^[[1;3D" backward-word 
                 bindkey "^[[1;3C" forward-word
 
                 export ATUIN_NOBIND="true"
                 eval "$(atuin init zsh)"
-
-                # bindkey '^z' atuin-search
-
-                # bind to the up key, which depends on terminal mode
                 bindkey '^[[1;5A' atuin-up-search
-                # bindkey '^[OA' atuin-up-search
             '';
         };
 
