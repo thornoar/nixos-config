@@ -119,7 +119,6 @@
                     # greeters.enso.enable = true;
                     # background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
                 };
-                # startx.enable = true;
                 autoLogin.enable = true;
                 autoLogin.user = usrname;
             };
