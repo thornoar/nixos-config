@@ -97,16 +97,6 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
-require('gitsigns').setup {
-    numhl = true,
-    current_line_blame = true,
-    current_line_blame_opts = {
-        delay = 1000,
-        ignore_whitespace = true,
-    },
-    max_file_length = 10000,
-}
-
 -- COMMANDS --
 local emptycompile = 'echo \"not set to compile\"';
 local defaultoutputname = 'output'
@@ -240,17 +230,14 @@ km.set('n', '<C-3>', '\'M')
 km.set('n', '<C-4>', '\'O')
 km.set('n', '<S-End>', 'o<Esc>')
 km.set('n', '<S-Home>', 'ddk')
-
 km.set('n', '<C-S-Left>', '<<')
 km.set('n', '<C-S-Right>', '>>')
 km.set('v', '<C-S-Left>', '<gv')
 km.set('v', '<C-S-Right>', '>gv')
-
 km.set('v', '<S-Left>', 'ygv<Esc>')
 km.set('n', '<S-Left>', 'yy')
 km.set({'n', 'v'}, '<S-Right>', 'p')
 km.set('i', '<S-Right>', '<esc>pa')
-
 km.set('n', '<M-CR>', 'md*ggn')
 km.set('n', '<M-]>', '\'d')
 km.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
@@ -273,7 +260,7 @@ km.set('n', '<C-z>', 'u')
 -- $insert keymaps
 km.set('n', 'x', 'i')
 km.set('i', '<C-x>', '<C-n>')
-km.set('i', '<M-s>', '<C-o>$;')
+km.set('i', '<M-a>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('i', '<C-w>', function () vim.cmd('silent write') end)
 -- $navigation keymaps
@@ -326,23 +313,22 @@ km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_CONFIG/local/home-loca
 km.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_CONFIG/local/system-local.nix') end)
 km.set('n', '<leader>o', ':Compile<CR>')
 km.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
-km.set({'n','i'}, '<M-s>', function () vim.cmd('CompileSilent') end)
+km.set({'n','i'}, '<M-c>', function () vim.cmd('CompileSilent') end)
 km.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
 km.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
 km.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 km.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
--- $new keybinds
 km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
 km.set('n', '<C-f>', function () vim.cmd('Files') end)
 km.set('n', '<C-e>', function () vim.cmd('Buf') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 km.set('n', 'X', function () vim.cmd('ToggleBool') end)
+km.set('n', 'M-s', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
+-- $remap keymaps
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])
 
--- km.set('i', 'M-;', '<End>;<CR>')
-km.set('i', '<M-a>', '<C-o>$;')
 
 -- REMAINDER --
 -- $Comment setup
@@ -372,6 +358,16 @@ require('Comment').setup({
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
 ft.set('hjson', { '#%s' })
+-- $gitsigns setup
+require('gitsigns').setup {
+    numhl = true,
+    current_line_blame = true,
+    current_line_blame_opts = {
+        delay = 1000,
+        ignore_whitespace = true,
+    },
+    max_file_length = 10000,
+}
 -- $treesitter setup
 require('nvim-treesitter.configs').setup {
 	modules = {},
