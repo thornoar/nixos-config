@@ -194,7 +194,7 @@ newcmd('C', function () vim.cmd('Jumps') end)
 -- 	end
 -- })
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = {'*.md', '*.txt'},
+	pattern = { '*.md' },
 	command = 'setlocal spell! spelllang=en_us'
 })
 
