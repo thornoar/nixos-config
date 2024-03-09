@@ -13,17 +13,25 @@
 --     return require(name)
 -- end
 
-  -- {
-  --   'neovim/nvim-lspconfig',
-  --   dependencies = {
-  --     { 'williamboman/mason.nvim', config = true },
-  --     'williamboman/mason-lspconfig.nvim',
-  --
-  --     { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-  --
-  --     'folke/neodev.nvim',
-  --   },
-  -- },
+    -- {
+    -- 'neovimhaskell/haskell-vim',
+    -- 'hjson/vim-hjson',
+	-- 'junegunn/fzf',
+	-- 'junegunn/fzf.vim',
+    -- 'nanozuki/tabby.nvim',
+	-- 'dkarter/bullets.vim',
+    -- 'dstein64/vim-startuptime',
+    --
+    --   'neovim/nvim-lspconfig',
+    --   dependencies = {
+    --     { 'williamboman/mason.nvim', config = true },
+    --     'williamboman/mason-lspconfig.nvim',
+    --
+    --     { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+    --
+    --     'folke/neodev.nvim',
+    --   },
+    -- },
 
     -- 'nvim-tree/nvim-web-devicons',
     -- {
@@ -48,29 +56,29 @@
 	-- },
 	-- { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-  -- {
-  --   'hrsh7th/nvim-cmp',
-  --   dependencies = {
-  --     'L3MON4D3/LuaSnip',
-  --     'saadparwaiz1/cmp_luasnip',
-  --
-  --     'hrsh7th/cmp-nvim-lsp',
-  --
-  --     'rafamadriz/friendly-snippets',
-  --   },
-  -- },
+    -- {
+    --   'hrsh7th/nvim-cmp',
+    --   dependencies = {
+    --     'L3MON4D3/LuaSnip',
+    --     'saadparwaiz1/cmp_luasnip',
+    --
+    --     'hrsh7th/cmp-nvim-lsp',
+    --
+    --     'rafamadriz/friendly-snippets',
+    --   },
+    -- },
 
-  -- { 'folke/which-key.nvim', opts = {} },
-  -- {
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {
-  --     on_attach = function(bufnr)
-  --       vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-  --       vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-  --       vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-  --     end,
-  --   },
-  -- },
+    -- { 'folke/which-key.nvim', opts = {} },
+    -- {
+    --   'lewis6991/gitsigns.nvim',
+    --   opts = {
+    --     on_attach = function(bufnr)
+    --       vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+    --       vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+    --       vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+    --     end,
+    --   },
+    -- },
 
 
 
@@ -101,8 +109,22 @@
 -- km.set('n', '<leader>xv', function () vim.cmd('AsytestView') end)
 
 
+-- vim.keymap.set('n', '<C-f>', function () vim.cmd('Files') end)
+-- vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
+-- vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 
 
+-- vim.keymap.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
+-- vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+
+-- vim.keymap.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+-- vim.keymap.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+-- vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])
+-- vim.keymap.set('n', '<C-x>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
+-- vim.keymap.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
 
 -- -- $nvim-tree setup
 -- local function on_attach (bufnr)
@@ -692,3 +714,28 @@
 --     ['pdf'] = 'zathura',
 --     ['nix'] = 'nix eval --file',
 -- }
+
+-- vim.api.nvim_create_user_command('G', function () vim.cmd('GitFiles') end, {})
+-- vim.api.nvim_create_user_command('X', function () vim.cmd('Files') end, {})
+-- vim.api.nvim_create_user_command('C', function () vim.cmd('Jumps') end, {})
+
+
+-- vim.cmd([[
+-- command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+-- function! s:Dec2hex(line1, line2, arg) range
+--     if empty(a:arg)
+--         if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+--             let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+--         else
+--             let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+--         endif
+--         try
+--             execute a:line1 . ',' . a:line2 . cmd
+--             catch
+--                 echo 'Error: No decimal number found'
+--         endtry
+--     else
+--         echo printf('%x', a:arg + 0)
+--     endif
+-- endfunction
+-- ]])
