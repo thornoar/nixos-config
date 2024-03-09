@@ -35,24 +35,19 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
-	-- 'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
 	'tpope/vim-surround',
     'sagarrakshe/toggle-bool',
 	'nanozuki/tabby.nvim',
 	'lervag/vimtex',
 	'farmergreg/vim-lastplace',
-	-- 'Xe/lolcode.vim',
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
 	'hjson/vim-hjson',
 	'nvim-lualine/lualine.nvim',
 	'dkarter/bullets.vim',
-	-- 'cljoly/telescope-repo.nvim',
 	'numToStr/Comment.nvim',
 	'ap/vim-css-color',
-    -- 'ixru/nvim-markdown',
-    -- 'ThePrimeagen/harpoon',
 	'junegunn/fzf',
 	'junegunn/fzf.vim',
     {
@@ -100,7 +95,17 @@ require('lazy').setup({
 		build = ':TSUpdate',
 	},
     -- 'thornoar/nvim-subfiles',
-}, {}) require('gitsigns').setup()
+}, {})
+
+require('gitsigns').setup {
+    numhl = true,
+    current_line_blame = true,
+    current_line_blame_opts = {
+        delay = 1000,
+        ignore_whitespace = true,
+    },
+    max_file_length = 10000,
+}
 
 -- COMMANDS --
 local emptycompile = 'echo \"not set to compile\"';
