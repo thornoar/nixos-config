@@ -288,7 +288,6 @@ km.set('n', '<C-M-i>', '<C-w>>')
 km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
--- km.set('n', '<C-c>', function () if vim.bo.modified then print("save the file!") else vim.cmd('wq') end end)
 km.set('n', '<C-c>', function ()
     vim.cmd('wa')
     vim.cmd('quit')

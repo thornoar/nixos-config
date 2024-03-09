@@ -640,8 +640,6 @@
 -- km.set('n', '<S-M-Left>', function() harpoon:list():prev() end)
 -- km.set('n', '<S-M-Right>', function() harpoon:list():next() end)
 
-
-
 -- autosave = true
 -- newcmd("AS", function() 
 -- 	autosave = not autosave
