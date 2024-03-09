@@ -49,7 +49,7 @@ printf "\e[35m| Update The System |\e[0m\n"
 if $CHECK_GIT; then
     cwd=$PWD
     cd "$NIXOS_CONFIG" || exit
-    if eval git rev-parse --is-inside-work-tree; then
+    if $(git rev-parse --is-inside-work-tree); then
         printf "\e[34m> Checking git repository on branch \e[33m$(git rev-parse --abbrev-ref HEAD)\e[34m...\e[0m\n"
         git remote update
         if git status | grep -q "branch is up to date"; then
