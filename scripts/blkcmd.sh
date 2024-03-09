@@ -11,5 +11,5 @@ done <   <(find "$cwd" -mindepth 1 -maxdepth 1 -type d -print0)
 #     "$2" "''${@:3}" "$file"
 # done
 
-find "$cwd" -mindepth 1 -maxdepth 1 -name "*.$1" -exec "''${@:2}" {} \;
+find "$cwd" -mindepth 1 -maxdepth 1 -name "*.$1" -exec "${@:2}" {} \;
 cd "$cwd" || exit 1
