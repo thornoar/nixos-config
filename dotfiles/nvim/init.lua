@@ -93,11 +93,13 @@ local compilefunc = {
 }
 
 vim.api.nvim_create_user_command('Compile', function () 
+    vim.cmd("write")
 	local ccmd = compilefunc[vim.bo.filetype]
 	vim.cmd(not ccmd and 'echo \"not set to compile\"' or ccmd('%:t'))
 end, {})
 
 vim.api.nvim_create_user_command('CompileSilent', function () 
+    vim.cmd("write")
 	local ccmd = compilefunc[vim.bo.filetype]
 	vim.cmd(not ccmd and '' or 'silent '..ccmd('%:t'))
 end, {})
