@@ -3,6 +3,8 @@ export COMMAND="switch"
 export EXTRA_OPTIONS=""
 export OUTPUT="master"
 
+export GREP_COLORS="ms=1;94"
+
 while getopts "hpic:e:o:" flag; do
     case $flag in
         h)
@@ -71,3 +73,5 @@ sudo nixos-rebuild "$COMMAND" "$EXTRA_OPTIONS" --flake $NIXOS_CONFIG/#master || 
 echo -e "\e[34m> Recompiling XMonad...\e[0m"
 killall xmobar
 recompile_xmonad && xmonad --restart
+
+export GREP_COLORS=""
