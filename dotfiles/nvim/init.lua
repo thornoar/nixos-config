@@ -273,7 +273,7 @@ require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = true,
 	ignore_install = {},
-	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson' },
+	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java' },
 	highlight = { enable = true },
 	indent = { enable = false },
 	incremental_selection = {
