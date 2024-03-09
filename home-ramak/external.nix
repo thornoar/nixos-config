@@ -380,7 +380,7 @@
                         }
                         {
                             name = "gh | GitHub";
-                            url = "https://github.com/thornoar";
+                            url = "https://github.com/thornoar?tab=repositories";
                             keyword = "gh";
                         }
                         {
