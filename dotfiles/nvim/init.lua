@@ -131,10 +131,6 @@ local compilefunc = {
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
-newcmd("AS", function() 
-	autosave = not autosave
-	print("autosave is " .. (autosave and "enabled" or "disabled"))
-end)
 newcmd('C', function () vim.cmd('tabclose') end)
 newcmd('Compile', function () 
 	local ccmd = compilefunc[vim.bo.filetype]
@@ -185,14 +181,18 @@ newcmd('X', function () vim.cmd('Files') end)
 newcmd('C', function () vim.cmd('Jumps') end)
 
 -- Autocommands
-autosave = true
-autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	pattern = '*',
-	callback = function()
-		if autosave then vim.cmd('silent write') end
-	end
-})
+-- autosave = true
+-- newcmd("AS", function() 
+-- 	autosave = not autosave
+-- 	print("autosave is " .. (autosave and "enabled" or "disabled"))
+-- end)
+-- autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
+-- vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
+-- 	pattern = '*',
+-- 	callback = function()
+-- 		if autosave then vim.cmd('silent write') end
+-- 	end
+-- })
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = {'*.md', '*.txt'},
 	command = 'setlocal spell! spelllang=en_us'
@@ -302,7 +302,8 @@ km.set('n', '<C-M-i>', '<C-w>>')
 km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
-km.set('n', '<C-c>', function () vim.cmd('quit') end)
+-- km.set('n', '<C-c>', function () if vim.bo.modified then print("save the file!") else vim.cmd('wq') end end)
+km.set('n', '<C-c>', function () vim.cmd('wq') end)
 km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
@@ -325,10 +326,9 @@ km.set('n', '<C-f>', function () vim.cmd('Files') end)
 km.set('n', '<C-e>', function () vim.cmd('Buf') end)
 km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 km.set('n', 'X', function () vim.cmd('ToggleBool') end)
-km.set('n', 'M-s', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
+km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 -- $remap keymaps
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])
-
 
 -- REMAINDER --
 -- $Comment setup
