@@ -101,7 +101,7 @@ verbs: [
         shortcut: e
         keys: [
             enter
-            right
+            alt-right
         ]
         apply_to: text_file
         execution: "$EDITOR {file}"

@@ -291,7 +291,7 @@ myKeys = [
     ("M-x", spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-w", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
-    ("M-b", spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox && $FILEMANAGER'")),
+    ("M-b", spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")),
 
     -- Type email
     ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
