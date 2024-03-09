@@ -82,7 +82,7 @@ if $CHECK_GIT; then
 fi
 
 printf "\e[34m> Building configuration...\e[0m\n"
-sudo nixos-rebuild "$COMMAND" "$EXTRA_OPTIONS" --flake "$NIXOS_CONFIG"/#master || exit 1
+sudo nixos-rebuild $COMMAND $EXTRA_OPTIONS --flake $NIXOS_CONFIG/#master || exit 1
 printf "\e[34m> Recompiling XMonad...\e[0m\n"
 
 killall xmobar
