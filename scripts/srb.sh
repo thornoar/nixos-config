@@ -50,7 +50,7 @@ if $CHECK_GIT; then
     cwd=$PWD
     cd "$NIXOS_CONFIG" || exit
     if $(git rev-parse --is-inside-work-tree); then
-        printf "\e[34m> Checking git repository on branch \e[33m$(git rev-parse --abbrev-ref HEAD)\e[34m...\e[0m\n"
+        printf "\e[34m> Checking git repository on branch \e[33m%s\e[34m...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
         git remote update
         if git status | grep -q "branch is up to date"; then
             export GREP_COLORS="ms=1;94"
@@ -80,8 +80,6 @@ if $CHECK_GIT; then
     fi
     cd $cwd
 fi
-
-exit
 
 printf "\e[34m> Building configuration...\e[0m\n"
 sudo nixos-rebuild $COMMAND $EXTRA_OPTIONS --flake $NIXOS_CONFIG/#master || exit 1
