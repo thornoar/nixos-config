@@ -1,3 +1,4 @@
+#!/bin/sh
 tmp=$(mktemp -d)
 touch $tmp/xmessage
 chmod +x $tmp/xmessage

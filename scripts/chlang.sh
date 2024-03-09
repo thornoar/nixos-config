@@ -1,3 +1,4 @@
+#!/bin/sh
 setxkbmap -layout us,ru,de
 xkb-switch -s "$1"
 if [ "$LAPTOP" ]; then

@@ -1,16 +1,17 @@
-echo -e "\e[35m| Pull All Git Repositories |\e[0m"
+#!/bin/sh
+printf "\e[35m| Pull All Git Repositories |\e[0m\n"
 basewd=$PWD
-cd $PROJECTS
+cd "$PROJECTS" || exit
 for dir in */
 do
     echo ""
-    echo -e "\e[34m> Entering $dir...\e[0m"
-    cd $dir
+    printf "\e[34m> Entering $dir...\e[0m\n"
+    cd "$dir" || exit
     if [ -d .git ]; then
         git fetch && git pull
     else
-        echo -e "\e[33mNot a git repository, skipping...\e[0m"
+        printf "\e[33mNot a git repository, skipping...\e[0m\n"
     fi
     cd ..
 done
-cd "$basewd"
+cd "$basewd" || exit
