@@ -99,8 +99,9 @@
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
 
+                echo -ne '\e[4 q'
                 preexec() {
-                   echo -ne '\e[4 q'
+                    echo -ne '\e[4 q'
                 }
 
                 bindkey "^[[1;3D" backward-word 
