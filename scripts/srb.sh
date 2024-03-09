@@ -42,6 +42,7 @@ done
 echo -e "\e[35m| Update The System |\e[0m"
 
 if $CHECK_GIT; then
+    echo "hi"
     cwd=$PWD
     cd $NIXOS_CONFIG
     
