@@ -108,10 +108,10 @@
             '';
             envExtra = ''
                 echo -ne '\e[4 q'
-                # preexec() {
-                #     echo -ne '\e[4 q'
-                # }
-            ''
+                postexec() {
+                    echo -ne '\e[4 q'
+                }
+            '';
         };
 
         programs.git = {
