@@ -407,13 +407,8 @@ vim.g.vimtex_view_method = 'zathura'
 vim.g.latex_view_general_viewer = 'zathura'
 vim.g.vimtex_compiler_progname = 'nvr'
 vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
--- vim.g.vimtex_view_automatic = 1
 vim.g.vimtex_mappings_prefix = '\\'
--- vim.g.vimtex_compiler_method = 'latexmk'
 vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
--- vim.o.conceallevel = 1
--- vim.g.tex_conceal = 'abdmg'
--- vim.cmd('hi Conceal ctermbg=none')
 
 vim.g.UltiSnipsExpandTrigger='<tab>'
 vim.g.UltiSnipsJumpForwardTrigger='<C-Right>'
@@ -421,7 +416,6 @@ vim.g.UltiSnipsJumpBackwardTrigger='<C-Left>'
 vim.g.UltiSnipsEditSplit='horizontal'
 
 -- $markdown settings
---vim.o.vim_markdown_folding_disabled = 1
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
