@@ -61,13 +61,13 @@ if $CHECK_GIT; then
             export GREP_COLORS=$grep_colors
         elif git status | grep -q "Changes not staged for commit"; then
             export GREP_COLORS="ms=1;91"
-            git status | grep "behind"
-            git status | grep "not staged"
+            git status | grep --color "behind"
+            git status | grep --color "not staged"
             export GREP_COLORS=$grep_colors
             echo -e "\e[34m> Clash between local and remote branches, skipping...\e[0m"
         else
             export GREP_COLORS="ms=1;91"
-            git status | grep "behind"
+            git status | grep --color "behind"
             export GREP_COLORS=$grep_colors
             echo -e "\e[34m> Pulling remote changes...\e[0m"
             git fetch && git pull
