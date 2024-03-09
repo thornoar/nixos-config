@@ -24,7 +24,7 @@ require('lazy').setup({
 	'lervag/vimtex',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
-	-- 'neovimhaskell/haskell-vim',
+	'neovimhaskell/haskell-vim',
 	'nvim-lualine/lualine.nvim',
 	'numToStr/Comment.nvim',
 	'ap/vim-css-color',
