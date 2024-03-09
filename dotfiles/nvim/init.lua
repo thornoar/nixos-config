@@ -1,20 +1,6 @@
 -- VARIABLES --
-km = vim.keymap
-km.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
-newcmd = function (name, command)
-	vim.api.nvim_create_user_command(name, command, {})
-end
-P = function (v)
-    print(vim.inspect(v))
-    return v
-end
-RELOAD = function (...)
-    return require("plenary.reload").reload_module(...)
-end
-R = function (name)
-    RELOAD(name)
-    return require(name)
-end
+-- vim.keymap = vim.keymap
+vim.keymap.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
 home = os.getenv('PROJECTS')
 testdir = home..'/sandbox'
 vim.g.mapleader = ';'
@@ -40,11 +26,12 @@ require('lazy').setup({
 	'lervag/vimtex',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
-	'neovimhaskell/haskell-vim',
+	-- 'neovimhaskell/haskell-vim',
 	'hjson/vim-hjson',
 	'nvim-lualine/lualine.nvim',
 	'dkarter/bullets.vim',
 	'numToStr/Comment.nvim',
+    'dstein64/vim-startuptime',
 	'ap/vim-css-color',
 	'junegunn/fzf',
 	'junegunn/fzf.vim',
@@ -72,7 +59,6 @@ require('lazy').setup({
                 hopout = false,
                 faster = false,
 				map = '<C-/>',
-				rmap = '<C-S-/>',
             },
         },
     },
@@ -96,23 +82,6 @@ require('lazy').setup({
 }, {})
 
 -- COMMANDS --
-local emptycompile = 'echo \"not set to compile\"';
-local defaultoutputname = 'output'
-local compilecmd = {
-	['asy'] = 'asy -nosafe -noV',
-	['r'] = 'Rscript',
-	['py'] = 'python',
-	['c'] = 'gcc',
-	['cpp'] = 'g++ -o cpp.out',
-    ['rust'] = 'rustc -o rust.out',
-	['hs'] = 'runhaskell',
-	['tex'] = 'latexmk -g -pdf',
-	['lua'] = 'lua',
-	['lol'] = 'lci',
-	['java'] = 'javac',
-    ['pdf'] = 'zathura',
-    ['nix'] = 'nix eval --file',
-}
 local compilefunc = {
 	['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
 	['r'] = function (name) return ('!Rscript ' .. name) end,
@@ -129,36 +98,19 @@ local compilefunc = {
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
-newcmd('C', function () vim.cmd('tabclose') end)
-newcmd('Compile', function () 
+
+vim.api.nvim_create_user_command('Compile', function () 
 	local ccmd = compilefunc[vim.bo.filetype]
-	vim.cmd(not ccmd and emptycompile or ccmd('%:t'))
-end)
-newcmd('CompileSilent', function () 
+	vim.cmd(not ccmd and 'echo \"not set to compile\"' or ccmd('%:t'))
+end, {})
+
+vim.api.nvim_create_user_command('CompileSilent', function () 
 	local ccmd = compilefunc[vim.bo.filetype]
 	vim.cmd(not ccmd and '' or 'silent '..ccmd('%:t'))
-end)
-vim.api.nvim_create_user_command('BC', function (ext)
-	local cmd = compilecmd[ext['args']]
-	if not cmd then
-		print('invalid file extension provided')
-	else
-		vim.cmd('!bulkcompile '..ext['args']..' '..'\"'..cmd..'\"')
-	end
-end, { nargs='?' })
-local autocompile = false
-local autocompilepattern = { '*.asy', '*.cpp', '*.tex', '*.hs' }
-newcmd('AC', function ()
-	autocompile = not autocompile
-	print('autocompile: '..tostring(autocompile))
-end)
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
-	pattern = autocompilepattern,
-	callback = function ()
-		if autocompile then vim.cmd('CompileSilent') end
-	end
-})
-newcmd('ViewPdf', function ()
+end, {})
+
+local defaultoutputname = 'output'
+vim.api.nvim_create_user_command('ViewPdf', function ()
 	if io.open(vim.fn.expand('%:r')..'.pdf', 'r') ~= nil then
 		vim.cmd('silent !zathura %:r.pdf&')
 	elseif io.open(defaultoutputname..'.pdf', 'r') ~= nil then
@@ -166,17 +118,18 @@ newcmd('ViewPdf', function ()
 	else
 		vim.cmd('silent !pdfviewall')
 	end
-end)
-newcmd('E', function () vim.bo.keymap = '' end)
-newcmd('R', function () vim.bo.keymap = 'russian-jcuken' end)
-newcmd('J', function () vim.bo.keymap = 'kana' end)
-newcmd('D', function () vim.bo.keymap = 'german-qwertz' end)
-newcmd('L', function () vim.cmd('Lazy') end)
-newcmd('S', function () vim.wo.spell = not vim.wo.spell end)
-newcmd('NS', function () vim.cmd('set nospell') end)
-newcmd('G', function () vim.cmd('GitFiles') end)
-newcmd('X', function () vim.cmd('Files') end)
-newcmd('C', function () vim.cmd('Jumps') end)
+end, {})
+
+vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
+vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
+vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
+vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
+vim.api.nvim_create_user_command('L', function () vim.cmd('Lazy') end, {})
+vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
+vim.api.nvim_create_user_command('NS', function () vim.cmd('set nospell') end, {})
+vim.api.nvim_create_user_command('G', function () vim.cmd('GitFiles') end, {})
+vim.api.nvim_create_user_command('X', function () vim.cmd('Files') end, {})
+vim.api.nvim_create_user_command('C', function () vim.cmd('Jumps') end, {})
 
 -- Autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
@@ -184,137 +137,137 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	command = 'setlocal spell! spelllang=en_us'
 })
 
-vim.cmd([[
-command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
-function! s:Dec2hex(line1, line2, arg) range
-    if empty(a:arg)
-        if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
-            let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
-        else
-            let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
-        endif
-        try
-            execute a:line1 . ',' . a:line2 . cmd
-            catch
-                echo 'Error: No decimal number found'
-        endtry
-    else
-        echo printf('%x', a:arg + 0)
-    endif
-endfunction
-]])
+-- vim.cmd([[
+-- command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+-- function! s:Dec2hex(line1, line2, arg) range
+--     if empty(a:arg)
+--         if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+--             let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+--         else
+--             let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+--         endif
+--         try
+--             execute a:line1 . ',' . a:line2 . cmd
+--             catch
+--                 echo 'Error: No decimal number found'
+--         endtry
+--     else
+--         echo printf('%x', a:arg + 0)
+--     endif
+-- endfunction
+-- ]])
 
 -- KEYMAPS --
 -- $text keymaps
-km.set('n', 'w1', 'mL')
-km.set('n', 'w2', 'mN')
-km.set('n', 'w3', 'mM')
-km.set('n', 'w4', 'mO')
-km.set('n', '<C-1>', '\'L')
-km.set('n', '<C-2>', '\'N')
-km.set('n', '<C-3>', '\'M')
-km.set('n', '<C-4>', '\'O')
-km.set('n', '<S-End>', 'o<Esc>')
-km.set('n', '<S-Home>', 'ddk')
-km.set('n', '<C-S-Left>', '<<')
-km.set('n', '<C-S-Right>', '>>')
-km.set('v', '<C-S-Left>', '<gv')
-km.set('v', '<C-S-Right>', '>gv')
-km.set('v', '<S-Left>', 'ygv<Esc>')
-km.set('n', '<S-Left>', 'yy')
-km.set({'n', 'v'}, '<S-Right>', 'p')
-km.set('i', '<S-Right>', '<esc>pa')
-km.set('n', '<M-CR>', 'md*ggn')
-km.set('n', '<M-]>', '\'d')
-km.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
-km.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
-km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-km.set('v', 'z', '<esc>')
-km.set('v', '<S-Up>', '<Up>')
-km.set('v', '<S-Down>', '<Down>')
-km.set('n', '<S-Down>', '<S-v>j')
-km.set('n', '<S-Up>', '<S-v>k')
-km.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
-km.set('n', '<leader>cw', ":%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/")
-km.set('n', 'cw', 'ciw')
-km.set('n', 'dw', 'diw')
-km.set('x', '<leader>p', '\"_dP')
-km.set('n', '<leader>f', 'zf%')
-km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
-km.set('v', '<M-End>', 'J')
-km.set('n', '<C-z>', 'u')
+vim.keymap.set('n', 'w1', 'mL')
+vim.keymap.set('n', 'w2', 'mN')
+vim.keymap.set('n', 'w3', 'mM')
+vim.keymap.set('n', 'w4', 'mO')
+vim.keymap.set('n', '<C-1>', '\'L')
+vim.keymap.set('n', '<C-2>', '\'N')
+vim.keymap.set('n', '<C-3>', '\'M')
+vim.keymap.set('n', '<C-4>', '\'O')
+vim.keymap.set('n', '<S-End>', 'o<Esc>')
+vim.keymap.set('n', '<S-Home>', 'ddk')
+vim.keymap.set('n', '<C-S-Left>', '<<')
+vim.keymap.set('n', '<C-S-Right>', '>>')
+vim.keymap.set('v', '<C-S-Left>', '<gv')
+vim.keymap.set('v', '<C-S-Right>', '>gv')
+vim.keymap.set('v', '<S-Left>', 'ygv<Esc>')
+vim.keymap.set('n', '<S-Left>', 'yy')
+vim.keymap.set({'n', 'v'}, '<S-Right>', 'p')
+vim.keymap.set('i', '<S-Right>', '<esc>pa')
+vim.keymap.set('n', '<M-CR>', 'md*ggn')
+vim.keymap.set('n', '<M-]>', '\'d')
+vim.keymap.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set('v', 'z', '<esc>')
+vim.keymap.set('v', '<S-Up>', '<Up>')
+vim.keymap.set('v', '<S-Down>', '<Down>')
+vim.keymap.set('n', '<S-Down>', '<S-v>j')
+vim.keymap.set('n', '<S-Up>', '<S-v>k')
+vim.keymap.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
+vim.keymap.set('n', '<leader>cw', ":%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/")
+vim.keymap.set('n', 'cw', 'ciw')
+vim.keymap.set('n', 'dw', 'diw')
+vim.keymap.set('x', '<leader>p', '\"_dP')
+vim.keymap.set('n', '<leader>f', 'zf%')
+vim.keymap.set('n', '<C-End>', 'k<S-v>jj<S-j>')
+vim.keymap.set('v', '<M-End>', 'J')
+vim.keymap.set('n', '<C-z>', 'u')
 -- $insert keymaps
-km.set('n', 'x', 'i')
-km.set('i', '<C-x>', '<C-n>')
-km.set('i', '<M-a>', '<C-o>$;')
-km.set('i', '<C-z>', '<Esc>[s1z=A')
-km.set('i', '<C-w>', function () vim.cmd('silent write') end)
+vim.keymap.set('n', 'x', 'i')
+vim.keymap.set('i', '<C-x>', '<C-n>')
+vim.keymap.set('i', '<M-a>', '<C-o>$;')
+vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
+vim.keymap.set('i', '<C-w>', function () vim.cmd('silent write') end)
 -- $navigation keymaps
-km.set('n', '<Up>', 'gk')
-km.set('n', '<Down>', 'gj')
-km.set('i', '<Up>', '<C-o>gk')
-km.set('i', '<Down>', '<C-o>gj')
-km.set({'n', 'v'}, '<M-Up>', '10k')
-km.set('v', '<S-M-Up>', '10k')
-km.set({'n', 'v'}, '<M-Down>', '10j')
-km.set('v', '<S-M-Down>', '10j')
-km.set({'n', 'v'}, '<M-Left>', 'b')
-km.set({'n', 'v'}, '<M-Right>', 'w')
-km.set('i', '<M-up>', '<C-o>10k')
-km.set('i', '<M-down>', '<C-o>10j')
-km.set('i', '<M-left>', '<esc>gea')
-km.set('i', '<M-right>', '<esc>ea')
-km.set({'n', 'v'}, '<M-a>', '%')
-km.set('n', 'n', 'nzz')
-km.set('n', 'N', 'Nzz')   
-km.set('n', '<C-M-left>', '<C-^>')
-km.set('n', '<C-M-right>', 'gf')
+vim.keymap.set('n', '<Up>', 'gk')
+vim.keymap.set('n', '<Down>', 'gj')
+vim.keymap.set('i', '<Up>', '<C-o>gk')
+vim.keymap.set('i', '<Down>', '<C-o>gj')
+vim.keymap.set({'n', 'v'}, '<M-Up>', '10k')
+vim.keymap.set('v', '<S-M-Up>', '10k')
+vim.keymap.set({'n', 'v'}, '<M-Down>', '10j')
+vim.keymap.set('v', '<S-M-Down>', '10j')
+vim.keymap.set({'n', 'v'}, '<M-Left>', 'b')
+vim.keymap.set({'n', 'v'}, '<M-Right>', 'w')
+vim.keymap.set('i', '<M-up>', '<C-o>10k')
+vim.keymap.set('i', '<M-down>', '<C-o>10j')
+vim.keymap.set('i', '<M-left>', '<esc>gea')
+vim.keymap.set('i', '<M-right>', '<esc>ea')
+vim.keymap.set({'n', 'v'}, '<M-a>', '%')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')   
+vim.keymap.set('n', '<C-M-left>', '<C-^>')
+vim.keymap.set('n', '<C-M-right>', 'gf')
 -- $window keymaps
-km.set('n', '<C-Left>', '<C-w>h')
-km.set('n', '<C-Down>', '<C-w>j')
-km.set('n', '<C-Up>', '<C-w>k')
-km.set('n', '<C-Right>', '<C-w>l')
-km.set('i', '<C-Left>', '<C-o><C-w>h')
-km.set('i', '<C-Down>', '<C-o><C-w>j')
-km.set('i', '<C-Up>', '<C-o><C-w>k')
-km.set('i', '<C-Right>', '<C-o><C-w>l')
-km.set('n', '<C-w><Left>', '<C-w>H')
-km.set('n', '<C-w><Right>', '<C-w>L')
-km.set('n', '<C-w><Up>', '<C-w>K')
-km.set('n', '<C-w><Down>', '<C-w>J')
-km.set('n', '<C-M-o>', '<C-w>+')
-km.set('n', '<C-M-l>', '<C-w>-')
-km.set('n', '<C-M-i>', '<C-w>>')
-km.set('n', '<C-M-u>', '<C-w><')
-km.set('n', '<C-M-k>', '<C-w>=')
+vim.keymap.set('n', '<C-Left>', '<C-w>h')
+vim.keymap.set('n', '<C-Down>', '<C-w>j')
+vim.keymap.set('n', '<C-Up>', '<C-w>k')
+vim.keymap.set('n', '<C-Right>', '<C-w>l')
+vim.keymap.set('i', '<C-Left>', '<C-o><C-w>h')
+vim.keymap.set('i', '<C-Down>', '<C-o><C-w>j')
+vim.keymap.set('i', '<C-Up>', '<C-o><C-w>k')
+vim.keymap.set('i', '<C-Right>', '<C-o><C-w>l')
+vim.keymap.set('n', '<C-w><Left>', '<C-w>H')
+vim.keymap.set('n', '<C-w><Right>', '<C-w>L')
+vim.keymap.set('n', '<C-w><Up>', '<C-w>K')
+vim.keymap.set('n', '<C-w><Down>', '<C-w>J')
+vim.keymap.set('n', '<C-M-o>', '<C-w>+')
+vim.keymap.set('n', '<C-M-l>', '<C-w>-')
+vim.keymap.set('n', '<C-M-i>', '<C-w>>')
+vim.keymap.set('n', '<C-M-u>', '<C-w><')
+vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
-km.set('n', '<C-c>', function ()
+vim.keymap.set('n', '<C-c>', function ()
     vim.cmd('wa')
     vim.cmd('quit')
 end)
-km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
-km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
-km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
-km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
-km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
-km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
-km.set('n', '<leader>n', function () vim.cmd('edit /etc/nixos/home-local.nix') end)
-km.set('n', '<leader>N', function () vim.cmd('edit /etc/nixos/system-local.nix') end)
-km.set('n', '<leader>o', ':Compile<CR>')
-km.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
-km.set({'n','i'}, '<M-c>', function () vim.cmd('CompileSilent') end)
-km.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
-km.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
-km.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-km.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-km.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-km.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-km.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
-km.set('n', '<C-f>', function () vim.cmd('Files') end)
-km.set('n', '<C-e>', function () vim.cmd('Buf') end)
-km.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
-km.set('n', 'X', function () vim.cmd('ToggleBool') end)
-km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
+vim.keymap.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
+vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
+vim.keymap.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
+vim.keymap.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
+vim.keymap.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+vim.keymap.set('n', '<leader>n', function () vim.cmd('edit /etc/nixos/home-local.nix') end)
+vim.keymap.set('n', '<leader>N', function () vim.cmd('edit /etc/nixos/system-local.nix') end)
+vim.keymap.set('n', '<leader>o', ':Compile<CR>')
+vim.keymap.set('n', '<leader>x', function () vim.cmd('CompileSilent') end)
+vim.keymap.set({'n','i'}, '<M-c>', function () vim.cmd('CompileSilent') end)
+vim.keymap.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
+vim.keymap.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
+vim.keymap.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<C-s>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
+vim.keymap.set('n', '<C-f>', function () vim.cmd('Files') end)
+vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
+vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
+vim.keymap.set('n', 'X', function () vim.cmd('ToggleBool') end)
+vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 -- $remap keymaps
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split'}]])
 
@@ -361,7 +314,7 @@ require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = true,
 	ignore_install = {},
-	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim' },
+	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'haskell' },
 	highlight = { enable = true },
 	indent = { enable = false },
 	incremental_selection = {

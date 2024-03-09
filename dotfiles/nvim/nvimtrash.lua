@@ -1,3 +1,18 @@
+-- vim.api.nvim_create_user_command = function (name, command)
+-- 	vim.api.nvim_create_user_command(name, command, {})
+-- end
+-- P = function (v)
+--     print(vim.inspect(v))
+--     return v
+-- end
+-- RELOAD = function (...)
+--     return require("plenary.reload").reload_module(...)
+-- end
+-- R = function (name)
+--     RELOAD(name)
+--     return require(name)
+-- end
+
   -- {
   --   'neovim/nvim-lspconfig',
   --   dependencies = {
@@ -652,3 +667,28 @@
 -- 		if autosave then vim.cmd('silent write') end
 -- 	end
 -- })
+
+-- vim.api.nvim_create_user_command('BC', function (ext)
+-- 	local cmd = compilecmd[ext['args']]
+-- 	if not cmd then
+-- 		print('invalid file extension provided')
+-- 	else
+-- 		vim.cmd('!bulkcompile '..ext['args']..' '..'\"'..cmd..'\"')
+-- 	end
+-- end, { nargs='?' })
+
+-- local compilecmd = {
+-- 	['asy'] = 'asy -nosafe -noV',
+-- 	['r'] = 'Rscript',
+-- 	['py'] = 'python',
+-- 	['c'] = 'gcc',
+-- 	['cpp'] = 'g++ -o cpp.out',
+--     ['rust'] = 'rustc -o rust.out',
+-- 	['hs'] = 'runhaskell',
+-- 	['tex'] = 'latexmk -g -pdf',
+-- 	['lua'] = 'lua',
+-- 	['lol'] = 'lci',
+-- 	['java'] = 'javac',
+--     ['pdf'] = 'zathura',
+--     ['nix'] = 'nix eval --file',
+-- }
