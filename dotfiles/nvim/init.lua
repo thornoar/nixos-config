@@ -188,6 +188,7 @@ newcmd('NS', function () vim.cmd('set nospell') end)
 newcmd('G', function () vim.cmd('GitFiles') end)
 newcmd('X', function () vim.cmd('Files') end)
 newcmd('C', function () vim.cmd('Jumps') end)
+
 -- Autocommands
 autosave = true
 autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
@@ -197,7 +198,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 		if autosave then vim.cmd('silent write') end
 	end
 })
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = {'*.md', '*.txt'},
 	command = 'setlocal spell! spelllang=en_us'
 })

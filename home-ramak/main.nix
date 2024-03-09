@@ -51,89 +51,82 @@
 		]);
         # [../home-packages]
 
-        programs.zsh = {
-            enable = true;
-            enableCompletion = true;
-            enableAutosuggestions = true;
-            syntaxHighlighting.enable = true;
-            shellAliases = rec {
-                cd = "z";
-                rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
-                xc = "xmonad --recompile && xmonad --restart";
-                hm = "home-manager";
-                gst = "git status";
-                ns = "nix-shell --command zsh -p ";
-                cdir = "${cd} ~/.config/nvim";
-                sbdir = "${cd} ~/projects/sandbox";
-                media = "${cd} ~/media";
-                films = "${cd} ~/media/films";
-                books = "${cd} ~/media/books";
-                wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
-                cp = "cp -i";
-                trr = "transmission-remote";
-                film = "transmission-remote -w ~/media/films -a ";
-                music = "transmission-remote -w ~/media/music -a ";
-                c = "ping google.com";
-                la = "exa -lAh";
-                open = "xdg-open";
-                svim = "sudo -E nvim";
-                sc = "${cd} $NIXOS_CONFIG";
-                calc = "qalc -c";
-                quit = "exit";
-                grep = "grep --color=auto";
-                fucking = "mommy";
-                q = "qalc -c";
-                sxiv = "sxiv -b";
-                lg = "lazygit";
-                ip = "ipython";
-                def = "dict -h dict.org";
-                rm = "rmtrash";
-                rmlist = "trash-list";
-                rmdir = "rmdirtrash";
-                unrm = "trash-restore";
-                xrm = "trash-empty";
-            };    
-            initExtra = ''
-                autoload -U colors && colors
-                PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
-                source $NIXOS_CONFIG/dotfiles/br.sh
-                eval $(thefuck --alias)
+        programs = {
+            zsh = {
+                enable = true;
+                enableCompletion = true;
+                enableAutosuggestions = true;
+                syntaxHighlighting.enable = true;
+                shellAliases = rec {
+                    cd = "z";
+                    rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
+                    xc = "xmonad --recompile && xmonad --restart";
+                    hm = "home-manager";
+                    gst = "git status";
+                    ns = "nix-shell --command zsh -p ";
+                    cdir = "${cd} ~/.config/nvim";
+                    sbdir = "${cd} ~/projects/sandbox";
+                    media = "${cd} ~/media";
+                    films = "${cd} ~/media/films";
+                    books = "${cd} ~/media/books";
+                    wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
+                    cp = "cp -i";
+                    trr = "transmission-remote";
+                    film = "transmission-remote -w ~/media/films -a ";
+                    music = "transmission-remote -w ~/media/music -a ";
+                    c = "ping google.com";
+                    la = "exa -lAh";
+                    open = "xdg-open";
+                    svim = "sudo -E nvim";
+                    sc = "${cd} $NIXOS_CONFIG";
+                    calc = "qalc -c";
+                    quit = "exit";
+                    grep = "grep --color=auto";
+                    fucking = "mommy";
+                    q = "qalc -c";
+                    sxiv = "sxiv -b";
+                    lg = "lazygit";
+                    ip = "ipython";
+                    def = "dict -h dict.org";
+                    rm = "rmtrash";
+                    rmlist = "trash-list";
+                    rmdir = "rmdirtrash";
+                    unrm = "trash-restore";
+                    xrm = "trash-empty";
+                };    
+                initExtra = ''
+                    autoload -U colors && colors
+                    PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+                    source $NIXOS_CONFIG/dotfiles/br.sh
+                    eval $(thefuck --alias)
 
-                echo -ne '\e[4 q'
-                precmd() {
-                    echo -ne '\e[4 q'
-                }
+                    precmd() { echo -ne '\e[4 q' }
 
-                bindkey "^[[1;3D" backward-word 
-                bindkey "^[[1;3C" forward-word
+                    bindkey "^[[1;3D" backward-word 
+                    bindkey "^[[1;3C" forward-word
 
-                export ATUIN_NOBIND="true"
-                eval "$(atuin init zsh)"
-                bindkey '^[[1;5A' atuin-up-search
-            '';
-            envExtra = ''
-            '';
-        };
-
-        programs.git = {
-            enable = true;
-            userName = "Roman Maksimovich";
-            userEmail = "r.a.maksimovich@gmail.com";
-        };
-
-        programs.gh = { enable = true; };
-
-        programs.atuin = {
-            enable = true;
-            enableZshIntegration = true;
-            flags = [
-              "--disable-up-arrow"
-            ];
-        };
-
-        programs.zoxide = {
-            enable = true;
-            enableZshIntegration = true;
+                    export ATUIN_NOBIND="true"
+                    eval "$(atuin init zsh)"
+                    bindkey '^[[1;5A' atuin-up-search
+                '';
+            };
+            git = {
+                enable = true;
+                userName = "Roman Maksimovich";
+                userEmail = "r.a.maksimovich@gmail.com";
+            };
+            gh = { enable = true; };
+            atuin = {
+                enable = true;
+                enableZshIntegration = true;
+                flags = [
+                  "--disable-up-arrow"
+                ];
+            };
+            zoxide = {
+                enable = true;
+                enableZshIntegration = true;
+            };
         };
 
         xresources.properties = {
