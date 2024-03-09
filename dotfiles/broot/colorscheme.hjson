@@ -1,6 +1,5 @@
-
 skin: {
-    #default: #235219178 none / #189174147 none
+    # default: #235219178 none / #189174147 none
     default: "${config.colorWhite3} None / ${config.colorWhite4} None"
     tree: "#707080 None / #606060 None"
     parent: "${config.colorYellow0} None / ${config.colorYellow1} None"
@@ -10,9 +9,6 @@ skin: {
     link: "#689d6a None"
     pruning: "#7c6f64 None"
     perm__: "None None"
-    # perm_r: "#d79921 None"
-    # perm_w: "#cc241d None"
-    # perm_x: "#98971a None"
     perm_r: "${config.colorYellow0} None"
     perm_w: "${config.colorRed1} None"
     perm_x: "${config.colorOrange} None"
