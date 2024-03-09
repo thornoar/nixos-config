@@ -8,6 +8,7 @@ if $(git rev-parse --is-inside-work-tree); then
     if git status | grep -q "Changes not staged for commit"; then
         export GREP_COLORS="ms=1;91"
         git status | grep --color "not staged"
+        git status -s
         export GREP_COLORS="$grep_colors"
         printf "\e[34m> There are unstaged local changes. Quitting...\e[0m\n"
         exit 1;
