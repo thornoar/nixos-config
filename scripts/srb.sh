@@ -66,6 +66,9 @@ if $CHECK_GIT; then
             export GREP_COLORS=$grep_colors
             echo -e "\e[34m> Clash between local and remote branches, skipping...\e[0m"
         else
+            export GREP_COLORS="ms=1;91"
+            git status | grep "behind"
+            export GREP_COLORS=$grep_colors
             echo -e "\e[34m> Pulling remote changes...\e[0m"
             git fetch && git pull
         fi
