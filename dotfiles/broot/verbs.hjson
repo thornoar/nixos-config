@@ -79,11 +79,11 @@ verbs: [
     }
     {
         key: alt-down
-        internal: ":line_down 10"
+        internal: ":line_down_no_cycle 10"
     }
     {
         key: alt-up
-        internal: ":line_up 10"
+        internal: ":line_up_no_cycle 10"
     }
     {
         key: alt-left
