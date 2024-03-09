@@ -33,7 +33,7 @@
             default = { x = 4; y = 4; };
         };
 
-        bgColor0 = mkStrOpt "#0b0c0d";#"#0b1012";#"#1e2127";
+        bgColor0 = mkStrOpt "#0b0c0d";
         bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
         bgColor2 = mkStrOpt "#43565c";
         fgColor = mkStrOpt "#17a88b";
@@ -62,8 +62,6 @@
 
         colorMagenta0 = mkStrOpt "#ff79c6";
         colorMagenta1 = mkStrOpt "#c678dd";
-
-        # xmonadLayouts = mkStrOpt "grid ||| Full ||| spirals ||| magnified ||| tabs";
 
         xmobarTemplate = mkStrOpt " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ";
         xmobarExtraCommands = mkStrOpt ''
