@@ -639,3 +639,18 @@
 -- km.set('n', '<C-4>', function() harpoon:list():select(4) end)
 -- km.set('n', '<S-M-Left>', function() harpoon:list():prev() end)
 -- km.set('n', '<S-M-Right>', function() harpoon:list():next() end)
+
+
+
+-- autosave = true
+-- newcmd("AS", function() 
+-- 	autosave = not autosave
+-- 	print("autosave is " .. (autosave and "enabled" or "disabled"))
+-- end)
+-- autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
+-- vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
+-- 	pattern = '*',
+-- 	callback = function()
+-- 		if autosave then vim.cmd('silent write') end
+-- 	end
+-- })

@@ -17,8 +17,6 @@ R = function (name)
 end
 home = os.getenv('PROJECTS')
 testdir = home..'/sandbox'
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ';'
 
 -- INSTALL --
@@ -181,18 +179,6 @@ newcmd('X', function () vim.cmd('Files') end)
 newcmd('C', function () vim.cmd('Jumps') end)
 
 -- Autocommands
--- autosave = true
--- newcmd("AS", function() 
--- 	autosave = not autosave
--- 	print("autosave is " .. (autosave and "enabled" or "disabled"))
--- end)
--- autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
--- vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
--- 	pattern = '*',
--- 	callback = function()
--- 		if autosave then vim.cmd('silent write') end
--- 	end
--- })
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.md' },
 	command = 'setlocal spell! spelllang=en_us'
@@ -277,7 +263,7 @@ km.set({'n', 'v'}, '<M-Right>', 'w')
 km.set('i', '<M-up>', '<C-o>10k')
 km.set('i', '<M-down>', '<C-o>10j')
 km.set('i', '<M-left>', '<esc>gea')
-km.set('i', '<M-right>', '<esc>Ea')
+km.set('i', '<M-right>', '<esc>ea')
 km.set({'n', 'v'}, '<M-a>', '%')
 km.set('n', 'n', 'nzz')
 km.set('n', 'N', 'Nzz')   
@@ -303,7 +289,10 @@ km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 -- km.set('n', '<C-c>', function () if vim.bo.modified then print("save the file!") else vim.cmd('wq') end end)
-km.set('n', '<C-c>', function () vim.cmd('wq') end)
+km.set('n', '<C-c>', function ()
+    vim.cmd('wa')
+    vim.cmd('quit')
+end)
 km.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
