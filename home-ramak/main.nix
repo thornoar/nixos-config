@@ -96,7 +96,6 @@
             initExtra = ''
                 autoload -U colors && colors
                 PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
-                source $NIXOS_CONFIG/dotfiles/shell-billy.sh
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
 
