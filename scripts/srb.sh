@@ -50,11 +50,15 @@ if $CHECK_GIT; then
         if git status | grep -q "branch is up to date"; then
             export GREP_COLORS="ms=1;94"
             git status | grep --color "branch is up to date"
+            if git status | grep -q "working tree clean"; then
+                git status | grep --color "working tree clean"
+            else
+                echo "Local changes:"
+                git status -s
+                echo -e "\e[34m> Pushing changes...\e[0m"
+                git add . && git commit -m '--' && git push
+            fi
             export GREP_COLORS=$grep_colors
-            echo "local changes:"
-            git status -s
-            echo -e "\e[34m> Pushing changes...\e[0m"
-            git add . && git commit -m '--' && git push
         elif git status | grep -q "Changes not staged for commit"; then
             export GREP_COLORS="ms=1;91"
             git status | grep "behind"
