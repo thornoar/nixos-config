@@ -3,6 +3,8 @@ export COMMAND="switch"
 export EXTRA_OPTIONS=""
 export OUTPUT="master"
 
+echo "test commit"
+
 grep_colors=$GREP_COLORS
 
 while getopts "hpic:e:o:" flag; do
