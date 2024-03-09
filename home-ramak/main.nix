@@ -99,11 +99,6 @@
                 source $NIXOS_CONFIG/dotfiles/br.sh
                 eval $(thefuck --alias)
 
-                echo -ne '\e[4 q'
-                preexec() {
-                    echo -ne '\e[4 q'
-                }
-
                 bindkey "^[[1;3D" backward-word 
                 bindkey "^[[1;3C" forward-word
 
@@ -111,6 +106,12 @@
                 eval "$(atuin init zsh)"
                 bindkey '^[[1;5A' atuin-up-search
             '';
+            envExtra = ''
+                echo -ne '\e[4 q'
+                # preexec() {
+                #     echo -ne '\e[4 q'
+                # }
+            ''
         };
 
         programs.git = {
