@@ -4,7 +4,7 @@ export COMMAND="switch"
 export EXTRA_OPTIONS=""
 export OUTPUT="master"
 
-grep_colors=$GREP_COLORS
+grep_colors="$GREP_COLORS"
 
 while getopts "hpic:e:o:" flag; do
     case $flag in
@@ -29,13 +29,13 @@ while getopts "hpic:e:o:" flag; do
             export EXTRA_OPTIONS="$EXTRA_OPTIONS --impure"
         ;;
         c)
-            export COMMAND=$OPTARG
+            export COMMAND="$OPTARG"
         ;;
         e)
             export EXTRA_OPTIONS="$EXTRA_OPTIONS $OPTARG"
         ;;
         o)
-            export OUTPUT=$OPTARG
+            export OUTPUT="$OPTARG"
         ;;
         *)
             # printf "\e[31merror: \e[0minvalid flags.\n"
@@ -48,8 +48,8 @@ printf "\e[35m| Update The System |\e[0m\n"
 
 if $CHECK_GIT; then
     cwd=$PWD
-    cd $NIXOS_CONFIG
-    if $(git rev-parse --is-inside-work-tree); then
+    cd "$NIXOS_CONFIG" || exit
+    if eval git rev-parse --is-inside-work-tree; then
         printf "\e[34m> Checking git repository on branch \e[33m$(git rev-parse --abbrev-ref HEAD)\e[34m...\e[0m\n"
         git remote update
         if git status | grep -q "branch is up to date"; then
@@ -80,6 +80,8 @@ if $CHECK_GIT; then
     fi
     cd $cwd
 fi
+
+exit
 
 printf "\e[34m> Building configuration...\e[0m\n"
 sudo nixos-rebuild $COMMAND $EXTRA_OPTIONS --flake $NIXOS_CONFIG/#master || exit 1
