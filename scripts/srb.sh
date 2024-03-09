@@ -37,6 +37,9 @@ while getopts "hpic:e:o:" flag; do
         o)
             export OUTPUT=$OPTARG
         ;;
+        *)
+            printf "\e[31merror: \e[0minvalid flags.\n"
+        ;;
     esac
 done
 

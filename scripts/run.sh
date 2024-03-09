@@ -1,2 +1,2 @@
 #!/bin/sh
-nix run nixpkgs#$1 -- ${@:2}
+nix run nixpkgs#"$1" -- "${@:2}"
