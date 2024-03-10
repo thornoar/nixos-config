@@ -31,21 +31,12 @@ require('lazy').setup({
 	'junegunn/fzf',
 	'junegunn/fzf.vim',
     'nanozuki/tabby.nvim',
-    {
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            on_attach = function(bufnr)
-                vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-                vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-                vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-            end,
-        },
-    },
+    'lewis6991/gitsigns.nvim',
     {
         'altermo/ultimate-autopair.nvim',
-        event={'InsertEnter','CmdlineEnter'},
-        branch='v0.6',
-        opts={
+        event = { 'InsertEnter','CmdlineEnter' },
+        branch = 'v0.6',
+        opts = {
             space2 = { enable = true },
             tabout = { enable = true },
             fastwarp = {
