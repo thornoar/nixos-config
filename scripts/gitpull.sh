@@ -1,6 +1,4 @@
 #!/bin/sh
-# printf "\e[34m> Pulling from remote repository...\e[0m\n"
-# git fetch && git pull
 grep_colors="$GREP_COLORS"
 if $(git rev-parse --is-inside-work-tree); then
     printf "\e[34m> Pulling from remote repository (\e[33m%s\e[34m branch)...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
