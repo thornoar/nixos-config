@@ -28,6 +28,9 @@ require('lazy').setup({
 	'nvim-lualine/lualine.nvim',
 	'numToStr/Comment.nvim',
 	'ap/vim-css-color',
+	'junegunn/fzf',
+	'junegunn/fzf.vim',
+    'nanozuki/tabby.nvim',
     {
         'lewis6991/gitsigns.nvim',
         opts = {
@@ -41,7 +44,7 @@ require('lazy').setup({
     {
         'altermo/ultimate-autopair.nvim',
         event={'InsertEnter','CmdlineEnter'},
-        branch='v0.6', --recomended as each new version will have breaking changes
+        branch='v0.6',
         opts={
             space2 = { enable = true },
             tabout = { enable = true },
@@ -229,6 +232,9 @@ vim.keymap.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
 vim.keymap.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
 vim.keymap.set('n', 'X', function () vim.cmd('ToggleBool') end)
 vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
+vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
+vim.keymap.set('n', '<C-f>', function () vim.cmd('Files') end)
+vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
 
 -- REMAINDER --
 -- $Comment setup

@@ -14,7 +14,6 @@
 -- end
 
     -- {
-    -- 'neovimhaskell/haskell-vim',
     -- 'hjson/vim-hjson',
 	-- 'junegunn/fzf',
 	-- 'junegunn/fzf.vim',

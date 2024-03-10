@@ -8,7 +8,8 @@ do
     printf "\e[34m> Entering $dir...\e[0m\n"
     cd "$dir" || exit
     if [ -d .git ]; then
-        git add . && git commit -m "--" && git push
+        gitpush
+        # git add . && git commit -m "--" && git push
     else
         printf "\e[33mNot a git repository, skipping...\e[0m\n"
     fi
