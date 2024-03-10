@@ -219,6 +219,10 @@ vim.keymap.set('n', '<C-c>', function ()
     vim.cmd('wa')
     vim.cmd('quit')
 end)
+vim.keymap.set('n', '<C-S-c>', function ()
+    vim.cmd('wa')
+    vim.cmd('qa')
+end)
 vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 vim.keymap.set('n', '<C-d>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 vim.keymap.set('n', '<C-g>', function () vim.cmd('silent !$TERMINAL -e lazygit&') end)
@@ -235,6 +239,7 @@ vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_i
 vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 vim.keymap.set('n', '<C-f>', function () vim.cmd('Files') end)
 vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
+vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split', 'ctrl-d': 'horizontal split'}]])
 
 -- REMAINDER --
 -- $Comment setup
