@@ -1,3 +1,7 @@
+if vim.loader then
+    vim.loader.enable()
+end
+
 -- VARIABLES --
 vim.keymap.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
 home = os.getenv('PROJECTS')
@@ -389,8 +393,6 @@ vim.o.shiftwidth = 4
 -- vim.o.eol = false
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
-
-vim.loader.enable()
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
