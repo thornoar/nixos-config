@@ -8,8 +8,10 @@
     in 
     {
         dotfiledir = lib.mkForce ../dotfiles;
+
         # xmonad setup
         xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + ''
+
             -- Home-Manager settings
 
             -- setWallpaperCmd = spawn "xwallpaper --maximize $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
@@ -17,11 +19,9 @@
 
             myBorderWidth :: Dimension
             myBorderWidth = ${ts config.windowBorderWidth}
-            -- myBorderWidth = 0
 
             mySpace :: Int
             mySpace = ${ts config.windowSpace} `div` 2
-            -- mySpace = 0
 
             myBgColor = "${config.bgColor0}"
             myFgColor = "${config.fgColor}"
@@ -97,24 +97,17 @@
         xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
         xdg.configFile."nvim/after".source = dotfile "nvim/after";
         xdg.configFile."nvim/init.lua".text = (builtins.readFile (dotfile "nvim/init.lua")) + ''
-            local theme = {
-                -- fill = 'TabLineFill',
-                fill = { bg = "${config.bgColor1}" },
-                head = 'TabLine',
-                -- current_tab = { fg = "${config.colorBlack}", bg = "${config.colorBlue0}", style = 'italic' },--'TabLineSel',
-                current_tab = { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' },--'TabLineSel',
-                tab = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
-                win = 'TabLine',
-                tail = 'TabLine',
-            }
+
             require('tabby.tabline').set(function(line)
                 return {
                     line.tabs().foreach(function(tab)
-                        local hl = tab.is_current() and theme.current_tab or theme.tab
+                        local hl = tab.is_current()
+                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' }
+                            or { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" }
                         return {
-                            line.sep("", hl, theme.fill),
+                            line.sep("", hl, { bg = "${config.bgColor1}" }),
                             tab.name(),
-                            line.sep("", hl, theme.fill),
+                            line.sep("", hl, { bg = "${config.bgColor1}" }),
                             hl = hl,
                             margin = ' ',
                         }

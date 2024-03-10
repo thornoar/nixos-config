@@ -738,3 +738,13 @@
 --     endif
 -- endfunction
 -- ]])
+
+
+-- local theme = {
+--     fill = { bg = "${config.bgColor1}" },
+--     head = 'TabLine',
+--     current_tab = { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' },--'TabLineSel',
+--     tab = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
+--     win = 'TabLine',
+--     tail = 'TabLine',
+-- }
