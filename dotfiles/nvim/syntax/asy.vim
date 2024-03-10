@@ -126,11 +126,7 @@ syn keyword asyConstant      unitsphere unithemisphere unitplane octant1
 syn keyword asyConstant      unitcone unitsolidcone unitcube unitcylinder
 syn keyword asyConstant      unitdisk unittube
 
-" syn keyword asyReference     this
-" highlight asyReference guifg=lightsteelblue gui=italic cterm=italic
-
 syn match asyModule display       "\(\(import\|acess\|unravel\|include\)\s\+\)\@<=\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\|export\|pathmethods\)"
-" syn match asyModule display       "\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\)\(\.\)\@="
 
 syn match   asyConst       "default\w*"
 " syn match   asyConst       "df\w*"
@@ -151,16 +147,9 @@ syn match  asyNumberError display contained "\d*e[-+]\=\(e[-+]\=\)*\.[0-9.]*"
 
 
 " Highlight function names
-"syn match    asyCustomParen    "?=(" contains=cParen,cCppParen
 syn match    asyCustomFunc     "\w\+\s*(\@="
 syn match    asyCustomFunc     "\(\.\.\)\@<!\.\@<=\w\+"
 hi def link  asyCustomFunc Function
-
-" syn match    asyKeyword        "\(\(,\|(\|\(\.\.\.\)\)\_s*\w\+\(\[\]\)*\s\+\)\@<=\w\+\(\s*\(,\|)\|=\)\)\@="
-" syn match    asyKeyword        "\(\(,\|(\|\(\.\.\.\)\)\_s*\)\@<=\w\+\(\s*=\)\@=\(\s*==\)\@!"
-" syn match    asyKeyword        "\(\n\s*\)\@<=\w\+\(\s*=\s*\.\+,\)\@="
-" "syn region asyFunctionArgument start=/(/ end=/)/ fold transparent contains=asyKeyword,asyType,asyNumber
-" hi def link asyKeyword Keyword
 
 syn match    asyPathOperator   "\.\@<!\.\.\.\@!"
 syn match    asyPathOperator   "--"
