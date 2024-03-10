@@ -1,0 +1,220 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.007  000.007: --- NVIM STARTING ---
+000.111  000.104: event init
+000.172  000.061: early init
+000.240  000.069: locale set
+000.266  000.026: init first window
+000.462  000.196: inits 1
+000.473  000.011: window checked
+000.507  000.034: parsing arguments
+000.839  000.033  000.033: require('vim.shared')
+000.924  000.029  000.029: require('vim._options')
+000.925  000.084  000.055: require('vim._editor')
+000.926  000.147  000.030: require('vim._init_packages')
+000.927  000.273: init lua interpreter
+000.999  000.072: expanding arguments
+001.025  000.026: inits 2
+001.235  000.210: init highlight
+001.236  000.001: waiting for UI
+001.388  000.151: done waiting for UI
+001.395  000.007: clear screen
+001.487  000.093: init default mappings & autocommands
+001.536  000.049: --cmd commands
+002.335  000.034  000.034: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/ftplugin.vim
+002.384  000.018  000.018: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/indent.vim
+002.870  000.032  000.032: require('vim.loader')
+002.887  000.004  000.004: require('vim.keymap')
+003.720  000.017  000.017: require('vim.fs')
+003.861  000.917  000.900: require('lazy')
+003.879  000.008  000.008: require('ffi')
+003.948  000.065  000.065: require('lazy.stats')
+004.061  000.099  000.099: require('lazy.core.util')
+004.141  000.078  000.078: require('lazy.core.config')
+004.357  000.069  000.069: require('lazy.core.handler')
+004.462  000.102  000.102: require('lazy.core.plugin')
+004.468  000.326  000.154: require('lazy.core.loader')
+004.829  000.061  000.061: require('lazy.core.handler.cmd')
+004.892  000.059  000.059: require('lazy.core.handler.keys')
+005.011  000.114  000.114: require('lazy.core.handler.event')
+005.077  000.063  000.063: require('lazy.core.handler.ft')
+005.567  000.044  000.044: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/filetype.lua
+005.625  000.008  000.008: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/ftplugin.vim
+005.637  000.154  000.101: sourcing /home/ramak/.config/nvim/ftdetect/asy_filetype.vim
+005.710  000.448  000.295: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/filetype.lua
+006.284  000.234  000.234: sourcing /home/ramak/.local/share/nvim/lazy/vim-surround/plugin/surround.vim
+006.493  000.014  000.014: sourcing /home/ramak/.local/share/nvim/lazy/haskell-vim/ftdetect/haskell.vim
+007.147  000.449  000.449: sourcing /home/ramak/.local/share/nvim/lazy/fzf.vim/plugin/fzf.vim
+007.427  000.012  000.012: sourcing /home/ramak/.local/share/nvim/lazy/tabby.nvim/plugin/tabby.vim
+007.916  000.038  000.038: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/autoload/provider/pythonx.vim
+008.098  000.097  000.097: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/autoload/remote/host.vim
+008.150  000.323  000.189: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/autoload/provider/python3.vim
+008.340  000.011  000.011: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/autoload/provider.vim
+067.783  060.115  059.781: sourcing /home/ramak/.local/share/nvim/lazy/toggle-bool/plugin/toggle_bool.vim
+068.409  000.060  000.060: sourcing /home/ramak/.local/share/nvim/lazy/vim-rhubarb/plugin/rhubarb.vim
+068.975  000.318  000.318: sourcing /home/ramak/.local/share/nvim/lazy/fzf/plugin/fzf.vim
+069.997  000.060  000.060: require('ibl.utils')
+070.003  000.114  000.054: require('ibl.config')
+070.274  000.095  000.095: require('ibl.indent')
+070.278  000.274  000.179: require('ibl.hooks')
+070.281  000.436  000.047: require('ibl.highlights')
+070.331  000.048  000.048: require('ibl.autocmds')
+070.444  000.112  000.112: require('ibl.inlay_hints')
+070.491  000.044  000.044: require('ibl.virt_text')
+070.810  000.191  000.191: require('ibl.scope_languages')
+070.813  000.301  000.110: require('ibl.scope')
+070.819  001.575  000.633: require('ibl')
+071.722  000.212  000.212: require('vim.lsp.log')
+072.255  000.531  000.531: require('vim.lsp.protocol')
+072.434  000.064  000.064: require('vim.lsp._snippet')
+072.479  000.043  000.043: require('vim.highlight')
+072.485  000.003  000.003: require('vim.F')
+072.494  000.236  000.126: require('vim.lsp.util')
+072.505  001.173  000.194: require('vim.lsp.handlers')
+072.569  000.063  000.063: require('vim.lsp.rpc')
+072.611  000.040  000.040: require('vim.lsp.sync')
+072.666  000.053  000.053: require('vim.lsp.semantic_tokens')
+072.815  000.147  000.147: require('vim.lsp.buf')
+072.854  000.037  000.037: require('vim.lsp.diagnostic')
+072.932  000.077  000.077: require('vim.lsp.codelens')
+072.982  002.101  000.510: require('vim.lsp')
+073.334  000.023  000.023: sourcing /home/ramak/.local/share/nvim/lazy/vimtex/plugin/vimtex.vim
+073.393  000.013  000.013: sourcing /home/ramak/.local/share/nvim/lazy/vimtex/ftdetect/cls.vim
+073.425  000.011  000.011: sourcing /home/ramak/.local/share/nvim/lazy/vimtex/ftdetect/tex.vim
+073.454  000.010  000.010: sourcing /home/ramak/.local/share/nvim/lazy/vimtex/ftdetect/tikz.vim
+073.946  000.040  000.040: sourcing /home/ramak/.local/share/nvim/lazy/ultisnips/autoload/UltiSnips/map_keys.vim
+073.992  000.304  000.264: sourcing /home/ramak/.local/share/nvim/lazy/ultisnips/plugin/UltiSnips.vim
+074.073  000.012  000.012: sourcing /home/ramak/.local/share/nvim/lazy/ultisnips/ftdetect/snippets.vim
+075.772  000.065  000.065: require('vim.treesitter.language')
+075.782  000.166  000.101: require('vim.treesitter.query')
+075.834  000.051  000.051: require('vim.treesitter._range')
+075.843  000.318  000.102: require('vim.treesitter.languagetree')
+075.850  000.437  000.119: require('vim.treesitter')
+075.853  000.498  000.061: require('nvim-treesitter.compat')
+076.868  000.888  000.888: require('nvim-treesitter.parsers')
+076.922  000.052  000.052: require('nvim-treesitter.utils')
+076.927  001.017  000.077: require('nvim-treesitter.ts_utils')
+076.930  001.077  000.060: require('nvim-treesitter.tsrange')
+076.968  000.036  000.036: require('nvim-treesitter.caching')
+076.974  001.734  000.123: require('nvim-treesitter.query')
+076.983  001.902  000.168: require('nvim-treesitter.configs')
+076.984  002.292  000.390: require('nvim-treesitter-textobjects')
+077.131  000.059  000.059: require('nvim-treesitter.info')
+077.244  000.111  000.111: require('nvim-treesitter.shell_command_selectors')
+077.257  000.236  000.067: require('nvim-treesitter.install')
+077.293  000.035  000.035: require('nvim-treesitter.statusline')
+077.332  000.037  000.037: require('nvim-treesitter.query_predicates')
+077.334  000.349  000.041: require('nvim-treesitter')
+077.403  000.033  000.033: require('nvim-treesitter.textobjects.shared')
+077.406  000.068  000.035: require('nvim-treesitter.textobjects.select')
+077.478  000.028  000.028: require('nvim-treesitter.textobjects.attach')
+077.530  000.051  000.051: require('nvim-treesitter.textobjects.repeatable_move')
+077.535  000.117  000.038: require('nvim-treesitter.textobjects.move')
+077.718  000.052  000.052: require('nvim-treesitter.textobjects.swap')
+077.797  000.051  000.051: require('nvim-treesitter.textobjects.lsp_interop')
+077.808  003.128  000.199: sourcing /home/ramak/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+078.263  000.400  000.400: sourcing /home/ramak/.local/share/nvim/lazy/nvim-treesitter/plugin/nvim-treesitter.lua
+078.390  000.048  000.048: sourcing /home/ramak/.local/share/nvim/lazy/vim-lastplace/plugin/vim-lastplace.vim
+079.147  000.048  000.048: require('Comment.config')
+079.331  000.064  000.064: require('Comment.ft')
+079.335  000.185  000.122: require('Comment.utils')
+079.399  000.063  000.063: require('Comment.opfunc')
+079.434  000.033  000.033: require('Comment.extra')
+079.437  000.758  000.428: require('Comment.api')
+079.585  000.936  000.178: sourcing /home/ramak/.local/share/nvim/lazy/Comment.nvim/plugin/Comment.lua
+079.749  000.045  000.045: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/editorconfig.lua
+079.878  000.098  000.098: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/gzip.vim
+079.929  000.020  000.020: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/health.vim
+080.022  000.061  000.061: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/man.lua
+080.467  000.115  000.115: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+080.527  000.474  000.359: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/matchit.vim
+080.670  000.088  000.088: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/matchparen.vim
+080.899  000.202  000.202: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/netrwPlugin.vim
+080.983  000.047  000.047: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/nvim.lua
+081.118  000.006  000.006: sourcing /nix/store/l6a9sgfzb93cr533sg3sdngpbz05l89n-neovim-0.9.5/rplugin.vim
+081.188  000.142  000.135: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/rplugin.vim
+081.294  000.038  000.038: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/shada.vim
+081.341  000.015  000.015: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/spellfile.vim
+081.436  000.066  000.066: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/tarPlugin.vim
+081.522  000.051  000.051: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/tohtml.vim
+081.560  000.011  000.011: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/tutor.vim
+081.680  000.093  000.093: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/plugin/zipPlugin.vim
+081.870  000.048  000.048: sourcing /home/ramak/.local/share/nvim/lazy/ultisnips/after/plugin/UltiSnips_after.vim
+081.971  000.049  000.049: sourcing /home/ramak/.local/share/nvim/lazy/indent-blankline.nvim/after/plugin/commands.lua
+082.722  000.044  000.044: require('Comment')
+083.099  000.043  000.043: require('gitsigns.async')
+083.241  000.140  000.140: require('gitsigns.config')
+083.296  000.053  000.053: require('gitsigns.debug.log')
+083.304  000.310  000.074: require('gitsigns')
+084.812  000.060  000.060: require('nvim-treesitter.highlight')
+085.170  000.087  000.087: require('nvim-treesitter.locals')
+085.177  000.161  000.073: require('nvim-treesitter.incremental_selection')
+085.264  000.082  000.082: require('onedark')
+086.671  000.085  000.085: require('onedark')
+087.326  000.101  000.101: require('onedark.palette')
+087.387  000.253  000.152: require('onedark.colors')
+087.458  000.064  000.064: require('onedark.util')
+087.748  000.814  000.497: require('onedark.highlights')
+089.525  000.126  000.126: require('onedark.terminal')
+089.533  003.199  002.173: sourcing /home/ramak/.local/share/nvim/lazy/onedark.nvim/colors/onedark.lua
+090.393  000.739  000.739: require('nvim-subfiles')
+090.674  000.033  000.033: require('tabby.module.api')
+090.762  000.055  000.055: require('tabby.module.filename')
+090.767  000.090  000.035: require('tabby.feature.buf_name')
+090.769  000.167  000.043: require('tabby.feature.tab_name')
+090.840  000.030  000.030: require('tabby.module.log')
+090.878  000.036  000.036: require('tabby.module.highlight')
+090.880  000.110  000.043: require('tabby.module.render')
+090.957  000.046  000.046: require('tabby.feature.tabwins')
+090.969  000.088  000.041: require('tabby.feature.lines')
+090.972  000.438  000.074: require('tabby.tabline')
+091.078  000.037  000.037: require('lualine_require')
+091.274  000.292  000.255: require('lualine')
+092.356  000.038  000.038: require('lualine.utils.mode')
+095.273  092.769  013.824: sourcing /home/ramak/.config/nvim/init.lua
+095.285  000.928: sourcing vimrc file(s)
+095.496  000.061  000.061: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/syntax/synload.vim
+095.553  000.222  000.161: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/syntax/syntax.vim
+095.566  000.060: inits 3
+098.177  002.611: reading ShaDa
+100.975  000.783  000.783: require('vim.filetype')
+102.143  000.052  000.052: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/ftplugin/lua.vim
+102.933  000.182  000.182: sourcing /home/ramak/.config/nvim/after/ftplugin/lua.lua
+103.143  000.030  000.030: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/indent/lua.vim
+123.346  000.217  000.217: require('vim.treesitter.highlighter')
+136.538  008.235  008.235: sourcing /nix/store/8lha6b5nfqjs6chngh67zjq2qp19r34b-neovim-unwrapped-0.9.5/share/nvim/runtime/autoload/provider/clipboard.vim
+136.769  000.151  000.151: require('editorconfig')
+137.010  029.183: opening buffers
+138.250  001.241: BufEnter autocommands
+138.256  000.006: editing files in windows
+140.277  002.021: VimEnter autocommands
+140.330  000.053: UIEnter autocommands
+140.333  000.003: before starting main loop
+145.989  005.656: first screen update
+145.991  000.002: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.006  000.006: --- NVIM STARTING ---
+000.119  000.113: event init
+000.182  000.063: early init
+000.219  000.037: locale set
+000.249  000.031: init first window
+000.472  000.222: inits 1
+000.478  000.007: window checked
+000.509  000.031: parsing arguments
+000.877  000.065  000.065: require('vim.shared')
+000.964  000.031  000.031: require('vim._options')
+000.965  000.084  000.053: require('vim._editor')
+000.966  000.190  000.041: require('vim._init_packages')
+000.967  000.268: init lua interpreter
+001.428  000.461: expanding arguments
+001.468  000.040: inits 2
+001.657  000.189: init highlight

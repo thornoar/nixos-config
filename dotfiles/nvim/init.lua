@@ -1,4 +1,4 @@
-vim.loader.enable()
+-- vim.loader.enable()
 
 -- VARIABLES --
 vim.keymap.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
@@ -35,6 +35,7 @@ require('lazy').setup({
 	'junegunn/fzf.vim',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
+    'lewis6991/impatient.nvim',
     {
         'altermo/ultimate-autopair.nvim',
         event = { 'InsertEnter','CmdlineEnter' },
@@ -70,6 +71,8 @@ require('lazy').setup({
 	},
     -- 'thornoar/nvim-subfiles',
 }, {})
+
+require('impatient')
 
 -- COMMANDS --
 local compilefunc = {
