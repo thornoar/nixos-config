@@ -1,6 +1,4 @@
-if vim.loader then
-    vim.loader.enable()
-end
+vim.loader.enable()
 
 -- VARIABLES --
 vim.keymap.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
