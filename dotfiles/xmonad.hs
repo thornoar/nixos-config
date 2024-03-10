@@ -424,7 +424,6 @@ myXmobarPP = def {
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
-        -- onLogger (white) logLayout
         onLogger (white . drop 9) logLayout
         ]
     } where

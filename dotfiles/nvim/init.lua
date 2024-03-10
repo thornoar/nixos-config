@@ -87,13 +87,13 @@ local compilefunc = {
 }
 
 vim.api.nvim_create_user_command('Compile', function () 
-    if vim.bo.modified then vim.cmd("write") end
+    if vim.bo.modified then vim.cmd('write') end
 	local ccmd = compilefunc[vim.bo.filetype]
-	vim.cmd(not ccmd and 'echo \"not set to compile\"' or ccmd('%:t'))
+	vim.cmd(not ccmd and 'echo \'not set to compile\'' or ccmd('%:t'))
 end, {})
 
 vim.api.nvim_create_user_command('CompileSilent', function () 
-    if vim.bo.modified then vim.cmd("write") end
+    if vim.bo.modified then vim.cmd('write') end
 	local ccmd = compilefunc[vim.bo.filetype]
 	vim.cmd(not ccmd and '' or 'silent '..ccmd('%:t'))
 end, {})
@@ -145,8 +145,8 @@ vim.keymap.set({'n', 'v'}, '<S-Right>', 'p')
 vim.keymap.set('i', '<S-Right>', '<esc>pa')
 vim.keymap.set('n', '<M-CR>', 'md*ggn')
 vim.keymap.set('n', '<M-]>', '\'d')
-vim.keymap.set('v', '<C-S-Down>', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', '<C-S-Up>', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', '<C-S-Down>', ':m \'>+1<CR>gv=gv')
+vim.keymap.set('v', '<C-S-Up>', ':m \'<-2<CR>gv=gv')
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('v', 'z', '<esc>')
 vim.keymap.set('v', '<S-Up>', '<Up>')
@@ -154,10 +154,10 @@ vim.keymap.set('v', '<S-Down>', '<Down>')
 vim.keymap.set('n', '<S-Down>', '<S-v>j')
 vim.keymap.set('n', '<S-Up>', '<S-v>k')
 vim.keymap.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
-vim.keymap.set('n', '<leader>cw', ":%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/")
+vim.keymap.set('n', '<leader>cw', ':%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/')
 vim.keymap.set('n', 'cw', 'ciw')
 vim.keymap.set('n', 'dw', 'diw')
-vim.keymap.set('x', '<leader>p', '\"_dP')
+vim.keymap.set('x', '<leader>p', '\'_dP')
 vim.keymap.set('n', '<leader>f', 'zf%')
 vim.keymap.set('n', '<C-End>', 'k<S-v>jj<S-j>')
 vim.keymap.set('v', '<M-End>', 'J')
@@ -167,7 +167,7 @@ vim.keymap.set('n', 'x', 'i')
 vim.keymap.set('i', '<C-x>', '<C-n>')
 vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
-vim.keymap.set('i', '<C-w>', function () vim.cmd('silent write') end)
+vim.keymap.set({'i', 'n'}, '<C-w>', function () vim.cmd('silent write') end)
 -- $navigation keymaps
 vim.keymap.set('n', '<Up>', 'gk')
 vim.keymap.set('n', '<Down>', 'gj')
@@ -197,10 +197,10 @@ vim.keymap.set('i', '<C-Left>', '<C-o><C-w>h')
 vim.keymap.set('i', '<C-Down>', '<C-o><C-w>j')
 vim.keymap.set('i', '<C-Up>', '<C-o><C-w>k')
 vim.keymap.set('i', '<C-Right>', '<C-o><C-w>l')
-vim.keymap.set('n', '<C-w><Left>', '<C-w>H')
-vim.keymap.set('n', '<C-w><Right>', '<C-w>L')
-vim.keymap.set('n', '<C-w><Up>', '<C-w>K')
-vim.keymap.set('n', '<C-w><Down>', '<C-w>J')
+vim.keymap.set('n', '<M-w><Left>', '<C-w>H')
+vim.keymap.set('n', '<M-w><Right>', '<C-w>L')
+vim.keymap.set('n', '<M-w><Up>', '<C-w>K')
+vim.keymap.set('n', '<M-w><Down>', '<C-w>J')
 vim.keymap.set('n', '<C-M-o>', '<C-w>+')
 vim.keymap.set('n', '<C-M-l>', '<C-w>-')
 vim.keymap.set('n', '<C-M-i>', '<C-w>>')
@@ -295,11 +295,11 @@ require('nvim-treesitter.configs').setup {
             enable = true,
             lookahead = true,
             keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+                ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
             },
             selection_modes = {
                 ['@parameter.outer'] = 'v', -- charwise
@@ -323,7 +323,7 @@ require('onedark').setup  {
 	term_colors = true,
 	ending_tildes = false,
 	cmp_itemkind_reverse = false,
-	toggle_style_key = "<leader>wt",
+	toggle_style_key = '<leader>wt',
 	toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'},
 	code_style = {
 		comments = 'italic',
