@@ -115,6 +115,7 @@ vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {}
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
 vim.api.nvim_create_user_command('L', function () vim.cmd('Lazy') end, {})
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
+vim.api.nvim_create_user_command('W', function () vim.cmd('wa') end, {})
 
 -- Autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
