@@ -23,7 +23,9 @@ while getopts "hm:" flag; do
     esac
 done
 
-if $(git rev-parse --is-inside-work-tree); then
+
+
+if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     printf "\e[34m> Checking git repository on branch \e[33m%s\e[34m...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
     git remote update
     status=$(git status)
@@ -53,6 +55,6 @@ if $(git rev-parse --is-inside-work-tree); then
         git fetch && git pull
     fi
 else
-    printf "\e[31mfailure:\e[0m Not a git repository.\n"
+    printf "\e[33mNot a git repository, skipping...\e[0m\n"
     exit 1
 fi
