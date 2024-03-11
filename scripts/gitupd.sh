@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 message="--"
 
 while getopts "hm:" flag; do
@@ -25,6 +27,7 @@ if $(git rev-parse --is-inside-work-tree); then
     printf "\e[34m> Checking git repository on branch \e[33m%s\e[34m...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
     git remote update
     status=$(git status)
+    echo $status
     if git status | grep -q "branch is up to date"; then
         export GREP_COLORS="ms=1;94"
         echo "$status" | grep --color "branch is up to date"
@@ -51,6 +54,6 @@ if $(git rev-parse --is-inside-work-tree); then
         git fetch && git pull
     fi
 else
-    printf "\e[31mfailure: \e[0mNot a git repository.\n"
+    printf "\e[31mfailure:\e[0m Not a git repository.\n"
     exit 1
 fi

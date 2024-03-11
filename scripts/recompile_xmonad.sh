@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 killall xmobar
 tmp=$(mktemp -d)
 touch "$tmp/xmessage"

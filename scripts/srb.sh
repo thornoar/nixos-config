@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 check_git=true
 command="switch"
 extra_options=""

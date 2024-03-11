@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 printf "\e[35m| Collect Garbage |\e[0m\n"
 printf "\e[34m> Collecting on the user level...\e[0m\n"
 nix-collect-garbage --delete-old

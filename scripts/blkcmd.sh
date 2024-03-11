@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 cwd="$PWD"
 
 while IFS= read -r -d "" dir
