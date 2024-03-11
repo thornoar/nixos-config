@@ -6,11 +6,11 @@ output="master"
 
 grep_colors="$GREP_COLORS"
 
-while getopts "hpic:e:o:" flag; do
+while getopts "hpic:e:o:m:" flag; do
     case $flag in
         h)
             echo "Usage: srb [OPTION]"
-            echo "Rebuild NixOS system configuration and recompile window manager"
+            echo "Rebuild NixOS system configuration"
             echo "Example: srb -i -p"
             echo ""
             echo "Available options:"
@@ -20,6 +20,7 @@ while getopts "hpic:e:o:" flag; do
             echo "  -c [COMMAND]    Command to use with \"nixos-rebuild\"; default is \"switch\""
             echo "  -e [OPTIONS]    Extra options to add to the \"nixos-rebuild\" command"
             echo "  -o [OUTPUT]     Flake output to use for system configuration; default is \"master\""
+            echo "  -m [OPTION]     Specify window manager in use"
             exit 0
         ;;
         p)
@@ -37,6 +38,9 @@ while getopts "hpic:e:o:" flag; do
         o)
             output="$OPTARG"
         ;;
+        m)
+            output="$OPTARG"
+        ;;
         *) exit 1
         ;;
     esac
@@ -45,15 +49,11 @@ done
 # printf "\e[35m| Update The System |\e[0m\n"
 
 if $check_git; then
-    cwd=$PWD
+    cwd="$PWD"
     cd "$NIXOS_CONFIG" || exit
-    gitupd
+    gitupd -m "system update"
     cd "$cwd" || exit
 fi
 
 printf "\e[34m> Building configuration...\e[0m\n"
 sudo nixos-rebuild $command $extra_options --flake $NIXOS_CONFIG/#$output || exit 1
-printf "\e[34m> Recompiling XMonad...\e[0m\n"
-
-killall xmobar
-recompile_xmonad && xmonad --restart

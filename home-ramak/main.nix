@@ -60,7 +60,7 @@
                 shellAliases = rec {
                     cd = "z";
                     rc = "nmcli con up 9a64ee51-26a1-4c77-9361-df3de07cbfab";
-                    xc = "xmonad --recompile && xmonad --restart";
+                    xc = "recompile_xmonad";
                     hm = "home-manager";
                     gst = "git status";
                     ns = "nix-shell --command zsh -p ";

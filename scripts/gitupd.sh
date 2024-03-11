@@ -44,7 +44,7 @@ if $(git rev-parse --is-inside-work-tree); then
         echo "$status" | grep --color "behind"
         echo "$status" | grep --color "not staged"
         export GREP_COLORS="$grep_colors"
-        printf "\e[31m>failure:\e[0m Clash between local and remote changes.\n"
+        printf "\e[31mfailure:\e[0m Clash between local and remote changes.\n"
     else
         export GREP_COLORS="ms=1;94"
         echo "$status" | grep --color "behind"
