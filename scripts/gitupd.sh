@@ -23,8 +23,6 @@ while getopts "hm:" flag; do
     esac
 done
 
-
-
 if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     printf "\e[34m> Checking git repository on branch \e[33m%s\e[34m...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
     git remote update
