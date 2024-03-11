@@ -34,7 +34,7 @@
         };
 
         bgColor0 = mkStrOpt "#0b0c0d";
-        bgColor1 = mkStrOpt config.bgColor0;#"#2c3037";
+        bgColor1 = mkStrOpt "#2c3037";
         bgColor2 = mkStrOpt "#43565c";
         fgColor = mkStrOpt "#17a88b";
         brfgColor = mkStrOpt "#00bc96";

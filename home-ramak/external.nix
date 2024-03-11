@@ -103,11 +103,11 @@
                     line.tabs().foreach(function(tab)
                         local hl = tab.is_current()
                             and { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' }
-                            or { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" }
+                            or { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" }
                         return {
-                            line.sep("", hl, { bg = "${config.bgColor1}" }),
+                            line.sep("", hl, { bg = "${config.bgColor0}" }),
                             tab.name(),
-                            line.sep("", hl, { bg = "${config.bgColor1}" }),
+                            line.sep("", hl, { bg = "${config.bgColor0}" }),
                             hl = hl,
                             margin = ' ',
                         }
@@ -122,7 +122,8 @@
                         normal = {
                             a = { fg = "${config.bgColor0}", bg = "${config.colorBlue0}", gui = 'bold' },
                             b = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
-                            c = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
+                            c = { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" },
+                            y = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
                         },
                         command = { a = { fg = "${config.bgColor0}", bg = "${config.colorYellow1}", gui = 'bold' } },
                         insert = { a = { fg = "${config.bgColor0}", bg = "${config.colorRed1}", gui = 'bold' } },
@@ -132,7 +133,7 @@
                         inactive = {
                             a = { fg = "${config.bgColor0}", bg = "${config.bgColor0}", gui = 'bold' },
                             b = { fg = "${config.bgColor0}", bg = "${config.bgColor0}" },
-                            c = { fg = "${config.bgColor0}", bg = "${config.bgColor1}" },
+                            c = { fg = "${config.bgColor0}", bg = "${config.bgColor0}" },
                         },
                     },
                     component_separators = '|',
@@ -231,7 +232,6 @@
         xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
-                #default: #235219178 none / #189174147 none
                 default: "${config.colorWhite3} None / ${config.colorWhite4} None"
                 tree: "#707080 None / #606060 None"
                 parent: "${config.colorYellow0} None / ${config.colorYellow1} None"
@@ -254,25 +254,30 @@
                 git_branch: "#fbf1c7 None"
                 git_insertions: "#98c379 None"
                 git_deletions: "#e86671 None"
-                git_status_current: "#3c3836 None"
+                git_status_current: "${config.bgColor2} None"
                 git_status_modified: "#61afef None"
                 git_status_new: "#98c379 None Bold"
                 git_status_ignored: "#d5c4a1 None"
                 git_status_conflicted: "${config.colorRed1} None"
                 git_status_other: "${config.colorRed1} None"
-                selected_line: "None #3c3836 / None #32302f"
+                ext_colors: {
+                    asy: "${config.colorYellow1}"
+                    py: "${config.colorCyan}"
+                    lock = "${config.colorWhite0}"
+                }
+                selected_line: "None ${config.bgColor1} / None #32302f"
                 char_match: "${config.colorYellow1} None"
                 file_error: "${config.colorRed1} None"
                 flag_label: "#bdae93 None"
                 flag_value: "#d3869b None Bold"
                 input: "#fbf1c7 None / #bdae93 None"
                 status_error: "#d5c4a1 #cc241d"
-                status_job: "${config.colorYellow1} #3c3836"
-                status_normal: "None #282625 / None None"
-                status_italic: "#d3869b #282625 / None None"
-                status_bold: "#d3869b #282625 Bold / None None"
-                status_code: "#fbf1c7 #282625 / None None"
-                status_ellipsis: "#fbf1c7 #282625  Bold / None None"
+                status_job: "${config.colorYellow1} ${config.bgColor1}"
+                status_normal: "None ${config.bgColor0} / None None"
+                status_italic: "#d3869b ${config.bgColor0} / None None"
+                status_bold: "#d3869b ${config.bgColor0} Bold / None None"
+                status_code: "#fbf1c7 ${config.bgColor0} / None None"
+                status_ellipsis: "#fbf1c7 ${config.bgColor0}  Bold / None None"
                 purpose_normal: "None None"
                 purpose_italic: "#b16286 None"
                 purpose_bold: "#b16286 None Bold"
