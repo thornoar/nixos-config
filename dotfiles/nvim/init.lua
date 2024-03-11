@@ -242,9 +242,9 @@ vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split',
 -- REMAINDER 
 -- $themery setup
 require("themery").setup({
-  themes = { 'ron', 'onedark', 'default', 'desert', 'habamax', 'koehler', 'slate' }, -- Your list of installed colorschemes
-  -- themeConfigFile = "~/.config/nvim/lua/settings/theme.lua", -- Described below
-  livePreview = true, -- Apply theme while browsing. Default to true.
+    themes = { 'ron', 'onedark', 'default', 'desert', 'habamax', 'koehler', 'slate' }, -- Your list of installed colorschemes
+    themeConfigFile = "~/.config/nvim/nvimtrash.lua", -- Described below
+    livePreview = true, -- Apply theme while browsing. Default to true.
 })
 -- $Comment setup
 require('Comment').setup({
