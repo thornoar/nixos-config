@@ -255,7 +255,7 @@
                 git_insertions: "#98c379 None"
                 git_deletions: "#e86671 None"
                 git_status_current: "#3c3836 None"
-                git_status_modified: "#61afef "None"
+                git_status_modified: "#61afef None"
                 git_status_new: "#98c379 None Bold"
                 git_status_ignored: "#d5c4a1 None"
                 git_status_conflicted: "${config.colorRed1} None"
