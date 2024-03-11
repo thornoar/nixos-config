@@ -365,7 +365,6 @@ vim.o.breakat = '   '
 vim.opt.autochdir=true
 vim.o.shell = '/bin/sh'
 vim.wo.number = true
--- vim.wo.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.breakindent = true
 vim.o.undofile = true
@@ -388,8 +387,6 @@ vim.o.synmaxcol = 0
 -- vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
--- vim.o.binary = true
--- vim.o.eol = false
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
 
@@ -429,7 +426,8 @@ vim.g.UltiSnipsEditSplit='horizontal'
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
-vim.cmd.colorscheme 'onedark'
+vim.cmd.colorscheme 'quiet'
+
 vim.cmd(
 [[
     highlight Function guifg=burlywood
@@ -443,6 +441,6 @@ vim.cmd(
 
 package.path = package.path .. ';'..home..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
-  ['subfile'] = 'SF',
-  ['subfigure'] = 'F',
+    ['subfile'] = 'SF',
+    ['subfigure'] = 'F',
 }, { })
