@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     defaults = { lazy = true },
     'tpope/vim-rhubarb',
+    'zaldih/themery.nvim',
 	'tpope/vim-surround',
     'sagarrakshe/toggle-bool',
 	'lervag/vimtex',
@@ -238,7 +239,12 @@ vim.keymap.set('n', '<C-f>', function () vim.cmd('Files') end)
 vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split', 'ctrl-d': 'horizontal split'}]])
 
--- REMAINDER --
+-- REMAINDER 
+-- $themery setup
+require("themery").setup({
+  themes = { 'ron', 'onedark' }, -- Your list of installed colorschemes
+  livePreview = true, -- Apply theme while browsing. Default to true.
+})
 -- $Comment setup
 require('Comment').setup({
     padding = true,
