@@ -30,6 +30,10 @@ verbs: [
         leave_broot: false
     }
     {
+        key: ctrl-r
+        internal: refresh
+    }
+    {
         key: ctrl-q
         internal: start_end_panel
     }
