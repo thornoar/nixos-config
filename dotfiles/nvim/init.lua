@@ -384,6 +384,7 @@ vim.o.expandtab = true
 vim.o.compatible = false
 vim.o.hlsearch = false
 vim.o.synmaxcol = 0
+vim.o.hl = false
 -- vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
