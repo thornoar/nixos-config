@@ -17,7 +17,7 @@
         };
     
         nix = {
-            settings.experimental-features = [ "nix-command" "flakes" ];
+            settings.experimental-features = [ "nix-command" "flakes" "repl-flake" ];
             extraOptions = ''
                 warn-dirty = false
             '';
