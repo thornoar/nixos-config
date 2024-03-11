@@ -1,5 +1,3 @@
-# printf "\e[35m| Syncronize Local Git Tree with Remote Repository |\e[0m\n"
-
 message="--"
 
 while getopts "hm:" flag; do
