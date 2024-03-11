@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if grep -q "$1" "$NIXOS_CONFIG/home-packages"; then
+if grep -q "^$1$" "$NIXOS_CONFIG/home-packages"; then
 	printf "\e[34m> Package \"\e[0m\e[35m%s\e[0m\e[34m\" already listed in configuration. Run \"sudo nixos-rebuild switch\" to install. Quitting...\e[0m\n" "$1"
 	exit 0
 fi
