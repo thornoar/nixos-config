@@ -329,7 +329,7 @@
                 lock: "${config.colorWhite0}"
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
-                pdf: "${config.colorRed2}"
+                pdf: "${config.colorOrange2}"
             }
         '';
 

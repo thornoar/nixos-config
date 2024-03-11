@@ -52,10 +52,10 @@
 
         colorOrange0 = mkStrOpt "#ffb86c";
         colorOrange1 = mkStrOpt "#fe8019";
+        colorOrange2 = mkStrOpt "#d27141";
 
         colorRed0 = mkStrOpt "#ff5555";
         colorRed1 = mkStrOpt "#e86671";
-        colorRed2 = mkStrOpt "#e36141";
 
         colorBlue1 = mkStrOpt "#61afef";
         colorBlue2 = mkStrOpt "#6272a4";
