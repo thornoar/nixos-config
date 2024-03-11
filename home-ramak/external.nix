@@ -327,7 +327,8 @@
                 asy: "${config.colorYellow1}"
                 py: "${config.colorCyan}"
                 lock: "${config.colorWhite0}"
-                hs: "${config.colorMagenta2}"
+                hs: "${config.colorMagenta3}"
+                vim: "${config.colorGreen2}"
             }
         '';
 
