@@ -330,7 +330,6 @@
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
                 pdf: "${config.colorOrange2}"
-                tex: "${config.colorBlue2}"
             }
         '';
 
