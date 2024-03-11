@@ -260,11 +260,6 @@
                 git_status_ignored: "#d5c4a1 None"
                 git_status_conflicted: "${config.colorRed1} None"
                 git_status_other: "${config.colorRed1} None"
-                ext_colors: {
-                    asy: "${config.colorYellow1}"
-                    py: "${config.colorCyan}"
-                    lock: "${config.colorWhite0}"
-                }
                 selected_line: "None ${config.bgColor1} / None #32302f"
                 char_match: "${config.colorYellow1} None"
                 file_error: "${config.colorRed1} None"
@@ -311,6 +306,11 @@
                 good_to_bad_7: "ansi(172)"
                 good_to_bad_8: "ansi(166)"
                 good_to_bad_9: "ansi(196)"
+            }
+            ext_colors: {
+                asy: "${config.colorYellow1}"
+                py: "${config.colorCyan}"
+                lock: "${config.colorWhite0}"
             }
         '';
 
