@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     defaults = { lazy = true },
     'tpope/vim-rhubarb',
+    'zaldih/themery.nvim',
 	'tpope/vim-surround',
     'sagarrakshe/toggle-bool',
 	'lervag/vimtex',
@@ -239,6 +240,12 @@ vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split', 'ctrl-d': 'horizontal split'}]])
 
 -- REMAINDER 
+-- $themery setup
+require("themery").setup({
+  themes = { 'ron', 'onedark', 'default', 'desert', 'habamax', 'koehler', 'slate' }, -- Your list of installed colorschemes
+  themeConfigFile = "~/.config/nvim/lua/settings/theme.lua", -- Described below
+  livePreview = true, -- Apply theme while browsing. Default to true.
+})
 -- $Comment setup
 require('Comment').setup({
     padding = true,
@@ -426,7 +433,7 @@ vim.g.UltiSnipsEditSplit='horizontal'
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
-vim.cmd.colorscheme 'quiet'
+vim.cmd.colorscheme 'onedark'
 
 vim.cmd(
 [[
