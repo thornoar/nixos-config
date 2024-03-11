@@ -263,7 +263,7 @@
                 ext_colors: {
                     asy: "${config.colorYellow1}"
                     py: "${config.colorCyan}"
-                    lock = "${config.colorWhite0}"
+                    lock: "${config.colorWhite0}"
                 }
                 selected_line: "None ${config.bgColor1} / None #32302f"
                 char_match: "${config.colorYellow1} None"
