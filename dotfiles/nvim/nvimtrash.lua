@@ -757,3 +757,12 @@
 --     win = 'TabLine',
 --     tail = 'TabLine',
 -- }
+
+
+--
+-- $themery setup
+-- require("themery").setup({
+--     themes = { 'ron', 'onedark', 'default', 'desert', 'habamax', 'koehler', 'slate' }, -- Your list of installed colorschemes
+--     themeConfigFile = "dotfiles/nvim/nvimtrash.lua", -- Described below
+--     livePreview = true, -- Apply theme while browsing. Default to true.
+-- })
