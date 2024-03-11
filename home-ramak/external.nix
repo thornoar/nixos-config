@@ -28,7 +28,7 @@
             myBarHeight = ${ts config.barheight}
             myMagnifiedScale = ${ts config.magnifiedScale}
 
-            colorBlue0 = "${config.colorBlue0}"
+            colorMagenta1 = "${config.colorMagenta1}"
             colorBlue2 = "${config.colorBlue2}"
             colorWhite = "${config.colorWhite0}"
             colorBlack = "${config.colorBlack}"
@@ -45,7 +45,7 @@
 
             set notification-error-bg       "${config.colorRed0}" # Red
             set notification-error-fg       "${config.colorWhite1}" # Foreground
-            set notification-warning-bg     "${config.colorOrange}" # Orange
+            set notification-warning-bg     "${config.colorOrange0}" # Orange
             set notification-warning-fg     "${config.bgColor2}" # Selection
             set notification-bg             "${config.bgColor0}" # Background
             set notification-fg             "${config.colorWhite1}" # Foreground
@@ -63,7 +63,7 @@
             set inputbar-fg                 "${config.colorWhite1}" # Foreground
             set statusbar-bg                "${config.bgColor0}" # Background
             set statusbar-fg                "${config.colorWhite1}" # Foreground
-            set highlight-color             "${config.colorOrange}" # Orange
+            set highlight-color             "${config.colorOrange0}" # Orange
             set highlight-active-color      "${config.colorMagenta0}" # Pink
             set default-bg                  "${config.bgColor0}" # Background
             set default-fg                  "${config.colorWhite1}" # Foreground
@@ -120,16 +120,15 @@
                     icons_enabled = true,
                     theme = {
                         normal = {
-                            a = { fg = "${config.bgColor0}", bg = "${config.colorBlue0}", gui = 'bold' },
-                            b = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
+                            a = { fg = "${config.bgColor0}", bg = "${config.colorMagenta1}", gui = 'bold' },
+                            b = { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" },
                             c = { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" },
-                            y = { fg = "${config.colorWhite3}", bg = "${config.bgColor1}" },
                         },
                         command = { a = { fg = "${config.bgColor0}", bg = "${config.colorYellow1}", gui = 'bold' } },
                         insert = { a = { fg = "${config.bgColor0}", bg = "${config.colorRed1}", gui = 'bold' } },
                         visual = { a = { fg = "${config.bgColor0}", bg = "${config.colorMagenta0}", gui = 'bold' } },
                         terminal = { a = { fg = "${config.bgColor0}", bg = "${config.colorCyan}", gui = 'bold' } },
-                        replace = { a = { fg = "${config.bgColor0}", bg = "${config.colorBlue0}", gui = 'bold' } },
+                        replace = { a = { fg = "${config.bgColor0}", bg = "${config.colorMagenta1}", gui = 'bold' } },
                         inactive = {
                             a = { fg = "${config.bgColor0}", bg = "${config.bgColor0}", gui = 'bold' },
                             b = { fg = "${config.bgColor0}", bg = "${config.bgColor0}" },
@@ -233,69 +232,86 @@
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 default: "${config.colorWhite3} None / ${config.colorWhite4} None"
-                tree: "#707080 None / #606060 None"
+                tree: "${config.bgColor2} None / ${config.bgColor1} None"
                 parent: "${config.colorYellow0} None / ${config.colorYellow1} None"
                 file: "None None / None  None Italic"
                 directory: "${config.colorBlue1} None Bold / ${config.colorBlue1} None"
-                exe: "#b8bb26 None"
-                link: "#689d6a None"
-                pruning: "#7c6f64 None"
+                exe: "${config.colorGreen1} None"
+                link: "${config.colorGreen1} None"
+                pruning: "${config.colorWhite4} None"
+
                 perm__: "None None"
                 perm_r: "${config.colorYellow0} None"
                 perm_w: "${config.colorRed1} None"
-                perm_x: "${config.colorOrange} None"
+                perm_x: "${config.colorOrange0} None"
+
                 owner: "${config.colorWhite2} None"
                 group: "${config.colorWhite3} None"
-                count: "#458588 #32302f"
-                dates: "#a89984 None"
-                sparse: "#fabd2f None"
+                count: "${config.colorCyan} ${config.bgColor1}"
+                dates: "${config.colorWhite3} None"
+                sparse: "${config.colorYellow0} None"
+
                 content_extract: "ansi(29) None"
                 content_match: "${config.colorMagenta0} None Bold"
-                git_branch: "#fbf1c7 None"
-                git_insertions: "#98c379 None"
-                git_deletions: "#e86671 None"
+
+                git_branch: "${config.colorWhite2} None"
+                git_insertions: "${config.colorGreen4} None"
+                git_deletions: "${config.colorRed1} None"
                 git_status_current: "${config.bgColor2} None"
-                git_status_modified: "#61afef None"
-                git_status_new: "#98c379 None Bold"
-                git_status_ignored: "#d5c4a1 None"
+                git_status_modified: "${config.colorBlue1} None"
+                git_status_new: "${config.colorGreen4} None Bold"
+                git_status_ignored: "${config.colorWhite3} None"
                 git_status_conflicted: "${config.colorRed1} None"
                 git_status_other: "${config.colorRed1} None"
-                selected_line: "None ${config.bgColor1} / None #32302f"
+
+                selected_line: "None ${config.bgColor1} / None ${config.bgColor1}"
+
                 char_match: "${config.colorYellow1} None"
+
                 file_error: "${config.colorRed1} None"
-                flag_label: "#bdae93 None"
-                flag_value: "#d3869b None Bold"
-                input: "#fbf1c7 None / #bdae93 None"
-                status_error: "#d5c4a1 #cc241d"
+                flag_label: "${config.colorWhite4} None"
+                flag_value: "${config.colorMagenta3} None Bold"
+
+                input: "${config.colorWhite2} None / ${config.colorWhite4} None"
+
+                status_error: "${config.colorWhite3} ${config.colorRed0}"
                 status_job: "${config.colorYellow1} ${config.bgColor1}"
                 status_normal: "None ${config.bgColor0} / None None"
-                status_italic: "#d3869b ${config.bgColor0} / None None"
-                status_bold: "#d3869b ${config.bgColor0} Bold / None None"
-                status_code: "#fbf1c7 ${config.bgColor0} / None None"
-                status_ellipsis: "#fbf1c7 ${config.bgColor0}  Bold / None None"
+                status_italic: "${config.colorMagenta3} ${config.bgColor0} / None None"
+                status_bold: "${config.colorMagenta3} ${config.bgColor0} Bold / None None"
+                status_code: "${config.colorWhite2} ${config.bgColor0} / None None"
+                status_ellipsis: "${config.colorWhite2} ${config.bgColor0} Bold / None None"
+
                 purpose_normal: "None None"
-                purpose_italic: "#b16286 None"
-                purpose_bold: "#b16286 None Bold"
+                purpose_italic: "${config.colorMagenta3} None"
+                purpose_bold: "${config.colorMagenta3} None Bold"
                 purpose_ellipsis: "None None"
-                scrollbar_track: "#504945 None / #32302f None"
-                scrollbar_thumb: "#d5c4a1 None / #665c54 None"
+
+                scrollbar_track: "${config.bgColor0} None / ${config.bgColor0} None"
+                scrollbar_thumb: "${config.colorWhite3} None / ${config.colorWhite4} None"
+
                 help_paragraph: "None None"
-                help_bold: "#d65d0e None Bold"
-                help_italic: "#d3869b None"
-                help_code: "#8ec07c #32302f"
-                help_headers: "#fe8019 None Bold"
-                help_table_border: "#504945 None"
-                preview_title: "#ebdbb2 #282828 / #bdae93 #282828"
-                preview: "#ebdbb2 #282828 / #ebdbb2 #282828"
-                preview_line_number: "#7c6f64 None / #7c6f64 #282828"
-                preview_match: "None ansi(29) Bold"
-                hex_null: "#bdae93 None"
-                hex_ascii_graphic: "#d5c4a1 None"
-                hex_ascii_whitespace: "#98971a None"
-                hex_ascii_other: "#fe8019 None"
-                hex_non_ascii: "#d65d0e None"
-                staging_area_title: "#ebdbb2 #282828 / #bdae93 #282828"
+                help_bold: "${config.colorOrange1} None Bold"
+                help_italic: "${config.colorMagenta3} None"
+                help_code: "${config.colorGreen4} ${config.bgColor1}"
+                help_headers: "${config.colorOrange1} None Bold"
+                help_table_border: "${config.bgColor0} None"
+
+                preview_title: "${config.colorWhite3} None / ${config.colorWhite4} None"
+                preview: "${config.colorWhite3} ${config.bgColor0} / ${config.colorWhite3} ${config.bgColor0}"
+                preview_line_number: "${config.colorWhite4} None / ${config.colorWhite4} None"
+                preview_match: "None ${config.bgColor0} Bold"
+
+                hex_null: "${config.colorWhite4} None"
+                hex_ascii_graphic: "${config.colorWhite3} None"
+                hex_ascii_whitespace: "${config.colorOrange0} None"
+                hex_ascii_other: "${config.colorOrange1} None"
+                hex_non_ascii: "${config.colorOrange1} None"
+
+                staging_area_title: "${config.colorWhite3} None / ${config.colorWhite4} None"
+
                 mode_command_mark: "gray(5) ansi(204) Bold"
+
                 good_to_bad_0: "ansi(28)"
                 good_to_bad_1: "ansi(29)"
                 good_to_bad_2: "ansi(29)"
@@ -311,6 +327,7 @@
                 asy: "${config.colorYellow1}"
                 py: "${config.colorCyan}"
                 lock: "${config.colorWhite0}"
+                hs: "${config.colorMagenta2}"
             }
         '';
 

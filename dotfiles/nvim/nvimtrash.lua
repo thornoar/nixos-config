@@ -685,19 +685,6 @@
 -- km.set('n', '<S-M-Left>', function() harpoon:list():prev() end)
 -- km.set('n', '<S-M-Right>', function() harpoon:list():next() end)
 
--- autosave = true
--- newcmd("AS", function() 
--- 	autosave = not autosave
--- 	print("autosave is " .. (autosave and "enabled" or "disabled"))
--- end)
--- autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.lol', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
--- vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
--- 	pattern = '*',
--- 	callback = function()
--- 		if autosave then vim.cmd('silent write') end
--- 	end
--- })
-
 -- vim.api.nvim_create_user_command('BC', function (ext)
 -- 	local cmd = compilecmd[ext['args']]
 -- 	if not cmd then

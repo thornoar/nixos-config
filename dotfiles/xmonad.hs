@@ -221,7 +221,7 @@ myXPConfig = def {
         font                = myFont,
         bgColor             = myBgColor,
         fgColor             = colorWhite,
-        bgHLight            = colorBlue0,
+        bgHLight            = colorMagenta1,
         fgHLight            = colorBlack,
         borderColor         = colorBlue2,
         promptBorderWidth   = 0,
@@ -454,7 +454,7 @@ myXmobarPP = def {
 
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
-    blue     = xmobarColor colorBlue0 ""
+    blue     = xmobarColor colorMagenta1 ""
     white    = xmobarColor colorWhite ""
     yellow   = xmobarColor colorYellow ""
     red      = xmobarColor colorRed ""
@@ -473,7 +473,7 @@ defaults = def {
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
     focusedBorderColor = colorMagenta0,
-    normalBorderColor  = colorBlue0,
+    normalBorderColor  = colorMagenta1,
     clickJustFocuses   = myClickJustFocuses,
     borderWidth        = myBorderWidth,
     modMask            = myModMask,

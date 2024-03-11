@@ -45,23 +45,31 @@
         colorWhite1 = mkStrOpt "#f8f8f2";
         colorWhite2 = mkStrOpt "#e6efff";
         colorWhite3 = mkStrOpt "#bbbbbb";
-        colorWhite4 = mkStrOpt "#6b6b6b";
+        colorWhite4 = mkStrOpt "#595f6b";
 
         colorYellow0 = mkStrOpt "#f1fa8c";
         colorYellow1 = mkStrOpt "#d19a66";
-        colorRed0 = mkStrOpt "#ff5555";
-        colorRed1 = mkStrOpt "#e06c75";
-        colorOrange = mkStrOpt "#ffb86c";
 
-        colorBlue0 = mkStrOpt "#bd93f9";
+        colorOrange0 = mkStrOpt "#ffb86c";
+        colorOrange1 = mkStrOpt "#fe8019";
+
+        colorRed0 = mkStrOpt "#ff5555";
+        colorRed1 = mkStrOpt "#e86671";
+
         colorBlue1 = mkStrOpt "#61afef";
         colorBlue2 = mkStrOpt "#6272a4";
+
         colorCyan = mkStrOpt "#56b6c2";
+
         colorGreen0 = mkStrOpt "#89a870";
         colorGreen1 = mkStrOpt "#329c48";
+        colorGreen2 = mkStrOpt "#78971a";
+        colorGreen4 = mkStrOpt "#98c379";
 
         colorMagenta0 = mkStrOpt "#ff79c6";
-        colorMagenta1 = mkStrOpt "#c678dd";
+        colorMagenta1 = mkStrOpt "#bd93f9";
+        colorMagenta2 = mkStrOpt "#c678dd";
+        colorMagenta3 = mkStrOpt "#b16286";
 
         xmobarTemplate = mkStrOpt " %XMonadLog% }{ %kbd% | %date% | %alsa:default:Master% ";
         xmobarExtraCommands = mkStrOpt ''
@@ -87,7 +95,7 @@
                         "--",
                         "--on", ""
                     ],
-                    Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorBlue0}>%a %Y-%m-%d</fc>" "date" 10,
+                    Run Date "<fc=${config.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colorMagenta1}>%a %Y-%m-%d</fc>" "date" 10,
                     Run XMonadLog,
                     ${config.xmobarExtraCommands}
                     Run Kbd [

@@ -126,6 +126,19 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	command = 'setlocal spell! spelllang=en_us'
 })
 
+local autosave = true
+vim.api.nvim_create_user_command("AS", function() 
+	autosave = not autosave
+	print("autosave is " .. (autosave and "enabled" or "disabled"))
+end, {})
+local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
+vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
+	pattern = autosavepattern,
+	callback = function()
+		if autosave then vim.cmd('silent write') end
+	end
+})
+
 -- KEYMAPS --
 -- $text keymaps
 vim.keymap.set('n', 'w1', 'mL')
