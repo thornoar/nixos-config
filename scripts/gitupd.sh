@@ -27,7 +27,6 @@ if $(git rev-parse --is-inside-work-tree); then
     printf "\e[34m> Checking git repository on branch \e[33m%s\e[34m...\e[0m\n" "$(git rev-parse --abbrev-ref HEAD)"
     git remote update
     status=$(git status)
-    echo $status
     if git status | grep -q "branch is up to date"; then
         export GREP_COLORS="ms=1;94"
         echo "$status" | grep --color "branch is up to date"
