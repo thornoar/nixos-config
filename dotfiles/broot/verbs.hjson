@@ -43,6 +43,10 @@ verbs: [
         cmd: ":parent;:cd"
     }
     {
+        shortcut: sa
+        internal: stage_all_files
+    }
+    {
         invocation: esc
         key: ctrl-c
         internal: escape
