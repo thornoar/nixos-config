@@ -41,8 +41,8 @@ terminal_title: "[broot] {git-name}"
 # If you want to change the format for date/time, uncomment the
 # following line and change it according to
 # https://docs.rs/chrono/0.4.11/chrono/format/strftime/index.html
-#
-# date_time_format: %Y/%m/%d %R
+
+date_time_format: %Y-%m-%d %R
 
 ###############################################################
 # uncomment to activate modal mode
