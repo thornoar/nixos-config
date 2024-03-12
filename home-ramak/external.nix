@@ -105,7 +105,7 @@
                 return {
                     line.tabs().foreach(function(tab)
                         local hl = tab.is_current()
-                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor0}", style = 'bold' }
+                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor0}" }
                             or { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" }
                         return {
                             line.sep("", hl, { bg = "${config.bgColor0}" }),
