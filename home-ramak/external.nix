@@ -270,7 +270,7 @@
 
                 selected_line: "None ${config.bgColor1} / None ${config.bgColor1}"
 
-                char_match: "${config.colorYellow1} None"
+                char_match: "${config.colorYellow1} None Underlined"
 
                 file_error: "${config.colorRed1} None"
                 flag_label: "${config.colorWhite4} None"
