@@ -251,6 +251,7 @@
                 owner: "${config.colorWhite2} None"
                 group: "${config.colorWhite3} None"
                 count: "${config.colorWhite4} None"
+                size: "${config.colorWhite4} None"
                 dates: "${config.colorWhite3} None"
                 sparse: "${config.colorYellow0} None"
 
