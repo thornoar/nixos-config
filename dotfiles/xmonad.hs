@@ -147,9 +147,6 @@ myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
-myFloatingRectangle :: W.RationalRect
-myFloatingRectangle = W.RationalRect (11 % 60) (1 % 6) (19 % 30) (19 % 30)
-
 archwiki, nixoswiki, reddit, libgen :: S.SearchEngine
 archwiki    = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
 nixoswiki   = S.searchEngine "nixoswiki" "https://nixos.wiki/index.php?search="

@@ -26,6 +26,8 @@
         windowOpacity = mkOpt "float" 0.9;
         barheight = mkOpt "int" 35;
         magnifiedScale = mkOpt "float" 1.5;
+        scratchpadWidth = mkStrOpt "19 % 30";
+        scratchpadHeight = mkStrOpt "2 % 3";
         font = mkStrOpt "Hack";
 
         padding = opt {

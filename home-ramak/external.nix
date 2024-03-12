@@ -28,6 +28,9 @@
             myBarHeight = ${ts config.barheight}
             myMagnifiedScale = ${ts config.magnifiedScale}
 
+            myFloatingRectangle :: W.RationalRect
+            myFloatingRectangle = W.RationalRect ((1 - ${config.scratchpadWidth}) % 2) ((1 - ${config.scratchpadHeight}) % 2) ${config.scratchpadWidth} ${config.scratchpadHeight} 
+
             colorMagenta1 = "${config.colorMagenta1}"
             colorBlue2 = "${config.colorBlue2}"
             colorWhite = "${config.colorWhite0}"
@@ -102,7 +105,7 @@
                 return {
                     line.tabs().foreach(function(tab)
                         local hl = tab.is_current()
-                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor1}", style = 'italic' }
+                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor0}", style = 'italic' }
                             or { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" }
                         return {
                             line.sep("", hl, { bg = "${config.bgColor0}" }),
