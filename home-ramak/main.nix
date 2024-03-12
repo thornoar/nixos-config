@@ -99,22 +99,25 @@
                     PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
 
                     function preexec() {
-                      timer=''${timer:-$SECONDS}
+                        timer=$(($(date +%s%0N)/1000000))
                     }
 
                     function precmd() {
-                      if [ $timer ]; then
-                        timer_show=$(($SECONDS - $timer))
-                        export RPROMPT="%F{cyan}''${timer_show}s %{$reset_color%}"
+                        echo -ne '\e[4 q'
+                        if [ $timer ]; then
+                        now=$(($(date +%s%0N)/1000000))
+                        elapsed=$(($now-$timer))
+
+                        export RPROMPT="%F{cyan}''${elapsed}ms %{$reset_color%}"
                         unset timer
-                      fi
+                        fi
                     }
 
                     # RPROMPT="%{$fg[yellow]%}%t"
                     source $NIXOS_CONFIG/dotfiles/br.sh
                     eval $(thefuck --alias)
 
-                    precmd() { echo -ne '\e[4 q' }
+                    # precmd() { echo -ne '\e[4 q' }
 
                     bindkey "^[[1;3D" backward-word 
                     bindkey "^[[1;3C" forward-word
