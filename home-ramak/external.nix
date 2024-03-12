@@ -334,7 +334,7 @@
                 lock: "${config.colorWhite0}"
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
-                pdf: "${config.colorOrange2}"
+                pdf: "${config.colorRed2}"
                 nix: "${config.colorMagenta1}"
                 rs: "${config.colorOrange1}"
                 lua: "${config.colorBlue0}"
