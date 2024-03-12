@@ -43,10 +43,6 @@ verbs: [
         cmd: ":parent;:cd"
     }
     {
-        shortcut: sa
-        internal: stage_all_files
-    }
-    {
         invocation: esc
         key: ctrl-c
         internal: escape
@@ -153,6 +149,11 @@ verbs: [
     {
         key: ctrl-d
         internal: ":toggle_stage"
+    }
+    {
+        key: ctrl-shift-d
+        shortcut: sa
+        internal: :stage_all_files
     }
     {
         invocation: gtr
