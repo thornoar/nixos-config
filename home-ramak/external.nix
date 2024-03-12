@@ -250,7 +250,7 @@
 
                 owner: "${config.colorWhite2} None"
                 group: "${config.colorWhite3} None"
-                count: "${config.colorYellow} ${config.bgColor0}"
+                count: "${config.colorYellow0} ${config.bgColor0}"
                 dates: "${config.colorWhite3} None"
                 sparse: "${config.colorYellow0} None"
 
