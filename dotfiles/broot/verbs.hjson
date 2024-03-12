@@ -39,7 +39,8 @@ verbs: [
     }
     {
         invocation: xs
-        cmd: ":focus;:escape;:focus;:cd"
+        # cmd: ":focus;:escape;:focus;:cd"
+        cmd: ":parent;:cd"
     }
     {
         invocation: esc
