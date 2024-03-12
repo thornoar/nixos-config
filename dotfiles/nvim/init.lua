@@ -131,7 +131,7 @@ vim.api.nvim_create_user_command("AS", function()
 	autosave = not autosave
 	print("autosave is " .. (autosave and "enabled" or "disabled"))
 end, {})
-local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim' }
+local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim', '*.sh' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 	pattern = autosavepattern,
 	callback = function()
