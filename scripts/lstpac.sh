@@ -1,5 +1,26 @@
 #!/usr/bin/env bash
 
+while getopts "hs" flag; do
+    case $flag in
+        h)
+            echo "Usage: lstpac [OPTION]"
+            echo "List installed user-level packages on a NixOS system"
+            echo "Example: lstpac -s"
+            echo ""
+            echo "Available options:"
+            echo "  -h              Display this [h]elp message"
+            echo "  -s              [S]imply return the list of packages, not showing info"
+            exit 0
+        ;;
+        s)
+            cat "$NIXOS_CONFIG/home-packages"
+            exit 0
+        ;;
+        *) exit 1
+        ;;
+    esac
+done
+
 highlight() {
     escape=$(printf '\033')
     sed "s,$2,${escape}[$1m&${escape}[0m,g"
