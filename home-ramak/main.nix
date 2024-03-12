@@ -108,7 +108,8 @@
                         now=$(($(date +%s%0N)/1000000))
                         elapsed=$(($now-$timer))
 
-                        export RPROMPT="%F{yellow}''${elapsed}ms%{$reset_color%}"
+                        # export RPROMPT="%F{yellow}''${elapsed}ms%{$reset_color%}"
+                        export RPROMPT="%{$fg[yellow]%}''${elapsed}ms%{$reset_color%}"
                         unset timer
                         fi
                     }
