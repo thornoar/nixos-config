@@ -204,6 +204,7 @@ vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')   
 vim.keymap.set('n', '<C-M-left>', '<C-^>')
 vim.keymap.set('n', '<C-M-right>', 'gf')
+vim.keymap.set('n', '<S-M-right>', 'gx')
 -- $window keymaps
 vim.keymap.set('n', '<C-Left>', '<C-w>h')
 vim.keymap.set('n', '<C-Down>', '<C-w>j')
