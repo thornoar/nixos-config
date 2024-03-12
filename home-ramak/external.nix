@@ -329,17 +329,17 @@
                 good_to_bad_9: "ansi(196)"
             }
             ext_colors: {
+                txt: "${config.colorWhite3}"
                 asy: "${config.colorYellow2}"
                 py: "${config.colorCyan}"
-                lock: "${config.colorWhite0}"
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
-                pdf: "${config.colorRed2}"
                 nix: "${config.colorMagenta1}"
                 rs: "${config.colorOrange1}"
                 lua: "${config.colorBlue0}"
-                torrent: "${config.colorGreen1}"
-                txt: "${config.colorWhite3}"
+                # lock: "${config.colorWhite0}"
+                # torrent: "${config.colorGreen1}"
+                # pdf: "${config.colorRed2}"
             }
         '';
 
