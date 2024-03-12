@@ -339,6 +339,7 @@
                 rs: "${config.colorOrange1}"
                 lua: "${config.colorBlue0}"
                 torrent: "${config.colorGreen1}"
+                txt: "${config.colorWhite3}"
             }
         '';
 
