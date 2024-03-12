@@ -97,7 +97,20 @@
                 initExtra = ''
                     autoload -U colors && colors
                     PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
-                    RPROMPT="%{$fg[yellow]%}%t"
+
+                    function preexec() {
+                      timer=''${timer:-$SECONDS}
+                    }
+
+                    function precmd() {
+                      if [ $timer ]; then
+                        timer_show=$(($SECONDS - $timer))
+                        export RPROMPT="%F{cyan}''${timer_show}s %{$reset_color%}"
+                        unset timer
+                      fi
+                    }
+
+                    # RPROMPT="%{$fg[yellow]%}%t"
                     source $NIXOS_CONFIG/dotfiles/br.sh
                     eval $(thefuck --alias)
 
