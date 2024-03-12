@@ -173,22 +173,7 @@ content_search_max_file_size: 10MB
 #
 # update_work_dir: false
 
-###############################################################
-# Imports
-#
-# While it's possible to have all configuration in one file,
-# it's more convenient to split it in several ones.
-# Importing also allows to set a condition on the terminal's
-# color, which makes it possible to have a different skin 
-# chosen when your terminal has a light background and when
-# it has a light one.
 imports: [
     verbs.hjson
-    {
-        luma: [
-            dark
-            unknown
-        ]
-        file: colorscheme.hjson
-    }
+    colorscheme.hjson
 ]
