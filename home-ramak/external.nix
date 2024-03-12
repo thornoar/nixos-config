@@ -329,7 +329,7 @@
                 good_to_bad_9: "ansi(196)"
             }
             ext_colors: {
-                asy: "${config.colorYellow1}"
+                asy: "${config.colorRed1}"
                 py: "${config.colorCyan}"
                 lock: "${config.colorWhite0}"
                 hs: "${config.colorMagenta2}"
