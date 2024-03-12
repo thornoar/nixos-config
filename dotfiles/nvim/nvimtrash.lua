@@ -685,6 +685,8 @@
 -- km.set('n', '<S-M-Left>', function() harpoon:list():prev() end)
 -- km.set('n', '<S-M-Right>', function() harpoon:list():next() end)
 
+-- # colorOrange1 = mkStrOpt "#fe8019";
+
 -- vim.api.nvim_create_user_command('BC', function (ext)
 -- 	local cmd = compilecmd[ext['args']]
 -- 	if not cmd then

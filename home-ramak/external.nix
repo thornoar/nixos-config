@@ -105,7 +105,7 @@
                 return {
                     line.tabs().foreach(function(tab)
                         local hl = tab.is_current()
-                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor0}", style = 'italic' }
+                            and { fg = "${config.colorMagenta0}", bg = "${config.bgColor0}", style = 'bold' }
                             or { fg = "${config.colorWhite3}", bg = "${config.bgColor0}" }
                         return {
                             line.sep("", hl, { bg = "${config.bgColor0}" }),
@@ -270,7 +270,8 @@
 
                 selected_line: "None ${config.bgColor1} / None ${config.bgColor1}"
 
-                char_match: "${config.colorYellow1} None Underlined"
+                # char_match: "${config.colorMagenta3} None Bold"
+                char_match: "${config.colorOrange1} None Bold"
 
                 file_error: "${config.colorRed1} None"
                 flag_label: "${config.colorWhite4} None"

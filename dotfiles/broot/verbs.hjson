@@ -93,7 +93,7 @@ verbs: [
     {
         key: shift-left
         invocation: home
-        cmd: ":escape;:focus ~"
+        execution: ":focus ~"
     }
     {
         key: ctrl-a

@@ -53,7 +53,7 @@
         colorYellow1 = mkStrOpt "#d19a66";
 
         colorOrange0 = mkStrOpt "#ffb86c";
-        colorOrange1 = mkStrOpt "#fe8019";
+        colorOrange1 = mkStrOpt "#c28141";
         colorOrange2 = mkStrOpt "#d27141";
 
         colorRed0 = mkStrOpt "#ff5555";
