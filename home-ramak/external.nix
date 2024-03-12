@@ -29,7 +29,7 @@
             myMagnifiedScale = ${ts config.magnifiedScale}
 
             myFloatingRectangle :: W.RationalRect
-            myFloatingRectangle = W.RationalRect ((1 - ${config.scratchpadWidth}) % 2) ((1 - ${config.scratchpadHeight}) % 2) ${config.scratchpadWidth} ${config.scratchpadHeight} 
+            myFloatingRectangle = W.RationalRect ((1 - ${config.scratchpadWidth}) % 2) ((1 - ${config.scratchpadHeight}) % 2) (${config.scratchpadWidth}) (${config.scratchpadHeight}) 
 
             colorMagenta1 = "${config.colorMagenta1}"
             colorBlue2 = "${config.colorBlue2}"
