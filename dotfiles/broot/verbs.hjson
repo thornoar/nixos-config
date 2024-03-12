@@ -150,7 +150,7 @@ verbs: [
     {
         key: ctrl-shift-d
         shortcut: sa
-        internal: :stage_all_files
+        internal: stage_all_files
     }
     {
         invocation: gtr
