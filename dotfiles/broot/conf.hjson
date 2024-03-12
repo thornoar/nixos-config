@@ -149,13 +149,6 @@ special_paths: {
 # uncomment and modify the next section if you want to color
 # file name depending on their extension
 
-ext_colors: {
-    png: rgb(255, 128, 75)
-    rs: yellow
-    nix: magenta
-    lua: green
-}
-
 ###############################################################
 # Max file size for content search
 #
@@ -191,7 +184,6 @@ content_search_max_file_size: 10MB
 # it has a light one.
 imports: [
     verbs.hjson
-
     {
         luma: [
             dark

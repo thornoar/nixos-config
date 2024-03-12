@@ -59,6 +59,7 @@
         colorRed0 = mkStrOpt "#ff5555";
         colorRed1 = mkStrOpt "#e86671";
 
+        colorBlue0 = mkStrOpt "#0b0aea";
         colorBlue1 = mkStrOpt "#61afef";
         colorBlue2 = mkStrOpt "#6272a4";
 

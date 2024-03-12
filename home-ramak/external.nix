@@ -250,7 +250,7 @@
 
                 owner: "${config.colorWhite2} None"
                 group: "${config.colorWhite3} None"
-                count: "${config.colorYellow0} ${config.bgColor0}"
+                count: "${config.colorWhite3} None"
                 dates: "${config.colorWhite3} None"
                 sparse: "${config.colorYellow0} None"
 
@@ -333,6 +333,10 @@
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
                 pdf: "${config.colorOrange2}"
+                nix: "${config.colorMagenta1}"
+                rs: "${config.colorOrange1}"
+                lua: "${config.colorBlue0}"
+                torrent: "${config.colorGreen1}"
             }
         '';
 
