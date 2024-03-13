@@ -108,7 +108,7 @@ vim.api.nvim_create_user_command('ViewPdf', function ()
 	elseif io.open(defaultoutputname..'.pdf', 'r') ~= nil then
 		vim.cmd('silent !$READER '..defaultoutputname..'.pdf&')
 	else
-		vim.cmd('silent !pdfviewall')
+		vim.cmd('silent !blkcmd pdf zathura')
 	end
 end, {})
 
