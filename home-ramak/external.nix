@@ -270,8 +270,8 @@
 
                 selected_line: "None ${config.bgColor1} / None ${config.bgColor1}"
 
-                # char_match: "${config.colorMagenta3} None Bold"
-                char_match: "${config.colorOrange1} None Bold"
+                char_match: "${config.colorMagenta3} None"
+                # char_match: "${config.colorOrange1} None"
 
                 file_error: "${config.colorRed1} None"
                 flag_label: "${config.colorWhite4} None"
@@ -330,7 +330,7 @@
             }
             ext_colors: {
                 txt: "${config.colorWhite3}"
-                asy: "${config.colorYellow2}"
+                asy: "${config.colorYellow1}"
                 py: "${config.colorCyan}"
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
