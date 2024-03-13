@@ -3,7 +3,7 @@ cwd="$PWD"
 
 while IFS= read -r -d "" dir
 do
-    printf "\e[34m> Entering $dir...\e[0m\n"
+    printf "\e[34m> Entering %s...\e[0m\n" "$dir"
     cd "$dir" || exit 1
     $0 "$@"
 done <   <(find "$cwd" -mindepth 1 -maxdepth 1 -type d -print0)

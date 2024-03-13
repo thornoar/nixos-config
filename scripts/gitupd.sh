@@ -2,6 +2,8 @@
 
 message="--"
 
+grep_colors="$GREP_COLORS"
+
 while getopts "hm:" flag; do
     case $flag in
         h)

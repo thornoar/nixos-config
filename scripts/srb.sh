@@ -4,8 +4,6 @@ command="switch"
 extra_options=""
 output="master"
 
-grep_colors="$GREP_COLORS"
-
 while getopts "hpic:e:o:m:" flag; do
     case $flag in
         h)
@@ -56,4 +54,4 @@ if $check_git; then
 fi
 
 printf "\e[34m> Building configuration...\e[0m\n"
-sudo nixos-rebuild $command $extra_options --flake $NIXOS_CONFIG/#$output || exit 1
+sudo nixos-rebuild "$command" $extra_options --flake "$NIXOS_CONFIG"/#"$output" || exit 1
