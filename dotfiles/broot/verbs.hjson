@@ -25,8 +25,13 @@ verbs: [
     #    execution: "nvim +{line} {file}"
     #    execution: "helix {file}:{line}"
     {
-        invocation: "cmd {command}"
+        invocation: "call {command}"
         external: "sh -c \"{command} {file}&\""
+        leave_broot: false
+    }
+    {
+        invocation: "sudo {command} {arg}"
+        external: "sudo {command} {arg} {file}"
         leave_broot: false
     }
     {
@@ -92,11 +97,11 @@ verbs: [
     }
     {
         key: alt-down
-        internal: ":line_down_no_cycle 10"
+        internal: ":line_down_no_cycle 5"
     }
     {
         key: alt-up
-        internal: ":line_up_no_cycle 10"
+        internal: ":line_up_no_cycle 5"
     }
     {
         key: shift-left
