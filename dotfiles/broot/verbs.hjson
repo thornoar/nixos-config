@@ -83,6 +83,14 @@ verbs: [
         cmd: ":move_to_panel"
     }
     {
+        key: down
+        internal: ":line_down_no_cycle 1"
+    }
+    {
+        key: up
+        internal: ":line_up_no_cycle 1"
+    }
+    {
         key: alt-down
         internal: ":line_down_no_cycle 10"
     }
@@ -169,5 +177,9 @@ verbs: [
         shortcut: tr
         external: "trash-put {file}"
         leave_broot: false
+    }
+    {
+        shortcut: tt
+        internal: toggle_tree
     }
 ]
