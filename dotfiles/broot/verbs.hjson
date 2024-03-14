@@ -30,8 +30,8 @@ verbs: [
         leave_broot: false
     }
     {
-        invocation: "sudo {command} {arg}"
-        external: "sudo {command} {arg} {file}"
+        invocation: "cmd {command}"
+        external: "parsecmd {command} {file}"
         leave_broot: false
     }
     {

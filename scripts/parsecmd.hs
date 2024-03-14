@@ -3,11 +3,14 @@
 import System.Process
 import System.Environment
 
-repl :: Char -> Char
-repl '|' = ' '
-repl c = c
+parse :: String -> String -> String
+parse "" arg = ""
+parse (';' : ';' : cmd) arg  = ';' : parse cmd arg
+parse (';' : cmd) arg = ' ' : parse cmd arg
+parse ('%' : cmd) arg = (" " ++ arg ++ " ") ++ parse cmd arg
+parse (c : cmd) arg = c : parse cmd arg
 
 main :: IO ()
 main = do
     args <- getArgs
-    callCommand $ map repl (concat args)
+    callCommand $ parse (args !! 0) (args !! 1)
