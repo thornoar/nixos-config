@@ -48,7 +48,7 @@ require('lazy').setup({
                 enable_reverse = true,
                 hopout = false,
                 faster = false,
-				map = '<C-/>',
+				map = '<M-/>',
             },
         },
     },
