@@ -1,7 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }:
 
-
-
 {
     config = {
         fontsizeBar = 13;
