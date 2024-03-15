@@ -221,7 +221,7 @@
                     y = config.padding.y;
                 };
                 window.opacity = config.windowOpacity;
-                keyboard_bindings = [
+                key_bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
                     { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
