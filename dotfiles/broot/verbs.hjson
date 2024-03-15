@@ -183,8 +183,8 @@ verbs: [
         external: "trash-put {file}"
         leave_broot: false
     }
-    {
-        shortcut: tt
-        internal: toggle_tree
-    }
+    # {
+    #     shortcut: tt
+    #     internal: toggle_tree
+    # }
 ]

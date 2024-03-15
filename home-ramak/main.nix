@@ -123,9 +123,9 @@
                     bindkey "^[[1;3D" backward-word 
                     bindkey "^[[1;3C" forward-word
 
-                    export ATUIN_NOBIND="true"
-                    eval "$(atuin init zsh)"
-                    bindkey '^[[1;5A' atuin-up-search
+                    # export ATUIN_NOBIND="true"
+                    # eval "$(atuin init zsh)"
+                    # bindkey '^[[1;5A' atuin-up-search
                 '';
             };
             git = {
@@ -137,13 +137,13 @@
                 };
             };
             gh = { enable = true; };
-            atuin = {
-                enable = true;
-                enableZshIntegration = true;
-                flags = [
-                  "--disable-up-arrow"
-                ];
-            };
+            # atuin = {
+            #     enable = true;
+            #     enableZshIntegration = true;
+            #     flags = [
+            #         # "--disable-up-arrow"
+            #     ];
+            # };
             zoxide = {
                 enable = true;
                 enableZshIntegration = true;
