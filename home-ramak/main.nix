@@ -3,8 +3,7 @@
 {
     imports = [
         ../home-options.nix
-        # /etc/nixos/home-local.nix
-        ../local/home-local.nix
+        /etc/nixos/home-local.nix
         ../home-scripts.nix
         ./external.nix
     ];

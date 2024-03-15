@@ -480,9 +480,6 @@
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
 
-        # git setup
-        xdg.configFile."git/ignore".text = "local";
-
         # keynav setup
         services.keynav.enable = true;
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
