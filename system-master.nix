@@ -1,9 +1,11 @@
-{ sysname, usrname, projects-dir, inputs, config, lib, pkgs, ... }:
+{ sysname, usrname, inputs, config, lib, pkgs, ... }:
 
 {
     imports = [
-        /etc/nixos/hardware-configuration.nix
-        /etc/nixos/system-local.nix
+        # /etc/nixos/hardware-configuration.nix
+        # /etc/nixos/system-local.nix
+        ./local/hardware-configuration.nix
+        ./local/system-local.nix
     ];
 
     options = {};
@@ -39,7 +41,7 @@
             XDG_DATA_HOME = "$HOME/.local/share";
             XDG_STATE_HOME = "$HOME/.local/state";
             XDG_CACHE_HOME = "$HOME/.cache";
-            PROJECTS = "${projects-dir}";
+            PROJECTS = "$HOME/projects";
             NIXOS_CONFIG = "${PROJECTS}/nixos-config";
             MEDIA = "$HOME/media";
             DE = "generic";

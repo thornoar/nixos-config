@@ -24,7 +24,6 @@
         system = "x86_64-linux";
         sysname = "master";
         usrname = "ramak";
-        projects-dir = "/home/${usrname}/projects";
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         hmlib = inputs.home-manager.lib;
@@ -35,8 +34,8 @@
         nixosConfigurations.${sysname} = lib.nixosSystem {
             system = system;
             modules = [
-                "${projects-dir}/nixos-config/system-${sysname}.nix"
-                { _module.args = { inherit sysname; inherit usrname; inherit projects-dir; inherit inputs; }; }
+                "/home/${usrname}/projects/nixos-config/system-${sysname}.nix"
+                { _module.args = { inherit sysname; inherit usrname; inherit inputs; }; }
                 inputs.home-manager.nixosModules.home-manager
                 {
                     home-manager = {
