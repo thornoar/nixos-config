@@ -132,6 +132,9 @@
                 enable = true;
                 userName = "Roman Maksimovich";
                 userEmail = "r.a.maksimovich@gmail.com";
+                extraConfig = {
+                    init.defaultBranch = "master";
+                };
             };
             gh = { enable = true; };
             atuin = {
