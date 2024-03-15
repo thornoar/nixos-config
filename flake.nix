@@ -34,7 +34,8 @@
         nixosConfigurations.${sysname} = lib.nixosSystem {
             system = system;
             modules = [
-                "/home/${usrname}/projects/nixos-config/system-${sysname}.nix"
+                # "/home/${usrname}/projects/nixos-config/system-${sysname}.nix"
+                ./system-${sysname}.nix
                 { _module.args = { inherit sysname; inherit usrname; inherit inputs; }; }
                 inputs.home-manager.nixosModules.home-manager
                 {
