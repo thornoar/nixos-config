@@ -19,7 +19,7 @@
         };
     };
 
-    outputs = inputs:
+    outputs = inputs @ { self, ... }:
     let
         system = "x86_64-linux";
         sysname = "master";
@@ -34,7 +34,6 @@
         nixosConfigurations.${sysname} = lib.nixosSystem {
             system = system;
             modules = [
-                # "/home/${usrname}/projects/nixos-config/system-${sysname}.nix"
                 ./system-${sysname}.nix
                 { _module.args = { inherit sysname; inherit usrname; inherit inputs; }; }
                 inputs.home-manager.nixosModules.home-manager
@@ -48,6 +47,23 @@
                 }
                 inputs.nix-index-database.nixosModules.nix-index
             ];
+        };
+
+        packages.${system} = {
+            install = pkgs.writeShellApplication {
+                name = "install";
+                runtimeInputs = with pkgs; [ git ];
+                text = ''${./install.sh} "$@"'';
+            };
+            default = self.packages.${system}.install;
+        };
+
+        apps.${system} = {
+            install = {
+                type = "app";
+                program = "${self.packages.${system}.install}/bin/install";
+            };
+            default = self.apps.${system}.install;
         };
     };
 }
