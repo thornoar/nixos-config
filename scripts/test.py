@@ -24,4 +24,19 @@ if (subprocess.call(['git', '-C', '.', 'status'], stderr=subprocess.STDOUT, stdo
         print("branch is \033[1;94mup to date\033[0m with remote repository") #]]
         if "working tree clean" in status:
             print("local working tree \033[1;94mclean\033[0m") #]]
-
+        else:
+            print("local changes:")
+            os.system("git status -s")
+            print("\033[34m> Pushing local changes...\033[0m") #]]
+            os.system("git add . && git commit -m " + args.message +" && git push")
+    elif "not staged" in status:
+        print("local branch falls \033[1;91mbehind\033[0m remote") #]]
+        print("changes \033[1;91mnot staged\033[0m:") #]]
+        os.system("git status -s")
+        print("\033[error:\033[0m Clash between local and remote changes.") #]]
+    else:
+        print("local branch falls \033[1;94mbehind\033[0m remote") #]]
+        print("\033[34m> Pulling remote changes...\033[0m") #]]
+        os.system("git fetch && git pull")
+else:
+    print("\033[error:\033[0m Not a git repository.") #]]
