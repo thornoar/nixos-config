@@ -15,9 +15,6 @@ def run_command (command):
     output = result.stdout.strip()
     return output
 
-# def is_git_directory (path = '.'):
-#     return subprocess.call(['git', '-C', path, 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0
-
 @contextlib.contextmanager
 def new_cd (newdir):
     d = os.getcwd()
@@ -46,10 +43,10 @@ if (subprocess.call(['git', '-C', args.target, 'status'], stderr = subprocess.ST
             print("local branch falls \033[1;91mbehind\033[0m remote") #]]
             print("changes \033[1;91mnot staged\033[0m:") #]]
             os.system("git status -s")
-            print("\033[error:\033[0m Clash between local and remote changes.") #]]
+            print("\033[1;31merror:\033[0m Clash between local and remote changes.") #]]
         else:
             print("local branch falls \033[1;94mbehind\033[0m remote") #]]
             print("\033[34m> Pulling remote changes...\033[0m") #]]
             os.system("git fetch && git pull")
 else:
-    print("\033[error:\033[0m Not a git repository.") #]]
+    print("\033[1;31merror:\033[0m Not a git repository.") #]]

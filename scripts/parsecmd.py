@@ -14,4 +14,4 @@ if (len(sys.argv) >= 3):
 elif (len(sys.argv) >= 2):
     os.system(sys.argv[1])
 else:
-    print("\033[31merror:\033[0m no command given") #]]
+    print("\033[1;31merror:\033[0m no command given") #]]
