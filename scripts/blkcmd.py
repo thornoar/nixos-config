@@ -11,11 +11,11 @@ parser.add_argument("filetype", type = str)
 parser.add_argument("command", type = str)
 args = parser.parse_args()
 
-CRED = "\033[31m"
-CGREEN = "\033[32m"
-CPURPLE = "\033[35m"
-CBLUE = "\033[34m"
-CEND = "\033[0m"
+CRED = "\033[31m"#]
+CGREEN = "\033[32m"#]
+CPURPLE = "\033[35m"#]
+CBLUE = "\033[34m"#]
+CEND = "\033[0m"#]
 
 for root, dirnames, filenames in os.walk('.'):
     if (not args.recursive and root != "."):

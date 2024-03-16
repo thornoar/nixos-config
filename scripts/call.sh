@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-"$1" "$(broot .)" "${@:2}"
+parsecmd "${@:1}" "$(broot .)"
