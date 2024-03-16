@@ -5,6 +5,7 @@ import subprocess
 import argparse
 
 parser = argparse.ArgumentParser()
+parser.add_argument("-t", "--target", type = str, default = ".", help = "specify the git directory")
 parser.add_argument("-m", "--message", type = str, default = "--", help = "message to use for commits")
 args = parser.parse_args()
 
