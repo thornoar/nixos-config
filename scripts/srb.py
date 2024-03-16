@@ -20,6 +20,7 @@ if (not args.preserve and args.flake != "--"):
 flakeopt = ""
 if (args.flake != "--"):
     flakeopt = " --flake " + args.flake + "#" + args.output
+
 if (args.impure):
     args.extra = "--impure " + args.extra
 
