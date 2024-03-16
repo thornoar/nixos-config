@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if grep -q "$1" "$NIXOS_CONFIG/home-packages"; then
-    printf "\e[34m> Removing \"\e[0m\e[35m%s\e[0m\e[34m\" from package list...\e[0m\n" "$1"
+    printf "\e[34m> Removing \"\e[35m%s\e[34m\" from package list...\e[0m\n" "$1"
     awk "!/$1/" "$NIXOS_CONFIG/home-packages" > temp && mv temp "$NIXOS_CONFIG/home-packages"
     printf "\e[34m> Rebuild your system for the package to be installed.\e[0m\n"
 else

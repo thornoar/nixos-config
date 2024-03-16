@@ -271,10 +271,10 @@ myKeys = [
         spawn "chlang us"
         manPrompt myXPConfig
     ),
-    ("M-S-<Return>", do
-        spawn "chlang us"
-        runOrRaisePrompt myXPConfig
-    ),
+    -- ("M-S-<Return>", do
+    --     spawn "chlang us"
+    --     runOrRaisePrompt myXPConfig
+    -- ),
     -- ("M-M1-<Return>", manPrompt myXPConfig),
     -- ("M-S-<Return>", runOrRaisePrompt myXPConfig),
 
