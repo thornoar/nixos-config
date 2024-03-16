@@ -178,6 +178,7 @@ vim.keymap.set('n', '<leader>f', 'zf%')
 vim.keymap.set('n', '<C-End>', 'k<S-v>jj<S-j>')
 vim.keymap.set('v', '<M-End>', 'J')
 vim.keymap.set('n', '<C-z>', 'u')
+vim.keymap.set('n', 'daa', 'F,dt)')
 -- $insert keymaps
 vim.keymap.set('n', 'x', 'i')
 vim.keymap.set('i', '<C-x>', '<C-n>')
