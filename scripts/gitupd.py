@@ -16,8 +16,6 @@ def run_command (command):
 # def is_git_directory (path = '.'):
 #     return subprocess.call(['git', '-C', path, 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0
 
-
-
 if (subprocess.call(['git', '-C', '.', 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0):
     branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
     os.system("git remote update")
@@ -31,7 +29,7 @@ if (subprocess.call(['git', '-C', '.', 'status'], stderr=subprocess.STDOUT, stdo
             print("local changes:")
             os.system("git status -s")
             print("\033[34m> Pushing local changes...\033[0m") #]]
-            os.system("git add . && git commit -m " + args.message +" && git push")
+            os.system("git add . && git commit -m \"" + args.message +"\" && git push")
     elif "not staged" in status:
         print("local branch falls \033[1;91mbehind\033[0m remote") #]]
         print("changes \033[1;91mnot staged\033[0m:") #]]
