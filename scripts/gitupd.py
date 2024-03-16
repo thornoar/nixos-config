@@ -18,6 +18,7 @@ def run_command (command):
 
 if (subprocess.call(['git', '-C', '.', 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0):
     branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+    os.system("git remote update")
     status = run_command(["git", "status"])
     print("\033[34m> Checking git repository on branch \033[33m" + branch + "\033[34m...\033[0m") #]]]]
     if "branch is up to date" in status:
