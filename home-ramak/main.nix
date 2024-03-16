@@ -122,6 +122,10 @@
 
                     bindkey "^[[1;3D" backward-word 
                     bindkey "^[[1;3C" forward-word
+
+                    export ATUIN_NOBIND="true"
+                    eval "$(atuin init zsh)"
+                    bindkey '^[[1;5A' _atuin_up_search_widget
                 '';
             };
             git = {
@@ -131,6 +135,13 @@
                 extraConfig = {
                     init.defaultBranch = "master";
                 };
+            };
+            atuin = {
+                enable = true;
+                enableZshIntegration = true;
+                flags = [
+                  "--disable-up-arrow"
+                ];
             };
             gh = { enable = true; };
             zoxide = {
