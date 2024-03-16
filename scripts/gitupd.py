@@ -16,6 +16,8 @@ def run_command (command):
 # def is_git_directory (path = '.'):
 #     return subprocess.call(['git', '-C', path, 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0
 
+
+
 if (subprocess.call(['git', '-C', '.', 'status'], stderr=subprocess.STDOUT, stdout = open(os.devnull, 'w')) == 0):
     branch = run_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
     os.system("git remote update")
