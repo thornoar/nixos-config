@@ -15,7 +15,7 @@ parser.add_argument("-m", "--message", type = str, default = "system rebuild", h
 args = parser.parse_args()
 
 if (not args.preserve and args.flake != "--"):
-    os.system("gitupd -t " + args.flake)
+    os.system("gitupd -t " + args.flake + " -m \"" + args.message + "\"")
 
 flakeopt = ""
 if (args.flake != "--"):
