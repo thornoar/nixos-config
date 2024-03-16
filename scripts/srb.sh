@@ -53,5 +53,5 @@ if $check_git; then
     cd "$cwd" || exit
 fi
 
-# printf "\e[34m> Building configuration...\e[0m\n"
-# sudo nixos-rebuild "$command" $extra_options --flake "$NIXOS_CONFIG"/#"$output" || exit 1
+printf "\e[34m> Building configuration...\e[0m\n"
+sudo nixos-rebuild "$command" $extra_options --flake "$NIXOS_CONFIG"/#"$output" || exit 1
