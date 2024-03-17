@@ -34,12 +34,14 @@
                 "audio/mpeg" = ["mpv.desktop"];
                 "audio/mp3" = ["mpv.desktop"];
                 "video/vnd.avi" = ["mpv.desktop"];
+                "image/vnd.djvu+multipage" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
             };
             defaultApplications = {
                 "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
                 "audio/mpeg" = ["mpv.desktop"];
                 "audio/mp3" = ["mpv.desktop"];
                 "video/vnd.avi" = ["mpv.desktop"];
+                "image/vnd.djvu+multipage" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
             };
         };
 
