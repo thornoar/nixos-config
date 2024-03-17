@@ -28,7 +28,6 @@
         usrname = "ramak";
 
         pkgs = inputs.nixpkgs.legacyPackages.${system};
-        hmlib = inputs.home-manager.lib;
         lib = inputs.nixpkgs.lib;
         firefox-pkgs = inputs.firefox-addons.packages.${system};
     in
