@@ -338,6 +338,7 @@
                 rs: "${config.colorOrange1}"
                 lua: "${config.colorBlue0}"
                 pdf: "${config.colorRed2}"
+                djvu: "${config.colorRed2}"
                 # lock: "${config.colorWhite0}"
                 # torrent: "${config.colorGreen1}"
             }
