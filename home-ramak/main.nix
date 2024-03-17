@@ -33,7 +33,6 @@
                 "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
                 "audio/mpeg" = ["mpv.desktop"];
                 "audio/mp3" = ["mpv.desktop"];
-                "audio/mp3" = ["mpv.desktop"];
                 "video/vnd.avi" = ["mpv.desktop"];
             };
             defaultApplications = {
