@@ -97,6 +97,7 @@
                     rmdir = "rmdirtrash";
                     unrm = "trash-restore";
                     xrm = "trash-empty";
+                    clip = "xclip -r -selection c";
                 };    
                 initExtra = ''
                     autoload -U colors && colors
