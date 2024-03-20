@@ -59,7 +59,6 @@
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
             ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
         };
-        environment.localBinInPath = true;
         environment.systemPackages = with pkgs; [
             home-manager
             vim

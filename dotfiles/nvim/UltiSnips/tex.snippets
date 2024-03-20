@@ -59,6 +59,30 @@ $0
 \\end{document}
 endsnippet
 
+snippet titlepage "Titlepage" b
+\\thispagestyle{empty}
+\\vspace*{.6in}
+{ \\Huge\\bfseries $1 }\\par
+\\vspace*{.1in}
+{ \\Large $2 }
+\\par
+\\vspace*{2in}
+{ \\Large\\bfseries Abstract }\\par
+\\vspace*{.1in}
+\\hrule
+\\vspace*{.1in}
+\\centering
+\\begin{minipage}{0.9\\textwidth}
+$3
+\\end{minipage}
+\\vspace*{.1in}
+\\hrule
+\\vspace*{.2in}
+\\includegraphics[width = $4]{$5}
+\\vfill
+\\today
+endsnippet
+
 snippet doc "documentclass"
 \\documentclass[$1]{$2}
 endsnippet

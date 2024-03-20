@@ -26,6 +26,7 @@
             download = "${config.home.homeDirectory}/dls";
             documents = "${config.home.homeDirectory}/docs";
         };
+        home.sessionPath = [ "$PROJECTS/password-hash" ];
 
         xdg.mimeApps = {
             enable = true;
