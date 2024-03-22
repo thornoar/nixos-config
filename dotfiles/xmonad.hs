@@ -414,7 +414,7 @@ myXmobarPP = def {
     ppOrder             = \[ws, l, _, wins] -> [(unwords . (take myWorkspaceLength) . words) ws, wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
-        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) maximizedLogger,
+        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
         onLogger (white . drop 9) logLayout
         ]
     } where
@@ -426,12 +426,12 @@ myXmobarPP = def {
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
 
-    strsb :: String -> String -> String
-    strsb s1 s2 = show $ (read s1) - (read s2)
-    subtract :: Logger -> Logger -> Logger
-    subtract = ffmap (ffmap strsb)
-    maximizedLogger :: Logger
-    maximizedLogger = subtract totalLogger minimizedLogger
+    -- strsb :: String -> String -> String
+    -- strsb s1 s2 = show $ (read s1) - (read s2)
+    -- subtract :: Logger -> Logger -> Logger
+    -- subtract = ffmap (ffmap strsb)
+    -- maximizedLogger :: Logger
+    -- maximizedLogger = subtract totalLogger minimizedLogger
 
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
