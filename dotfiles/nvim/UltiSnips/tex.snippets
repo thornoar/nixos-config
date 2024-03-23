@@ -1,15 +1,15 @@
 global !p
 import os
 
-def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-
-def comment(): 
-	return vim.eval('vimtex#syntax#in_comment()') == '1'
-
-def env(name):
-	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
-	return x != '0' and y != '0'
+# def math():
+# 	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+#
+# def comment(): 
+# 	return vim.eval('vimtex#syntax#in_comment()') == '1'
+#
+# def env(name):
+# 	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+# 	return x != '0' and y != '0'
 
 def root():
 	line = vim.eval("getline(1)")
@@ -193,17 +193,17 @@ snippet newcmd "newcommand" b
 \\newcommand{${1:command}}[$2]{${3:definition}}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ==> "implies" i
 \\implies
 endsnippet
 
-context "math()"
+# context "math()"
 snippet <== "implied by" i
 \\impliedby
 endsnippet
 
-context "math()"
+# context "math()"
 snippet iff "iff" i
 \\iff
 endsnippet
@@ -238,18 +238,18 @@ ${1:${VISUAL}}
 \\end{equation}
 endsnippet
 
-context "math()"
+# # context "math()"
 snippet // "Fraction" i
 \\frac{${1:${VISUAL}}}{$0}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "symbol frac" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 priority 1000
-context "math()"
+# context "math()"
 snippet '^.*\)/' "() frac" wr
 `!p
 stripped = match.string[:-1]
@@ -264,7 +264,7 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 `{$1}$0
 endsnippet
 
-context "math()"
+# # context "math()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
@@ -293,12 +293,12 @@ snippet != "not equals" i
 \\neq 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ceil "ceil" i
 \\left\\lceil $1 \\right\\rceil $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet floor "floor" i
 \\left\\lfloor $1 \\right\\rfloor $0
 endsnippet
@@ -311,7 +311,7 @@ snippet bmat "bmat" i
 \\begin{bmatrix} $1 \\end{bmatrix} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet tp "Triangular parenthesis" w
 \\langle $1 \\rangle $0
 endsnippet
@@ -340,7 +340,7 @@ snippet lr> "leftangle rightangle" i
 \\left< ${1:${VISUAL}} \\right>
 endsnippet
 
-context "math()"
+# context "math()"
 snippet cnj "conjugate" i
 \\overline{${0:${VISUAL}}}
 endsnippet
@@ -365,12 +365,12 @@ snippet part "d/dx" w
 \\frac{\\partial $1}{\\partial ${2:x}}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet sq "\sqrt{}" i
 \\sqrt{${0:${VISUAL}}}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ^^ "to the ... power" iA
 ^{$0}
 endsnippet
@@ -379,7 +379,7 @@ snippet __ "subscript" iA
 _{$0}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet oo "\infty" i
 \\infty
 endsnippet
@@ -388,27 +388,27 @@ snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet <+ "leq" iA
 \\leqslant 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet >+ "geq" iA
 \\geqslant 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet EE "exists" i
 \\exists 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet AA "forall" i
 \\forall 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ee "\in" i
 \\in 
 endsnippet
@@ -417,82 +417,82 @@ snippet hs "\hspace" i
 \\hspace{1cm} 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet mcal "mathcal" i
 \\mathcal{$1}$0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet xx "cross" i
 \\times 
 endsnippet
 
-context "math()"
+# context "math()"
 priority 100
 snippet ** "cdot" i
 \\cdot 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet nrm "norm" i
 \\|${1:${VISUAL}}\\|$0
 endsnippet
 
 priority 300
-context "math()"
+# context "math()"
 snippet dint "integral" w
 \\int\\limits_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet mint "measure integral" w
 \\int\\limits_{${1:S}} ${2:${VISUAL}} d${3:\mu} $0
 endsnippet
 
 priority 200
-context "math()"
+# context "math()"
 snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rw
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
 priority 100
-context "math()"
+# context "math()"
 snippet _> "to" i
 \\to $0
 endsnippet
 
 priority 200
-context "math()"
+# context "math()"
 snippet <_> "leftrightarrow" i
 \\leftrightarrow $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet :> "mapsto" i
 \\mapsto $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet :: "colon" i
 \\colon $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet eps "epsilon" i
 \\varepsilon
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ivs "inverse" i
 ${VISUAL}^{-1} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet C "complement" i
 ${VISUAL}^{C} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet \\\ "setminus" i
 \\setminus $0
 endsnippet
@@ -501,82 +501,82 @@ snippet ~~ "~" i
 \\sim $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet st "set" w
 \\{$0\\}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet || "mid" i
 \\mid 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet abs "| |" i
 |$0|
 endsnippet
 
-context "math()"
+# context "math()"
 snippet cc "subset" i
 \\subset 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet pp "subset" i
 \\supset 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet ni "not in" i
 \\not\\in 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet inn "in " i
 \\in 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet NN "n" i
 \\N
 endsnippet
 
-context "math()"
+# context "math()"
 snippet nn "cap" i
 \\cap 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet UU "cup" i
 \\cup 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet uuu "bigcup" i
 \\bigcup\\limits_{${1:i \\in ${2: I}}} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet nnn "bigcap" i
 \\bigcap\\limits_{${1:i \\in ${2: I}}} $0
 endsnippet
 
-context "math()"
+# context "math()"
 snippet OO "emptyset" i
 \\varnothing
 endsnippet
 
-context "math()"
+# context "math()"
 snippet '(?<!i)sts' "text subscript" ir
 _\\text{$0}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet tt "text" i
 \\text{$0}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet case "cases" w
 \\begin{cases}
 	$0
@@ -594,48 +594,48 @@ snippet cvec "column vector" i
 \\begin{pmatrix} ${1:x}_${2:1}\\\\ \\vdots\\\\ $1_${2:n} \\end{pmatrix}
 endsnippet
 
-context "math()"
+# context "math()"
 snippet dd "\dot" i
 \\dot{$0}
 endsnippet
 
 priority 10
-context "math()"
+# context "math()"
 snippet "bar" "bar" ri
 \\overline{$0}
 endsnippet
 
 priority 100
-context "math()"
+# context "math()"
 snippet "([a-zA-Z])bar" "bar" ri
 \\overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
 priority 10
-context "math()"
+# context "math()"
 snippet "hat" "hat" ri
 \\hat{$0}
 endsnippet
 
 priority 100
-context "math()"
+# context "math()"
 snippet "([a-zA-Z])hat" "hat" ri
 \\hat{`!p snip.rv=match.group(1)`} 
 endsnippet
 
 priority 10
-context "math()"
+# context "math()"
 snippet "wt" "WideTilde" ri
 \\widetilde{$1} $0
 endsnippet
 
 priority 100
-context "math()"
+# context "math()"
 snippet "([a-zA-Z])wt" "WideTilde" ri
 \\widetilde{`!p snip.rv=match.group(1)`} 
 endsnippet
 
-context "math()"
+# context "math()"
 snippet phi "Phi" i
 \\varphi
 endsnippet
