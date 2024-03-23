@@ -24,7 +24,7 @@ require('lazy').setup({
     'tpope/vim-rhubarb',
 	'tpope/vim-surround',
     'sagarrakshe/toggle-bool',
-	'lervag/vimtex',
+	-- 'lervag/vimtex',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
