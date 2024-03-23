@@ -182,6 +182,7 @@ vim.keymap.set('n', '<C-z>', 'u')
 vim.keymap.set('n', 'daa', 'F,dt)')
 -- $insert keymaps
 vim.keymap.set('n', 'x', 'i')
+vim.keymap.set('i', '<C-Space>', ' ')
 vim.keymap.set('i', '<C-x>', '<C-n>')
 vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
