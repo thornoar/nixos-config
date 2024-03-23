@@ -71,7 +71,6 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
-vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 -- COMMANDS --
 local compilefunc = {
 	['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
