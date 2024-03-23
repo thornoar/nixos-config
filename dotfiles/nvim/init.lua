@@ -71,6 +71,7 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
+vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 -- COMMANDS --
 local compilefunc = {
 	['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
@@ -80,7 +81,8 @@ local compilefunc = {
 	['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-	['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
+	['tex'] = function (name) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
+	-- ['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
 	-- ['tex'] = function (name) return ('VimtexCompile') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
 	['lolcode'] = function (name) return ('!lci ' .. name) end,
