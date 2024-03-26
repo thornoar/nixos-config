@@ -382,6 +382,7 @@
                         "browser.search.order.1" = "Google";
                         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                         "signon.rememberSignons" = false;
+                        "media.hardware-video-decoding.enabled" = false;
                     };
                     extensions = with firefox-pkgs; [
                         darkreader
