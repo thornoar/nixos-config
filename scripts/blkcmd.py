@@ -23,4 +23,4 @@ for root, dirnames, filenames in os.walk('.'):
     for filename in fnmatch.filter(filenames, "*."+args.filetype):
         file = root + "/" + filename
         print(CBLUE + "> Executing \"" + CGREEN + args.command + CBLUE + "\" on " + CPURPLE + file + CBLUE + "..." + CEND)
-        os.system("parsecmd \"" + args.command + "\" " + file)
+        os.system("parsecmd \"" + args.command + "\" \"" + file + "\"")
