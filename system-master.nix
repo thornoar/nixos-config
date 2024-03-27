@@ -73,6 +73,8 @@
             xz
             unzip
             p7zip
+
+            (haskellPackages.ghcWithPackages (hpkgs: [ hpkgs.optparse-applicative hpkgs.turtle ]))
         ];
 
         services.printing = {
@@ -88,6 +90,7 @@
         };
         boot.loader.timeout = 35996;
         boot.loader.efi.canTouchEfiVariables = true;
+        boot.supportedFilesystems = [ "ntfs" ];
 
         nix.gc = {
             automatic = true;

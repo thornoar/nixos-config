@@ -426,13 +426,6 @@ myXmobarPP = def {
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
 
-    -- strsb :: String -> String -> String
-    -- strsb s1 s2 = show $ (read s1) - (read s2)
-    -- subtract :: Logger -> Logger -> Logger
-    -- subtract = ffmap (ffmap strsb)
-    -- maximizedLogger :: Logger
-    -- maximizedLogger = subtract totalLogger minimizedLogger
-
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
     concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
