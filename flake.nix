@@ -50,6 +50,13 @@
             ];
         };
 
+        nixosConfigurations.isoimage = lib.nixosSystem {
+            specialArgs = { inherit inputs; };
+            modules = [
+                ./isoimage/configuration.nix
+            ];
+        };
+
         packages.${system} = {
             install = pkgs.writeShellApplication {
                 name = "install";
