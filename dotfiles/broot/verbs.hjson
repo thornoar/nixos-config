@@ -1,0 +1,171 @@
+###############################################################
+# This file contains the verb definitions for broot
+#
+# Some verbs here are examples and not enabled by default: you
+#  need to uncomment them if you want to use them.
+#
+# Documentation at https://dystroy.org/broot/verbs/
+###############################################################
+
+verbs: [
+    # You should customize this standard opening of text files.
+    # If you edit text files in your terminal (vi, emacs, helix, eg.), then
+    #  you'll find it convenient to change the 'key' from 'ctrl-e' to 'enter'.
+    #
+    # If $EDITOR isn't set on your computer, you should either set it using
+    #  something similar to
+    #    export EDITOR=/usr/local/bin/nvim
+    #  or just replace it with your editor of choice in the 'execution'
+    #  pattern.
+    # If your editor is able to open a file on a specific line, use {line}
+    #  so that you may jump directly at the right line from a preview or
+    #  a content search.
+    # Examples depending on your favourite editor:
+    #    execution: "nvim +{line} {file}"
+    #    execution: "helix {file}:{line}"
+    {
+        invocation: "call {command}"
+        external: "sh -c \"{command} {file}&\""
+        leave_broot: false
+    }
+    {
+        invocation: "cmd {command}"
+        external: "parsecmd {command} {file}"
+        leave_broot: false
+    }
+    {
+        key: ctrl-r
+        internal: refresh
+    }
+    {
+        key: ctrl-q
+        internal: start_end_panel
+    }
+    {
+        invocation: xs
+        cmd: ":parent;:cd"
+    }
+    {
+        invocation: esc
+        key: ctrl-c
+        internal: escape
+        leave_broot: false
+    }
+    {
+        name: touch
+        invocation: touch {new_file}
+        execution: "touch {directory}/{new_file}"
+        leave_broot: false
+    }
+    {
+        invocation: create {subpath}
+        shortcut: cr
+        execution: "$EDITOR {directory}/{subpath}"
+        leave_broot: false
+    }
+    {
+        invocation: git_diff
+        shortcut: gd
+        leave_broot: false
+        execution: "git difftool -y {file}"
+    }
+    {
+        invocation: "backup {version}"
+        key: ctrl-b
+        leave_broot: false
+        auto_exec: false
+        execution: "cp -r {file} {parent}/{file-stem}-{version}{file-dot-extension}"
+    }
+    {
+        invocation: "cpa {dest}"
+        external: "cp -r {directory}/* {dest}"
+        from_shell: true
+    }
+    {
+        invocation: mpp
+        cmd: ":move_to_panel"
+    }
+    {
+        key: down
+        internal: ":line_down_no_cycle 1"
+    }
+    {
+        key: up
+        internal: ":line_up_no_cycle 1"
+    }
+    {
+        key: alt-down
+        internal: ":line_down_no_cycle 5"
+    }
+    {
+        key: alt-up
+        internal: ":line_up_no_cycle 5"
+    }
+    {
+        key: shift-left
+        invocation: home
+        execution: ":focus ~"
+    }
+    {
+        key: ctrl-a
+        invocation: terminal
+        external: "sh -c \"$TERMINAL --hold -e sh -c 'cd {directory}; $SHELL' &\""
+        leave_broot: false
+    }
+    {
+        keys: [
+            left
+            right
+        ]
+        internal: refresh
+    }
+    {
+        key: alt-left
+        internal: back
+    }
+    {
+        invocation: edit
+        shortcut: e
+        keys: [
+            enter
+            alt-right
+        ]
+        apply_to: text_file
+        working_dir: "{root}"
+        execution: "$EDITOR {file}"
+        leave_broot: false
+    }
+    {
+        key: shift-right
+        apply_to: text_file
+        execution: "$EDITOR +{line} {file}"
+        leave_broot: false
+    }
+    {
+        key: alt-right
+        invocation: focus
+        apply_to: directory
+        internal: focus
+    }
+    {
+        key: ctrl-d
+        internal: ":toggle_stage"
+    }
+    {
+        key: ctrl-shift-s
+        shortcut: sa
+        internal: stage_all_files
+    }
+    {
+        invocation: gtr
+        execution: ":focus {git-root}"
+    }
+    {
+        key: alt-s
+        cmd: ":toggle_stage;:line_down"
+    }
+    {
+        key: ctrl-s
+        cmd: ":toggle_hidden"
+    }
+]
