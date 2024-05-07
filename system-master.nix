@@ -56,7 +56,7 @@
             MEDIA = "$HOME/media";
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
-            TEXINPUTS = ".:${PROJECTS}/libs:$TEXINPUTS";
+            TEXINPUTS = ".:${PROJECTS}/LaTeX-libraries:$TEXINPUTS";
             EDITOR = "nvim";
             VISUAL = "${EDITOR}";
             TERMINAL = "alacritty";
