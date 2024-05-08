@@ -8,21 +8,6 @@
 ###############################################################
 
 verbs: [
-    # You should customize this standard opening of text files.
-    # If you edit text files in your terminal (vi, emacs, helix, eg.), then
-    #  you'll find it convenient to change the 'key' from 'ctrl-e' to 'enter'.
-    #
-    # If $EDITOR isn't set on your computer, you should either set it using
-    #  something similar to
-    #    export EDITOR=/usr/local/bin/nvim
-    #  or just replace it with your editor of choice in the 'execution'
-    #  pattern.
-    # If your editor is able to open a file on a specific line, use {line}
-    #  so that you may jump directly at the right line from a preview or
-    #  a content search.
-    # Examples depending on your favourite editor:
-    #    execution: "nvim +{line} {file}"
-    #    execution: "helix {file}:{line}"
     {
         invocation: "call {command}"
         external: "sh -c \"{command} {file}&\""
@@ -52,7 +37,6 @@ verbs: [
         leave_broot: false
     }
     {
-        name: touch
         invocation: touch {new_file}
         execution: "touch {directory}/{new_file}"
         leave_broot: false
@@ -130,15 +114,9 @@ verbs: [
             enter
             alt-right
         ]
-        apply_to: text_file
+        apply_to: file
         working_dir: "{root}"
         execution: "$EDITOR {file}"
-        leave_broot: false
-    }
-    {
-        key: shift-right
-        apply_to: text_file
-        execution: "$EDITOR +{line} {file}"
         leave_broot: false
     }
     {
@@ -148,8 +126,18 @@ verbs: [
         internal: focus
     }
     {
+        key: alt-enter
+        internal: open_stay
+    }
+    {
+        key: shift-right
+        apply_to: text_file
+        execution: "$EDITOR +{line} {file}"
+        leave_broot: false
+    }
+    {
         key: ctrl-d
-        internal: ":toggle_stage"
+        internal: toggle_stage
     }
     {
         key: ctrl-shift-s

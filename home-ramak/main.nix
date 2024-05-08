@@ -36,22 +36,26 @@
             PHONE = "192.168.0.24";
         };
 
-        xdg.mimeApps = {
+        home.file.".local/share/applications/inkview.desktop".text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=Inkview
+            Comment=View SVG files
+            Exec=inkview %U
+            Categories=Graphics;2DGraphics;
+            MimeType=image/svg+xml;
+        '';
+        xdg.mimeApps = rec {
             enable = true;
             associations.added = {
-                "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
-                "audio/mpeg" = ["mpv.desktop"];
-                "audio/mp3" = ["mpv.desktop"];
-                "video/vnd.avi" = ["mpv.desktop"];
-                "image/vnd.djvu+multipage" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
+                "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+                "audio/mpeg" = [ "mpv.desktop" ];
+                "audio/mp3" = [ "mpv.desktop" ];
+                "video/vnd.avi" = [ "mpv.desktop" ];
+                "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+                "image/svg+xml" = [ "inkview.desktop" ];
             };
-            defaultApplications = {
-                "application/pdf" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
-                "audio/mpeg" = ["mpv.desktop"];
-                "audio/mp3" = ["mpv.desktop"];
-                "video/vnd.avi" = ["mpv.desktop"];
-                "image/vnd.djvu+multipage" = ["org.pwmt.zathura-pdf-mupdf.desktop"];
-            };
+            defaultApplications = associations.added;
         };
 
         nixpkgs.config.allowUnfree = true;
