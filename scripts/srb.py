@@ -14,7 +14,6 @@ parser.add_argument("-c", "--command", type = str, default = "switch", help = "c
 parser.add_argument("-f", "--flake", type = str, default = os.environ["NIXOS_CONFIG"], help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
 parser.add_argument("-o", "--output", type = str, default = "master", help = "flake output to use. default is \"master\"")
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
-parser.add_argument("-m", "--message", type = str, default = "system rebuild", help = "message to use with git. default is \"system rebuild\"")
 args = parser.parse_args()
 
 pwd = os.popen("pwd").read().strip()
@@ -35,9 +34,9 @@ elif (args.update):
 
 if (not args.preserve and args.flake != "--"):
     print("\033[34m> Updating main configuration repository...\033[0m") #]]
-    call("gitupd -m \"" + args.message + "\"")
+    call("gitupd")
     print("\033[34m> Updating local configuration repository...\033[0m") #]]
-    call("gitupd -m \"" + args.message + "\"")
+    call("gitupd")
 
 flakeopt = ""
 if (args.flake != "--"):

@@ -31,9 +31,6 @@
         };
         home.sessionVariables = {
             BAT_THEME = "base16";
-            LAPTOP = "192.168.0.31";
-            STATION = "192.168.0.30";
-            PHONE = "192.168.0.24";
         };
 
         home.file.".local/share/applications/inkview.desktop".text = ''
