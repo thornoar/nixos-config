@@ -7,6 +7,9 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--recursive", action = "store_true", help = "search for files recursively in current directory")
+parser.add_argument("-b", "--background", action = "store_true", help = "run commands in background")
+parser.add_argument("-p", "--parse", action = "store_true", help = "use parsecmd to parse commands")
+parser.add_argument("-s", "--silent", action = "store_true", help = "suppress output from commands")
 parser.add_argument("filetype", type = str)
 parser.add_argument("command", type = str)
 args = parser.parse_args()
@@ -27,5 +30,15 @@ for root, dirnames, filenames in os.walk('.'):
         head_tail = os.path.split(filename)
         file = root + "/" + filename
         print(CBLUE + "> Executing \"" + CGREEN + args.command + CBLUE + "\" on " + CPURPLE + file + CBLUE + "..." + CEND)
-        os.system("parsecmd \"" + args.command + "\" \"" + head_tail[1] + "\"")
+        if args.parse:
+            os.system(
+                "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +
+                (args.silent and " > /dev/null 2>&1" or "")
+            )
+        else:
+            os.system(
+                args.command + " " + head_tail[1] +
+                (args.background and '&' or '') +
+                (args.silent and " > /dev/null 2>&1" or '')
+            )
     os.chdir(cwd)

@@ -124,16 +124,19 @@ vim.api.nvim_create_user_command('CompileSilent', function ()
 	vim.cmd(not ccmd and '' or 'silent '..ccmd('%:t'))
 end, {})
 
-local defaultoutputname = 'output'
-vim.api.nvim_create_user_command('ViewPdf', function ()
-	if io.open(vim.fn.expand('%:r')..'.pdf', 'r') ~= nil then
-		vim.cmd('silent !zathura %:r.pdf&')
-	elseif io.open(defaultoutputname..'.pdf', 'r') ~= nil then
-		vim.cmd('silent !$READER '..defaultoutputname..'.pdf&')
+local defaultoutputname = 'out'
+vim.api.nvim_create_user_command('V', function (args)
+    ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
+    if not ext then ext = (args and args['args'] or 'pdf') end
+    if not flags then flags = '' else flags = ' '..flags end
+	if io.open(vim.fn.expand('%:r')..'.'..ext, 'r') ~= nil then
+		vim.cmd('silent !xdg-open %:r.'..ext..'&')
+	elseif io.open(defaultoutputname..'.'..ext, 'r') ~= nil then
+		vim.cmd('silent !xdg-open '..defaultoutputname..'.'..ext..'&')
 	else
-		vim.cmd('silent !blkcmd pdf zathura&')
+		vim.cmd('silent !blkcmd '..ext..' xdg-open'..flags..'&')
 	end
-end, {})
+end, { nargs = '?' })
 
 vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
 vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
@@ -262,7 +265,9 @@ vim.keymap.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-loc
 vim.keymap.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
 vim.keymap.set('n', '<leader>o', ':Compile<CR>')
 vim.keymap.set({'n','i'}, '<C-s>', function () vim.cmd('CompileSilent') end)
-vim.keymap.set('n', '<leader>vp', function () vim.cmd('ViewPdf') end)
+vim.keymap.set('n', '<leader>vp', function () vim.cmd('V pdf') end)
+vim.keymap.set('n', '<leader>vs', function () vim.cmd('V svg') end)
+vim.keymap.set('n', '<leader>vg', function () vim.cmd('V png') end)
 vim.keymap.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
