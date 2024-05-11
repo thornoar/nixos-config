@@ -88,7 +88,7 @@
                 shellAliases = {
                     ns = "nix-shell --command zsh -p ";
                     wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
-                    trr = "transmission-remote -w . -a ";
+                    trr = "transmission-remote";
                     film = "transmission-remote -w ~/media/films -a ";
                     music = "transmission-remote -w ~/media/music -a ";
                     la = "exa -lAh";
