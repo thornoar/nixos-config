@@ -57,3 +57,4 @@ yt-dlp
 mangal
 gtypist
 pdf2svg
+tokei
