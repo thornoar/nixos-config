@@ -85,25 +85,21 @@
                 enableCompletion = true;
                 enableAutosuggestions = true;
                 syntaxHighlighting.enable = true;
-                shellAliases = {
-                    ns = "nix-shell --command zsh -p ";
-                    wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
-                    trr = "transmission-remote";
+                shellAliases = rec {
+                    # wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
+                    torrent = "transmission-remote";
                     film = "transmission-remote -w ~/media/films -a ";
                     music = "transmission-remote -w ~/media/music -a ";
                     la = "exa -lAh";
+                    cla = "clear; ${la}";
                     open = "xdg-open";
-                    svim = "sudo -E nvim";
-                    quit = "exit";
                     close = "exit";
                     grep = "grep --color=auto";
-                    sxiv = "sxiv -b";
                     def = "dict -h dict.org";
                     clip = "xclip -r -selection c";
                     vmcon = "virt-manager --connect qemu:///system --show-domain-console";
                     vmstart = "sudo virsh start";
                     vmstop = "sudo virsh shutdown";
-                    commit = "git add .; git commit -m \"auto\"";
                 };    
                 initExtra = ''
                     autoload -U colors && colors
