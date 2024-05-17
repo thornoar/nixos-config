@@ -274,25 +274,16 @@ myKeys = [
     ),
 
     -- Kill windows
-    ("M-<Delete>", sequence_ [(spawn "chlang us"), kill, BW.focusUp]),
-    ("M-n", sequence_ [(spawn "chlang us"), kill, BW.focusUp]),
+    ("M-<Delete>", sequence_ [kill, BW.focusUp]),
+    ("M-n", sequence_ [kill, BW.focusUp]),
     ("M-M1-<End>", killAllFloating),
-    ("M-M1-<Delete>", sequence_ [(spawn "chlang us"), killAll]),
+    ("M-M1-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", do
-        spawn "chlang us"
-        spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")
-    ),
+    ("M-x", spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-b", spawn myBrowser),
-    ("M-a", do
-        spawn "chlang us"
-        spawn (myTerminal ++ " --title 'Terminal'")
-    ),
-    ("M-s", do
-        spawn "chlang us"
-        spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")
-    ),
+    ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
+    ("M-s", spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")),
 
     -- Type email
     ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
@@ -378,10 +369,9 @@ myKeys = [
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
     ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
 
--- Layouts:
+-- -- Layouts:
 -- mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 -- mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
---
 -- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 -- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
@@ -408,10 +398,14 @@ myAnd a b = b >>= myAnd' a
 
 myManageHook :: ManageHook
 myManageHook = composeAll [
-    do
+    (do
         liftX $ spawn "chlang us"
         insertPosition Below Newer
+    ),
+    (myAnd (title =? "Media viewer") (className =? "TelegramDesktop")) --> doFloat
     ]
+
+-- Xmobar settings:
 
 myXmobarPP :: PP
 myXmobarPP = def {
