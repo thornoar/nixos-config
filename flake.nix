@@ -45,7 +45,7 @@
                 inputs.home-manager.nixosModules.home-manager
                 {
                     home-manager = {
-                        useGlobalPkgs = true;
+                        # useGlobalPkgs = true;
                         useUserPackages = true;
                         users.ramak = import ./home-ramak/main.nix;
                         extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; };

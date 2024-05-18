@@ -24,7 +24,6 @@ require('lazy').setup({
     'tpope/vim-rhubarb',
 	'tpope/vim-surround',
     'sagarrakshe/toggle-bool',
-	-- 'lervag/vimtex',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
@@ -60,6 +59,7 @@ require('lazy').setup({
 	},
 	{
 		'lukas-reineke/indent-blankline.nvim',
+        version = '3.5.4',
 		main = 'ibl',
 		opts = {},
 	},
@@ -428,7 +428,7 @@ require('onedark').setup  {
 		background = true,
 	},
 }
-require 'ibl'.setup({
+require('ibl').setup({
 	indent = {
 		char = '┊',
 	},
@@ -467,7 +467,6 @@ vim.o.compatible = false
 vim.o.hlsearch = false
 vim.o.incsearch = false
 vim.o.synmaxcol = 0
--- vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.cmd('let tex_flavor=\"latex\"')
@@ -475,6 +474,7 @@ vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
 vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
+-- vim.cmd('Copilot disable')
 
 vim.g.neovide_transparency = 0.9
 

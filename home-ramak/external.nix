@@ -92,9 +92,6 @@
             set synctex-editor-command "nvr --remote-silent +%{line} %{input}"
         '';
 
-        programs.neovim = {
-            enable = true;
-        };
         xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
         xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
         xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
