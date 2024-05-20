@@ -252,7 +252,8 @@ myScratchpads =
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
-    NS "File Manager" (myTerminal ++ " --title 'File Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'") (title =? "File Scratchpad") (customFloating myFloatingRectangle),
+    NS "Book Manager" (myTerminal ++ " --title 'Book Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $MEDIA/books; $FILEMANAGER; zsh'") (title =? "Book Scratchpad") (customFloating myFloatingRectangle),
+    NS "Film Manager" (myTerminal ++ " --title 'Film Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $MEDIA/films; $FILEMANAGER; zsh'") (title =? "Film Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
     ]
 
@@ -304,7 +305,8 @@ myKeys = [
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
     ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
-    ("M-f", namedScratchpadAction myScratchpads "File Manager"),
+    ("M-r", namedScratchpadAction myScratchpads "Book Manager"),
+    ("M-f", namedScratchpadAction myScratchpads "Film Manager"),
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
 
     -- Windows navigation
