@@ -269,6 +269,7 @@ vim.keymap.set('n', '<leader>vp', function () vim.cmd('V pdf') end)
 vim.keymap.set('n', '<leader>vs', function () vim.cmd('V svg') end)
 vim.keymap.set('n', '<leader>vg', function () vim.cmd('V png') end)
 vim.keymap.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
+vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
@@ -474,7 +475,6 @@ vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
 vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
--- vim.cmd('Copilot disable')
 
 vim.g.neovide_transparency = 0.9
 
