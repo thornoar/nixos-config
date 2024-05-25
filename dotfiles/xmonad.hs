@@ -329,10 +329,7 @@ myKeys = [
 
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
-    ("M-C-<Up>", do
-        sendMessage NextLayout
-        sendMessage NextLayout
-    ),
+    ("M-C-<Up>", sendMessage FirstLayout),
     ("M-C-p", setWallpaperCmd),
     ("M-<Tab>", sendMessage $ TL.ToggleLayout),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
