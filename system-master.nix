@@ -147,22 +147,6 @@
             windowManager.xmonad = {
                 enable = true;
                 enableContribAndExtras = true;
-                # haskellPackages = pkgs.haskellPackages.extend (
-                #     pkgs.haskell.lib.packageSourceOverrides {
-                #         xmonad = pkgs.fetchFromGitHub {
-                #             owner = "xmonad";
-                #             repo = "xmonad";
-                #             rev = "4b9ef5970633490849980f06f6af6dcf76a19cdf";
-                #             sha256 = "16jl01r2274h4l5m8l6w5dkisamn73969qhs39yagwvyygsr8wjv";
-                #         };
-                #         xmonad-contrib = pkgs.fetchFromGitHub {
-                #             owner = "xmonad";
-                #             repo = "xmonad-contrib";
-                #             rev = "bfe2f5b3f9fa89988141604680f3639a81af1f1b";
-                #             sha256 = "0b5w5gm797jf369bj5rxbhazi3yadj7ax4vqc0fdp4f11mvad6w8";
-                #         };
-                #     }
-                # );
                 haskellPackages = pkgs-unstable.haskellPackages;
             };
         };
