@@ -126,6 +126,11 @@
         hardware.pulseaudio.support32Bit = true;
         nixpkgs.config.pulseaudio = true;
 
+        hardware.bluetooth = {
+            enable = true;
+            powerOnBoot = true;
+        };
+
         services.xserver = {
             enable = true;
             xkb.layout = "us";
