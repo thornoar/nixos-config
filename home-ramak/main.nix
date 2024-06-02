@@ -60,18 +60,18 @@
         home.packages = (lib.lists.forEach (lib.lists.partition (x: 0 < lib.strings.stringLength x) 
 		(lib.strings.splitString "\n" (builtins.readFile ./packages.txt))).right (name: pkgs.${name}))
 		++ (with pkgs; [
-			texlive.combined.scheme-full
+			# texlive.combined.scheme-full
 			(python3.withPackages my-python-packages)
             manim
-            R
-            cargo
-            rustc
+            # R
+            # cargo
+            # rustc
             ghc
             cabal-install
             lua
-            nodejs
+            # nodejs
             julia
-            openjdk17-bootstrap
+            # openjdk17-bootstrap
 		])
         ++ (with pkgs-unstable; [
             fzf
@@ -79,12 +79,6 @@
         ]);
         # [./packages.txt]
 
-        # Trying to use git neovim
-        # nixpkgs.overlays = [
-        #     (import (builtins.fetchTarball {
-        #         url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-        #     }))
-        # ];
         programs = {
             neovim = {
                 enable = true;
@@ -175,15 +169,6 @@
                 };
             };
             gh = { enable = true; };
-            tmux = {
-                enable = true;
-                extraConfig = ''
-                    set -g prefix C-q
-                    unbind-key C-b
-                    bind-key C-q send-prefix
-                    set -g default-terminal screen-256color
-                '';
-            };
         };
 
         xresources.properties = {
