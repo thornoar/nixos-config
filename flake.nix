@@ -3,7 +3,7 @@
 
     inputs = {
         nixpkgs = {
-            url = "github:NixOS/nixpkgs/nixos-23.11";
+            url = "github:NixOS/nixpkgs/nixos-24.05";
         };
         nixpkgs-unstable = {
             url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -20,10 +20,6 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        # pshash = {
-        #     url = "github:thornoar/password-hash";
-        #     inputs.nixpkgs.follows = "nixpkgs";
-        # };
     };
 
     outputs = inputs @ { self, ... }:
