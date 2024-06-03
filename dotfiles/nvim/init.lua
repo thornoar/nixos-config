@@ -300,7 +300,7 @@ vim.keymap.set('n', '<leader>vs', function () view_output({ ['args'] = 'svg' }) 
 vim.keymap.set('n', '<leader>vg', function () view_output({ ['args'] = 'png' }) end)
 vim.keymap.set('n', '<leader>ee', function ()
     ft = vim.bo.filetype
-    vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' + ft + '.snippets')
+    vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
 end)
 vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
