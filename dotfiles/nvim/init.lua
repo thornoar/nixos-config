@@ -37,6 +37,11 @@ require('lazy').setup({
     'github/copilot.vim',
     'mbbill/undotree',
     {
+        'kaarmu/typst.vim',
+        ft = 'typst',
+        lazy = false,
+    },
+    {
         'altermo/ultimate-autopair.nvim',
         event = { 'InsertEnter','CmdlineEnter' },
         branch = 'v0.6',
@@ -103,6 +108,7 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
 	['tex'] = function (name) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
+	['typst'] = function (name) return ('write') end,
 	-- ['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
 	-- ['tex'] = function (name) return ('VimtexCompile') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
@@ -157,9 +163,10 @@ vim.api.nvim_create_user_command("AS", function()
 	autosave = not autosave
 	print("autosave is " .. (autosave and "enabled" or "disabled"))
 end, {})
-local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.java', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl' }
+local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	pattern = '*.*',
+	-- pattern = '*.*',
+    pattern = autosavepattern,
 	callback = function()
 		if autosave then vim.cmd('silent write') end
 	end
@@ -211,6 +218,7 @@ vim.keymap.set('n', '<C-space>', 'yy<C-del>p')
 -- $insert keymaps
 vim.keymap.set('i', '<C-Space>', ' ')
 vim.keymap.set('i', '<C-x>', '<C-n>')
+vim.keymap.set('i', '<C-d>', '<Esc>')
 vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
 vim.keymap.set('n', 'x', 'i')
@@ -264,7 +272,7 @@ vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfi
 vim.keymap.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
 vim.keymap.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
 vim.keymap.set('n', '<leader>o', ':Compile<CR>')
-vim.keymap.set({'n','i'}, '<C-s>', function () vim.cmd('CompileSilent') end)
+vim.keymap.set({'n', 'i'}, '<C-s>', function () vim.cmd('CompileSilent') end)
 vim.keymap.set('n', '<leader>vp', function () vim.cmd('V pdf') end)
 vim.keymap.set('n', '<leader>vs', function () vim.cmd('V svg') end)
 vim.keymap.set('n', '<leader>vg', function () vim.cmd('V png') end)
@@ -473,6 +481,7 @@ vim.o.shiftwidth = 4
 vim.cmd('let tex_flavor=\"latex\"')
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set clipboard+=unnamedplus')
+vim.cmd('let g:omni_sql_no_default_maps = 1')
 vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
 
