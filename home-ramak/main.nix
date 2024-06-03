@@ -79,6 +79,7 @@
 		])
         ++ (with pkgs-unstable; [
             fzf
+            typst
             # (julia.withPackages my-julia-packages) # Maybe in 24.05
         ]);
         # [./packages.txt]
