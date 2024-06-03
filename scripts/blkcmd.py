@@ -29,6 +29,8 @@ for root, dirnames, filenames in os.walk('.'):
     for filename in fnmatch.filter(filenames, "*."+args.filetype):
         head_tail = os.path.split(filename)
         file = root + "/" + filename
+        if (".lib."+args.filetype in head_tail[1]):
+            continue
         print(CBLUE + "> Executing \"" + CGREEN + args.command + CBLUE + "\" on " + CPURPLE + file + CBLUE + "..." + CEND)
         if args.parse:
             os.system(
