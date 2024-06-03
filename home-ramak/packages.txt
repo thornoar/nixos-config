@@ -59,4 +59,3 @@ gtypist
 pdf2svg
 tokei
 typst
-asymptote

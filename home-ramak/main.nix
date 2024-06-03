@@ -17,6 +17,9 @@
             pandas
             matplotlib
         ];
+        my-tex = (pkgs.texlive.combine {
+            inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath;
+        });
         my-julia-packages = [];
     in
     {
@@ -60,7 +63,8 @@
         home.packages = (lib.lists.forEach (lib.lists.partition (x: 0 < lib.strings.stringLength x) 
 		(lib.strings.splitString "\n" (builtins.readFile ./packages.txt))).right (name: pkgs.${name}))
 		++ (with pkgs; [
-			# texlive.combined.scheme-full
+			my-tex
+            asymptote
 			(python3.withPackages my-python-packages)
             manim
             # R
