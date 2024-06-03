@@ -117,21 +117,40 @@ local compilefunc = {
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
+local daemonfunc = {
+    ['typst'] = function (name) return 'TypstWatch' end,
+}
 
-vim.api.nvim_create_user_command('Compile', function () 
-    if vim.bo.modified then vim.cmd('write') end
+local compile = function ()
 	local ccmd = compilefunc[vim.bo.filetype]
-	vim.cmd(not ccmd and 'echo \'not set to compile\'' or ccmd('%:t'))
-end, {})
+    if not ccmd then
+        print('not set to compile')
+    else
+        if vim.bo.modified then vim.cmd('write') end
+        vim.cmd(ccmd('%:t'))
+    end
+end
+vim.api.nvim_create_user_command('Compile', compile, {})
 
-vim.api.nvim_create_user_command('CompileSilent', function () 
-    if vim.bo.modified then vim.cmd('write') end
+local compile_silent = function ()
 	local ccmd = compilefunc[vim.bo.filetype]
-	vim.cmd(not ccmd and '' or 'silent '..ccmd('%:t'))
-end, {})
+    if not ccmd then return end
+    if vim.bo.modified then vim.cmd('write') end
+	vim.cmd('silent '..ccmd('%:t'))
+end
+vim.api.nvim_create_user_command('CompileSilent', compile_silent, {})
+
+local compile_daemon = function ()
+    print("starting")
+    local dcmd = daemonfunc[vim.bo.filetype]
+    if not dcmd then return end
+    if vim.bo.modified then vim.cmd('write') end
+    vim.cmd(dcmd('%:t'))
+end
+vim.api.nvim_create_user_command('CompileDaemon', compile_daemon, {})
 
 local defaultoutputname = 'out'
-vim.api.nvim_create_user_command('V', function (args)
+local view_output = function (args)
     ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
     if not ext then ext = (args and args['args'] or 'pdf') end
     if not flags then flags = '' else flags = ' '..flags end
@@ -142,15 +161,15 @@ vim.api.nvim_create_user_command('V', function (args)
 	else
 		vim.cmd('silent !blkcmd '..ext..' xdg-open'..flags..'&')
 	end
-end, { nargs = '?' })
+end
+vim.api.nvim_create_user_command('View', view_output, { nargs = '?' })
 
 vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
 vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
 vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
-vim.api.nvim_create_user_command('L', function () vim.cmd('Lazy') end, {})
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
-vim.api.nvim_create_user_command('W', function () vim.cmd('wa') end, {})
+vim.api.nvim_create_user_command('L', 'Lazy', {})
 
 -- Autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
@@ -163,7 +182,7 @@ vim.api.nvim_create_user_command("AS", function()
 	autosave = not autosave
 	print("autosave is " .. (autosave and "enabled" or "disabled"))
 end, {})
-local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl' }
+local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl', '*.yml' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 	-- pattern = '*.*',
     pattern = autosavepattern,
@@ -223,6 +242,8 @@ vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
 vim.keymap.set('n', 'x', 'i')
 vim.keymap.set('n', 'X', 'I')
+vim.keymap.set('n', '<M-1>', ':E<CR>')
+vim.keymap.set('n', '<M-2>', ':R<CR>')
 -- $navigation keymaps
 vim.keymap.set('n', '<Up>', 'gk')
 vim.keymap.set('n', '<Down>', 'gj')
@@ -271,11 +292,12 @@ vim.keymap.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfile
 vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 vim.keymap.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
 vim.keymap.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
-vim.keymap.set('n', '<leader>o', ':Compile<CR>')
-vim.keymap.set({'n', 'i'}, '<C-s>', function () vim.cmd('CompileSilent') end)
-vim.keymap.set('n', '<leader>vp', function () vim.cmd('V pdf') end)
-vim.keymap.set('n', '<leader>vs', function () vim.cmd('V svg') end)
-vim.keymap.set('n', '<leader>vg', function () vim.cmd('V png') end)
+vim.keymap.set('n', '<leader>o', compile)
+vim.keymap.set({'n', 'i'}, '<C-s>', compile_silent)
+vim.keymap.set({'n', 'i'}, '<C-M-s>', compile_daemon)
+vim.keymap.set('n', '<leader>vp', function () view_output({ ['args'] = 'pdf' }) end)
+vim.keymap.set('n', '<leader>vs', function () view_output({ ['args'] = 'svg' }) end)
+vim.keymap.set('n', '<leader>vg', function () view_output({ ['args'] = 'png' }) end)
 vim.keymap.set('n', '<leader>ee', function () vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/%:e.snippets') end)
 vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
