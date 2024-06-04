@@ -4,6 +4,7 @@
     config = 
     let
         dotfile = str: lib.path.append config.dotfiledir str;
+        project = str: lib.path.append /home/ramak/projects str;
         ts = builtins.toString;
     in 
     {
@@ -522,6 +523,59 @@
 
         # mimeapps handling
         xdg.configFile."mimeapps.list".force = true;
+
+        # typst libraries enabling
+
+        xdg.dataFile = builtins.listToAttrs (
+            lib.lists.flatten (
+                lib.lists.forEach
+                (lib.filesystem.listFilesRecursive (project "typst-libraries"))
+                (filename:
+                    let
+                        strname = ts filename;
+                        last = lib.lists.last (lib.strings.splitString "/" strname);
+                        base = lib.lists.head (lib.strings.splitString "." last);
+                    in
+                    [
+                        {
+                            name = "typst/packages/local/" + base + "/0.0.0/main.typ";
+                            value = { source = strname; };
+                        }
+                        {
+                            name = "typst/packages/local/" + base + "/0.0.0/typst.toml";
+                            value = { text = ''
+                                [package]
+                                name = "${base}"
+                                version = "0.0.0"
+                                entrypoint = "main.typ"
+                                authors = ["Roman Maksimovich"]
+                            ''; };
+                        }
+                    ]
+                )
+            )
+        );
+
+        # xdg.dataFile."typst/packages/local/lib/0/src".source = /home/ramak/projects/typst-libraries;
+        # xdg.dataFile."typst/packages/local/lib/0/typst.toml".text = ''
+        #     [package]
+        #     name = "lib"
+        # ''
+
+# {
+#     home.packages = lib.lists.forEach (lib.filesystem.listFilesRecursive ./scripts) (filename:
+#         pkgs.writeScriptBin
+#         
+#         (lib.strings.head 
+#         (lib.strings.splitString "."
+#         (lib.lists.last
+#         (lib.strings.splitString "/"
+#         (builtins.toString filename
+#         )))))
+#         
+#         (builtins.readFile filename)
+#     );
+# }
 
         # keynav setup
         services.keynav.enable = true;
