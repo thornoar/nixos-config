@@ -284,7 +284,11 @@ vim.keymap.set('n', '<C-M-u>', '<C-w><')
 vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 vim.keymap.set('n', '<C-c>', function ()
-    if not vim.bo.readonly then vim.cmd('wq') else vim.cmd('quit!') end
+    local function is_no_name_buf(buf)
+        return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''
+    end
+    local buf = vim.api.nvim_win_get_buf(0)
+    if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
 end)
 vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 vim.keymap.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
