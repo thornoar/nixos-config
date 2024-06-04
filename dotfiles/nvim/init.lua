@@ -283,7 +283,9 @@ vim.keymap.set('n', '<C-M-i>', '<C-w>>')
 vim.keymap.set('n', '<C-M-u>', '<C-w><')
 vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
-vim.keymap.set('n', '<C-c>', function () vim.cmd('wq') end)
+vim.keymap.set('n', '<C-c>', function ()
+    if not vim.bo.readonly then vim.cmd('wq') else vim.cmd('quit!') end
+end)
 vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 vim.keymap.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 vim.keymap.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
@@ -305,9 +307,9 @@ end)
 vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
-vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
-vim.keymap.set('n', '<C-d>', function () vim.cmd('Files') end)
-vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
+vim.keymap.set('n', '<C-g>', function () vim.cmd('GitFiles') end)
+vim.keymap.set('n', '<C-x>', function () vim.cmd('Files') end)
+vim.keymap.set('n', '<C-b>', function () vim.cmd('Buf') end)
 vim.cmd([[let g:fzf_action = {'ctrl-s': 'tab split', 'ctrl-x': 'vertical split', 'ctrl-d': 'horizontal split'}]])
 
 -- REMAINDER 
@@ -503,12 +505,16 @@ vim.o.incsearch = false
 vim.o.synmaxcol = 0
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.cmd('let tex_flavor=\"latex\"')
-vim.cmd('set shiftwidth=4 smarttab')
-vim.cmd('set clipboard+=unnamedplus')
-vim.cmd('let g:omni_sql_no_default_maps = 1')
-vim.cmd('autocmd BufEnter * set formatoptions-=cro')
-vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
+
+vim.cmd([[
+let tex_flavor="latex"
+set shiftwidth=4 smarttab
+set clipboard+=unnamedplus
+let g:omni_sql_no_default_maps = 1
+let g:typst_embedded_languages = ["nix", "python", "c", "cpp", "asy", "haskell"]
+autocmd BufEnter * set formatoptions-=cro
+autocmd BufEnter * setlocal formatoptions-=cro
+]])
 
 vim.g.neovide_transparency = 0.9
 

@@ -18,7 +18,7 @@
             matplotlib
         ];
         my-tex = (pkgs.texlive.combine {
-            inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath;
+            inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
         });
         my-julia-packages = [];
     in
