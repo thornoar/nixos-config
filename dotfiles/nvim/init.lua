@@ -118,13 +118,13 @@ local daemonfunc = {
 
 local compile = function (daemon, silent)
     return function ()
-	local compilecmd = (daemon and daemonfunc or compilefunc)[vim.bo.filetype]
-	if not compilecmd then
-	    print('not set to compile')
-	else
-	    if vim.bo.modified then vim.cmd('write') end
-	    vim.cmd(compilecmd((silent and 'silent ' or '') .. '%:t'))
-	end
+        local compilecmd = (daemon and daemonfunc or compilefunc)[vim.bo.filetype]
+        if not compilecmd then
+            print('not set to compile')
+        else
+            if vim.bo.modified then vim.cmd('write') end
+            vim.cmd((silent and 'silent ' or '') .. compilecmd('%:t'))
+        end
     end
 end
 
