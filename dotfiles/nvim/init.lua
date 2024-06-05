@@ -1,10 +1,6 @@
 vim.loader.enable()
 
--- VARIABLES --
 vim.keymap.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
-home = os.getenv('PROJECTS')
-testdir = home..'/sandbox'
-vim.g.mapleader = ';'
 
 -- INSTALL --
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -75,25 +71,25 @@ require('lazy').setup({
 		},
 		build = ':TSUpdate',
 	},
-    {
-        'gen740/SmoothCursor.nvim',
-        config = function ()
-            require('smoothcursor').setup({
-                cursor = '>',
-                fancy = {
-                    enable = true,
-                    head = { cursor = '>', texthl = 'SmoothCursor' },
-                    body = {
-                        { cursor = '|', texthl = 'SmoothCursorGreen' },
-                        { cursor = '|', texthl = 'SmoothCursorGreen' },
-                        { cursor = '|', texthl = 'SmoothCursorGreen' },
-                        { cursor = '|', texthl = 'SmoothCursorGreen' },
-                        { cursor = '|', texthl = 'SmoothCursorGreen' },
-                    }
-                },
-            })
-        end
-    }
+    -- {
+    --     'gen740/SmoothCursor.nvim',
+    --     config = function ()
+    --         require('smoothcursor').setup({
+    --             cursor = '>',
+    --             fancy = {
+    --                 enable = true,
+    --                 head = { cursor = '>', texthl = 'SmoothCursor' },
+    --                 body = {
+    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
+    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
+    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
+    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
+    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
+    --                 }
+    --             },
+    --         })
+    --     end
+    -- }
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -108,11 +104,10 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
 	['tex'] = function (name) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
-	['typst'] = function (name) return ('write') end,
+	['typst'] = function (name) return ('') end,
 	-- ['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
 	-- ['tex'] = function (name) return ('VimtexCompile') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
-	['lolcode'] = function (name) return ('!lci ' .. name) end,
 	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
@@ -121,33 +116,17 @@ local daemonfunc = {
     ['typst'] = function (name) return 'TypstWatch' end,
 }
 
-local compile = function ()
-	local ccmd = compilefunc[vim.bo.filetype]
-    if not ccmd then
-        print('not set to compile')
-    else
-        if vim.bo.modified then vim.cmd('write') end
-        vim.cmd(ccmd('%:t'))
+local compile = function (daemon, silent)
+    return function ()
+	local compilecmd = (daemon and daemonfunc or compilefunc)[vim.bo.filetype]
+	if not compilecmd then
+	    print('not set to compile')
+	else
+	    if vim.bo.modified then vim.cmd('write') end
+	    vim.cmd(compilecmd((silent and 'silent ' or '') .. '%:t'))
+	end
     end
 end
-vim.api.nvim_create_user_command('Compile', compile, {})
-
-local compile_silent = function ()
-	local ccmd = compilefunc[vim.bo.filetype]
-    if not ccmd then return end
-    if vim.bo.modified then vim.cmd('write') end
-	vim.cmd('silent '..ccmd('%:t'))
-end
-vim.api.nvim_create_user_command('CompileSilent', compile_silent, {})
-
-local compile_daemon = function ()
-    print("starting")
-    local dcmd = daemonfunc[vim.bo.filetype]
-    if not dcmd then return end
-    if vim.bo.modified then vim.cmd('write') end
-    vim.cmd(dcmd('%:t'))
-end
-vim.api.nvim_create_user_command('CompileDaemon', compile_daemon, {})
 
 local defaultoutputname = 'out'
 local view_output = function (args)
@@ -166,8 +145,8 @@ vim.api.nvim_create_user_command('View', view_output, { nargs = '?' })
 
 vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
 vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
-vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
+vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
 vim.api.nvim_create_user_command('L', 'Lazy', {})
 
@@ -182,9 +161,8 @@ vim.api.nvim_create_user_command("AS", function()
 	autosave = not autosave
 	print("autosave is " .. (autosave and "enabled" or "disabled"))
 end, {})
-local autosavepattern = { '*.tex', '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl', '*.yml' }
+local autosavepattern = { '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl', '*.yml' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-	-- pattern = '*.*',
     pattern = autosavepattern,
 	callback = function()
 		if autosave then vim.cmd('silent write') end
@@ -192,6 +170,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 })
 
 -- KEYMAPS --
+vim.g.mapleader = ';'
 -- $text keymaps
 vim.keymap.set('n', 'w1', 'mL')
 vim.keymap.set('n', 'w2', 'mN')
@@ -244,6 +223,8 @@ vim.keymap.set('n', 'x', 'i')
 vim.keymap.set('n', 'X', 'I')
 vim.keymap.set('i', '<M-1>', '<C-o>:E<CR>')
 vim.keymap.set('i', '<M-2>', '<C-o>:R<CR>')
+vim.keymap.set('i', '<M-3>', '<C-o>:D<CR>')
+vim.keymap.set('i', '<M-4>', '<C-o>:J<CR>')
 -- $navigation keymaps
 vim.keymap.set('n', '<Up>', 'gk')
 vim.keymap.set('n', '<Down>', 'gj')
@@ -298,9 +279,9 @@ vim.keymap.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfile
 vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 vim.keymap.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
 vim.keymap.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
-vim.keymap.set('n', '<leader>o', compile)
-vim.keymap.set({'n', 'i'}, '<C-s>', compile_silent)
-vim.keymap.set({'n', 'i'}, '<C-M-s>', compile_daemon)
+vim.keymap.set('n', '<leader>o', compile(false, false))
+vim.keymap.set({'n', 'i'}, '<C-s>', compile(false, true))
+vim.keymap.set({'n', 'i'}, '<C-M-s>', compile(true, false))
 vim.keymap.set('n', '<leader>vp', function () view_output({ ['args'] = 'pdf' }) end)
 vim.keymap.set('n', '<leader>vs', function () view_output({ ['args'] = 'svg' }) end)
 vim.keymap.set('n', '<leader>vg', function () view_output({ ['args'] = 'png' }) end)
@@ -505,15 +486,17 @@ vim.o.colorcolumn = 20
 vim.o.expandtab = true
 vim.o.compatible = false
 vim.o.hlsearch = false
-vim.o.incsearch = false
+vim.o.incsearch = true
 vim.o.synmaxcol = 0
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
+vim.o.clipboard = 'unnamedplus'
+vim.o.undofile = true
+vim.o.cursorline = false
 
 vim.cmd([[
 let tex_flavor="latex"
 set shiftwidth=4 smarttab
-set clipboard+=unnamedplus
 let g:omni_sql_no_default_maps = 1
 autocmd BufEnter * set formatoptions-=cro
 autocmd BufEnter * setlocal formatoptions-=cro
@@ -535,18 +518,17 @@ vim.api.nvim_create_autocmd('VimLeave', {
 	callback = function () vim.opt.guicursor = { 'a:ver25' } end
 })
 
-vim.g.haskell_classic_highlighting = 1
+-- vim.g.haskell_classic_highlighting = 1
 
-vim.g.vimtex_delim_timeout = 60
-
-vim.g.vimtex_complete_enabled = 1
-vim.g.vimtex_quickfix_enabled = 0
-vim.g.vimtex_view_method = 'zathura'
-vim.g.latex_view_general_viewer = 'zathura'
-vim.g.vimtex_compiler_progname = 'nvr'
-vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
-vim.g.vimtex_mappings_prefix = '\\'
-vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
+-- vim.g.vimtex_delim_timeout = 60
+-- vim.g.vimtex_complete_enabled = 1
+-- vim.g.vimtex_quickfix_enabled = 0
+-- vim.g.vimtex_view_method = 'zathura'
+-- vim.g.latex_view_general_viewer = 'zathura'
+-- vim.g.vimtex_compiler_progname = 'nvr'
+-- vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+-- vim.g.vimtex_mappings_prefix = '\\'
+-- vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 
 vim.g.UltiSnipsExpandTrigger='<tab>'
 vim.g.UltiSnipsJumpForwardTrigger='<C-Right>'
@@ -570,7 +552,7 @@ vim.cmd(
     highlight Keyword guifg=plum
 ]])
 
-package.path = package.path .. ';'..home..'/nvim-subfiles/lua/?.lua'
+package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
     bindings = {
     },

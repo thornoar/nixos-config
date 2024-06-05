@@ -71,9 +71,9 @@
             # cargo
             # rustc
             ghc
-            cabal-install
+            # cabal-install
             lua
-            # nodejs
+            nodejs
             julia
             # openjdk17-bootstrap
 		])
