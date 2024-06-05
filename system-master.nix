@@ -176,7 +176,7 @@
         fonts.packages = with pkgs; [
             hack-font
             noto-fonts
-            # kochi-substitute
+            kochi-substitute
             # noto-fonts-emoji
             nerdfonts
         ];
