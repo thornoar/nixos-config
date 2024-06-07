@@ -1,6 +1,6 @@
 # Snippets for Typst
 
-snippet mk "math mode" iA
+snippet $ "math mode" iA
 \$$0\$
 endsnippet
 
@@ -14,36 +14,6 @@ snippet ctr "center" b
 #align(center)[
   $0
 ]
-endsnippet
-
-snippet page "page settings" b
-#set page(
-  $0
-)
-endsnippet
-
-snippet text "text settings" b
-#set text(
-  $0
-)
-endsnippet
-
-snippet par "paragraph settings" b
-#set par(
-  $0
-)
-endsnippet
-
-snippet head "heading settings" b
-#set heading(
-  $0
-)
-endsnippet
-
-snippet doc "document settings" b
-#set document(
-  $0
-)
 endsnippet
 
 snippet slide "slide" b
@@ -64,5 +34,4 @@ endsnippet
 
 snippet lib "import library" i
 import "@local/$1:0.0.0": *
-show: $1
 endsnippet

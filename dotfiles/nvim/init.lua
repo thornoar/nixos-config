@@ -52,6 +52,21 @@ require('lazy').setup({
                 faster = false,
 				map = '<M-/>',
             },
+            internal_pairs={-- *ultimate-autopair-pairs-default-pairs*
+                {'[',']',fly=true,dosuround=true,newline=true,space=true},
+                {'(',')',fly=true,dosuround=true,newline=true,space=true},
+                {'{','}',fly=true,dosuround=true,newline=true,space=true},
+                {'"','"',suround=true,multiline=false},
+                {"'","'",suround=true,cond=function(fn) return not fn.in_lisp() or fn.in_string() end,alpha=true,nft={'tex'},multiline=false},
+                {'`','`',cond=function(fn) return not fn.in_lisp() or fn.in_string() end,nft={'tex'},multiline=false},
+                {'``',"''",ft={'tex'}},
+                {'```','```',newline=true,ft={'markdown'}},
+                {'<!--','-->',ft={'markdown','html'},space=true},
+                {'"""','"""',newline=true,ft={'python'}},
+                {"'''","'''",newline=true,ft={'python','nix'}},
+                {"*","*",suround=true,ft={'markdown','typst'}},
+                {"_","_",suround=true,ft={'markdown','typst'}},
+            },
         },
     },
 	{
@@ -152,7 +167,7 @@ vim.api.nvim_create_user_command('L', 'Lazy', {})
 
 -- Autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.md' },
+	pattern = { '*.md', '*.typ', '*.tex' },
 	command = 'setlocal spell! spelllang=en_us'
 })
 
