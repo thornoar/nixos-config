@@ -272,7 +272,7 @@ vim.keymap.set('n', '<C-c>', function ()
     if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
 end)
 vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
-vim.keymap.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
+vim.keymap.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Filemanager\' -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 vim.keymap.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
 vim.keymap.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
 vim.keymap.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)

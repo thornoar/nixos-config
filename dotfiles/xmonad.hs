@@ -265,7 +265,8 @@ myKeys = [
     ("M-M1-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn (myTerminal ++ " --title 'Filemanager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    ("M-f", spawn (myTerminal ++ " --title 'Filemanager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
 
@@ -288,7 +289,7 @@ myKeys = [
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
     ("M-s", namedScratchpadAction myScratchpads "System Monitor"),
-    ("M-f", namedScratchpadAction myScratchpads "Calculator"),
+    ("M-q", namedScratchpadAction myScratchpads "Calculator"),
     -- ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
 
     -- Windows navigation
@@ -424,7 +425,7 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = swallowEventHook (className =? "Alacritty") (return True)
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Filemanager") (return True)
 
 main =
     xmonad $
