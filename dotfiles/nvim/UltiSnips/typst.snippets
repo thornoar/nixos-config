@@ -58,10 +58,11 @@ snippet fslide "focus slide" b
 ]
 endsnippet
 
-snippet pac "import package" b
-#import "@preview/$0"
+snippet pac "import package" i
+import "@preview/$0"
 endsnippet
 
-snippet lib "import library" b
-#import "@local/$0:0.0.0": *
+snippet lib "import library" i
+import "@local/$1:0.0.0": *
+show: $1
 endsnippet

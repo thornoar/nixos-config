@@ -30,7 +30,7 @@ require('lazy').setup({
 	'junegunn/fzf.vim',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
-    'github/copilot.vim',
+    -- 'github/copilot.vim',
     'mbbill/undotree',
     {
         'kaarmu/typst.vim',
@@ -289,8 +289,8 @@ vim.keymap.set('n', '<leader>ee', function ()
     ft = vim.bo.filetype
     vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
 end)
-vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
-vim.keymap.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
+-- vim.keymap.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
+-- vim.keymap.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
 vim.keymap.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 vim.keymap.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 vim.keymap.set('n', '<C-g>', function () vim.cmd('GitFiles') end)

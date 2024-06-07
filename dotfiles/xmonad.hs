@@ -32,32 +32,33 @@ import XMonad.Hooks.RefocusLast
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Simplest
-import XMonad.Layout.Spiral
+-- import XMonad.Layout.Simplest
+-- import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
-import XMonad.Layout.Hidden
+-- import XMonad.Layout.Hidden
+import XMonad.Layout.Reflect
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
-import XMonad.Layout.Magnifier
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+-- import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle (Toggle(..), mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
-import XMonad.Layout.SubLayouts
+-- import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
-import XMonad.Layout.TwoPanePersistent
+-- import XMonad.Layout.TwoPanePersistent
 -- import XMonad.Layout.LayoutCombinators
 -- import XMonad.Layout.PerWorkspace
 -- import XMonad.Layout.CircleEx
+import qualified XMonad.Layout.Magnifier as MG
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
--- import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import qualified XMonad.Layout.BoringWindows as BW
-import qualified XMonad.Layout.ToggleLayouts as TL
+-- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- Prompts
 import XMonad.Prompt
@@ -84,37 +85,22 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
-magnified =
-    named "Magnified" 
-    -- $ (minimize . BW.boringWindows)
-    -- $ hiddenWindows
-    $ avoidStruts
+grid = named "Grid"
     $ spacingWithEdge mySpace
-    $ magnifiercz myMagnifiedScale
-    $ windowNavigation
-    $ Grid (16/10)
-
-grid =
-    named "Grid"
-    -- $ (minimize . BW.boringWindows)
-    -- $ hiddenWindows
-    $ windowNavigation
-    $ avoidStruts
-    $ spacingWithEdge mySpace
-    -- $ subLayout [] (smartBorders Simplest)
+    $ MG.magnifierczOff myMagnifiedScale
     $ mkToggle (single MIRROR)
     $ Grid (16/10)
 
-tabs =
-    named "Tabs"
-    -- $ (minimize . BW.boringWindows)
-    -- $ hiddenWindows
-    $ windowNavigation
-    $ avoidStruts
+accordion = named "Accordion"
+    $ spacingWithEdge mySpace
+    $ mkToggle (single MIRROR)
+    $ Mirror Accordion
+
+tabs = named "Tabbed"
     $ spacing mySpace
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| magnified ||| tabs
+myLayout = grid ||| accordion ||| tabs
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -241,7 +227,6 @@ myXPConfig = def {
 myPrograms :: [(String, String)]
 myPrograms = [
     ("b", myTerminal++" --title 'System Monitor' -e btop"),
-    ("y", myTerminal++" --title 'File Manager' -e yazi"),
     ("t", "telegram-desktop"),
     ("d", "discord"),
     ("s", "obs")
@@ -251,9 +236,8 @@ myScratchpads =
     [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
-    NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
-    NS "Book Manager" (myTerminal ++ " --title 'Book Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $MEDIA/books; $FILEMANAGER; zsh'") (title =? "Book Scratchpad") (customFloating myFloatingRectangle),
-    NS "Film Manager" (myTerminal ++ " --title 'Film Scratchpad' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $MEDIA/films; $FILEMANAGER; zsh'") (title =? "Film Scratchpad") (customFloating myFloatingRectangle),
+    -- NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
+    NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
     ]
 
@@ -281,13 +265,12 @@ myKeys = [
     ("M-M1-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Filemanager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
-    ("M-s", spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")),
 
     -- Type email
-    ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
+    ("M-r", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
 
     -- Workspaces
     ("M-<Page_Down>", moveTo Next nonNSP),
@@ -303,11 +286,10 @@ myKeys = [
 
     -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
-    ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
-    ("M-r", namedScratchpadAction myScratchpads "Book Manager"),
-    ("M-f", namedScratchpadAction myScratchpads "Film Manager"),
-    ("M-q", namedScratchpadAction myScratchpads "Calculator"),
+    ("M-s", namedScratchpadAction myScratchpads "System Monitor"),
+    ("M-f", namedScratchpadAction myScratchpads "Calculator"),
+    -- ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
 
     -- Windows navigation
     ("M-<Down>", sendMessage $ Go D),
@@ -320,7 +302,6 @@ myKeys = [
     ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
-    ("M-w", toggleFocus),
     ("M-d", do
         minimizedCount <- withMinimized $ return . length
         totalCount <- length . W.index . windowset <$> get
@@ -331,7 +312,12 @@ myKeys = [
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
     ("M-C-p", setWallpaperCmd),
-    ("M-<Tab>", sendMessage $ TL.ToggleLayout),
+    -- ("M-<Tab>", sendMessage $ TL.ToggleLayout),
+    ("M-<Tab>", sendMessage $ Toggle NBFULL),
+    ("M-C-s", sendMessage $ Toggle MIRROR),
+    ("M-C-d", sendMessage $ Toggle REFLECTX),
+    ("M-C-v", sendMessage $ Toggle REFLECTY),
+    ("M-C-f", sendMessage MG.Toggle),
     ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
     ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
@@ -371,12 +357,6 @@ myKeys = [
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
     ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
 
--- -- Layouts:
--- mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
--- mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
--- mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
--- mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
-
 -- Window rules:
 
 myIntersect :: [Bool] -> Bool
@@ -392,19 +372,13 @@ q |? xs = (fmap myUnion) $ sequence [ (q =? x) | x <- xs ]
 
 -- viewShift = doF . liftM2 (.) W.greedyView W.shift
 
-myAnd' :: Query Bool -> Bool -> Query Bool
-myAnd' a b = (fmap (&& b)) a
-
-myAnd :: Query Bool -> Query Bool -> Query Bool
-myAnd a b = b >>= myAnd' a
-
 myManageHook :: ManageHook
 myManageHook = composeAll [
     (do
-        liftX $ spawn "chlang us"
+        -- liftX $ spawn "chlang us"
         insertPosition Below Newer
     ),
-    (myAnd (title =? "Media viewer") (className =? "TelegramDesktop")) --> doFloat
+    ((title =? "Media viewer") <&&> (className =? "TelegramDesktop")) --> doFloat
     ]
 
 -- Xmobar settings:
@@ -450,7 +424,7 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = mempty
+myHandleEventHook = swallowEventHook (className =? "Alacritty") (return True)
 
 main =
     xmonad $
@@ -460,26 +434,25 @@ main =
     defaults
 
 defaults = def {
-    terminal           = myTerminal,
-    focusFollowsMouse  = myFocusFollowsMouse,
-    focusedBorderColor = colorMagenta0,
-    normalBorderColor  = colorMagenta1,
-    clickJustFocuses   = myClickJustFocuses,
-    borderWidth        = myBorderWidth,
-    modMask            = myModMask,
-    workspaces         = myWorkspaces,
-    -- layoutHook         = TL.toggleLayouts Full myLayout,
-    layoutHook         = (minimize . BW.boringWindows) $ TL.toggleLayouts Full myLayout,
-    -- layoutHook         = modWorkspaces myWorkspaces (minimize . BW.boringWindows) $
-    -- -- layoutHook         = modWorkspaces myWorkspaces (hiddenWindows) $
-    --     onWorkspace (myWorkspaces!!0) myLayout $
-    --     onWorkspace (myWorkspaces!!1) myLayout $
-    --     onWorkspace (myWorkspaces!!2) (Full ||| grid) $
-    --     Simplest,
-    manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads,
-    handleEventHook    = myHandleEventHook,
-    startupHook        = myStartupHook,
-    logHook            = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
+    terminal            = myTerminal,
+    focusFollowsMouse   = myFocusFollowsMouse,
+    focusedBorderColor  = colorMagenta0,
+    normalBorderColor   = colorMagenta1,
+    clickJustFocuses    = myClickJustFocuses,
+    borderWidth         = myBorderWidth,
+    modMask             = myModMask,
+    workspaces          = myWorkspaces,
+    layoutHook          =
+        (minimize . BW.boringWindows)
+        $ windowNavigation
+        $ avoidStruts
+        $ mkToggle (single NBFULL)
+        $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
+        $ myLayout,
+        -- $ TL.toggleLayouts Full myLayout,
+    manageHook          = myManageHook <+> namedScratchpadManageHook myScratchpads,
+    handleEventHook     = myHandleEventHook,
+    startupHook         = myStartupHook,
+    logHook             = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
     }
     `additionalKeysP` myKeys
-    -- `remapKeysP` [("M-<End>", "M-j"), ("M-<Home>", "M-k")]
