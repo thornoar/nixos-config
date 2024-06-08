@@ -1,10 +1,18 @@
 # Snippets for Typst
 
-snippet $ "math mode" iA
+snippet * "bold" A
+*$0*
+endsnippet
+
+snippet _ "italic" A
+_$0_
+endsnippet
+
+snippet $ "math mode" A
 \$$0\$
 endsnippet
 
-snippet dm "display math" iA
+snippet dm "display math" bA
 \$
   $0
 \$
@@ -29,9 +37,9 @@ snippet fslide "focus slide" b
 endsnippet
 
 snippet pac "import package" i
-import "@preview/$0"
+#import "@preview/$0"
 endsnippet
 
 snippet lib "import library" i
-import "@local/$1:0.0.0": *
+#import "@local/$1:0.0.0": *
 endsnippet

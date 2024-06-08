@@ -32,13 +32,15 @@ import XMonad.Hooks.RefocusLast
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
--- import XMonad.Layout.Simplest
+import XMonad.Layout.Simplest
 -- import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
 -- import XMonad.Layout.Hidden
 import XMonad.Layout.Reflect
+import XMonad.Layout.Combo
+import XMonad.Layout.TwoPane
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -88,8 +90,14 @@ import XMonad.Hooks.ManageHelpers
 grid = named "Grid"
     $ spacingWithEdge mySpace
     $ MG.magnifierczOff myMagnifiedScale
-    $ mkToggle (single MIRROR)
     $ Grid (16/10)
+
+tallAccordion = named "Tall"
+    $ spacingWithEdge mySpace
+    $ mkToggle (single MIRROR)
+    $ MG.magnifierczOff myMagnifiedScale
+    $ reflectHoriz
+    $ combineTwo (TwoPane (3/100) (1/2)) Accordion Simplest
 
 accordion = named "Accordion"
     $ spacingWithEdge mySpace
@@ -100,7 +108,7 @@ tabs = named "Tabbed"
     $ spacing mySpace
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| accordion ||| tabs
+myLayout = grid ||| tallAccordion ||| accordion ||| tabs
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -446,8 +454,8 @@ defaults = def {
     layoutHook          =
         (minimize . BW.boringWindows)
         $ windowNavigation
-        $ avoidStruts
         $ mkToggle (single NBFULL)
+        $ avoidStruts
         $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
         $ myLayout,
         -- $ TL.toggleLayouts Full myLayout,

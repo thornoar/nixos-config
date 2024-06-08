@@ -26,7 +26,7 @@
 
             myBgColor = "${config.bgColor0}"
             myFgColor = "${config.fgColor}"
-            myBarHeight = ${ts config.barheight}
+            myBarHeight = ${ts config.barHeight}
             myMagnifiedScale = ${ts config.magnifiedScale}
 
             myFloatingRectangle :: W.RationalRect
@@ -215,10 +215,10 @@
                     style = "Regular";
                 };
                 window.padding = {
-                    x = config.padding.x;
-                    y = config.padding.y;
+                    x = config.terminalPadding.x;
+                    y = config.terminalPadding.y;
                 };
-                window.opacity = config.windowOpacity;
+                window.opacity = config.terminalOpacity;
                 key_bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
@@ -555,27 +555,6 @@
                 )
             )
         );
-
-        # xdg.dataFile."typst/packages/local/lib/0/src".source = /home/ramak/projects/typst-libraries;
-        # xdg.dataFile."typst/packages/local/lib/0/typst.toml".text = ''
-        #     [package]
-        #     name = "lib"
-        # ''
-
-# {
-#     home.packages = lib.lists.forEach (lib.filesystem.listFilesRecursive ./scripts) (filename:
-#         pkgs.writeScriptBin
-#         
-#         (lib.strings.head 
-#         (lib.strings.splitString "."
-#         (lib.lists.last
-#         (lib.strings.splitString "/"
-#         (builtins.toString filename
-#         )))))
-#         
-#         (builtins.readFile filename)
-#     );
-# }
 
         # keynav setup
         services.keynav.enable = true;
