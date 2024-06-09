@@ -5,7 +5,6 @@ import System.Exit
 
 -- Actions
 import XMonad.Actions.CycleWS
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WithAll (sinkAll, killAll, withAll)
 import XMonad.Actions.Minimize
 import XMonad.Actions.Volume
@@ -16,8 +15,8 @@ import XMonad.Actions.GroupNavigation
 
 -- Data
 import Data.Char (isSpace, toUpper)
-import Data.Maybe (fromJust)
-import Data.Maybe (isJust)
+-- import Data.Maybe (fromJust)
+-- import Data.Maybe (isJust)
 import qualified Data.Map as M
 import Data.List
 import Data.Ratio
@@ -33,30 +32,21 @@ import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Simplest
--- import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Minimize
--- import XMonad.Layout.Hidden
 import XMonad.Layout.Reflect
-import XMonad.Layout.Combo
-import XMonad.Layout.TwoPane
+import XMonad.Layout.Master
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
--- import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle (Toggle(..), mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
--- import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
--- import XMonad.Layout.TwoPanePersistent
--- import XMonad.Layout.LayoutCombinators
--- import XMonad.Layout.PerWorkspace
--- import XMonad.Layout.CircleEx
 import qualified XMonad.Layout.Magnifier as MG
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.BoringWindows as BW
@@ -90,14 +80,14 @@ import XMonad.Hooks.ManageHelpers
 grid = named "Grid"
     $ spacingWithEdge mySpace
     $ MG.magnifierczOff myMagnifiedScale
-    $ Grid (16/10)
+    $ Grid (16/9)
 
-tallAccordion = named "Tall"
+tallAccordion = named "Master"
     $ spacingWithEdge mySpace
     $ mkToggle (single MIRROR)
     $ MG.magnifierczOff myMagnifiedScale
-    $ reflectHoriz
-    $ combineTwo (TwoPane (3/100) (1/2)) Accordion Simplest
+    $ mastered (3/100) (1/2) Accordion
+    -- $ combineTwo (TwoPane (3/100) (1/2)) Accordion Accordion
 
 accordion = named "Accordion"
     $ spacingWithEdge mySpace
@@ -269,8 +259,8 @@ myKeys = [
     -- Kill windows
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
     ("M-n", sequence_ [kill, BW.focusUp]),
-    ("M-M1-<End>", killAllFloating),
-    ("M-M1-<Delete>", killAll),
+    ("M-S-<End>", killAllFloating),
+    ("M-S-<Delete>", killAll),
 
     -- Quick Programs
     ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
@@ -305,10 +295,12 @@ myKeys = [
     ("M-<Up>", sendMessage $ Go U),
     ("M-<Left>", sendMessage $ Go L),
     ("M-<Right>", sendMessage $ Go R),
-    ("M-M1-<Down>", windows W.swapDown),
-    ("M-M1-<Up>", windows W.swapUp),
-    ("M-M1-<Left>", withFocused minimizeWindow),
-    ("M-M1-<Right>", withLastMinimized maximizeWindowAndFocus),
+    ("M-M1-<End>", windows W.swapDown),
+    ("M-M1-<Home>", windows W.swapUp),
+    ("M-M1-<Up>", sendMessage $ Swap U),
+    ("M-M1-<Down>", sendMessage $ Swap D),
+    ("M-M1-<Left>", sendMessage $ Swap L),
+    ("M-M1-<Right>", sendMessage $ Swap R),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-d", do
@@ -320,6 +312,8 @@ myKeys = [
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
+    ("M-C-<Left>", withFocused minimizeWindow),
+    ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
     ("M-C-p", setWallpaperCmd),
     -- ("M-<Tab>", sendMessage $ TL.ToggleLayout),
     ("M-<Tab>", sendMessage $ Toggle NBFULL),
