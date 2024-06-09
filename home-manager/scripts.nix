@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-    home.packages = lib.lists.forEach (lib.filesystem.listFilesRecursive ./scripts) (filename:
+    home.packages = lib.lists.forEach (lib.filesystem.listFilesRecursive ../scripts) (filename:
         pkgs.writeScriptBin
         
         (lib.strings.head 

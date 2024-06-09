@@ -5,7 +5,7 @@
     ];
 
     config = {
-        boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
+        # boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
 
         nixpkgs.config.allowUnfree = true;
 

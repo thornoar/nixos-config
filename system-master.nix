@@ -88,7 +88,7 @@
             unzip
             p7zip
 
-            (haskellPackages.ghcWithPackages (hpkgs: [ hpkgs.optparse-applicative hpkgs.turtle ]))
+            # (haskellPackages.ghcWithPackages (hpkgs: [ hpkgs.optparse-applicative hpkgs.turtle ]))
         ];
         environment.localBinInPath = true;
 
@@ -179,7 +179,6 @@
             hack-font
             noto-fonts
             kochi-substitute
-            # noto-fonts-emoji
             nerdfonts
         ];
 
