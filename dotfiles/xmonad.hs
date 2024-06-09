@@ -34,6 +34,7 @@ import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Simplest
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
+import XMonad.Layout.Maximize
 import XMonad.Layout.Minimize
 import XMonad.Layout.Reflect
 import XMonad.Layout.Master
@@ -98,7 +99,7 @@ tabs = named "Tabbed"
     $ spacing mySpace
     $ tabbedAlways shrinkText myTabTheme
 
-myLayout = grid ||| tallAccordion ||| accordion ||| tabs
+myLayout = grid ||| tallAccordion ||| accordion ||| tabs ||| Full
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
@@ -316,7 +317,8 @@ myKeys = [
     ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
     ("M-C-p", setWallpaperCmd),
     -- ("M-<Tab>", sendMessage $ TL.ToggleLayout),
-    ("M-<Tab>", sendMessage $ Toggle NBFULL),
+    -- ("M-<Tab>", sendMessage $ Toggle NBFULL),
+    ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
     ("M-C-s", sendMessage $ Toggle MIRROR),
     ("M-C-d", sendMessage $ Toggle REFLECTX),
     ("M-C-v", sendMessage $ Toggle REFLECTY),
@@ -361,19 +363,6 @@ myKeys = [
     ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
 
 -- Window rules:
-
-myIntersect :: [Bool] -> Bool
-myIntersect = foldr (\a b -> a && b) True
-myUnion :: [Bool] -> Bool
-myUnion = foldr (\a b -> a || b) False
-
-(/?) :: Eq a => Query a -> [a] -> Query Bool
-q /? xs = (fmap myIntersect) $ sequence [ (fmap not) (q =? x) | x <- xs ]
-
-(|?) :: Eq a => Query a -> [a] -> Query Bool
-q |? xs = (fmap myUnion) $ sequence [ (q =? x) | x <- xs ]
-
--- viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 myManageHook :: ManageHook
 myManageHook = composeAll [
@@ -447,12 +436,12 @@ defaults = def {
     workspaces          = myWorkspaces,
     layoutHook          =
         (minimize . BW.boringWindows)
+        $ maximizeWithPadding 0
         $ windowNavigation
-        $ mkToggle (single NBFULL)
+        -- $ mkToggle (single NBFULL)
         $ avoidStruts
         $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
         $ myLayout,
-        -- $ TL.toggleLayouts Full myLayout,
     manageHook          = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook     = myHandleEventHook,
     startupHook         = myStartupHook,
