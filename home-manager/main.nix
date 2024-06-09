@@ -1,10 +1,13 @@
 { config, pkgs, lib, pkgs-unstable, ... }:
 
 {
-    imports = [
-        ../home-options.nix
-        /home/ramak/projects/nixos-local-config/home-local.nix
-        ../home-scripts.nix
+    imports = (
+        let
+            path = /home/ramak/projects/nixos-local-config/home-local.nix;
+        in if (builtins.pathExists path) then [ path ] else [ ../dotfiles/home-template.nix ]
+    ) ++ [
+        ./options.nix
+        ./scripts.nix
         ./external.nix
     ];
 
@@ -14,13 +17,10 @@
             ipython
             sympy
             numpy
-            pandas
-            matplotlib
         ];
-        my-tex = (pkgs.texlive.combine {
+        my-latex = (pkgs.texlive.combine {
             inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
         });
-        my-julia-packages = [];
     in
     {
         home.username = "ramak";
@@ -63,24 +63,18 @@
         home.packages = (lib.lists.forEach (lib.lists.partition (x: 0 < lib.strings.stringLength x) 
 		(lib.strings.splitString "\n" (builtins.readFile ./packages.txt))).right (name: pkgs.${name}))
 		++ (with pkgs; [
-			my-tex
+			my-latex
             asymptote
 			(python3.withPackages my-python-packages)
             manim
-            # R
-            # cargo
-            # rustc
             ghc
-            # cabal-install
             lua
             nodejs
             julia
-            # openjdk17-bootstrap
 		])
         ++ (with pkgs-unstable; [
             fzf
             typst
-            # (julia.withPackages my-julia-packages) # Maybe in 24.05
         ]);
         # [./packages.txt]
 
@@ -95,7 +89,6 @@
                 enableAutosuggestions = true;
                 syntaxHighlighting.enable = true;
                 shellAliases = rec {
-                    # wget = "wget --hsts-file = $XDG_DATA_HOME/wget-hsts";
                     torrent = "transmission-remote";
                     film = "transmission-remote -w ~/media/films -a ";
                     music = "transmission-remote -w ~/media/music -a ";
@@ -112,7 +105,6 @@
                 };    
                 initExtra = ''
                     autoload -U colors && colors
-                    # PS1="%{$fg[magenta]%}[%{$fg[blue]%}%n%{$fg[magenta]%}] %{$fg[yellow]%}%~ %{$fg[magenta]%}:%{$reset_color%} "
                     PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
 
                     function preexec() {
@@ -124,15 +116,12 @@
                         if [ $timer ]; then
                         now=$(($(date +%s%0N)/1000000))
                         elapsed=$(($now-$timer))
-
-                        # export RPROMPT="%F{yellow}''${elapsed}ms%{$reset_color%}"
                         export RPROMPT="< %{$fg[yellow]%}''${elapsed}ms%{$reset_color%}"
                         unset timer
                         fi
                     }
 
                     source $NIXOS_CONFIG/dotfiles/br.sh
-                    # eval $(thefuck --alias)
 
                     bindkey "^[[1;3D" backward-word 
                     bindkey "^[[1;3C" forward-word
@@ -151,7 +140,7 @@
                     _fzf_comprun() {
                         local command=$1
                         shift
-
+                        # ((((
                         case "$command" in
                             cd) fzf --preview "eza --tree --color=always {} | head -200" "$@" ;;
                             export|unset) fzf --preview "eval 'echo \$'{}" "$@" ;;

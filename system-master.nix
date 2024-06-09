@@ -1,10 +1,12 @@
 { sysname, inputs, config, lib, pkgs, pkgs-unstable, ... }:
 
 {
-    imports =
-    [
+    imports = (
+        let
+            path = /home/ramak/projects/nixos-local-config/system-local.nix;
+        in if (builtins.pathExists path) then [ path ] else [ ./dotfiles/system-template.nix ]
+    ) ++ [
         /etc/nixos/hardware-configuration.nix
-        /home/ramak/projects/nixos-local-config/system-local.nix
     ];
 
     options = {};

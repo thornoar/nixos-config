@@ -3,20 +3,22 @@
 {
     config = 
     let
-        dotfile = str: lib.path.append config.dotfiledir str;
+        dotfile = str: lib.path.append ../dotfiles str;
         project = str: lib.path.append /home/ramak/projects str;
         ts = builtins.toString;
     in 
     {
-        dotfiledir = lib.mkForce ../dotfiles;
-
         # xmonad setup
-        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + ''
+        xdg.configFile."xmonad/xmonad.hs".text = (builtins.readFile (dotfile "xmonad.hs")) + (
+        let
+            cmd = if (builtins.pathExists (lib.path.append /home/ramak/media/wallpapers config.wallpaperDir))
+                  then "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${ts config.wallpaperGamma} -contrast ${ts config.wallpaperContrast}"
+                  else "echo 'no wallpapers'";
+        in ''
 
             -- Home-Manager settings
 
-            -- setWallpaperCmd = spawn "xwallpaper --maximize $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1)"
-            setWallpaperCmd = spawn "hsetroot -cover $MEDIA/wallpapers/${config.wallpaperDir}/$(ls $MEDIA/wallpapers/${config.wallpaperDir} | shuf -n 1) -gamma ${ts config.wallpaperGamma} -contrast ${ts config.wallpaperContrast}"
+            setWallpaperCmd = spawn "${cmd}"
 
             myBorderWidth :: Dimension
             myBorderWidth = ${ts config.windowBorderWidth}
@@ -40,7 +42,7 @@
             colorMagenta0 = "${config.colorMagenta0}"
             colorYellow = "${config.colorYellow0}"
             colorRed = "${config.colorRed0}"
-        '';
+        '');
 
         # zathura setup
         xdg.configFile."zathura/zathurarc".text = ''
@@ -351,8 +353,8 @@
             Theme = nightly_theme
             Keymap = keymap
             Repeat = yes
-            #Shuffle = no
-            AutoNext = no
+            Shuffle = no
+            AutoNext = yes
         '';
         home.file.".moc/keymap".text = ''
             go    = ENTER RIGHT
@@ -526,10 +528,13 @@
 
         # typst libraries enabling
 
-        xdg.dataFile = builtins.listToAttrs (
+        xdg.dataFile = 
+        let 
+            path = /home/ramak/projects/typst-libraries;
+        in if (builtins.pathExists path) then builtins.listToAttrs (
             lib.lists.flatten (
                 lib.lists.forEach
-                (lib.filesystem.listFilesRecursive (project "typst-libraries"))
+                (lib.filesystem.listFilesRecursive path)
                 (filename:
                     let
                         strname = ts filename;
@@ -554,7 +559,7 @@
                     ]
                 )
             )
-        );
+        ) else {};
 
         # keynav setup
         services.keynav.enable = true;

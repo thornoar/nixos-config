@@ -43,7 +43,7 @@
                     home-manager = {
                         # useGlobalPkgs = true;
                         useUserPackages = true;
-                        users.ramak = import ./home-ramak/main.nix;
+                        users.ramak = import ./home-manager/main.nix;
                         extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; };
                     };
                 }

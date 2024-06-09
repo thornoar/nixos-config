@@ -18,7 +18,6 @@
         terminalPadding     = opt { type = tp.attrs;    };
         barHeight           = opt { type = tp.int;      };
         magnifiedScale      = opt { type = tp.float;    };
-        dotfiledir          = opt { type = tp.path;     default = ./dotfiles;       };
         scratchpadWidth     = opt { type = tp.str;      default = "2 % 3";          };
         scratchpadHeight    = opt { type = tp.str;      default = "2 % 3";          };
         font                = opt { type = tp.str;      default = "Hack";           };
