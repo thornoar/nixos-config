@@ -87,8 +87,6 @@
             xz
             unzip
             p7zip
-
-            # (haskellPackages.ghcWithPackages (hpkgs: [ hpkgs.optparse-applicative hpkgs.turtle ]))
         ];
         environment.localBinInPath = true;
 

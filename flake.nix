@@ -57,22 +57,5 @@
                 ./isoimage/configuration.nix
             ];
         };
-
-        packages.${system} = {
-            install = pkgs.writeShellApplication {
-                name = "install";
-                runtimeInputs = with pkgs; [ git ];
-                text = ''${./install.sh} "$@"'';
-            };
-            default = self.packages.${system}.install;
-        };
-
-        apps.${system} = {
-            install = {
-                type = "app";
-                program = "${self.packages.${system}.install}/bin/install";
-            };
-            default = self.apps.${system}.install;
-        };
     };
 }
