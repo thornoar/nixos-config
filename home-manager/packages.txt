@@ -39,7 +39,7 @@ goldendict-ng
 mpv
 zathura
 sxiv
-gource
+feh
 audacity
 xkb-switch
 libnotify
