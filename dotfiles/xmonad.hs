@@ -7,6 +7,7 @@ import System.Exit
 import XMonad.Actions.CycleWS
 import XMonad.Actions.WithAll (sinkAll, killAll, withAll)
 import XMonad.Actions.Minimize
+import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.Volume
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo
@@ -123,9 +124,7 @@ myStartupHook :: X ()
 myStartupHook = setWallpaperCmd
 
 myWorkspaces :: [String]
-myWorkspaces = ["fst", "snd", "aux"]
-myWorkspaceLength = length myWorkspaces
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..]
+myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]
 
 myFont :: String
 myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
@@ -359,6 +358,7 @@ myKeys = [
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
     ]
+    ++ [("M-M1-" ++ (show k), windows $ swapWithCurrent i) | (i,k) <- zip myWorkspaces [1..]]
     ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
     ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
 
@@ -383,7 +383,7 @@ myXmobarPP = def {
     ppHidden            = blue,
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
-    ppOrder             = \[ws, l, _, wins] -> [(unwords . (take myWorkspaceLength) . words) ws, wins],
+    ppOrder             = \ [ws, l, _, wins] -> [(unwords . (take $ length myWorkspaces) . words) ws, wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
