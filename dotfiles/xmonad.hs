@@ -16,12 +16,10 @@ import XMonad.Actions.GroupNavigation
 
 -- Data
 import Data.Char (isSpace, toUpper)
--- import Data.Maybe (fromJust)
--- import Data.Maybe (isJust)
 import qualified Data.Map as M
 import Data.List
 import Data.Ratio
-import Control.Monad (liftM2)
+-- import Control.Monad (liftM2)
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
@@ -50,9 +48,8 @@ import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.Magnifier as MG
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+-- import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.BoringWindows as BW
--- import qualified XMonad.Layout.ToggleLayouts as TL
 
 -- Prompts
 import XMonad.Prompt
@@ -65,7 +62,6 @@ import XMonad.Prompt.FuzzyMatch
 import Control.Arrow (first)
 
 -- Utilities
--- import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, remapKeysP)
 import XMonad.Util.NamedWindows
 import XMonad.Util.Loggers
@@ -282,6 +278,8 @@ myKeys = [
         shiftTo Prev nonNSP
         moveTo Prev nonNSP
     ),
+    ("M-M1-S-<Page_Down>", swapTo Next),
+    ("M-M1-S-<Page_Up>", swapTo Prev),
 
     -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
@@ -322,8 +320,8 @@ myKeys = [
     ("M-C-d", sendMessage $ Toggle REFLECTX),
     ("M-C-v", sendMessage $ Toggle REFLECTY),
     ("M-C-f", sendMessage MG.Toggle),
-    ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
-    ("M-C-<Page_Down>", withFocused $ windows . W.sink),
+    -- ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
+    -- ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
 
     -- Window resizing
