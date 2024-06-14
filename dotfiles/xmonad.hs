@@ -263,7 +263,7 @@ myKeys = [
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
 
     -- Type email
-    ("M-r", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
+    ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
 
     -- Workspaces
     ("M-<Page_Down>", moveTo Next nonNSP),
