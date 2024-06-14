@@ -48,7 +48,6 @@ import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.Magnifier as MG
--- import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.BoringWindows as BW
 
 -- Prompts
@@ -252,10 +251,9 @@ myKeys = [
         manPrompt myXPConfig
     ),
 
-    -- Kill windows
+    -- Kill stuff
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
     ("M-n", sequence_ [kill, BW.focusUp]),
-    ("M-S-<End>", killAllFloating),
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
@@ -286,7 +284,6 @@ myKeys = [
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
     ("M-s", namedScratchpadAction myScratchpads "System Monitor"),
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
-    -- ("M-g", namedScratchpadAction myScratchpads "GoldenDict"),
 
     -- Windows navigation
     ("M-<Down>", sendMessage $ Go D),
@@ -313,15 +310,12 @@ myKeys = [
     ("M-C-<Left>", withFocused minimizeWindow),
     ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
     ("M-C-p", setWallpaperCmd),
-    -- ("M-<Tab>", sendMessage $ TL.ToggleLayout),
-    -- ("M-<Tab>", sendMessage $ Toggle NBFULL),
-    ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
+    ("M-<Tab>", sendMessage $ Toggle NBFULL),
+    -- ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
     ("M-C-s", sendMessage $ Toggle MIRROR),
     ("M-C-d", sendMessage $ Toggle REFLECTX),
     ("M-C-v", sendMessage $ Toggle REFLECTY),
     ("M-C-f", sendMessage MG.Toggle),
-    -- ("M-C-<Page_Up>", sendMessage (T.Toggle "simplestFloat")),
-    -- ("M-C-<Page_Down>", withFocused $ windows . W.sink),
     ("M-C-t", sinkAll),
 
     -- Window resizing
@@ -333,9 +327,9 @@ myKeys = [
     ("M-C-l", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
 
     -- Keyboard Layouts
-    ("M-1", spawn "chlang us"),
-    ("M-2", spawn "chlang ru"),
-    ("M-3", spawn "chlang de"),
+    ("M-e", spawn "chlang us"),
+    ("M-r", spawn "chlang ru"),
+    ("M-g", spawn "chlang de"),
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),
@@ -381,7 +375,7 @@ myXmobarPP = def {
     ppHidden            = blue,
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
-    ppOrder             = \ [ws, l, _, wins] -> [(unwords . (take $ length myWorkspaces) . words) ws, wins],
+    ppOrder             = \ [ws, l, _, wins] -> [(unwords . init . words) ws, wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
@@ -399,12 +393,6 @@ myXmobarPP = def {
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
     concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
-
-    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
-    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
-
-    ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
@@ -434,9 +422,9 @@ defaults = def {
     workspaces          = myWorkspaces,
     layoutHook          =
         (minimize . BW.boringWindows)
-        $ maximizeWithPadding 0
+        -- $ maximizeWithPadding 0
         $ windowNavigation
-        -- $ mkToggle (single NBFULL)
+        $ mkToggle (single NBFULL)
         $ avoidStruts
         $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
         $ myLayout,
