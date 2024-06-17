@@ -595,7 +595,7 @@
 
         home.file.".local/bin/pshash" =
         let path = /home/ramak/projects/pshash/bin/pshash.nixos.x86_64;
-        in if (builtins.pathExists path) then { source = path; } else { text = "echo 'sorry, no pshash'"; };
+        in if (builtins.pathExists path) then { source = path; force = true; } else { text = "echo 'sorry, no pshash'"; };
 
         # keynav setup
         services.keynav.enable = true;
