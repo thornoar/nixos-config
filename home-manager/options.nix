@@ -7,6 +7,7 @@
         ts = builtins.toString;
     in
     {
+        usePackageList      = opt { type = tp.bool;     default = true;             };
         fontsize            = opt { type = tp.int;      };
         fontsizeBar         = opt { type = tp.int;      };
         wallpaperDir        = opt { type = tp.str;      };

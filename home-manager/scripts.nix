@@ -14,5 +14,3 @@
         (builtins.readFile filename)
     );
 }
-
-# [./scripts]

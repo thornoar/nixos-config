@@ -1,4 +1,4 @@
-{ config, pkgs, lib, pkgs-unstable, ... }:
+{ config, pkgs, firefox-pkgs, lib, pkgs-unstable, ... }:
 
 {
     imports = (
@@ -36,15 +36,6 @@
             BAT_THEME = "base16";
         };
 
-        home.file.".local/share/applications/inkview.desktop".text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=Inkview
-            Comment=View SVG files
-            Exec=inkview %U
-            Categories=Graphics;2DGraphics;
-            MimeType=image/svg+xml;
-        '';
         xdg.mimeApps = rec {
             enable = true;
             associations.added = {
@@ -60,28 +51,36 @@
 
         nixpkgs.config.allowUnfree = true;
 
-        home.packages = (lib.lists.forEach (lib.lists.partition (x: 0 < lib.strings.stringLength x) 
-		(lib.strings.splitString "\n" (builtins.readFile ./packages.txt))).right (name: pkgs.${name}))
-		++ (with pkgs; [
-			my-latex
-            asymptote
-			(python3.withPackages my-python-packages)
-            manim
-            ghc
-            lua
-            nodejs
-            julia
-		])
-        ++ (with pkgs-unstable; [
-            fzf
-            typst
-        ]);
+        home.packages = (
+            if config.usePackageList then (
+                lib.lists.forEach (
+                    lib.lists.partition
+                        (x: 0 < lib.strings.stringLength x) 
+                        (lib.strings.splitString "\n" (builtins.readFile ./packages.txt))
+                ).right (name: pkgs.${name})
+            ) else []
+		) ++ (
+            with pkgs; [
+                my-latex
+                asymptote
+                (python3.withPackages my-python-packages)
+                manim
+                ghc
+                lua
+                nodejs
+                julia
+            ]
+        ) ++ (
+            with pkgs-unstable; [
+                fzf
+                typst
+            ]
+        );
         # [./packages.txt]
 
         programs = {
             neovim = {
                 enable = true;
-                # package = pkgs.neovim-nightly;
             };
             zsh = {
                 enable = true;
@@ -103,56 +102,6 @@
                     vmstart = "sudo virsh start";
                     vmstop = "sudo virsh shutdown";
                 };    
-                initExtra = ''
-                    autoload -U colors && colors
-                    PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
-
-                    function preexec() {
-                        timer=$(($(date +%s%0N)/1000000))
-                    }
-
-                    function precmd() {
-                        echo -ne '\e[4 q'
-                        if [ $timer ]; then
-                        now=$(($(date +%s%0N)/1000000))
-                        elapsed=$(($now-$timer))
-                        export RPROMPT="< %{$fg[yellow]%}''${elapsed}ms%{$reset_color%}"
-                        unset timer
-                        fi
-                    }
-
-                    source $NIXOS_CONFIG/dotfiles/br.sh
-
-                    bindkey "^[[1;3D" backward-word 
-                    bindkey "^[[1;3C" forward-word
-
-                    typeset -U PATH path
-                    BINPATH="$PROJECTS"
-                    path+=("$BINPATH" "''${BINPATH}"/*/bin)
-                    export PATH
-
-                    eval "$(fzf --zsh)"
-                    bindkey "^[[1;5B" fzf-file-widget
-                    bindkey "^[[1;5C" fzf-cd-widget
-                    bindkey "^[[1;5A" fzf-history-widget
-                    export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-                    export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-                    _fzf_comprun() {
-                        local command=$1
-                        shift
-                        # ((((
-                        case "$command" in
-                            cd) fzf --preview "eza --tree --color=always {} | head -200" "$@" ;;
-                            export|unset) fzf --preview "eval 'echo \$'{}" "$@" ;;
-                            ssh) fzf --preview "dig {}" "$@" ;;
-                            *) fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
-                        esac
-                    }
-
-                    TIMEFMT=$'\n'\
-                    'time:          %U user %S system %P cpu %*E total'$'\n'\
-                    'max memory:    %M '$MAX_MEMORY_UNITS'MB'
-                '';
             };
             git = {
                 enable = true;
@@ -163,14 +112,42 @@
                 };
             };
             gh = { enable = true; };
+            firefox = {
+                enable = true;
+                profiles.default = {
+                    id = 0;
+                    name = "default";
+                    isDefault = true;
+                    settings = {
+                        "browser.startup.homepage" = "about:home";
+                        "browser.tabs.inTitlebar" = 0;
+                        "browser.toolbars.bookmarks.visibility" = "never";
+                        "browser.search.defaultenginename" = "Google";
+                        "browser.search.order.1" = "Google";
+                        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                        "signon.rememberSignons" = false;
+                        "media.hardware-video-decoding.enabled" = true;
+                    };
+                    extensions = with firefox-pkgs; [
+                        darkreader
+                        vimium
+                    ];
+                    search = {
+                        force = true;
+                        default = "Google";
+                        order = [ "Google" "Searx" ];
+                    };
+                };
+            };
+            home-manager = {
+                enable = true;
+            };
         };
 
         xresources.properties = {
             "Xcursor.size" = 16;
             "Xcursor.theme" = "Adwaita";
         };
-        home.stateVersion = "23.11";
-        programs.home-manager.enable = true;
 
         dconf.settings = {
             "org/virt-manager/virt-manager/connections" = {
@@ -187,5 +164,7 @@
                 package = pkgs.deepin.deepin-gtk-theme;
             };
         };
+
+        home.stateVersion = "23.11";
     };
 }

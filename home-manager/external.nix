@@ -1,10 +1,10 @@
-{ lib, pkgs, firefox-pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 
 {
     config = 
     let
         dotfile = str: lib.path.append ../dotfiles str;
-        project = str: lib.path.append /home/ramak/projects str;
+        # project = str: lib.path.append /home/ramak/projects str;
         ts = builtins.toString;
     in 
     {
@@ -152,84 +152,6 @@
             }
         '';
 
-        programs.alacritty = {
-            enable = true;
-            settings = {
-                colors.bright = {
-                    black = "${config.bgColor2}";
-                    blue = "${config.colorBlue1}";
-                    cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen1}";
-                    magenta = "${config.colorMagenta1}";
-                    red = "${config.colorRed1}";
-                    white = "${config.colorWhite1}";
-                    yellow = "${config.colorYellow1}";
-                };
-                colors.dim = {
-                    black = "${config.bgColor0}";
-                    blue = "${config.colorBlue1}";
-                    cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen1}";
-                    magenta = "${config.colorMagenta1}";
-                    red = "${config.colorRed1}";
-                    white = "${config.bgColor2}";
-                    yellow = "${config.colorYellow1}";
-                };
-                colors.normal = {
-                    black = "${config.bgColor0}";
-                    blue = "${config.colorBlue1}";
-                    cyan = "${config.colorCyan}";
-                    green = "${config.colorGreen1}";
-                    magenta = "${config.colorMagenta1}";
-                    red = "${config.colorRed1}";
-                    white = "${config.colorWhite0}";
-                    yellow = "${config.colorYellow1}";
-                };
-                colors.primary = {
-                    background = config.bgColor0;
-                    bright_foreground = config.brfgColor;
-                    foreground = config.fgColor;
-                };
-                cursor = {
-                    style = "Underline";
-                };
-                env = {
-                    COLORTERM = "truecolor";
-                    TERM = "xterm-256color";
-                };
-                font = {
-                    size = config.fontsize;
-                };
-                font.bold = {
-                    family = config.font;
-                    style = "Bold";
-                };
-                font.bold_italic = {
-                    family = config.font;
-                    style = "Bold Italic";
-                };
-                font.italic = {
-                    family = config.font;
-                    style = "Italic";
-                };
-                font.normal = {
-                    family = config.font;
-                    style = "Regular";
-                };
-                window.padding = {
-                    x = config.terminalPadding.x;
-                    y = config.terminalPadding.y;
-                };
-                window.opacity = config.terminalOpacity;
-                key_bindings = [
-                    { key = "PageUp"; action = "ScrollLineUp"; }
-                    { key = "PageDown"; action = "ScrollLineDown"; }
-                    { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
-                    { key = "PageDown"; mods = "Alt"; action = "ScrollPageDown"; }
-                ];
-            };
-        };
-
         xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
         xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
         xdg.configFile."broot/colorscheme.hjson".text = ''
@@ -368,153 +290,253 @@
             loop-file=inf
         '';
 
-        programs.firefox = {
+        # programs
+        programs.alacritty = {
             enable = true;
-            profiles = {
-                default = {
-                    id = 0;
-                    name = "default";
-                    isDefault = true;
-                    settings = {
-                        "browser.startup.homepage" = "about:home";
-                        "browser.tabs.inTitlebar" = 0;
-                        "browser.toolbars.bookmarks.visibility" = "never";
-                        "browser.search.defaultenginename" = "Google";
-                        "browser.search.order.1" = "Google";
-                        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                        "signon.rememberSignons" = false;
-                        "media.hardware-video-decoding.enabled" = true;
-                    };
-                    extensions = with firefox-pkgs; [
-                        darkreader
-                        vimium
-                    ];
-                    bookmarks = [
-                        {
-                            name = "yt | YouTube";
-                            url = "https://youtube.com";
-                            keyword = "yt";
-                        }
-                        {
-                            name = "st | Syncthing";
-                            url = "http://127.0.0.1:8384/";
-                            keyword = "st";
-                        }
-                        {
-                            name = "ym | YouTube Music";
-                            url = "https://music.youtube.com";
-                            keyword = "ym";
-                        }
-                        {
-                            name = "gh | GitHub";
-                            url = "https://github.com/thornoar?tab=repositories";
-                            keyword = "gh";
-                        }
-                        {
-                            name = "qw | Work Mail";
-                            url = "https://mail.google.com/mail/u/1/#inbox";
-                            keyword = "qw";
-                        }
-                        {
-                            name = "as | Personal Mail";
-                            url = "https://mail.google.com/mail/u/0/#inbox";
-                            keyword = "as";
-                        }
-                        {
-                            name = "mn | MyNixOS";
-                            url = "https://mynixos.com";
-                            keyword = "mn";
-                        }
-                        {
-                            name = "tr | RuTracker";
-                            url = "https://rutracker.org";
-                            keyword = "tr";
-                        }
-                        {
-                            name = "li | LibGen";
-                            url = "https://libgen.is";
-                            keyword = "li";
-                        }
-                        {
-                            name = "ni | Nixhub.io";
-                            url = "https://www.nixhub.io/";
-                            keyword = "ni";
-                        }
-                        {
-                            name = "lw | lesswrong.com";
-                            url = "https://www.lesswrong.com/";
-                            keyword = "lw";
-                        }
-                        {
-                            name = "see | english.stackexchange.com";
-                            url = "https://english.stackexchange.com/";
-                            keyword = "see";
-                        }
-                        {
-                            name = "sej | japanese.stackexchange.com";
-                            url = "https://japanese.stackexchange.com/";
-                            keyword = "sej";
-                        }
-                        {
-                            name = "su | superuser.com";
-                            url = "https://superuser.com/";
-                            keyword = "su";
-                        }
-                        {
-                            name = "sef | money.stackexchange.com";
-                            url = "https://money.stackexchange.com/";
-                            keyword = "sef";
-                        }
-                        {
-                            name = "ses | software.stackexchange.com";
-                            url = "https://softwareengineering.stackexchange.com/";
-                            keyword = "ses";
-                        }
-                        {
-                            name = "col | numbeo.com/cost-of-living";
-                            url = "https://www.numbeo.com/cost-of-living/";
-                            keyword = "col";
-                        }
-                        {
-                            name = "sd | sciencedaily.com";
-                            url = "https://www.sciencedaily.com/";
-                            keyword = "sd";
-                        }
-                    ];
-                    search = {
-                        force = true;
-                        default = "Google";
-                        order = [ "Google" "Searx" ];
-                    };
-                    userChrome = ''
-                        #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon{
-                        width: 0px !important;
-                        padding: 0px !important;
-                        }
-
-                        .titlebar-buttonbox-container{ display:none }
-
-                        #back-button, #forward-button { display:none!important; }
-
-                        #PanelUI-button { display:none!important; }
-
-                        #alltabs-button {
-                            display: none !important;
-                        }
-
-                        #navigator-toolbox { font-family:Hack !important }
-
-                        #urlbar ::-moz-selection,
-                        .searchbar-textbox ::-moz-selection {
-                        background-color: ${config.colorBlue1} !important;
-                        color: ${config.colorWhite2} !important;
-                        }
-                    '';
+            settings = {
+                colors.bright = {
+                    black = "${config.bgColor2}";
+                    blue = "${config.colorBlue1}";
+                    cyan = "${config.colorCyan}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
+                    red = "${config.colorRed1}";
+                    white = "${config.colorWhite1}";
+                    yellow = "${config.colorYellow1}";
                 };
+                colors.dim = {
+                    black = "${config.bgColor0}";
+                    blue = "${config.colorBlue1}";
+                    cyan = "${config.colorCyan}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
+                    red = "${config.colorRed1}";
+                    white = "${config.bgColor2}";
+                    yellow = "${config.colorYellow1}";
+                };
+                colors.normal = {
+                    black = "${config.bgColor0}";
+                    blue = "${config.colorBlue1}";
+                    cyan = "${config.colorCyan}";
+                    green = "${config.colorGreen1}";
+                    magenta = "${config.colorMagenta1}";
+                    red = "${config.colorRed1}";
+                    white = "${config.colorWhite0}";
+                    yellow = "${config.colorYellow1}";
+                };
+                colors.primary = {
+                    background = config.bgColor0;
+                    bright_foreground = config.brfgColor;
+                    foreground = config.fgColor;
+                };
+                cursor = {
+                    style = "Underline";
+                };
+                env = {
+                    COLORTERM = "truecolor";
+                    TERM = "xterm-256color";
+                };
+                font = {
+                    size = config.fontsize;
+                };
+                font.bold = {
+                    family = config.font;
+                    style = "Bold";
+                };
+                font.bold_italic = {
+                    family = config.font;
+                    style = "Bold Italic";
+                };
+                font.italic = {
+                    family = config.font;
+                    style = "Italic";
+                };
+                font.normal = {
+                    family = config.font;
+                    style = "Regular";
+                };
+                window.padding = {
+                    x = config.terminalPadding.x;
+                    y = config.terminalPadding.y;
+                };
+                window.opacity = config.terminalOpacity;
+                key_bindings = [
+                    { key = "PageUp"; action = "ScrollLineUp"; }
+                    { key = "PageDown"; action = "ScrollLineDown"; }
+                    { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
+                    { key = "PageDown"; mods = "Alt"; action = "ScrollPageDown"; }
+                ];
             };
         };
+        programs.firefox.profiles.default = {
+            bookmarks = [
+                {
+                    name = "yt | YouTube";
+                    url = "https://youtube.com";
+                    keyword = "yt";
+                }
+                {
+                    name = "st | Syncthing";
+                    url = "http://127.0.0.1:8384/";
+                    keyword = "st";
+                }
+                {
+                    name = "ym | YouTube Music";
+                    url = "https://music.youtube.com";
+                    keyword = "ym";
+                }
+                {
+                    name = "gh | GitHub";
+                    url = "https://github.com/thornoar?tab=repositories";
+                    keyword = "gh";
+                }
+                {
+                    name = "qw | Work Mail";
+                    url = "https://mail.google.com/mail/u/1/#inbox";
+                    keyword = "qw";
+                }
+                {
+                    name = "as | Personal Mail";
+                    url = "https://mail.google.com/mail/u/0/#inbox";
+                    keyword = "as";
+                }
+                {
+                    name = "mn | MyNixOS";
+                    url = "https://mynixos.com";
+                    keyword = "mn";
+                }
+                {
+                    name = "tr | RuTracker";
+                    url = "https://rutracker.org";
+                    keyword = "tr";
+                }
+                {
+                    name = "li | LibGen";
+                    url = "https://libgen.is";
+                    keyword = "li";
+                }
+                {
+                    name = "ni | Nixhub.io";
+                    url = "https://www.nixhub.io/";
+                    keyword = "ni";
+                }
+                {
+                    name = "lw | lesswrong.com";
+                    url = "https://www.lesswrong.com/";
+                    keyword = "lw";
+                }
+                {
+                    name = "see | english.stackexchange.com";
+                    url = "https://english.stackexchange.com/";
+                    keyword = "see";
+                }
+                {
+                    name = "sej | japanese.stackexchange.com";
+                    url = "https://japanese.stackexchange.com/";
+                    keyword = "sej";
+                }
+                {
+                    name = "su | superuser.com";
+                    url = "https://superuser.com/";
+                    keyword = "su";
+                }
+                {
+                    name = "sef | money.stackexchange.com";
+                    url = "https://money.stackexchange.com/";
+                    keyword = "sef";
+                }
+                {
+                    name = "ses | software.stackexchange.com";
+                    url = "https://softwareengineering.stackexchange.com/";
+                    keyword = "ses";
+                }
+                {
+                    name = "col | numbeo.com/cost-of-living";
+                    url = "https://www.numbeo.com/cost-of-living/";
+                    keyword = "col";
+                }
+                {
+                    name = "sd | sciencedaily.com";
+                    url = "https://www.sciencedaily.com/";
+                    keyword = "sd";
+                }
+            ];
+            userChrome = ''
+                #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
+                    width: 0px !important;
+                    padding: 0px !important;
+                }
 
-        # R setup
+                .titlebar-buttonbox-container{ display:none }
+
+                #back-button, #forward-button { display:none!important; }
+
+                #PanelUI-button { display:none!important; }
+
+                #alltabs-button {
+                    display: none !important;
+                }
+
+                #navigator-toolbox { font-family:Hack !important }
+
+                #urlbar ::-moz-selection,
+                .searchbar-textbox ::-moz-selection {
+                    background-color: ${config.colorBlue1} !important;
+                    color: ${config.colorWhite2} !important;
+                }
+            '';
+        };
+        programs.zsh.initExtra = ''
+            autoload -U colors && colors
+            PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+
+            function preexec() {
+                timer=$(($(date +%s%0N)/1000000))
+            }
+
+            function precmd() {
+                echo -ne '\e[4 q'
+                if [ $timer ]; then
+                now=$(($(date +%s%0N)/1000000))
+                elapsed=$(($now-$timer))
+                export RPROMPT="< %{$fg[yellow]%}''${elapsed}ms%{$reset_color%}"
+                unset timer
+                fi
+            }
+
+            source $NIXOS_CONFIG/dotfiles/br.sh
+
+            bindkey "^[[1;3D" backward-word 
+            bindkey "^[[1;3C" forward-word
+
+            typeset -U PATH path
+            BINPATH="$PROJECTS"
+            path+=("$BINPATH" "''${BINPATH}"/*/bin)
+            export PATH
+
+            eval "$(fzf --zsh)"
+            bindkey "^[[1;5B" fzf-file-widget
+            bindkey "^[[1;5C" fzf-cd-widget
+            bindkey "^[[1;5A" fzf-history-widget
+            export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+            export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+            _fzf_comprun() {
+                local command=$1
+                shift
+                # ((((
+                case "$command" in
+                    cd) fzf --preview "eza --tree --color=always {} | head -200" "$@" ;;
+                    export|unset) fzf --preview "eval 'echo \$'{}" "$@" ;;
+                    ssh) fzf --preview "dig {}" "$@" ;;
+                    *) fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+                esac
+            }
+
+            TIMEFMT=$'\n'\
+            'time:          %U user %S system %P cpu %*E total'$'\n'\
+            'max memory:    %M '$MAX_MEMORY_UNITS'MB'
+        '';
+
         home.file.".Rprofile".source = dotfile "Rprofile";
 
         # xmobar setup
@@ -525,6 +547,16 @@
 
         # mimeapps handling
         xdg.configFile."mimeapps.list".force = true;
+        # Inkview desktop file
+        home.file.".local/share/applications/inkview.desktop".text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=Inkview
+            Comment=View SVG files
+            Exec=inkview %U
+            Categories=Graphics;2DGraphics;
+            MimeType=image/svg+xml;
+        '';
 
         # typst libraries enabling
 
@@ -560,6 +592,10 @@
                 )
             )
         ) else {};
+
+        home.file.".local/bin/pshash" =
+        let path = /home/ramak/projects/pshash/bin/pshash.nixos.x86_64;
+        in if (builtins.pathExists path) then { source = path; } else { text = "echo 'sorry, no pshash'"; };
 
         # keynav setup
         services.keynav.enable = true;

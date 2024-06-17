@@ -2,8 +2,7 @@
 
 {
     imports = (
-        let
-            path = /home/ramak/projects/nixos-local-config/system-local.nix;
+        let path = /home/ramak/projects/nixos-local-config/system-local.nix;
         in if (builtins.pathExists path) then [ path ] else [ ./dotfiles/system-template.nix ]
     ) ++ [
         /etc/nixos/hardware-configuration.nix
@@ -166,11 +165,11 @@
             backend = "glx";
         };
 
-        services.syncthing = rec {
+        services.syncthing = {
             enable = true;
             user = "ramak";
-            dataDir = "/home/${user}/dls";
-            configDir = "/home/${user}/.config/syncthing";
+            dataDir = "/home/ramak/dls";
+            configDir = "/home/ramak/.config/syncthing";
         };
 
         fonts.packages = with pkgs; [
