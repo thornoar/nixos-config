@@ -116,7 +116,9 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myStartupHook :: X ()
-myStartupHook = setWallpaperCmd
+myStartupHook = do
+    setWallpaperCmd
+    spawn "nohup rm ~/.cache/nvim/server.pipe; nvim --listen ~/.cache/nvim/server.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]

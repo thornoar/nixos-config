@@ -87,25 +87,6 @@ require('lazy').setup({
 		},
 		build = ':TSUpdate',
 	},
-    -- {
-    --     'gen740/SmoothCursor.nvim',
-    --     config = function ()
-    --         require('smoothcursor').setup({
-    --             cursor = '>',
-    --             fancy = {
-    --                 enable = true,
-    --                 head = { cursor = '>', texthl = 'SmoothCursor' },
-    --                 body = {
-    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
-    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
-    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
-    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
-    --                     { cursor = '|', texthl = 'SmoothCursorGreen' },
-    --                 }
-    --             },
-    --         })
-    --     end
-    -- }
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -237,10 +218,10 @@ vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-z>', '<Esc>[s1z=A')
 vim.keymap.set('n', 'x', 'i')
 vim.keymap.set('n', 'X', 'I')
-vim.keymap.set('i', '<M-1>', '<C-o>:E<CR>')
-vim.keymap.set('i', '<M-2>', '<C-o>:R<CR>')
-vim.keymap.set('i', '<M-3>', '<C-o>:D<CR>')
-vim.keymap.set('i', '<M-4>', '<C-o>:J<CR>')
+vim.keymap.set('i', '<M-e>', '<C-o>:E<CR>')
+vim.keymap.set('i', '<M-r>', '<C-o>:R<CR>')
+vim.keymap.set('i', '<M-g>', '<C-o>:D<CR>')
+vim.keymap.set('i', '<M-j>', '<C-o>:J<CR>')
 -- $navigation keymaps
 vim.keymap.set('n', '<Up>', 'gk')
 vim.keymap.set('n', '<Down>', 'gj')
@@ -280,13 +261,20 @@ vim.keymap.set('n', '<C-M-i>', '<C-w>>')
 vim.keymap.set('n', '<C-M-u>', '<C-w><')
 vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
-vim.keymap.set('n', '<C-c>', function ()
-    local function is_no_name_buf(buf)
-        return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''
+-- vim.keymap.set('n', '<C-c>', function ()
+--     local function is_no_name_buf(buf)
+--         return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''
+--     end
+--     local buf = vim.api.nvim_win_get_buf(0)
+--     if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
+-- end)
+vim.keymap.set('n', '<C-c>', function()
+    for _, ui in pairs(vim.api.nvim_list_uis()) do
+        if ui.chan and not ui.stdout_tty then
+        vim.fn.chanclose(ui.chan)
+        end
     end
-    local buf = vim.api.nvim_win_get_buf(0)
-    if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
-end)
+end, { noremap = true })
 vim.keymap.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
 vim.keymap.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Filemanager\' -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
 vim.keymap.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
@@ -466,6 +454,7 @@ require('onedark').setup  {
 		background = true,
 	},
 }
+-- $ibl setup
 require('ibl').setup({
 	indent = {
 		char = '┊',
