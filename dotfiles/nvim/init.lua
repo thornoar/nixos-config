@@ -27,8 +27,6 @@ require('lazy').setup({
 	'nvim-lualine/lualine.nvim',
 	'numToStr/Comment.nvim',
 	'ap/vim-css-color',
-	-- 'junegunn/fzf',
-	-- 'junegunn/fzf.vim',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
     -- 'github/copilot.vim',
