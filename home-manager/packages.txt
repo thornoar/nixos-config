@@ -58,3 +58,4 @@ mangal
 gtypist
 pdf2svg
 tokei
+pstree

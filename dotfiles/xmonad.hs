@@ -265,8 +265,9 @@ myKeys = [
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
-    ("M-f", spawn (myTerminal ++ " --title 'Filemanager' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    -- ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvimserver; br'")),
+    ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e zsh -c 'br'")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
 
@@ -410,7 +411,7 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Filemanager") (return True)
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 
 main =
     xmonad $
