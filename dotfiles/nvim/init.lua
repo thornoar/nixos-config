@@ -261,13 +261,6 @@ vim.keymap.set('n', '<C-M-i>', '<C-w>>')
 vim.keymap.set('n', '<C-M-u>', '<C-w><')
 vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
--- vim.keymap.set('n', '<C-c>', function ()
---     local function is_no_name_buf(buf)
---         return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''
---     end
---     local buf = vim.api.nvim_win_get_buf(0)
---     if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
--- end)
 vim.keymap.set('n', '<C-c>', function()
     for _, ui in pairs(vim.api.nvim_list_uis()) do
         if ui.chan and not ui.stdout_tty then

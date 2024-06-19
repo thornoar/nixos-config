@@ -58,7 +58,7 @@
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:${PROJECTS}/LaTeX-libraries:$TEXINPUTS";
-            EDITOR = "nvim";
+            EDITOR = "nvimclient";
             VISUAL = "${EDITOR}";
             TERMINAL = "alacritty";
             HISTCONTROL = "ignoreboth";
@@ -71,6 +71,11 @@
             CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
             ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
+            # FREE_NVIM_SERVER_1="0";
+            # FREE_NVIM_SERVER_2="0";
+            # FREE_NVIM_SERVER_3="0";
+            # FREE_NVIM_SERVER_4="0";
+            # FREE_NVIM_SERVER_5="0";
         };
         environment.systemPackages = with pkgs; [
             home-manager

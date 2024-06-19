@@ -877,3 +877,13 @@ require("themery").setup({
     themeConfigFile = "dotfiles/nvim/nvimtrash.lua", -- Described below
     livePreview = true, -- Apply theme while browsing. Default to true.
 })
+
+
+
+vim.keymap.set('n', '<C-c>', function ()
+    local function is_no_name_buf(buf)
+        return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''
+    end
+    local buf = vim.api.nvim_win_get_buf(0)
+    if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
+end)
