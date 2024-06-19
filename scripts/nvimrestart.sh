@@ -8,7 +8,7 @@ for file in /run/user/1000/nvim.*.pipe; do
     pipelist+=("$file")
 done
 
-killall nvim
+nohup killall nvim > /dev/null 2>&1
 
 sleep 0.2
 

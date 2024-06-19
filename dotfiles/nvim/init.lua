@@ -20,6 +20,7 @@ require('lazy').setup({
     defaults = { lazy = true },
     'tpope/vim-rhubarb',
 	'tpope/vim-surround',
+	'tpope/vim-repeat',
     'sagarrakshe/toggle-bool',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
@@ -29,18 +30,20 @@ require('lazy').setup({
 	'ap/vim-css-color',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
+    'hjson/vim-hjson',
+	'dkarter/bullets.vim',
     -- 'github/copilot.vim',
     'mbbill/undotree',
+    { 'folke/which-key.nvim', opts = {} },
+    { 'akinsho/toggleterm.nvim', version = '*', config = true },
     {
-        "kdheepak/lazygit.nvim",
-        -- optional for floating window border decoration
+        'kdheepak/lazygit.nvim',
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
+            'nvim-lua/plenary.nvim',
         },
-        config = function()
-            require("telescope").load_extension("lazygit")
-        end,
+        keys = {
+            { '<M-g>', ':LazyGit<CR>', desc = 'LazyGit' }
+        },
     },
     {
         'kaarmu/typst.vim',
@@ -152,9 +155,9 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 local autosave = true
-vim.api.nvim_create_user_command("AS", function() 
+vim.api.nvim_create_user_command('AS', function() 
 	autosave = not autosave
-	print("autosave is " .. (autosave and "enabled" or "disabled"))
+	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
 end, {})
 local autosavepattern = { '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl', '*.yml' }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
@@ -266,8 +269,8 @@ km.set('n', '<C-c>', function()
         end
     end
 end, { noremap = true })
-km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL&') end)
-km.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Filemanager\' -e zsh -c \'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh\'&') end)
+km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
+km.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
 km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
 km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
@@ -299,16 +302,15 @@ km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<C-q>', telescope.builtin)
 km.set('n', '<C-x>', telescope.find_files)
 km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-S-g>', function () vim.cmd('LazyGit') end)
 km.set('n', '<C-b>', telescope.buffers)
 km.set('n', '<C-d>', telescope.oldfiles)
-local state = require("telescope.state")
-local action_state = require("telescope.actions.state")
+local state = require('telescope.state')
+local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
     local previewer = action_state.get_current_picker(prompt_bufnr).previewer
     local status = state.get_status(prompt_bufnr)
     -- Check if we actually have a previewer and a preview window
-    if type(previewer) ~= "table" or previewer.scroll_fn == nil or status.preview_win == nil then
+    if type(previewer) ~= 'table' or previewer.scroll_fn == nil or status.preview_win == nil then
         return
     end
     previewer:scroll_fn(1 * direction)
@@ -317,8 +319,8 @@ require('telescope').setup({
     defaults = {
         mappings = {
             i = {
-                ["<C-Down>"] = function(bufnr) slow_scroll(bufnr, 1) end,
-                ["<C-Up>"] = function(bufnr) slow_scroll(bufnr, -1) end,
+                ['<C-Down>'] = function(bufnr) slow_scroll(bufnr, 1) end,
+                ['<C-Up>'] = function(bufnr) slow_scroll(bufnr, -1) end,
             },
         },
     },
@@ -442,6 +444,23 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
+-- $toggleterm setup
+require('toggleterm').setup{
+    size = function(term)
+        if term.direction == 'horizontal' then
+            return 20
+        elseif term.direction == 'vertical' then
+            return vim.o.columns * 0.4
+        end
+    end,
+    open_mapping = [[<C-M-a>]],
+    hide_numbers = true,
+    autochdir = true,
+    terminal_mappings = true,
+    direction = 'float',
+    shell = vim.o.shell,
+    border = 'single'
+}
 -- $lualine setup
 local function keymap()
 	if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
@@ -545,24 +564,13 @@ vim.api.nvim_create_autocmd('VimLeave', {
 	callback = function () vim.opt.guicursor = { 'a:ver25' } end
 })
 
--- vim.g.haskell_classic_highlighting = 1
-
--- vim.g.vimtex_delim_timeout = 60
--- vim.g.vimtex_complete_enabled = 1
--- vim.g.vimtex_quickfix_enabled = 0
--- vim.g.vimtex_view_method = 'zathura'
--- vim.g.latex_view_general_viewer = 'zathura'
--- vim.g.vimtex_compiler_progname = 'nvr'
--- vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
--- vim.g.vimtex_mappings_prefix = '\\'
--- vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
-
+-- $UltiSnips setup
 vim.g.UltiSnipsExpandTrigger='<tab>'
 vim.g.UltiSnipsJumpForwardTrigger='<C-Right>'
 vim.g.UltiSnipsJumpBackwardTrigger='<C-Left>'
 vim.g.UltiSnipsEditSplit='horizontal'
 
--- $markdown settings
+-- $markdown setup
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
