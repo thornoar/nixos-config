@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 
-if [ -f "/run/user/1000/nvim.server.started" ]; then
+if [[ "$1" == "--restart" ]]; then
+    killall nvim
+    nohup rm /run/user/1000/nvim.server.started > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.1.pipe > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.2.pipe > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.3.pipe > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.4.pipe > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.5.pipe > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.1.occupied > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.2.occupied > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.3.occupied > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.4.occupied > /dev/null 2>&1
+    nohup rm /run/user/1000/nvim.server.5.occupied > /dev/null 2>&1
+elif [ -f "/run/user/1000/nvim.server.started" ]; then
     exit 0
 fi
 
