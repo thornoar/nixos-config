@@ -32,6 +32,17 @@ require('lazy').setup({
     -- 'github/copilot.vim',
     'mbbill/undotree',
     {
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        config = function()
+            require("telescope").load_extension("lazygit")
+        end,
+    },
+    {
         'kaarmu/typst.vim',
         ft = 'typst',
         lazy = false,
@@ -288,6 +299,7 @@ km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<C-q>', telescope.builtin)
 km.set('n', '<C-x>', telescope.find_files)
 km.set('n', '<C-g>', telescope.git_files)
+km.set('n', '<C-S-g>', function () vim.cmd('LazyGit') end)
 km.set('n', '<C-b>', telescope.buffers)
 km.set('n', '<C-d>', telescope.oldfiles)
 local state = require("telescope.state")
