@@ -132,7 +132,7 @@ verbs: [
     {
         key: shift-right
         apply_to: text_file
-        execution: "$EDITOR {line} {file}"
+        execution: "$EDITOR {file} -l {line}"
         leave_broot: false
     }
     {

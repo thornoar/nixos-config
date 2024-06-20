@@ -4,8 +4,8 @@ cd "$PROJECTS" || exit
 for dir in */
 do
     echo ""
-    printf "\e[34m> Entering %s...\e[0m\n" "$dir"
     cd "$dir" || exit
+    printf "\e[34m> Entered \e[35m%s\e[0m\n" "$dir"
     gitupd
     cd ..
 done

@@ -13,6 +13,6 @@ nohup killall nvim > /dev/null 2>&1
 sleep 0.2
 
 for pipe in "${pipelist[@]}"; do
-    nohup rm $pipe > /dev/null 2>&1
-    nohup nvim --listen $pipe --headless > /dev/null 2>&1 0< /dev/null &
+    nohup rm "$pipe" > /dev/null 2>&1
+    nohup nvim --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
 done
