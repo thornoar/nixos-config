@@ -539,7 +539,7 @@ local default_setup = function(server)
 end
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'pyright', 'luau_lsp', 'rnix', 'bashls', 'julials' },
+    ensure_installed = { 'pyright', 'bashls', 'julials' },
     handlers = {
         default_setup,
     },
