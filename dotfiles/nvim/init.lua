@@ -32,7 +32,10 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     'hjson/vim-hjson',
 	'dkarter/bullets.vim',
-    -- 'github/copilot.vim',
+    {
+        'github/copilot.vim',
+        cmd = 'Copilot'
+    },
     'mbbill/undotree',
     { 'akinsho/toggleterm.nvim', version = '*', config = true },
     {
@@ -168,7 +171,11 @@ local autosavepattern = { '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = autosavepattern,
 	callback = function()
-		if autosave then vim.cmd('silent write') end
+		if autosave and
+        not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
+        vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
+            vim.cmd('silent write')
+        end
 	end
 })
 
@@ -292,8 +299,8 @@ km.set('n', '<leader>ee', function ()
     ft = vim.bo.filetype
     vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
 end)
--- km.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
--- km.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
+km.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
+km.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
 km.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 
@@ -548,6 +555,7 @@ local cmp = require('cmp')
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'copilot', group_index = 2 },
     },
     mapping = cmp.mapping.preset.insert({
         -- Enter key confirms completion item

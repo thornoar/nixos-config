@@ -67,13 +67,13 @@
                 manim
                 ghc
                 lua
-                nodejs
                 julia
             ]
         ) ++ (
             with pkgs-unstable; [
                 fzf
                 typst
+                nodejs
             ]
         );
         # [./packages.txt]
