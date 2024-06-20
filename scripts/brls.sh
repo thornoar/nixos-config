@@ -3,4 +3,4 @@ height=""
 if [ -n "$1" ]; then
     height=" --height $1"
 fi
-broot --cmd ":pt"$height
+broot --cmd ":pt$height"

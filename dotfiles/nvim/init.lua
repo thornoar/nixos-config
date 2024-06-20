@@ -241,7 +241,6 @@ km.set('n', '<C-space>', 'yy<C-del>p')
 -- $insert keymaps
 km.set('i', '<C-Space>', ' ')
 km.set('i', '<C-x>', '<C-n>')
-km.set('i', '<C-d>', '<Esc>')
 km.set('i', '<M-a>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('n', 'x', 'i')
@@ -323,8 +322,8 @@ km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<C-q>', telescope.builtin)
 km.set('n', '<C-x>', telescope.find_files)
 km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-b>', telescope.buffers)
-km.set('n', '<C-d>', telescope.oldfiles)
+km.set('n', '<C-d>', telescope.buffers)
+km.set('n', '<C-o>', telescope.oldfiles)
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
@@ -564,9 +563,17 @@ cmp.setup({
         { name = 'bashls' },
     },
     mapping = cmp.mapping.preset.insert({
-        -- Enter key confirms completion item
-        ['<CR>'] = cmp.mapping.confirm({select = false}),
-        -- Ctrl + space triggers completion menu
+        ['<Down>'] = cmp.mapping(function (fallback)
+            cmp.close()
+            fallback()
+        end, { 'i' }),
+        ['<Up>'] = cmp.mapping(function (fallback)
+            cmp.close()
+            fallback()
+        end, { 'i' }),
+        ['<C-Down>'] = cmp.mapping.select_next_item({}),
+        ['<C-Up>'] = cmp.mapping.select_prev_item({}),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
     snippet = {

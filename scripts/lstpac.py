@@ -4,15 +4,13 @@ import argparse
 import subprocess
 import os
 import sys
-import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--simple", action = "store_true", help = "simply cat the package list file")
-parser.add_argument("-u", "--user", type = str, default = "ramak", help = "specify the user")
 args = parser.parse_args()
 
 if (args.simple):
-    os.system("cat $NIXOS_CONFIG/home-" + args.user + "/packages.txt")
+    os.system("cat $NIXOS_CONFIG/home-manager/packages.txt")
     sys.exit(0)
 
 def run_command (command):
@@ -20,7 +18,7 @@ def run_command (command):
     output = result.stdout.strip()
     return output
 
-pacfile = open(os.environ["NIXOS_CONFIG"] + "/home-" + args.user + "/packages.txt").readlines()
+pacfile = open(os.environ["NIXOS_CONFIG"] + "/home-manager/packages.txt").readlines()
 
 for package in pacfile:
     package = package.replace("\n", "")

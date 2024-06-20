@@ -93,6 +93,7 @@
                     music = "transmission-remote -w ~/media/music -a ";
                     la = "exa -lAh";
                     cla = "clear; ${la}";
+                    lbr = "clear; br";
                     open = "xdg-open";
                     close = "exit";
                     grep = "grep --color=auto";

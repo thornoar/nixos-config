@@ -8,20 +8,12 @@
 input="$1"
 line=""
 verbose=false
-while getopts "vi:l:" flag; do
-    case "$flag" in
-        v)
-            verbose=true
-        ;;
-        i)
-            input="$OPTARG"
-        ;;
-        l)
-            line="$OPTARG"
-        ;;
-        *)
-            printf "flag %s is unrecognized.\n" "$flag"
-        ;;
+while getopts "vi:l:" option; do
+    case "$option" in
+        v) verbose=true ;;
+        i) input="$OPTARG" ;;
+        l) line="$OPTARG" ;;
+        *) printf "\e[1;31merror:\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
     esac
 done
 
@@ -43,9 +35,9 @@ if [ "$verbose" = true ]; then
 fi
 
 if [ -n "$input" ]; then
-    nvim --server "/run/user/1000/nvim.$pid.pipe" --remote "$input"
+    nvim --server "/run/user/1000/nvim.$pid.pipe" --remote "$(readlink -f "$input")"
     if [ -n "$line" ]; then
-        nohup nvim --server "/run/user/1000/nvim.$pid.pipe" --remote-send ":silent $line<CR>" > /dev/null 2>&1 &
+        nohup nvim --server "/run/user/1000/nvim.$pid.pipe" --remote-send ":$line<CR>" > /dev/null 2>&1 &
     fi
 fi
 nvim --server "/run/user/1000/nvim.$pid.pipe" --remote-ui

@@ -9,7 +9,7 @@ while getopts "cp:h" option; do
         c) clip=0 ;;
         p) public="$OPTARG" ;;
         h) hidden=0 ;;
-        \?) printf "error: invalid option\n" ;;
+        *) printf "\e[1;31error:\e[0m Invalid option: %s\n" "$option"; exit 1 ;;
     esac
 done
 
