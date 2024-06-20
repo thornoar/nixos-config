@@ -60,3 +60,5 @@ pdf2svg
 tokei
 pstree
 lazygit
+cmake
+gnumake

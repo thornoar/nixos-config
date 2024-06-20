@@ -34,7 +34,6 @@ require('lazy').setup({
 	'dkarter/bullets.vim',
     -- 'github/copilot.vim',
     'mbbill/undotree',
-    { 'folke/which-key.nvim', opts = {} },
     { 'akinsho/toggleterm.nvim', version = '*', config = true },
     {
         'kdheepak/lazygit.nvim',
@@ -88,6 +87,12 @@ require('lazy').setup({
 		},
 		build = ':TSUpdate',
 	},
+    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'L3MON4D3/LuaSnip',
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -188,8 +193,8 @@ km.set('v', '<S-Left>', 'ygv<Esc>')
 km.set('n', '<S-Left>', 'yy')
 km.set({'n', 'v'}, '<S-Right>', 'p')
 km.set('i', '<S-Right>', '<esc>pa')
-km.set('n', '<M-CR>', 'md*ggn')
-km.set('n', '<M-]>', '\'d')
+-- km.set('n', '<M-CR>', 'md*ggn')
+-- km.set('n', '<M-]>', '\'d')
 km.set('v', '<C-S-Down>', ':m \'>+1<CR>gv=gv')
 km.set('v', '<C-S-Up>', ':m \'<-2<CR>gv=gv')
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -271,8 +276,8 @@ km.set('n', '<C-c>', function()
 end, { noremap = true })
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
 km.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'br\'&') end)
-km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-ramak/main.nix') end)
-km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
+km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
+km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
 km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
@@ -502,6 +507,60 @@ require('ibl').setup({
 	whitespace = {
 		remove_blankline_trail = true,
 	},
+})
+-- $lsp setup
+-- note: diagnostics are not exclusive to lsp servers
+-- so these can be global keybindings
+vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>') 
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        local opts = {buffer = event.buf}
+
+        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    end
+})
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local default_setup = function(server)
+    require('lspconfig')[server].setup({
+        capabilities = lsp_capabilities,
+    })
+end
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = { 'pyright', 'luau_lsp', 'rnix', 'bashls', 'julials' },
+    handlers = {
+        default_setup,
+    },
+})
+local cmp = require('cmp')
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+    },
+    mapping = cmp.mapping.preset.insert({
+        -- Enter key confirms completion item
+        ['<CR>'] = cmp.mapping.confirm({select = false}),
+
+        -- Ctrl + space triggers completion menu
+        ['<C-Space>'] = cmp.mapping.complete(),
+    }),
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
 })
 
 -- SETTINGS --

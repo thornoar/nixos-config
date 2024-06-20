@@ -47,6 +47,7 @@
 
         environment.variables = rec {
             NIXPKGS_ALLOW_UNFREE = "1";
+            NIXPKGS_ALLOW_BROKEN = "1";
             XDG_CONFIG_HOME = "$HOME/.config";
             XDG_DATA_HOME = "$HOME/.local/share";
             XDG_STATE_HOME = "$HOME/.local/state";
@@ -71,11 +72,6 @@
             CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv";
             XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose";
             ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
-            # FREE_NVIM_SERVER_1="0";
-            # FREE_NVIM_SERVER_2="0";
-            # FREE_NVIM_SERVER_3="0";
-            # FREE_NVIM_SERVER_4="0";
-            # FREE_NVIM_SERVER_5="0";
         };
         environment.systemPackages = with pkgs; [
             home-manager

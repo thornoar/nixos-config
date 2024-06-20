@@ -65,7 +65,9 @@
                 asymptote
                 (python3.withPackages my-python-packages)
                 manim
+                # haskellPackages.ghcup
                 ghc
+                cargo
                 lua
                 nodejs
                 julia
