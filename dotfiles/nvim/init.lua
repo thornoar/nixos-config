@@ -58,6 +58,10 @@ require('lazy').setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
+    {
         'altermo/ultimate-autopair.nvim',
         event = { 'InsertEnter','CmdlineEnter' },
         branch = 'v0.6',
@@ -256,8 +260,8 @@ km.set('i', '<M-j>', '<C-o>:J<CR>')
 -- $navigation keymaps
 km.set('n', '<Up>', 'gk')
 km.set('n', '<Down>', 'gj')
-km.set('i', '<Up>', '<C-o>gk')
-km.set('i', '<Down>', '<C-o>gj')
+-- km.set('i', '<Up>', '<C-o>gk')
+-- km.set('i', '<Down>', '<C-o>gj')
 km.set({'n', 'v'}, '<M-Up>', '5k')
 km.set('v', '<S-M-Up>', '5k')
 km.set({'n', 'v'}, '<M-Down>', '5j')
@@ -278,10 +282,10 @@ km.set('n', '<C-Left>', '<C-w>h')
 km.set('n', '<C-Down>', '<C-w>j')
 km.set('n', '<C-Up>', '<C-w>k')
 km.set('n', '<C-Right>', '<C-w>l')
-km.set('i', '<C-Left>', '<C-o><C-w>h')
-km.set('i', '<C-Down>', '<C-o><C-w>j')
-km.set('i', '<C-Up>', '<C-o><C-w>k')
-km.set('i', '<C-Right>', '<C-o><C-w>l')
+-- km.set('i', '<C-Left>', '<C-o><C-w>h')
+-- km.set('i', '<C-Down>', '<C-o><C-w>j')
+-- km.set('i', '<C-Up>', '<C-o><C-w>k')
+-- km.set('i', '<C-Right>', '<C-o><C-w>l')
 km.set('n', '<C-w><Left>', '<C-w>H')
 km.set('n', '<C-w><Right>', '<C-w>L')
 km.set('n', '<C-w><Up>', '<C-w>K')
@@ -328,6 +332,9 @@ km.set('n', '<C-x>', telescope.find_files)
 km.set('n', '<C-g>', telescope.git_files)
 km.set('n', '<C-d>', telescope.buffers)
 km.set('n', '<C-o>', telescope.oldfiles)
+km.set("n", "<leader>f", function()
+	require('telescope').extensions.file_browser.file_browser()
+end)
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
@@ -348,6 +355,20 @@ require('telescope').setup({
             },
         },
     },
+    extensions = {
+        file_browser = {
+            theme = 'ivy',
+            hijack_netrw = true,
+            mappings = {
+                ['i'] = {
+                    -- your custom insert mode mappings
+                },
+                ['n'] = {
+                    -- your custom normal mode mappings
+                },
+            },
+        },
+    }
 })
 
 -- REMAINDER --

@@ -1,0 +1,14 @@
+# Snippets for nix files
+
+snippet let "let binding"
+let
+	$1
+in
+	$0
+endsnippet
+
+snippet if~then~else "if-then-else clause"
+if ($1)
+then $2
+else $0
+endsnippet
