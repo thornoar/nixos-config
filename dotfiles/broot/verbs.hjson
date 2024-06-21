@@ -44,7 +44,7 @@ verbs: [
     {
         invocation: create {subpath}
         shortcut: cr
-        execution: "$EDITOR -i {directory}/{subpath}"
+        execution: "$EDITOR -f {directory}/{subpath}"
         leave_broot: false
     }
     {
@@ -116,7 +116,7 @@ verbs: [
         ]
         apply_to: file
         working_dir: "{root}"
-        execution: "$EDITOR -i {file}"
+        execution: "$EDITOR -f {file}"
         leave_broot: false
     }
     {
@@ -132,7 +132,7 @@ verbs: [
     {
         key: shift-right
         apply_to: text_file
-        execution: "$EDITOR -i {file} -l {line}"
+        execution: "$EDITOR -f {file} -l {line}"
         leave_broot: false
     }
     {

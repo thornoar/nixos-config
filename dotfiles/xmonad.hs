@@ -258,7 +258,7 @@ myKeys = [
 
     -- Quick Programs
     -- ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
-    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvimserver; br'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvimserver -b; br'")),
     ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e zsh -c 'br'")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),

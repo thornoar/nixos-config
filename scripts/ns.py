@@ -6,4 +6,4 @@ packages = ""
 for i in range(1, len(sys.argv)):
     packages += " nixpkgs#" + sys.argv[i]
 
-os.system("nix shell" + packages)
+os.system("nix shell --impure" + packages)
