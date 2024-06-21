@@ -116,15 +116,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myStartupHook :: X ()
-myStartupHook = do
-    setWallpaperCmd
-    spawn "nvimserver"
-    -- spawn "nohup killall nvim > /dev/null 2>&1 0< /dev/null &!"
-    -- spawn "nohup rm /tmp/nvim.server.1.pipe; nvim --listen /tmp/nvim.server.1.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
-    -- spawn "nohup rm /tmp/nvim.server.2.pipe; nvim --listen /tmp/nvim.server.2.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
-    -- spawn "nohup rm /tmp/nvim.server.3.pipe; nvim --listen /tmp/nvim.server.3.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
-    -- spawn "nohup rm /tmp/nvim.server.4.pipe; nvim --listen /tmp/nvim.server.4.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
-    -- spawn "nohup rm /tmp/nvim.server.5.pipe; nvim --listen /tmp/nvim.server.5.pipe --headless > /dev/null 2>&1 0< /dev/null &!"
+myStartupHook = setWallpaperCmd
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]

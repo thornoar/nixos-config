@@ -3,15 +3,27 @@
 verbose=false
 list=false
 restart=false
-while getopts "vlr" option; do
+clean=false
+while getopts "vlrc" option; do
     case "$option" in
     v) verbose=true ;;
     l) list=true ;;
     r) restart=true ;;
+    c) clean=true ;;
     *) printf "\e[1;31merror:\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
     esac
 done
 
+if [ "$clean" = true ]; then
+    nohup killall nvim > /dev/null 2>&1
+    sleep 0.2
+
+    for file in /run/user/1000/nvim.*.pipe; do
+        nohup rm "$file" > /dev/null 2>&1
+    done
+
+    exit 0
+fi
 if [ "$restart" = true ]; then
     if [ "$verbose" = true ]; then
         printf "\e[34m> Restarting neovim servers...\e[0m\n"
@@ -25,7 +37,6 @@ if [ "$restart" = true ]; then
     done
 
     nohup killall nvim > /dev/null 2>&1
-
     sleep 0.2
 
     for pipe in "${pipelist[@]}"; do

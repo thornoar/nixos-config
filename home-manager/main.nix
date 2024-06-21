@@ -68,6 +68,7 @@
                 ghc
                 lua
                 julia
+                cargo
             ]
         ) ++ (
             with pkgs-unstable; [

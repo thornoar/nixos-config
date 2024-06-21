@@ -105,6 +105,12 @@ require('lazy').setup({
             'L3MON4D3/LuaSnip',
         },
     },
+    {
+        "quangnguyen30192/cmp-nvim-ultisnips",
+        config = function()
+            require("cmp_nvim_ultisnips").setup({})
+        end,
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -120,8 +126,6 @@ local compilefunc = {
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
 	['tex'] = function (name) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
 	['typst'] = function (name) return ('') end,
-	-- ['tex'] = function (name) return ('!latexmk -g -pdf ' .. name) end,
-	-- ['tex'] = function (name) return ('VimtexCompile') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
 	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
@@ -551,16 +555,20 @@ local default_setup = function(server)
 end
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'pyright', 'bashls' },
+    ensure_installed = { 'pyright', 'bashls', 'rnix' },
     handlers = {
         default_setup,
     },
 })
+local luasnip = require('luasnip')
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'bashls' },
+        { name = 'pyright' },
+        { name = 'ultisnips' },
     },
     mapping = cmp.mapping.preset.insert({
         ['<Down>'] = cmp.mapping(function (fallback)
@@ -575,10 +583,25 @@ cmp.setup({
         ['<C-Up>'] = cmp.mapping.select_prev_item({}),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-Right>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+            end
+        end, { 'i', 's' }),
+        ['<C-Left>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                cmp_ultisnips_mappings.jump_backwards(fallback)
+            end
+        end, { 'i', 's' }),
     }),
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            -- luasnip.lsp_expand(args.body)
+            vim.fn["UltiSnips#Anon"](args.body)
         end,
     },
 })
@@ -644,9 +667,9 @@ vim.api.nvim_create_autocmd('VimLeave', {
 })
 
 -- $UltiSnips setup
-vim.g.UltiSnipsExpandTrigger='<tab>'
-vim.g.UltiSnipsJumpForwardTrigger='<C-Right>'
-vim.g.UltiSnipsJumpBackwardTrigger='<C-Left>'
+-- vim.g.UltiSnipsExpandTrigger='<C-Right>'
+-- vim.g.UltiSnipsJumpForwardTrigger='<C-Right>'
+-- vim.g.UltiSnipsJumpBackwardTrigger='<C-Left>'
 vim.g.UltiSnipsEditSplit='horizontal'
 
 -- $markdown setup
