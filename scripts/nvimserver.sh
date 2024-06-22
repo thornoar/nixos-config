@@ -14,17 +14,9 @@ while getopts "vlrcb" option; do
     esac
 done
 
-startdir="~"
-if [ -d "/home/ramak/projects/sandbox" ]; then
-    startdir="/home/ramak/projects/sandbox"
-elif [ -d "/run/user/1000" ]; then
-    startdir="/run/user/1000"
-fi
-
 function start {
     pipe="$1"
-    nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null &
-    nohup nvim "$startdir" --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
+    nohup nvim "$HOME" --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
     nohup nvim --server "$pipe" --remote-send ":bdelete<CR>" > /dev/null 2>&1 0< /dev/null &
     if [ "$verbose" = true ]; then
         printf "\e[34m> Created NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
@@ -56,6 +48,7 @@ if [ "$restart" = true ]; then
     sleep 0.5
 
     for pipe in "${pipelist[@]}"; do
+        nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null &
         if ps -p "$(echo "$pipe" | sed -r "s/.*\.([0-9]+)\..*/\1/g")" > /dev/null
         then
             start "$pipe"
@@ -80,4 +73,6 @@ if [ "$list" = true ]; then
     exit 0
 fi
 
-start "/run/user/1000/nvim.$PPID.pipe"
+pipe="/run/user/1000/nvim.$PPID.pipe"
+nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null &
+start "$pipe"

@@ -69,6 +69,8 @@
                 lua
                 julia
                 cargo
+                R
+                openjdk
             ]
         ) ++ (
             with pkgs-unstable; [

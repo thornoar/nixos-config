@@ -102,12 +102,18 @@ require('lazy').setup({
             'williamboman/mason-lspconfig.nvim',
             'hrsh7th/cmp-nvim-lsp',
         },
+        -- command = 'Lsp',
+        -- config = function ()
+        -- end
     },
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
             'L3MON4D3/LuaSnip',
         },
+        -- command = 'Lsp',
+        -- config = function ()
+        -- end
     },
     {
         "quangnguyen30192/cmp-nvim-ultisnips",
@@ -237,6 +243,7 @@ km.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
 km.set('n', '<leader>cw', ':%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/')
 km.set('n', 'cw', 'ciw')
 km.set('n', 'dw', 'diw')
+km.set('n', 'vw', 'viw')
 km.set({'v', 'x'}, '<leader>p', '\"_dP')
 km.set('n', '<leader>f', 'zf%')
 km.set('n', '<C-End>', 'k<S-v>jj<S-j>')
@@ -297,14 +304,26 @@ km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 -- $command keymaps
 km.set('n', '<C-c>', function()
-    for _, ui in pairs(vim.api.nvim_list_uis()) do
-        if ui.chan and not ui.stdout_tty then
-        vim.fn.chanclose(ui.chan)
+    if (#vim.api.nvim_list_wins() < 2) then
+        for _, ui in pairs(vim.api.nvim_list_uis()) do
+            if ui.chan and not ui.stdout_tty then
+            vim.fn.chanclose(ui.chan)
+            end
+        end
+    else
+        local function is_no_name_buf(buf)
+            return 
+        end
+        local buf = vim.api.nvim_win_get_buf(0)
+        if vim.bo[buf].readonly or (vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == '') then
+            vim.cmd('quit!')
+        else
+            vim.cmd('wq')
         end
     end
 end, { noremap = true })
-km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
-km.set('n', '<C-f>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'br\'&') end)
+km.set('n', '<C-M-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
+km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvimserver; br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
@@ -322,19 +341,22 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 
 -- $telescope keymaps
 local telescope = require('telescope.builtin')
-km.set('n', '<M-/>', telescope.live_grep)
+local utils = require('telescope.utils')
+km.set('n', '<M-?>', telescope.live_grep)
+km.set('n', '<M-/>', telescope.current_buffer_fuzzy_find)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<leader>j', telescope.jumplist)
 km.set('n', '<C-h>', telescope.help_tags)
 km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<C-q>', telescope.builtin)
-km.set('n', '<C-x>', telescope.find_files)
 km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-d>', telescope.buffers)
-km.set('n', '<C-o>', telescope.oldfiles)
-km.set("n", "<leader>f", function()
-	require('telescope').extensions.file_browser.file_browser()
-end)
+km.set('n', '<C-x>', telescope.buffers)
+km.set('n', '<C-d>', telescope.oldfiles)
+km.set('n', '<C-f>', function () telescope.find_files({ cwd = utils.buffer_dir() }) end)
+km.set('n', '<C-p>', function () telescope.find_files({ cwd = "~/projects" }) end)
+vim.api.nvim_create_user_command('Files', function ()
+    require('telescope').extensions.file_browser.file_browser()
+end, {})
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
@@ -346,6 +368,7 @@ local slow_scroll = function(prompt_bufnr, direction)
     end
     previewer:scroll_fn(1 * direction)
 end
+local fbactions = require('telescope._extensions.file_browser.actions')
 require('telescope').setup({
     defaults = {
         mappings = {
@@ -357,16 +380,66 @@ require('telescope').setup({
     },
     extensions = {
         file_browser = {
-            theme = 'ivy',
-            hijack_netrw = true,
-            mappings = {
-                ['i'] = {
-                    -- your custom insert mode mappings
-                },
-                ['n'] = {
-                    -- your custom normal mode mappings
-                },
-            },
+			theme = 'ivy',
+			path = vim.loop.cwd(),
+			cwd = vim.loop.cwd(),
+			cwd_to_path = true,
+			grouped = true,
+			files = true,
+			add_dirs = true,
+			depth = 1,
+			auto_depth = false,
+			select_buffer = false,
+			hidden = { file_browser = false, folder_browser = false },
+			respect_gitignore = vim.fn.executable 'fd' == 1,
+			no_ignore = false,
+			follow_symlinks = true,
+			browse_files = require('telescope._extensions.file_browser.finders').browse_files,
+			browse_folders = require('telescope._extensions.file_browser.finders').browse_folders,
+			hide_parent_dir = false,
+			collapse_dirs = false,
+			prompt_path = false,
+			quiet = false,
+			-- dir_icon = '',
+			dir_icon = 'D',
+			dir_icon_hl = 'Default',
+			display_stat = { date = true, size = true, mode = true },
+			hijack_netrw = true,
+			use_fd = true,
+			git_status = true,
+			mappings = {
+				['i'] = {
+					['<C-a>'] = fbactions.create,
+					['<S-CR>'] = fbactions.create_from_prompt,
+					['<C-r>'] = fbactions.rename,
+					['<C-x>'] = fbactions.move,
+					['<C-v>'] = fbactions.copy,
+					['<C-d>'] = fbactions.remove,
+					['<C-s>'] = fbactions.open,
+					['<C-w>'] = fbactions.goto_home_dir,
+					['<C-CR>'] = fbactions.goto_cwd,
+					['<C-e>'] = fbactions.change_cwd,
+					['<C-f>'] = fbactions.toggle_browser,
+					['<A-s>'] = fbactions.toggle_hidden,
+					['<A-a>'] = fbactions.toggle_all,
+					['<S-Left>'] = fbactions.goto_parent_dir,
+				},
+				['n'] = {
+					['a'] = fbactions.create,
+					['r'] = fbactions.rename,
+					['x'] = fbactions.move,
+					['c'] = fbactions.copy,
+					['d'] = fbactions.remove,
+					['s'] = fbactions.open,
+					['g'] = fbactions.goto_parent_dir,
+					['w'] = fbactions.goto_home_dir,
+					['<CR>'] = fbactions.goto_cwd,
+					['e'] = fbactions.change_cwd,
+					['f'] = fbactions.toggle_browser,
+					['h'] = fbactions.toggle_hidden,
+					['t'] = fbactions.toggle_all,
+				},
+			},
         },
     }
 })
@@ -498,7 +571,7 @@ require('toggleterm').setup{
             return vim.o.columns * 0.4
         end
     end,
-    open_mapping = [[<C-M-a>]],
+    open_mapping = [[<C-a>]],
     hide_numbers = true,
     autochdir = true,
     terminal_mappings = true,
@@ -555,7 +628,7 @@ km.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-        local opts = {buffer = event.buf}
+        local opts = { buffer = event.buf }
         km.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
         km.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
         km.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
@@ -571,9 +644,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local default_setup = function(server)
     require('lspconfig')[server].setup({
+        autostart = false,
         capabilities = lsp_capabilities,
     })
 end
+vim.api.nvim_create_user_command('LSP', 'LspStart', {})
+-- vim.api.nvim_create_autocmd('BufWinEnter', {
+--     command = 'LspStart'
+-- })
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = { 'pyright', 'bashls', 'rnix' },
