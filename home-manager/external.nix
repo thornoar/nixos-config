@@ -4,7 +4,6 @@
     config = 
     let
         dotfile = str: lib.path.append ../dotfiles str;
-        # project = str: lib.path.append /home/ramak/projects str;
         ts = builtins.toString;
     in 
     {
@@ -117,6 +116,35 @@
                 }
             end)
 
+            require('onedark').setup  {
+                style = 'darker',
+                colors = {
+                    bg0 = "${config.bgColor0}",
+                    bg1 = "${config.bgColor0}",
+                    bg2 = "${config.bgColor1}",
+                    bg3 = "${config.bgColor2}",
+                },
+                transparent = true,
+                term_colors = true,
+                ending_tildes = false,
+                cmp_itemkind_reverse = false,
+                toggle_style_key = '<leader>wt',
+                toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' },
+                code_style = {
+                    comments = 'italic',
+                    keywords = 'none',
+                    functions = 'none',
+                    strings = 'none',
+                    variables = 'none'
+                },
+                lualine = {
+                    transparent = false,
+                },
+                highlights = {},
+            }
+
+            vim.cmd.colorscheme 'onedark'
+
             local function keymap()
                 if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
                     return vim.b.keymap_name
@@ -147,12 +175,12 @@
                     section_separators = "",
                 },
                 sections = {
-                    lualine_a = {'mode'},
-                    lualine_b = {'branch', 'diff', 'diagnostics'},
-                    lualine_c = {'filename', keymap},
-                    lualine_x = {'filetype'},
-                    lualine_y = {'progress'},
-                    lualine_z = {'location'},
+                    lualine_a = { 'mode' },
+                    lualine_b = { 'branch', 'diff', 'diagnostics' },
+                    lualine_c = { 'filename', keymap },
+                    lualine_x = { 'filetype' },
+                    lualine_y = { 'progress' },
+                    lualine_z = { 'location' },
                 },
             }
         '';

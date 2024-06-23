@@ -26,13 +26,17 @@ require('lazy').setup({
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
 	'neovimhaskell/haskell-vim',
-	'nvim-lualine/lualine.nvim',
 	'numToStr/Comment.nvim',
 	'ap/vim-css-color',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
     'hjson/vim-hjson',
 	'dkarter/bullets.vim',
+    {
+        'nvim-lualine/lualine.nvim',
+        -- opts = function(_, opts)
+        -- end,
+    },
     {
         'github/copilot.vim',
         cmd = 'Copilot'
@@ -119,7 +123,11 @@ require('lazy').setup({
     { 'hrsh7th/cmp-path', },
     {
         'folke/trouble.nvim',
-        opts = {},
+        opts = {
+            preview = {
+                scratch = false
+            }
+        },
         cmd = 'Trouble',
         keys = {
             {
@@ -606,34 +614,6 @@ require('toggleterm').setup{
     border = 'single'
 }
 
--- $lualine
-require('onedark').setup  {
-	style = 'dark',
-	transparent = true,
-	term_colors = true,
-	ending_tildes = false,
-	cmp_itemkind_reverse = false,
-	toggle_style_key = '<leader>wt',
-	toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'},
-	code_style = {
-		comments = 'italic',
-		keywords = 'none',
-		functions = 'none',
-		strings = 'none',
-		variables = 'none'
-	},
-	lualine = {
-		transparent = false,
-	},
-	colors = {},
-	highlights = {},
-	diagnostics = {
-		darker = true,
-		undercurl = true,
-		background = true,
-	},
-}
-
 -- $ibl
 require('ibl').setup({
 	indent = {
@@ -646,9 +626,10 @@ require('ibl').setup({
 
 -- $lsp
 vim.diagnostic.config({
-    virtual_text = {
-        prefix = '>',
-    }
+    -- virtual_text = {
+    --     prefix = '>',
+    -- }
+    virtual_text = false
 })
 local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
 for name, icon in pairs(symbols) do
@@ -818,8 +799,6 @@ vim.g.UltiSnipsEditSplit='horizontal'
 -- $markdown setup
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
-
-vim.cmd.colorscheme 'onedark'
 
 vim.cmd( [[
     highlight Function guifg=burlywood
