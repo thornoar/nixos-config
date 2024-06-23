@@ -121,6 +121,8 @@ require('lazy').setup({
             require("cmp_nvim_ultisnips").setup({})
         end,
     },
+    { 'hrsh7th/cmp-buffer', },
+    { 'hrsh7th/cmp-path', },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -679,8 +681,8 @@ local cmp = require('cmp')
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'bashls' },
-        { name = 'pyright' },
+        { name = 'path' },
+        { name = 'buffer' },
         { name = 'ultisnips' },
     },
     mapping = cmp.mapping.preset.insert({

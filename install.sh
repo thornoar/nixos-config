@@ -19,7 +19,7 @@ git clone https://github.com/thornoar/nixos-config ~/projects/nixos-config || ex
 read -p -r "Specify the local configuration to install: " local
 
 printf "\e[34m> Cloning local config repository for device \e[35m%s\e[34m...\e[0m" "$local"
-git clone https://github.com/thornoar/nixos-$local-config ~/projects/nixos-local-config || exit 1
+git clone "https://github.com/thornoar/nixos-$local-config ~/projects/nixos-local-config" || exit 1
 
 printf "\e[34mNixOS setup is ready for use!\e[0m\n"
 printf "\e[34mCall \"sudo nixos-rebuild switch --impure --flake ~/projects/nixos-config#master\" to update the system.\e[0m\n"
