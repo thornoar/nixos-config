@@ -102,18 +102,12 @@ require('lazy').setup({
             'williamboman/mason-lspconfig.nvim',
             'hrsh7th/cmp-nvim-lsp',
         },
-        -- command = 'Lsp',
-        -- config = function ()
-        -- end
     },
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
             'L3MON4D3/LuaSnip',
         },
-        -- command = 'Lsp',
-        -- config = function ()
-        -- end
     },
     {
         "quangnguyen30192/cmp-nvim-ultisnips",
@@ -123,6 +117,33 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
+    {
+        'folke/trouble.nvim',
+        opts = {},
+        cmd = 'Trouble',
+        keys = {
+            {
+                '<leader>d',
+                '<cmd>Trouble diagnostics toggle focus=true<cr>',
+                desc = 'Diagnostics (Trouble)',
+            },
+            {
+                '<leader>D',
+                '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>',
+                desc = 'Buffer Diagnostics (Trouble)',
+            },
+            {
+                '<leader>s',
+                '<cmd>Trouble symbols toggle focus=false<cr>',
+                desc = 'Symbols (Trouble)',
+            },
+            {
+                '<leader>t',
+                '<cmd>Trouble telescope toggle<cr>',
+                desc = 'Telescope results',
+            },
+        },
+    }
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -304,6 +325,7 @@ km.set('n', '<C-M-l>', '<C-w>-')
 km.set('n', '<C-M-i>', '<C-w>>')
 km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
+km.set('n', '<C-M-w>', '<C-w>o')
 km.set('n', '<C-c>', function()
     if (#vim.api.nvim_list_wins() < 2) then
         for _, ui in pairs(vim.api.nvim_list_uis()) do
@@ -342,8 +364,14 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 -- $telescope
 local telescope = require('telescope.builtin')
 local utils = require('telescope.utils')
+km.set('n', '<M-/>', function()
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        previewer = false,
+        theme = 'ivy',
+    })
+end)
+km.set('n', '<C-M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
 km.set('n', '<M-?>', telescope.live_grep)
-km.set('n', '<M-/>', telescope.current_buffer_fuzzy_find)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<leader>j', telescope.jumplist)
 km.set('n', '<C-h>', telescope.help_tags)
@@ -375,6 +403,8 @@ require('telescope').setup({
             i = {
                 ['<C-Down>'] = function(bufnr) slow_scroll(bufnr, 1) end,
                 ['<C-Up>'] = function(bufnr) slow_scroll(bufnr, -1) end,
+                ['<M-Down>'] = require("trouble.sources.telescope").open,
+                ['<M-Right>'] = require("trouble.sources.telescope").add,
             },
         },
     },
@@ -525,7 +555,7 @@ require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = true,
 	ignore_install = {},
-	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java' },
+	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline' },
 	highlight = { enable = true },
 	indent = { enable = false },
 	incremental_selection = {
@@ -625,7 +655,7 @@ for name, icon in pairs(symbols) do
 	local hl = "DiagnosticSign" .. name
 	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
-km.set('n', '<leader>dq', function () vim.diagnostic.setqflist() end)
+-- km.set('n', '<leader>q', function () vim.diagnostic.setqflist() end)
 km.set('n', '[d', function () vim.diagnostic.goto_prev() end)
 km.set('n', ']d', function () vim.diagnostic.goto_next() end)
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -643,11 +673,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig.hls.setup({
-    autostart = false,
+    autostart = true,
     capabilities = lsp_capabilities,
 })
 lspconfig.lua_ls.setup({
-    autostart = false,
+    autostart = true,
     capabilities = lsp_capabilities,
     settings = {
         Lua = {
@@ -659,7 +689,7 @@ lspconfig.lua_ls.setup({
 })
 local default_setup = function(server)
     lspconfig[server].setup({
-        autostart = false,
+        autostart = true,
         capabilities = lsp_capabilities,
     })
 end
