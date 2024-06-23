@@ -117,6 +117,12 @@
                 }
             end)
 
+            local function keymap()
+                if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
+                    return vim.b.keymap_name
+                end
+                return 'en'
+            end
             require('lualine').setup{
                 options = {
                     icons_enabled = true,

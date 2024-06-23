@@ -4,7 +4,7 @@ local km = vim.keymap
 vim.g.mapleader = ';'
 km.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
 
--- INSTALL --
+-- $install
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system {
@@ -124,7 +124,7 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
--- COMMANDS --
+-- $commands
 local compilefunc = {
 	['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
 	['r'] = function (name) return ('!Rscript ' .. name) end,
@@ -144,7 +144,6 @@ local compilefunc = {
 local daemonfunc = {
     ['typst'] = function (name) return 'TypstWatch' end,
 }
-
 local compile = function (daemon, silent)
     return function ()
         local compilecmd = (daemon and daemonfunc or compilefunc)[vim.bo.filetype]
@@ -163,7 +162,7 @@ km.set({'n', 'i'}, '<C-M-s>', compile(true, false))
 
 local defaultoutputname = 'out'
 local view_output = function (args)
-    ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
+    local ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
     if not ext then ext = (args and args['args'] or 'pdf') end
     if not flags then flags = '' else flags = ' '..flags end
 	if io.open(vim.fn.expand('%:r')..'.'..ext, 'r') ~= nil then
@@ -186,18 +185,21 @@ vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {}
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
 vim.api.nvim_create_user_command('L', 'Lazy', {})
 
--- Autocommands
+-- $autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.md', '*.typ', '*.tex' },
 	command = 'setlocal spell! spelllang=en_us'
 })
-
 local autosave = true
-vim.api.nvim_create_user_command('AS', function() 
+vim.api.nvim_create_user_command('AS', function()
 	autosave = not autosave
 	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
 end, {})
-local autosavepattern = { '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt', '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh', '*.html', '*.css', '*.c', '*.jl', '*.yml' }
+local autosavepattern = {
+    '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
+    '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
+    '*.html', '*.css', '*.c', '*.jl', '*.yml'
+}
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = autosavepattern,
 	callback = function()
@@ -209,8 +211,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 	end
 })
 
--- KEYMAPS --
--- $text keymaps
+-- $keymaps:text
 km.set('n', 'w1', 'mL')
 km.set('n', 'w2', 'mN')
 km.set('n', 'w3', 'mM')
@@ -253,7 +254,8 @@ km.set('n', '<C-M-z>', ':UndotreeToggle<CR>')
 km.set('n', '<M-z>', '<C-r>')
 km.set('n', 'daa', 'F,dt)')
 km.set('n', '<C-space>', 'yy<C-del>p')
--- $insert keymaps
+
+-- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
 km.set('i', '<C-x>', '<C-n>')
 km.set('i', '<M-a>', '<C-o>$;')
@@ -264,7 +266,8 @@ km.set('i', '<M-e>', '<C-o>:E<CR>')
 km.set('i', '<M-r>', '<C-o>:R<CR>')
 km.set('i', '<M-g>', '<C-o>:D<CR>')
 km.set('i', '<M-j>', '<C-o>:J<CR>')
--- $navigation keymaps
+
+-- $keymaps:navigation
 km.set('n', '<Up>', 'gk')
 km.set('n', '<Down>', 'gj')
 -- km.set('i', '<Up>', '<C-o>gk')
@@ -281,18 +284,15 @@ km.set('i', '<M-left>', '<C-o>5h')
 km.set('i', '<M-right>', '<C-o>5l')
 km.set({'n', 'v'}, '<M-a>', '%')
 km.set('n', 'n', 'nzz')
-km.set('n', 'N', 'Nzz')   
+km.set('n', 'N', 'Nzz')
 km.set('n', '<C-M-left>', '<C-^>')
 km.set('n', '<C-M-right>', 'gf')
--- $window keymaps
+
+-- $keymaps:window
 km.set('n', '<C-Left>', '<C-w>h')
 km.set('n', '<C-Down>', '<C-w>j')
 km.set('n', '<C-Up>', '<C-w>k')
 km.set('n', '<C-Right>', '<C-w>l')
--- km.set('i', '<C-Left>', '<C-o><C-w>h')
--- km.set('i', '<C-Down>', '<C-o><C-w>j')
--- km.set('i', '<C-Up>', '<C-o><C-w>k')
--- km.set('i', '<C-Right>', '<C-o><C-w>l')
 km.set('n', '<C-w><Left>', '<C-w>H')
 km.set('n', '<C-w><Right>', '<C-w>L')
 km.set('n', '<C-w><Up>', '<C-w>K')
@@ -302,7 +302,6 @@ km.set('n', '<C-M-l>', '<C-w>-')
 km.set('n', '<C-M-i>', '<C-w>>')
 km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
--- $command keymaps
 km.set('n', '<C-c>', function()
     if (#vim.api.nvim_list_wins() < 2) then
         for _, ui in pairs(vim.api.nvim_list_uis()) do
@@ -311,9 +310,6 @@ km.set('n', '<C-c>', function()
             end
         end
     else
-        local function is_no_name_buf(buf)
-            return 
-        end
         local buf = vim.api.nvim_win_get_buf(0)
         if vim.bo[buf].readonly or (vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == '') then
             vim.cmd('quit!')
@@ -322,6 +318,8 @@ km.set('n', '<C-c>', function()
         end
     end
 end, { noremap = true })
+
+-- $keymaps:command
 km.set('n', '<C-M-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
 km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvimserver; br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
@@ -331,7 +329,7 @@ km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim
 km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
 km.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
 km.set('n', '<leader>ee', function ()
-    ft = vim.bo.filetype
+    local ft = vim.bo.filetype
     vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
 end)
 km.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
@@ -339,7 +337,7 @@ km.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
 km.set('n', 'Z', function () vim.cmd('ToggleBool') end)
 km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
 
--- $telescope keymaps
+-- $telescope
 local telescope = require('telescope.builtin')
 local utils = require('telescope.utils')
 km.set('n', '<M-?>', telescope.live_grep)
@@ -444,8 +442,7 @@ require('telescope').setup({
     }
 })
 
--- REMAINDER --
--- $Comment setup
+-- $comment
 require('Comment').setup({
     padding = true,
     sticky = true,
@@ -472,10 +469,11 @@ require('Comment').setup({
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
 ft.set('hjson', { '#%s' })
--- $gitsigns setup
+
+-- $gitsigns
 require('gitsigns').setup {
     numhl = true,
-    current_line_blame = true,
+    current_line_blame = false,
     current_line_blame_opts = {
         delay = 1000,
         ignore_whitespace = true,
@@ -490,7 +488,6 @@ require('gitsigns').setup {
             km.set(mode, l, r, opts)
         end
 
-        -- Navigation
         map('n', ']c', function ()
             if vim.wo.diff then
                 vim.cmd.normal({']c', bang = true})
@@ -498,7 +495,6 @@ require('gitsigns').setup {
                 gitsigns.next_hunk()
             end
         end)
-
         map('n', '[c', function ()
             if vim.wo.diff then
                 vim.cmd.normal({'[c', bang = true})
@@ -506,8 +502,6 @@ require('gitsigns').setup {
                 gitsigns.prev_hunk()
             end
         end)
-
-        -- Actions
         map('n', '<leader>hs', gitsigns.stage_hunk)
         map('n', '<leader>hr', gitsigns.reset_hunk)
         map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
@@ -520,12 +514,11 @@ require('gitsigns').setup {
         map('n', '<leader>hd', gitsigns.diffthis)
         map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
         map('n', '<leader>td', gitsigns.toggle_deleted)
-
-        -- Text object
-        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end,
 }
--- $treesitter setup
+
+-- $treesitter
 require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = true,
@@ -536,9 +529,9 @@ require('nvim-treesitter.configs').setup {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = '<c-space>',
-			node_incremental = '<c-space>',
-			scope_incremental = '<c-s>',
+			init_selection = '<C-space>',
+			node_incremental = '<C-space>',
+			scope_incremental = '<C-s>',
 			node_decremental = '<M-space>',
 		},
 	},
@@ -556,13 +549,14 @@ require('nvim-treesitter.configs').setup {
             selection_modes = {
                 ['@parameter.outer'] = 'v', -- charwise
                 ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
+                ['@class.outer'] = '<C-v>', -- blockwise
             },
             include_surrounding_whitespace = false,
         },
     },
 }
--- $toggleterm setup
+
+-- $toggleterm
 require('toggleterm').setup{
     size = function(term)
         if term.direction == 'horizontal' then
@@ -579,13 +573,8 @@ require('toggleterm').setup{
     shell = vim.o.shell,
     border = 'single'
 }
--- $lualine setup
-local function keymap()
-	if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
-		return vim.b.keymap_name
-	end
-	return 'en'
-end
+
+-- $lualine
 require('onedark').setup  {
 	style = 'dark',
 	transparent = true,
@@ -612,7 +601,8 @@ require('onedark').setup  {
 		background = true,
 	},
 }
--- $ibl setup
+
+-- $ibl
 require('ibl').setup({
 	indent = {
 		char = '┊',
@@ -621,34 +611,58 @@ require('ibl').setup({
 		remove_blankline_trail = true,
 	},
 })
--- $lsp setup
-km.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-km.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-km.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>') 
+
+-- $lsp
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = '>',
+    }
+})
+local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
+for name, icon in pairs(symbols) do
+	local hl = "DiagnosticSign" .. name
+	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+end
+km.set('n', '<leader>dq', function () vim.diagnostic.setqflist() end)
+km.set('n', '[d', function () vim.diagnostic.goto_prev() end)
+km.set('n', ']d', function () vim.diagnostic.goto_next() end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        km.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-        km.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-        km.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-        km.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-        km.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-        km.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-        km.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        km.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        km.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        km.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        km.set('n', 'K', function () vim.lsp.buf.hover() end, opts)
+        km.set('n', '<M-CR>', function () vim.lsp.buf.definition() end, opts)
+        km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        km.set('n', '<leader>cw', function () vim.lsp.buf.rename() end, opts)
+        km.set({ 'n', 'x' }, '<F3>', function () vim.lsp.buf.format({ async = true }) end, opts)
+        km.set('n', '<F4>', function () vim.lsp.buf.code_action() end, opts)
     end
 })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lspconfig = require('lspconfig')
+lspconfig.hls.setup({
+    autostart = false,
+    capabilities = lsp_capabilities,
+})
+lspconfig.lua_ls.setup({
+    autostart = false,
+    capabilities = lsp_capabilities,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+})
 local default_setup = function(server)
-    require('lspconfig')[server].setup({
+    lspconfig[server].setup({
         autostart = false,
         capabilities = lsp_capabilities,
     })
 end
-vim.api.nvim_create_user_command('LSP', 'LspStart', {})
+vim.api.nvim_create_user_command('LA', 'LspStart', {})
+vim.api.nvim_create_user_command('LD', 'LspStop', {})
 -- vim.api.nvim_create_autocmd('BufWinEnter', {
 --     command = 'LspStart'
 -- })
@@ -705,8 +719,7 @@ cmp.setup({
     },
 })
 
--- SETTINGS --
-
+-- $settings
 vim.o.swapfile = false
 vim.o.wrap = true
 vim.o.linebreak = true
@@ -740,16 +753,15 @@ vim.o.shiftwidth = 4
 vim.o.clipboard = 'unnamedplus'
 vim.o.undofile = true
 vim.o.cursorline = false
+vim.g.neovide_transparency = 0.9
 
 vim.cmd([[
-let tex_flavor="latex"
-set shiftwidth=4 smarttab
-let g:omni_sql_no_default_maps = 1
-autocmd BufEnter * set formatoptions-=cro
-autocmd BufEnter * setlocal formatoptions-=cro
+    let tex_flavor="latex"
+    set shiftwidth=4 smarttab
+    let g:omni_sql_no_default_maps = 1
+    autocmd BufEnter * set formatoptions-=cro
+    autocmd BufEnter * setlocal formatoptions-=cro
 ]])
-
-vim.g.neovide_transparency = 0.9
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -777,8 +789,7 @@ vim.o.vim_markdown_folding_style_pythonic = 1
 
 vim.cmd.colorscheme 'onedark'
 
-vim.cmd(
-[[
+vim.cmd( [[
     highlight Function guifg=burlywood
     highlight Number guifg=lightsteelblue
     highlight Include guifg=orchid

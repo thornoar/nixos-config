@@ -66,7 +66,9 @@
                 (python3.withPackages my-python-packages)
                 manim
                 ghc
+                haskell-language-server
                 lua
+                lua-language-server
                 julia
                 cargo
                 R

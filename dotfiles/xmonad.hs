@@ -98,7 +98,7 @@ tabs = named "Tabbed"
 myLayout = grid ||| tallAccordion ||| accordion ||| tabs ||| Full
 
 ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
-ffmap f ma mb = ma >>= (\x -> (fmap (f x)) mb)
+ffmap f ma mb = ma >>= (\x -> fmap (f x) mb)
 
 myTerminal :: String
 myTerminal = "$TERMINAL"
@@ -212,7 +212,7 @@ myXPConfig = def {
         sorter              = fuzzySort,
         autoComplete        = Nothing,
         showCompletionOnTab = False,
-        defaultPrompter     = id $ map toUpper,
+        defaultPrompter     = map toUpper,
         alwaysHighlight     = True,
         maxComplRows        = Just 5
     }
@@ -237,7 +237,7 @@ myScratchpads =
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
 killAllFloating :: X ()
-killAllFloating = ifWindows (className =? "Floating") (sequence_ . map killWindow) (return ())
+killAllFloating = ifWindows (className =? "Floating") (mapM_ killWindow) (return ())
 
 myKeys :: [(String, X ())]
 myKeys = [
@@ -257,7 +257,6 @@ myKeys = [
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
-    -- ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")),
     ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvimserver; br'")),
     ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e zsh -c 'br'")),
     ("M-b", spawn myBrowser),
