@@ -257,8 +257,8 @@ myKeys = [
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvimserver; br'")),
-    ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e zsh -c 'br'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvim-server; br'")),
+    ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e br")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
 

@@ -16,18 +16,24 @@ done
 
 function start {
     pipe="$1"
-    nohup nvim "$HOME" --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
-    nohup nvim --server "$pipe" --remote-send ":bdelete<CR>" > /dev/null 2>&1 0< /dev/null &
+    nohup nvim --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
+    # nohup nvim --server "$pipe" --remote-send ":silent bdelete<CR>" > /dev/null 2>&1 0< /dev/null
     if [ "$verbose" = true ]; then
         printf "\e[34m> Created NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
     fi
 }
 
+function stop {
+    pipe="$1"
+    nohup nvim --server "$pipe" --remote-send ":wqa<CR>" > /dev/null 2>&1 0< /dev/null
+    nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null
+}
+
 if [ "$clean" = true ]; then
-    nohup killall nvim > /dev/null 2>&1
-    sleep 0.5
-    for file in /run/user/1000/nvim.*.pipe; do
-        nohup rm "$file" > /dev/null 2>&1
+    # nohup killall nvim > /dev/null 2>&1
+    # sleep 0.5
+    for pipe in /run/user/1000/nvim.*.pipe; do
+        stop "$pipe"
     done
     exit 0
 fi
@@ -44,11 +50,26 @@ if [ "$restart" = true ]; then
         fi
     done
 
-    nohup killall nvim > /dev/null 2>&1
+    if [ "$verbose" = true ]; then
+        printf "\e[34m> Stopping NVIM servers at the following pipes:\e[0m\n"
+        # for pipe in "${pipelist[@]}"; do
+        #     printf "  %s\n" "$pipe"
+        # done
+    fi
+
+    for pipe in "${pipelist[@]}"; do
+        stop "$pipe"
+        if [ "$verbose" = true ]; then
+            printf "  \e[35m%s\e[0m\n" "$pipe"
+        fi
+    done
+
+    if [ "$verbose" = true ]; then
+        printf "\e[34m> Waiting...\e[0m\n"
+    fi
     sleep 0.5
 
     for pipe in "${pipelist[@]}"; do
-        nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null &
         if ps -p "$(echo "$pipe" | sed -r "s/.*\.([0-9]+)\..*/\1/g")" > /dev/null
         then
             start "$pipe"

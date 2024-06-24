@@ -117,12 +117,12 @@
             end)
 
             require('onedark').setup  {
-                style = 'darker',
+                style = 'dark',
                 colors = {
                     bg0 = "${config.bgColor0}",
-                    bg1 = "${config.bgColor0}",
-                    bg2 = "${config.bgColor1}",
-                    bg3 = "${config.bgColor2}",
+                    bg1 = "${config.bgColor1}",
+                    bg2 = "${config.bgColor2}",
+                    bg3 = "${config.bgColor3}",
                 },
                 transparent = true,
                 term_colors = true,
@@ -144,6 +144,16 @@
             }
 
             vim.cmd.colorscheme 'onedark'
+
+            vim.cmd( [[
+                highlight Function guifg=burlywood
+                highlight Number guifg=lightsteelblue
+                highlight Include guifg=orchid
+                highlight Type guifg=lightseagreen
+                highlight Constant guifg=palevioletred gui=italic cterm=italic
+                highlight Operator guifg=aquamarine
+                highlight Keyword guifg=plum
+            ]])
 
             local function keymap()
                 if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
@@ -190,7 +200,7 @@
         xdg.configFile."broot/colorscheme.hjson".text = ''
             skin: {
                 default: "${config.colorWhite3} None / ${config.colorWhite4} None"
-                tree: "${config.bgColor2} None / ${config.bgColor1} None"
+                tree: "${config.bgColor3} None / ${config.bgColor2} None"
                 parent: "${config.colorYellow0} None / ${config.colorYellow1} None"
                 file: "None None / None  None Italic"
                 directory: "${config.colorBlue1} None Bold / ${config.colorBlue1} None"
@@ -328,7 +338,7 @@
             enable = true;
             settings = {
                 colors.bright = {
-                    black = "${config.bgColor2}";
+                    black = "${config.bgColor3}";
                     blue = "${config.colorBlue1}";
                     cyan = "${config.colorCyan}";
                     green = "${config.colorGreen1}";
@@ -344,7 +354,7 @@
                     green = "${config.colorGreen1}";
                     magenta = "${config.colorMagenta1}";
                     red = "${config.colorRed1}";
-                    white = "${config.bgColor2}";
+                    white = "${config.bgColor3}";
                     yellow = "${config.colorYellow1}";
                 };
                 colors.normal = {

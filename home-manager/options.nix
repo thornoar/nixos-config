@@ -25,8 +25,9 @@
         font                = opt { type = tp.str;      default = "Hack";           };
 
         bgColor0            = opt { type = tp.str;      default = "#0b0c0d";        };
-        bgColor1            = opt { type = tp.str;      default = "#2c3037";        };
-        bgColor2            = opt { type = tp.str;      default = "#43565c";        };
+        bgColor1            = opt { type = tp.str;      default = "#141516";        };
+        bgColor2            = opt { type = tp.str;      default = "#262728";        };
+        bgColor3            = opt { type = tp.str;      default = "#4d4e4f";        };
         fgColor             = opt { type = tp.str;      default = "#17a88b";        };
         brfgColor           = opt { type = tp.str;      default = "#00bc96";        };
 

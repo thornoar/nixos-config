@@ -272,7 +272,7 @@ km.set('v', '<S-Down>', '<Down>')
 km.set('n', '<S-Down>', '<S-v>j')
 km.set('n', '<S-Up>', '<S-v>k')
 km.set('v', '<leader>a', ':s/\\d\\+/\\=(submatch(0)+1)/g')
-km.set('n', '<leader>cw', ':%s/\\w\\@<!\\<<C-r><C-w>\\>\\w\\@!/')
+km.set('n', '<leader>cw', ':%s/\\<<C-r><C-w>\\>/')
 km.set('n', 'cw', 'ciw')
 km.set('n', 'dw', 'diw')
 km.set('n', 'vw', 'viw')
@@ -353,7 +353,7 @@ end, { noremap = true })
 
 -- $keymaps:command
 km.set('n', '<C-M-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
-km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvimserver; br\'&') end)
+km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
@@ -372,22 +372,17 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 -- $telescope
 local telescope = require('telescope.builtin')
 local utils = require('telescope.utils')
-km.set('n', '<M-/>', function()
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        previewer = false,
-        theme = 'ivy',
-    })
-end)
-km.set('n', '<C-M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
+km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
 km.set('n', '<M-?>', telescope.live_grep)
+km.set('n', '<C-_>', telescope.search_history)
+km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<leader>j', telescope.jumplist)
 km.set('n', '<C-h>', telescope.help_tags)
-km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<C-q>', telescope.builtin)
 km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-x>', telescope.buffers)
 km.set('n', '<C-d>', telescope.oldfiles)
+km.set('n', '<C-x>', function () telescope.buffers({ previewer = false }) end)
 km.set('n', '<C-f>', function () telescope.find_files({ cwd = utils.buffer_dir() }) end)
 km.set('n', '<C-p>', function () telescope.find_files({ cwd = "~/projects" }) end)
 vim.api.nvim_create_user_command('Files', function ()
@@ -643,10 +638,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
+        -- km.set('n', '<M-CR>', function () vim.lsp.buf.definition() end, opts)
+        -- km.set('n', '<leader>cw', function () vim.lsp.buf.rename() end, opts)
         km.set('n', 'K', function () vim.lsp.buf.hover() end, opts)
-        km.set('n', '<M-CR>', function () vim.lsp.buf.definition() end, opts)
         km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
-        km.set('n', '<leader>cw', function () vim.lsp.buf.rename() end, opts)
         km.set({ 'n', 'x' }, '<F3>', function () vim.lsp.buf.format({ async = true }) end, opts)
         km.set('n', '<F4>', function () vim.lsp.buf.code_action() end, opts)
     end
@@ -799,16 +794,6 @@ vim.g.UltiSnipsEditSplit='horizontal'
 -- $markdown setup
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
-
-vim.cmd( [[
-    highlight Function guifg=burlywood
-    highlight Number guifg=lightsteelblue
-    highlight Include guifg=orchid
-    highlight Type guifg=lightseagreen
-    highlight Constant guifg=palevioletred gui=italic cterm=italic
-    highlight Operator guifg=aquamarine
-    highlight Keyword guifg=plum
-]])
 
 package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({

@@ -683,6 +683,12 @@ km.set('n', '<C-_>', function()
         theme = 'ivy',
     })
 end)
+km.set('n', '<C-M-/>', function()
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        previewer = false,
+        theme = 'ivy',
+    })
+end)
 km.set('n', '<M-/>', require('telescope.builtin').live_grep)
 km.set('n', '<leader>cd', require('telescope.builtin').builtin)
 km.set('n', '<leader>:', require('telescope.builtin').commands)

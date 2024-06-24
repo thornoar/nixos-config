@@ -59,7 +59,7 @@
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
             TEXINPUTS = ".:${PROJECTS}/LaTeX-libraries:$TEXINPUTS";
-            EDITOR = "nvimclient";
+            EDITOR = "nvim-client";
             VISUAL = "${EDITOR}";
             TERMINAL = "alacritty";
             HISTCONTROL = "ignoreboth";
