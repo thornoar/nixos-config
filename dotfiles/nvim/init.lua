@@ -229,7 +229,7 @@ end, {})
 local autosavepattern = {
     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
-    '*.html', '*.css', '*.c', '*.jl', '*.yml'
+    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf'
 }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = autosavepattern,

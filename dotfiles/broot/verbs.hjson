@@ -1,12 +1,3 @@
-###############################################################
-# This file contains the verb definitions for broot
-#
-# Some verbs here are examples and not enabled by default: you
-#  need to uncomment them if you want to use them.
-#
-# Documentation at https://dystroy.org/broot/verbs/
-###############################################################
-
 verbs: [
     {
         invocation: "call {command}"
