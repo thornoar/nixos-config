@@ -233,7 +233,7 @@
                 git_status_conflicted: "${config.colorRed1} None"
                 git_status_other: "${config.colorRed1} None"
 
-                selected_line: "None ${config.bgColor1} / None ${config.bgColor1}"
+                selected_line: "None ${config.bgColor2} / None ${config.bgColor2}"
 
                 char_match: "${config.colorMagenta3} None"
                 # char_match: "${config.colorOrange1} None"

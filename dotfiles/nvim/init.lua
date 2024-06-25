@@ -131,8 +131,8 @@ require('lazy').setup({
         cmd = 'Trouble',
         keys = {
             {
-                '<leader>d',
-                '<cmd>Trouble diagnostics toggle focus=true<cr>',
+                '<C-M-d>',
+                '<cmd>Trouble diagnostics toggle<cr>',
                 desc = 'Diagnostics (Trouble)',
             },
             {
@@ -288,7 +288,7 @@ km.set('n', '<C-space>', 'yy<C-del>p')
 
 -- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
-km.set('i', '<C-x>', '<C-n>')
+-- km.set('i', '<C-x>', '<C-n>')
 km.set('i', '<M-a>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('n', 'x', 'i')
@@ -377,7 +377,6 @@ km.set('n', '<M-?>', telescope.live_grep)
 km.set('n', '<C-_>', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
-km.set('n', '<leader>j', telescope.jumplist)
 km.set('n', '<C-h>', telescope.help_tags)
 km.set('n', '<C-q>', telescope.builtin)
 km.set('n', '<C-g>', telescope.git_files)
@@ -385,6 +384,7 @@ km.set('n', '<C-d>', telescope.oldfiles)
 km.set('n', '<C-x>', function () telescope.buffers({ previewer = false }) end)
 km.set('n', '<C-f>', function () telescope.find_files({ cwd = utils.buffer_dir() }) end)
 km.set('n', '<C-p>', function () telescope.find_files({ cwd = "~/projects" }) end)
+vim.api.nvim_create_user_command('JL', telescope.jumplist, {})
 vim.api.nvim_create_user_command('Files', function ()
     require('telescope').extensions.file_browser.file_browser()
 end, {})
@@ -400,6 +400,7 @@ local slow_scroll = function(prompt_bufnr, direction)
     previewer:scroll_fn(1 * direction)
 end
 local fbactions = require('telescope._extensions.file_browser.actions')
+vim.api.nvim_create_user_command('CS', telescope.colorscheme, {})
 require('telescope').setup({
     defaults = {
         mappings = {
@@ -409,6 +410,11 @@ require('telescope').setup({
                 ['<M-Down>'] = require("trouble.sources.telescope").open,
                 ['<M-Right>'] = require("trouble.sources.telescope").add,
             },
+        },
+    },
+    pickers = {
+        colorscheme = {
+            enable_preview = true,
         },
     },
     extensions = {
@@ -506,7 +512,7 @@ ft.set('asy', { '//%s', '/*%s*/' })
 ft.set('hjson', { '#%s' })
 
 -- $gitsigns
-require('gitsigns').setup {
+require('gitsigns').setup({
     numhl = true,
     current_line_blame = false,
     current_line_blame_opts = {
@@ -537,39 +543,39 @@ require('gitsigns').setup {
                 gitsigns.prev_hunk()
             end
         end)
+        map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+        map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+        map('n', '<leader>hb', function() gitsigns.blame_line({ full=true }) end)
+        map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
         map('n', '<leader>hs', gitsigns.stage_hunk)
         map('n', '<leader>hr', gitsigns.reset_hunk)
-        map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-        map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
         map('n', '<leader>hS', gitsigns.stage_buffer)
         map('n', '<leader>hu', gitsigns.undo_stage_hunk)
         map('n', '<leader>hR', gitsigns.reset_buffer)
         map('n', '<leader>hp', gitsigns.preview_hunk)
-        map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
         map('n', '<leader>hd', gitsigns.diffthis)
-        map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
         map('n', '<leader>td', gitsigns.toggle_deleted)
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end,
-}
+})
 
 -- $treesitter
-require('nvim-treesitter.configs').setup {
-	modules = {},
-	sync_install = true,
-	ignore_install = {},
-	ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline' },
-	highlight = { enable = true },
-	indent = { enable = false },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = '<C-space>',
-			node_incremental = '<C-space>',
-			scope_incremental = '<C-s>',
-			node_decremental = '<M-space>',
-		},
-	},
+require('nvim-treesitter.configs').setup({
+    modules = {},
+    sync_install = true,
+    ignore_install = {},
+    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline' },
+    highlight = { enable = true },
+    indent = { enable = false },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<C-space>',
+            node_incremental = '<C-space>',
+            scope_incremental = '<C-s>',
+            node_decremental = '<M-space>',
+    	},
+    },
     textobjects = {
         select = {
             enable = true,
@@ -582,17 +588,17 @@ require('nvim-treesitter.configs').setup {
                 ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
             },
             selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<C-v>', -- blockwise
+                ['@parameter.outer'] = 'v',
+                ['@function.outer'] = 'V',
+                ['@class.outer'] = '<C-v>',
             },
             include_surrounding_whitespace = false,
         },
     },
-}
+})
 
 -- $toggleterm
-require('toggleterm').setup{
+require('toggleterm').setup({
     size = function(term)
         if term.direction == 'horizontal' then
             return 20
@@ -600,6 +606,7 @@ require('toggleterm').setup{
             return vim.o.columns * 0.4
         end
     end,
+    shade_terminals = false,
     open_mapping = [[<C-a>]],
     hide_numbers = true,
     autochdir = true,
@@ -607,7 +614,7 @@ require('toggleterm').setup{
     direction = 'float',
     shell = vim.o.shell,
     border = 'single'
-}
+})
 
 -- $ibl
 require('ibl').setup({
@@ -621,9 +628,6 @@ require('ibl').setup({
 
 -- $lsp
 vim.diagnostic.config({
-    -- virtual_text = {
-    --     prefix = '>',
-    -- }
     virtual_text = false
 })
 local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
@@ -631,15 +635,12 @@ for name, icon in pairs(symbols) do
 	local hl = "DiagnosticSign" .. name
 	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
--- km.set('n', '<leader>q', function () vim.diagnostic.setqflist() end)
 km.set('n', '[d', function () vim.diagnostic.goto_prev() end)
 km.set('n', ']d', function () vim.diagnostic.goto_next() end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        -- km.set('n', '<M-CR>', function () vim.lsp.buf.definition() end, opts)
-        -- km.set('n', '<leader>cw', function () vim.lsp.buf.rename() end, opts)
         km.set('n', 'K', function () vim.lsp.buf.hover() end, opts)
         km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
         km.set({ 'n', 'x' }, '<F3>', function () vim.lsp.buf.format({ async = true }) end, opts)
@@ -671,9 +672,6 @@ local default_setup = function(server)
 end
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
--- vim.api.nvim_create_autocmd('BufWinEnter', {
---     command = 'LspStart'
--- })
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = { 'pyright', 'bashls', 'rnix' },
@@ -684,12 +682,17 @@ require('mason-lspconfig').setup({
 local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
+-- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'buffer' },
         { name = 'ultisnips' },
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
         ['<Down>'] = cmp.mapping(function (fallback)
@@ -700,7 +703,9 @@ cmp.setup({
             cmp.close()
             fallback()
         end, { 'i' }),
+        ['<C-x>'] = cmp.mapping.select_next_item({}),
         ['<C-Down>'] = cmp.mapping.select_next_item({}),
+        ['<C-s>'] = cmp.mapping.select_prev_item({}),
         ['<C-Up>'] = cmp.mapping.select_prev_item({}),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
