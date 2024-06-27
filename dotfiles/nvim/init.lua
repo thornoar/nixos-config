@@ -334,6 +334,7 @@ km.set('n', '<C-M-i>', '<C-w>>')
 km.set('n', '<C-M-u>', '<C-w><')
 km.set('n', '<C-M-k>', '<C-w>=')
 km.set('n', '<C-M-w>', '<C-w>o')
+km.set('n', '<C-Delete>', '<cmd>wqa<CR>')
 km.set('n', '<C-c>', function()
     if (#vim.api.nvim_list_wins() < 2) then
         for _, ui in pairs(vim.api.nvim_list_uis()) do

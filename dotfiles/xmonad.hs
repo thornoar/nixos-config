@@ -228,6 +228,7 @@ myPrograms = [
 myScratchpads =
     [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
+    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e br") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     -- NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
@@ -258,7 +259,6 @@ myKeys = [
 
     -- Quick Programs
     ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvim-server; br'")),
-    ("M-f", spawn (myTerminal ++ " --title 'Viewer' -e br")),
     ("M-b", spawn myBrowser),
     ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
 
@@ -281,6 +281,7 @@ myKeys = [
 
     -- Scratchpads
     ("M-c", namedScratchpadAction myScratchpads "Terminal"),
+    ("M-f", namedScratchpadAction myScratchpads "Viewer"),
     ("M-v", namedScratchpadAction myScratchpads "Music Player"),
     ("M-s", namedScratchpadAction myScratchpads "System Monitor"),
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
