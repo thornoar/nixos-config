@@ -67,13 +67,13 @@
                 manim
                 ghc
                 cabal-install
-                # stack
-                # haskellPackages.ghcWithPackages (pkgs: with pkgs; [ stack ])
                 haskell-language-server
                 lua
                 lua-language-server
                 julia
                 cargo
+                rustc
+                rust-analyzer
                 R
                 openjdk
             ]
@@ -87,23 +87,6 @@
         # [./packages.txt]
 
         programs = {
-            helix = {
-                enable = true;
-                settings = {
-                    theme = "autumn_night_transparent";
-                    editor.cursor-shape = {
-                        normal = "block";
-                        insert = "bar";
-                        select = "underline";
-                    };
-                };
-                themes = {
-                    autumn_night_transparent = {
-                        "inherits" = "autumn_night";
-                        "ui.background" = { };
-                    };
-                };
-            };
             neovim = {
                 enable = true;
             };

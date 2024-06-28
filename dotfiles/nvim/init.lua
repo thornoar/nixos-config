@@ -107,6 +107,7 @@ require('lazy').setup({
             'hrsh7th/cmp-nvim-lsp',
         },
     },
+    { 'simrat39/rust-tools.nvim' },
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -229,7 +230,7 @@ end, {})
 local autosavepattern = {
     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
-    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf'
+    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs'
 }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = autosavepattern,
@@ -642,7 +643,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        km.set('n', 'K', function () vim.lsp.buf.hover() end, opts)
+        km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
         km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
         km.set({ 'n', 'x' }, '<F3>', function () vim.lsp.buf.format({ async = true }) end, opts)
         km.set('n', '<F4>', function () vim.lsp.buf.code_action() end, opts)
@@ -654,6 +655,32 @@ lspconfig.hls.setup({
     autostart = true,
     capabilities = lsp_capabilities,
 })
+lspconfig.rust_analyzer.setup({
+    autostart = true,
+    capabilities = lsp_capabilities,
+    settings = {
+        ['rust-analyzer'] = {
+            check = {
+                command = "clippy"
+            },
+            diagnostics = {
+                enable = true
+            }
+        }
+    }
+})
+local rt = require("rust-tools")
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+        end,
+    },
+})
+
 lspconfig.lua_ls.setup({
     autostart = true,
     capabilities = lsp_capabilities,

@@ -925,3 +925,25 @@ vim.keymap.set('n', '<C-c>', function ()
     local buf = vim.api.nvim_win_get_buf(0)
     if vim.bo[buf].readonly or is_no_name_buf(buf) then vim.cmd('quit!') else vim.cmd('wq') end
 end)
+
+
+            # helix = {
+            #     enable = true;
+            #     settings = {
+            #         theme = "autumn_night_transparent";
+            #         editor.cursor-shape = {
+            #             normal = "block";
+            #             insert = "bar";
+            #             select = "underline";
+            #         };
+            #     };
+            #     themes = {
+            #         autumn_night_transparent = {
+            #             "inherits" = "autumn_night";
+            #             "ui.background" = { };
+            #         };
+            #     };
+            # };
+            # neovim = {
+            #     enable = true;
+            # };
