@@ -650,14 +650,31 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local hl_name = "FloatBorder"
+local border = {
+    { "╭", hl_name },
+    { "─", hl_name },
+    { "╮", hl_name },
+    { "│", hl_name },
+    { "╯", hl_name },
+    { "─", hl_name },
+    { "╰", hl_name },
+    { "│", hl_name },
+}
+local handlers =  {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
 local lspconfig = require('lspconfig')
 lspconfig.hls.setup({
     autostart = true,
     capabilities = lsp_capabilities,
+    handlers = handlers,
 })
 lspconfig.rust_analyzer.setup({
     autostart = true,
     capabilities = lsp_capabilities,
+    handlers = handlers,
     settings = {
         ['rust-analyzer'] = {
             check = {
@@ -684,6 +701,7 @@ rt.setup({
 lspconfig.lua_ls.setup({
     autostart = true,
     capabilities = lsp_capabilities,
+    handlers = handlers,
     settings = {
         Lua = {
             diagnostics = {
@@ -692,10 +710,12 @@ lspconfig.lua_ls.setup({
         }
     }
 })
+
 local default_setup = function(server)
     lspconfig[server].setup({
         autostart = true,
         capabilities = lsp_capabilities,
+        handlers = handlers,
     })
 end
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
