@@ -67,6 +67,7 @@
                 manim
                 ghc
                 cabal-install
+                haskellPackages.cabal-clean
                 haskell-language-server
                 lua
                 lua-language-server

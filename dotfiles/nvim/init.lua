@@ -230,10 +230,10 @@ end, {})
 local autosavepattern = {
     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
-    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs'
+    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
 }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-    pattern = autosavepattern,
+    pattern = '*.*',
 	callback = function()
 		if autosave and
         not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
@@ -566,7 +566,7 @@ require('nvim-treesitter.configs').setup({
     modules = {},
     sync_install = true,
     ignore_install = {},
-    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline' },
+    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'julia' },
     highlight = { enable = true },
     indent = { enable = false },
     incremental_selection = {

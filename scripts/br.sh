@@ -14,4 +14,4 @@ function brfn {
     fi
 }
 
-brfn "$@"; zsh
+brfn "$@"
