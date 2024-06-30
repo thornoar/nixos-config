@@ -216,6 +216,10 @@ vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz
 vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
 vim.api.nvim_create_user_command('L', 'Lazy', {})
+vim.api.nvim_create_user_command('T', function (args)
+    local dir = args and args['args'] or '.'
+    vim.cmd('!$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\'')
+end, { nargs = '?' })
 
 -- $autocommands
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
@@ -355,7 +359,7 @@ km.set('n', '<C-c>', function()
 end, { noremap = true })
 
 -- $keymaps:command
-km.set('n', '<C-M-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
+km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
 km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
@@ -536,7 +540,7 @@ require('toggleterm').setup({
         end
     end,
     shade_terminals = false,
-    open_mapping = [[<C-a>]],
+    open_mapping = [[<C-M-a>]],
     hide_numbers = true,
     autochdir = true,
     terminal_mappings = true,

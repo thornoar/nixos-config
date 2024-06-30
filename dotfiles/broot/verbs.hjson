@@ -121,6 +121,13 @@ verbs: [
         internal: open_stay
     }
     {
+        invocation: devour
+        key: alt-d
+        apply_to: file
+        execution: "devour xdg-open {file}"
+        leave_broot: false
+    }
+    {
         key: shift-right
         apply_to: text_file
         execution: "$EDITOR -f {file} -l {line}"

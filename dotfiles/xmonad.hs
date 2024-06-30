@@ -23,7 +23,7 @@ import Data.Ratio
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.WindowSwallowing
+-- import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.RefocusLast
 
 -- Layouts
@@ -389,14 +389,14 @@ myXmobarPP = def {
     totalLogger :: Logger
     totalLogger = do
         windows <- gets (W.index . windowset)
-        return . Just . show $ (length windows)
+        return . Just . show $ length windows
 
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
 
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
-    concatLoggers = (fmap (fmap $ intercalate ppSep)) . (fmap sequence) . sequence
+    concatLoggers = fmap (fmap $ intercalate ppSep) . (fmap sequence) . sequence
 
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
@@ -406,14 +406,14 @@ myXmobarPP = def {
     red      = xmobarColor colorRed ""
     lowWhite = xmobarColor colorLowWhite""
 
-myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
+-- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
+myHandleEventHook = mempty
 
 main =
     xmonad $
     ewmhFullscreen .
     ewmh .
-    withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks $
-    defaults
+    withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks defaults
 
 defaults = def {
     terminal            = myTerminal,

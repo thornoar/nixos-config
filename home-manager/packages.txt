@@ -62,3 +62,4 @@ pstree
 lazygit
 cmake
 gnumake
+devour
