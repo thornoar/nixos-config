@@ -947,3 +947,76 @@ end)
             # neovim = {
             #     enable = true;
             # };
+
+
+    extensions = {
+        file_browser = {
+			theme = 'ivy',
+			path = vim.loop.cwd(),
+			cwd = vim.loop.cwd(),
+			cwd_to_path = true,
+			grouped = true,
+			files = true,
+			add_dirs = true,
+			depth = 1,
+			auto_depth = false,
+			select_buffer = false,
+			hidden = { file_browser = false, folder_browser = false },
+			respect_gitignore = vim.fn.executable 'fd' == 1,
+			no_ignore = false,
+			follow_symlinks = true,
+			browse_files = require('telescope._extensions.file_browser.finders').browse_files,
+			browse_folders = require('telescope._extensions.file_browser.finders').browse_folders,
+			hide_parent_dir = false,
+			collapse_dirs = false,
+			prompt_path = false,
+			quiet = false,
+			-- dir_icon = '',
+			dir_icon = 'D',
+			dir_icon_hl = 'Default',
+			display_stat = { date = true, size = true, mode = true },
+			hijack_netrw = true,
+			use_fd = true,
+			git_status = true,
+			mappings = {
+				['i'] = {
+					['<C-a>'] = fbactions.create,
+					['<S-CR>'] = fbactions.create_from_prompt,
+					['<C-r>'] = fbactions.rename,
+					['<C-x>'] = fbactions.move,
+					['<C-v>'] = fbactions.copy,
+					['<C-d>'] = fbactions.remove,
+					['<C-s>'] = fbactions.open,
+					['<C-w>'] = fbactions.goto_home_dir,
+					['<C-CR>'] = fbactions.goto_cwd,
+					['<C-e>'] = fbactions.change_cwd,
+					['<C-f>'] = fbactions.toggle_browser,
+					['<A-s>'] = fbactions.toggle_hidden,
+					['<A-a>'] = fbactions.toggle_all,
+					['<S-Left>'] = fbactions.goto_parent_dir,
+				},
+				['n'] = {
+					['a'] = fbactions.create,
+					['r'] = fbactions.rename,
+					['x'] = fbactions.move,
+					['c'] = fbactions.copy,
+					['d'] = fbactions.remove,
+					['s'] = fbactions.open,
+					['g'] = fbactions.goto_parent_dir,
+					['w'] = fbactions.goto_home_dir,
+					['<CR>'] = fbactions.goto_cwd,
+					['e'] = fbactions.change_cwd,
+					['f'] = fbactions.toggle_browser,
+					['h'] = fbactions.toggle_hidden,
+					['t'] = fbactions.toggle_all,
+				},
+			},
+        },
+    }
+
+-- km.set('n', '<C-f>', function () telescope.find_files({ cwd = utils.buffer_dir() }) end)
+-- km.set('n', '<C-p>', function () telescope.find_files({ cwd = "~/projects" }) end)
+-- vim.api.nvim_create_user_command('JL', telescope.jumplist, {})
+-- vim.api.nvim_create_user_command('Files', function ()
+--     require('telescope').extensions.file_browser.file_browser()
+-- end, {})

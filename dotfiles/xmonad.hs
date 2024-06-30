@@ -376,7 +376,10 @@ myXmobarPP = def {
     ppHidden            = blue,
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
-    ppOrder             = \ [ws, l, _, wins] -> [(unwords . init . words) ws, wins],
+    ppOrder             = \ [ws, l, _, wins] -> let
+      wws = words ws
+      ws' = if length wws == length myWorkspaces then unwords wws else unwords . init $ wws
+    in [ws', wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,

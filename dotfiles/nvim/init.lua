@@ -132,7 +132,7 @@ require('lazy').setup({
         cmd = 'Trouble',
         keys = {
             {
-                '<C-M-d>',
+                '<C-d>',
                 '<cmd>Trouble diagnostics toggle<cr>',
                 desc = 'Diagnostics (Trouble)',
             },
@@ -236,6 +236,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = '*.*',
 	callback = function()
 		if autosave and
+        vim.bo.filetype ~= 'typst' and
         not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
         vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
             vim.cmd('silent write')
@@ -373,35 +374,25 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 
 -- $telescope
 local telescope = require('telescope.builtin')
-local utils = require('telescope.utils')
 km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
 km.set('n', '<M-?>', telescope.live_grep)
-km.set('n', '<C-_>', telescope.search_history)
+km.set('n', '<leader-/>', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<C-h>', telescope.help_tags)
 km.set('n', '<C-q>', telescope.builtin)
-km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-d>', telescope.oldfiles)
-km.set('n', '<C-x>', function () telescope.buffers({ previewer = false }) end)
-km.set('n', '<C-f>', function () telescope.find_files({ cwd = utils.buffer_dir() }) end)
-km.set('n', '<C-p>', function () telescope.find_files({ cwd = "~/projects" }) end)
-vim.api.nvim_create_user_command('JL', telescope.jumplist, {})
-vim.api.nvim_create_user_command('Files', function ()
-    require('telescope').extensions.file_browser.file_browser()
-end, {})
+km.set('n', '<C-f>', telescope.jumplist)
+km.set('n', '<C-x>', function () telescope.buffers({ previewer = true }) end)
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
     local previewer = action_state.get_current_picker(prompt_bufnr).previewer
     local status = state.get_status(prompt_bufnr)
-    -- Check if we actually have a previewer and a preview window
     if type(previewer) ~= 'table' or previewer.scroll_fn == nil or status.preview_win == nil then
         return
     end
     previewer:scroll_fn(1 * direction)
 end
-local fbactions = require('telescope._extensions.file_browser.actions')
 vim.api.nvim_create_user_command('CS', telescope.colorscheme, {})
 require('telescope').setup({
     defaults = {
@@ -419,70 +410,6 @@ require('telescope').setup({
             enable_preview = true,
         },
     },
-    extensions = {
-        file_browser = {
-			theme = 'ivy',
-			path = vim.loop.cwd(),
-			cwd = vim.loop.cwd(),
-			cwd_to_path = true,
-			grouped = true,
-			files = true,
-			add_dirs = true,
-			depth = 1,
-			auto_depth = false,
-			select_buffer = false,
-			hidden = { file_browser = false, folder_browser = false },
-			respect_gitignore = vim.fn.executable 'fd' == 1,
-			no_ignore = false,
-			follow_symlinks = true,
-			browse_files = require('telescope._extensions.file_browser.finders').browse_files,
-			browse_folders = require('telescope._extensions.file_browser.finders').browse_folders,
-			hide_parent_dir = false,
-			collapse_dirs = false,
-			prompt_path = false,
-			quiet = false,
-			-- dir_icon = '',
-			dir_icon = 'D',
-			dir_icon_hl = 'Default',
-			display_stat = { date = true, size = true, mode = true },
-			hijack_netrw = true,
-			use_fd = true,
-			git_status = true,
-			mappings = {
-				['i'] = {
-					['<C-a>'] = fbactions.create,
-					['<S-CR>'] = fbactions.create_from_prompt,
-					['<C-r>'] = fbactions.rename,
-					['<C-x>'] = fbactions.move,
-					['<C-v>'] = fbactions.copy,
-					['<C-d>'] = fbactions.remove,
-					['<C-s>'] = fbactions.open,
-					['<C-w>'] = fbactions.goto_home_dir,
-					['<C-CR>'] = fbactions.goto_cwd,
-					['<C-e>'] = fbactions.change_cwd,
-					['<C-f>'] = fbactions.toggle_browser,
-					['<A-s>'] = fbactions.toggle_hidden,
-					['<A-a>'] = fbactions.toggle_all,
-					['<S-Left>'] = fbactions.goto_parent_dir,
-				},
-				['n'] = {
-					['a'] = fbactions.create,
-					['r'] = fbactions.rename,
-					['x'] = fbactions.move,
-					['c'] = fbactions.copy,
-					['d'] = fbactions.remove,
-					['s'] = fbactions.open,
-					['g'] = fbactions.goto_parent_dir,
-					['w'] = fbactions.goto_home_dir,
-					['<CR>'] = fbactions.goto_cwd,
-					['e'] = fbactions.change_cwd,
-					['f'] = fbactions.toggle_browser,
-					['h'] = fbactions.toggle_hidden,
-					['t'] = fbactions.toggle_all,
-				},
-			},
-        },
-    }
 })
 
 -- $comment
@@ -753,7 +680,7 @@ cmp.setup({
         end, { 'i' }),
         ['<C-x>'] = cmp.mapping.select_next_item({}),
         ['<C-Down>'] = cmp.mapping.select_next_item({}),
-        ['<C-s>'] = cmp.mapping.select_prev_item({}),
+        ['<C-a>'] = cmp.mapping.select_prev_item({}),
         ['<C-Up>'] = cmp.mapping.select_prev_item({}),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
