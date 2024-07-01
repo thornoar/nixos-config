@@ -218,7 +218,7 @@ vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spel
 vim.api.nvim_create_user_command('L', 'Lazy', {})
 vim.api.nvim_create_user_command('T', function (args)
     local dir = args and args['args'] or '.'
-    vim.cmd('!$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\'')
+    vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\' &')
 end, { nargs = '?' })
 
 -- $autocommands
@@ -359,7 +359,7 @@ km.set('n', '<C-c>', function()
 end, { noremap = true })
 
 -- $keymaps:command
-km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\'&') end)
+km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
 km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
 km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
 km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
