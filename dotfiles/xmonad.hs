@@ -228,7 +228,7 @@ myPrograms = [
 myScratchpads =
     [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
-    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e br") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
+    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e zsh -c 'br'") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     -- NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
