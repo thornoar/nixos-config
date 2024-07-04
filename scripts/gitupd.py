@@ -61,9 +61,10 @@ try:
                 call("git status -s")
                 print("\033[33mcommit message:\033[0m") #]]
                 message = input()
-                print("\033[34m> Committing the changes and merging remote branch...\033[0m") #]]
-                call("git add . && git commit -m \"" + message +"\" && git merge -m \"merge\" origin/" + branch)
-                call("git push")
+                if message != "skip":
+                    print("\033[34m> Committing the changes and merging remote branch...\033[0m") #]]
+                    call("git add . && git commit -m \"" + message +"\" && git merge -m \"merge\" origin/" + branch)
+                    call("git push")
             elif not args.push:
                 print("working tree \033[1;94mclean\033[0m") #]]
                 print("\033[34m> Merging remote changes...\033[0m") #]]
