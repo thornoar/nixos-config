@@ -19,24 +19,24 @@ import Data.Char (isSpace, toUpper)
 import qualified Data.Map as M
 import Data.List
 import Data.Ratio
--- import Control.Monad (liftM2)
 
 -- Hooks
 import XMonad.Hooks.InsertPosition
--- import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.RefocusLast
 
 -- Layouts
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
-import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Simplest
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Maximize
 import XMonad.Layout.Minimize
 import XMonad.Layout.Reflect
-import XMonad.Layout.Master
+-- import XMonad.Layout.Master
+-- import XMonad.Layout.AutoMaster
+import XMonad.Layout.Combo
+import XMonad.Layout.TwoPane
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -75,25 +75,27 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
 grid = named "Grid"
-    $ spacingWithEdge mySpace
-    $ MG.magnifierczOff myMagnifiedScale
-    $ Grid (16/9)
+  $ spacingWithEdge mySpace
+  $ MG.magnifierczOff myMagnifiedScale
+  $ Grid (16/9)
 
 tallAccordion = named "Master"
-    $ spacingWithEdge mySpace
-    $ mkToggle (single MIRROR)
-    $ MG.magnifierczOff myMagnifiedScale
-    $ mastered (3/100) (1/2) Accordion
-    -- $ combineTwo (TwoPane (3/100) (1/2)) Accordion Accordion
+  $ spacingWithEdge mySpace
+  $ mkToggle (single MIRROR)
+  $ MG.magnifierczOff myMagnifiedScale
+  -- $ autoMaster 1 (3/100) Accordion
+  -- $ mastered (3/100) (1/2) Accordion
+  $ reflectHoriz
+  $ combineTwo (TwoPane (3/100) (1/2)) Accordion Simplest
 
 accordion = named "Accordion"
-    $ spacingWithEdge mySpace
-    $ mkToggle (single MIRROR)
-    $ Mirror Accordion
+  $ spacingWithEdge mySpace
+  $ mkToggle (single MIRROR)
+  $ Mirror Accordion
 
 tabs = named "Tabbed"
-    $ spacing mySpace
-    $ tabbedAlways shrinkText myTabTheme
+  $ spacing mySpace
+  $ tabbedAlways shrinkText myTabTheme
 
 myLayout = grid ||| tallAccordion ||| accordion ||| tabs ||| Full
 
@@ -147,7 +149,7 @@ searchList = [
     ("v", S.vocabulary),
     ("w", S.wikipedia),
     ("y", S.youtube)
-    ]
+  ]
 
 myTabTheme = def {
     fontName            = myFont,
@@ -158,64 +160,64 @@ myTabTheme = def {
     activeTextColor     = colorMagenta0,
     inactiveTextColor   = colorLowWhite,
     decoHeight          = myBarHeight
-    }
+  }
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 myXPKeymap = M.fromList $
-    map (first $ (,) controlMask) [
-        (xK_z, killBefore),
-        (xK_x, killAfter),
-        (xK_Home, startOfLine),
-        (xK_End, endOfLine),
-        (xK_Left, moveCursor Prev),
-        (xK_Right, moveCursor Next),
-        (xK_BackSpace, killWord Prev),
-        (xK_c, quit),
-        (xK_v, pasteString) ] ++
-        map (first $ (,) myModMask) [
-        (xK_BackSpace, killWord Prev),
-        (xK_f, moveWord Next),
-        (xK_b, moveWord Prev),
-        (xK_d, killWord Next),
-        (xK_n, moveHistory W.focusUp'),
-        (xK_p, moveHistory W.focusDown') ] ++
-        map (first $ (,) 0) [
-        (xK_Return, setSuccess True >> setDone True),
-        (xK_KP_Enter, setSuccess True >> setDone True),
-        (xK_BackSpace, deleteString Prev),
-        (xK_Delete, deleteString Next),
-        (xK_Left, moveCursor Prev),
-        (xK_Right, moveCursor Next),
-        (xK_Home, startOfLine),
-        (xK_End, endOfLine),
-        (xK_Down, moveHistory W.focusUp'),
-        (xK_Up, moveHistory W.focusDown'),
-        (xK_Escape, quit)
-    ]
+  map (first $ (,) controlMask) [
+    (xK_z, killBefore),
+    (xK_x, killAfter),
+    (xK_Home, startOfLine),
+    (xK_End, endOfLine),
+    (xK_Left, moveCursor Prev),
+    (xK_Right, moveCursor Next),
+    (xK_BackSpace, killWord Prev),
+    (xK_c, quit),
+    (xK_v, pasteString) ] ++
+    map (first $ (,) myModMask) [
+    (xK_BackSpace, killWord Prev),
+    (xK_f, moveWord Next),
+    (xK_b, moveWord Prev),
+    (xK_d, killWord Next),
+    (xK_n, moveHistory W.focusUp'),
+    (xK_p, moveHistory W.focusDown') ] ++
+    map (first $ (,) 0) [
+    (xK_Return, setSuccess True >> setDone True),
+    (xK_KP_Enter, setSuccess True >> setDone True),
+    (xK_BackSpace, deleteString Prev),
+    (xK_Delete, deleteString Next),
+    (xK_Left, moveCursor Prev),
+    (xK_Right, moveCursor Next),
+    (xK_Home, startOfLine),
+    (xK_End, endOfLine),
+    (xK_Down, moveHistory W.focusUp'),
+    (xK_Up, moveHistory W.focusDown'),
+    (xK_Escape, quit)
+  ]
 
 myXPConfig :: XPConfig
 myXPConfig = def {
-        font                = myFont,
-        bgColor             = myBgColor,
-        fgColor             = colorWhite,
-        bgHLight            = colorMagenta1,
-        fgHLight            = colorBlack,
-        borderColor         = colorBlue2,
-        promptBorderWidth   = 0,
-        promptKeymap        = myXPKeymap,
-        position            = Top,
-        height              = myBarHeight,
-        historySize         = 256,
-        historyFilter       = id,
-        defaultText         = [],
-        searchPredicate     = fuzzyMatch,
-        sorter              = fuzzySort,
-        autoComplete        = Nothing,
-        showCompletionOnTab = False,
-        defaultPrompter     = map toUpper,
-        alwaysHighlight     = True,
-        maxComplRows        = Just 5
-    }
+    font                = myFont,
+    bgColor             = myBgColor,
+    fgColor             = colorWhite,
+    bgHLight            = colorMagenta1,
+    fgHLight            = colorBlack,
+    borderColor         = colorBlue2,
+    promptBorderWidth   = 0,
+    promptKeymap        = myXPKeymap,
+    position            = Top,
+    height              = myBarHeight,
+    historySize         = 256,
+    historyFilter       = id,
+    defaultText         = [],
+    searchPredicate     = fuzzyMatch,
+    sorter              = fuzzySort,
+    autoComplete        = Nothing,
+    showCompletionOnTab = False,
+    defaultPrompter     = map toUpper,
+    alwaysHighlight     = True,
+    maxComplRows        = Just 5
+  }
 
 myPrograms :: [(String, String)]
 myPrograms = [
@@ -223,17 +225,15 @@ myPrograms = [
     ("t", "telegram-desktop"),
     ("d", "discord"),
     ("s", "obs")
-    ]
+  ]
 
-myScratchpads =
-    [
+myScratchpads = [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
     NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e zsh -c 'br'") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
-    -- NS "GoldenDict" ("goldendict") (className =? "GoldenDict-ng") (customFloating myFloatingRectangle),
     NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
-    ]
+  ]
 
 nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
@@ -311,10 +311,10 @@ myKeys = [
     ("M-C-<Left>", withFocused minimizeWindow),
     ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
     ("M-C-p", setWallpaperCmd),
-    ("M-<Tab>", sendMessage $ Toggle NBFULL),
-    -- ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
+    ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
+    ("M-M1-<Tab>", sendMessage $ Toggle NBFULL),
     ("M-C-s", sendMessage $ Toggle MIRROR),
-    ("M-C-d", sendMessage $ Toggle REFLECTX),
+    ("M-C-x", sendMessage $ Toggle REFLECTX),
     ("M-C-v", sendMessage $ Toggle REFLECTY),
     ("M-C-f", sendMessage MG.Toggle),
     ("M-C-t", sinkAll),
@@ -350,21 +350,18 @@ myKeys = [
     ("M-M1-S-<Up>", spawn "playerctl previous"),
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
-    ]
-    ++ [("M-M1-" ++ (show k), windows $ swapWithCurrent i) | (i,k) <- zip myWorkspaces [1..]]
-    ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-    ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
+  ]
+  ++ [("M-M1-" ++ (show k), windows $ swapWithCurrent i) | (i,k) <- zip myWorkspaces [1..]]
+  ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
+  ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
 
 -- Window rules:
 
 myManageHook :: ManageHook
 myManageHook = composeAll [
-    (do
-        -- liftX $ spawn "chlang us"
-        insertPosition Below Newer
-    ),
-    ((title =? "Media viewer") <&&> (className =? "TelegramDesktop")) --> doFloat
-    ]
+    insertPosition Below Newer,
+    (title =? "Media viewer") <&&> (className =? "TelegramDesktop") --> doFloat
+  ]
 
 -- Xmobar settings:
 
@@ -376,28 +373,26 @@ myXmobarPP = def {
     ppHidden            = blue,
     ppHiddenNoWindows   = lowWhite,
     ppUrgent            = red . wrap (yellow "!") (yellow "!"),
-    ppOrder             = \ [ws, l, _, wins] -> let
-      wws = words ws
-      ws' = if length wws == length myWorkspaces then unwords wws else unwords . init $ wws
-    in [ws', wins],
+    ppOrder             = \ [ws, l, _, wins] ->
+      let wws = words ws
+          ws' = if length wws == length myWorkspaces then unwords wws else unwords . init $ wws
+       in [ws', wins],
     ppExtras            = return $ concatLoggers [
         onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
         onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
         onLogger (white . last . words) logLayout
-        ]
-    } where
+      ]
+  }
+  where
     totalLogger :: Logger
     totalLogger = do
         windows <- gets (W.index . windowset)
         return . Just . show $ length windows
-
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
-
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
     concatLoggers = fmap (fmap $ intercalate ppSep) . (fmap sequence) . sequence
-
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
     blue     = xmobarColor colorMagenta1 ""
@@ -409,11 +404,7 @@ myXmobarPP = def {
 -- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 myHandleEventHook = mempty
 
-main =
-    xmonad $
-    ewmhFullscreen .
-    ewmh .
-    withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks defaults
+main = xmonad . ewmhFullscreen . ewmh . withSB (statusBarProp "xmobar" (pure myXmobarPP)) $ docks defaults
 
 defaults = def {
     terminal            = myTerminal,
@@ -426,7 +417,7 @@ defaults = def {
     workspaces          = myWorkspaces,
     layoutHook          =
         (minimize . BW.boringWindows)
-        -- $ maximizeWithPadding 0
+        $ maximizeWithPadding 0
         $ windowNavigation
         $ mkToggle (single NBFULL)
         $ avoidStruts
@@ -436,5 +427,4 @@ defaults = def {
     handleEventHook     = myHandleEventHook,
     startupHook         = myStartupHook,
     logHook             = refocusLastLogHook >> nsHideOnFocusLoss myScratchpads
-    }
-    `additionalKeysP` myKeys
+  } `additionalKeysP` myKeys
