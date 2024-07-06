@@ -86,7 +86,7 @@ tallAccordion = named "Master"
   -- $ autoMaster 1 (3/100) Accordion
   -- $ mastered (3/100) (1/2) Accordion
   $ reflectHoriz
-  $ combineTwo (TwoPane (3/100) (1/2)) Accordion Simplest
+  $ combineTwo (TwoPane (3/100) (1/2)) Accordion (Grid (16/9))
 
 accordion = named "Accordion"
   $ spacingWithEdge mySpace
@@ -287,8 +287,8 @@ myKeys = [
     ("M-q", namedScratchpadAction myScratchpads "Calculator"),
 
     -- Windows navigation
-    ("M-<Down>", sendMessage $ Go D),
     ("M-<Up>", sendMessage $ Go U),
+    ("M-<Down>", sendMessage $ Go D),
     ("M-<Left>", sendMessage $ Go L),
     ("M-<Right>", sendMessage $ Go R),
     ("M-M1-<End>", windows W.swapDown),
@@ -297,6 +297,10 @@ myKeys = [
     ("M-M1-<Down>", sendMessage $ Swap D),
     ("M-M1-<Left>", sendMessage $ Swap L),
     ("M-M1-<Right>", sendMessage $ Swap R),
+    ("M-M1-C-<Up>", sendMessage $ Move U),
+    ("M-M1-C-<Down>", sendMessage $ Move D),
+    ("M-M1-C-<Left>", sendMessage $ Move L),
+    ("M-M1-C-<Right>", sendMessage $ Move R),
     ("M-<Home>", BW.focusUp),
     ("M-<End>", BW.focusDown),
     ("M-d", do
