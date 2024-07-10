@@ -91,7 +91,7 @@ require('lazy').setup({
                      nft = { 'tex', 'typst', 'haskell' },
                      multiline = false
                  },
-                 { '$', '$', suround = true, newline = true, space = true, ft = { 'typst', 'tex' } },
+                 -- { '$', '$', fly = true, dosuround = true, newline = true, space = true, ft = { 'typst', 'tex' } },
                  { '```', '```', newline = true, ft = { 'markdown' } },
                  { '"""', '"""', newline = true, ft = {'python'} },
                  { "'''", "'''", newline = true, ft = {'python'} },
@@ -313,6 +313,7 @@ km.set('n', '<C-space>', 'yy<C-del>p')
 
 -- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
+km.set('i', '<C-Delete>', '<BS><Delete>')
 -- km.set('i', '<C-x>', '<C-n>')
 km.set('i', '<M-a>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
