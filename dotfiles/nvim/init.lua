@@ -318,10 +318,10 @@ km.set('i', '<M-a>', '<C-o>$;')
 km.set('i', '<C-z>', '<Esc>[s1z=A')
 km.set('n', 'x', 'i')
 km.set('n', 'X', 'I')
-km.set('i', '<M-e>', '<C-o>:E<CR>')
-km.set('i', '<M-r>', '<C-o>:R<CR>')
-km.set('i', '<M-g>', '<C-o>:D<CR>')
-km.set('i', '<M-j>', '<C-o>:J<CR>')
+km.set('i', '<M-e>', 'X<bs><C-o>:E<CR>')
+km.set('i', '<M-r>', 'X<bs><C-o>:R<CR>')
+km.set('i', '<M-g>', 'X<bs><C-o>:D<CR>')
+km.set('i', '<M-j>', 'X<bs><C-o>:J<CR>')
 
 -- $keymaps:navigation
 km.set('n', '<Up>', 'gk')
@@ -768,7 +768,7 @@ vim.g.neovide_transparency = 0.9
 
 vim.cmd([[
     let tex_flavor="latex"
-    set shiftwidth=4 smarttab
+    " set shiftwidth=4 smarttab
     let g:omni_sql_no_default_maps = 1
     autocmd BufEnter * set formatoptions-=cro
     autocmd BufEnter * setlocal formatoptions-=cro
