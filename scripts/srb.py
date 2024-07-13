@@ -5,7 +5,6 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--impure", action = "store_true", help = "use the corresponding flag in \"nixos-rebuild\"")
-parser.add_argument("-p", "--preserve", action = "store_true", help = "rebuild the system without pushing changes to git")
 parser.add_argument("-s", "--short", action = "store_true", help = "do not use nix-output-manager to show build progress")
 parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use nvd to diff the new generation with the old one")
 parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
@@ -32,12 +31,6 @@ try:
         call("cp ./flake.lock ./flake.lock.bak")
         call("nix flake update")
 
-    if (not args.preserve):
-        print("\033[34m> Pulling main configuration repository...\033[0m") #]]
-        call("gitupd --pull")
-        print("\033[34m> Pulling local configuration repository...\033[0m") #]]
-        call("gitupd -t $NIXOS_LOCAL --pull")
-
     flakeopt = ""
     if (args.flake != "--"):
         flakeopt = " --flake .#" + args.output
@@ -57,12 +50,6 @@ try:
 
     if (not args.nodiff):
         call("nvd diff " + old_gen + " " + new_gen)
-
-    if (not args.preserve):
-        print("\033[34m> Pushing main configuration repository...\033[0m") #]]
-        call("gitupd --push")
-        print("\033[34m> Pushing local configuration repository...\033[0m") #]]
-        call("gitupd -t $NIXOS_LOCAL --push")
 
     os.chdir(cwd)
 except KeyboardInterrupt:
