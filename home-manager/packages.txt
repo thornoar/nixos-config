@@ -62,3 +62,4 @@ lazygit
 cmake
 gnumake
 devour
+git-repo-updater
