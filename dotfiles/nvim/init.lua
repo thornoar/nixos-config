@@ -237,11 +237,7 @@ vim.api.nvim_create_user_command('T', function (args)
 end, { nargs = '?' })
 
 -- $autocommands
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-	pattern = { '*.md', '*.typ', '*.tex' },
-	command = 'setlocal spell! spelllang=en_us'
-})
-local autosave = false
+local autosave = true
 vim.api.nvim_create_user_command('AS', function()
 	autosave = not autosave
 	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
