@@ -241,7 +241,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 	pattern = { '*.md', '*.typ', '*.tex' },
 	command = 'setlocal spell! spelllang=en_us'
 })
-local autosave = true
+local autosave = false
 vim.api.nvim_create_user_command('AS', function()
 	autosave = not autosave
 	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
@@ -784,6 +784,8 @@ vim.api.nvim_create_autocmd('VimLeave', {
 	pattern = '*',
 	callback = function () vim.opt.guicursor = { 'a:ver25' } end
 })
+
+vim.g.typst_embedded_languages = {'haskell', 'c', 'java'}
 
 -- $UltiSnips setup
 -- vim.g.UltiSnipsExpandTrigger='<C-Right>'
