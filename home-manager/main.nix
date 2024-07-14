@@ -141,6 +141,7 @@
                     extensions = with firefox-pkgs; [
                         darkreader
                         vimium
+                        adblocker-ultimate
                     ];
                     search = {
                         force = true;
