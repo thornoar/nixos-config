@@ -610,11 +610,12 @@ local handlers =  {
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 local lspconfig = require('lspconfig')
-lspconfig.hls.setup({
+local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
-})
+    handlers = handlers
+}
+lspconfig.hls.setup(lspbasicconfig)
 lspconfig.rust_analyzer.setup({
     autostart = true,
     capabilities = lsp_capabilities,
@@ -630,6 +631,7 @@ lspconfig.rust_analyzer.setup({
         }
     }
 })
+lspconfig.clangd.setup(lspbasicconfig)
 local rt = require("rust-tools")
 rt.setup({
     server = {

@@ -63,6 +63,8 @@
 		) ++ (
             with pkgs; [
                 my-latex
+                clang
+                clang-tools
                 asymptote
                 (python3.withPackages my-python-packages)
                 manim
