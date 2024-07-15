@@ -32,6 +32,7 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     'hjson/vim-hjson',
 	'dkarter/bullets.vim',
+    'chrisbra/csv.vim',
     {
         'nvim-lualine/lualine.nvim',
     },
