@@ -21,6 +21,7 @@
         my-latex = (pkgs.texlive.combine {
             inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
         });
+        insecure-packages = with pkgs; [ sc-im ];
     in
     {
         home.username = "ramak";
@@ -84,6 +85,8 @@
                 typst
                 nodejs
             ]
+        ) ++ (
+            insecure-packages
         );
         # [./packages.txt]
 
@@ -174,6 +177,13 @@
                 name = "deepin-dark";
                 package = pkgs.deepin.deepin-gtk-theme;
             };
+        };
+
+        # Enabling insecure library
+        nixpkgs.config = {
+            permittedInsecurePackages = [
+                "libxls-1.6.2"
+            ];
         };
 
         home.stateVersion = "23.11";
