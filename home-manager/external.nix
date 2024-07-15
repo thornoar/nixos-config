@@ -614,9 +614,6 @@
             MimeType=image/svg+xml;
         '';
 
-        # sc-im setup
-        xdg.configFile."sc-im/scimrc".source = dotfile "sc-im-theme.sc";
-
         # typst libraries enabling
 
         xdg.dataFile = 
