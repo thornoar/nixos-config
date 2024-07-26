@@ -118,7 +118,6 @@
         networking.hostName = sysname;
         networking.networkmanager.enable = true;
 
-        time.timeZone = "Europe/Belgrade";
         i18n.defaultLocale = "en_US.UTF-8";
 
         sound.enable = true;
