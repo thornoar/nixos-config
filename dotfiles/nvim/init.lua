@@ -79,23 +79,6 @@ require('lazy').setup({
                 faster = false,
 				map = '<M-/>',
             },
-            -- internal_pairs = {
-            --     { '[',']', fly = true, dosuround = true, newline = true, space = true },
-            --     { '(',')', fly = true, dosuround = true, newline = true, space = true },
-            --     { '{','}', fly = true, dosuround = true, newline = true, space = true },
-            --     { '"', '"', suround = true, multiline = false },
-            --     {
-            --         "'", "'",
-            --         suround = true,
-            --         cond = function(fn) return not fn.in_lisp() or fn.in_string() end,
-            --         alpha = true,
-            --         nft = { 'tex', 'typst' },
-            --         multiline = false
-            --     },
-            --     { '```', '```', newline = true, ft = { 'markdown' } },
-            --     { '"""', '"""', newline = true, ft = {'python'} },
-            --     { "'''", "'''", newline = true, ft = {'python'} },
-            -- },
         },
     },
 	{
@@ -796,11 +779,11 @@ vim.g.UltiSnipsEditSplit='horizontal'
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
-package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
-require('nvim-subfiles').setup({
-    bindings = {
-    },
-    opts = {
-        jump_to_file = false,
-    }
-})
+-- package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
+-- require('nvim-subfiles').setup({
+--     bindings = {
+--     },
+--     opts = {
+--         jump_to_file = false,
+--     }
+-- })
