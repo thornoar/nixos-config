@@ -403,7 +403,7 @@
                     y = config.terminalPadding.y;
                 };
                 window.opacity = config.terminalOpacity;
-                key_bindings = [
+                keyboard.bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
                     { key = "PageUp"; mods = "Alt"; action = "ScrollPageUp"; }
