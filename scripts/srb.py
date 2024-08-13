@@ -9,6 +9,7 @@ parser.add_argument("-s", "--short", action = "store_true", help = "do not use n
 parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use nvd to diff the new generation with the old one")
 parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
 parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
+parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-f", "--flake", type = str, default = os.environ["NIXOS_CONFIG"], help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
 parser.add_argument("-o", "--output", type = str, default = "master", help = "flake output to use. default is \"master\"")
@@ -52,5 +53,8 @@ try:
         call("nvd diff " + old_gen + " " + new_gen)
 
     os.chdir(cwd)
+
+    if args.reboot:
+        os.system("reboot")
 except KeyboardInterrupt:
     print("\n\033[31m> Interrupted by user.\033[0m")

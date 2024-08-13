@@ -30,7 +30,7 @@ for root, dirnames, filenames in os.walk('.'):
         for dirname in dirnames:
             os.chdir(dirname)
             if not args.silent:
-                print(CBLUE + "> Executing \"" + CGREEN + args.command + CBLUE + "\" in " + CPURPLE + root + "/" + dirname + CBLUE + "..." + CEND)
+                print("| " + CBLUE + "Executing \"" + CGREEN + args.command + CBLUE + "\" in " + CPURPLE + root + "/" + dirname + CBLUE + "..." + CEND)
             os.system(args.command + (args.nooutput and " > /dev/null 2>&1" or ""))
             os.chdir("..")
     else:
@@ -40,7 +40,7 @@ for root, dirnames, filenames in os.walk('.'):
             if (".lib."+args.filetype in head_tail[1]):
                 continue
             if not args.silent:
-                print(CBLUE + "> Executing \"" + CGREEN + args.command + CBLUE + "\" on " + CPURPLE + file + CBLUE + "..." + CEND)
+                print("| " + CBLUE + "Executing \"" + CGREEN + args.command + CBLUE + "\" on " + CPURPLE + file + CBLUE + "..." + CEND)
             if args.parse:
                 os.system(
                     "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +

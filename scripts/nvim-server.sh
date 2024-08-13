@@ -19,7 +19,7 @@ function start {
     nohup nvim --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
     # nohup nvim --server "$pipe" --remote-send ":silent bdelete<CR>" > /dev/null 2>&1 0< /dev/null
     if [ "$verbose" = true ]; then
-        printf "\e[34m> Created NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
+        printf "| \e[34mCreated NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
     fi
 }
 
@@ -40,7 +40,7 @@ fi
 
 if [ "$restart" = true ]; then
     if [ "$verbose" = true ]; then
-        printf "\e[34m> Restarting neovim servers...\e[0m\n"
+        printf "| \e[34mRestarting neovim servers...\e[0m\n"
     fi
 
     pipelist=()
@@ -51,7 +51,7 @@ if [ "$restart" = true ]; then
     done
 
     if [ "$verbose" = true ]; then
-        printf "\e[34m> Stopping NVIM servers at the following pipes:\e[0m\n"
+        printf "| \e[34mStopping NVIM servers at the following pipes:\e[0m\n"
         # for pipe in "${pipelist[@]}"; do
         #     printf "  %s\n" "$pipe"
         # done
@@ -65,7 +65,7 @@ if [ "$restart" = true ]; then
     done
 
     if [ "$verbose" = true ]; then
-        printf "\e[34m> Waiting...\e[0m\n"
+        printf "| \e[34mWaiting...\e[0m\n"
     fi
     sleep 0.5
 
@@ -75,7 +75,7 @@ if [ "$restart" = true ]; then
             start "$pipe"
         else
             if [ "$verbose" = true ]; then
-                printf "  pipe \e[35m%s\e[0m no longer active, it will be forgotten\n" "$pipe"
+                printf "  pipe \e[35m%s\e[0m no longer active, it will be forgotten\n" "$pipe" # ]]
             fi
         fi
     done
@@ -84,7 +84,7 @@ fi
 
 if [ "$list" = true ]; then
     if [ "$verbose" = true ]; then
-        printf "\e[34m> Listing active NVIM servers:\e[0m\n"
+        printf "| \e[34mListing active NVIM servers:\e[0m\n" # ]]
     fi
     for file in /run/user/1000/nvim.*.pipe; do
         if [ -e "$file" ]; then
