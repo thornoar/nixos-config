@@ -10,7 +10,10 @@
 
     options = {};
 
-    config = {
+    config = 
+    let 
+        dotfile = str: lib.path.append ./dotfiles str;
+    in {
         users.users.ramak = {
             isNormalUser = true;
             description = "Roman Maksimovich";
@@ -26,6 +29,7 @@
                 "libvirtd"
             ];
             packages = with pkgs; [];
+            homeMode = "0711";
         };
     
         nix = {
@@ -87,6 +91,14 @@
             xz
             unzip
             p7zip
+
+            # setting the sddm background
+            (
+                pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+                    [General]
+                    background = ~/media/wallpapers/Abstract/01.jpg
+                ''
+            )
         ];
         environment.localBinInPath = true;
 
@@ -135,11 +147,14 @@
             displayManager = {
                 lightdm = {
                     enable = true;
-                    # greeters.enso.enable = true;
+                    greeters.enso.enable = true;
+                    # extraConfig = ''user-background = false'';
                     # background = pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+                    background = dotfile "lightdm-background.jpg";
                 };
-                autoLogin.enable = true;
-                autoLogin.user = "ramak";
+                # sddm = {
+                #     enable = true;
+                # };
             };
             windowManager.xmonad = {
                 enable = true;
