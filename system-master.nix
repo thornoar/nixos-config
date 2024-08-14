@@ -16,9 +16,6 @@
         dotfile = str: lib.path.append ./dotfiles str;
     in {
         services.xserver = {
-            enable = true;
-            xkb.layout = "us";
-            xkb.variant = "";
             displayManager = {
                 lightdm = {
                     enable = true;
