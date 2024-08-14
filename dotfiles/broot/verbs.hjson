@@ -10,6 +10,11 @@ verbs: [
         leave_broot: false
     }
     {
+        invocation: "acmd {command}"
+        external: "parsecmd \"{command} %\" {file}"
+        leave_broot: false
+    }
+    {
         key: ctrl-r
         internal: refresh
     }
