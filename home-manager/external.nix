@@ -613,6 +613,19 @@
             Categories=Graphics;2DGraphics;
             MimeType=image/svg+xml;
         '';
+        # sc-im desktop file
+        home.file.".local/share/applications/sc-im.desktop".text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=sc-im
+            Comment=Edit csv files
+            Exec=sc-im %U
+            Categories=Statistics;CSV;
+            MimeType=text/csv;
+        '';
+
+        # khal configuration
+        xdg.configFile."khal/config".source = dotfile "khal.config";
 
         # typst libraries enabling
 
@@ -648,10 +661,6 @@
                 )
             )
         ) else {};
-
-        # home.file.".local/bin/pshash" =
-        # let path = /home/ramak/projects/pshash/bin/pshash.nixos.x86_64;
-        # in if (builtins.pathExists path) then { source = path; force = true; } else { text = "echo 'sorry, no pshash'"; };
 
         # keynav setup
         services.keynav.enable = true;

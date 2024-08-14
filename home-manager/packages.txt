@@ -63,3 +63,4 @@ cmake
 gnumake
 devour
 git-repo-updater
+khal

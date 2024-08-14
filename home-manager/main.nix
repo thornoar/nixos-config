@@ -46,6 +46,7 @@
                 "video/vnd.avi" = [ "mpv.desktop" ];
                 "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
                 "image/svg+xml" = [ "inkview.desktop" ];
+                "text/csv" = [ "sc-im.desktop" ];
             };
             defaultApplications = associations.added;
         };
