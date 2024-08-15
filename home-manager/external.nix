@@ -666,6 +666,9 @@
             # popupper = 'white', 'dark cyan'
             # caption = '', '', 'bold', '#ebdbb2' + ',bold', '#282828'
 
+        # account icon setting
+        home.file.".face".source = dotfile "account-icon.png";
+
         # typst libraries enabling
 
         xdg.dataFile = 
