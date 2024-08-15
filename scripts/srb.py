@@ -18,17 +18,17 @@ args = parser.parse_args()
 
 def call (str):
     if 0 != os.system(str):
-        print("\033[31m> Failed to complete.\033[0m") #]]
+        print("| \033[31mFailed to complete.\033[0m") #]]
         exit(1)
 try:
     cwd = os.popen("pwd").read().strip()
     os.chdir((args.flake != "--") and args.flake or os.environ["NIXOS_CONFIG"])
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
-        print("\033[34m> Restoring previous flake.lock file...\033[0m") #]]
+        print("| \033[34mRestoring previous flake.lock file...\033[0m") #]]
         call("mv ./flake.lock.bak ./flake.lock")
     elif (args.update):
-        print("\033[34m> Updating flake.lock file...\033[0m") #]]
+        print("| \033[34mUpdating flake.lock file...\033[0m") #]]
         call("cp ./flake.lock ./flake.lock.bak")
         call("nix flake update")
 
@@ -40,7 +40,7 @@ try:
 
     log_format = ("" if args.short else " --log-format internal-json |& nom --json")
 
-    print("\033[34m> Building configuration...\033[0m") #]]
+    print("| \033[34mBuilding configuration...\033[0m") #]]
 
     old_gen = os.popen("readlink -f /run/current-system").read().strip()
 
@@ -57,4 +57,4 @@ try:
     if args.reboot:
         os.system("reboot")
 except KeyboardInterrupt:
-    print("\n\033[31m> Interrupted by user.\033[0m")
+    print("\n| \033[31mInterrupted by user.\033[0m")

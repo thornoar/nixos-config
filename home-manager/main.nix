@@ -84,6 +84,7 @@
             ]
         ) ++ (
             with pkgs-unstable; [
+                khal
                 fzf
                 typst
                 nodejs
