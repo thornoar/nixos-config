@@ -229,6 +229,8 @@ myPrograms = [
 
 myScratchpads = [
     NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad' -e zsh -c 'nvim-server; zsh'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
+    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e zsh -c 'nvim-server; br'") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
+    NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
   ]
