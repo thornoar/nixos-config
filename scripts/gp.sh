@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-pshash "$1" < ~/.pshash-private-keys.txt
+pshash "$@" < ~/.pshash-private-keys.txt
