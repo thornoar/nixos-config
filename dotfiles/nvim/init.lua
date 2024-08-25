@@ -572,8 +572,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local opts = { buffer = event.buf }
         km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
         km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
-        km.set({ 'n', 'x' }, '<F3>', function () vim.lsp.buf.format({ async = true }) end, opts)
-        km.set('n', '<F4>', function () vim.lsp.buf.code_action() end, opts)
+        km.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
+        km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
     end
 })
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
