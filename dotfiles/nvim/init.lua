@@ -165,15 +165,15 @@ local compilefunc = {
 	['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-	['tex'] = function (name) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
-	['typst'] = function (name) return ('') end,
+	['tex'] = function (_) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
+	['typst'] = function (_) return ('') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
 	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
 local daemonfunc = {
-    ['typst'] = function (name) return 'TypstWatch' end,
+    ['typst'] = function (_) return 'TypstWatch' end,
 }
 local compile = function (daemon, silent)
     return function ()
@@ -226,11 +226,11 @@ vim.api.nvim_create_user_command('AS', function()
 	autosave = not autosave
 	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
 end, {})
-local autosavepattern = {
-    '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
-    '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
-    '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
-}
+-- local autosavepattern = {
+--     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
+--     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
+--     '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
+-- }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = '*.*',
 	callback = function()
