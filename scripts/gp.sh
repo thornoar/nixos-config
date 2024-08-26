@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-pshash "$@" < ~/.pshash-private-keys.txt
+sudo cat "/home/$USER/.pshash-private-keys.txt" | pshash "$@"
