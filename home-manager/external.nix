@@ -503,6 +503,36 @@
                     url = "https://www.sciencedaily.com/";
                     keyword = "sd";
                 }
+                {
+                    name = "sc | Student Center";
+                    url = "https://hkust.edu.hk/stu_intranet/";
+                    keyword = "sc";
+                }
+                {
+                    name = "ac | Air Conditioner";
+                    url = "https://w5.ab.ust.hk/njggt/app/";
+                    keyword = "ac";
+                }
+                {
+                    name = "sp | USTSpace";
+                    url = "https://ust.space/home";
+                    keyword = "sp";
+                }
+                {
+                    name = "lt | Laundry Tickets";
+                    url = "https://laundry.ust.hk/ldr/app/tickets";
+                    keyword = "lt";
+                }
+                {
+                    name = "pa | Path Advisor";
+                    url = "https://pathadvisor.ust.hk/";
+                    keyword = "pa";
+                }
+                {
+                    name = "ol | Outlook";
+                    url = "https://outlook.office.com/mail/";
+                    keyword = "ol";
+                }
             ];
             userChrome = ''
                 #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
