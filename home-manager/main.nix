@@ -18,8 +18,12 @@
             sympy
             numpy
         ];
-        my-latex = (pkgs.texlive.combine {
+        my-r-packages = pkgs.rWrapper.override{ packages = with pkgs.rPackages; [ languageserver ggplot2 dplyr xts ]; };
+        my-latex-basic = (pkgs.texlive.combine {
             inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
+        });
+        my-latex-full = (pkgs.texlive.combine {
+            inherit (pkgs.texlive) scheme-full;
         });
         insecure-packages = with pkgs; [ sc-im ];
     in
@@ -63,10 +67,11 @@
             ) else []
 		) ++ (
             with pkgs; [
-                my-latex
+                my-latex-full
+                texlab
+                # asymptote
                 clang
                 clang-tools
-                asymptote
                 (python3.withPackages my-python-packages)
                 manim
                 ghc
@@ -79,14 +84,16 @@
                 cargo
                 rustc
                 rust-analyzer
-                R
+                my-r-packages
+                rPackages.languageserver
                 openjdk
+                typst
+                typst-lsp
             ]
         ) ++ (
             with pkgs-unstable; [
                 khal
                 fzf
-                typst
                 nodejs
             ]
         ) ++ (
@@ -101,7 +108,7 @@
             zsh = {
                 enable = true;
                 enableCompletion = true;
-                enableAutosuggestions = true;
+                autosuggestion.enable = true;
                 syntaxHighlighting.enable = true;
                 shellAliases = rec {
                     torrent = "transmission-remote";

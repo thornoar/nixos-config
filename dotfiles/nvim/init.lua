@@ -299,6 +299,7 @@ km.set('i', '<M-e>', 'X<bs><C-o>:E<CR>')
 km.set('i', '<M-r>', 'X<bs><C-o>:R<CR>')
 km.set('i', '<M-g>', 'X<bs><C-o>:D<CR>')
 km.set('i', '<M-j>', 'X<bs><C-o>:J<CR>')
+km.set('i', '<C-m>', '$$<Left>')
 
 -- $keymaps:navigation
 km.set('n', '<Up>', 'gk')
@@ -576,6 +577,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
     end
 })
+
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local hl_name = "FloatBorder"
 local border = {
@@ -593,12 +595,28 @@ local handlers =  {
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+local util = require 'lspconfig.util'
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
     handlers = handlers
 }
+
+lspconfig.texlab.setup(lspbasicconfig)
+lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
+lspconfig.clangd.setup(lspbasicconfig)
+
+lspconfig.typst_lsp.setup({
+    settings = {
+        exportPdf = "never",
+    },
+    autostart = true,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+})
+
 lspconfig.rust_analyzer.setup({
     autostart = true,
     capabilities = lsp_capabilities,
@@ -614,7 +632,7 @@ lspconfig.rust_analyzer.setup({
         }
     }
 })
-lspconfig.clangd.setup(lspbasicconfig)
+
 local rt = require("rust-tools")
 rt.setup({
     server = {
@@ -639,6 +657,21 @@ lspconfig.lua_ls.setup({
         }
     }
 })
+
+if not configs.asy_ls then
+    configs.asy_ls = {
+        default_config = {
+            cmd = { 'asy', '--lsp' },
+            filetypes = { 'asy' },
+            root_dir = function(fname)
+                return util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,
+            settings = {},
+        },
+    }
+end
+lspconfig.asy_ls.setup(lspbasicconfig)
 
 local default_setup = function(server)
     lspconfig[server].setup({

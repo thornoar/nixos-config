@@ -63,3 +63,6 @@ cmake
 gnumake
 devour
 git-repo-updater
+xournalpp
+libreoffice
+keyd
