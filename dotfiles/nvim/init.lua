@@ -377,13 +377,17 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 local telescope = require('telescope.builtin')
 km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
 km.set('n', '<M-?>', telescope.live_grep)
+km.set('n', '<M-f>', telescope.jumplist)
 km.set('n', '<leader-/>', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<C-h>', telescope.help_tags)
 km.set('n', '<C-q>', telescope.builtin)
-km.set('n', '<C-f>', telescope.jumplist)
-km.set('n', '<C-x>', function () telescope.buffers({ previewer = true }) end)
+km.set('n', '<C-g>', telescope.git_files)
+km.set('n', '<C-f>', telescope.find_files)
+km.set('n', '<C-x>', function ()
+    telescope.buffers({ previewer = true })
+end)
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
@@ -658,20 +662,20 @@ lspconfig.lua_ls.setup({
     }
 })
 
-if not configs.asy_ls then
-    configs.asy_ls = {
-        default_config = {
-            cmd = { 'asy', '--lsp' },
-            filetypes = { 'asy' },
-            root_dir = function(fname)
-                return util.find_git_ancestor(fname)
-            end,
-            single_file_support = true,
-            settings = {},
-        },
-    }
-end
-lspconfig.asy_ls.setup(lspbasicconfig)
+-- if not configs.asy_ls then
+--     configs.asy_ls = {
+--         default_config = {
+--             cmd = { 'asy', '--lsp' },
+--             filetypes = { 'asy' },
+--             root_dir = function(fname)
+--                 return util.find_git_ancestor(fname)
+--             end,
+--             single_file_support = true,
+--             settings = {},
+--         },
+--     }
+-- end
+-- lspconfig.asy_ls.setup(lspbasicconfig)
 
 local default_setup = function(server)
     lspconfig[server].setup({
