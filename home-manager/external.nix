@@ -533,6 +533,11 @@
                     url = "https://outlook.office.com/mail/";
                     keyword = "ol";
                 }
+                {
+                    name = "ch | ArchChinese";
+                    url = "https://www.archchinese.com/";
+                    keyword = "ch";
+                }
             ];
             userChrome = ''
                 #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
