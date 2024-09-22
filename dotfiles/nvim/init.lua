@@ -3,6 +3,8 @@ vim.loader.enable()
 local km = vim.keymap
 vim.g.mapleader = ';'
 km.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
+local autosave = true
+local autosave_tex_typst = false
 
 -- $install
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -33,6 +35,8 @@ require('lazy').setup({
     'hjson/vim-hjson',
 	'dkarter/bullets.vim',
     'chrisbra/csv.vim',
+    -- 'lervag/vimtex',
+    'JuliaEditorSupport/julia-vim',
     {
         'nvim-lualine/lualine.nvim',
     },
@@ -165,7 +169,9 @@ local compilefunc = {
 	['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
 	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-	['tex'] = function (_) return ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./main.tex') end,
+	['tex'] = function (name)
+        return autosave_tex_typst and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
+    end,
 	['typst'] = function (_) return ('') end,
 	['lua'] = function (name) return ('!lua ' .. name) end,
 	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
@@ -174,6 +180,7 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (_) return 'TypstWatch' end,
+    ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
     return function ()
@@ -221,10 +228,13 @@ vim.api.nvim_create_user_command('T', function (args)
 end, { nargs = '?' })
 
 -- $autocommands
-local autosave = true
 vim.api.nvim_create_user_command('AS', function()
 	autosave = not autosave
 	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
+end, {})
+vim.api.nvim_create_user_command('ATT', function()
+	autosave_tex_typst = not autosave_tex_typst
+	print('autosave for TeX and Typst is ' .. (autosave_tex_typst and 'enabled' or 'disabled'))
 end, {})
 -- local autosavepattern = {
 --     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
@@ -235,7 +245,10 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = '*.*',
 	callback = function()
 		if autosave and
-        vim.bo.filetype ~= 'typst' and
+        (
+            autosave_tex_typst or
+            not (vim.bo.filetype == 'typst' or vim.bo.filetype == 'tex')
+        ) and
         not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
         vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
             vim.cmd('silent write')
@@ -498,7 +511,7 @@ require('nvim-treesitter.configs').setup({
     modules = {},
     sync_install = true,
     ignore_install = {},
-    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'julia', 'c' },
+    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'c' },
     highlight = { enable = true },
     indent = { enable = false },
     incremental_selection = {
@@ -599,8 +612,8 @@ local handlers =  {
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
-local util = require 'lspconfig.util'
+-- local configs = require('lspconfig.configs')
+-- local util = require 'lspconfig.util'
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
@@ -611,6 +624,7 @@ lspconfig.texlab.setup(lspbasicconfig)
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
+lspconfig.julials.setup(lspbasicconfig)
 
 lspconfig.typst_lsp.setup({
     settings = {
@@ -781,6 +795,15 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.undofile = true
 vim.o.cursorline = false
 vim.g.neovide_transparency = 0.9
+
+-- vim.g.vimtex_complete_enabled = 1
+-- vim.g.vimtex_quickfix_enabled = 0
+-- -- vim.g.vimtex_view_method = 'zathura'
+-- -- vim.g.latex_view_general_viewer = 'zathura'
+-- -- vim.g.vimtex_compiler_progname = 'nvr'
+-- vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+-- vim.g.vimtex_mappings_prefix = '\\'
+-- vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 
 vim.cmd([[
     let tex_flavor="latex"

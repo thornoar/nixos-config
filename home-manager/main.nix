@@ -13,18 +13,68 @@
 
     config = 
     let 
-        my-python-packages = ps: with ps; [
-            ipython
-            sympy
-            numpy
-        ];
-        my-r-packages = pkgs.rWrapper.override{ packages = with pkgs.rPackages; [ languageserver ggplot2 dplyr xts ]; };
+        # [./packages.txt]
         my-latex-basic = (pkgs.texlive.combine {
             inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
         });
         my-latex-full = (pkgs.texlive.combine {
             inherit (pkgs.texlive) scheme-full;
         });
+        regular-packages = with pkgs; [
+            # LaTeX
+            my-latex-full
+            texlab
+
+            # Asymptote
+            # asymptote
+
+            # C
+            clang
+            clang-tools
+
+            # Python
+            (python3.withPackages (ps: with ps; [ ipython sympy numpy ]))
+            manim
+
+            # Haskell
+            ghc
+            cabal-install
+            haskellPackages.cabal-clean
+            haskell-language-server
+
+            # Lua
+            lua
+            lua-language-server
+
+            # Julia
+            # julia
+            (julia.withPackages [ "LanguageServer" ])
+
+            # Rust
+            cargo
+            rustc
+            rust-analyzer
+
+            # R
+            (pkgs.rWrapper.override {
+                packages = with pkgs.rPackages; [
+                    languageserver ggplot2 dplyr xts
+                ];
+            })
+            rPackages.languageserver
+
+            # Java
+            openjdk
+
+            # Typst
+            typst
+            typst-lsp
+        ];
+        unstable-packages = with pkgs-unstable; [
+            khal
+            fzf
+            nodejs
+        ];
         insecure-packages = with pkgs; [ sc-im ];
     in
     {
@@ -65,41 +115,7 @@
                         (lib.strings.splitString "\n" (builtins.readFile ./packages.txt))
                 ).right (name: pkgs.${name})
             ) else []
-		) ++ (
-            with pkgs; [
-                my-latex-full
-                texlab
-                # asymptote
-                clang
-                clang-tools
-                (python3.withPackages my-python-packages)
-                manim
-                ghc
-                cabal-install
-                haskellPackages.cabal-clean
-                haskell-language-server
-                lua
-                lua-language-server
-                julia
-                cargo
-                rustc
-                rust-analyzer
-                my-r-packages
-                rPackages.languageserver
-                openjdk
-                typst
-                typst-lsp
-            ]
-        ) ++ (
-            with pkgs-unstable; [
-                khal
-                fzf
-                nodejs
-            ]
-        ) ++ (
-            insecure-packages
-        );
-        # [./packages.txt]
+		) ++ regular-packages ++ unstable-packages ++ insecure-packages;
 
         programs = {
             neovim = {
