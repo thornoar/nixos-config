@@ -155,9 +155,19 @@ require('lazy').setup({
                 desc = 'Telescope results',
             },
         },
-    }
+    },
+    { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
 }, {})
+
+require('neodev').setup({
+    override = function(root_dir, library)
+        if root_dir:find(os.getenv('NIXOS_CONFIG') .. '/dotfiles/nvim', 1, true) == 1 then
+            library.enabled = true
+            library.plugins = true
+        end
+    end,
+})
 
 -- $commands
 local compilefunc = {
@@ -590,6 +600,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local opts = { buffer = event.buf }
         km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
         km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        km.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
         km.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
         km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
     end
@@ -612,8 +623,8 @@ local handlers =  {
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 local lspconfig = require('lspconfig')
--- local configs = require('lspconfig.configs')
--- local util = require 'lspconfig.util'
+local configs = require('lspconfig.configs')
+local util = require 'lspconfig.util'
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
@@ -621,10 +632,28 @@ local lspbasicconfig = {
 }
 
 lspconfig.texlab.setup(lspbasicconfig)
+-- lspconfig.pylsp.setup(lspbasicconfig)
+lspconfig.pyright.setup(lspbasicconfig)
+lspconfig.nil_ls.setup(lspbasicconfig)
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
-lspconfig.julials.setup(lspbasicconfig)
+-- lspconfig.julials.setup(lspbasicconfig)
+
+if not configs.asy_ls then
+   configs.asy_ls = {
+    default_config = {
+      cmd = {'asy', '-lsp'},
+      filetypes = {'asy'},
+      root_dir = function(fname)
+        return util.find_git_ancestor(fname)
+      end,
+      single_file_support = true,
+      settings = {},
+    },
+  }
+end
+lspconfig.asy_ls.setup(lspbasicconfig)
 
 lspconfig.typst_lsp.setup({
     settings = {
@@ -702,7 +731,7 @@ vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'pyright', 'bashls', 'rnix' },
+    ensure_installed = { 'bashls' },
     handlers = {
         default_setup,
     },
@@ -762,7 +791,7 @@ cmp.setup({
 
 -- $settings
 vim.o.swapfile = false
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.list = false
 vim.o.breakat = '   '

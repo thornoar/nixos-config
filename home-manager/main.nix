@@ -33,8 +33,20 @@
             clang-tools
 
             # Python
-            (python3.withPackages (ps: with ps; [ ipython sympy numpy ]))
-            manim
+            (python3.withPackages (ps: with ps; [
+                manim ipython sympy numpy
+                python-lsp-server
+                python-lsp-jsonrpc
+                python-lsp-black
+                # python-lsp-ruff
+                pyls-isort
+                pyls-flake8
+                flake8
+                isort
+                black
+            ]))
+            pyright
+            # manim
 
             # Haskell
             ghc
@@ -47,8 +59,8 @@
             lua-language-server
 
             # Julia
-            # julia
-            (julia.withPackages [ "LanguageServer" ])
+            julia
+            # (julia.withPackages [ "LanguageServer" ])
 
             # Rust
             cargo
@@ -69,6 +81,9 @@
             # Typst
             typst
             typst-lsp
+
+            # Nix
+            nil
         ];
         unstable-packages = with pkgs-unstable; [
             khal
@@ -118,9 +133,9 @@
 		) ++ regular-packages ++ unstable-packages ++ insecure-packages;
 
         programs = {
-            neovim = {
-                enable = true;
-            };
+	    neovim = {
+	    	enable = true;
+	    };
             zsh = {
                 enable = true;
                 enableCompletion = true;

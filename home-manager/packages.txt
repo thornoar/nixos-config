@@ -66,3 +66,4 @@ git-repo-updater
 xournalpp
 libreoffice
 keyd
+pdfcpu
