@@ -297,6 +297,7 @@
                 txt: "${config.colorWhite3}"
                 asy: "${config.colorYellow1}"
                 py: "${config.colorCyan}"
+                typ: "${config.colorCyan}"
                 hs: "${config.colorMagenta2}"
                 vim: "${config.colorGreen2}"
                 nix: "${config.colorMagenta1}"

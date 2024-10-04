@@ -189,7 +189,7 @@ local compilefunc = {
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
 local daemonfunc = {
-    ['typst'] = function (_) return 'TypstWatch' end,
+    ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
     ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
@@ -231,6 +231,7 @@ vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuke
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
 vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
+vim.api.nvim_create_user_command('W', function () vim.o.wrap = not vim.o.wrap end, {})
 vim.api.nvim_create_user_command('L', 'Lazy', {})
 vim.api.nvim_create_user_command('T', function (args)
     local dir = args and args['args'] or '.'
@@ -264,6 +265,13 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
             vim.cmd('silent write')
         end
 	end
+})
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    pattern = { '*.tex', '*.typ', '*.md' },
+    callback = function ()
+        vim.o.wrap = true
+    end
 })
 
 -- $keymaps:text
@@ -324,6 +332,9 @@ km.set('i', '<M-g>', 'X<bs><C-o>:D<CR>')
 km.set('i', '<M-j>', 'X<bs><C-o>:J<CR>')
 km.set('i', '<C-m>', '$$<Left>')
 
+-- $keymaps:terminal
+km.set('t', '<C-q>', '<C-\\><C-n>')
+
 -- $keymaps:navigation
 km.set('n', '<Up>', 'gk')
 km.set('n', '<Down>', 'gj')
@@ -342,8 +353,9 @@ km.set('i', '<M-right>', '<C-o>5l')
 km.set({'n', 'v'}, '<M-a>', '%')
 km.set('n', 'n', 'nzz')
 km.set('n', 'N', 'Nzz')
-km.set('n', '<C-M-left>', '<C-^>')
-km.set('n', '<C-M-right>', 'gf')
+km.set('n', '<C-M-Left>', '<C-^>')
+km.set('t', '<C-M-Left>', '<C-\\><C-n><C-^>')
+km.set('n', '<C-M-Right>', 'gf')
 
 -- $keymaps:window
 km.set('n', '<C-Left>', '<C-w>h')
@@ -796,7 +808,7 @@ vim.o.linebreak = true
 vim.o.list = false
 vim.o.breakat = '   '
 vim.opt.autochdir=true
-vim.o.shell = '/bin/sh'
+vim.o.shell = '/usr/bin/env zsh'
 vim.wo.number = true
 vim.o.mouse = 'a'
 vim.o.breakindent = true
@@ -868,11 +880,10 @@ vim.g.UltiSnipsEditSplit='horizontal'
 vim.o.vim_markdown_folding_level = 6
 vim.o.vim_markdown_folding_style_pythonic = 1
 
--- package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
--- require('nvim-subfiles').setup({
---     bindings = {
---     },
---     opts = {
---         jump_to_file = false,
---     }
--- })
+package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
+require('nvim-subfiles').setup({
+    bindings = { },
+    opts = {
+        jump_to_file = false,
+    }
+})
