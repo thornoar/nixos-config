@@ -539,6 +539,11 @@
                     url = "https://www.archchinese.com/";
                     keyword = "ch";
                 }
+                {
+                    name = "ca | Canvas";
+                    url = "https://canvas.ust.hk";
+                    keyword = "ca";
+                }
             ];
             userChrome = ''
                 #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
