@@ -55,11 +55,11 @@ require('lazy').setup({
             { '<M-g>', ':LazyGit<CR>', desc = 'LazyGit' }
         },
     },
-    {
-        'kaarmu/typst.vim',
-        ft = 'typst',
-        lazy = false,
-    },
+    -- {
+    --     'kaarmu/typst.vim',
+    --     ft = 'typst',
+    --     lazy = false,
+    -- },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.6',
         dependencies = { 'nvim-lua/plenary.nvim' }
@@ -190,6 +190,7 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
+    -- ['typst'] = function (_) return 'TypstWatch' end,
     ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
@@ -533,7 +534,7 @@ require('nvim-treesitter.configs').setup({
     modules = {},
     sync_install = true,
     ignore_install = {},
-    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'c' },
+    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'c', 'typst' },
     highlight = { enable = true },
     indent = { enable = false },
     incremental_selection = {
