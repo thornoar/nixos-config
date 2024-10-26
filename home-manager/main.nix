@@ -133,9 +133,9 @@
 		) ++ regular-packages ++ unstable-packages ++ insecure-packages;
 
         programs = {
-	    neovim = {
-	    	enable = true;
-	    };
+            neovim = {
+                enable = true;
+            };
             zsh = {
                 enable = true;
                 enableCompletion = true;

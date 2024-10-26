@@ -1169,3 +1169,38 @@ do
     cd ..
 done
 cd "$cwd" || exit
+
+
+    -- {
+    --     'folke/trouble.nvim',
+    --     opts = {
+    --         preview = {
+    --             scratch = false
+    --         }
+    --     },
+    --     cmd = 'Trouble',
+    --     keys = {
+    --         {
+    --             '<C-d>',
+    --             '<cmd>Trouble diagnostics toggle<cr>',
+    --             desc = 'Diagnostics (Trouble)',
+    --         },
+    --         {
+    --             '<leader>D',
+    --             '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>',
+    --             desc = 'Buffer Diagnostics (Trouble)',
+    --         },
+    --         {
+    --             '<leader>s',
+    --             '<cmd>Trouble symbols toggle focus=false<cr>',
+    --             desc = 'Symbols (Trouble)',
+    --         },
+    --         {
+    --             '<leader>t',
+    --             '<cmd>Trouble telescope toggle<cr>',
+    --             desc = 'Telescope results',
+    --         },
+    --     },
+    -- },
+                -- ['<M-Down>'] = require("trouble.sources.telescope").open,
+                -- ['<M-Right>'] = require("trouble.sources.telescope").add,

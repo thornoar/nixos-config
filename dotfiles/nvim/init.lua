@@ -125,37 +125,16 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
-    {
-        'folke/trouble.nvim',
-        opts = {
-            preview = {
-                scratch = false
-            }
-        },
-        cmd = 'Trouble',
-        keys = {
-            {
-                '<C-d>',
-                '<cmd>Trouble diagnostics toggle<cr>',
-                desc = 'Diagnostics (Trouble)',
-            },
-            {
-                '<leader>D',
-                '<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>',
-                desc = 'Buffer Diagnostics (Trouble)',
-            },
-            {
-                '<leader>s',
-                '<cmd>Trouble symbols toggle focus=false<cr>',
-                desc = 'Symbols (Trouble)',
-            },
-            {
-                '<leader>t',
-                '<cmd>Trouble telescope toggle<cr>',
-                desc = 'Telescope results',
-            },
-        },
-    },
+    -- {
+    --     'nvimdev/lspsaga.nvim',
+    --     config = function()
+    --         require('lspsaga').setup({})
+    --     end,
+    --     dependencies = {
+    --         'nvim-treesitter/nvim-treesitter', -- optional
+    --         -- 'nvim-tree/nvim-web-devicons',     -- optional
+    --     }
+    -- },
     { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
 }, {})
@@ -441,8 +420,6 @@ require('telescope').setup({
             i = {
                 ['<C-Down>'] = function(bufnr) slow_scroll(bufnr, 1) end,
                 ['<C-Up>'] = function(bufnr) slow_scroll(bufnr, -1) end,
-                ['<M-Down>'] = require("trouble.sources.telescope").open,
-                ['<M-Right>'] = require("trouble.sources.telescope").add,
             },
         },
     },
