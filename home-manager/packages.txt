@@ -68,3 +68,4 @@ libreoffice
 keyd
 pdfcpu
 write_stylus
+maestral

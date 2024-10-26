@@ -582,8 +582,8 @@ for name, icon in pairs(symbols) do
 	local hl = "DiagnosticSign" .. name
 	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
-km.set('n', '[d', function () vim.diagnostic.goto_prev() end)
-km.set('n', ']d', function () vim.diagnostic.goto_next() end)
+km.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
+km.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
