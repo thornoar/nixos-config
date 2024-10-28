@@ -74,27 +74,35 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
+import Colors
+import Size
+import Misc
+windowSpace' :: Int
+windowSpace' = windowSpace `div` 2
+myFloatingRectangle :: W.RationalRect
+myFloatingRectangle = W.RationalRect ((1 - scratchpadWidth) / 2) ((1 - scratchpadHeight) / 2) scratchpadWidth scratchpadHeight 
+
 grid = named "Grid"
-  $ spacingWithEdge mySpace
-  $ MG.magnifierczOff myMagnifiedScale
+  $ spacingWithEdge windowSpace'
+  $ MG.magnifierczOff magnifiedScale
   $ Grid (16/9)
 
 tallAccordion = named "Master"
-  $ spacingWithEdge mySpace
+  $ spacingWithEdge windowSpace'
   $ mkToggle (single MIRROR)
-  $ MG.magnifierczOff myMagnifiedScale
+  $ MG.magnifierczOff magnifiedScale
   -- $ autoMaster 1 (3/100) Accordion
   -- $ mastered (3/100) (1/2) Accordion
   $ reflectHoriz
   $ combineTwo (TwoPane (3/100) (1/2)) Accordion (Grid (16/9))
 
 accordion = named "Accordion"
-  $ spacingWithEdge mySpace
+  $ spacingWithEdge windowSpace'
   $ mkToggle (single MIRROR)
   $ Mirror Accordion
 
 tabs = named "Tabbed"
-  $ spacing mySpace
+  $ spacing windowSpace'
   $ tabbedAlways shrinkText myTabTheme
 
 myLayout = grid ||| tallAccordion ||| accordion ||| tabs ||| Full
@@ -119,7 +127,7 @@ myModMask = mod4Mask
 
 myStartupHook :: X ()
 myStartupHook = do
-  setWallpaperCmd
+  spawn setWallpaperCmd
   spawn "xmodmap ~/.Xmodmap"
 
 myWorkspaces :: [String]
@@ -155,13 +163,13 @@ searchList = [
 
 myTabTheme = def {
     fontName            = myFont,
-    activeColor         = myBgColor,
-    inactiveColor       = myBgColor,
-    activeBorderColor   = myBgColor,
-    inactiveBorderColor = myBgColor,
+    activeColor         = bgColor0,
+    inactiveColor       = bgColor0,
+    activeBorderColor   = bgColor0,
+    inactiveBorderColor = bgColor0,
     activeTextColor     = colorMagenta0,
-    inactiveTextColor   = colorLowWhite,
-    decoHeight          = myBarHeight
+    inactiveTextColor   = colorWhite3,
+    decoHeight          = barHeight
   }
 
 myXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
@@ -200,15 +208,15 @@ myXPKeymap = M.fromList $
 myXPConfig :: XPConfig
 myXPConfig = def {
     font                = myFont,
-    bgColor             = myBgColor,
-    fgColor             = colorWhite,
+    bgColor             = bgColor0,
+    fgColor             = colorWhite0,
     bgHLight            = colorMagenta1,
     fgHLight            = colorBlack,
     borderColor         = colorBlue2,
     promptBorderWidth   = 0,
     promptKeymap        = myXPKeymap,
     position            = Top,
-    height              = myBarHeight,
+    height              = barHeight,
     historySize         = 256,
     historyFilter       = id,
     defaultText         = [],
@@ -316,7 +324,7 @@ myKeys = [
     ("M-C-<Up>", sendMessage FirstLayout),
     ("M-C-<Left>", withFocused minimizeWindow),
     ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
-    ("M-C-p", setWallpaperCmd),
+    ("M-C-p", spawn setWallpaperCmd),
     ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
     ("M-M1-<Tab>", sendMessage $ Toggle NBFULL),
     ("M-C-s", sendMessage $ Toggle MIRROR),
@@ -402,10 +410,10 @@ myXmobarPP = def {
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
     blue     = xmobarColor colorMagenta1 ""
-    white    = xmobarColor colorWhite ""
-    yellow   = xmobarColor colorYellow ""
-    red      = xmobarColor colorRed ""
-    lowWhite = xmobarColor colorLowWhite""
+    white    = xmobarColor colorWhite0 ""
+    yellow   = xmobarColor colorYellow0 ""
+    red      = xmobarColor colorRed0 ""
+    lowWhite = xmobarColor colorWhite3""
 
 -- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 myHandleEventHook = mempty
@@ -418,7 +426,7 @@ defaults = def {
     focusedBorderColor  = colorMagenta0,
     normalBorderColor   = colorMagenta1,
     clickJustFocuses    = myClickJustFocuses,
-    borderWidth         = myBorderWidth,
+    borderWidth         = windowBorderWidth,
     modMask             = myModMask,
     workspaces          = myWorkspaces,
     layoutHook          =

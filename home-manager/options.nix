@@ -13,10 +13,9 @@
             default = {
                 bgColor0            = "#0b0c0d";
                 bgColor1            = "#0b0c0d";
-                # bgColor1            = "#141516";
                 bgColor2            = "#262728";
                 bgColor3            = "#4d4e4f";
-                fgColor             = "#17a88b";
+                fgColor0            = "#17a88b";
                 brfgColor           = "#00bc96";
 
                 colorBlack          = "#000000";
@@ -80,9 +79,9 @@
             type = lib.types.str;
             default =  ''
                 Config {
-                    font     = "xft:${config.misc.font} Nerd Font Mono-${ts config.size.fontsizeBar}",
+                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.size.fontsizeBar}",
                     bgColor  = "${config.colors.bgColor0}",
-                    fgColor  = "${config.colors.fgColor}",
+                    fgColor  = "${config.colors.fgColor0}",
                     position = TopH ${ts config.size.barHeight},
                     persistent = False,
                     hideOnStart = False,
@@ -115,22 +114,8 @@
         misc = lib.mkOption {
             type = lib.types.attrs;
             default = {
-                # fontsize            = opt { type = tp.int;      };
-                # fontsizeBar         = opt { type = tp.int;      };
-                    # wallpaperDir        = opt { type = tp.str;      };
-                    # wallpaperGamma      = opt { type = tp.float;    };
-                    # wallpaperContrast   = opt { type = tp.float;    };
-                # windowSpace         = opt { type = tp.int;      };
-                # windowBorderWidth   = opt { type = tp.int;      };
-                # terminalOpacity     = opt { type = tp.float;    };
-                # terminalPadding     = opt { type = tp.attrs;    };
-                # barHeight           = opt { type = tp.int;      };
-                # magnifiedScale      = opt { type = tp.float;    };
-
                 usePackageList      = true;
-                scratchpadWidth     = "2 % 3";
-                scratchpadHeight    = "2 % 3";
-                font                = "Hack";
+                systemFont          = "Hack";
             };
         };
     };
