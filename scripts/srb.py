@@ -44,6 +44,10 @@ try:
 
     old_gen = os.popen("readlink -f /run/current-system").read().strip()
 
+    if (args.extra != ""):
+        args.extra = args.extra.replace(", ", " --")
+        args.extra = "--" + args.extra
+
     call("sudo printf \"\033[33mAccess granted.\033[0m\\n\"") #]]
     call("sudo nixos-rebuild " + args.command + " " + args.extra + flakeopt + log_format)
 

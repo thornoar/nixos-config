@@ -8,7 +8,8 @@
     ) ++ [
         ./options.nix
         ./scripts.nix
-        ./external.nix
+        ./external-smart.nix
+        ./external-direct.nix
     ];
 
     config = 
@@ -66,13 +67,12 @@
             rust-analyzer
 
             # R
-            R
-            # (pkgs.rWrapper.override {
-            #     packages = with pkgs.rPackages; [
-            #         languageserver ggplot2 dplyr xts
-            #     ];
-            # })
-            rPackages.languageserver
+            # R
+            (pkgs.rWrapper.override {
+                packages = with pkgs.rPackages; [
+                    languageserver ggplot2 dplyr xts
+                ];
+            })
 
             # Java
             # openjdk

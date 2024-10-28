@@ -197,8 +197,8 @@
                 }
             '';
         };
-        programs.zsh.envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh")
-        programs.zsh.initExtra = builtins.readFile (dotfile "zsh/initExtra.zsh")
+        programs.zsh.envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
+        programs.zsh.initExtra = builtins.readFile (dotfile "zsh/initExtra.zsh");
 
         home.file.".Rprofile".source = dotfile "Rprofile";
 

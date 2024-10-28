@@ -10,7 +10,7 @@ function precmd() {
     if [ $timer ]; then
     now=$(($(date +%s%0N)/1000000))
     elapsed=$(($now-$timer))
-    export RPROMPT="< %{$fg[yellow]%}''${elapsed}ms%{$reset_color%}"
+    export RPROMPT="< %{$fg[yellow]%}${elapsed}ms%{$reset_color%}"
     unset timer
     fi
 }
@@ -20,7 +20,7 @@ bindkey "^[[1;3C" forward-word
 
 typeset -U PATH path
 BINPATH="$PROJECTS"
-path+=("$BINPATH" "''${BINPATH}"/*/bin)
+path+=("$BINPATH" "${BINPATH}"/*/bin)
 export PATH
 
 eval "$(fzf --zsh)"
