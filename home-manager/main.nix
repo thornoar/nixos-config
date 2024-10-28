@@ -35,18 +35,17 @@
             # Python
             (python3.withPackages (ps: with ps; [
                 manim ipython sympy numpy
-                python-lsp-server
-                python-lsp-jsonrpc
-                python-lsp-black
+                # python-lsp-server
+                # python-lsp-jsonrpc
+                # python-lsp-black
                 # python-lsp-ruff
-                pyls-isort
-                pyls-flake8
-                flake8
-                isort
-                black
+                # pyls-isort
+                # pyls-flake8
+                # flake8
+                # isort
+                # black
             ]))
             pyright
-            # manim
 
             # Haskell
             ghc
@@ -60,7 +59,6 @@
 
             # Julia
             julia
-            # (julia.withPackages [ "LanguageServer" ])
 
             # Rust
             cargo
@@ -68,15 +66,16 @@
             rust-analyzer
 
             # R
-            (pkgs.rWrapper.override {
-                packages = with pkgs.rPackages; [
-                    languageserver ggplot2 dplyr xts
-                ];
-            })
+            R
+            # (pkgs.rWrapper.override {
+            #     packages = with pkgs.rPackages; [
+            #         languageserver ggplot2 dplyr xts
+            #     ];
+            # })
             rPackages.languageserver
 
             # Java
-            openjdk
+            # openjdk
 
             # Typst
             typst
@@ -90,7 +89,9 @@
             fzf
             nodejs
         ];
-        insecure-packages = with pkgs; [ sc-im ];
+        insecure-packages = with pkgs; [
+            # sc-im
+        ];
     in
     {
         home.username = "ramak";
@@ -114,7 +115,7 @@
                 "audio/mp3" = [ "mpv.desktop" ];
                 "video/vnd.avi" = [ "mpv.desktop" ];
                 "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-                "image/svg+xml" = [ "inkview.desktop" ];
+                "image/svg+xml" = [ "sxiv.desktop" ];
                 "text/csv" = [ "sc-im.desktop" ];
             };
             defaultApplications = associations.added;
@@ -123,7 +124,7 @@
         nixpkgs.config.allowUnfree = true;
 
         home.packages = (
-            if config.usePackageList then (
+            if config.misc.usePackageList then (
                 lib.lists.forEach (
                     lib.lists.partition
                         (x: 0 < lib.strings.stringLength x) 
@@ -145,8 +146,6 @@
                     torrent = "transmission-remote";
                     film = "transmission-remote -w ~/media/films -a ";
                     music = "transmission-remote -w ~/media/music -a ";
-                    la = "exa -lAh";
-                    cla = "clear; ${la}";
                     lbr = "clear; br";
                     open = "xdg-open";
                     close = "exit";
