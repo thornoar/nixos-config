@@ -20,6 +20,7 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     };
 
     outputs = inputs @ { self, ... }:
@@ -63,6 +64,7 @@
                 specialArgs = { inherit inputs; };
                 modules = [
                     ./isoimage/configuration.nix
+                    # inputs.nixos-hardware.nixosModules.asus-pro-ws-x570-ace
                 ];
             };
         };
