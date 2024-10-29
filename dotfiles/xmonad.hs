@@ -134,7 +134,7 @@ myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]
 
 myFont :: String
-myFont = "xft:Hack Mono:mono:size=12:bold=false:antialias=true:hinting=true"
+myFont = "xft:Hack Mono:mono:size=21:bold=false:antialias=true:hinting=true"
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset

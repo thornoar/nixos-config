@@ -111,6 +111,7 @@
         boot.loader.timeout = 35996;
         boot.loader.efi.canTouchEfiVariables = true;
         boot.supportedFilesystems = [ "ntfs" ];
+	# boot.kernelPackages = pkgs.linuxPackages_5_19;
 
         nix.gc = {
             automatic = true;

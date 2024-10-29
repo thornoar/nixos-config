@@ -67,7 +67,6 @@
             rust-analyzer
 
             # R
-            # R
             (pkgs.rWrapper.override {
                 packages = with pkgs.rPackages; [
                     languageserver ggplot2 dplyr xts
@@ -181,6 +180,7 @@
                         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                         "signon.rememberSignons" = false;
                         "media.hardware-video-decoding.enabled" = true;
+                        "layout.css.devPixelsPerPx" = 1.6;
                     };
                     extensions = with firefox-pkgs; [
                         darkreader
@@ -200,7 +200,7 @@
         };
 
         xresources.properties = {
-            "Xcursor.size" = 16;
+            "Xcursor.size" = 24;
             "Xcursor.theme" = "Adwaita";
         };
 
