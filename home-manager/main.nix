@@ -199,9 +199,15 @@
             };
         };
 
-        xresources.properties = {
-            "Xcursor.size" = 24;
-            "Xcursor.theme" = "Adwaita";
+        # xresources.properties = {
+        #     "Xcursor.size" = 48;
+        #     "Xcursor.theme" = "Adwaita";
+        # };
+        home.pointerCursor = {
+            x11.enable = true;
+            name = "Adwaita";
+            package = pkgs.gnome.adwaita-icon-theme;
+            size = 24;
         };
 
         dconf.settings = {

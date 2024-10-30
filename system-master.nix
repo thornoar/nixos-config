@@ -20,6 +20,10 @@
                 lightdm = {
                     enable = true;
                     greeters.enso.enable = true;
+                    # greeters.lomiri.enable = true;
+                    greeters.enso.extraConfig = ''
+                        font-name=Hack 18
+                    '';
                     background = dotfile "lightdm-background.jpg";
                 };
             };
