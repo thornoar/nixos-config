@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 
 {
     config = 
@@ -55,7 +55,7 @@
         '';
 
         # Broot configuration
-
+    
         xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
         xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
         xdg.configFile."broot/colorscheme.hjson".text = ''

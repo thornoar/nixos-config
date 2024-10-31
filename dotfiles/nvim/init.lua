@@ -622,9 +622,28 @@ local lspbasicconfig = {
 }
 
 lspconfig.texlab.setup(lspbasicconfig)
--- lspconfig.pylsp.setup(lspbasicconfig)
 lspconfig.pyright.setup(lspbasicconfig)
-lspconfig.nil_ls.setup(lspbasicconfig)
+-- lspconfig.nil_ls.setup(lspbasicconfig)
+lspconfig.nixd.setup({
+    handlers = handlers,
+    capabilities = lsp_capabilities,
+    cmd = { "nixd" },
+    settings = {
+        nixd = {
+            nixpkgs = {
+                expr = "import <nixpkgs { }>",
+            },
+            formatting = {
+                command = { "alejandra" },
+            },
+            options = {
+                nixos = {
+                    expr = "(builtins.getFlake \"/home/ramak/projects/nixos-config\").nixosConfigurations.master.options",
+                },
+            },
+        },
+    },
+})
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)

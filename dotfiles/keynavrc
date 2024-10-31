@@ -2,7 +2,7 @@ clear
 ctrl+Return start
 Escape end
 ctrl+Down end
-ctrl+bracketleft end
+ctrl+KP_Down end
 q record ~/.keynav_macros
 shift+at playback
 a history-back
@@ -10,10 +10,18 @@ Left cut-left
 Down cut-down
 Up cut-up
 Right cut-right
+KP_Left cut-left
+KP_Down cut-down
+KP_Up cut-up
+KP_Right cut-right
 Shift+Left move-left
 shift+Down move-down
 shift+Up move-up
 shift+Right move-right
+Shift+KP_Left move-left
+shift+KP_Down move-down
+shift+KP_Up move-up
+shift+KP_Right move-right
 space warp,click 1,end
 Return warp,click 1,end
 semicolon warp,end

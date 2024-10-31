@@ -1,4 +1,4 @@
-{ sysname, inputs, config, lib, pkgs, pkgs-unstable, ... }:
+{ sysname, inputs, pkgs, ... }:
 
 {
     imports = [
@@ -20,11 +20,11 @@
                 "networkmanager"
                 "libvirtd"
             ];
-            packages = with pkgs; [];
             homeMode = "0711";
         };
     
         nix = {
+            nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
             settings.experimental-features = [ "nix-command" "flakes" "repl-flake" ];
             extraOptions = ''
                 warn-dirty = false
@@ -83,14 +83,6 @@
             xz
             unzip
             p7zip
-
-            # setting the sddm background
-            (
-                pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-                    [General]
-                    background = ~/media/wallpapers/Abstract/01.jpg
-                ''
-            )
         ];
         environment.localBinInPath = true;
 
@@ -111,7 +103,6 @@
         boot.loader.timeout = 35996;
         boot.loader.efi.canTouchEfiVariables = true;
         boot.supportedFilesystems = [ "ntfs" ];
-	# boot.kernelPackages = pkgs.linuxPackages_5_19;
 
         nix.gc = {
             automatic = true;
@@ -131,12 +122,9 @@
         };
         users.defaultUserShell = pkgs.zsh;
 
-        services.xserver = {
-            enable = true;
-            xkb.layout = "us";
-            xkb.variant = "";
-            windowManager.awesome.enable = true;
-        };
+        # services.xserver = {
+        #     windowManager.awesome.enable = true;
+        # };
 
         system.stateVersion = "23.11";
     };

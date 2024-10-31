@@ -15,15 +15,10 @@
     config = 
     let 
         # [./packages.txt]
-        my-latex-basic = (pkgs.texlive.combine {
-            inherit (pkgs.texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum;
-        });
-        my-latex-full = (pkgs.texlive.combine {
-            inherit (pkgs.texlive) scheme-full;
-        });
         regular-packages = with pkgs; [
             # LaTeX
-            my-latex-full
+            (texlive.combine { inherit (texlive) scheme-full; })
+            # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum; })
             texlab
 
             # Asymptote
@@ -36,15 +31,6 @@
             # Python
             (python3.withPackages (ps: with ps; [
                 manim ipython sympy numpy
-                # python-lsp-server
-                # python-lsp-jsonrpc
-                # python-lsp-black
-                # python-lsp-ruff
-                # pyls-isort
-                # pyls-flake8
-                # flake8
-                # isort
-                # black
             ]))
             pyright
 
@@ -67,9 +53,9 @@
             rust-analyzer
 
             # R
-            (pkgs.rWrapper.override {
-                packages = with pkgs.rPackages; [
-                    languageserver ggplot2 dplyr xts
+            (rWrapper.override {
+                packages = with rPackages; [
+                    languageserver ggplot2 dplyr xts pracma
                 ];
             })
 
@@ -81,7 +67,9 @@
             typst-lsp
 
             # Nix
-            nil
+            # nil
+            nixd
+            alejandra
         ];
         unstable-packages = with pkgs-unstable; [
             khal
@@ -89,7 +77,7 @@
             nodejs
         ];
         insecure-packages = with pkgs; [
-            # sc-im
+            sc-im
         ];
     in
     {
@@ -141,7 +129,7 @@
                 enableCompletion = true;
                 autosuggestion.enable = true;
                 syntaxHighlighting.enable = true;
-                shellAliases = rec {
+                shellAliases = {
                     torrent = "transmission-remote";
                     film = "transmission-remote -w ~/media/films -a ";
                     music = "transmission-remote -w ~/media/music -a ";
@@ -199,15 +187,11 @@
             };
         };
 
-        # xresources.properties = {
-        #     "Xcursor.size" = 48;
-        #     "Xcursor.theme" = "Adwaita";
-        # };
         home.pointerCursor = {
             x11.enable = true;
             name = "Adwaita";
             package = pkgs.gnome.adwaita-icon-theme;
-            size = 24;
+            size = 32;
         };
 
         dconf.settings = {
@@ -219,7 +203,7 @@
 
         gtk = {
             enable = true;
-            font.name = "Hack Mono 11";
+            font.name = "Hack Mono 20";
             theme = {
                 name = "deepin-dark";
                 package = pkgs.deepin.deepin-gtk-theme;

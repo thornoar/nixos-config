@@ -2,11 +2,14 @@
     description = "NixOS Flake";
 
     inputs = {
+        nixpkgs-unstable = {
+            url = "github:NixOS/nixpkgs/nixos-unstable";
+        };
         nixpkgs = {
             url = "github:NixOS/nixpkgs/nixos-24.05";
         };
-        nixpkgs-unstable = {
-            url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs-old = {
+            url = "github:NixOS/nixpkgs/nixos-23.11";
         };
         home-manager = {
             url = "github:nix-community/home-manager/release-24.05";
@@ -20,16 +23,26 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     };
 
-    outputs = inputs @ { self, ... }:
+    outputs = inputs @ { ... }:
     let
         system = "x86_64-linux";
         sysname = "master";
 
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-        pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+        pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+        };
+        pkgs-old = import inputs.nixpkgs-old {
+            inherit system;
+            config.allowUnfree = true;
+        };
+        pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+        };
+        # pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
         lib = inputs.nixpkgs.lib;
         firefox-pkgs = inputs.firefox-addons.packages.${system};
     in
@@ -39,13 +52,13 @@
                 system = system;
                 modules = [
                     ./system-${sysname}.nix
-                    { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; }; }
+                    { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
                     inputs.home-manager.nixosModules.home-manager
                     {
                         home-manager = {
                             useUserPackages = true;
                             users.ramak = import ./home-manager/main.nix;
-                            extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; };
+                            extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
                         };
                     }
                     inputs.nix-index-database.nixosModules.nix-index
@@ -64,7 +77,6 @@
                 specialArgs = { inherit inputs; };
                 modules = [
                     ./isoimage/configuration.nix
-                    # inputs.nixos-hardware.nixosModules.asus-pro-ws-x570-ace
                 ];
             };
         };

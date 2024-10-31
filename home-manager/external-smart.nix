@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 
 {
     config = 
@@ -7,7 +7,6 @@
         ts = builtins.toString;
         toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
-        toHjson = lib.attrsets.foldlAttrs (str: k: v: str + "  ${k}: \"${ts v}\"\n");
     in 
     {
         # xmonad setup

@@ -3,6 +3,9 @@ import XMonad
 import qualified XMonad.StackSet as W
 import System.Exit
 
+-- Monads
+import Control.Monad (void)
+
 -- Actions
 import XMonad.Actions.CycleWS
 import XMonad.Actions.WithAll (sinkAll, killAll, withAll)
@@ -15,7 +18,7 @@ import XMonad.Actions.WindowMenu
 import XMonad.Actions.GroupNavigation
 
 -- Data
-import Data.Char (isSpace, toUpper)
+import Data.Char ( isSpace, toUpper, isSpace )
 import qualified Data.Map as M
 import Data.List
 import Data.Ratio
@@ -52,7 +55,6 @@ import qualified XMonad.Layout.BoringWindows as BW
 
 -- Prompts
 import XMonad.Prompt
-import Data.Char (isSpace)
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
 import XMonad.Prompt.RunOrRaise
@@ -80,7 +82,7 @@ import Misc
 windowSpace' :: Int
 windowSpace' = windowSpace `div` 2
 myFloatingRectangle :: W.RationalRect
-myFloatingRectangle = W.RationalRect ((1 - scratchpadWidth) / 2) ((1 - scratchpadHeight) / 2) scratchpadWidth scratchpadHeight 
+myFloatingRectangle = W.RationalRect ((1 - scratchpadWidth) / 2) ((1 - scratchpadHeight) / 2) scratchpadWidth scratchpadHeight
 
 grid = named "Grid"
   $ spacingWithEdge windowSpace'
@@ -129,6 +131,8 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn setWallpaperCmd
   spawn "xmodmap ~/.Xmodmap"
+  spawn "xsession"
+  spawn "transmission-daemon"
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]
@@ -231,7 +235,6 @@ myXPConfig = def {
 
 myPrograms :: [(String, String)]
 myPrograms = [
-    ("b", myTerminal++" --title 'System Monitor' -e btop"),
     ("t", "telegram-desktop"),
     ("d", "discord"),
     ("s", "obs")
@@ -316,7 +319,7 @@ myKeys = [
     ("M-d", do
         minimizedCount <- withMinimized $ return . length
         totalCount <- length . W.index . windowset <$> get
-        if (minimizedCount /= totalCount) then withAll minimizeWindow else withAll maximizeWindow
+        if minimizedCount /= totalCount then withAll minimizeWindow else withAll maximizeWindow
     ),
 
     -- Layouts
@@ -348,9 +351,9 @@ myKeys = [
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),
-    ("M-S-<Page_Down>", lowerVolume 5 >> return ()),
-    ("M-S-<Page_Up>", raiseVolume 5 >> return ()),
-    ("M-S-<End>", toggleMute >> return ()),
+    ("M-S-<Page_Down>", void (lowerVolume 5)),
+    ("M-S-<Page_Up>", void (raiseVolume 5)),
+    ("M-S-<End>", void toggleMute),
     ("M-S-,", spawn "brightnessctl set 1%-"),
     ("M-S-.", spawn "brightnessctl set 1%+"),
     ("M-S-<Home>", spawn "mocp --seek -50000"),
@@ -365,9 +368,9 @@ myKeys = [
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
   ]
-  ++ [("M-M1-" ++ (show k), windows $ swapWithCurrent i) | (i,k) <- zip myWorkspaces [1..]]
+  ++ [("M-M1-" ++ show k, windows $ swapWithCurrent i) | (i,k) <- zip myWorkspaces [1..]]
   ++ [("M-/ " ++ k, S.promptSearch myXPConfig f) | (k,f) <- searchList ]
-  ++ [("M-C-S-" ++ k, spawn prog) | (k, prog) <- myPrograms]
+  ++ [("M-o " ++ k, spawn prog) | (k, prog) <- myPrograms]
 
 -- Window rules:
 
@@ -392,8 +395,8 @@ myXmobarPP = def {
           ws' = if length wws == length myWorkspaces then unwords wws else unwords . init $ wws
        in [ws', wins],
     ppExtras            = return $ concatLoggers [
-        onLogger (\str -> if (str == "0") then (blue str) else (red str)) minimizedLogger,
-        onLogger (\str -> if (str == "0") then (blue str) else (yellow str)) totalLogger,
+        onLogger (\str -> if str == "0" then blue str else red str) minimizedLogger,
+        onLogger (\str -> if str == "0" then blue str else yellow str) totalLogger,
         onLogger (white . last . words) logLayout
       ]
   }
@@ -406,14 +409,14 @@ myXmobarPP = def {
     minimizedLogger = withMinimized $ return . return . show . length
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
-    concatLoggers = fmap (fmap $ intercalate ppSep) . (fmap sequence) . sequence
+    concatLoggers = fmap (fmap (intercalate ppSep) . sequence) . sequence
     blue, lowWhite, magenta, red, white, yellow :: String -> String
     magenta  = xmobarColor colorMagenta0 ""
     blue     = xmobarColor colorMagenta1 ""
     white    = xmobarColor colorWhite0 ""
     yellow   = xmobarColor colorYellow0 ""
     red      = xmobarColor colorRed0 ""
-    lowWhite = xmobarColor colorWhite3""
+    lowWhite = xmobarColor colorWhite3 ""
 
 -- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 myHandleEventHook = mempty
@@ -430,13 +433,12 @@ defaults = def {
     modMask             = myModMask,
     workspaces          = myWorkspaces,
     layoutHook          =
-        (minimize . BW.boringWindows)
+        minimize . BW.boringWindows
         $ maximizeWithPadding 0
         $ windowNavigation
         $ mkToggle (single NBFULL)
         $ avoidStruts
-        $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY)
-        $ myLayout,
+        $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) myLayout,
     manageHook          = myManageHook <+> namedScratchpadManageHook myScratchpads,
     handleEventHook     = myHandleEventHook,
     startupHook         = myStartupHook,

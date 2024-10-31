@@ -1,7 +1,7 @@
 verbs: [
     {
         invocation: "call {command}"
-        external: "sh -c \"{command} {file}&\""
+        external: "sh -c \"nohup {command} {file}&\""
         leave_broot: false
     }
     {
