@@ -70,6 +70,10 @@
             # nil
             nixd
             alejandra
+
+            xorg.xcursorgen
+            hyprcursor
+            xcur2png
         ];
         unstable-packages = with pkgs-unstable; [
             khal

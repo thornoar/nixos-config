@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgs-unstable, pkgs-old, ... }:
+{ lib, pkgs, pkgs-unstable, ... }:
 
 {
     imports = (
@@ -20,7 +20,7 @@
         #     };
         # };
 
-        environment.sessionVariables.SPECIALISATION = "default";
+        environment.variables.SPECIALISATION = "default";
 
         services.keyd = {
             enable = true;
@@ -41,7 +41,7 @@
 
         specialisation = {
             xmonad.configuration = {
-                environment.sessionVariables.SPECIALISATION = lib.mkForce "xmonad";
+                environment.variables.SPECIALISATION = lib.mkForce "xmonad";
                 services.xserver = {
                     enable = true;
                     xkb.layout = "us";
@@ -74,13 +74,17 @@
                     };
                 };
 
-                # environment.systemPackages = with pkgs; [       
-                #     xorg.xmodmap
-                # ];
+                environment.systemPackages = with pkgs; [       
+                    xclip
+                    xsel
+                    hsetroot
+                    xvkbd
+                    wl-clipboard
+                ];
             };
 
             hyprland.configuration = {
-                environment.sessionVariables.SPECIALISATION = lib.mkForce "hyprland";
+                environment.variables.SPECIALISATION = lib.mkForce "hyprland";
                 programs.hyprland = {
                     enable = true;
                     package = pkgs.hyprland;
@@ -110,6 +114,8 @@
                     waybar
                     hyprpaper
                     wofi
+                    wl-clipboard
+                    xsel
                 ];
             };
         };
@@ -118,15 +124,9 @@
         #     # videoDrivers = [ "nvidia" ];
         # };
         services = {
-            displayManager = {
-                autoLogin = {
-                    enable = true;
-                    user = "ramak";
-                };
-                # sddm = {
-                #     enable = true;
-                #     wayland.enable = true;
-                # };
+            displayManager.autoLogin = {
+                enable = true;
+                user = "ramak";
             };
         };
 

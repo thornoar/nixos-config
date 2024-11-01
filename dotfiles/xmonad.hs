@@ -343,9 +343,11 @@ myKeys = [
     ("M-C-l", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
 
     -- Keyboard Layouts
-    ("M-e", spawn "chlang us"),
-    ("M-r", spawn "chlang ru"),
-    ("M-g", spawn "chlang de"),
+    -- ("M-e", spawn "chlang us"),
+    -- ("M-r", spawn "chlang ru"),
+    -- ("M-g", spawn "chlang de"),
+
+    ("M-<Caps_Lock>", spawn "setxkbmap -option grp:caps_toggle us,ru"),
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),

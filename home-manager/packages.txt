@@ -1,8 +1,6 @@
 playerctl
 keynav
 ripgrep
-xclip
-xsel
 imagemagick
 graphicsmagick
 ffmpeg
@@ -37,8 +35,6 @@ sxiv
 xkb-switch
 libnotify
 xmobar
-xvkbd
-hsetroot
 gifski
 tagainijisho
 nix-output-monitor

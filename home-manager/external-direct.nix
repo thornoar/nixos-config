@@ -6,6 +6,8 @@
         dotfile = str: lib.path.append ../dotfiles str;
     in
     {
+        home.file.".local/share/icons/transparent".source = dotfile "transparent";
+
         # zathura setup
         xdg.configFile."zathura/zathurarc".text = ''
             set window-title-basename "true"

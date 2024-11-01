@@ -2,6 +2,7 @@
 
 import os
 import argparse
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("type")
@@ -18,13 +19,18 @@ parser.add_argument("-o", "--output", type = str, default = "auto", help = "flak
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
 args = parser.parse_args()
 
+if (args.type == "both"):
+    os.system("rebuild system " + " ".join(sys.argv[2:]))
+    os.system("rebuild home " + " ".join(sys.argv[2:]))
+    exit(0)
+
 command = ""
 if (args.type == "home"):
     command = "home-manager"
 elif (args.type == "system"):
     command = "sudo nixos-rebuild"
 else:
-    print("| \033[31mFailed to recognize command:\033[0m " ++ args.type) # ]]
+    print("| \033[31mFailed to recognize command:\033[0m " + args.type) # ]]
     exit(1)
 
 print("| \033[34mRebuild command is: \"\033[35m" + command + "\033[34m\".\033[0m") #]]]]
