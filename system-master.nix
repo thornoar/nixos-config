@@ -9,66 +9,126 @@
         /etc/nixos/hardware-configuration.nix
     ];
 
-    options = {};
+    config = {
+        # services.xserver = {
+        #     displayManager = {
+        #         lightdm = {
+        #             enable = true;
+        #             greeters.enso.enable = true;
+        #             background = dotfile "lightdm-background.jpg";
+        #         };
+        #     };
+        # };
 
-    config = 
-    let 
-        dotfile = str: lib.path.append ./dotfiles str;
-    in {
-        services.xserver = {
-            displayManager = {
-                # lightdm = {
-                #     enable = true;
-                #     greeters.enso.enable = true;
-                #     background = dotfile "lightdm-background.jpg";
-                # };
-            };
+        environment.sessionVariables.SPECIALISATION = "default";
+
+        services.keyd = {
             enable = true;
-            xkb.layout = "us";
-            xkb.variant = "";
-            windowManager.xmonad = {
-                enable = true;
-                enableContribAndExtras = true;
-                haskellPackages = pkgs-unstable.haskellPackages;
-            };
-        };
-        services = {
-            displayManager = {
-                sddm = {
-                    enable = true;
-                    wayland.enable = true;
+            keyboards.default.settings = {
+                main = {
+                    kp2 = "down";
+                    kp4 = "left";
+                    kp6 = "right";
+                    kp8 = "up";
+                    kp1 = "end";
+                    kp3 = "pagedown";
+                    kp7 = "home";
+                    kp9 = "pageup";
+                    kpenter = "enter";
                 };
             };
-            picom = {
-                enable = true;
-                backend = "glx";
+        };
+
+        specialisation = {
+            xmonad.configuration = {
+                environment.sessionVariables.SPECIALISATION = lib.mkForce "xmonad";
+                services.xserver = {
+                    enable = true;
+                    xkb.layout = "us";
+                    xkb.variant = "";
+                    windowManager.xmonad = {
+                        enable = true;
+                        enableContribAndExtras = true;
+                        haskellPackages = pkgs-unstable.haskellPackages;
+                    };
+                    displayManager = {
+                        sessionCommands = ''
+                            # nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+                            setxkbmap -layout us,ru,de
+                            xset -dpms
+                            setterm -blank 0 -powerdown 0
+                            xset r rate 200 30
+                            xset s off
+                            transmission-daemon
+                        '';
+                    };
+                };
+                services = {
+                    picom = {
+                        enable = true;
+                        backend = "glx";
+                    };
+                    unclutter-xfixes = {
+                        enable = true;
+                        timeout = 1;
+                    };
+                };
+
+                # environment.systemPackages = with pkgs; [       
+                #     xorg.xmodmap
+                # ];
             };
-            unclutter-xfixes = {
-                enable = true;
-                timeout = 1;
+
+            hyprland.configuration = {
+                environment.sessionVariables.SPECIALISATION = lib.mkForce "hyprland";
+                programs.hyprland = {
+                    enable = true;
+                    package = pkgs.hyprland;
+                    xwayland.enable = true;
+                };
+                services = {
+                    picom = {
+                        enable = true;
+                        backend = "glx";
+                    };
+                    displayManager = {
+                        sddm.enable = true;
+                        sddm.wayland.enable = true;
+                    };
+                };
+                environment.sessionVariables = {
+                    WLR_NO_HARDWARE_CURSORS = "1";
+                    CURSOR_INACTIVE_TIMEOUT = "1";
+                    NIXOS_OZONE_WL = "1";
+                    HYPRCURSOR_SIZE = "32";
+                };
+                hardware = {
+                    opengl.enable = lib.mkForce true;
+                    nvidia.modesetting.enable = lib.mkForce true;
+                };
+                environment.systemPackages = with pkgs; [
+                    waybar
+                    hyprpaper
+                    wofi
+                ];
             };
         };
 
-        programs.hyprland = {
-            enable = true;
-            package = pkgs.hyprland;
-            xwayland.enable = true;
+        # services.xserver = {
+        #     # videoDrivers = [ "nvidia" ];
+        # };
+        services = {
+            displayManager = {
+                autoLogin = {
+                    enable = true;
+                    user = "ramak";
+                };
+                # sddm = {
+                #     enable = true;
+                #     wayland.enable = true;
+                # };
+            };
         };
-        environment.sessionVariables = {
-            WLR_NO_HARDWARE_CURSORS = "1";
-            CURSOR_INACTIVE_TIMEOUT = "1";
-            NIXOS_OZONE_WL = "1";
-            HYPRCURSOR_SIZE = "32";
-        };
-        hardware = {
-            opengl.enable = lib.mkForce true;
-            nvidia.modesetting.enable = lib.mkForce true;
-        };
-        environment.systemPackages = with pkgs; [
-            waybar
-            hyprpaper
-            wofi
-        ];
 
         sound.enable = true;
         hardware.pulseaudio.enable = true;

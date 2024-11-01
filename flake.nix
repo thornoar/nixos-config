@@ -23,6 +23,7 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        # rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     };
 
     outputs = inputs @ { ... }:
@@ -53,14 +54,14 @@
                 modules = [
                     ./system-${sysname}.nix
                     { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
-                    inputs.home-manager.nixosModules.home-manager
-                    {
-                        home-manager = {
-                            useUserPackages = true;
-                            users.ramak = import ./home-manager/main.nix;
-                            extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
-                        };
-                    }
+                    # inputs.home-manager.nixosModules.home-manager
+                    # {
+                    #     home-manager = {
+                    #         useUserPackages = true;
+                    #         users.ramak = import ./home-manager/main.nix;
+                    #         extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
+                    #     };
+                    # }
                     inputs.nix-index-database.nixosModules.nix-index
                 ];
             };
@@ -78,6 +79,14 @@
                 modules = [
                     ./isoimage/configuration.nix
                 ];
+            };
+        };
+
+        homeConfigurations = {
+            ramak = inputs.home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [ ./home-manager/main.nix ];
+                extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
             };
         };
     };

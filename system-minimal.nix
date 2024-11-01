@@ -11,6 +11,7 @@
             description = "Roman Maksimovich";
             extraGroups = [
                 "networkmanager"
+                "keyd"
                 "wheel"
                 "sys"
                 "root"
@@ -98,7 +99,7 @@
 
         boot.loader.systemd-boot = {
             enable = true;
-            configurationLimit = 5;
+            configurationLimit = 2;
         };
         boot.loader.timeout = 35996;
         boot.loader.efi.canTouchEfiVariables = true;

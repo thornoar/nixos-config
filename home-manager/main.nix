@@ -203,7 +203,7 @@
 
         gtk = {
             enable = true;
-            font.name = "Hack Mono 20";
+            font.name = "Hack Mono 11";
             theme = {
                 name = "deepin-dark";
                 package = pkgs.deepin.deepin-gtk-theme;

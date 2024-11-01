@@ -130,9 +130,7 @@ myModMask = mod4Mask
 myStartupHook :: X ()
 myStartupHook = do
   spawn setWallpaperCmd
-  spawn "xmodmap ~/.Xmodmap"
-  spawn "xsession"
-  spawn "transmission-daemon"
+  -- spawn "xmodmap ~/.Xmodmap"
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]
