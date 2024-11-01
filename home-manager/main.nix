@@ -124,6 +124,10 @@
             neovim = {
                 enable = true;
             };
+            hmd = {
+                enable = true;
+                runOnSwitch = true;
+            };
             zsh = {
                 enable = true;
                 enableCompletion = true;
@@ -138,7 +142,7 @@
                     close = "exit";
                     grep = "grep --color=auto";
                     def = "dict -h dict.org";
-                    clip = "xclip -r -selection c";
+                    # clip = "xclip -r -selection c";
                     vmcon = "virt-manager --connect qemu:///system --show-domain-console";
                     vmstart = "sudo virsh start";
                     vmstop = "sudo virsh shutdown";

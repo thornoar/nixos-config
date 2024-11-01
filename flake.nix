@@ -23,6 +23,7 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        home-manager-diff.url = "github:pedorich-n/home-manager-diff";
         # rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     };
 
@@ -85,7 +86,10 @@
         homeConfigurations = {
             ramak = inputs.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                modules = [ ./home-manager/main.nix ];
+                modules = [
+                    ./home-manager/main.nix
+                    inputs.home-manager-diff.hmModules.default
+                ];
                 extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
             };
         };
