@@ -176,7 +176,7 @@
                         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                         "signon.rememberSignons" = false;
                         "media.hardware-video-decoding.enabled" = true;
-                        "layout.css.devPixelsPerPx" = 1.6;
+                        "layout.css.devPixelsPerPx" = 1.7;
                     };
                     extensions = with firefox-pkgs; [
                         darkreader

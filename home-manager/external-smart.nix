@@ -14,6 +14,7 @@
         # Hyprland setup
         xdg.configFile."hypr/size.conf".text = toConf false "" config.size;
         xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
+        xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
 
         # Wofi setup
         xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
@@ -98,34 +99,34 @@
             enable = true;
             settings = {
                 colors.bright = {
-                    black = "${config.colors.bgColor3}";
-                    blue = "${config.colors.colorBlue1}";
-                    cyan = "${config.colors.colorCyan}";
-                    green = "${config.colors.colorGreen1}";
-                    magenta = "${config.colors.colorMagenta1}";
-                    red = "${config.colors.colorRed1}";
-                    white = "${config.colors.colorWhite1}";
-                    yellow = "${config.colors.colorYellow1}";
+                    black = config.colors.bgColor3;
+                    blue = config.colors.colorBlue1;
+                    cyan = config.colors.colorCyan;
+                    green = config.colors.colorGreen1;
+                    magenta = config.colors.colorMagenta1;
+                    red = config.colors.colorRed1;
+                    white = config.colors.colorWhite1;
+                    yellow = config.colors.colorYellow1;
                 };
                 colors.dim = {
-                    black = "${config.colors.bgColor0}";
-                    blue = "${config.colors.colorBlue1}";
-                    cyan = "${config.colors.colorCyan}";
-                    green = "${config.colors.colorGreen1}";
-                    magenta = "${config.colors.colorMagenta1}";
-                    red = "${config.colors.colorRed1}";
-                    white = "${config.colors.bgColor3}";
-                    yellow = "${config.colors.colorYellow1}";
+                    black = config.colors.bgColor0;
+                    blue = config.colors.colorBlue1;
+                    cyan = config.colors.colorCyan;
+                    green = config.colors.colorGreen1;
+                    magenta = config.colors.colorMagenta1;
+                    red = config.colors.colorRed1;
+                    white = config.colors.bgColor3;
+                    yellow = config.colors.colorYellow1;
                 };
                 colors.normal = {
-                    black = "${config.colors.bgColor0}";
-                    blue = "${config.colors.colorBlue1}";
-                    cyan = "${config.colors.colorCyan}";
-                    green = "${config.colors.colorGreen1}";
-                    magenta = "${config.colors.colorMagenta1}";
-                    red = "${config.colors.colorRed1}";
-                    white = "${config.colors.colorWhite0}";
-                    yellow = "${config.colors.colorYellow1}";
+                    black = config.colors.bgColor0;
+                    blue = config.colors.colorBlue1;
+                    cyan = config.colors.colorCyan;
+                    green = config.colors.colorGreen1;
+                    magenta = config.colors.colorMagenta1;
+                    red = config.colors.colorRed1;
+                    white = config.colors.colorWhite0;
+                    yellow = config.colors.colorYellow1;
                 };
                 colors.primary = {
                     background = config.colors.bgColor0;
@@ -170,6 +171,54 @@
                     { key = "PageDown"; mods = "Alt"; action = "ScrollPageDown"; }
                 ];
             };
+        };
+        programs.kitty = {
+            enable = true;
+            font = {
+                size = config.size.fontsize + 1;
+                name = "Hack";
+            };
+            shellIntegration = {
+                mode = "no-cursor";
+                enableZshIntegration = true;
+            };
+            settings = {
+                cursor = config.colors.fgColor0;
+                cursor_shape = "underline";
+                cursor_underline_thickness = "1.0";
+                cursor_beam_thickness = "1.0";
+                foreground = config.colors.fgColor0;
+                background = config.colors.bgColor0;
+                background_opacity = ts config.size.terminalOpacity;
+                color0 = config.colors.bgColor0;
+                color8 = config.colors.bgColor3;
+                color1 = config.colors.colorRed1;
+                color9 = config.colors.colorRed1;
+                color2 = config.colors.colorGreen1;
+                color10 = config.colors.colorGreen1;
+                color3 = config.colors.colorYellow1;
+                color11 = config.colors.colorYellow1;
+                color4 = config.colors.colorBlue1;
+                color12 = config.colors.colorBlue1;
+                color5 = config.colors.colorMagenta1;
+                color13 = config.colors.colorMagenta1;
+                color6 = config.colors.colorCyan;
+                color14 = config.colors.colorCyan;
+                color7 = config.colors.colorWhite1;
+                color15 = config.colors.bgColor3;
+            };
+            extraConfig = ''
+                # clear_all_shortcuts yes
+                map ctrl+shift+right
+                map ctrl+shift+left
+                map ctrl+shift+c copy_to_clipboard
+                map ctrl+shift+v paste_from_clipboard
+                map page_up scroll_line_up
+                map page_down scroll_line_down
+                map alt+page_up scroll_page_up
+                map alt+page_down scroll_page_down
+                map alt+end scroll_end
+            '';
         };
         programs.firefox.profiles.default = {
             bookmarks = [
