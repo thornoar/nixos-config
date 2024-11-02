@@ -34,7 +34,7 @@
                 boot.loader.systemd-boot.sortKey = "aab";
                 environment.variables = {
                     SPECIALISATION = lib.mkForce "xmonad";
-                    TERMINAL = "kitty";
+                    TERMINAL = "alacritty";
                 };
                 services.xserver = {
                     enable = true;

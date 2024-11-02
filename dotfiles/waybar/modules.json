@@ -33,13 +33,6 @@
         "format": "MEM: {}%",
     },
 
-    // Harddisc space used
-    "disk": {
-        "interval": 30,
-        "format": "DISK: {percentage_used}%",
-        "path": "/",
-    },
-
     "hyprland/language": {
         "format": "{short}"
     },

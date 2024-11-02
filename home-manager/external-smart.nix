@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 {
     config = 
@@ -172,6 +172,9 @@
                 ];
             };
         };
+
+        # Kitty setup
+        xdg.configFile."kitty/minimal.lua".source = dotfile "kitty/minimal.lua";
         programs.kitty = {
             enable = true;
             font = {
@@ -206,9 +209,13 @@
                 color14 = config.colors.colorCyan;
                 color7 = config.colors.colorWhite1;
                 color15 = config.colors.bgColor3;
+                cursor_blink_interval = "0";
+                confirm_os_window_close = "0";
+                scrollback_pager = "";
+                allow_remote_control = "yes";
+                listen_on = "unix:/tmp/kitty";
             };
             extraConfig = ''
-                # clear_all_shortcuts yes
                 map ctrl+shift+right
                 map ctrl+shift+left
                 map ctrl+shift+c copy_to_clipboard
@@ -218,6 +225,13 @@
                 map alt+page_up scroll_page_up
                 map alt+page_down scroll_page_down
                 map alt+end scroll_end
+
+                scrollback_pager nvim --noplugin -u ~/.config/kitty/init.lua -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "
+
+                # action_alias kitty_scrollback_nvim kitten /home/ramak/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py
+                # map kitty_mod+h kitty_scrollback_nvim
+                # map kitty_mod+g kitty_scrollback_nvim --config ksb_builtin_last_cmd_output
+                # mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
             '';
         };
         programs.firefox.profiles.default = {

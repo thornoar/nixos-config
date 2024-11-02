@@ -34,7 +34,6 @@ window#waybar {
 #network,
 #cpu,
 #memory,
-#disk,
 #battery,
 #battery.charging,
 #battery.plugged {

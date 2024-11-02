@@ -37,7 +37,7 @@ print("| \033[34mRebuild command is: \"\033[35m" + command + "\033[34m\".\033[0m
 
 def call (str):
     if 0 != os.system(str):
-        print("| \033[31mFailed to run complete.\033[0m") #]]
+        print("| \033[31mFailed to complete.\033[0m") #]]
         # print(str)
         exit(1)
 try:
