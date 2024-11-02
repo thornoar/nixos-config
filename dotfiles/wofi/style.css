@@ -1,0 +1,33 @@
+@import "/home/ramak/.config/colors.css";
+
+* {
+	border-radius: 5 px;
+    border: none;
+}
+
+window {
+    font-family: "Hack";
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background-color: @bgColor0;
+    color: @colorWhite1;
+}
+
+#entry {
+    padding: 3pt;
+}
+
+#entry:selected {
+    background-color: @bgColor2;
+}
+
+#text:selected {
+    color: @colorMagenta0;
+}
+
+#input {
+    background-color: @bgColor0;
+    color: @colorWhite1;
+    padding: 4pt;
+}

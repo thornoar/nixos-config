@@ -13,9 +13,13 @@
     {
         # Hyprland setup
         xdg.configFile."hypr/size.conf".text = toConf false "" config.size;
+        xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
+
+        # Wofi setup
+        xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
 
         # Waybar setup
-        xdg.configFile."waybar/colors.css".text = (toCSS false "" config.colors);
+        xdg.configFile."colors.css".text = (toCSS false "" config.colors);
         xdg.configFile."waybar/size.css".text = ''
             * {
                 font-size: ${ts config.size.fontsizeWaybar}pt;
