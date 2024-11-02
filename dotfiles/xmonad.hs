@@ -79,18 +79,18 @@ import XMonad.Hooks.ManageHelpers
 import Colors
 import Size
 import Misc
-windowSpace' :: Int
-windowSpace' = windowSpace `div` 2
+windowSpaceInner' :: Int
+windowSpaceInner' = windowSpaceInner `div` 2
 myFloatingRectangle :: W.RationalRect
 myFloatingRectangle = W.RationalRect ((1 - scratchpadWidth) / 2) ((1 - scratchpadHeight) / 2) scratchpadWidth scratchpadHeight
 
 grid = named "Grid"
-  $ spacingWithEdge windowSpace'
+  $ spacingWithEdge windowSpaceInner'
   $ MG.magnifierczOff magnifiedScale
   $ Grid (16/9)
 
 tallAccordion = named "Master"
-  $ spacingWithEdge windowSpace'
+  $ spacingWithEdge windowSpaceInner'
   $ mkToggle (single MIRROR)
   $ MG.magnifierczOff magnifiedScale
   -- $ autoMaster 1 (3/100) Accordion
@@ -99,12 +99,12 @@ tallAccordion = named "Master"
   $ combineTwo (TwoPane (3/100) (1/2)) Accordion (Grid (16/9))
 
 accordion = named "Accordion"
-  $ spacingWithEdge windowSpace'
+  $ spacingWithEdge windowSpaceInner'
   $ mkToggle (single MIRROR)
   $ Mirror Accordion
 
 tabs = named "Tabbed"
-  $ spacing windowSpace'
+  $ spacing windowSpaceInner'
   $ tabbedAlways shrinkText myTabTheme
 
 myLayout = grid ||| tallAccordion ||| accordion ||| tabs ||| Full

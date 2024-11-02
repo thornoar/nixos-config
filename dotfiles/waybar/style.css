@@ -51,8 +51,8 @@ window#waybar {
 }
 
 #workspaces button {
-	margin-left: -2px;
-	margin-right: 8px;
+	margin-left: -3px;
+	margin-right: 9px;
 	padding-left: 0px;
 	padding-right: 0px;
     padding-top: 0px;
@@ -63,9 +63,8 @@ window#waybar {
 	background: @bgColor0;
 }
 #workspaces button.active {
-    box-shadow: inherit;
-	margin-left: -2px;
-	margin-right: 8px;
+	margin-left: -3px;
+	margin-right: 9px;
     padding-left: 10px;
     padding-right: 10px;
     color: @colorMagenta0;

@@ -10,7 +10,8 @@
         wallpaperGamma = 1.0;
         wallpaperContrast = 1.0;
 
-        windowSpace = 14;
+        windowSpaceInner = 4;
+        windowSpaceOuter = 8;
         windowBorderWidth = 0;
 
         terminalOpacity = 1.0;
