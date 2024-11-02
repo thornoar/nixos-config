@@ -1,0 +1,92 @@
+{
+    // Workspaces
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-outputs": true,
+        "format": "{}",
+        "format-focused": "-{}-",
+        "persistent-workspaces": {
+            "*": 10
+        }
+    },
+
+    // Clock
+    "clock": {
+      "format": "{:%H:%M:%S %Y-%m-%d %a}",
+      "interval": 1,
+      "on-click": "ags -t calendar",
+      "tooltip": false
+    },
+
+    // "clock": {
+    //     "exec": "date +'%Y-%m-%d %H:%M:%S'",
+    //     "interval": 1,
+    //     "tooltip": false,
+    //     // "on-click": "alacritty -e 'calcurse'"
+    // },
+
+    // Empty
+    "empty": {
+        "format": "",
+    },
+
+    // CPU
+    "cpu": {
+        "format": "CPU: {usage}%",
+    },
+
+    // Memory
+    "memory": {
+        "format": "MEM: {}%",
+    },
+
+    // Harddisc space used
+    "disk": {
+        "interval": 30,
+        "format": "DISK: {percentage_used}%",
+        "path": "/",
+    },
+
+    "hyprland/language": {
+        "format": "{short}"
+    },
+
+    // Network
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "WIFI: {signalStrength}%",
+        "format-ethernet": "ETH: {ifname}",
+        "format-disconnected": "Disconnected",
+        "tooltip-format": "{ifname} via {gwaddri}",
+        "tooltip-format-wifi": "WIFI: {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+        "tooltip-format-ethernet": "ETH: {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+    },
+
+    // Battery
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT: {capacity}%",
+        "format-plugged": "PG {capacity}%",
+        "format-alt": "{icon}  {time}",
+    },
+
+    // Pulseaudio
+    "pulseaudio": {
+        "format": "VOL: {volume}%",
+        "format-muted": "VOL: MUTED",
+        "format-source": "VOL: {volume}%",
+    },
+
+
+    // backlight:
+    "backlight": {
+        "format": "BRI: {percent}%",
+        "scroll-step": 1
+    }
+}

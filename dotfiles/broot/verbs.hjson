@@ -89,7 +89,13 @@ verbs: [
     {
         key: ctrl-a
         invocation: terminal
-        external: "sh -c \"$TERMINAL --hold -e sh -c 'cd {directory}; $SHELL' &\""
+        external: "sh -c \"nohup $TERMINAL --hold -e sh -c 'cd {directory}; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
+        leave_broot: false
+    }
+    {
+        key: ctrl-x
+        invocation: terminal
+        external: "sh -c \"nohup $TERMINAL --hold -e zsh -c 'cd {directory}; nvim-server; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
         leave_broot: false
     }
     {

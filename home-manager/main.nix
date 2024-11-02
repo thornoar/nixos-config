@@ -218,6 +218,9 @@
             };
         };
 
+        # Keynav service
+        services.keynav.enable = true;
+
         # Enabling insecure library
         nixpkgs.config = {
             permittedInsecurePackages = [

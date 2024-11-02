@@ -10,16 +10,6 @@
     ];
 
     config = {
-        # services.xserver = {
-        #     displayManager = {
-        #         lightdm = {
-        #             enable = true;
-        #             greeters.enso.enable = true;
-        #             background = dotfile "lightdm-background.jpg";
-        #         };
-        #     };
-        # };
-
         environment.variables.SPECIALISATION = "default";
 
         services.keyd = {
@@ -41,6 +31,7 @@
 
         specialisation = {
             xmonad.configuration = {
+                boot.loader.systemd-boot.sortKey = "aab";
                 environment.variables.SPECIALISATION = lib.mkForce "xmonad";
                 services.xserver = {
                     enable = true;
@@ -80,10 +71,12 @@
                     hsetroot
                     xvkbd
                     wl-clipboard
+                    keynav
                 ];
             };
 
             hyprland.configuration = {
+                boot.loader.systemd-boot.sortKey = "aaa";
                 environment.variables.SPECIALISATION = lib.mkForce "hyprland";
                 programs.hyprland = {
                     enable = true;
@@ -116,6 +109,7 @@
                     wofi
                     wl-clipboard
                     xsel
+                    warpd
                 ];
             };
         };

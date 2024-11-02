@@ -1,0 +1,31 @@
+{
+    "layer": "top",
+    "margin-bottom": 0,
+    "margin-top": 5,
+    "layer": "top",
+    "margin-left": 0,
+    "margin-right": 0,    
+    "spacing": 0,
+
+    "include": [
+        "~/.config/waybar/modules.json"
+    ],
+
+    "modules-left": [
+        "hyprland/workspaces",
+    ],
+
+    "modules-center": [
+        "pulseaudio",
+        "clock",
+        "backlight",
+    ],
+
+    "modules-right": [
+        "network",
+        "cpu",
+        "memory",
+        "disk",
+        "battery", 
+    ]
+}

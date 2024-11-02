@@ -3,7 +3,8 @@
 {
     config = {
         fontsize = 10;
-        fontsizeBar = 10;
+        fontsizeXmobar = 10;
+        fontsizeWaybar = 10;
 
         wallpaperDir = "Landscapes";
         wallpaperGamma = 1.0;

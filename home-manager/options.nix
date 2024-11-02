@@ -79,7 +79,7 @@
             type = lib.types.str;
             default =  ''
                 Config {
-                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.size.fontsizeBar}",
+                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.size.fontsizeXmobar}",
                     bgColor  = "${config.colors.bgColor0}",
                     fgColor  = "${config.colors.fgColor0}",
                     position = TopH ${ts config.size.barHeight},

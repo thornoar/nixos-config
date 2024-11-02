@@ -1,0 +1,72 @@
+@import './colors.css';
+
+* {
+	border: none;
+	border-radius: 0px;
+    font-family: "Hack";
+	min-height: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0.5px;
+}
+
+@import "./size.css";
+
+window#waybar {
+	background: transparent;
+}
+
+#clock,
+#pulseaudio,
+#backlight {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	margin-right: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 10px;
+	transition: none;
+    color: @colorMagenta0;
+	background: @bgColor0;
+}
+
+#network,
+#cpu,
+#memory,
+#disk,
+#battery,
+#battery.charging,
+#battery.plugged {
+	margin-top: 0px;
+	margin-left: 6px;
+	margin-right: 0px;
+	padding-left: 10px;
+	margin-bottom: 0px;
+	padding-right: 10px;
+	border-radius: 10px;
+	transition: none;
+	color: @colorMagenta1;
+	background: @bgColor0;
+}
+
+#workspaces button {
+	margin-left: -2px;
+	margin-right: 8px;
+	padding-left: 0px;
+	padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+	border-radius: 10px;
+	transition: none;
+	color: @colorMagenta1;
+	background: @bgColor0;
+}
+#workspaces button.active {
+    box-shadow: inherit;
+	margin-left: -2px;
+	margin-right: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: @colorMagenta0;
+}

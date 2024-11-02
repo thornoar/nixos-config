@@ -72,8 +72,6 @@ try:
         if (args.type == "system"):
             nom_args = " --log-format internal-json |& nom --json"
 
-    print("| \033[34mBuilding configuration...\033[0m") #]]
-
     old_gen = os.popen("readlink -f /run/current-system").read().strip()
 
     if (args.extra != ""):
@@ -97,7 +95,9 @@ try:
         else:
             spec_args += args.specialisation
         print("| \033[34mSpecialisation arguments are: \"\033[35m" + spec_args + "\033[34m\".\033[0m") #]]]]
-        call("sudo printf \"\033[33mAccess granted.\033[0m\\n\"") #]]
+        call("sudo printf \"| \033[33mAccess granted.\033[0m\\n\"") #]]
+
+    print("| \033[34mBuilding configuration...\033[0m") #]]
 
     call(command + " " + args.command + " " + spec_args + " " + args.extra + " " + flake_args + nom_args)
 

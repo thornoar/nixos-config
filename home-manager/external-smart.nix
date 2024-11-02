@@ -7,8 +7,22 @@
         ts = builtins.toString;
         toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
+        toCSS = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "@define-color ${k} ${if mkstr then "\"" + ts v + "\"" else ts v};\n");
     in 
     {
+        # Waybar setup
+
+        xdg.configFile."waybar/colors.css".text = (toCSS false "" config.colors);
+        xdg.configFile."waybar/size.css".text = ''
+            * {
+                font-size: ${config.size.fontsizeWaybar}px;
+                padding-left: ${config.size.windowSpace}px;
+                padding-right: ${config.size.windowSpace}px;
+            }
+        '';
+        xdg.configFile."waybar/style.css".source = dotfile "waybar/style.css";
+        xdg.configFile."waybar/config".source = dotfile "waybar/config";
+        
         # xmonad setup
 
         xdg.configFile."xmonad/lib/Colors.hs".text = toHaskell true ''
@@ -251,7 +265,6 @@
         ) else {};
 
         # keynav setup
-        services.keynav.enable = true;
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
     };
 }

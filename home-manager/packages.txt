@@ -1,5 +1,4 @@
 playerctl
-keynav
 ripgrep
 imagemagick
 graphicsmagick
