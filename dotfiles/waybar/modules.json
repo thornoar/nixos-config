@@ -18,13 +18,6 @@
       "tooltip": false
     },
 
-    // "clock": {
-    //     "exec": "date +'%Y-%m-%d %H:%M:%S'",
-    //     "interval": 1,
-    //     "tooltip": false,
-    //     // "on-click": "alacritty -e 'calcurse'"
-    // },
-
     // Empty
     "empty": {
         "format": "",

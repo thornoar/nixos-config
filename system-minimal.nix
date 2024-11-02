@@ -58,7 +58,6 @@
             TEXINPUTS = ".:${PROJECTS}/LaTeX-libraries:$TEXINPUTS";
             EDITOR = "nvim-client";
             VISUAL = "${EDITOR}";
-            TERMINAL = "alacritty";
             HISTCONTROL = "ignoreboth";
             BROWSER = "firefox";
             READER = "zathura";

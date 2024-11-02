@@ -32,7 +32,10 @@
         specialisation = {
             xmonad.configuration = {
                 boot.loader.systemd-boot.sortKey = "aab";
-                environment.variables.SPECIALISATION = lib.mkForce "xmonad";
+                environment.variables = {
+                    SPECIALISATION = lib.mkForce "xmonad";
+                    TERMINAL = "kitty";
+                };
                 services.xserver = {
                     enable = true;
                     xkb.layout = "us";
@@ -98,6 +101,7 @@
                     CURSOR_INACTIVE_TIMEOUT = "1";
                     NIXOS_OZONE_WL = "1";
                     HYPRCURSOR_SIZE = "32";
+                    TERMINAL = "kitty";
                 };
                 hardware = {
                     opengl.enable = lib.mkForce true;

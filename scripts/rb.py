@@ -20,8 +20,8 @@ parser.add_argument("-e", "--extra", type = str, default = "", help = "extra opt
 args = parser.parse_args()
 
 if (args.type == "both"):
-    os.system("rebuild system " + " ".join(sys.argv[2:]))
-    os.system("rebuild home " + " ".join(sys.argv[2:]))
+    os.system("rb system " + " ".join(sys.argv[2:]))
+    os.system("rb home " + " ".join(sys.argv[2:]))
     exit(0)
 
 command = ""
