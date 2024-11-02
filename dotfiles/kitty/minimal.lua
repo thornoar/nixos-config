@@ -64,8 +64,6 @@ km.set('t', '<C-q>', '<C-\\><C-n>')
 -- $keymaps:navigation
 km.set('n', '<Up>', 'gk')
 km.set('n', '<Down>', 'gj')
--- km.set('i', '<Up>', '<C-o>gk')
--- km.set('i', '<Down>', '<C-o>gj')
 km.set({'n', 'v'}, '<M-Up>', '5k')
 km.set('v', '<S-M-Up>', '5k')
 km.set({'n', 'v'}, '<M-Down>', '5j')
@@ -83,38 +81,55 @@ km.set('n', '<C-M-Left>', '<C-^>')
 km.set('t', '<C-M-Left>', '<C-\\><C-n><C-^>')
 km.set('n', '<C-M-Right>', 'gf')
 
--- $keymaps:window
-km.set('n', '<C-Left>', '<C-w>h')
-km.set('n', '<C-Down>', '<C-w>j')
-km.set('n', '<C-Up>', '<C-w>k')
-km.set('n', '<C-Right>', '<C-w>l')
-km.set('n', '<C-w><Left>', '<C-w>H')
-km.set('n', '<C-w><Right>', '<C-w>L')
-km.set('n', '<C-w><Up>', '<C-w>K')
-km.set('n', '<C-w><Down>', '<C-w>J')
-km.set('n', '<C-M-o>', '<C-w>+')
-km.set('n', '<C-M-l>', '<C-w>-')
-km.set('n', '<C-M-i>', '<C-w>>')
-km.set('n', '<C-M-u>', '<C-w><')
-km.set('n', '<C-M-k>', '<C-w>=')
-km.set('n', '<C-M-w>', '<C-w>o')
-km.set('n', '<C-Delete>', '<cmd>wqa<CR>')
-km.set('n', '<C-c>', '<cmd>wq<CR>')
+km.set('n', '<C-c>', '<cmd>q!<CR>')
 
--- $keymaps:command
--- km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
--- km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
--- km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
--- km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
--- km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
--- km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
--- km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
--- km.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
--- km.set('n', '<leader>ee', function ()
---     local ft = vim.bo.filetype
---     vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
--- end)
--- km.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
--- km.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
--- km.set('n', 'Z', function () vim.cmd('ToggleBool') end)
--- km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') end)
+vim.o.swapfile = false
+vim.o.wrap = false
+vim.o.linebreak = true
+vim.o.list = false
+vim.o.breakat = '   '
+vim.opt.autochdir=true
+vim.o.shell = '/usr/bin/env zsh'
+vim.wo.number = true
+vim.o.mouse = 'a'
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.wo.signcolumn = 'yes'
+vim.o.updatetime = 1000
+vim.o.timeout = false
+vim.o.completeopt = 'menuone,noselect'
+vim.o.termguicolors = true
+vim.o.cmdheight = 1
+vim.o.ruler = false
+vim.o.termguicolors = true
+vim.o.scrolloff = 5
+vim.o.colorcolumn = 20
+vim.o.expandtab = true
+vim.o.compatible = false
+vim.o.hlsearch = false
+vim.o.incsearch = true
+vim.o.synmaxcol = 0
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.clipboard = 'unnamedplus'
+vim.o.undofile = true
+vim.o.cursorline = false
+vim.g.neovide_transparency = 0.9
+
+
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = '*',
+})
+
+vim.api.nvim_create_user_command('START', function ()
+    vim.cmd("silent write! /tmp/kitty_scrollback_buffer")
+    vim.cmd("te cat /tmp/kitty_scrollback_buffer -")
+    vim.cmd("normal G")
+end, {})

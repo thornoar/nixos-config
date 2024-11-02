@@ -214,6 +214,7 @@
                 scrollback_pager = "";
                 allow_remote_control = "yes";
                 listen_on = "unix:/tmp/kitty";
+                mouse_hide_wait = "1.0";
             };
             extraConfig = ''
                 map ctrl+shift+right
@@ -225,8 +226,10 @@
                 map alt+page_up scroll_page_up
                 map alt+page_down scroll_page_down
                 map alt+end scroll_end
+                map ctrl+shift+space show_scrollback
 
-                scrollback_pager nvim --noplugin -u ~/.config/kitty/init.lua -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "
+                # scrollback_pager nvim --noplugin -u ~/.config/kitty/minimal.lua -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer -"
+                scrollback_pager nvim --noplugin -u ~/.config/kitty/minimal.lua -c "START"
 
                 # action_alias kitty_scrollback_nvim kitten /home/ramak/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py
                 # map kitty_mod+h kitty_scrollback_nvim
