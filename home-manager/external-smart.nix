@@ -306,13 +306,10 @@
         home.file.".face".source = dotfile "account-icon.png";
 
         # typst libraries enabling
-        xdg.dataFile = 
-        let 
-            path = /home/ramak/projects/typst-libraries;
-        in if (builtins.pathExists path) then builtins.listToAttrs (
+        xdg.dataFile = builtins.listToAttrs (
             lib.lists.flatten (
                 lib.lists.forEach
-                (lib.filesystem.listFilesRecursive path)
+                (lib.filesystem.listFilesRecursive (dotfile "typst-libraries"))
                 (filename:
                     let
                         strname = ts filename;
@@ -337,7 +334,7 @@
                     ]
                 )
             )
-        ) else {};
+        );
 
         # keynav setup
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
