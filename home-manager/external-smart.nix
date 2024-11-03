@@ -11,21 +11,27 @@
         toConf = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "\$${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
     in 
     {
+        xdg.configFile."colors.css".text = (toCSS false "" config.colors);
+
         # Hyprland setup
-        xdg.configFile."hypr/size.conf".text = toConf false "" config.size;
+        xdg.configFile."hypr/size.conf".text = toConf false "" config.hyprland;
         xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
         xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
 
         # Wofi setup
+        xdg.configFile."wofi/size.css".text = ''
+            * {
+                font-size: ${ts config.hyprland.fontsize}pt;
+                border-radius: ${ts config.hyprland.rounding}px;
+            }
+        '';
         xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
 
         # Waybar setup
-        xdg.configFile."colors.css".text = (toCSS false "" config.colors);
         xdg.configFile."waybar/size.css".text = ''
             * {
-                font-size: ${ts config.size.fontsizeWaybar}pt;
-                padding-left: ${ts config.size.windowSpaceInner}px;
-                padding-right: ${ts config.size.windowSpaceInner}px;
+                font-size: ${ts config.hyprland.fontsizeWaybar}pt;
+                border-radius: ${ts config.hyprland.rounding}px;
             }
         '';
         xdg.configFile."waybar/style.css".source = dotfile "waybar/style.css";
@@ -46,7 +52,7 @@
             windowSpaceInner :: Int
             windowSpaceOuter :: Int
             windowBorderWidth :: Dimension
-        '' config.size;
+        '' config.xmonad;
         xdg.configFile."xmonad/lib/Misc.hs".text =
         let
             cmd = if (builtins.pathExists (lib.path.append /home/ramak/media/wallpapers config.wallpaper.dir))
@@ -141,7 +147,7 @@
                     TERM = "xterm-256color";
                 };
                 font = {
-                    size = config.size.fontsize;
+                    size = config.xmonad.fontsize;
                 };
                 font.bold = {
                     family = config.misc.systemFont;
@@ -160,10 +166,10 @@
                     style = "Regular";
                 };
                 window.padding = {
-                    x = config.size.terminalPaddingX;
-                    y = config.size.terminalPaddingY;
+                    x = config.xmonad.terminalPaddingX;
+                    y = config.xmonad.terminalPaddingY;
                 };
-                window.opacity = config.size.terminalOpacity;
+                window.opacity = config.xmonad.terminalOpacity;
                 keyboard.bindings = [
                     { key = "PageUp"; action = "ScrollLineUp"; }
                     { key = "PageDown"; action = "ScrollLineDown"; }
@@ -178,7 +184,7 @@
         programs.kitty = {
             enable = true;
             font = {
-                size = config.size.fontsize + 1;
+                size = config.hyprland.fontsize;
                 name = "Hack";
             };
             shellIntegration = {
@@ -188,11 +194,12 @@
             settings = {
                 cursor = config.colors.fgColor0;
                 cursor_shape = "underline";
-                cursor_underline_thickness = "1.0";
-                cursor_beam_thickness = "1.0";
+                cursor_underline_thickness = "2.0";
+                cursor_beam_thickness = "2.0";
+                window_padding_width = ts config.hyprland.terminalPadding;
                 foreground = config.colors.fgColor0;
                 background = config.colors.bgColor0;
-                background_opacity = ts config.size.terminalOpacity;
+                background_opacity = ts config.hyprland.terminalOpacity;
                 color0 = config.colors.bgColor0;
                 color8 = config.colors.bgColor3;
                 color1 = config.colors.colorRed1;
@@ -213,8 +220,8 @@
                 confirm_os_window_close = "0";
                 scrollback_pager = "";
                 allow_remote_control = "yes";
-                listen_on = "unix:/tmp/kitty";
-                mouse_hide_wait = "1.0";
+                # listen_on = "unix:/tmp/kitty";
+                mouse_hide_wait = "0.1";
             };
             extraConfig = ''
                 map ctrl+shift+right

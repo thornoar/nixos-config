@@ -7,7 +7,6 @@
 	min-height: 10px;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding: 0.5px;
 }
 
 @import "./size.css";
@@ -16,21 +15,23 @@ window#waybar {
 	background: transparent;
 }
 
-#clock,
 #pulseaudio,
+#clock,
 #backlight {
 	margin-top: 0px;
 	margin-bottom: 0px;
-	margin-left: 3px;
-	margin-right: 3px;
-	padding-left: 10px;
-	padding-right: 10px;
-	border-radius: 10px;
+	margin-left: 8px;
+	margin-right: 8px;
+	padding-left: 15px;
+	padding-right: 15px;
 	transition: none;
     color: @colorMagenta0;
 	background: @bgColor0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
+#language,
 #network,
 #cpu,
 #memory,
@@ -38,33 +39,33 @@ window#waybar {
 #battery.charging,
 #battery.plugged {
 	margin-top: 0px;
-	margin-left: 6px;
+	margin-left: 16px;
 	margin-right: 0px;
-	padding-left: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 	margin-bottom: 0px;
-	padding-right: 10px;
-	border-radius: 10px;
 	transition: none;
 	color: @colorMagenta1;
 	background: @bgColor0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #workspaces button {
-	margin-left: -3px;
-	margin-right: 9px;
-	padding-left: 0px;
-	padding-right: 0px;
+	margin-right: 16px;
+	padding-left: 15px;
+	padding-right: 15px;
     padding-top: 0px;
     padding-bottom: 0px;
-	border-radius: 10px;
 	transition: none;
 	color: @colorMagenta1;
 	background: @bgColor0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 #workspaces button.active {
-	margin-left: -3px;
-	margin-right: 9px;
-    padding-left: 10px;
-    padding-right: 10px;
+	margin-right: 16px;
+    padding-left: 50px;
+    padding-right: 50px;
     color: @colorMagenta0;
 }

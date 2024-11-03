@@ -25,6 +25,8 @@
                     kp7 = "home";
                     kp9 = "pageup";
                     kpenter = "enter";
+                    kp5 = "enter";
+                    rightalt = "leftmeta";
                 };
             };
         };
@@ -154,5 +156,10 @@
         programs = {
             virt-manager.enable = true;
         };
+
+        services.logind.extraConfig = ''
+            HandleLidSwitch=ignore
+            HandleLidSwitchExternalPower=ignore
+        '';
     };
 }

@@ -56,7 +56,12 @@
             };
         };
         
-        size = lib.mkOption {
+        hyprland = lib.mkOption {
+            type = lib.types.attrs;
+            default = {};
+        };
+        
+        xmonad = lib.mkOption {
             type = lib.types.attrs;
             default = {};
         };
@@ -79,10 +84,10 @@
             type = lib.types.str;
             default =  ''
                 Config {
-                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.size.fontsizeXmobar}",
+                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.xmonad.fontsizeXmobar}",
                     bgColor  = "${config.colors.bgColor0}",
                     fgColor  = "${config.colors.fgColor0}",
-                    position = TopH ${ts config.size.barHeight},
+                    position = TopH ${ts config.xmonad.barHeight},
                     persistent = False,
                     hideOnStart = False,
                     allDesktops = True,

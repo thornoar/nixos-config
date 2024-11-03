@@ -57,3 +57,5 @@ write_stylus
 maestral
 comma
 manix
+flameshot
+grim

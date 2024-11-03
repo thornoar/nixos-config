@@ -2,7 +2,8 @@
 
 {
     config = {
-        fontsize = 10;
+        fontsizeAlacritty = 10;
+        fontsizeKitty = 10;
         fontsizeXmobar = 10;
         fontsizeWaybar = 10;
 

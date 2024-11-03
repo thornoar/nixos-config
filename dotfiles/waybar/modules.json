@@ -14,28 +14,24 @@
     "clock": {
       "format": "{:%H:%M:%S %Y-%m-%d %a}",
       "interval": 1,
-      "on-click": "ags -t calendar",
       "tooltip": false
-    },
-
-    // Empty
-    "empty": {
-        "format": "",
     },
 
     // CPU
     "cpu": {
-        "format": "CPU: {usage}%",
+        "format": "CPU: {usage}%"
     },
 
     // Memory
     "memory": {
-        "format": "MEM: {}%",
+        "format": "MEM: {}%"
     },
 
     "hyprland/language": {
-        "format": "{short}"
-    },
+        "format": "{}",
+        "format-ru": "RU",
+        "format-en": "US"
+    }, 
 
     // Network
     "network": {
@@ -47,7 +43,7 @@
         "tooltip-format-wifi": "WIFI: {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
         "tooltip-format-ethernet": "ETH: {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
         "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50,
+        "max-length": 50
     },
 
     // Battery
@@ -58,15 +54,14 @@
             "critical": 15
         },
         "format": "BAT: {capacity}%",
-        "format-plugged": "PG {capacity}%",
-        "format-alt": "{icon}  {time}",
+        // "format-plugged": "BAT {capacity}%",
     },
 
     // Pulseaudio
     "pulseaudio": {
         "format": "VOL: {volume}%",
         "format-muted": "VOL: MUTED",
-        "format-source": "VOL: {volume}%",
+        "format-source": "VOL: {volume}%"
     },
 
 
