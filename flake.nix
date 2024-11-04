@@ -24,10 +24,14 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         home-manager-diff.url = "github:pedorich-n/home-manager-diff";
+        pshash = {
+            url = "github:thornoar/pshash";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         # rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     };
 
-    outputs = inputs @ { ... }:
+    outputs = inputs:
     let
         system = "x86_64-linux";
         sysname = "master";
@@ -89,6 +93,9 @@
                 modules = [
                     ./home-manager/main.nix
                     inputs.home-manager-diff.hmModules.default
+                    {
+                        home.packages = [ inputs.pshash.packages.${system}.default ];
+                    }
                 ];
                 extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
             };

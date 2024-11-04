@@ -130,7 +130,7 @@
             };
             hmd = {
                 enable = true;
-                runOnSwitch = true;
+                runOnSwitch = false;
             };
             zsh = {
                 enable = true;
