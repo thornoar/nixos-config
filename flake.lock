@@ -120,6 +120,26 @@
         "type": "github"
       }
     },
+    "lambda-interpreter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730701358,
+        "narHash": "sha256-aTAZuMJDbzI0CAcI6m84OaIxgOGbSnVhwohQIbkVDac=",
+        "owner": "thornoar",
+        "repo": "lambda-interpreter",
+        "rev": "b220351b8ad4c32f6850089a85c110cd61acc5b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thornoar",
+        "repo": "lambda-interpreter",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -258,11 +278,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730699095,
-        "narHash": "sha256-xhy5vw92D6mri/f75dXRwytwBoMd5ZmJtNhRsjVMid4=",
+        "lastModified": 1730701494,
+        "narHash": "sha256-XdWjurLPGIUkpHG/iJkHLVdZqHxuZumVrqdI+lOzPgs=",
         "owner": "thornoar",
         "repo": "pshash",
-        "rev": "8c8326aafb2ae6abcf5a16aa5380405d57f85cbc",
+        "rev": "08fc99ae8cd0171467480c4e7d5ef2cc52df2435",
         "type": "github"
       },
       "original": {
@@ -276,6 +296,7 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "home-manager-diff": "home-manager-diff",
+        "lambda-interpreter": "lambda-interpreter",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-old": "nixpkgs-old",

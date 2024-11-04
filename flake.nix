@@ -28,6 +28,10 @@
             url = "github:thornoar/pshash";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        lambda-interpreter = {
+            url = "github:thornoar/lambda-interpreter";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         # rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     };
 
@@ -94,7 +98,10 @@
                     ./home-manager/main.nix
                     inputs.home-manager-diff.hmModules.default
                     {
-                        home.packages = [ inputs.pshash.packages.${system}.default ];
+                        home.packages = [
+                            inputs.pshash.packages.${system}.default
+                            inputs.lambda-interpreter.packages.${system}.default
+                        ];
                     }
                 ];
                 extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
