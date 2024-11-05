@@ -55,7 +55,7 @@
             MEDIA = "$HOME/media";
             DE = "generic";
             NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
-            TEXINPUTS = ".:${PROJECTS}/LaTeX-libraries:$TEXINPUTS";
+            TEXINPUTS = ".:${XDG_DATA_HOME}/latex";
             EDITOR = "nvim-client";
             VISUAL = "${EDITOR}";
             HISTCONTROL = "ignoreboth";
