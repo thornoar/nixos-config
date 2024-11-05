@@ -1,0 +1,311 @@
+\usepackage{amsmath, amsthm, amssymb, euscript, MnSymbol}
+
+%разное
+\newcommand*{\bas}[1]{\operator{\beta}{(#1)}}
+\renewcommand*{\dim}[1]{\operator{dim}{#1}}
+\newcommand{\ax}[2]{\textbf{(#1-#2)}}
+\newcommand*{\sig}[1]{\operator{sign}{#1}}
+
+%\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\EuScript{B}}
+\newcommand{\A}{\EuScript{A}}
+
+\binoppenalty=10000
+\relpenalty=10000
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+
+\newcommand{\lr}[1]{\left( #1 \right)}
+
+\newcommand{\tto}[1]{\underset{x \to #1}{\longrightarrow}}
+
+\newcommand{\dd}{\mathinner{\mkern2mu\raise1pt\hbox{.}\mkern2mu \raise4pt\hbox{.}\mkern2mu\raise7pt\hbox{.}\mkern1mu}}
+\newcommand{\test}{\alpha}
+% \newcommand{\B}{\mathcal{B}}
+
+\newcommand{\ov}[1]{\overline{#1}}
+
+\newcommand{\newint}[3]{\int\limits_{#1}^{#2} #3 dx}
+
+\newcommand*{\Equ}{$\ \Longleftrightarrow \ $}
+\newcommand*{\equ}{\ \Longleftrightarrow \ }
+\newcommand*{\Implic}{$\ \Longrightarrow \ $}
+\newcommand*{\implic}{\ \Longrightarrow \ }
+
+\newcommand{\tp}[1]{\langle #1 \rangle}
+
+\newcommand{\s}[2]{\sum\limits_{#1}^{#2}}
+\newcommand{\newcup}[2]{\bigcup\limits_{#1}^{#2}}
+\newcommand{\newcap}[2]{\bigcap\limits_{#1}^{#2}}
+\newcommand{\lle}{\leqslant}
+\newcommand{\gge}{\geqslant}
+
+\usepackage{MnSymbol}
+
+\usepackage{mathrsfs}
+
+\newcommand{\restrspace}[3]{
+    \begin{array}[t]{c|l}
+        #1 & \vphantom{\int\limits_{n}} #3  \\
+         & #2 
+    \end{array} 
+}
+
+\newcommand{\restr}[2]{
+    \begin{array}[t]{c|c}
+        #1 & \vphantom{\int\limits_{n}}  \\
+         & \lefteqn{#2} 
+    \end{array} 
+}
+
+\newcommand{\restrmid}[2]{
+    \begin{array}{c|c}
+        #1 & \\
+         & #2 
+    \end{array}
+}
+
+\newcommand{\xvee}{\stackrel{\displaystyle \vee}{\smash{\vee}}}
+
+\newcommand{\ang}{
+    \begin{picture}(11,7)
+        \put(0,0){\line(5,4){10}}
+        \put(0,0){\line(1,0){10}}
+    \end{picture}
+}
+
+%---------
+%Операторы
+%---------
+
+%нотация унарных операторов
+\newcommand*{\operator}[2]{\operatorname{#1} #2} 
+\newcommand*{\operatorIndex}[2]{\operatorname{#1}_{#2}} 
+\newcommand*{\operatorTogether}[2]{#1#2}
+
+
+%инфиксная нотация бинарных операторов и отношений
+\newcommand*{\binOperator}[3]{#2#1#3}
+\newcommand*{\binRelation}[3]{#2#1#3}
+\newcommand*{\binOperatorIndex}[3]{\operatorname{#1}_{#2}#3}
+
+%-----------------------
+%Общекатегорные операторы
+%-----------------------
+
+%классы объектов и морфизмов
+\newcommand{\Ob}[1]{\operator{Ob}{#1}}
+\newcommand{\Mor}[1]{\operator{Mor}{#1}}
+
+%сигнатурные категорные операторы
+\newcommand*{\cod}[1]{\operator{cod}{#1}}
+\newcommand*{\dom}[1]{\operator{dom}{#1}}
+\newcommand*{\id}[1]{\operatorIndex{id}{#1}}
+\newcommand{\comp}[2]{\binOperator{\circ}{#1}{#2}} 
+
+\newcommand*{\codC}[2]{\operator{cod}_{#2}{#1}}
+\newcommand*{\domC}[2]{\operator{dom}_{#2}{#1}}
+
+
+%множество морфизмов, группа автоморфизмов, моноид эндморфизмов
+\newcommand*{\Hom}[1]{\operator{Hom}{#1}}
+\newcommand*{\Aut}[1]{\operator{Aut}{#1}}
+\newcommand*{\End}[1]{\operator{End}{#1}}
+
+\newcommand*{\HomC}[2]{\operator{Hom}_{#2}{#1}}
+\newcommand*{\AutC}[2]{\operator{Aut}_{#2}{#1}}
+\newcommand*{\EndC}[2]{\operator{End}_{#2}{#1}}
+
+%изоморфность и каноническая изоморфность
+\newcommand*{\isomorphic}[2]{\binRelation{\cong}{#1}{#2}}
+\newcommand*{\cannonicIsomorphic}[2]{\binRelation{\simeq}{#1}{#2}} 
+
+%предел диаграммы
+\newcommand*{\Lim}[1]{\operator{Lim}{#1}}
+\newcommand*{\LimC}[2]{\operator{Lim}_{#2}{#1}}
+
+%-----------------
+%Именные категории
+%-----------------
+\newcommand*{\acategoryname}[1]{\mathcal{#1}}
+\newcommand*{\thecategoryname}[1]{\mathrm{#1}}
+\newcommand*{\thebfcategoryname}[1]{\mathbf{#1}}
+
+\newcommand*{\Ab}{\thecategoryname{Ab}}
+\newcommand*{\Set}{\thecategoryname{Set}}
+\newcommand*{\LMod}[1]{#1\operatorname{-}\thecategoryname{Mod}}
+\newcommand*{\ModR}[1]{\thecategoryname{Mod}\operatorname{-}#1}
+\newcommand*{\Top}{\thecategoryname{Top}}
+\newcommand*{\ChainComplex}{\thecategoryname{ChainComplex}}
+\newcommand*{\Cat}{\thecategoryname{Cat}}
+
+\newcommand{\catname}[1]{\thecategoryname{#1}}
+
+
+%--------------------------
+%Подобъекты и факторобъекты
+%--------------------------
+
+%фактор по отношению эквивалентности #1/#2 
+\newcommand*{\quotientByRelation}[2]{\binOperator{\slash}{#1}{#2}}
+
+%фактор по подобъекту #1/#2 
+\newcommand*{\quotientBySubobject}[2]{\binOperator{\slash}{#1}{#2}}
+
+%Генераторы структур
+
+%сигнатура структуры
+\newcommand*{\struct}[1]{\langle\forcsvlist{#1}\rangle}
+
+%--------------------
+%Аддитивные категории
+%--------------------
+
+%образ и ядро
+\renewcommand*{\ker}[1]{\operator{Ker}{#1}}% уже определено
+\newcommand*{\coker}[1]{\operator{Coker}{#1}}
+\newcommand*{\image}[1]{\operator{Im}{#1}}
+\newcommand*{\im}[1]{\image{#1}}
+\newcommand*{\coim}[1]{\operator{Coim}{#1}}
+
+%--------------------
+%Генераторы категорий
+%--------------------
+
+\newcommand*{\Func}[1]{\operator{Func}{#1}}
+\newcommand*{\op}[1]{#1^{op}}
+
+%--------------------
+%Функторы в жизни
+%--------------------
+
+\newcommand*{\functor}[2]{\mathrm{#1}#2}
+
+\newcommand*{\Subgroup}[1]{\functor{Subgroup}{#1}}
+\newcommand*{\Cover}[1]{\functor{Cover}{#1}}
+\newcommand*{\Symm}[1]{\functor{Symm}{#1}}
+\newcommand*{\Bij}[1]{\functor{Bij}{#1}}
+
+
+%---------------------
+%Конструкторы множеств
+%---------------------
+
+%множество всех элементов таких, что
+\newcommand*{\setOfAllSuchThat}[2]{\{ \, #1 \mid #2 \, \}}
+%\newcommand*{\setOfAllSuchThat}[2]{\{  #1 \mid #2  \}}
+
+\newcommand*{\setOf}[2]{\setOfAllSuchThat{#1}{#2}}
+
+%морфизмы из A в B
+\newcommand*{\fromDomToCod}[2]{#1 \to #2}
+
+%---------------------
+%Конструкторы функций
+%---------------------
+
+%морфизм данной сигнатуры
+\newcommand*{\morphism}[3]{#1\colon\fromDomToCod{#2}{#3}}
+
+%анонимная функция
+\newcommand*{\mapsTo}[2]{#1 \mapsto #2}
+
+%морфизм данной сигнатуры и реализации
+\newcommand*{\morphismMapsTo}[5]{\morphism{#1}{#2}{#3}\colon #4 \mapsto #5}
+
+%элемент данного множества
+%\newcommand*{\element}[2]{#1 \in #2}
+
+
+%------------------
+%---Теория групп---
+%------------------
+
+%задание образующими и соотношениями <#1|#2>
+\newcommand*{\presentationOf}[2]{\langle \, \forcsvlist{#1} \,\mid\, \forcsvlist{#2} \,\rangle}
+\renewcommand*{\deg}[2]{\operatorIndex{deg}{#1}{#2}}
+
+%порядок элемента
+\newcommand*{\ord}[1]{\operator{ord}{#1}}
+
+%группа внутренних автоморфизмов и группа внешних автоморфизмов
+\newcommand{\Inn}[1]{\operator{Inn}{#1}}
+\newcommand{\Out}[1]{\operator{Out}{#1}}
+
+%------------------
+%---Теория колец---
+%------------------
+\newcommand*{\rad}[1]{\operator{rad}{#1}}
+
+%------------------
+%---Функторы из геометрии в алгебру---
+%------------------
+
+\newcommand*{\Isom}[1]{\operator{Isom}{#1}}
+\newcommand*{\Conf}[1]{\operator{Conf}{#1}}
+
+
+%------------------
+%---Общая топология---
+%------------------
+
+\newcommand*{\Cl}[1]{\operator{Cl}{#1}}
+\newcommand*{\Int}[1]{\operator{Int}{#1}}
+
+%выпуклая геометрия
+\newcommand*{\Conv}[1]{\operator{Conv}{#1}}
+\newcommand*{\ConvInt}[1]{\operator{ConvInt}{#1}}
+
+
+%------------------
+%---Теория гомотопий---
+%------------------
+
+
+%------------------
+%---Теория многообразий---
+%------------------
+\newcommand{\bound}[1]{\operatorTogether{\partial}{#1}}
+
+%------------------
+%---Числовые множества---
+%------------------
+\newcommand*{\naturalNumbers}{\mathbb{N}}
+\newcommand*{\natNum}{\naturalNumbers}
+\newcommand*{\N}{\naturalNumbers}
+
+\newcommand*{\integerNumbers}{\mathbb{Z}}
+\newcommand*{\intNum}{\integerNumbers}
+\newcommand*{\Z}{\integerNumbers}
+
+\newcommand*{\rationalNumbers}{\mathbb{Q}}
+\newcommand*{\ratNum}{\rationalNumbers}
+\newcommand*{\Q}{\rationalNumbers}
+
+
+\newcommand*{\realNumbers}{\mathbb{R}}
+\newcommand*{\realNum}{\realNumbers}
+\newcommand*{\R}{\realNumbers}
+
+\newcommand*{\complexNumbers}{\mathbb{C}}
+\newcommand*{\compNum}{\complexNumbers}
+%\newcommand*{\C}{\complexNumbers} %https://tex.stackexchange.com/questions/2967/what-is-c-with-xelatex-and-beamer
+
+\makeatletter
+\DeclareFontFamily{U}{tipa}{}
+\DeclareFontShape{U}{tipa}{m}{n}{<->tipa10}{}
+\newcommand{\arc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}%
+
+\newcommand{\arc}[1]{\mathpalette\arc@arc{#1}}
+
+\newcommand{\arc@arc}[2]{%
+  \sbox0{$\m@th#1#2$}%
+  \vbox{
+    \hbox{\resizebox{\wd0}{\height}{\arc@char}}
+    \nointerlineskip
+    \box0
+  }%
+}
+\makeatother

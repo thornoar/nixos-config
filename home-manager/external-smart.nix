@@ -343,6 +343,9 @@
             )
         );
 
+        # LaTeX libraries enabling
+        xdg.dataFile."latex".source = dotfile "latex-libraries";
+
         # keynav setup
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
     };

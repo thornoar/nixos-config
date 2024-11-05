@@ -1,0 +1,24 @@
+\usepackage{tikz}
+
+\usepackage{tikz-cd}
+\usetikzlibrary{babel}
+
+% \usepackage{amscd}
+\usepackage{graphics}
+\usepackage{caption, subcaption}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+	\def\svgwidth{\columnwidth}
+	\import{./figures/}{#1.pdf_tex}
+}
+
+\newcommand*{\circled}[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\rfig}[2]{\includegraphics[width=#1]{rtmp/#2}}

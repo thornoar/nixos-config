@@ -1,0 +1,73 @@
+\usepackage{bookmark}
+\usepackage{lipsum} 
+\usepackage[bottom]{footmisc}
+
+\usepackage{calc}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{cite}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{titlesec}
+% \usepackage{xr}
+\usepackage[]{subfiles}
+\usepackage{geometry}
+
+\hypersetup{colorlinks=true}
+\hypersetup{linkcolor=black}
+\hypersetup{citecolor=black}
+\hypersetup{urlcolor=blue}
+\hypersetup{pdfhighlight=/P}
+
+\newcommand{\si}[1]{\,\text{#1}}
+
+\newcommand{\annotate}[1]{
+    \vspace{4cm}
+
+    \begin{center}
+        \textbf{Annotation}\\
+        \textit{#1}
+    \end{center}
+
+    \pagebreak
+}
+
+\newcommand{\printtitlepage}[5]{
+    \begin{center}
+    \bf{#1}
+    \end{center}
+        \vspace{30mm}
+        \rule[0.5ex]{\linewidth}{2pt}\vspace*{-\baselineskip}\vspace*{3.2pt} 
+        \rule[0.5ex]{\linewidth}{1pt}\\[6mm] 
+        {\Huge \sc \centerline{#2}}\\[5mm]
+        \rule[0.5ex]{\linewidth}{1pt}\vspace*{-\baselineskip}\vspace{3.3pt} 
+        \rule[0.5ex]{\linewidth}{2pt}\\ 
+    \begin{center}
+        \Large{#3\\}
+    \end{center}
+    \vspace{-6mm}
+    \begin{center}
+        {#4}
+    \end{center}
+    \annotate{#5}
+    \newpage
+}
+
+\newcommand{\printtitle}[2]{
+    \begin{center}
+        {\Large \bf #1}
+        \rule[0.5ex]{\linewidth}{1.5pt}\vspace*{-\baselineskip}\vspace{3.3pt} \\
+        \vspace{5mm}
+        #2
+    \end{center}
+}
+
+\newcommand*{\keyword}[1]{\textit{#1}}
+
+\newcommand{\emptysymbol}{\phantom{.}}
+
+\newcommand{\bfit}[1]{\textit{\textbf{#1}}}

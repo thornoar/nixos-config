@@ -194,21 +194,17 @@ snippet iff "iff" i
 \\iff
 endsnippet
 
-snippet mk "Math" wA
-$ ${1:${VISUAL}} $
+snippet inline "Math" wA
+$${1:${VISUAL}}$
 endsnippet
 
 snippet ref "ref"
 \\ref{$0}
 endsnippet
 
-snippet dm "Display Math" w
-\\[ ${1:${VISUAL}} \\] $0
-endsnippet
-
-snippet sdm "Super display math" b
+snippet display "Display Math" w
 \\[
-${1:${VISUAL}}
+    ${0:${VISUAL}}
 \\]
 endsnippet
 
