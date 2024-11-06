@@ -61,13 +61,14 @@
             ${sysname} = lib.nixosSystem {
                 system = system;
                 modules = [
-                    ./system-${sysname}.nix
+                    ./nixos/configuration.nix
+                    ./nixos/modules/${sysname}.nix
                     { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
                     # inputs.home-manager.nixosModules.home-manager
                     # {
                     #     home-manager = {
                     #         useUserPackages = true;
-                    #         users.ramak = import ./home-manager/main.nix;
+                    #         users.ramak = import ./home-manager/home.nix;
                     #         extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
                     #     };
                     # }
@@ -95,7 +96,7 @@
             ramak = inputs.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 modules = [
-                    ./home-manager/main.nix
+                    ./home-manager/home.nix
                     inputs.home-manager-diff.hmModules.default
                     {
                         home.packages = [

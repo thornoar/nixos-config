@@ -4,17 +4,17 @@
     imports = (
         let
             path = /home/ramak/projects/nixos-local-config/home-local.nix;
-        in if (builtins.pathExists path) then [ path ] else [ ../dotfiles/home-template.nix ]
+        in if (builtins.pathExists path) then [ path ] else [ ./src/home-template.nix ]
     ) ++ [
-        ./options.nix
-        ./scripts.nix
-        ./external-smart.nix
-        ./external-direct.nix
+        ./modules/options.nix
+        ./modules/scripts.nix
+        ./modules/external-smart.nix
+        ./modules/external-direct.nix
     ];
 
     config = 
     let 
-        # [./packages.txt]
+        # [./modules/packages.txt]
         regular-packages = with pkgs; [
             # LaTeX
             (texlive.combine { inherit (texlive) scheme-full; })
@@ -111,7 +111,6 @@
             };
             defaultApplications = associations.added;
         };
-
         nixpkgs.config.allowUnfree = true;
 
         home.packages = (
@@ -119,7 +118,7 @@
                 lib.lists.forEach (
                     lib.lists.partition
                         (x: 0 < lib.strings.stringLength x) 
-                        (lib.strings.splitString "\n" (builtins.readFile ./packages.txt))
+                        (lib.strings.splitString "\n" (builtins.readFile ./modules/packages.txt))
                 ).right (name: pkgs.${name})
             ) else []
 		) ++ regular-packages ++ unstable-packages ++ insecure-packages;

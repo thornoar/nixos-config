@@ -2,12 +2,11 @@
 
 {
     imports = (
-        let path = /home/ramak/projects/nixos-local-config/system-local.nix;
-        in if (builtins.pathExists path) then [ path ] else [ ./dotfiles/system-template.nix ]
-    ) ++ [
-        ./system-minimal.nix
-        /etc/nixos/hardware-configuration.nix
-    ];
+        let
+            path = /home/ramak/projects/nixos-local-config/system-local.nix;
+        in
+            if (builtins.pathExists path) then [ path ] else [ ./dotfiles/system-template.nix ]
+    );
 
     config = {
         environment.variables.SPECIALISATION = "default";

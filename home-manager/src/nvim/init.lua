@@ -2,7 +2,7 @@ vim.loader.enable()
 
 local km = vim.keymap
 vim.g.mapleader = ';'
-km.set('n', 'ec', ':e $NIXOS_CONFIG/dotfiles/nvim/init.lua<CR>')
+km.set('n', 'ec', ':e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>')
 local autosave = true
 local autosave_tex_typst = false
 
@@ -125,6 +125,7 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
+    { 'https://github.com/uga-rosa/cmp-dictionary', },
     -- {
     --     'nvimdev/lspsaga.nvim',
     --     config = function()
@@ -141,7 +142,7 @@ require('lazy').setup({
 
 require('neodev').setup({
     override = function(root_dir, library)
-        if root_dir:find(os.getenv('NIXOS_CONFIG') .. '/dotfiles/nvim', 1, true) == 1 then
+        if root_dir:find(os.getenv('NIXOS_CONFIG') .. '/home-manager/src/nvim', 1, true) == 1 then
             library.enabled = true
             library.plugins = true
         end
@@ -373,15 +374,15 @@ end, { noremap = true })
 -- $keymaps:command
 km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
 km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
-km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/main.nix') end)
-km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/main.nix') end)
-km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
-km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/home.nix') end)
+km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/home.nix') end)
+km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
+km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
 km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
 km.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
 km.set('n', '<leader>ee', function ()
     local ft = vim.bo.filetype
-    vim.cmd('sp $NIXOS_CONFIG/dotfiles/nvim/UltiSnips/' .. ft .. '.snippets')
+    vim.cmd('sp $NIXOS_CONFIG/home-manager/src/nvim/UltiSnips/' .. ft .. '.snippets')
 end)
 km.set('n', '<leader>cd', function () vim.cmd('Copilot disable') end)
 km.set('n', '<leader>ce', function () vim.cmd('Copilot enable') end)
@@ -598,16 +599,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local hl_name = "FloatBorder"
-local border = {
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { "│", hl_name },
-    { "╯", hl_name },
-    { "─", hl_name },
-    { "╰", hl_name },
-    { "│", hl_name },
-}
+local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
+-- local border = {
+--     { "╭", hl_name },
+--     { "─", hl_name },
+--     { "╮", hl_name },
+--     { "│", hl_name },
+--     { "╯", hl_name },
+--     { "─", hl_name },
+--     { "╰", hl_name },
+--     { "│", hl_name },
+-- }
 local handlers =  {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
@@ -748,13 +750,20 @@ require('mason-lspconfig').setup({
 local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
--- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
+require("cmp_dictionary").setup({
+    paths = { "~/.local/share/dict/words" },
+    exact_length = 2,
+})
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'buffer' },
         { name = 'ultisnips' },
+        {
+            name = 'dictionary',
+            keyword_length = 2,
+        },
     },
     window = {
         completion = cmp.config.window.bordered(),

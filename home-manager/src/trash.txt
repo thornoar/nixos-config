@@ -18,7 +18,7 @@ myKeys = [
     -- Quick Programs
     ("M-x", do
         spawn "chlang us"
-        spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; $FILEMANAGER; zsh'")
+        spawn (myTerminal ++ " --title 'File' -e zsh -c 'source $NIXOS_CONFIG/home-manager/src/br.sh; $FILEMANAGER; zsh'")
     ),
     ("M-w", spawn myBrowser),
     ("M-a", do
@@ -27,7 +27,7 @@ myKeys = [
     ),
     ("M-b", do
         spawn "chlang us"
-        spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/dotfiles/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")
+        spawn (myTerminal ++ " --title 'Sandbox' -e zsh -c 'source $NIXOS_CONFIG/home-manager/src/br.sh; cd $PROJECTS/sandbox; $FILEMANAGER; zsh'")
     ),
 
     -- Type email
@@ -244,8 +244,8 @@ vim.keymap.set('n', '<C-e>', function () vim.cmd('Buf') end)
 vim.keymap.set('n', '<C-x>', function () vim.cmd('GitFiles') end)
 
 
-vim.keymap.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/main.nix') end)
-vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/dotfiles/nvim/init.lua') end)
+vim.keymap.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-ramak/home.nix') end)
+vim.keymap.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
 
 vim.keymap.set('n', 'd[', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', 'd]', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -281,7 +281,7 @@ local function on_attach (bufnr)
 	km.set('n', '.',    					api.node.run.cmd,                      opts('Run Command'))
 	km.set('n', 'a',    					api.fs.create,                         opts('Create'))
 	km.set('n', 'B',    					api.tree.toggle_no_buffer_filter,      opts('Toggle Filter: No Buffer'))
-	km.set('n', 'zh',   					api.tree.toggle_hidden_filter,         opts('Toggle Filter: Dotfiles'))
+	km.set('n', 'zh',   					api.tree.toggle_hidden_filter,         opts('Toggle Filter: home-manager/src'))
 	km.set('n', 'I',    					api.tree.toggle_gitignore_filter,      opts('Toggle Filter: Git Ignore'))
 	km.set('n', 'c',    					api.fs.copy.node,                      opts('Copy'))
 	km.set('n', 'C',    					api.tree.toggle_git_clean_filter,      opts('Toggle Filter: Git Clean'))
@@ -330,7 +330,7 @@ require("nvim-tree").setup({
 		update_cwd = true,
 	},
 	filters = {
-		dotfiles = true,
+		home-manager/src = true,
 	},
 	on_attach = on_attach
 })
@@ -943,7 +943,7 @@ local theme = {
 $themery setup
 require("themery").setup({
     themes = { 'ron', 'onedark', 'default', 'desert', 'habamax', 'koehler', 'slate' }, -- Your list of installed colorschemes
-    themeConfigFile = "dotfiles/nvim/nvimtrash.lua", -- Described below
+    themeConfigFile = "home-manager/src/nvim/nvimtrash.lua", -- Described below
     livePreview = true, -- Apply theme while browsing. Default to true.
 })
 

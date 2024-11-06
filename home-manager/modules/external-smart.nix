@@ -3,7 +3,7 @@
 {
     config = 
     let
-        dotfile = str: lib.path.append ../dotfiles str;
+        dotfile = str: lib.path.append ./src str;
         ts = builtins.toString;
         toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
@@ -312,8 +312,8 @@
         # account icon setting
         home.file.".face".source = dotfile "account-icon.png";
 
-        # typst libraries enabling
         xdg.dataFile = builtins.listToAttrs (
+            # typst libraries
             lib.lists.flatten (
                 lib.lists.forEach
                 (lib.filesystem.listFilesRecursive (dotfile "typst-libraries"))
@@ -341,10 +341,10 @@
                     ]
                 )
             )
-        );
-
-        # LaTeX libraries enabling
-        xdg.dataFile."latex".source = dotfile "latex-libraries";
+        ) // {
+            # LaTeX libraries
+            "latex".source = dotfile "latex-libraries";
+        };
 
         # keynav setup
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
