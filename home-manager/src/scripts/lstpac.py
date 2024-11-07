@@ -10,7 +10,7 @@ parser.add_argument("-s", "--simple", action = "store_true", help = "simply cat 
 args = parser.parse_args()
 
 if (args.simple):
-    os.system("cat $NIXOS_CONFIG/home-manager/packages.txt")
+    os.system("cat $NIXOS_CONFIG/home-manager/src/packages.txt")
     sys.exit(0)
 
 def run_command (command):
@@ -18,7 +18,7 @@ def run_command (command):
     output = result.stdout.strip()
     return output
 
-pacfile = open(os.environ["NIXOS_CONFIG"] + "/home-manager/packages.txt").readlines()
+pacfile = open(os.environ["NIXOS_CONFIG"] + "/home-manager/src/packages.txt").readlines()
 
 for package in pacfile:
     package = package.replace("\n", "")

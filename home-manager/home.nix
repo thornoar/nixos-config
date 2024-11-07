@@ -14,7 +14,7 @@
 
     config = 
     let 
-        # [./modules/packages.txt]
+        # [./src/packages.txt]
         regular-packages = with pkgs; [
             # LaTeX
             (texlive.combine { inherit (texlive) scheme-full; })
@@ -118,7 +118,7 @@
                 lib.lists.forEach (
                     lib.lists.partition
                         (x: 0 < lib.strings.stringLength x) 
-                        (lib.strings.splitString "\n" (builtins.readFile ./modules/packages.txt))
+                        (lib.strings.splitString "\n" (builtins.readFile ./src/packages.txt))
                 ).right (name: pkgs.${name})
             ) else []
 		) ++ regular-packages ++ unstable-packages ++ insecure-packages;
