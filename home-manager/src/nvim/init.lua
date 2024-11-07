@@ -125,7 +125,8 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
-    { 'https://github.com/uga-rosa/cmp-dictionary', },
+    -- { 'https://github.com/uga-rosa/cmp-dictionary', },
+    { 'https://github.com/octaltree/cmp-look' },
     -- {
     --     'nvimdev/lspsaga.nvim',
     --     config = function()
@@ -750,10 +751,10 @@ require('mason-lspconfig').setup({
 local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
-require("cmp_dictionary").setup({
-    paths = { "~/.local/share/dict/words" },
-    exact_length = 2,
-})
+-- require("cmp_dictionary").setup({
+--     paths = { "~/.local/share/dict/words" },
+--     exact_length = 2,
+-- })
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
@@ -761,8 +762,13 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'ultisnips' },
         {
-            name = 'dictionary',
+            name = 'look',
             keyword_length = 2,
+            option = {
+                convert_case = true,
+                loud = true,
+                dict = os.getenv('WORDLIST')
+            }
         },
     },
     window = {

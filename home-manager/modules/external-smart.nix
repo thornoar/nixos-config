@@ -3,7 +3,7 @@
 {
     config = 
     let
-        dotfile = str: lib.path.append ./src str;
+        dotfile = str: lib.path.append ../src str;
         ts = builtins.toString;
         toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
@@ -35,7 +35,39 @@
             }
         '';
         xdg.configFile."waybar/style.css".source = dotfile "waybar/style.css";
-        xdg.configFile."waybar/config".source = dotfile "waybar/config";
+        xdg.configFile."waybar/config".text = ''
+            {
+                "layer": "top",
+                "margin-top": ${ts config.hyprland.windowSpaceOuter},
+                "margin-bottom": 0,
+                "margin-left": ${ts config.hyprland.windowSpaceOuter},
+                "margin-right": ${ts config.hyprland.windowSpaceOuter},
+                "layer": "top",
+                "spacing": 0,
+
+                "include": [
+                    "~/.config/waybar/modules.json"
+                ],
+
+                "modules-left": [
+                    "hyprland/workspaces",
+                ],
+
+                "modules-center": [
+                    "pulseaudio",
+                    "clock",
+                    "backlight",
+                ],
+
+                "modules-right": [
+                    "hyprland/language",
+                    "network",
+                    "cpu",
+                    "memory",
+                    "battery", 
+                ]
+            }
+        '';
         xdg.configFile."waybar/modules.json".source = dotfile "waybar/modules.json";
         
         # xmonad setup
@@ -194,8 +226,8 @@
             settings = {
                 cursor = config.colors.fgColor0;
                 cursor_shape = "underline";
-                cursor_underline_thickness = "2.0";
-                cursor_beam_thickness = "2.0";
+                cursor_underline_thickness = "1.0";
+                cursor_beam_thickness = "1.0";
                 window_padding_width = ts config.hyprland.terminalPadding;
                 foreground = config.colors.fgColor0;
                 background = config.colors.bgColor0;

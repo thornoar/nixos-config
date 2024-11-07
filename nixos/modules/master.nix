@@ -5,7 +5,7 @@
         let
             path = /home/ramak/projects/nixos-local-config/system-local.nix;
         in
-            if (builtins.pathExists path) then [ path ] else [ ./dotfiles/system-template.nix ]
+            if (builtins.pathExists path) then [ path ] else [ ../src/system-template.nix ]
     );
 
     config = {
@@ -36,7 +36,9 @@
                 environment.variables = {
                     SPECIALISATION = lib.mkForce "xmonad";
                     TERMINAL = "alacritty";
+                    XCURSOR_SIZE = "24";
                 };
+                # services.xserver.dpi = 192;
                 services.xserver = {
                     enable = true;
                     xkb.layout = "us";
@@ -101,8 +103,9 @@
                     WLR_NO_HARDWARE_CURSORS = "1";
                     CURSOR_INACTIVE_TIMEOUT = "1";
                     NIXOS_OZONE_WL = "1";
-                    HYPRCURSOR_SIZE = "32";
+                    HYPRCURSOR_SIZE = "16";
                     TERMINAL = "kitty";
+                    XCURSOR_SIZE = "16";
                 };
                 hardware = {
                     opengl.enable = lib.mkForce true;
@@ -154,6 +157,13 @@
         virtualisation.libvirtd.enable = true;
         programs = {
             virt-manager.enable = true;
+        };
+
+        environment = {
+            wordlist.enable = true;
+            systemPackages = with pkgs; [
+                scowl
+            ];
         };
 
         services.logind.extraConfig = ''

@@ -176,6 +176,7 @@
                         "signon.rememberSignons" = false;
                         "media.hardware-video-decoding.enabled" = true;
                         "layout.css.devPixelsPerPx" = 1.7;
+                        "layout.css.dpi" = 96;
                     };
                     extensions = with firefox-pkgs; [
                         darkreader
@@ -199,7 +200,6 @@
             gtk.enable = true;
             name = "Adwaita";
             package = pkgs.gnome.adwaita-icon-theme;
-            size = 32;
         };
 
         dconf.settings = {

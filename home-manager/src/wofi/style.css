@@ -10,13 +10,13 @@ window {
     font-family: "Hack";
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 10px;
+    padding: 5px;
     background-color: @bgColor0;
     color: @colorWhite1;
 }
 
 #entry {
-    padding: 10pt;
+    padding: 5px;
 }
 
 #entry:selected {

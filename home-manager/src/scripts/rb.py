@@ -19,9 +19,14 @@ parser.add_argument("-o", "--output", type = str, default = "auto", help = "flak
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
 args = parser.parse_args()
 
+def call (str):
+    if 0 != os.system(str):
+        print("| \033[31mFailed to complete.\033[0m") #]]
+        exit(1)
+
 if (args.type == "both"):
-    os.system("rb system " + " ".join(sys.argv[2:]))
-    os.system("rb home " + " ".join(sys.argv[2:]))
+    call("rb system " + " ".join(sys.argv[2:]))
+    call("rb home " + " ".join(sys.argv[2:]))
     exit(0)
 
 command = ""
@@ -35,10 +40,6 @@ else:
 
 print("| \033[34mRebuild command is: \"\033[35m" + command + "\033[34m\".\033[0m") #]]]]
 
-def call (str):
-    if 0 != os.system(str):
-        print("| \033[31mFailed to complete.\033[0m") #]]
-        exit(1)
 try:
     cwd = os.popen("pwd").read().strip()
     new_dir = (args.flake != "auto") and args.flake or os.environ["NIXOS_CONFIG"]

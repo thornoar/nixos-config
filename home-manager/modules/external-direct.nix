@@ -3,7 +3,7 @@
 {
     config = 
     let
-        dotfile = str: lib.path.append ./src str;
+        dotfile = str: lib.path.append ../src str;
     in
     {
         home.file.".local/share/icons/transparent".source = dotfile "transparent";
