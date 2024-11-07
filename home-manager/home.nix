@@ -96,6 +96,7 @@
         };
         home.sessionVariables = {
             BAT_THEME = "base16";
+            WALLPAPER_DIR = config.wallpaper.dir;
         };
 
         xdg.mimeApps = rec {
@@ -106,7 +107,7 @@
                 "audio/mp3" = [ "mpv.desktop" ];
                 "video/vnd.avi" = [ "mpv.desktop" ];
                 "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-                "image/svg+xml" = [ "sxiv.desktop" ];
+                "image/svg+xml" = [ "imv.desktop" ];
                 "text/csv" = [ "sc-im.desktop" ];
             };
             defaultApplications = associations.added;

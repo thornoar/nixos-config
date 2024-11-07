@@ -54,7 +54,7 @@
             "critical": 15
         },
         "format": "BAT: {capacity}%",
-        // "format-plugged": "BAT {capacity}%",
+        "format-plugged": "CHARGING",
     },
 
     // Pulseaudio

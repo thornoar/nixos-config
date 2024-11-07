@@ -8,12 +8,12 @@ export STATUS_FILE="$XDG_RUNTIME_DIR/transparentcursor.status"
 
 set_transparent() {
 	printf "true" > "$STATUS_FILE"
-    hyprctl setcursor transparent 32
+    hyprctl setcursor transparent 16
 }
 
 set_normal() {
 	printf "false" > "$STATUS_FILE"
-    hyprctl setcursor Adwaita 32
+    hyprctl setcursor Adwaita 16
 }
 
 if ! [ -f "$STATUS_FILE" ]; then

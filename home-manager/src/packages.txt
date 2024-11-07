@@ -30,7 +30,6 @@ obs-studio
 zoom-us
 mpv
 zathura
-sxiv
 xkb-switch
 libnotify
 xmobar
@@ -59,3 +58,4 @@ comma
 manix
 flameshot
 grim
+imv

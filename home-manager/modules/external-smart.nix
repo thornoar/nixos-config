@@ -14,7 +14,10 @@
         xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
         # Hyprland setup
-        xdg.configFile."hypr/size.conf".text = toConf false "" config.hyprland;
+        xdg.configFile."hypr/imports.conf".text = toConf false "" config.hyprland;
+        # + ''
+        #     $wallpaperCmd = swww img $(find $MEDIA/wallpapers/${config.wallpaper.dir} -type f | shuf -n 1) --transition-duration 1 --transition-type right
+        # '';
         xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
         xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
 
