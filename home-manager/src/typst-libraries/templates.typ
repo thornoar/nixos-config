@@ -100,7 +100,7 @@
   h(3pt)
 }))
 
-#let math-preamble(part, due) = doc => {
+#let math-preamble(part, due, subnumbering: true) = doc => {
   set page(
     "a4",
     margin: (x:.5in, top: 0.8in, bottom: 0.5in),
@@ -113,7 +113,7 @@
   )
   set text(size: 12pt)
   set math.equation(supplement: "Relation", numbering: "(1.1)")
-  show: equate.with(sub-numbering: true, number-mode: "label")
+  show: equate.with(sub-numbering: subnumbering, number-mode: "label")
 
   table(
     columns: 1,

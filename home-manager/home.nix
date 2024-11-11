@@ -35,10 +35,10 @@
             pyright
 
             # Haskell
-            ghc
             cabal-install
             haskellPackages.cabal-clean
             haskell-language-server
+            haskell.compiler.ghc965
 
             # Lua
             lua

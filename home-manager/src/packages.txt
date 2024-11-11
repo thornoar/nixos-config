@@ -13,7 +13,6 @@ nix-du
 thefuck
 tldr
 cheat
-xcolor
 killall
 dict
 broot
@@ -30,7 +29,6 @@ obs-studio
 zoom-us
 mpv
 zathura
-xkb-switch
 libnotify
 xmobar
 gifski

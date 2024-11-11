@@ -71,6 +71,8 @@ try:
     if (not args.default):
         if (args.type == "system"):
             nom_args = " --log-format internal-json |& nom --json"
+        if (args.type == "home"):
+            nom_args = " |& nom"
 
     old_gen = os.popen("readlink -f /run/current-system").read().strip()
 

@@ -24,6 +24,7 @@ require('lazy').setup({
     'tpope/vim-rhubarb',
 	'tpope/vim-surround',
 	'tpope/vim-repeat',
+	'tpope/vim-fugitive',
     'sagarrakshe/toggle-bool',
 	'farmergreg/vim-lastplace',
 	'sirver/ultisnips',
@@ -600,17 +601,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local hl_name = "FloatBorder"
-local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
--- local border = {
---     { "╭", hl_name },
---     { "─", hl_name },
---     { "╮", hl_name },
---     { "│", hl_name },
---     { "╯", hl_name },
---     { "─", hl_name },
---     { "╰", hl_name },
---     { "│", hl_name },
--- }
+-- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
+local border = {
+    { "╭", hl_name },
+    { "─", hl_name },
+    { "╮", hl_name },
+    { "│", hl_name },
+    { "╯", hl_name },
+    { "─", hl_name },
+    { "╰", hl_name },
+    { "│", hl_name },
+}
 local handlers =  {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
@@ -623,6 +624,10 @@ local lspbasicconfig = {
     capabilities = lsp_capabilities,
     handlers = handlers
 }
+
+vim.diagnostic.config({
+    float = { border = border, },
+})
 
 lspconfig.texlab.setup(lspbasicconfig)
 lspconfig.pyright.setup(lspbasicconfig)
@@ -751,10 +756,6 @@ require('mason-lspconfig').setup({
 local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
--- require("cmp_dictionary").setup({
---     paths = { "~/.local/share/dict/words" },
---     exact_length = 2,
--- })
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },

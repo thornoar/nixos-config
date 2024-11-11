@@ -8,10 +8,6 @@
             if (builtins.pathExists path) then [ path ] else [ ../src/system-template.nix ]
     );
 
-    options = {
-        monitorName = lib.mkOption { type = lib.types.str; default = "eDP-1"; };
-    };
-
     config = {
         environment.variables.SPECIALISATION = "default";
 
@@ -61,7 +57,6 @@
                             xset r rate 200 30
                             xset s off
                             transmission-daemon
-                            # ${pkgs.xorg.xrandr}/bin/xrandr --output ${config.monitorName} --scale 0.5x0.5
                         '';
                     };
                 };
@@ -83,6 +78,8 @@
                     xvkbd
                     wl-clipboard
                     keynav
+                    xcolor
+                    xkb-switch
                 ];
             };
 
@@ -118,11 +115,12 @@
                 };
                 environment.systemPackages = with pkgs; [
                     waybar
-                    swww
+                    wpaperd
                     wofi
                     wl-clipboard
                     xsel
                     warpd
+                    hyprpicker
                 ];
             };
         };
@@ -168,6 +166,7 @@
             wordlist.enable = true;
             systemPackages = with pkgs; [
                 scowl
+                haskell.compiler.ghcjs
             ];
         };
 
