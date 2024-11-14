@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 
 {
     config = 
@@ -309,6 +309,7 @@
                 { name = "ol | Outlook"; url = "https://outlook.office.com/mail/"; keyword = "ol"; }
                 { name = "ch | ArchChinese"; url = "https://www.archchinese.com/"; keyword = "ch"; }
                 { name = "ca | Canvas"; url = "https://canvas.ust.hk"; keyword = "ca"; }
+                { name = "ps | pshash"; url = "https://thornoar.github.io/pshash/web/app/"; keyword = "ps"; }
             ];
             userChrome = ''
                 #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
@@ -335,7 +336,17 @@
         home.file.".Rprofile".source = dotfile "Rprofile";
 
         # xmobar setup
-        xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
+        # xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
+        xdg.configFile."xmobar/lib/Colors.hs".text = toHaskell true ''
+            module Colors where
+        '' config.colors;
+        xdg.configFile."xmobar/lib/Xmobar.hs".text = toHaskell true ''
+            module Xmobar where
+        '' config.xmobar;
+        xdg.configFile."xmobar/lib/Misc.hs".text = toHaskell true ''
+            module Misc where
+        '' config.misc;
+        xdg.configFile."xmobar/xmobarrc".source = dotfile "xmobarrc";
 
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";

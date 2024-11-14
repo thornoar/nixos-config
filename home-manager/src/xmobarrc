@@ -1,0 +1,41 @@
+import Colors
+import Xmobar
+import Misc
+
+Config {
+    font     = "xft:" ++ systemFont ++ " Nerd Font Mono-${ts config.xmonad.fontsize}",
+    bgColor  = "bgColor0",
+    fgColor  = "fgColor0",
+    position = TopH barHeight,
+    persistent = False,
+    hideOnStart = False,
+    allDesktops = True,
+    lowerOnStart = True,
+    -- extraOptions,
+    commands = [
+        Run Alsa "default" "Master" [
+            "--template", "<fc=colorWhite1><volumestatus></fc>",
+            "--suffix", "True",
+            "--",
+            "--on", ""
+        ],
+        Run Date "<fc=colorMagenta0>%H:%M:%S</fc> | <fc=colorMagenta1>%a %d.%m.%Y</fc>" "date" 10,
+        Run XMonadLog,
+        -- ${config.xmobar.extraCommands}
+        Run Kbd [
+            ("us", "<fc=colorWhite1>US</fc>"),
+            ("ru", "<fc=colorWhite1>RU</fc>"),
+            ("de", "<fc=colorWhite1>DE</fc>")
+        ],
+        Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+            , "--Low"      , "1000"       -- units: B/s
+            , "--High"     , "5000"       -- units: B/s
+            , "--low"      , "darkgreen"
+            , "--normal"   , "darkorange"
+            , "--high"     , "darkred"
+            ] 10
+    ],
+    sepChar  = "%", -- {
+    alignSep = "}{", -- }
+    template = template,
+}

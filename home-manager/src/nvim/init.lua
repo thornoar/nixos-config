@@ -126,6 +126,16 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
+    {
+        "Jezda1337/nvim-html-css",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-lua/plenary.nvim"
+        },
+        config = function()
+            require("html-css"):setup()
+        end
+    },
     -- { 'https://github.com/uga-rosa/cmp-dictionary', },
     { 'https://github.com/octaltree/cmp-look' },
     -- {
@@ -630,6 +640,7 @@ vim.diagnostic.config({
 })
 
 lspconfig.texlab.setup(lspbasicconfig)
+lspconfig.ts_ls.setup(lspbasicconfig)
 lspconfig.pyright.setup(lspbasicconfig)
 -- lspconfig.nil_ls.setup(lspbasicconfig)
 lspconfig.nixd.setup({
@@ -655,7 +666,7 @@ lspconfig.nixd.setup({
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
--- lspconfig.julials.setup(lspbasicconfig)
+lspconfig.bashls.setup(lspbasicconfig)
 
 if not configs.asy_ls then
    configs.asy_ls = {
@@ -748,7 +759,7 @@ vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'bashls' },
+    ensure_installed = {  },
     handlers = {
         default_setup,
     },
@@ -770,6 +781,14 @@ cmp.setup({
                 loud = true,
                 dict = os.getenv('WORDLIST')
             }
+        },
+        {
+            name = "html-css",
+            option = {
+                enable_on = {
+                    'html'
+                },
+            },
         },
     },
     window = {

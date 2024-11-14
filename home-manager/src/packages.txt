@@ -56,4 +56,5 @@ comma
 manix
 flameshot
 grim
+slurp
 imv

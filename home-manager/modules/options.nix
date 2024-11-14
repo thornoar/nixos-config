@@ -80,41 +80,48 @@
             };
         };
 
-        xmobarOptions = opt {
-            type = lib.types.str;
-            default =  ''
-                Config {
-                    font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.xmonad.fontsizeXmobar}",
-                    bgColor  = "${config.colors.bgColor0}",
-                    fgColor  = "${config.colors.fgColor0}",
-                    position = TopH ${ts config.xmonad.barHeight},
-                    persistent = False,
-                    hideOnStart = False,
-                    allDesktops = True,
-                    lowerOnStart = True,
-                    ${config.xmobar.extraOptions}
-                    commands = [
-                        Run Alsa "default" "Master" [
-                            "--template", "<fc=${config.colors.colorWhite1}><volumestatus></fc>",
-                            "--suffix", "True",
-                            "--",
-                            "--on", ""
-                        ],
-                        Run Date "<fc=${config.colors.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta1}>%a %Y-%m-%d</fc>" "date" 10,
-                        Run XMonadLog,
-                        ${config.xmobar.extraCommands}
-                        Run Kbd [
-                            ("us", "<fc=${config.colors.colorWhite1}>US</fc>"),
-                            ("ru", "<fc=${config.colors.colorWhite1}>RU</fc>"),
-                            ("de", "<fc=${config.colors.colorWhite1}>DE</fc>")
-                        ]
-                    ],
-                    sepChar  = "%",
-                    alignSep = "}{",
-                    template = "${config.xmobar.template}",
-                }
-            '';
-        };
+        # xmobarOptions = opt {
+        #     type = lib.types.str;
+        #     default =  ''
+        #         Config {
+        #             font     = "xft:${config.misc.systemFont} Nerd Font Mono-${ts config.xmonad.fontsizeXmobar}",
+        #             bgColor  = "${config.colors.bgColor0}",
+        #             fgColor  = "${config.colors.fgColor0}",
+        #             position = TopH ${ts config.xmonad.barHeight},
+        #             persistent = False,
+        #             hideOnStart = False,
+        #             allDesktops = True,
+        #             lowerOnStart = True,
+        #             ${config.xmobar.extraOptions}
+        #             commands = [
+        #                 Run Alsa "default" "Master" [
+        #                     "--template", "<fc=${config.colors.colorWhite1}><volumestatus></fc>",
+        #                     "--suffix", "True",
+        #                     "--",
+        #                     "--on", ""
+        #                 ],
+        #                 Run Date "<fc=${config.colors.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta1}>%a %d.%m.%Y</fc>" "date" 10,
+        #                 Run XMonadLog,
+        #                 ${config.xmobar.extraCommands}
+        #                 Run Kbd [
+        #                     ("us", "<fc=${config.colors.colorWhite1}>US</fc>"),
+        #                     ("ru", "<fc=${config.colors.colorWhite1}>RU</fc>"),
+        #                     ("de", "<fc=${config.colors.colorWhite1}>DE</fc>")
+        #                 ],
+        #                 Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+        #                     , "--Low"      , "1000"       -- units: B/s
+        #                     , "--High"     , "5000"       -- units: B/s
+        #                     , "--low"      , "darkgreen"
+        #                     , "--normal"   , "darkorange"
+        #                     , "--high"     , "darkred"
+        #                     ] 10
+        #             ],
+        #             sepChar  = "%",
+        #             alignSep = "}{",
+        #             template = "${config.xmobar.template}",
+        #         }
+        #     '';
+        # };
 
         misc = lib.mkOption {
             type = lib.types.attrs;

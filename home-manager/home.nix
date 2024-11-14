@@ -71,6 +71,12 @@
             nixd
             alejandra
 
+            # JavaScript
+            nodePackages.typescript-language-server
+
+            # Bash
+            nodePackages.bash-language-server
+
             xorg.xcursorgen
             hyprcursor
             xcur2png

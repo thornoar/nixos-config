@@ -24,7 +24,7 @@
                     kp7 = "home";
                     kp9 = "pageup";
                     kpenter = "enter";
-                    kp5 = "enter";
+                    # kp5 = "enter";
                     rightalt = "leftmeta";
                 };
             };
