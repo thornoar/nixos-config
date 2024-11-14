@@ -42,7 +42,6 @@ fi
 if [ -n "$file" ]; then
     nohup nvim --server "/run/user/1000/nvim.$pid.pipe" --remote "$(readlink -f "$file")" > /dev/null 2>&1
     if [ -n "$line" ]; then
-        echo "got line at $line"
         nohup nvim --server "/run/user/1000/nvim.$pid.pipe" --remote-send ":$line<CR>" > /dev/null 2>&1 &
     fi
 fi

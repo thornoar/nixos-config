@@ -336,17 +336,7 @@
         home.file.".Rprofile".source = dotfile "Rprofile";
 
         # xmobar setup
-        # xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
-        xdg.configFile."xmobar/lib/Colors.hs".text = toHaskell true ''
-            module Colors where
-        '' config.colors;
-        xdg.configFile."xmobar/lib/Xmobar.hs".text = toHaskell true ''
-            module Xmobar where
-        '' config.xmobar;
-        xdg.configFile."xmobar/lib/Misc.hs".text = toHaskell true ''
-            module Misc where
-        '' config.misc;
-        xdg.configFile."xmobar/xmobarrc".source = dotfile "xmobarrc";
+        xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
         # neofetch setup
         xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
