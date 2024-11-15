@@ -123,7 +123,7 @@
             Keymap = keymap
             Repeat = yes
             Shuffle = no
-            AutoNext = yes
+            AutoNext = no
         '';
         home.file.".moc/keymap".text = ''
             go    = ENTER RIGHT

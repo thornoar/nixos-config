@@ -1,4 +1,4 @@
-{ config, pkgs, firefox-pkgs, lib, pkgs-unstable, ... }:
+{ config, pkgs, inputs, system, firefox-pkgs, lib, pkgs-unstable, ... }:
 
 {
     imports = (
@@ -15,7 +15,7 @@
     config = 
     let 
         # [./src/packages.txt]
-        regular-packages = with pkgs; [
+        software-packages = with pkgs; [
             # LaTeX
             (texlive.combine { inherit (texlive) scheme-full; })
             # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum; })
@@ -89,6 +89,12 @@
         insecure-packages = with pkgs; [
             sc-im
         ];
+        custom-packages = lib.lists.forEach [
+            "pshash"
+            "lambda-interpreter"
+            # inputs.pshash.packages.${system}.default
+            # inputs.lambda-interpreter.packages.${system}.default
+        ] (x: inputs.${x}.packages.${system}.default);
     in
     {
         home.username = "ramak";
@@ -128,15 +134,11 @@
                         (lib.strings.splitString "\n" (builtins.readFile ./src/packages.txt))
                 ).right (name: pkgs.${name})
             ) else []
-		) ++ regular-packages ++ unstable-packages ++ insecure-packages;
+		) ++ software-packages ++ unstable-packages ++ insecure-packages ++ custom-packages;
 
         programs = {
             neovim = {
                 enable = true;
-            };
-            hmd = {
-                enable = true;
-                runOnSwitch = false;
             };
             zsh = {
                 enable = true;

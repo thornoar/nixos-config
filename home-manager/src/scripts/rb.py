@@ -5,13 +5,13 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser()
-parser.add_argument("type")
 parser.add_argument("-i", "--impure", action = "store_true", help = "use the corresponding flag in \"nixos-rebuild\"")
 parser.add_argument("-d", "--default", action = "store_true", help = "do not use nix-output-manager to show build progress")
 parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use nvd to diff the new generation with the old one")
 parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
 parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
 parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
+parser.add_argument("-t", "--type", type = str, default = "system", help = "system or home")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
 parser.add_argument("-f", "--flake", type = str, default = os.environ["NIXOS_CONFIG"], help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")

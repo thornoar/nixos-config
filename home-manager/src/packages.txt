@@ -53,8 +53,8 @@ pdfcpu
 write_stylus
 maestral
 comma
-manix
 flameshot
 grim
 slurp
 imv
+fd

@@ -166,7 +166,7 @@
             wordlist.enable = true;
             systemPackages = with pkgs; [
                 scowl
-                haskell.compiler.ghcjs
+                manix
             ];
         };
 

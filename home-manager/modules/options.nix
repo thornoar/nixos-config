@@ -95,34 +95,27 @@
                     ${config.xmobar.extraOptions}
                     commands = [
                         Run Alsa "default" "Master" [
-                            "--template", "<fc=${config.colors.colorWhite1}>VOL: </fc><fc=${config.colors.colorWhite1}><volumestatus></fc>",
+                            "--template", "<fc=${config.colors.colorMagenta0}>VOL: <volumestatus></fc>",
                             "--suffix", "True",
                             "--",
                             "--on", ""
                         ],
-                        Run Date "<fc=${config.colors.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta1}>%a %d.%m.%Y</fc>" "date" 10,
+                        Run Date "<fc=${config.colors.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta0}>%a %Y-%m-%d</fc>" "date" 10,
                         Run XMonadLog,
                         ${config.xmobar.extraCommands}
                         Run Kbd [
-                            ("us", "<fc=${config.colors.colorWhite1}>US</fc>"),
-                            ("ru", "<fc=${config.colors.colorWhite1}>RU</fc>"),
-                            ("de", "<fc=${config.colors.colorWhite1}>DE</fc>")
+                            ("us", "<fc=${config.colors.colorMagenta1}>US</fc>"),
+                            ("ru", "<fc=${config.colors.colorMagenta1}>RU</fc>"),
+                            ("de", "<fc=${config.colors.colorMagenta1}>DE</fc>")
                         ],
-                        Run DynNetwork     [ "--template" , "<fc=${config.colors.colorWhite1}>NET:</fc> <tx><fc=${config.colors.colorWhite3}>kB/s</fc>, <rx><fc=${config.colors.colorWhite3}>kB/s</fc>"
-                            , "--Low"      , "1000"       -- units: B/s
-                            , "--High"     , "5000"       -- units: B/s
-                            , "--low"      , "green"
-                            , "--normal"   , "orange"
-                            , "--high"     , "red"
-                        ] 10,
-                        Run MultiCpu       [ "--template" , "<fc=${config.colors.colorWhite1}>CPU:</fc> <total0><fc=${config.colors.colorWhite3}>%</fc>"
+                        Run MultiCpu       [ "--template" , "<fc=${config.colors.colorMagenta1}>CPU:</fc> <total0><fc=${config.colors.colorMagenta1}>%</fc>"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "green"
                              , "--normal"   , "orange"
                              , "--high"     , "red"
                          ] 10,
-                        Run Memory         [ "--template" ,"<fc=${config.colors.colorWhite1}>RAM:</fc> <usedratio><fc=${config.colors.colorWhite3}>%</fc>"
+                        Run Memory         [ "--template" ,"<fc=${config.colors.colorMagenta1}>RAM:</fc> <usedratio><fc=${config.colors.colorMagenta1}>%</fc>"
                             , "--Low"      , "20"        -- units: %
                             , "--High"     , "90"        -- units: %
                             , "--low"      , "darkgreen"

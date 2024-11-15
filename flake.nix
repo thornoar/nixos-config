@@ -23,16 +23,14 @@
             url = "github:Mic92/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        home-manager-diff.url = "github:pedorich-n/home-manager-diff";
         pshash = {
-            url = "github:thornoar/pshash";
+            url = "github:thornoar/pshash/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         lambda-interpreter = {
             url = "github:thornoar/lambda-interpreter";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        # rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
     };
 
     outputs = inputs:
@@ -52,7 +50,6 @@
             inherit system;
             config.allowUnfree = true;
         };
-        # pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
         lib = inputs.nixpkgs.lib;
         firefox-pkgs = inputs.firefox-addons.packages.${system};
     in
@@ -64,14 +61,14 @@
                     ./nixos/configuration.nix
                     ./nixos/modules/${sysname}.nix
                     { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
-                    # inputs.home-manager.nixosModules.home-manager
-                    # {
-                    #     home-manager = {
-                    #         useUserPackages = true;
-                    #         users.ramak = import ./home-manager/home.nix;
-                    #         extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
-                    #     };
-                    # }
+                    inputs.home-manager.nixosModules.home-manager
+                    {
+                        home-manager = {
+                            useUserPackages = true;
+                            users.ramak = import ./home-manager/home.nix;
+                            extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; };
+                        };
+                    }
                     inputs.nix-index-database.nixosModules.nix-index
                 ];
             };
@@ -92,21 +89,21 @@
             };
         };
 
-        homeConfigurations = {
-            ramak = inputs.home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = [
-                    ./home-manager/home.nix
-                    inputs.home-manager-diff.hmModules.default
-                    {
-                        home.packages = [
-                            inputs.pshash.packages.${system}.default
-                            inputs.lambda-interpreter.packages.${system}.default
-                        ];
-                    }
-                ];
-                extraSpecialArgs = { inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
-            };
-        };
+        # homeConfigurations = {
+        #     ramak = inputs.home-manager.lib.homeManagerConfiguration {
+        #         inherit pkgs;
+        #         modules = [
+        #             ./home-manager/home.nix
+        #             inputs.home-manager-diff.hmModules.default
+        #             # {
+        #             #     home.packages = [
+        #             #         inputs.pshash.packages.${system}.default
+        #             #         inputs.lambda-interpreter.packages.${system}.default
+        #             #     ];
+        #             # }
+        #         ];
+        #         extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
+        #     };
+        # };
     };
 }
