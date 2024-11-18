@@ -9,11 +9,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1731729795,
-        "narHash": "sha256-trv2jL/Xo/vddO0C6FvBdxMKEq+jn0Vw/0kIhPe9FHc=",
+        "lastModified": 1731788701,
+        "narHash": "sha256-M3AwY7SeSjFZh1XA7zL8roVXiEAvb9BVaGoJZ+1rZM8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "c1ca3a49435407dddef89c07961c5ce40f66ff99",
+        "rev": "9da3f74ac2cba8d812aef5fe16686afa25033b21",
         "type": "gitlab"
       },
       "original": {
@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730702369,
-        "narHash": "sha256-ex1D7iw3Z/QmhDM7r+FtVNHCQmRwTKy0fvVzJ75bT60=",
+        "lastModified": 1731775795,
+        "narHash": "sha256-veBJDnmFJCgR7USNrMSYM516T5bxlv2Q70mK5gCGSQg=",
         "owner": "thornoar",
         "repo": "lambda-interpreter",
-        "rev": "88a166af13bfd044a28a7091801b1dbf3ca96ee2",
+        "rev": "7a0dc62ab473d914ba57e0b89d022f5b9ae02ae7",
         "type": "github"
       },
       "original": {
@@ -86,11 +86,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731593150,
-        "narHash": "sha256-FvksinoI2Y6kuwH+cKBu1oDA8uPGfoRqgtQV6O8GDc4=",
+        "lastModified": 1731814505,
+        "narHash": "sha256-l9ryrx1Twh08a+gxrMGM9O/aZKEimZfa6sZVyPCImgI=",
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "rev": "40d882b55e89add1ded379cc99edaab24983d6d9",
+        "rev": "bdba246946fb079b87b4cada4df9b1cdf1c06132",
         "type": "github"
       },
       "original": {
@@ -133,11 +133,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1731319897,
-        "narHash": "sha256-PbABj4tnbWFMfBp6OcUK5iGy1QY+/Z96ZcLpooIbuEI=",
+        "lastModified": 1731676054,
+        "narHash": "sha256-OZiZ3m8SCMfh3B6bfGC/Bm4x3qc1m2SVEAlkV6iY7Yg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dc460ec76cbff0e66e269457d7b728432263166c",
+        "rev": "5e4fbfb6b3de1aa2872b76d49fafc942626e2add",
         "type": "github"
       },
       "original": {
@@ -154,11 +154,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731775705,
-        "narHash": "sha256-215LzUgk+p6nvlZ/baYmcl4PfVR+N1dp1nJ5sdRDGS8=",
+        "lastModified": 1731814976,
+        "narHash": "sha256-1PTri1nOfts3Bei0Oxsg0XO7n8oRP9j+UuQb8GD8FYU=",
         "owner": "thornoar",
         "repo": "pshash",
-        "rev": "05080a5842899a03cdad94032da2d5eb8d8dc011",
+        "rev": "7cb8fa43ac5d443f4ebfa05f29193d3c81f7443c",
         "type": "github"
       },
       "original": {

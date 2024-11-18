@@ -77,9 +77,9 @@
             # Bash
             nodePackages.bash-language-server
 
-            xorg.xcursorgen
-            hyprcursor
-            xcur2png
+            # xorg.xcursorgen
+            # hyprcursor
+            # xcur2png
         ];
         unstable-packages = with pkgs-unstable; [
             khal
@@ -92,8 +92,6 @@
         custom-packages = lib.lists.forEach [
             "pshash"
             "lambda-interpreter"
-            # inputs.pshash.packages.${system}.default
-            # inputs.lambda-interpreter.packages.${system}.default
         ] (x: inputs.${x}.packages.${system}.default);
     in
     {
@@ -184,7 +182,7 @@
                         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                         "signon.rememberSignons" = false;
                         "media.hardware-video-decoding.enabled" = true;
-                        "layout.css.devPixelsPerPx" = 1.7;
+                        "layout.css.devPixelsPerPx" = config.misc.firefoxScale;
                         "layout.css.dpi" = 96;
                     };
                     extensions = with firefox-pkgs; [

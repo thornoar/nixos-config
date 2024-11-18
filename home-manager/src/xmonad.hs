@@ -130,13 +130,13 @@ myModMask = mod4Mask
 myStartupHook :: X ()
 myStartupHook = do
   spawn setWallpaperCmd
-  -- spawn "xmodmap ~/.Xmodmap"
+  spawn wmStartupCommand
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]
 
 myFont :: String
-myFont = "xft:Hack Mono:mono:size=" ++ show fontsizeXmobar ++ ":bold=false:antialias=true:hinting=true"
+myFont = "xft:Hack Mono:mono:size=" ++ show fontsizeRunPrompt ++ ":bold=false:antialias=true:hinting=true"
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset

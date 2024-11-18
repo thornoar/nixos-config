@@ -24,7 +24,7 @@
                     kp7 = "home";
                     kp9 = "pageup";
                     kpenter = "enter";
-                    # kp5 = "enter";
+                    kp5 = "down";
                     rightalt = "leftmeta";
                 };
             };
@@ -32,14 +32,15 @@
 
         specialisation = {
             xmonad.configuration = {
-                boot.loader.systemd-boot.sortKey = "aab";
+                boot.loader.systemd-boot.sortKey = "aaa";
                 environment.variables = {
                     SPECIALISATION = lib.mkForce "xmonad";
                     TERMINAL = "alacritty";
-                    XCURSOR_SIZE = "24";
+                    XCURSOR_SIZE = "16";
                 };
-                # services.xserver.dpi = 192;
+                services.xserver.dpi = 192;
                 services.xserver = {
+                    # videoDrivers = [ "nvidia" ];
                     enable = true;
                     xkb.layout = "us";
                     xkb.variant = "";
@@ -84,7 +85,7 @@
             };
 
             hyprland.configuration = {
-                boot.loader.systemd-boot.sortKey = "aaa";
+                boot.loader.systemd-boot.sortKey = "aab";
                 environment.variables.SPECIALISATION = lib.mkForce "hyprland";
                 programs.hyprland = {
                     enable = true;
