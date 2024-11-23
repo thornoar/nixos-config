@@ -90,7 +90,7 @@ require('lazy').setup({
             {'{','}',fly=true,dosuround=true,newline=true,space=true},
             {'"','"',suround=true,multiline=false},
             -- {"'","'",suround=true,cond=function(fn) return not fn.in_lisp() or fn.in_string() end,alpha=true,nft={'tex','typst'},multiline=false},
-            {"'","'", suround=true,alpha=true,nft={'tex','typst'},multiline=false},
+            -- {"'","'", suround=true,alpha=true,nft={'tex','typst'},multiline=false},
             -- {'`','`',cond=function(fn) return not fn.in_lisp() or fn.in_string() end,nft={'tex'},multiline=false},
             {'`','`', nft={'tex'},multiline=false},
             {'``',"''",ft={'tex'}},
@@ -406,7 +406,7 @@ km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/
 km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
 km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
 km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
-km.set('n', '<leader>N', function () vim.cmd('edit $NIXOS_LOCAL/system-local.nix') end)
+km.set('n', '<leader>N', function () vim.cmd('tabnew $NIXOS_LOCAL/system-local.nix') end)
 km.set('n', '<leader>ee', function ()
     local ft = vim.bo.filetype
     vim.cmd('sp $NIXOS_CONFIG/home-manager/src/nvim/UltiSnips/' .. ft .. '.snippets')
@@ -419,9 +419,9 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 -- $telescope
 local telescope = require('telescope.builtin')
 km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
-km.set('n', '<M-?>', telescope.live_grep)
+km.set('n', '<C-/>', telescope.live_grep)
 km.set('n', '<M-f>', telescope.jumplist)
-km.set('n', '<leader-/>', telescope.search_history)
+km.set('n', '<leader>/', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
 km.set('n', '<C-h>', telescope.help_tags)
@@ -539,7 +539,7 @@ require('nvim-treesitter.configs').setup({
     modules = {},
     sync_install = true,
     ignore_install = {},
-    ensure_installed = { 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'typst', 'html', 'css' },
+    ensure_installed = { 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'typst', 'html', 'css' },
     highlight = { enable = true },
     indent = { enable = false },
     incremental_selection = {
