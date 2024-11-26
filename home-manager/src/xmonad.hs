@@ -29,6 +29,7 @@ import XMonad.Hooks.RefocusLast
 
 -- Layouts
 import XMonad.Layout.Accordion
+-- import XMonad.Layout.Spiral
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.Simplest
 import XMonad.Layout.ResizableTile
@@ -44,7 +45,7 @@ import XMonad.Layout.TwoPane
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle (Toggle(..), mkToggle, single, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(MIRROR, NOBORDERS))
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
@@ -74,7 +75,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
+-- import XMonad.Hooks.ManageHelpers
 
 import Colors
 import Size
@@ -88,6 +89,13 @@ grid = named "Grid"
   $ spacingWithEdge windowSpaceInner'
   $ MG.magnifierczOff magnifiedScale
   $ Grid (16/9)
+
+-- spiralayout = named "Spiral"
+--   $ spacingWithEdge windowSpaceInner'
+--   $ mkToggle (single MIRROR)
+--   $ MG.magnifierczOff magnifiedScale
+--   $ spiral (6/7)
+--   -- $ spiral R CW 1.5 1.1
 
 tallAccordion = named "Master"
   $ spacingWithEdge windowSpaceInner'
@@ -323,11 +331,11 @@ myKeys = [
     -- Layouts
     ("M-C-<Down>", sendMessage NextLayout),
     ("M-C-<Up>", sendMessage FirstLayout),
-    ("M-C-<Left>", withFocused minimizeWindow),
-    ("M-C-<Right>", withLastMinimized maximizeWindowAndFocus),
+    ("M-C-<Home>", withFocused minimizeWindow),
+    ("M-C-<End>", withLastMinimized maximizeWindowAndFocus),
     ("M-C-p", spawn setWallpaperCmd),
     ("M-<Tab>", withFocused $ sendMessage . maximizeRestore),
-    ("M-M1-<Tab>", sendMessage $ Toggle NBFULL),
+    ("M-M1-<Tab>", sendMessage $ Toggle REFLECTX),
     ("M-C-s", sendMessage $ Toggle MIRROR),
     ("M-C-x", sendMessage $ Toggle REFLECTX),
     ("M-C-v", sendMessage $ Toggle REFLECTY),
@@ -335,10 +343,10 @@ myKeys = [
     ("M-C-t", sinkAll),
 
     -- Window resizing
-    ("M-C-,", sendMessage Shrink),
-    ("M-C-.", sendMessage Expand),
-    ("M-C-'", sendMessage MirrorShrink),
-    ("M-C-;", sendMessage MirrorExpand),
+    ("M-C-<Right>", sendMessage Shrink),
+    ("M-C-<Left>", sendMessage Expand),
+    -- ("M-C-'", sendMessage MirrorShrink),
+    -- ("M-C-;", sendMessage MirrorExpand),
     ("M-C-k", sequence_ [decScreenSpacing 1, decWindowSpacing 1]),
     ("M-C-l", sequence_ [incScreenSpacing 1, incWindowSpacing 1]),
 
@@ -347,7 +355,7 @@ myKeys = [
     -- ("M-r", spawn "chlang ru"),
     -- ("M-g", spawn "chlang de"),
 
-    ("M-<Caps_Lock>", spawn "setxkbmap -option grp:caps_toggle us,ru"),
+    -- ("M-<Caps_Lock>", spawn "setxkbmap -option grp:caps_toggle us,ru"),
 
     -- Multimedia Keys
     ("M-S-l", spawn "sleep 1 && xset dpms force off"),
@@ -436,7 +444,6 @@ defaults = def {
         minimize . BW.boringWindows
         $ maximizeWithPadding 0
         $ windowNavigation
-        $ mkToggle (single NBFULL)
         $ avoidStruts
         $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) myLayout,
     manageHook          = myManageHook <+> namedScratchpadManageHook myScratchpads,

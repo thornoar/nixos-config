@@ -32,7 +32,7 @@
 
         specialisation = {
             xmonad.configuration = {
-                boot.loader.systemd-boot.sortKey = "aaa";
+                boot.loader.systemd-boot.sortKey = "aab";
                 environment.variables = {
                     SPECIALISATION = lib.mkForce "xmonad";
                     TERMINAL = "alacritty";
@@ -58,6 +58,7 @@
                             xset r rate 200 30
                             xset s off
                             transmission-daemon
+                            setxkbmap -option grp:caps_toggle us,ru
                         '';
                     };
                 };
@@ -85,7 +86,7 @@
             };
 
             hyprland.configuration = {
-                boot.loader.systemd-boot.sortKey = "aab";
+                boot.loader.systemd-boot.sortKey = "aaa";
                 environment.variables.SPECIALISATION = lib.mkForce "hyprland";
                 programs.hyprland = {
                     enable = true;

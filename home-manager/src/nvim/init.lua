@@ -9,32 +9,32 @@ local autosave_tex_typst = false
 -- $install
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system {
-		'git',
-		'clone',
-		'--filter=blob:none',
-		'https://github.com/folke/lazy.nvim.git',
-		'--branch=stable',
-		lazypath,
-	}
+    vim.fn.system {
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable',
+        lazypath,
+    }
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     defaults = { lazy = true },
     'tpope/vim-rhubarb',
-	'tpope/vim-surround',
-	'tpope/vim-repeat',
-	'tpope/vim-fugitive',
+    'tpope/vim-surround',
+    'tpope/vim-repeat',
+    'tpope/vim-fugitive',
     'sagarrakshe/toggle-bool',
-	'farmergreg/vim-lastplace',
-	'sirver/ultisnips',
-	'neovimhaskell/haskell-vim',
-	'numToStr/Comment.nvim',
-	'ap/vim-css-color',
+    'farmergreg/vim-lastplace',
+    'sirver/ultisnips',
+    'neovimhaskell/haskell-vim',
+    'numToStr/Comment.nvim',
+    'ap/vim-css-color',
     'nanozuki/tabby.nvim',
     'lewis6991/gitsigns.nvim',
     'hjson/vim-hjson',
-	'dkarter/bullets.vim',
+    'dkarter/bullets.vim',
     'chrisbra/csv.vim',
     -- 'lervag/vimtex',
     'JuliaEditorSupport/julia-vim',
@@ -101,23 +101,23 @@ require('lazy').setup({
         },
     },
     },
-	{
-		'navarasu/onedark.nvim',
-		priority = 1000,
-	},
-	{
-		'lukas-reineke/indent-blankline.nvim',
+    {
+        'navarasu/onedark.nvim',
+        priority = 1000,
+    },
+    {
+        'lukas-reineke/indent-blankline.nvim',
         version = '3.5.4',
-		main = 'ibl',
-		opts = {},
-	},
-	{
-		'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter-textobjects',
-		},
-		build = ':TSUpdate',
-	},
+        main = 'ibl',
+        opts = {},
+    },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+        build = ':TSUpdate',
+    },
     {
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -178,20 +178,20 @@ require('neodev').setup({
 
 -- $commands
 local compilefunc = {
-	['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
-	['r'] = function (name) return ('!Rscript ' .. name) end,
+    ['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
+    ['r'] = function (name) return ('!Rscript ' .. name) end,
     ['julia'] = function (name) return ('!julia ' .. name) end,
-	['python'] = function (name) return ('!python ' .. name) end,
-	['c'] = function (name) return ('!gcc ' .. name .. ' && ./a.out') end,
-	['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
+    ['python'] = function (name) return ('!python ' .. name) end,
+    ['c'] = function (name) return ('!gcc ' .. name .. ' && ./a.out') end,
+    ['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
-	['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-	['tex'] = function (name)
+    ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
+    ['tex'] = function (name)
         return autosave_tex_typst and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
     end,
-	['typst'] = function (_) return ('') end,
-	['lua'] = function (name) return ('!lua ' .. name) end,
-	['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
+    ['typst'] = function (_) return ('') end,
+    ['lua'] = function (name) return ('!lua ' .. name) end,
+    ['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
 }
@@ -221,13 +221,13 @@ local view_output = function (args)
     local ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
     if not ext then ext = (args and args['args'] or 'pdf') end
     if not flags then flags = '' else flags = ' '..flags end
-	if io.open(vim.fn.expand('%:r')..'.'..ext, 'r') ~= nil then
-		vim.cmd('silent !xdg-open %:r.'..ext..'&')
-	elseif io.open(defaultoutputname..'.'..ext, 'r') ~= nil then
-		vim.cmd('silent !xdg-open '..defaultoutputname..'.'..ext..'&')
-	else
-		vim.cmd('silent !blkcmd '..ext..' xdg-open'..flags..'&')
-	end
+    if io.open(vim.fn.expand('%:r')..'.'..ext, 'r') ~= nil then
+        vim.cmd('silent !xdg-open %:r.'..ext..'&')
+    elseif io.open(defaultoutputname..'.'..ext, 'r') ~= nil then
+        vim.cmd('silent !xdg-open '..defaultoutputname..'.'..ext..'&')
+    else
+        vim.cmd('silent !blkcmd '..ext..' xdg-open'..flags..'&')
+    end
 end
 vim.api.nvim_create_user_command('View', view_output, { nargs = '?' })
 km.set('n', '<leader>vp', function () view_output({ ['args'] = 'pdf' }) end)
@@ -248,12 +248,12 @@ end, { nargs = '?' })
 
 -- $autocommands
 vim.api.nvim_create_user_command('AS', function()
-	autosave = not autosave
-	print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
+    autosave = not autosave
+    print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
 end, {})
 vim.api.nvim_create_user_command('ATT', function()
-	autosave_tex_typst = not autosave_tex_typst
-	print('autosave for TeX and Typst is ' .. (autosave_tex_typst and 'enabled' or 'disabled'))
+    autosave_tex_typst = not autosave_tex_typst
+    print('autosave for TeX and Typst is ' .. (autosave_tex_typst and 'enabled' or 'disabled'))
 end, {})
 -- local autosavepattern = {
 --     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
@@ -262,8 +262,8 @@ end, {})
 -- }
 vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = '*.*',
-	callback = function()
-		if autosave and
+    callback = function()
+        if autosave and
         (
             autosave_tex_typst or
             not (vim.bo.filetype == 'typst' or vim.bo.filetype == 'tex')
@@ -272,7 +272,7 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
         vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
             vim.cmd('silent write')
         end
-	end
+    end
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
@@ -325,6 +325,7 @@ km.set('n', '<C-M-z>', ':UndotreeToggle<CR>')
 km.set('n', '<M-z>', '<C-r>')
 km.set('n', 'daa', 'F,dt)')
 km.set('n', '<C-space>', 'yy<C-del>p')
+km.set('n', '<C-\\>', 'yy\\\\p')
 
 -- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
@@ -549,7 +550,7 @@ require('nvim-treesitter.configs').setup({
             node_incremental = '<C-space>',
             scope_incremental = '<C-s>',
             node_decremental = '<M-space>',
-    	},
+        },
     },
     textobjects = {
         select = {
@@ -593,12 +594,13 @@ require('toggleterm').setup({
 
 -- $ibl
 require('ibl').setup({
-	indent = {
-		char = '┊',
-	},
-	whitespace = {
-		remove_blankline_trail = true,
-	},
+    indent = {
+        -- char = '┊',
+        char = '|',
+    },
+    whitespace = {
+        remove_blankline_trail = true,
+    },
 })
 
 -- $lsp
@@ -607,8 +609,8 @@ vim.diagnostic.config({
 })
 local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
 for name, icon in pairs(symbols) do
-	local hl = "DiagnosticSign" .. name
-	vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+    local hl = "DiagnosticSign" .. name
+    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
 km.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
 km.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
@@ -903,16 +905,16 @@ vim.cmd([[
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = '*',
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
 })
 
 vim.api.nvim_create_autocmd('VimLeave', {
-	pattern = '*',
-	callback = function () vim.opt.guicursor = { 'a:ver25' } end
+    pattern = '*',
+    callback = function () vim.opt.guicursor = { 'a:ver25' } end
 })
 
 vim.g.typst_embedded_languages = {'haskell', 'c', 'java'}
