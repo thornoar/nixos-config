@@ -38,15 +38,15 @@
         system = "x86_64-linux";
         sysname = "master";
 
+        pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+        };
         pkgs = import inputs.nixpkgs {
             inherit system;
             config.allowUnfree = true;
         };
         pkgs-old = import inputs.nixpkgs-old {
-            inherit system;
-            config.allowUnfree = true;
-        };
-        pkgs-unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
         };

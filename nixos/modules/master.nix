@@ -40,7 +40,7 @@
                 };
                 services.xserver.dpi = 192;
                 services.xserver = {
-                    # videoDrivers = [ "nvidia" ];
+                    videoDrivers = [ "nvidia" ];
                     enable = true;
                     xkb.layout = "us";
                     xkb.variant = "";

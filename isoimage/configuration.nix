@@ -41,7 +41,7 @@
 
         services = {
             xserver = {
-                videoDrivers = [ "nvidia" ];
+                # videoDrivers = [ "nvidia" ];
                 enable = true;
                 # desktopManager.plasma5.enable = true;
             };
