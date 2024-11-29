@@ -76,7 +76,7 @@
             minimal = lib.nixosSystem {
                 system = system;
                 modules = [
-                    ./system-minimal.nix
+                    ./nixos/configuration.nix
                     { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; }; }
                 ];
             };

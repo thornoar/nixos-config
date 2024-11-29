@@ -59,7 +59,7 @@ try:
         output = args.output
         if (output == "auto"):
             if (args.type == "system"):
-                output = os.popen("hostname -f").read().strip()
+                output = os.popen("hostname").read().strip()
             if (args.type == "home"):
                 output = os.environ["USER"]
         flake_args = "--flake .#" + output

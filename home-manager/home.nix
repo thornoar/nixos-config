@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, firefox-pkgs, lib, pkgs-unstable, ... }:
+{ config, pkgs, inputs, system, lib, pkgs-unstable, ... }:
 
 {
     imports = (
@@ -10,92 +10,13 @@
         ./modules/scripts.nix
         ./modules/external-smart.nix
         ./modules/external-direct.nix
+        ./modules/development.nix
+        ./modules/firefox.nix
     ];
 
     config = 
     let 
         # [./src/packages.txt]
-        software-packages = with pkgs; [
-            # LaTeX
-            (texlive.combine { inherit (texlive) scheme-full; })
-            # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum; })
-            texlab
-
-            # Asymptote
-            # asymptote
-
-            # C
-            clang
-            clang-tools
-
-            # Python
-            (python3.withPackages (ps: with ps; [
-                manim ipython sympy numpy
-            ]))
-            pyright
-
-            # Haskell
-            cabal-install
-            haskellPackages.cabal-clean
-            haskell-language-server
-            haskell.compiler.ghc965
-
-            # Lua
-            lua
-            luarocks
-            lua-language-server
-
-            # Go
-            go
-
-            # Julia
-            julia
-
-            # Rust
-            cargo
-            rustc
-            rust-analyzer
-
-            # R
-            (rWrapper.override {
-                packages = with rPackages; [
-                    languageserver ggplot2 dplyr xts pracma
-                ];
-            })
-
-            # Java
-            openjdk
-            # java-language-server
-
-            # Typst
-            typst
-            typst-lsp
-
-            # Nix
-            # nil
-            nixd
-            alejandra
-
-            # JavaScript
-            nodePackages.typescript-language-server
-
-            # Bash
-            nodePackages.bash-language-server
-
-            # Clojure
-            clojure
-            clojure-lsp
-
-            # Prolog
-            swiProlog
-
-            # Sage
-            sage
-
-            # xorg.xcursorgen
-            # hyprcursor
-            # xcur2png
-        ];
         unstable-packages = with pkgs-unstable; [
             khal
             fzf
@@ -148,71 +69,9 @@
                         (lib.strings.splitString "\n" (builtins.readFile ./src/packages.txt))
                 ).right (name: pkgs.${name})
             ) else []
-		) ++ software-packages ++ unstable-packages ++ insecure-packages ++ custom-packages;
+		) ++ unstable-packages ++ insecure-packages ++ custom-packages;
 
         programs = {
-            # neovim = {
-            #     enable = true;
-            # };
-            zsh = {
-                enable = true;
-                enableCompletion = true;
-                autosuggestion.enable = true;
-                syntaxHighlighting.enable = true;
-                shellAliases = {
-                    torrent = "transmission-remote";
-                    film = "transmission-remote -w ~/media/films -a ";
-                    music = "transmission-remote -w ~/media/music -a ";
-                    lbr = "clear; br";
-                    open = "xdg-open";
-                    close = "exit";
-                    grep = "grep --color=auto";
-                    def = "dict -h dict.org";
-                    # clip = "xclip -r -selection c";
-                    vmcon = "virt-manager --connect qemu:///system --show-domain-console";
-                    vmstart = "sudo virsh start";
-                    vmstop = "sudo virsh shutdown";
-                };    
-            };
-            git = {
-                enable = true;
-                userName = "Roman Maksimovich";
-                userEmail = "r.a.maksimovich@gmail.com";
-                extraConfig = {
-                    init.defaultBranch = "master";
-                };
-            };
-            gh = { enable = true; };
-            firefox = {
-                enable = true;
-                profiles.default = {
-                    id = 0;
-                    name = "default";
-                    isDefault = true;
-                    settings = {
-                        "browser.startup.homepage" = "about:home";
-                        "browser.tabs.inTitlebar" = 0;
-                        "browser.toolbars.bookmarks.visibility" = "never";
-                        "browser.search.defaultenginename" = "Google";
-                        "browser.search.order.1" = "Google";
-                        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                        "signon.rememberSignons" = false;
-                        "media.hardware-video-decoding.enabled" = true;
-                        "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
-                        "layout.css.dpi" = 96;
-                    };
-                    extensions = with firefox-pkgs; [
-                        darkreader
-                        vimium
-                        adblocker-ultimate
-                    ];
-                    search = {
-                        force = true;
-                        default = "Google";
-                        order = [ "Google" "Searx" ];
-                    };
-                };
-            };
             home-manager = {
                 enable = true;
             };

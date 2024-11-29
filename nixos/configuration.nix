@@ -122,10 +122,6 @@
         };
         users.defaultUserShell = pkgs.zsh;
 
-        # services.xserver = {
-        #     windowManager.awesome.enable = true;
-        # };
-
         system.stateVersion = "23.11";
     };
 }
