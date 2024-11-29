@@ -25,7 +25,7 @@ function start {
 
 function stop {
     pipe="$1"
-    nohup nvim --server "$pipe" --remote-send ":wqa<CR>" > /dev/null 2>&1 0< /dev/null
+    nohup nvim --server "$pipe" --remote-send "<esc>:wqa<CR>" > /dev/null 2>&1 0< /dev/null
     nohup rm "$pipe" > /dev/null 2>&1 0< /dev/null
 }
 

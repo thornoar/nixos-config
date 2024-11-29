@@ -42,7 +42,11 @@
 
             # Lua
             lua
+            luarocks
             lua-language-server
+
+            # Go
+            go
 
             # Julia
             julia
@@ -60,7 +64,8 @@
             })
 
             # Java
-            # openjdk
+            openjdk
+            # java-language-server
 
             # Typst
             typst
@@ -77,6 +82,16 @@
             # Bash
             nodePackages.bash-language-server
 
+            # Clojure
+            clojure
+            clojure-lsp
+
+            # Prolog
+            swiProlog
+
+            # Sage
+            sage
+
             # xorg.xcursorgen
             # hyprcursor
             # xcur2png
@@ -85,6 +100,7 @@
             khal
             fzf
             nodejs
+            neovim
         ];
         insecure-packages = with pkgs; [
             sc-im
@@ -135,9 +151,9 @@
 		) ++ software-packages ++ unstable-packages ++ insecure-packages ++ custom-packages;
 
         programs = {
-            neovim = {
-                enable = true;
-            };
+            # neovim = {
+            #     enable = true;
+            # };
             zsh = {
                 enable = true;
                 enableCompletion = true;

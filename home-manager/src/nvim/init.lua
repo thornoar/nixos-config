@@ -36,7 +36,6 @@ require('lazy').setup({
     'hjson/vim-hjson',
     'dkarter/bullets.vim',
     'chrisbra/csv.vim',
-    -- 'lervag/vimtex',
     'JuliaEditorSupport/julia-vim',
     {
         'nvim-lualine/lualine.nvim',
@@ -121,8 +120,6 @@ require('lazy').setup({
     {
         'neovim/nvim-lspconfig',
         dependencies = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
             'hrsh7th/cmp-nvim-lsp',
         },
     },
@@ -151,18 +148,7 @@ require('lazy').setup({
             require("html-css"):setup()
         end
     },
-    -- { 'https://github.com/uga-rosa/cmp-dictionary', },
     { 'https://github.com/octaltree/cmp-look' },
-    -- {
-    --     'nvimdev/lspsaga.nvim',
-    --     config = function()
-    --         require('lspsaga').setup({})
-    --     end,
-    --     dependencies = {
-    --         'nvim-treesitter/nvim-treesitter', -- optional
-    --         -- 'nvim-tree/nvim-web-devicons',     -- optional
-    --     }
-    -- },
     { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
 }, {})
@@ -540,7 +526,7 @@ require('nvim-treesitter.configs').setup({
     modules = {},
     sync_install = true,
     ignore_install = {},
-    ensure_installed = { 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'typst', 'html', 'css' },
+    ensure_installed = { 'c', 'lua', 'python', 'vimdoc', 'vim', 'hjson', 'java', 'markdown_inline', 'typst', 'html', 'css' },
     highlight = { enable = true },
     indent = { enable = false },
     incremental_selection = {
@@ -659,6 +645,7 @@ vim.diagnostic.config({
 lspconfig.texlab.setup(lspbasicconfig)
 lspconfig.ts_ls.setup(lspbasicconfig)
 lspconfig.pyright.setup(lspbasicconfig)
+lspconfig.clojure_lsp.setup(lspbasicconfig)
 -- lspconfig.nil_ls.setup(lspbasicconfig)
 lspconfig.nixd.setup({
     handlers = handlers,
@@ -765,22 +752,8 @@ lspconfig.lua_ls.setup({
 -- end
 -- lspconfig.asy_ls.setup(lspbasicconfig)
 
-local default_setup = function(server)
-    lspconfig[server].setup({
-        autostart = true,
-        capabilities = lsp_capabilities,
-        handlers = handlers,
-    })
-end
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
-require('mason').setup({})
-require('mason-lspconfig').setup({
-    ensure_installed = {  },
-    handlers = {
-        default_setup,
-    },
-})
 local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
@@ -873,7 +846,7 @@ vim.o.cmdheight = 1
 vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
-vim.o.colorcolumn = 20
+-- vim.o.colorcolumn = "20"
 vim.o.expandtab = true
 vim.o.compatible = false
 vim.o.hlsearch = false
@@ -926,8 +899,8 @@ vim.g.typst_embedded_languages = {'haskell', 'c', 'java'}
 vim.g.UltiSnipsEditSplit='horizontal'
 
 -- $markdown setup
-vim.o.vim_markdown_folding_level = 6
-vim.o.vim_markdown_folding_style_pythonic = 1
+-- vim.o.vim_markdown_folding_level = 6
+-- vim.o.vim_markdown_folding_style_pythonic = 1
 
 package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
