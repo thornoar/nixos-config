@@ -40,6 +40,7 @@
         cargo
         rustc
         rust-analyzer
+        evcxr
 
         # R
         (rWrapper.override {
@@ -76,6 +77,9 @@
 
         # Sage
         sage
+
+        # Tmux
+        tmux
 
         # xorg.xcursorgen
         # hyprcursor

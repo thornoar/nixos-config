@@ -138,16 +138,16 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
-    {
-        "Jezda1337/nvim-html-css",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-lua/plenary.nvim"
-        },
-        config = function()
-            require("html-css"):setup()
-        end
-    },
+    -- {
+    --     "Jezda1337/nvim-html-css",
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --         "nvim-lua/plenary.nvim"
+    --     },
+    --     config = function()
+    --         require("html-css"):setup()
+    --     end
+    -- },
     { 'https://github.com/octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
@@ -772,14 +772,14 @@ cmp.setup({
                 dict = os.getenv('WORDLIST')
             }
         },
-        {
-            name = "html-css",
-            option = {
-                enable_on = {
-                    'html'
-                },
-            },
-        },
+        -- {
+        --     name = "html-css",
+        --     option = {
+        --         enable_on = {
+        --             'html'
+        --         },
+        --     },
+        -- },
     },
     window = {
         completion = cmp.config.window.bordered(),

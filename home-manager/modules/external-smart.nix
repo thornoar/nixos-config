@@ -298,6 +298,9 @@
         # khal configuration
         xdg.configFile."khal/config".source = dotfile "khal.config.ini";
 
+        # tmux configuration
+        xdg.configFile."tmux/tmux.conf".source = dotfile "tmux/tmux.conf";
+
         # account icon setting
         home.file.".face".source = dotfile "account-icon.png";
 

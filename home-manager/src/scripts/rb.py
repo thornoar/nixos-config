@@ -85,8 +85,11 @@ try:
     if (args.type == "system"):
         spec_args = "--specialisation "
         if (args.specialisation == "auto"):
-            if (os.environ["SPECIALISATION"] != ""):
-                spec_args += os.environ["SPECIALISATION"]
+            env = os.environ["SPECIALISATION"]
+            if (env == "default"):
+                spec_args = ""
+            elif (env != ""):
+                spec_args += env
             else:
                 if (os.environ["XDG_SESSION_TYPE"] == "wayland"):
                     spec_args += "hyprland"
