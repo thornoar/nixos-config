@@ -16,7 +16,7 @@
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                     "signon.rememberSignons" = false;
                     "media.hardware-video-decoding.enabled" = true;
-                    "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
+                    "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
                     "layout.css.dpi" = 96;
                 };
                 extensions = with firefox-pkgs; [

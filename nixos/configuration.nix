@@ -83,6 +83,7 @@
             xz
             unzip
             p7zip
+            sysstat
         ];
         environment.localBinInPath = true;
 

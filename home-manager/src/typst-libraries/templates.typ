@@ -178,7 +178,7 @@
   doc
 }
 
-#let title-assignment(header: [header], title: [title], due: [date]) = doc => {
+#let title-assignment(header: [header], title: [title], due: [date], ext1: [], ext2: []) = doc => {
   set page(
     "a4",
     margin: (x: 0.5in, top: 0.8in, bottom: 0.5in),
@@ -190,22 +190,56 @@
     numbering: "1"
   )
   set text(size: 12pt)
+  show: word-count
 
-  table(
-    columns: 1,
-    align: (left),
-    inset: (left: 8pt, bottom: 3pt),
-    stroke: (left: 1pt, top: none, right: none, bottom: none),
-    table.cell(
-      inset: (left: 8pt, bottom: 8pt),
+  let hasextra = ext1 != [] or ext2 != []
+
+  let fields = (
+    (
+      table.cell(
+        colspan: if (hasextra) { 2 } else { 1 },
+        inset: (left: 8pt, bottom: 8pt),
+        {
+          set text(20pt)
+          title; h(1fr)
+        }
+      ),
+      table.hline(),
       {
-        set text(20pt)
-        title; h(1fr)
+        text(14pt, "Roman Maksimovich, ID: 21098878")
+        h(1fr)
       }
     ),
-    table.hline(),
-    text(14pt, "Roman Maksimovich, ID: 21098878"),
-    text(14pt, "Due date: " + due)
+    if (hasextra) {
+      (
+        {
+          set text(14pt)
+          ext1
+          h(1fr)
+        }
+      )
+    } else { () },
+    {
+      text(14pt, "Due date: " + due)
+      h(1fr)
+    },
+    if (hasextra) {
+      (
+        {
+          set text(14pt)
+          ext2
+          h(1fr)
+        }
+      )
+    } else { () },
+  ).flatten()
+
+  table(
+    columns: if (hasextra) { 2 } else {1},
+    align: (left, left),
+    inset: (left: 8pt, bottom: 3pt),
+    stroke: (left: 1pt, top: none, right: none, bottom: none),
+    ..fields
   )
 
   doc

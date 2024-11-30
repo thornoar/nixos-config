@@ -139,6 +139,7 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn setWallpaperCmd
   spawn wmStartupCommand
+  -- spawn $ myTerminal ++ " -e sh -c \"" ++ wmStartupCommand ++ "\""
 
 myWorkspaces :: [String]
 myWorkspaces = ["fst", "snd", "trd", "fth", "aux"]

@@ -2,7 +2,7 @@
 {
     specialisation = {
         xmonad.configuration = {
-            boot.loader.systemd-boot.sortKey = "aaa";
+            boot.loader.systemd-boot.sortKey = "aab";
             environment.variables = {
                 SPECIALISATION = lib.mkForce "xmonad";
                 TERMINAL = "alacritty";
@@ -11,6 +11,10 @@
             services.xserver.dpi = 192;
             services.xserver = {
                 videoDrivers = [ "nvidia" ];
+                # deviceSection = ''
+                #     Option "DRI" "2"
+                #     Option "TearFree" "true"
+                # '';
                 enable = true;
                 xkb.layout = "us";
                 xkb.variant = "";
@@ -56,7 +60,7 @@
         };
 
         hyprland.configuration = {
-            boot.loader.systemd-boot.sortKey = "aab";
+            boot.loader.systemd-boot.sortKey = "aaa";
             environment.variables.SPECIALISATION = lib.mkForce "hyprland";
             programs.hyprland = {
                 enable = true;

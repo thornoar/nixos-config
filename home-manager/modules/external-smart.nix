@@ -14,7 +14,7 @@
         xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
         # Hyprland setup
-        xdg.configFile."hypr/imports.conf".text = toConf false "" config.hyprland;
+        xdg.configFile."hypr/imports.conf".text = (toConf false "" config.hyprland) + (toConf false "" config.misc);
         xdg.configFile."wpaperd/config.toml".text = ''
             [${config.misc.monitorName}]
             path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
