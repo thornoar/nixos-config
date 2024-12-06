@@ -23,6 +23,7 @@
                     darkreader
                     vimium
                     adblocker-ultimate
+                    export-cookies-txt
                 ];
                 search = {
                     force = true;

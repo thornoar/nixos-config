@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
     home.packages =  with pkgs; [
         # LaTeX
@@ -45,17 +45,18 @@
         # R
         (rWrapper.override {
             packages = with rPackages; [
-                languageserver ggplot2 dplyr xts pracma
+                languageserver ggplot2 dplyr xts pracma latex2exp
             ];
         })
 
         # Java
-        openjdk
+        openjdk17
         # java-language-server
 
         # Typst
         typst
-        typst-lsp
+        tinymist
+        # typst-lsp
 
         # Nix
         # nil
@@ -68,7 +69,11 @@
         # Bash
         nodePackages.bash-language-server
 
-        # Clojure
+        # Lisp
+        # (sbcl.withPackages (ps: with ps; []))
+        # sbcl
+        # roswell
+        # clisp
         clojure
         clojure-lsp
 
@@ -80,16 +85,15 @@
 
         # Tmux
         tmux
-
-        # xorg.xcursorgen
-        # hyprcursor
-        # xcur2png
     ];
 
     programs = {
-        # neovim = {
-        #     enable = true;
-        # };
+        neovim = {
+            enable = true;
+            withPython3 = true;
+            # package = pkgs-unstable.neovim;
+            extraPython3Packages = ps: with ps; [ sympy pynvim ];
+        };
         zsh = {
             enable = true;
             enableCompletion = true;

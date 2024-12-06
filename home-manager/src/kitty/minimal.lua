@@ -105,7 +105,6 @@ vim.o.cmdheight = 1
 vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
-vim.o.colorcolumn = 20
 vim.o.expandtab = true
 vim.o.compatible = false
 vim.o.hlsearch = false
@@ -128,8 +127,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*',
 })
 
+vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+	pattern = '*',
+	callback = function()
+        vim.cmd("g/^$/d")
+	end,
+})
+
 vim.api.nvim_create_user_command('START', function ()
     vim.cmd("silent write! /tmp/kitty_scrollback_buffer")
     vim.cmd("te cat /tmp/kitty_scrollback_buffer -")
+    vim.cmd("set ma")
     vim.cmd("normal G")
+    print("hi!")
+    -- vim.cmd("g/^$/d")
 end, {})

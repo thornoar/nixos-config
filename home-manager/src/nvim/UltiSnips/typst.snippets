@@ -47,3 +47,31 @@ endsnippet
 snippet library "import library" i
 #import "@local/$1:0.0.0": *
 endsnippet
+
+snippet sg "sage" w
+sage $1 sage$0
+endsnippet
+
+snippet 'sage(.*)sage' "sage" wr
+`!p
+import os
+cmd = "sage -c \"print(" + match.group(1) + ")\""
+snip.rv = os.popen(cmd).read().strip().replace('*', ' ')
+`
+endsnippet
+
+snippet spy "sympyblock " w
+sympy $1 sympy$0
+endsnippet
+
+priority 10000
+snippet 'sympy(.*)sympy' "sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+expr = eval(match.group(1).replace('^', '**'))
+snip.rv = str(expr).replace("*", " ") # .replace("{", "(").replace("}", ")")
+`
+endsnippet

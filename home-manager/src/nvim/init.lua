@@ -3,7 +3,7 @@ vim.loader.enable()
 local km = vim.keymap
 vim.g.mapleader = ';'
 km.set('n', 'ec', ':e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>')
-local autosave = true
+local autosave = false
 local autosave_tex_typst = false
 
 -- $install
@@ -37,6 +37,7 @@ require('lazy').setup({
     'dkarter/bullets.vim',
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
+    'nvim-pack/nvim-spectre',
     {
         'nvim-lualine/lualine.nvim',
     },
@@ -153,6 +154,7 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
+-- $neodev
 require('neodev').setup({
     override = function(root_dir, library)
         if root_dir:find(os.getenv('NIXOS_CONFIG') .. '/home-manager/src/nvim', 1, true) == 1 then
@@ -162,13 +164,19 @@ require('neodev').setup({
     end,
 })
 
+-- $spectre
+require('spectre').setup({
+    color_devicons = false,
+    live_update = true,
+})
+
 -- $commands
 local compilefunc = {
     ['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
     ['r'] = function (name) return ('!Rscript ' .. name) end,
     ['julia'] = function (name) return ('!julia ' .. name) end,
     ['python'] = function (name) return ('!python ' .. name) end,
-    ['c'] = function (name) return ('!gcc ' .. name .. ' && ./a.out') end,
+    ['c'] = function (name) return ('!gcc ' .. name .. ' -o a.out && ./a.out') end,
     ['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
     ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
@@ -199,8 +207,8 @@ local compile = function (daemon, silent)
 end
 vim.api.nvim_create_user_command('Compile', compile(false, false), {})
 km.set('n', '<leader>o', ':Compile<CR>')
-km.set({'n', 'i'}, '<C-s>', compile(false, true))
-km.set({'n', 'i'}, '<C-M-s>', compile(true, false))
+km.set({'n', 'i'}, '<C-a>', compile(false, true))
+km.set({'n', 'i'}, '<C-M-a>', compile(true, false))
 
 local defaultoutputname = 'out'
 local view_output = function (args)
@@ -224,9 +232,9 @@ vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
 vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
 vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
-vim.api.nvim_create_user_command('S', function () vim.wo.spell = not vim.wo.spell end, {})
-vim.api.nvim_create_user_command('W', function () vim.o.wrap = not vim.o.wrap end, {})
-vim.api.nvim_create_user_command('L', 'Lazy', {})
+vim.api.nvim_create_user_command('SPELL', function () vim.wo.spell = not vim.wo.spell end, {})
+vim.api.nvim_create_user_command('S', function () vim.cmd('silent write: bool') end, {})
+vim.api.nvim_create_user_command('WRAP', function () vim.o.wrap = not vim.o.wrap end, {})
 vim.api.nvim_create_user_command('T', function (args)
     local dir = args and args['args'] or '.'
     vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\' &')
@@ -312,6 +320,7 @@ km.set('n', '<M-z>', '<C-r>')
 km.set('n', 'daa', 'F,dt)')
 km.set('n', '<C-space>', 'yy<C-del>p')
 km.set('n', '<C-\\>', 'yy\\\\p')
+km.set({'n', 'i', 'v'}, '<C-s>', function () vim.cmd('silent write') end)
 
 -- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
@@ -386,14 +395,14 @@ km.set('n', '<C-c>', function()
 end, { noremap = true })
 
 -- $keymaps:command
-km.set('n', '<C-a>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
+km.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
 km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
-km.set('n', '<leader>k', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/home.nix') end)
-km.set('n', '<leader>K', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/home.nix') end)
-km.set('n', '<leader>l', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
-km.set('n', '<leader>L', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
-km.set('n', '<leader>n', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
-km.set('n', '<leader>N', function () vim.cmd('tabnew $NIXOS_LOCAL/system-local.nix') end)
+km.set('n', '<leader>ek', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/home.nix') end)
+km.set('n', '<leader>eK', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/home.nix') end)
+km.set('n', '<leader>el', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
+km.set('n', '<leader>eL', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
+km.set('n', '<leader>en', function () vim.cmd('edit $NIXOS_LOCAL/home-local.nix') end)
+km.set('n', '<leader>eN', function () vim.cmd('tabnew $NIXOS_LOCAL/system-local.nix') end)
 km.set('n', '<leader>ee', function ()
     local ft = vim.bo.filetype
     vim.cmd('sp $NIXOS_CONFIG/home-manager/src/nvim/UltiSnips/' .. ft .. '.snippets')
@@ -406,7 +415,7 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 -- $telescope
 local telescope = require('telescope.builtin')
 km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
-km.set('n', '<C-/>', telescope.live_grep)
+-- km.set('n', '<C-/>', telescope.live_grep)
 km.set('n', '<M-f>', telescope.jumplist)
 km.set('n', '<leader>/', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
@@ -569,7 +578,7 @@ require('toggleterm').setup({
         end
     end,
     shade_terminals = false,
-    open_mapping = [[<C-M-a>]],
+    open_mapping = [[<S-M-t>]],
     hide_numbers = true,
     autochdir = true,
     terminal_mappings = true,
@@ -605,7 +614,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
         local opts = { buffer = event.buf }
         km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
-        km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        -- km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
         km.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
         km.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
         km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
@@ -635,8 +644,26 @@ local util = require 'lspconfig.util'
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers
+    handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
 }
+
+if not configs.asy_ls then
+    configs.asy_ls = {
+        default_config = {
+            cmd = {'asy', '-lsp'},
+            filetypes = {'asy'},
+            root_dir = function(fname)
+                return util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,
+            settings = {},
+        },
+    }
+end
+lspconfig.asy_ls.setup(lspbasicconfig)
 
 vim.diagnostic.config({
     float = { border = border, },
@@ -672,28 +699,16 @@ lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
 lspconfig.bashls.setup(lspbasicconfig)
 
-if not configs.asy_ls then
-   configs.asy_ls = {
-    default_config = {
-      cmd = {'asy', '-lsp'},
-      filetypes = {'asy'},
-      root_dir = function(fname)
-        return util.find_git_ancestor(fname)
-      end,
-      single_file_support = true,
-      settings = {},
-    },
-  }
-end
-lspconfig.asy_ls.setup(lspbasicconfig)
-
-lspconfig.typst_lsp.setup({
-    settings = {
-        exportPdf = "never",
-    },
+lspconfig.tinymist.setup({
+    -- settings = {
+    --     exportPdf = "never",
+    -- },
     autostart = true,
     capabilities = lsp_capabilities,
     handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
 })
 
 lspconfig.rust_analyzer.setup({
@@ -711,7 +726,6 @@ lspconfig.rust_analyzer.setup({
         }
     }
 })
-
 local rt = require("rust-tools")
 rt.setup({
     server = {
@@ -728,6 +742,9 @@ lspconfig.lua_ls.setup({
     autostart = true,
     capabilities = lsp_capabilities,
     handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
     settings = {
         Lua = {
             diagnostics = {
@@ -736,21 +753,6 @@ lspconfig.lua_ls.setup({
         }
     }
 })
-
--- if not configs.asy_ls then
---     configs.asy_ls = {
---         default_config = {
---             cmd = { 'asy', '--lsp' },
---             filetypes = { 'asy' },
---             root_dir = function(fname)
---                 return util.find_git_ancestor(fname)
---             end,
---             single_file_support = true,
---             settings = {},
---         },
---     }
--- end
--- lspconfig.asy_ls.setup(lspbasicconfig)
 
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
@@ -858,6 +860,8 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.undofile = true
 vim.o.cursorline = false
 vim.g.neovide_transparency = 0.9
+
+-- vim.g.python3_host_prog = "/etc/profiles/per-user/ramak/bin/python"
 
 -- vim.g.vimtex_complete_enabled = 1
 -- vim.g.vimtex_quickfix_enabled = 0

@@ -84,6 +84,8 @@
             unzip
             p7zip
             sysstat
+            man-pages
+            man-pages-posix
         ];
         environment.localBinInPath = true;
 
@@ -122,6 +124,8 @@
             enableCompletion = false;
         };
         users.defaultUserShell = pkgs.zsh;
+
+        documentation.dev.enable = true;
 
         system.stateVersion = "23.11";
     };
