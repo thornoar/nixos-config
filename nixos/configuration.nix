@@ -26,7 +26,7 @@
     
         nix = {
             nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-            settings.experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+            settings.experimental-features = [ "nix-command" "flakes" ];
             extraOptions = ''
                 warn-dirty = false
             '';
@@ -101,7 +101,7 @@
 
         boot.loader.systemd-boot = {
             enable = true;
-            configurationLimit = 2;
+            configurationLimit = 3;
         };
         boot.loader.timeout = 35996;
         boot.loader.efi.canTouchEfiVariables = true;

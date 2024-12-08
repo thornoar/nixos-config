@@ -1,9 +1,9 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
     home.packages =  with pkgs; [
         # LaTeX
-        (texlive.combine { inherit (texlive) scheme-full; })
-        # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum; })
+        # (texlive.combine { inherit (texlive) scheme-full; })
+        (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote; })
         texlab
 
         # Asymptote
@@ -76,9 +76,10 @@
         # clisp
         clojure
         clojure-lsp
+        leiningen
 
         # Prolog
-        swiProlog
+        swi-prolog
 
         # Sage
         sage

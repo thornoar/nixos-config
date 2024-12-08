@@ -30,9 +30,14 @@
             nerdfonts
         ];
 
-        sound.enable = true;
-        hardware.pulseaudio.enable = true;
+        # hardware.pipewire.enable = false;
+
+        services.pipewire = {
+            enable = false;
+        };
+        # sound.enable = true;
         hardware.pulseaudio.support32Bit = true;
+        hardware.pulseaudio.enable = true;
         nixpkgs.config = {
             pulseaudio = true;
             allowUnfree = true;

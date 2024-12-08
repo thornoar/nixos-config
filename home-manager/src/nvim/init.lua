@@ -381,7 +381,7 @@ km.set('n', '<C-c>', function()
     if (#vim.api.nvim_list_wins() < 2) then
         for _, ui in pairs(vim.api.nvim_list_uis()) do
             if ui.chan and not ui.stdout_tty then
-            vim.fn.chanclose(ui.chan)
+                vim.fn.chanclose(ui.chan)
             end
         end
     else
@@ -389,7 +389,7 @@ km.set('n', '<C-c>', function()
         if vim.bo[buf].readonly or (vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == '') then
             vim.cmd('quit!')
         else
-            vim.cmd('wq')
+            vim.cmd('wqa')
         end
     end
 end, { noremap = true })

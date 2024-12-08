@@ -1,10 +1,9 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 
 {
     options = 
     let
         opt = lib.mkOption;
-        tp = lib.types;
         ts = builtins.toString;
     in
     {

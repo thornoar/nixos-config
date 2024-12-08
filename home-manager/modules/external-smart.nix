@@ -8,13 +8,14 @@
         toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
         toCSS = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "@define-color ${k} ${if mkstr then "\"" + ts v + "\"" else ts v};\n");
-        toConf = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "\$${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
+        toConf = mkstr: lib.attrsets.foldlAttrs (str: k: v: let v' = lib.strings.stringAsChars (x: if x == "#" then "0xff" else x) (ts v);
+                                                            in str + "\$${k} = ${if mkstr then "\"" + v' + "\"" else v'}\n");
     in 
     {
         xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
         # Hyprland setup
-        xdg.configFile."hypr/imports.conf".text = (toConf false "" config.hyprland) + (toConf false "" config.misc);
+        xdg.configFile."hypr/imports.conf".text = (toConf false "" config.hyprland) + (toConf false "" config.misc) + (toConf false "" config.colors);
         xdg.configFile."wpaperd/config.toml".text = ''
             [${config.misc.monitorName}]
             path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"

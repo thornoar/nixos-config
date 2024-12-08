@@ -22,10 +22,10 @@
 
         nixpkgs.config.allowUnfree = true;
 
-        hardware.opengl = {
+        hardware.graphics = {
             enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
+            # driSupport = true;
+            # driSupport32Bit = true;
         };
 
         nixpkgs.hostPlatform = "x86_64-linux";

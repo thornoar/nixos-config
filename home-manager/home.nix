@@ -81,7 +81,8 @@
             x11.enable = true;
             gtk.enable = true;
             name = "Adwaita";
-            package = pkgs.gnome.adwaita-icon-theme;
+            package = pkgs.adwaita-icon-theme;
+            # package = pkgs.rose-pine-cursor;
         };
 
         dconf.settings = {
@@ -98,6 +99,10 @@
                 name = "deepin-dark";
                 package = pkgs.deepin.deepin-gtk-theme;
             };
+            # cursorTheme = {
+            #     name = "rose-pine-cursor";
+            #     package = pkgs.rose-pine-cursor;
+            # };
         };
 
         # Keynav service

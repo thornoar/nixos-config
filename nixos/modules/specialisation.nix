@@ -10,7 +10,8 @@
             };
             services.xserver.dpi = 192;
             services.xserver = {
-                videoDrivers = [ "nvidia" ];
+                # videoDrivers = [ "nvidia" ];
+
                 # deviceSection = ''
                 #     Option "DRI" "2"
                 #     Option "TearFree" "true"
@@ -86,7 +87,7 @@
                 XCURSOR_SIZE = "16";
             };
             hardware = {
-                opengl.enable = lib.mkForce true;
+                graphics.enable = lib.mkForce true;
                 nvidia.modesetting.enable = lib.mkForce true;
             };
             environment.systemPackages = with pkgs; [
@@ -97,6 +98,7 @@
                 xsel
                 warpd
                 hyprpicker
+                glib
             ];
         };
     };

@@ -6,7 +6,7 @@ ffmpeg
 neofetch
 file
 which
-transmission
+transmission_3
 gawk
 shellcheck
 nix-du
@@ -52,9 +52,9 @@ libreoffice
 pdfcpu
 write_stylus
 maestral
-comma
 flameshot
 grim
 slurp
 imv
 fd
+alsa-utils
