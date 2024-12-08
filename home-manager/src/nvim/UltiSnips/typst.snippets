@@ -1,17 +1,5 @@
 # Snippets for Typst
 
-# snippet * "bold" A
-# *$0*
-# endsnippet
-#
-# snippet _ "italic" A
-# _$0_
-# endsnippet
-#
-# snippet $ "math mode" A
-# \$$0\$
-# endsnippet
-
 snippet inline "math mode"
 \$$0\$
 endsnippet
@@ -20,32 +8,6 @@ snippet display "display math" b
 \$
   $0
 \$
-endsnippet
-
-snippet center "center" b
-#align(center)[
-  $0
-]
-endsnippet
-
-snippet slide "slide" b
-#polylux-slide[
-  $0
-]
-endsnippet
-
-snippet focus~slide "focus slide" b
-#focus-slide[
-  $0
-]
-endsnippet
-
-snippet package "import package" i
-#import "@preview/$0"
-endsnippet
-
-snippet library "import library" i
-#import "@local/$1:0.0.0": *
 endsnippet
 
 snippet sg "sage" w
@@ -75,3 +37,41 @@ expr = eval(match.group(1).replace('^', '**'))
 snip.rv = str(expr).replace("*", " ") # .replace("{", "(").replace("}", ")")
 `
 endsnippet
+
+# snippet * "bold" A
+# *$0*
+# endsnippet
+#
+# snippet _ "italic" A
+# _$0_
+# endsnippet
+#
+# snippet $ "math mode" A
+# \$$0\$
+# endsnippet
+
+# snippet center "center" b
+# #align(center)[
+#   $0
+# ]
+# endsnippet
+#
+# snippet slide "slide" b
+# #polylux-slide[
+#   $0
+# ]
+# endsnippet
+#
+# snippet focus~slide "focus slide" b
+# #focus-slide[
+#   $0
+# ]
+# endsnippet
+#
+# snippet package "import package" i
+# #import "@preview/$0"
+# endsnippet
+#
+# snippet library "import library" i
+# #import "@local/$1:0.0.0": *
+# endsnippet

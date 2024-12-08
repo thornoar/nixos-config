@@ -39,6 +39,43 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'nvim-pack/nvim-spectre',
     {
+        "folke/trouble.nvim",
+        opts = {}, -- for default options, refer to the configuration section for custom setup.
+        cmd = "Trouble",
+        keys = {
+            {
+                "<M-S-d>",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Diagnostics (Trouble)",
+            },
+            {
+                "<M-d>",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Buffer Diagnostics (Trouble)",
+            },
+            {
+                "<leader>ts",
+                "<cmd>Trouble symbols toggle focus=false<cr>",
+                desc = "Symbols (Trouble)",
+            },
+            {
+                "<leader>ts",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "LSP Definitions / references / ... (Trouble)",
+            },
+            {
+                "<leader>tl",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Location List (Trouble)",
+            },
+            {
+                "<leader>tq",
+                "<cmd>Trouble qflist toggle<cr>",
+                desc = "Quickfix List (Trouble)",
+            },
+        },
+    },
+    {
         'nvim-lualine/lualine.nvim',
     },
     {
@@ -139,16 +176,6 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
-    -- {
-    --     "Jezda1337/nvim-html-css",
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "nvim-lua/plenary.nvim"
-    --     },
-    --     config = function()
-    --         require("html-css"):setup()
-    --     end
-    -- },
     { 'https://github.com/octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
@@ -168,7 +195,103 @@ require('neodev').setup({
 require('spectre').setup({
     color_devicons = false,
     live_update = true,
+    mapping={
+        ['tab'] = {
+            map = '<Tab>',
+            cmd = "<cmd>lua require('spectre').tab()<cr>",
+            desc = 'next query'
+        },
+        ['shift-tab'] = {
+            map = '<S-Tab>',
+            cmd = "<cmd>lua require('spectre').tab_shift()<cr>",
+            desc = 'previous query'
+        },
+        ['toggle_line'] = {
+            map = "dd",
+            cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
+            desc = "toggle item"
+        },
+        ['enter_file'] = {
+            map = "<cr>",
+            cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
+            desc = "open file"
+        },
+        ['send_to_qf'] = {
+            map = "<C-q>",
+            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+            desc = "send all items to quickfix"
+        },
+        ['replace_cmd'] = {
+            map = "<leader>cmd",
+            cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
+            desc = "input replace command"
+        },
+        ['show_option_menu'] = {
+            map = "<leader>so",
+            cmd = "<cmd>lua require('spectre').show_options()<CR>",
+            desc = "show options"
+        },
+        ['run_current_replace'] = {
+            map = "<leader>rc",
+            cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
+            desc = "replace current line"
+        },
+        ['run_replace'] = {
+            map = "<leader>ra",
+            cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
+            desc = "replace all"
+        },
+        ['change_view_mode'] = {
+            map = "<C-v>",
+            cmd = "<cmd>lua require('spectre').change_view()<CR>",
+            desc = "change result view mode"
+        },
+        ['change_replace_sed'] = {
+            map = "trs",
+            cmd = "<cmd>lua require('spectre').change_engine_replace('sed')<CR>",
+            desc = "use sed to replace"
+        },
+        ['change_replace_oxi'] = {
+            map = "tro",
+            cmd = "<cmd>lua require('spectre').change_engine_replace('oxi')<CR>",
+            desc = "use oxi to replace"
+        },
+        ['toggle_live_update']={
+            map = "tu",
+            cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
+            desc = "update when vim writes to file"
+        },
+        ['toggle_ignore_case'] = {
+            map = "<C-i>",
+            cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
+            desc = "toggle ignore case"
+        },
+        ['toggle_ignore_hidden'] = {
+            map = "<C-h>",
+            cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
+            desc = "toggle search hidden"
+        },
+        ['resume_last_search'] = {
+            map = "<C-r>",
+            cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
+            desc = "repeat last search"
+        },
+        ['select_template'] = {
+            map = '<leader>tp',
+            cmd = "<cmd>lua require('spectre.actions').select_template()<CR>",
+            desc = 'pick template',
+        },
+        ['delete_line'] = {
+            map = '<C-x>',
+            cmd = "<cmd>lua require('spectre.actions').run_delete_line()<CR>",
+            desc = 'delete line',
+        }
+    }
 })
+vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
+vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Search current word" })
+vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
+vim.keymap.set('n', '<leader>sf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search on current file" })
 
 -- $commands
 local compilefunc = {
@@ -440,6 +563,7 @@ end
 vim.api.nvim_create_user_command('CS', telescope.colorscheme, {})
 require('telescope').setup({
     defaults = {
+        color_devicons = false,
         mappings = {
             i = {
                 ['<C-Down>'] = function(bufnr) slow_scroll(bufnr, 1) end,
@@ -456,6 +580,7 @@ require('telescope').setup({
 
 -- $comment
 require('Comment').setup({
+    ignore = nil,
     padding = true,
     sticky = true,
     toggler = {
@@ -504,14 +629,14 @@ require('gitsigns').setup({
             if vim.wo.diff then
                 vim.cmd.normal({']c', bang = true})
             else
-                gitsigns.next_hunk()
+                gitsigns.nav_hunk('next')
             end
         end)
         map('n', '[c', function ()
             if vim.wo.diff then
                 vim.cmd.normal({'[c', bang = true})
             else
-                gitsigns.prev_hunk()
+                gitsigns.nav_hunk('prev')
             end
         end)
         map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
@@ -532,6 +657,7 @@ require('gitsigns').setup({
 
 -- $treesitter
 require('nvim-treesitter.configs').setup({
+    auto_install = false,
     modules = {},
     sync_install = true,
     ignore_install = {},
@@ -666,7 +792,7 @@ end
 lspconfig.asy_ls.setup(lspbasicconfig)
 
 vim.diagnostic.config({
-    float = { border = border, },
+    float = { border = "rounded", },
 })
 
 lspconfig.texlab.setup(lspbasicconfig)
@@ -889,7 +1015,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
-vim.api.nvim_create_autocmd('VimLeave', {
+vim.api.nvim_create_autocmd('vimLeave', {
     pattern = '*',
     callback = function () vim.opt.guicursor = { 'a:ver25' } end
 })

@@ -1,6 +1,6 @@
 // Theorems support
 
-#import "@preview/ctheorems:1.1.2": thmrules, thmenv, thmproof
+#import "@preview/ctheorems:1.1.3": *
 
 // Basic function
 

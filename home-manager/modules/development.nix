@@ -23,7 +23,7 @@
         cabal-install
         haskellPackages.cabal-clean
         haskell-language-server
-        haskell.compiler.ghc965
+        haskell.compiler.ghc966
 
         # Lua
         lua

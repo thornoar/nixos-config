@@ -2,7 +2,6 @@ global !p
 import os
 
 def root():
-	line = vim.eval("getline(1)")
 	cbind = line.find("{")
 	docclass = line[(cbind+1):line.find("}", cbind+1)]
 	if (docclass == "subfiles") :
@@ -617,4 +616,3 @@ snippet phi "Phi" i
 \\varphi
 endsnippet
 
-# vim:ft=snippets

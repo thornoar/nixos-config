@@ -1,4 +1,3 @@
-" Vim syntax file
 " Language:     Asymptote
 
 if version < 600
