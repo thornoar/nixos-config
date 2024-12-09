@@ -53,8 +53,6 @@ pdfcpu
 write_stylus
 maestral
 flameshot
-grim
-slurp
 imv
 fd
 alsa-utils

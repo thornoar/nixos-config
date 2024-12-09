@@ -96,6 +96,7 @@
                 xsel
                 warpd
                 hyprpicker
+                hyprshot
                 glib
             ];
         };
