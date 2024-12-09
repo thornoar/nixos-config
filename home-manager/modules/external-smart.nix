@@ -341,5 +341,8 @@
 
         # keynav setup
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
+
+        # pshash config
+        xdg.configFile."pshash/pshash.conf".source = dotfile "pshash.conf";
     };
 }

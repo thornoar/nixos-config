@@ -29,6 +29,9 @@ let
         { name = "ch | ArchChinese"; url = "https://www.archchinese.com/"; keyword = "ch"; }
         { name = "ca | Canvas"; url = "https://canvas.ust.hk"; keyword = "ca"; }
         { name = "ps | pshash"; url = "https://thornoar.github.io/pshash/web/app/"; keyword = "ps"; }
+        { name = "sg | sage documentation"; url = "https://doc.sagemath.org/html/en/tutorial/index.html"; keyword = "sg"; }
+        { name = "rs | rust documentation"; url = "https://doc.rust-lang.org/rust-by-example/"; keyword = "rs"; }
+        { name = "clj | clojure documentation"; url = "https://clojure.org/guides/getting_started"; keyword = "clj"; }
     ];
     userChrome = ''
         #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
@@ -67,7 +70,7 @@ in
             profiles.hyprland = {
                 id = 0;
                 name = "hyprland";
-                isDefault = true;
+                isDefault = false;
                 settings = {
                     "browser.startup.homepage" = "about:home";
                     "browser.tabs.inTitlebar" = 0;
@@ -105,6 +108,27 @@ in
                 extensions = extensions;
                 bookmarks = bookmarks;
                 userChrome = userChrome;
+            };
+            profiles.default = {
+                id = 2;
+                name = "default";
+                isDefault = true;
+                # settings = {
+                #     "browser.startup.homepage" = "about:home";
+                #     "browser.tabs.inTitlebar" = 0;
+                #     "browser.toolbars.bookmarks.visibility" = "never";
+                #     "browser.search.defaultenginename" = "Google";
+                #     "browser.search.order.1" = "Google";
+                #     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+                #     "signon.rememberSignons" = false;
+                #     "media.hardware-video-decoding.enabled" = true;
+                #     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+                #     "layout.css.dpi" = 96;
+                # };
+                # search = search;
+                # extensions = extensions;
+                # bookmarks = bookmarks;
+                # userChrome = userChrome;
             };
         };
     };

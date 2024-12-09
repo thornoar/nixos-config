@@ -11,7 +11,6 @@
             services.xserver.dpi = 192;
             services.xserver = {
                 # videoDrivers = [ "nvidia" ];
-
                 # deviceSection = ''
                 #     Option "DRI" "2"
                 #     Option "TearFree" "true"
@@ -47,7 +46,6 @@
                     timeout = 1;
                 };
             };
-
             environment.systemPackages = with pkgs; [       
                 xclip
                 xsel

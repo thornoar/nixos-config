@@ -19,7 +19,6 @@
             systemPackages = with pkgs; [
                 scowl
                 manix
-                # sage
             ];
         };
 
@@ -30,14 +29,9 @@
             nerdfonts
         ];
 
-        # hardware.pipewire.enable = false;
-
-        services.pipewire = {
-            enable = false;
-        };
-        # sound.enable = true;
-        hardware.pulseaudio.support32Bit = true;
+        services.pipewire.enable = false;
         hardware.pulseaudio.enable = true;
+        hardware.pulseaudio.support32Bit = true;
         nixpkgs.config = {
             pulseaudio = true;
             allowUnfree = true;

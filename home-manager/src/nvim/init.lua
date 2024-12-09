@@ -288,7 +288,7 @@ require('spectre').setup({
         }
     }
 })
-vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
+vim.keymap.set('n', '<C-/>', '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
 vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Search current word" })
 vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
 vim.keymap.set('n', '<leader>sf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search on current file" })
@@ -396,6 +396,16 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = { '*.tex', '*.typ', '*.md' },
     callback = function ()
         vim.o.wrap = true
+    end
+})
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    pattern = { '*.hs', '*.typ', '*.md' },
+    callback = function ()
+        vim.o.tabstop = 2
+        vim.o.shiftwidth = 2
+        vim.o.expandtab = true
+        vim.o.softtabstop = 2
     end
 })
 
@@ -764,6 +774,7 @@ local handlers =  {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
+
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
 local util = require 'lspconfig.util'
