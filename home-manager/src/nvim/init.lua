@@ -4,7 +4,6 @@ local km = vim.keymap
 vim.g.mapleader = ';'
 km.set('n', 'ec', ':e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>')
 local autosave = false
-local autosave_tex_typst = false
 
 -- $install
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -37,7 +36,6 @@ require('lazy').setup({
     'dkarter/bullets.vim',
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
-    'nvim-pack/nvim-spectre',
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -52,26 +50,6 @@ require('lazy').setup({
                 "<M-d>",
                 "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
                 desc = "Buffer Diagnostics (Trouble)",
-            },
-            {
-                "<leader>ts",
-                "<cmd>Trouble symbols toggle focus=false<cr>",
-                desc = "Symbols (Trouble)",
-            },
-            {
-                "<leader>ts",
-                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-                desc = "LSP Definitions / references / ... (Trouble)",
-            },
-            {
-                "<leader>tl",
-                "<cmd>Trouble loclist toggle<cr>",
-                desc = "Location List (Trouble)",
-            },
-            {
-                "<leader>tq",
-                "<cmd>Trouble qflist toggle<cr>",
-                desc = "Quickfix List (Trouble)",
             },
         },
     },
@@ -103,8 +81,8 @@ require('lazy').setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+        'davvid/telescope-git-grep.nvim',
+        dependencies = { "nvim-telescope/telescope.nvim" }
     },
     {
         'altermo/ultimate-autopair.nvim',
@@ -126,9 +104,6 @@ require('lazy').setup({
             {'(',')',fly=true,dosuround=true,newline=true,space=true},
             {'{','}',fly=true,dosuround=true,newline=true,space=true},
             {'"','"',suround=true,multiline=false},
-            -- {"'","'",suround=true,cond=function(fn) return not fn.in_lisp() or fn.in_string() end,alpha=true,nft={'tex','typst'},multiline=false},
-            -- {"'","'", suround=true,alpha=true,nft={'tex','typst'},multiline=false},
-            -- {'`','`',cond=function(fn) return not fn.in_lisp() or fn.in_string() end,nft={'tex'},multiline=false},
             {'`','`', nft={'tex'},multiline=false},
             {'``',"''",ft={'tex'}},
             {'```','```',newline=true,ft={'markdown'}},
@@ -181,233 +156,8 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
--- $neodev
-require('neodev').setup({
-    override = function(root_dir, library)
-        if root_dir:find(os.getenv('NIXOS_CONFIG') .. '/home-manager/src/nvim', 1, true) == 1 then
-            library.enabled = true
-            library.plugins = true
-        end
-    end,
-})
-
--- $spectre
-require('spectre').setup({
-    color_devicons = false,
-    live_update = true,
-    mapping={
-        ['tab'] = {
-            map = '<Tab>',
-            cmd = "<cmd>lua require('spectre').tab()<cr>",
-            desc = 'next query'
-        },
-        ['shift-tab'] = {
-            map = '<S-Tab>',
-            cmd = "<cmd>lua require('spectre').tab_shift()<cr>",
-            desc = 'previous query'
-        },
-        ['toggle_line'] = {
-            map = "dd",
-            cmd = "<cmd>lua require('spectre').toggle_line()<CR>",
-            desc = "toggle item"
-        },
-        ['enter_file'] = {
-            map = "<cr>",
-            cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
-            desc = "open file"
-        },
-        ['send_to_qf'] = {
-            map = "<C-q>",
-            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-            desc = "send all items to quickfix"
-        },
-        ['replace_cmd'] = {
-            map = "<leader>cmd",
-            cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
-            desc = "input replace command"
-        },
-        ['show_option_menu'] = {
-            map = "<leader>so",
-            cmd = "<cmd>lua require('spectre').show_options()<CR>",
-            desc = "show options"
-        },
-        ['run_current_replace'] = {
-            map = "<leader>rc",
-            cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
-            desc = "replace current line"
-        },
-        ['run_replace'] = {
-            map = "<leader>ra",
-            cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
-            desc = "replace all"
-        },
-        ['change_view_mode'] = {
-            map = "<C-v>",
-            cmd = "<cmd>lua require('spectre').change_view()<CR>",
-            desc = "change result view mode"
-        },
-        ['change_replace_sed'] = {
-            map = "trs",
-            cmd = "<cmd>lua require('spectre').change_engine_replace('sed')<CR>",
-            desc = "use sed to replace"
-        },
-        ['change_replace_oxi'] = {
-            map = "tro",
-            cmd = "<cmd>lua require('spectre').change_engine_replace('oxi')<CR>",
-            desc = "use oxi to replace"
-        },
-        ['toggle_live_update']={
-            map = "tu",
-            cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
-            desc = "update when vim writes to file"
-        },
-        ['toggle_ignore_case'] = {
-            map = "<C-i>",
-            cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
-            desc = "toggle ignore case"
-        },
-        ['toggle_ignore_hidden'] = {
-            map = "<C-h>",
-            cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
-            desc = "toggle search hidden"
-        },
-        ['resume_last_search'] = {
-            map = "<C-r>",
-            cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
-            desc = "repeat last search"
-        },
-        ['select_template'] = {
-            map = '<leader>tp',
-            cmd = "<cmd>lua require('spectre.actions').select_template()<CR>",
-            desc = 'pick template',
-        },
-        ['delete_line'] = {
-            map = '<C-x>',
-            cmd = "<cmd>lua require('spectre.actions').run_delete_line()<CR>",
-            desc = 'delete line',
-        }
-    }
-})
-vim.keymap.set('n', '<C-/>', '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
-vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Search current word" })
-vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
-vim.keymap.set('n', '<leader>sf', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search on current file" })
-
--- $commands
-local compilefunc = {
-    ['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
-    ['r'] = function (name) return ('!Rscript ' .. name) end,
-    ['julia'] = function (name) return ('!julia ' .. name) end,
-    ['python'] = function (name) return ('!python ' .. name) end,
-    ['c'] = function (name) return ('!gcc ' .. name .. ' -o a.out && ./a.out') end,
-    ['cpp'] = function (name) return ('!g++ -Wall ' .. name .. ' -o cpp.out && ./cpp.out') end,
-    ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
-    ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
-    ['tex'] = function (name)
-        return autosave_tex_typst and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
-    end,
-    ['typst'] = function (_) return ('') end,
-    ['lua'] = function (name) return ('!lua ' .. name) end,
-    ['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
-    ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
-    ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
-}
-local daemonfunc = {
-    ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
-    -- ['typst'] = function (_) return 'TypstWatch' end,
-    ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
-}
-local compile = function (daemon, silent)
-    return function ()
-        local compilecmd = (daemon and daemonfunc or compilefunc)[vim.bo.filetype]
-        if not compilecmd then
-            print('not set to compile')
-        else
-            if vim.bo.modified then vim.cmd('write') end
-            vim.cmd((silent and 'silent ' or '') .. compilecmd('%:t'))
-        end
-    end
-end
-vim.api.nvim_create_user_command('Compile', compile(false, false), {})
-km.set('n', '<leader>o', ':Compile<CR>')
-km.set({'n', 'i'}, '<C-a>', compile(false, true))
-km.set({'n', 'i'}, '<C-M-a>', compile(true, false))
-
-local defaultoutputname = 'out'
-local view_output = function (args)
-    local ext, flags = (args and args['args'] or 'pdf'):match"^(%S+)%s+(.+)"
-    if not ext then ext = (args and args['args'] or 'pdf') end
-    if not flags then flags = '' else flags = ' '..flags end
-    if io.open(vim.fn.expand('%:r')..'.'..ext, 'r') ~= nil then
-        vim.cmd('silent !xdg-open %:r.'..ext..'&')
-    elseif io.open(defaultoutputname..'.'..ext, 'r') ~= nil then
-        vim.cmd('silent !xdg-open '..defaultoutputname..'.'..ext..'&')
-    else
-        vim.cmd('silent !blkcmd '..ext..' xdg-open'..flags..'&')
-    end
-end
-vim.api.nvim_create_user_command('View', view_output, { nargs = '?' })
-km.set('n', '<leader>vp', function () view_output({ ['args'] = 'pdf' }) end)
-km.set('n', '<leader>vs', function () view_output({ ['args'] = 'svg' }) end)
-km.set('n', '<leader>vg', function () view_output({ ['args'] = 'png' }) end)
-
-vim.api.nvim_create_user_command('E', function () vim.bo.keymap = '' end, {})
-vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuken' end, {})
-vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
-vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
-vim.api.nvim_create_user_command('SPELL', function () vim.wo.spell = not vim.wo.spell end, {})
-vim.api.nvim_create_user_command('S', function () vim.cmd('silent write: bool') end, {})
-vim.api.nvim_create_user_command('WRAP', function () vim.o.wrap = not vim.o.wrap end, {})
-vim.api.nvim_create_user_command('T', function (args)
-    local dir = args and args['args'] or '.'
-    vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\' &')
-end, { nargs = '?' })
-
--- $autocommands
-vim.api.nvim_create_user_command('AS', function()
-    autosave = not autosave
-    print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
-end, {})
-vim.api.nvim_create_user_command('ATT', function()
-    autosave_tex_typst = not autosave_tex_typst
-    print('autosave for TeX and Typst is ' .. (autosave_tex_typst and 'enabled' or 'disabled'))
-end, {})
--- local autosavepattern = {
---     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
---     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
---     '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
--- }
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-    pattern = '*.*',
-    callback = function()
-        if autosave and
-        (
-            autosave_tex_typst or
-            not (vim.bo.filetype == 'typst' or vim.bo.filetype == 'tex')
-        ) and
-        not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
-        vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
-            vim.cmd('silent write')
-        end
-    end
-})
-
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = { '*.tex', '*.typ', '*.md' },
-    callback = function ()
-        vim.o.wrap = true
-    end
-})
-
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = { '*.hs', '*.typ', '*.md' },
-    callback = function ()
-        vim.o.tabstop = 2
-        vim.o.shiftwidth = 2
-        vim.o.expandtab = true
-        vim.o.softtabstop = 2
-    end
-})
+require("setup-neodev")
+require("setup-commands")
 
 -- $keymaps:text
 km.set('n', 'w1', 'mL')
@@ -454,6 +204,7 @@ km.set('n', 'daa', 'F,dt)')
 km.set('n', '<C-space>', 'yy<C-del>p')
 km.set('n', '<C-\\>', 'yy\\\\p')
 km.set({'n', 'i', 'v'}, '<C-s>', function () vim.cmd('silent write') end)
+km.set('n', '<C-x>', 'dd')
 
 -- $keymaps:insert
 km.set('i', '<C-Space>', ' ')
@@ -529,7 +280,7 @@ end, { noremap = true })
 
 -- $keymaps:command
 km.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' &') end)
-km.set('n', '<C-M-x>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
+km.set('n', '<M-b>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
 km.set('n', '<leader>ek', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/home.nix') end)
 km.set('n', '<leader>eK', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/home.nix') end)
 km.set('n', '<leader>el', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)
@@ -548,16 +299,17 @@ km.set('n', '<M-s>', function () vim.cmd('silent Gitsigns preview_hunk_inline') 
 -- $telescope
 local telescope = require('telescope.builtin')
 km.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
--- km.set('n', '<C-/>', telescope.live_grep)
-km.set('n', '<M-f>', telescope.jumplist)
+km.set('n', '<C-/>', function () telescope.grep_string{ search_dirs = { vim.fn.expand('%') }, shorten_path = true, word_match = "-w", only_sort_text = true, search = '' } end)
+km.set('n', '<C-M-/>', function () require('git_grep').live_grep() end)
+km.set('n', '<M-e>', telescope.jumplist)
 km.set('n', '<leader>/', telescope.search_history)
 km.set('n', '<leader>?', telescope.command_history)
 km.set('n', '<leader>:', telescope.commands)
-km.set('n', '<C-h>', telescope.help_tags)
-km.set('n', '<C-q>', telescope.builtin)
-km.set('n', '<C-g>', telescope.git_files)
-km.set('n', '<C-f>', telescope.find_files)
-km.set('n', '<C-x>', function ()
+km.set('n', '<M-h>', telescope.help_tags)
+km.set('n', '<M-q>', telescope.builtin)
+km.set('n', '<M-g>', telescope.git_files)
+km.set('n', '<M-f>', telescope.find_files)
+km.set('n', '<M-x>', function ()
     telescope.buffers({ previewer = true })
 end)
 local state = require('telescope.state')
@@ -581,12 +333,31 @@ require('telescope').setup({
             },
         },
     },
+    extensions = {
+        git_grep = {
+            cwd = '%:h:p',
+            regex = 'extended',
+            skip_binary_files = true,
+            use_git_root = true
+        }
+    },
     pickers = {
+        git_files = { theme = "ivy" },
+        find_files = { theme = "ivy" },
+        commands = { theme = "ivy" },
+        command_history = { theme = "ivy" },
+        search_history = { theme = "ivy" },
+        help_tags = { theme = "ivy" },
+        builtin = { theme = "ivy" },
+        jumplist = { theme = "ivy" },
+        live_grep = { theme = "ivy" },
+        grep_string = { theme = "ivy" },
         colorscheme = {
             enable_preview = true,
         },
     },
 })
+require('telescope').load_extension('git_grep')
 
 -- $comment
 require('Comment').setup({
