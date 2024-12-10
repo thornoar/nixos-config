@@ -1,19 +1,18 @@
 -- $telescope
 local telescope = require('telescope.builtin')
+-- local theme = require("telescope.themes").get_dropdown({})
 vim.keymap.set('n', '<M-/>', function () telescope.live_grep({ search_dirs = { vim.fn.expand('%') } }) end)
 vim.keymap.set('n', '<C-/>', function () telescope.grep_string{ search_dirs = { vim.fn.expand('%') }, shorten_path = true, word_match = "-w", only_sort_text = true, search = '' } end)
 vim.keymap.set('n', '<C-M-/>', function () require('git_grep').live_grep() end)
-vim.keymap.set('n', '<M-e>', telescope.jumplist)
-vim.keymap.set('n', '<leader>/', telescope.search_history)
-vim.keymap.set('n', '<leader>?', telescope.command_history)
-vim.keymap.set('n', '<leader>:', telescope.commands)
-vim.keymap.set('n', '<M-h>', telescope.help_tags)
-vim.keymap.set('n', '<M-q>', telescope.builtin)
-vim.keymap.set('n', '<M-g>', telescope.git_files)
-vim.keymap.set('n', '<M-f>', telescope.find_files)
-vim.keymap.set('n', '<M-x>', function ()
-    telescope.buffers({ previewer = true })
-end)
+vim.keymap.set('n', '<M-e>', function () telescope.jumplist() end)
+vim.keymap.set('n', '<leader>/', function () telescope.search_history() end)
+vim.keymap.set('n', '<leader>?', function () telescope.command_history() end)
+vim.keymap.set('n', '<leader>:', function () telescope.commands() end)
+vim.keymap.set('n', '<M-h>', function () telescope.help_tags() end)
+vim.keymap.set('n', '<M-q>', function () telescope.builtin() end)
+vim.keymap.set('n', '<M-g>', function () telescope.git_files() end)
+vim.keymap.set('n', '<M-f>', function () telescope.find_files() end)
+vim.keymap.set('n', '<M-x>', function () telescope.buffers({ previewer = true }) end)
 local state = require('telescope.state')
 local action_state = require('telescope.actions.state')
 local slow_scroll = function(prompt_bufnr, direction)
@@ -27,6 +26,10 @@ end
 vim.api.nvim_create_user_command('CS', telescope.colorscheme, {})
 require('telescope').setup({
     defaults = {
+        layout_config = {
+          width = { padding = 0 },
+          height = { padding = 0 },
+        },
         color_devicons = false,
         mappings = {
             i = {
@@ -44,16 +47,6 @@ require('telescope').setup({
         }
     },
     pickers = {
-        git_files = { theme = "ivy" },
-        find_files = { theme = "ivy" },
-        commands = { theme = "ivy" },
-        command_history = { theme = "ivy" },
-        search_history = { theme = "ivy" },
-        help_tags = { theme = "ivy" },
-        builtin = { theme = "ivy" },
-        jumplist = { theme = "ivy" },
-        live_grep = { theme = "ivy" },
-        grep_string = { theme = "ivy" },
         colorscheme = {
             enable_preview = true,
         },

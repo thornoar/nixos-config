@@ -59,7 +59,6 @@
             EDITOR = "nvim-client";
             VISUAL = "${EDITOR}";
             HISTCONTROL = "ignoreboth";
-            BROWSER = "firefox";
             READER = "zathura";
             FILEMANAGER = "br";
             IPYTHONDIR="${XDG_CONFIG_HOME}/ipython";

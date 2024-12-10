@@ -7,6 +7,7 @@
                 SPECIALISATION = lib.mkForce "xmonad";
                 TERMINAL = "alacritty";
                 XCURSOR_SIZE = "16";
+                BROWSER = "firefox -P xmonad";
             };
             services.xserver.dpi = 192;
             services.xserver = {
@@ -83,6 +84,7 @@
                 HYPRCURSOR_SIZE = "16";
                 TERMINAL = "kitty";
                 XCURSOR_SIZE = "16";
+                BROWSER = "firefox -P hyprland";
             };
             hardware = {
                 graphics.enable = lib.mkForce true;
