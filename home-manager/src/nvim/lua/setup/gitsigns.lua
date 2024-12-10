@@ -13,7 +13,7 @@ require('gitsigns').setup({
         local function map (mode, l, r, opts)
             opts = opts or {}
             opts.buffer = bufnr
-            km.set(mode, l, r, opts)
+            vim.keymap.set(mode, l, r, opts)
         end
 
         map('n', ']c', function ()

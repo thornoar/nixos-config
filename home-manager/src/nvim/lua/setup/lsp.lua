@@ -7,17 +7,17 @@ for name, icon in pairs(symbols) do
     local hl = "DiagnosticSign" .. name
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
-km.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
-km.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
+vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
+vim.keymap.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
-        -- km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
-        km.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
-        km.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
-        km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
+        vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
+        -- vim.keymap.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        vim.keymap.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
+        vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
+        vim.keymap.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
     end
 })
 
