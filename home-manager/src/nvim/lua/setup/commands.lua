@@ -1,4 +1,5 @@
 local autosave_tex_typst = false
+local autosave = false
 
 -- $commands
 local compilefunc = {

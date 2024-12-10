@@ -108,6 +108,7 @@
         xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
         xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
         xdg.configFile."nvim/after".source = dotfile "nvim/after";
+        xdg.configFile."nvim/lua/setup".source = dotfile "nvim/lua/setup";
         xdg.configFile."nvim/lua/colors.lua".text = toLua ''
             local M = {}
         '' config.colors + ''
