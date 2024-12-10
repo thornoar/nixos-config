@@ -1,0 +1,227 @@
+-- $lsp
+vim.diagnostic.config({
+    virtual_text = false
+})
+local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
+for name, icon in pairs(symbols) do
+    local hl = "DiagnosticSign" .. name
+    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+end
+km.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
+km.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        local opts = { buffer = event.buf }
+        km.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
+        -- km.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        km.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
+        km.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
+        km.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
+    end
+})
+
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local hl_name = "FloatBorder"
+-- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
+local border = {
+    { "╭", hl_name },
+    { "─", hl_name },
+    { "╮", hl_name },
+    { "│", hl_name },
+    { "╯", hl_name },
+    { "─", hl_name },
+    { "╰", hl_name },
+    { "│", hl_name },
+}
+local handlers =  {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+local util = require 'lspconfig.util'
+local lspbasicconfig = {
+    autostart = true,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
+}
+
+if not configs.asy_ls then
+    configs.asy_ls = {
+        default_config = {
+            cmd = {'asy', '-lsp'},
+            filetypes = {'asy'},
+            root_dir = function(fname)
+                return util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,
+            settings = {},
+        },
+    }
+end
+lspconfig.asy_ls.setup(lspbasicconfig)
+
+vim.diagnostic.config({
+    float = { border = "rounded", },
+})
+
+lspconfig.texlab.setup(lspbasicconfig)
+lspconfig.ts_ls.setup(lspbasicconfig)
+lspconfig.pyright.setup(lspbasicconfig)
+lspconfig.clojure_lsp.setup(lspbasicconfig)
+-- lspconfig.nil_ls.setup(lspbasicconfig)
+lspconfig.nixd.setup({
+    handlers = handlers,
+    capabilities = lsp_capabilities,
+    cmd = { "nixd" },
+    settings = {
+        nixd = {
+            nixpkgs = {
+                expr = "import <nixpkgs { }>",
+            },
+            formatting = {
+                command = { "alejandra" },
+            },
+            options = {
+                nixos = {
+                    expr = "(builtins.getFlake \"/home/ramak/projects/nixos-config\").nixosConfigurations.master.options",
+                },
+            },
+        },
+    },
+})
+lspconfig.r_language_server.setup(lspbasicconfig)
+lspconfig.hls.setup(lspbasicconfig)
+lspconfig.clangd.setup(lspbasicconfig)
+lspconfig.bashls.setup(lspbasicconfig)
+
+lspconfig.tinymist.setup({
+    -- settings = {
+    --     exportPdf = "never",
+    -- },
+    autostart = true,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
+})
+
+lspconfig.rust_analyzer.setup({
+    autostart = true,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+    settings = {
+        ['rust-analyzer'] = {
+            check = {
+                command = "clippy"
+            },
+            diagnostics = {
+                enable = true
+            }
+        }
+    }
+})
+local rt = require("rust-tools")
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+        end,
+    },
+})
+
+lspconfig.lua_ls.setup({
+    autostart = true,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+})
+
+vim.api.nvim_create_user_command('LA', 'LspStart', {})
+vim.api.nvim_create_user_command('LD', 'LspStop', {})
+local luasnip = require('luasnip')
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+local cmp = require('cmp')
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
+        { name = 'ultisnips' },
+        {
+            name = 'look',
+            keyword_length = 2,
+            option = {
+                convert_case = true,
+                loud = true,
+                dict = os.getenv('WORDLIST')
+            }
+        },
+        -- {
+        --     name = "html-css",
+        --     option = {
+        --         enable_on = {
+        --             'html'
+        --         },
+        --     },
+        -- },
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<Down>'] = cmp.mapping(function (fallback)
+            cmp.close()
+            fallback()
+        end, { 'i' }),
+        ['<Up>'] = cmp.mapping(function (fallback)
+            cmp.close()
+            fallback()
+        end, { 'i' }),
+        ['<C-x>'] = cmp.mapping.select_next_item({}),
+        ['<C-Down>'] = cmp.mapping.select_next_item({}),
+        ['<C-a>'] = cmp.mapping.select_prev_item({}),
+        ['<C-Up>'] = cmp.mapping.select_prev_item({}),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-Right>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+            end
+        end, { 'i', 's' }),
+        ['<C-Left>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                cmp_ultisnips_mappings.jump_backwards(fallback)
+            end
+        end, { 'i', 's' }),
+    }),
+    snippet = {
+        expand = function(args)
+            -- luasnip.lsp_expand(args.body)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+})
