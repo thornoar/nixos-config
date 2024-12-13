@@ -56,7 +56,7 @@
     {
         nixosConfigurations = {
             ${sysname} = lib.nixosSystem {
-                system = system;
+                inherit system;
                 modules = [
                     ./nixos/configuration.nix
                     ./nixos/modules/${sysname}.nix
