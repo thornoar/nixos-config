@@ -39,6 +39,7 @@ require('telescope').setup({
         },
     },
     extensions = {
+        fzf = {},
         git_grep = {
             cwd = '%:h:p',
             regex = 'extended',
@@ -53,3 +54,4 @@ require('telescope').setup({
     },
 })
 require('telescope').load_extension('git_grep')
+require('telescope').load_extension('fzf')

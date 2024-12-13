@@ -81,6 +81,7 @@
             zip
             xz
             unzip
+            unrar
             p7zip
             sysstat
             man-pages
@@ -96,7 +97,7 @@
             };
         };
 
-        security.sudo.package = pkgs.sudo.override { withInsults = true; };
+        security.sudo.package = pkgs.sudo.override { withInsults = false; };
 
         boot.loader.systemd-boot = {
             enable = true;

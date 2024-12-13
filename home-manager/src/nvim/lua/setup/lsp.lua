@@ -198,9 +198,9 @@ cmp.setup({
             fallback()
         end, { 'i' }),
         ['<C-x>'] = cmp.mapping.select_next_item({}),
-        ['<C-Down>'] = cmp.mapping.select_next_item({}),
+        ['<C-Down>'] = cmp.mapping.scroll_docs(1),
         ['<C-a>'] = cmp.mapping.select_prev_item({}),
-        ['<C-Up>'] = cmp.mapping.select_prev_item({}),
+        ['<C-Up>'] = cmp.mapping.scroll_docs(-1),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-Right>'] = cmp.mapping(function(fallback)

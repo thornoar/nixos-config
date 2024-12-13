@@ -33,7 +33,7 @@
                         xset r rate 200 30
                         xset s off
                         transmission-daemon
-                        setxkbmap -option grp:caps_toggle us,ru
+                        setxkbmap -option grp:alt_shift_toggle us,ru
                     '';
                 };
             };
