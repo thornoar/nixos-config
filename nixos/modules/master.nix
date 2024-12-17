@@ -29,6 +29,8 @@
             nerdfonts
         ];
 
+        hardware.enableAllFirmware = true;
+
         services.pipewire.enable = false;
         hardware.pulseaudio.enable = true;
         hardware.pulseaudio.support32Bit = true;

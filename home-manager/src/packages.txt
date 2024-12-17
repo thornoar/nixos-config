@@ -56,3 +56,6 @@ flameshot
 imv
 fd
 alsa-utils
+protonvpn-gui
+protonvpn-cli_2
+jq

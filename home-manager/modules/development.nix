@@ -39,6 +39,7 @@
         # Rust
         cargo
         rustc
+        clippy
         rust-analyzer
         evcxr
 

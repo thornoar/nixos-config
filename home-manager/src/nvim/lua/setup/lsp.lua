@@ -123,9 +123,9 @@ lspconfig.rust_analyzer.setup({
             },
             diagnostics = {
                 enable = true
-            }
-        }
-    }
+            },
+        },
+    },
 })
 local rt = require("rust-tools")
 rt.setup({
@@ -138,6 +138,7 @@ rt.setup({
         end,
     },
 })
+rt.inlay_hints.enable()
 
 lspconfig.lua_ls.setup({
     autostart = true,
