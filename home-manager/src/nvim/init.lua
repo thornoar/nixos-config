@@ -36,6 +36,15 @@ require('lazy').setup({
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
     {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    },
+    {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
         cmd = "Trouble",
@@ -159,6 +168,7 @@ require('lazy').setup({
 }, {})
 
 require("setup.neodev")
+require("setup.oil")
 require("setup.commands")
 require("setup.keymaps")
 require("setup.telescope")
