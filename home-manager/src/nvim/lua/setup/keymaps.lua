@@ -118,8 +118,8 @@ vim.keymap.set('n', '<C-c>', function()
 end, { noremap = true })
 
 -- $keymaps:command
-vim.keymap.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'nvim-server\' &') end)
-vim.keymap.set('n', '<M-b>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br\'&') end)
+vim.keymap.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'nvim-server; zsh\' &') end)
+vim.keymap.set('n', '<M-b>', function () vim.cmd('silent !$TERMINAL --title \'Viewer\' -e zsh -c \'nvim-server; br; zsh\'&') end)
 vim.keymap.set('n', '<leader>ek', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/home.nix') end)
 vim.keymap.set('n', '<leader>eK', function () vim.cmd('tabnew $NIXOS_CONFIG/home-manager/home.nix') end)
 vim.keymap.set('n', '<leader>el', function () vim.cmd('edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua') end)

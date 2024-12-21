@@ -31,9 +31,18 @@
 
         hardware.enableAllFirmware = true;
 
-        services.pipewire.enable = false;
-        hardware.pulseaudio.enable = true;
-        hardware.pulseaudio.support32Bit = true;
+        # services.pipewire.enable = false;
+        services.pipewire = {
+            enable = true;
+            alsa = {
+                enable = true;
+                support32Bit = true;
+            };
+            audio.enable = true;
+            pulse.enable = true;
+        };
+        # hardware.pulseaudio.enable = true;
+        # hardware.pulseaudio.support32Bit = true;
         nixpkgs.config = {
             pulseaudio = true;
             allowUnfree = true;
