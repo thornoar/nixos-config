@@ -49,7 +49,7 @@ try:
 
     if args.sync:
         call("git remote update")
-        if "local branch is behind" in os.popen("git status -s").read().strip():
+        if "branch is behind" in os.popen("git status").read().strip():
             call("git fetch && git pull")
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
