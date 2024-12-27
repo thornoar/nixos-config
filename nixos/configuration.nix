@@ -1,6 +1,11 @@
 { sysname, inputs, pkgs, ... }:
 
 {
+    imports = [
+        # ./modules/hardware-configuration/laptop.nix
+        # /etc/nixos/hardware-configuration.nix
+    ];
+    
     config = {
         users.users.ramak = {
             isNormalUser = true;
