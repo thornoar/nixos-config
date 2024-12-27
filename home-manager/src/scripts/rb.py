@@ -11,10 +11,11 @@ parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use 
 parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
 parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
 parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
+parser.add_argument("-s", "--sync", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
 parser.add_argument("-t", "--type", type = str, default = "system", help = "system or home")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
-parser.add_argument("-f", "--flake", type = str, default = os.environ["NIXOS_CONFIG"], help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
+parser.add_argument("-f", "--flake", type = str, default = "auto", help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
 parser.add_argument("-o", "--output", type = str, default = "auto", help = "flake output to use. default is \"master\"")
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
 args = parser.parse_args()
@@ -42,9 +43,14 @@ print("| \033[34mRebuild command is: \"\033[35m" + command + "\033[34m\".\033[0m
 
 try:
     cwd = os.popen("pwd").read().strip()
-    new_dir = (args.flake != "auto") and args.flake or os.environ["NIXOS_CONFIG"]
+    new_dir = (args.flake != "auto") and args.flake or ("NIXOS_CONFIG" in os.environ and os.environ["NIXOS_CONFIG"] or os.environ["HOME"])
     print("| \033[34mChanging to flake directory: \"\033[35m" + new_dir + "\033[34m\".\033[0m") #]]]]
     os.chdir(new_dir)
+
+    if args.sync:
+        call("git remote update")
+        if "local branch is behind" in os.popen("git status -s").read().strip():
+            call("git fetch && git pull")
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
         print("| \033[34mRestoring previous flake.lock file...\033[0m") #]]
@@ -113,6 +119,11 @@ try:
             call("nvd diff " + old_gen + " " + new_gen)
         else:
             call("hmd --auto")
+
+    if args.sync and ("changes not staged for commit" in os.popen("git status").read().strip()):
+        call("git add -A")
+        call("git commit -m \"syncing config changes\"")
+        call("git push")
 
     os.chdir(cwd)
 
