@@ -11,7 +11,7 @@ parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use 
 parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
 parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
 parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
-parser.add_argument("-s", "--sync", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
+parser.add_argument("-g", "--git", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
 parser.add_argument("-t", "--type", type = str, default = "system", help = "system or home")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
@@ -47,9 +47,11 @@ try:
     print("| \033[34mChanging to flake directory: \"\033[35m" + new_dir + "\033[34m\".\033[0m") #]]]]
     os.chdir(new_dir)
 
-    if args.sync:
+    if args.git:
+        print("| \033[34mUpdating the remote repository.\033[0m") #]]
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
+            print("| \033[34mPulling remote changes.\033[0m") #]]
             call("git fetch && git pull")
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
@@ -120,7 +122,8 @@ try:
         else:
             call("hmd --auto")
 
-    if args.sync and ("changes not staged for commit" in os.popen("git status").read().strip()):
+    if args.git and ("not staged for commit" in os.popen("git status").read().strip()):
+        print("| \033[34mCommitting local changes.\033[0m") #]]
         call("git add -A")
         call("git commit -m \"syncing config changes\"")
         call("git push")
