@@ -58,7 +58,6 @@
                 inherit system;
                 modules = [
                     ./nixos/configuration.nix
-                    # ./nixos/modules/hardware-configuration/laptop.nix
                     ./nixos/modules/laptop/configuration.nix
                     ./nixos/modules/laptop/hardware-configuration.nix
                     ./nixos/modules/vpn.nix
@@ -91,6 +90,8 @@
                 inherit system;
                 modules = [
                     ./nixos/configuration.nix
+                    ./nixos/modules/desktop/configuration.nix
+                    ./nixos/modules/desktop/hardware-configuration.nix
                     { _module.args = { sysname = "desktop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
                     inputs.home-manager.nixosModules.home-manager
                     {
