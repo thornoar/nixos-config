@@ -1,18 +1,18 @@
 { config, pkgs, inputs, system, lib, pkgs-unstable, ... }:
 
 {
-    imports = (
-        let
-            path = /home/ramak/projects/nixos-local-config/home-local.nix;
-        in if (builtins.pathExists path) then [ path ] else [ ./src/home-template.nix ]
-    ) ++ [
-        ./modules/options.nix
-        ./modules/scripts.nix
-        ./modules/external-smart.nix
-        ./modules/external-direct.nix
-        ./modules/development.nix
-        ./modules/firefox.nix
-    ];
+    # imports = (
+    #     let
+    #         path = /home/ramak/projects/nixos-local-config/home-local.nix;
+    #     in if (builtins.pathExists path) then [ path ] else [ ./src/home-template.nix ]
+    # ) ++ [
+    #     ./modules/options/declaration.nix
+    #     ./modules/scripts.nix
+    #     ./modules/external-tui.nix
+    #     ./modules/external-gui.nix
+    #     ./modules/development.nix
+    #     ./modules/firefox.nix
+    # ];
 
     config = 
     let 

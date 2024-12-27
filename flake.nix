@@ -36,7 +36,6 @@
     outputs = inputs:
     let
         system = "x86_64-linux";
-        sysname = "master";
 
         pkgs-unstable = import inputs.nixpkgs-unstable {
             inherit system;
@@ -55,17 +54,55 @@
     in
     {
         nixosConfigurations = {
-            ${sysname} = lib.nixosSystem {
+            laptop = lib.nixosSystem {
                 inherit system;
                 modules = [
                     ./nixos/configuration.nix
-                    ./nixos/modules/${sysname}.nix
-                    { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
+                    ./nixos/modules/vpn.nix
+                    ./nixos/modules/window-managers.nix
+                    { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
                     inputs.home-manager.nixosModules.home-manager
                     {
                         home-manager = {
                             useUserPackages = true;
-                            users.ramak = import ./home-manager/home.nix;
+                            users.ramak = { ... }: {
+                                imports = [
+                                    ./home-manager/home.nix
+                                    ./home-manager/modules/options/declaration.nix
+                                    ./home-manager/modules/options/laptop.nix
+                                    ./home-manager/modules/scripts.nix
+                                    ./home-manager/modules/external-tui.nix
+                                    ./home-manager/modules/external-gui.nix
+                                    ./home-manager/modules/development.nix
+                                    ./home-manager/modules/firefox.nix
+                                ];
+                            };
+                            extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; };
+                        };
+                    }
+                    inputs.nix-index-database.nixosModules.nix-index
+                ];
+            };
+
+            desktop = lib.nixosSystem {
+                inherit system;
+                modules = [
+                    ./nixos/configuration.nix
+                    { _module.args = { sysname = "desktop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
+                    inputs.home-manager.nixosModules.home-manager
+                    {
+                        home-manager = {
+                            useUserPackages = true;
+                            users.ramak = { ... }: {
+                                imports = [
+                                    ./home-manager/home.nix
+                                    ./home-manager/modules/options/declaration.nix
+                                    ./home-manager/modules/options/desktop.nix
+                                    ./home-manager/modules/scripts.nix
+                                    ./home-manager/modules/external-tui.nix
+                                    ./home-manager/modules/development.nix
+                                ];
+                            };
                             extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; };
                         };
                     }
@@ -77,7 +114,7 @@
                 system = system;
                 modules = [
                     ./nixos/configuration.nix
-                    { _module.args = { inherit sysname; inherit inputs; inherit pkgs-unstable; }; }
+                    { _module.args = { sysname = "minimal"; inherit inputs; inherit pkgs-unstable; }; }
                 ];
             };
 

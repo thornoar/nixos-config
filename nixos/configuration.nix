@@ -127,6 +127,39 @@
 
         documentation.dev.enable = true;
 
+        environment = {
+            variables.SPECIALISATION = "default";
+            wordlist.enable = true;
+            systemPackages = with pkgs; [
+                scowl
+                manix
+            ];
+        };
+
+        hardware.enableAllFirmware = true;
+
+        # services.pipewire.enable = false;
+        services.pipewire = {
+            enable = true;
+            alsa = {
+                enable = true;
+                support32Bit = true;
+            };
+            audio.enable = true;
+            pulse.enable = true;
+        };
+        # hardware.pulseaudio.enable = true;
+        # hardware.pulseaudio.support32Bit = true;
+        nixpkgs.config = {
+            pulseaudio = true;
+            allowUnfree = true;
+        };
+
+        virtualisation.libvirtd.enable = true;
+        programs = {
+            virt-manager.enable = true;
+        };
+
         system.stateVersion = "23.11";
     };
 }

@@ -102,38 +102,6 @@
         '') config.misc;
         xdg.configFile."xmonad/xmonad.hs".source = dotfile "xmonad.hs";
 
-        # Neovim configuration
-
-        xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
-        xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
-        xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
-        xdg.configFile."nvim/after".source = dotfile "nvim/after";
-        xdg.configFile."nvim/lua/setup".source = dotfile "nvim/lua/setup";
-        xdg.configFile."nvim/lua/colors.lua".text = toLua ''
-            local M = {}
-        '' config.colors + ''
-            return M
-        '';
-        xdg.configFile."nvim/init.lua".source = dotfile "nvim/init.lua";
-
-        # asymptote configuration
-        home.file.".asy/config.asy".source = dotfile "config.asy";
-
-        # moc configuration
-        home.file.".moc/config".text = ''
-            Theme = nightly_theme
-            Keymap = keymap
-            Repeat = yes
-            Shuffle = no
-            AutoNext = no
-        '';
-        home.file.".moc/keymap".text = ''
-            go    = ENTER RIGHT
-            go_up = U LEFT
-            #seek_forward  = RIGHT
-            #seek_backward = LEFT
-        '';
-
         # mpv configuration
         xdg.configFile."mpv/mpv.conf".text = ''
             loop-file=inf
@@ -259,7 +227,6 @@
                 confirm_os_window_close = "0";
                 scrollback_pager = "";
                 allow_remote_control = "yes";
-                # listen_on = "unix:/tmp/kitty";
                 mouse_hide_wait = "0.1";
             };
             extraConfig = ''
@@ -283,67 +250,93 @@
                 # mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
             '';
         };
-        programs.zsh.envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
-        programs.zsh.initExtra = builtins.readFile (dotfile "zsh/initExtra.zsh");
-
-        home.file.".Rprofile".source = dotfile "Rprofile";
 
         # xmobar setup
         xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
-        # neofetch setup
-        xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
-
-        # mimeapps handling
-        xdg.configFile."mimeapps.list".force = true;
-
-        # khal configuration
-        xdg.configFile."khal/config".source = dotfile "khal.config.ini";
-
-        # tmux configuration
-        xdg.configFile."tmux/tmux.conf".source = dotfile "tmux/tmux.conf";
-
         # account icon setting
         home.file.".face".source = dotfile "account-icon.png";
-
-        xdg.dataFile = builtins.listToAttrs (
-            # typst libraries
-            lib.lists.flatten (
-                lib.lists.forEach
-                (lib.filesystem.listFilesRecursive (dotfile "typst-libraries"))
-                (filename:
-                    let
-                        strname = ts filename;
-                        last = lib.lists.last (lib.strings.splitString "/" strname);
-                        base = lib.lists.head (lib.strings.splitString "." last);
-                    in
-                    [
-                        {
-                            name = "typst/packages/local/" + base + "/0.0.0/main.typ";
-                            value = { source = strname; };
-                        }
-                        {
-                            name = "typst/packages/local/" + base + "/0.0.0/typst.toml";
-                            value = { text = ''
-                                [package]
-                                name = "${base}"
-                                version = "0.0.0"
-                                entrypoint = "main.typ"
-                                authors = ["Roman Maksimovich"]
-                            ''; };
-                        }
-                    ]
-                )
-            )
-        ) // {
-            # LaTeX libraries
-            "latex".source = dotfile "latex-libraries";
-        };
 
         # keynav setup
         xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
 
-        # pshash config
-        xdg.configFile."pshash/pshash.conf".source = dotfile "pshash.conf";
+        # Transparent cursor theme
+        home.file.".local/share/icons/transparent".source = dotfile "transparent";
+
+        # zathura setup
+        xdg.configFile."zathura/zathurarc".text = ''
+            set window-title-basename "true"
+            set selection-clipboard "clipboard"
+
+            set notification-error-bg       "${config.colors.colorRed0}" # Red
+            set notification-error-fg       "${config.colors.colorWhite1}" # Foreground
+            set notification-warning-bg     "${config.colors.colorOrange0}" # Orange
+            set notification-warning-fg     "${config.colors.bgColor2}" # Selection
+            set notification-bg             "${config.colors.bgColor0}" # Background
+            set notification-fg             "${config.colors.colorWhite1}" # Foreground
+            set completion-bg               "${config.colors.bgColor0}" # Background
+            set completion-fg               "${config.colors.colorBlue2}" # Comment
+            set completion-group-bg         "${config.colors.bgColor0}" # Background
+            set completion-group-fg         "${config.colors.colorBlue2}" # Comment
+            set completion-highlight-bg     "${config.colors.bgColor2}" # Selection
+            set completion-highlight-fg     "${config.colors.colorWhite1}" # Foreground
+            set index-bg                    "${config.colors.bgColor0}" # Background
+            set index-fg                    "${config.colors.colorWhite1}" # Foreground
+            set index-active-bg             "${config.colors.bgColor2}" # Current Line
+            set index-active-fg             "${config.colors.colorWhite1}" # Foreground
+            set inputbar-bg                 "${config.colors.bgColor0}" # Background
+            set inputbar-fg                 "${config.colors.colorWhite1}" # Foreground
+            set statusbar-bg                "${config.colors.bgColor0}" # Background
+            set statusbar-fg                "${config.colors.colorWhite1}" # Foreground
+            set highlight-color             "${config.colors.colorOrange0}" # Orange
+            set highlight-active-color      "${config.colors.colorMagenta0}" # Pink
+            set default-bg                  "${config.colors.bgColor0}" # Background
+            set default-fg                  "${config.colors.colorWhite1}" # Foreground
+            set render-loading              true
+            set render-loading-fg           "${config.colors.bgColor0}" # Background
+            set render-loading-bg           "${config.colors.colorWhite1}" # Foreground
+
+            set recolor-lightcolor          "${config.colors.bgColor0}" # Background
+            set recolor-darkcolor           "${config.colors.colorWhite1}" # Foreground
+
+            set adjust-open width
+            # set recolor true
+            set guioptions none
+
+            map <S-Up> feedkeys "zI"
+            map <S-Down> feedkeys "zO"
+            map <M-Up> feedkeys "<PageUp>"
+            map <M-Down> feedkeys "<PageDown>"
+
+            set zoom-max 50000
+        '';
+
+        xdg.configFile."tofi/config".text = ''
+            font-size = ${config.hyprland.fontsize}
+            text-color = ${config.colors.colorWhite1}
+            prompt-color =${config.colors.colorWhite1} 
+            placeholder-color = ${config.colors.bgColor3}
+            input-color =${config.colors.colorWhite1} 
+            default-result-color =${config.colors.colorWhite1} 
+            selection-color = ${config.colors.colorMagenta1}
+            selection-background = ${config.colors.bgColor0}
+            selection-match-color = ${config.colors.colorMagenta0}
+            width = ${config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter}
+            height = 50%
+            background-color =${config.colors.bgColor0} 
+            outline-width = 0
+            outline-color =${config.colors.bgColor0} 
+            border-width = 1
+            border-color =${config.colors.colorMagenta1} 
+            corner-radius = ${config.hyprland.rounding}
+            padding-top = ${config.hyprland.windowSpaceOuter / 2}
+            padding-bottom = ${config.hyprland.windowSpaceOuter / 2}
+            padding-left = ${config.hyprland.windowSpaceOuter}
+            padding-right = ${config.hyprland.windowSpaceOuter}
+            margin-top = ${config.hyprland.windowSpaceOuter}
+            margin-bottom = 0
+            margin-left = ${config.hyprland.windowSpaceOuter}
+            margin-right = ${config.hyprland.windowSpaceOuter}
+        '';
     };
 }
