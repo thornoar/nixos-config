@@ -5,7 +5,7 @@
     let
         dotfile = str: lib.path.append ../src str;
         ts = builtins.toString;
-        toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
+        # toLua = lib.attrsets.foldlAttrs (str: k: v: str + "M.${k} = \"${ts v}\"\n");
         toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "${k} = ${if mkstr then "\"" + ts v + "\"" else ts v}\n");
         toCSS = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "@define-color ${k} ${if mkstr then "\"" + ts v + "\"" else ts v};\n");
         toConf = mkstr: lib.attrsets.foldlAttrs (str: k: v: let v' = lib.strings.stringAsChars (x: if x == "#" then "0xff" else x) (ts v);
@@ -24,14 +24,14 @@
         # xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
         xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
 
-        # Wofi setup
-        xdg.configFile."wofi/size.css".text = ''
-            * {
-                font-size: ${ts config.hyprland.fontsize}pt;
-                border-radius: ${ts config.hyprland.rounding}px;
-            }
-        '';
-        xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
+        # # Wofi setup
+        # xdg.configFile."wofi/size.css".text = ''
+        #     * {
+        #         font-size: ${ts config.hyprland.fontsize}pt;
+        #         border-radius: ${ts config.hyprland.rounding}px;
+        #     }
+        # '';
+        # xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
 
         # Waybar setup
         xdg.configFile."waybar/size.css".text = ''
@@ -337,6 +337,7 @@
             margin-bottom = 0
             margin-left = ${ts config.hyprland.windowSpaceOuter}
             margin-right = ${ts config.hyprland.windowSpaceOuter}
-        '';
+
+        '' + builtins.readFile (dotfile "tofi.conf");
     };
 }

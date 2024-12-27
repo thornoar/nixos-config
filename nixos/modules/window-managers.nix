@@ -135,7 +135,7 @@
             environment.systemPackages = with pkgs; [
                 waybar
                 wpaperd
-                wofi
+                # wofi
                 tofi
                 wl-clipboard
                 xsel
