@@ -58,7 +58,7 @@
                 inherit system;
                 modules = [
                     ./nixos/configuration.nix
-                    ./nixos/modules/laptop-hardware-configuration.nix
+                    ./nixos/modules/hardware-configuration/laptop.nix
                     ./nixos/modules/vpn.nix
                     ./nixos/modules/window-managers.nix
                     { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }

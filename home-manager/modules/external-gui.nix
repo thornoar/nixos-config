@@ -312,7 +312,7 @@
         '';
 
         xdg.configFile."tofi/config".text = ''
-            font-size = ${config.hyprland.fontsize}
+            font-size = ${ts config.hyprland.fontsize}
             text-color = ${config.colors.colorWhite1}
             prompt-color =${config.colors.colorWhite1} 
             placeholder-color = ${config.colors.bgColor3}
@@ -321,22 +321,22 @@
             selection-color = ${config.colors.colorMagenta1}
             selection-background = ${config.colors.bgColor0}
             selection-match-color = ${config.colors.colorMagenta0}
-            width = ${config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter}
+            width = ${ts (config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter)}
             height = 50%
             background-color =${config.colors.bgColor0} 
             outline-width = 0
             outline-color =${config.colors.bgColor0} 
             border-width = 1
             border-color =${config.colors.colorMagenta1} 
-            corner-radius = ${config.hyprland.rounding}
-            padding-top = ${config.hyprland.windowSpaceOuter / 2}
-            padding-bottom = ${config.hyprland.windowSpaceOuter / 2}
-            padding-left = ${config.hyprland.windowSpaceOuter}
-            padding-right = ${config.hyprland.windowSpaceOuter}
-            margin-top = ${config.hyprland.windowSpaceOuter}
+            corner-radius = ${ts config.hyprland.rounding}
+            padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
+            padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
+            padding-left = ${ts config.hyprland.windowSpaceOuter}
+            padding-right = ${ts config.hyprland.windowSpaceOuter}
+            margin-top = ${ts config.hyprland.windowSpaceOuter}
             margin-bottom = 0
-            margin-left = ${config.hyprland.windowSpaceOuter}
-            margin-right = ${config.hyprland.windowSpaceOuter}
+            margin-left = ${ts config.hyprland.windowSpaceOuter}
+            margin-right = ${ts config.hyprland.windowSpaceOuter}
         '';
     };
 }
