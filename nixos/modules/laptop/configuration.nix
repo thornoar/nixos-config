@@ -30,6 +30,10 @@
 
         boot.kernelPackages = pkgs.linuxPackages_latest;
 
+        boot.loader.systemd-boot = {
+            configurationLimit = 2;
+        };
+
         nixpkgs.config.nvidia.acceptLicense = true;
         hardware.nvidia = {
             modesetting.enable = true;

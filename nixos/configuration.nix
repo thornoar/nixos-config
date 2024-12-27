@@ -103,7 +103,6 @@
 
     boot.loader.systemd-boot = {
         enable = true;
-        configurationLimit = 2;
     };
     boot.loader.timeout = 35996;
     boot.loader.efi.canTouchEfiVariables = true;

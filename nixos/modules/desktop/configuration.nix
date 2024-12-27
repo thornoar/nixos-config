@@ -79,6 +79,10 @@
             drivers = [ pkgs.gutenprint ];
         };
 
+        boot.loader.systemd-boot = {
+            configurationLimit = 5;
+        };
+
         hardware.nvidia = {
             modesetting.enable = true;
             powerManagement.enable = false;
