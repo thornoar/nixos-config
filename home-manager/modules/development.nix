@@ -87,6 +87,9 @@
 
         # Tmux
         tmux
+
+        # Assembly
+        nasm
     ];
 
     programs = {
