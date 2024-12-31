@@ -87,7 +87,7 @@ verbs: [
         execution: ":focus ~"
     }
     {
-        key: ctrl-a
+        key: alt-t
         invocation: terminal
         external: "sh -c \"nohup $TERMINAL --hold -e sh -c 'cd {directory}; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
         leave_broot: false

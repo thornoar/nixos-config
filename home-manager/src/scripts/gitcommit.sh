@@ -18,12 +18,12 @@ online="$?"
 if [ $online != 0 ]; then
     printf "| \e[34mThe internet connection is down.\e[0m\n" #]]
     while true; do
-        read -r -e -p "| [35mWould you like to commit the changes without pushing? [yN][0m " ans # ]]
+        read -r -e -p "| \e[35mWould you like to commit the changes without pushing? [yN]\e[0m " ans # ]]
         # (((
         case $ans in
             [Yy]* ) git add . && git commit -m "$1" && exit 0 ;;
             [Nn]* ) exit 0 ;;
-            * ) printf "| \e[33mPlease answer yes (y) or no (n)\e[0m\n" # ]]
+            * ) printf "| \e[33mPlease answer [y]es or [n]o\e[0m\n" # ]]
         esac
     done
 else

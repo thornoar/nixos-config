@@ -1,5 +1,5 @@
 autoload -U colors && colors
-PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%~ %{$reset_color%}: "
+PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
 
 function preexec() {
     timer=$(($(date +%s%0N)/1000000))
