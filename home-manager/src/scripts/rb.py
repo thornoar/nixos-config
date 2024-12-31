@@ -59,7 +59,7 @@ try:
             print("| \033[34mCommitting local changes.\033[0m") #]]
             call("git add -A")
             call("git commit -m \"automatic commit\"")
-            call("git pull --no-rebase")
+            call("git pull --no-rebase --no-edit")
         elif behind_remote:
             print("| \033[34mWorking tree clean, pulling changes.\033[0m") #]]
             call("git fetch && git pull")
