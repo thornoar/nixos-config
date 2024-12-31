@@ -1,5 +1,5 @@
 {
-    description = "NixOS Flake";
+    description = "NixOS Configuration Flake";
 
     inputs = {
         nixpkgs-unstable = {
