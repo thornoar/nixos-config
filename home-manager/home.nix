@@ -6,7 +6,6 @@ let
         khal
         fzf
         nodejs
-        # neovim
     ];
     insecure-packages = with pkgs; [
         sc-im

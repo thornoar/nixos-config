@@ -52,7 +52,7 @@
 
         # Java
         openjdk17
-        # java-language-server
+        java-language-server
 
         # Typst
         typst
@@ -60,7 +60,6 @@
         # typst-lsp
 
         # Nix
-        # nil
         nixd
         alejandra
 
@@ -71,10 +70,6 @@
         nodePackages.bash-language-server
 
         # Lisp
-        # (sbcl.withPackages (ps: with ps; []))
-        # sbcl
-        # roswell
-        # clisp
         clojure
         clojure-lsp
         leiningen
