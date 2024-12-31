@@ -47,11 +47,21 @@ try:
     print("| \033[34mChanging to flake directory: \"\033[35m" + new_dir + "\033[34m\".\033[0m") #]]]]
     os.chdir(new_dir)
 
+    behind_remote = False
+
     if args.git:
         print("| \033[34mUpdating the remote repository.\033[0m") #]]
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
-            print("| \033[34mPulling remote changes.\033[0m") #]]
+            print("| \033[34mLocal branch is behind remote .\033[0m") #]]
+            behind_remote = True
+        if "not staged for commit" in os.popen("git status").read().strip():
+            print("| \033[34mCommitting local changes.\033[0m") #]]
+            call("git add -A")
+            call("git commit -m \"automatic commit\"")
+            call("git pull --no-rebase")
+        elif behind_remote:
+            print("| \033[34mWorking tree clean, pulling changes.\033[0m") #]]
             call("git fetch && git pull")
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
@@ -121,12 +131,6 @@ try:
             call("nvd diff " + old_gen + " " + new_gen)
         else:
             call("hmd --auto")
-
-    if args.git and ("not staged for commit" in os.popen("git status").read().strip()):
-        print("| \033[34mCommitting local changes.\033[0m") #]]
-        call("git add -A")
-        call("git commit -m \"syncing config changes\"")
-        call("git push")
 
     os.chdir(cwd)
 
