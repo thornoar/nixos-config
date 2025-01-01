@@ -112,7 +112,8 @@ vim.keymap.set('n', '<C-c>', function()
         end
     else
         if can_write then
-            vim.cmd('wqa')
+            vim.cmd('write')
+            vim.cmd('quit')
         else
             vim.cmd('quit!')
         end

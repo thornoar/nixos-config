@@ -64,7 +64,7 @@ vim.api.nvim_create_user_command('R', function () vim.bo.keymap = 'russian-jcuke
 vim.api.nvim_create_user_command('D', function () vim.bo.keymap = 'german-qwertz' end, {})
 vim.api.nvim_create_user_command('J', function () vim.bo.keymap = 'kana' end, {})
 vim.api.nvim_create_user_command('SPELL', function () vim.wo.spell = not vim.wo.spell end, {})
-vim.api.nvim_create_user_command('S', function () vim.cmd('silent write: bool') end, {})
+vim.api.nvim_create_user_command('S', function () vim.cmd('silent write') end, {})
 vim.api.nvim_create_user_command('WRAP', function () vim.o.wrap = not vim.o.wrap end, {})
 vim.api.nvim_create_user_command('T', function (args)
     local dir = args and args['args'] or '.'

@@ -45,7 +45,7 @@ require('onedark').setup  {
 
 vim.cmd.colorscheme 'onedark'
 
-vim.cmd( [[
+vim.cmd([[
     highlight Function guifg=burlywood
     highlight Number guifg=lightsteelblue
     highlight Include guifg=orchid
@@ -54,6 +54,7 @@ vim.cmd( [[
     highlight Operator guifg=aquamarine
     highlight Keyword guifg=plum
 ]])
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.colorMagenta1, bg = colors.bgColor0 })
 
 local function keymap()
     if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
