@@ -274,7 +274,7 @@ myKeys = [
 
     -- Kill stuff
     ("M-<Delete>", sequence_ [kill, BW.focusUp]),
-    ("M-n", sequence_ [kill, BW.focusUp]),
+    ("M-w", sequence_ [kill, BW.focusUp]),
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
@@ -371,9 +371,9 @@ myKeys = [
     ("M-S-<Right>", spawn "mocp --seek +5"),
     ("M-S-<Left>", spawn "mocp --seek -5"),
     ("M-<Space>", spawn "mocp --toggle-pause"),
-    ("M-M1-<Space>", spawn "playerctl play-pause"),
-    ("M-M1-S-<Down>", spawn "playerctl next"),
-    ("M-M1-S-<Up>", spawn "playerctl previous"),
+    ("M-C-<Space>", spawn "playerctl play-pause"),
+    ("M-C-S-<Down>", spawn "playerctl next"),
+    ("M-C-S-<Up>", spawn "playerctl previous"),
     ("M-p", spawn "flameshot gui --path $HOME/media/pictures"),
     ("M-S-p", spawn "flameshot full --path $HOME/media/pictures")
   ]
