@@ -60,6 +60,7 @@ try:
             call("git add -A")
             call("git commit -m \"automatic commit\"")
             call("git pull --no-rebase --no-edit")
+            call("git push")
         elif behind_remote:
             print("| \033[34mWorking tree clean, pulling changes.\033[0m") #]]
             call("git fetch && git pull")
