@@ -113,7 +113,7 @@ require('lazy').setup({
         internal_pairs={-- *ultimate-autopair-pairs-default-pairs*
             {'[',']',fly=true,dosuround=true,newline=true,space=true},
             {'(',')',fly=true,dosuround=true,newline=true,space=true},
-            {'<','>',fly=true,dosuround=true,newline=true,space=false},
+            {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
             {'{','}',fly=true,dosuround=true,newline=true,space=true},
             {'"','"',suround=true,multiline=false},
             {'`','`', nft={'tex'},multiline=false},
