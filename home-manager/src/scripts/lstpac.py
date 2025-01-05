@@ -22,5 +22,5 @@ pacfile = open(os.environ["NIXOS_CONFIG"] + "/home-manager/src/packages.txt").re
 
 for package in pacfile:
     package = package.replace("\n", "")
-    out = run_command(["nix", "search", "nixpkgs#"+package]).replace(package, "\033[1;33m"+package+"\033[0m") #]]
+    out = run_command(["nix", "search", "nixpkgs#"+package, "^"]).replace(package, "\033[1;33m"+package+"\033[0m") #]]
     print(out)
