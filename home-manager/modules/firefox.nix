@@ -70,7 +70,7 @@ in
             profiles.hyprland = {
                 id = 0;
                 name = "hyprland";
-                isDefault = false;
+                isDefault = true;
                 settings = {
                     "browser.startup.homepage" = "about:home";
                     "browser.tabs.inTitlebar" = 0;
@@ -109,27 +109,11 @@ in
                 bookmarks = bookmarks;
                 userChrome = userChrome;
             };
-            profiles.default = {
-                id = 2;
-                name = "default";
-                isDefault = true;
-                # settings = {
-                #     "browser.startup.homepage" = "about:home";
-                #     "browser.tabs.inTitlebar" = 0;
-                #     "browser.toolbars.bookmarks.visibility" = "never";
-                #     "browser.search.defaultenginename" = "Google";
-                #     "browser.search.order.1" = "Google";
-                #     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                #     "signon.rememberSignons" = false;
-                #     "media.hardware-video-decoding.enabled" = true;
-                #     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
-                #     "layout.css.dpi" = 96;
-                # };
-                # search = search;
-                # extensions = extensions;
-                # bookmarks = bookmarks;
-                # userChrome = userChrome;
-            };
+            # profiles.default = {
+            #     id = 2;
+            #     name = "default";
+            #     isDefault = true;
+            # };
         };
     };
 }
