@@ -27,7 +27,6 @@ discord
 whatsapp-for-linux
 obs-studio
 zoom-us
-mpv
 zathura
 libnotify
 xmobar
@@ -59,3 +58,5 @@ alsa-utils
 protonvpn-gui
 protonvpn-cli_2
 jq
+mpv
+pkg-config
