@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local opts = { buffer = event.buf }
         vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
         -- vim.keymap.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
-        vim.keymap.set('n', '<M-S-CR>', function () vim.lsp.buf.references() end, opts)
+        vim.keymap.set('n', '<M-C-CR>', function () vim.lsp.buf.references() end, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
         vim.keymap.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
     end
@@ -99,7 +99,7 @@ lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
 lspconfig.bashls.setup(lspbasicconfig)
-lspconfig.kotlin_language_server.setup(lspbasicconfig)
+-- lspconfig.kotlin_language_server.setup(lspbasicconfig)
 
 lspconfig.tinymist.setup({
     -- settings = {

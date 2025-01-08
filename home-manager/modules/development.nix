@@ -84,9 +84,9 @@
         tmux
 
         # Kotlin
-        kotlin
-        kotlin-interactive-shell
-        kotlin-language-server
+        # kotlin
+        # kotlin-interactive-shell
+        # kotlin-language-server
 
         # Assembly
         nasm
