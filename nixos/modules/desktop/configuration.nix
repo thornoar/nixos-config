@@ -40,36 +40,37 @@
         networking.wireless.iwd.enable = true;
         networking.networkmanager.wifi.backend = "iwd";
 
-        services.syncthing.settings = {
-            devices = {
-                # "laptop" = { id = "TCSGHBY-J7S2EQC-4TZW6ZW-Q7PXKL4-J74ZR37-NJKZDGG-EHEL47Y-OHWZ5A5"; };
-                # "phone" = { id = "RLHSCWU-KTCTYQL-FXTBMN5-CEEH3FB-3TP3B2Y-2T5FE64-SENTOZR-SE5B5QQ"; };
-            };
-            folders = {
-                "music" = {
-                    path = "~/media/music";
-                    ignorePerms = false;
-                    devices = [];
+        services.syncthing = {
+            enable = true;
+            user = "ramak";
+            dataDir = "/home/ramak/dls";
+            configDir = "/home/ramak/.config/syncthing";
+            settings = {
+                devices = {
+                    "laptop" = { id = "VUKY23K-JZ5XZEY-W5ZTE5S-P47BEZD-MLFCTDS-XVA3TI4-FY3DZJR-YZPM6QM"; };
+                    # "phone" = { id = "RLHSCWU-KTCTYQL-FXTBMN5-CEEH3FB-3TP3B2Y-2T5FE64-SENTOZR-SE5B5QQ"; };
                 };
-                "books" = {
-                    path = "~/media/books";
-                    ignorePerms = false;
-                    devices = [];
-                };
-                "wallpapers" = {
-                    path = "~/media/wallpapers";
-                    ignorePerms = false;
-                    devices = [];
-                };
-                "notes" = {
-                    path = "~/projects/notes";
-                    ignorePerms = false;
-                    devices = [];
-                };
-                "sandbox" = {
-                    path = "~/projects/sandbox";
-                    ignorePerms = false;
-                    devices = [];
+                folders = {
+                    "music" = {
+                        path = "~/media/music";
+                        ignorePerms = false;
+                        devices = [];
+                    };
+                    "books" = {
+                        path = "~/media/books";
+                        ignorePerms = false;
+                        devices = [];
+                    };
+                    "wallpapers" = {
+                        path = "~/media/wallpapers";
+                        ignorePerms = false;
+                        devices = [];
+                    };
+                    "sandbox" = {
+                        path = "~/projects/sandbox";
+                        ignorePerms = false;
+                        devices = [];
+                    };
                 };
             };
         };

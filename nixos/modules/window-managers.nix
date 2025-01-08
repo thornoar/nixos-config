@@ -27,12 +27,6 @@
             enable = true;
             user = "ramak";
         };
-        syncthing = {
-            enable = true;
-            user = "ramak";
-            dataDir = "/home/ramak/dls";
-            configDir = "/home/ramak/.config/syncthing";
-        };
     };
 
     fonts.packages = with pkgs; [
