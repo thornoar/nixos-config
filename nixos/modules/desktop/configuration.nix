@@ -5,7 +5,7 @@
         boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
 
         environment.variables = {
-            PCTYPE = "station";
+            PCTYPE = "desktop";
         };
 
         hardware.graphics = {
