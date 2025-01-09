@@ -35,6 +35,7 @@ require('lazy').setup({
     'dkarter/bullets.vim',
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
+    'mbbill/undotree',
     {
         'stevearc/oil.nvim',
         ---@module 'oil'
@@ -68,17 +69,16 @@ require('lazy').setup({
         'github/copilot.vim',
         cmd = 'Copilot'
     },
-    'mbbill/undotree',
-    { 'akinsho/toggleterm.nvim', version = '*', config = true },
-    {
-        'kdheepak/lazygit.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-        },
-        keys = {
-            { '<M-g>', ':LazyGit<CR>', desc = 'LazyGit' }
-        },
-    },
+    -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
+    -- {
+    --     'kdheepak/lazygit.nvim',
+    --     dependencies = {
+    --         'nvim-lua/plenary.nvim',
+    --     },
+    --     keys = {
+    --         { '<M-g>', ':LazyGit<CR>', desc = 'LazyGit' }
+    --     },
+    -- },
     {
         'kaarmu/typst.vim',
         ft = 'typst',
@@ -163,7 +163,7 @@ require('lazy').setup({
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },
-    { 'https://github.com/octaltree/cmp-look' },
+    { 'octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
     -- 'thornoar/nvim-subfiles',
 }, {})
@@ -176,7 +176,6 @@ require("setup.telescope")
 require("setup.comment")
 require("setup.gitsigns")
 require("setup.treesitter")
-require("setup.toggleterm")
 require("setup.ibl")
 require("setup.lsp")
 require("setup.settings")
