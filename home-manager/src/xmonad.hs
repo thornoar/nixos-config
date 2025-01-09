@@ -280,7 +280,7 @@ myKeys = [
     -- Quick Programs
     ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvim-server; br; zsh'")),
     ("M-b", spawn (myBrowser ++ " -P xmonad")),
-    ("M-a", spawn (myTerminal ++ " --title 'Terminal'")),
+    ("M-t", spawn (myTerminal ++ " --title 'Terminal'")),
 
     -- Type email
     ("M-m", spawn "sh -c 'xsel -ib <<< \"r.a.maksimovich@gmail.com\"'"),
