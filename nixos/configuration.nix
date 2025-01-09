@@ -15,6 +15,7 @@
             "video"
             "networkmanager"
             "libvirtd"
+            "adbusers"
         ];
         homeMode = "0711";
     };
@@ -36,6 +37,7 @@
         enableZshIntegration = true;
     };
     programs.command-not-found.enable = false;
+    programs.adb.enable = true;
 
     environment = {
         variables = rec {
