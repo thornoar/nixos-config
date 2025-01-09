@@ -89,15 +89,10 @@ in
         windowSpaceOuter :: Int
         windowBorderWidth :: Dimension
     '' config.xmonad;
-    xdg.configFile."xmonad/lib/Misc.hs".text = toHaskell true (
-    let
-        cmd = if (builtins.pathExists (lib.path.append /home/ramak/media/wallpapers config.wallpaper.dir))
-              then "hsetroot -cover $MEDIA/wallpapers/${config.wallpaper.dir}/$(ls $MEDIA/wallpapers/${config.wallpaper.dir} | shuf -n 1) -gamma ${ts config.wallpaper.gamma} -contrast ${ts config.wallpaper.contrast}"
-              else "echo 'no wallpapers'";
-    in ''
+    xdg.configFile."xmonad/lib/Misc.hs".text = toHaskell true ''
         module Misc where
-        setWallpaperCmd = "${cmd}"
-    '') config.misc;
+        setWallpaperCmd = "hsetroot -cover $MEDIA/wallpapers/${config.wallpaper.dir}/$(ls $MEDIA/wallpapers/${config.wallpaper.dir} | shuf -n 1) -gamma ${ts config.wallpaper.gamma} -contrast ${ts config.wallpaper.contrast}"
+    '' config.misc;
     xdg.configFile."xmonad/xmonad.hs".source = dotfile "xmonad.hs";
 
     # mpv configuration
