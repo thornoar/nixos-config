@@ -83,10 +83,6 @@ in
             name = "deepin-dark";
             package = pkgs.deepin.deepin-gtk-theme;
         };
-        # cursorTheme = {
-        #     name = "rose-pine-cursor";
-        #     package = pkgs.rose-pine-cursor;
-        # };
     };
 
     # Keynav service
