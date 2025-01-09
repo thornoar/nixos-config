@@ -138,10 +138,6 @@ in
         #seek_backward = LEFT
     '';
 
-    # mpv configuration
-    xdg.configFile."mpv/mpv.conf".text = ''
-        loop-file=inf
-    '';
     programs.zsh.envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
     programs.zsh.initExtra = builtins.readFile (dotfile "zsh/initExtra.zsh");
 

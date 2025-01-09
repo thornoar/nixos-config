@@ -98,6 +98,7 @@ in
     # mpv configuration
     xdg.configFile."mpv/mpv.conf".text = ''
         loop-file=inf
+        sub-file-paths=RusSubs:subs:subtitles
     '';
 
     # programs
