@@ -91,7 +91,7 @@
         # Assembly
         nasm
 
-        android-studio
+        # android-studio
     ];
 
     programs = {

@@ -1,7 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-    home.pointerCursor.size = 64;
+    home.pointerCursor.size = 16;
 
     xmonad = lib.mkForce {
         desktopScale = 1.0;
