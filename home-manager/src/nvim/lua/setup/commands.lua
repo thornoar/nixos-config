@@ -1,4 +1,3 @@
-local autosave_tex_typst = false
 local autosave = false
 
 -- $commands
@@ -12,7 +11,7 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
     ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
     ['tex'] = function (name)
-        return autosave_tex_typst and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
+        return autosave and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
     end,
     ['typst'] = function (_) return ('') end,
     ['lua'] = function (name) return ('!lua ' .. name) end,
@@ -76,10 +75,6 @@ vim.api.nvim_create_user_command('AS', function()
     autosave = not autosave
     print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
 end, {})
-vim.api.nvim_create_user_command('ATT', function()
-    autosave_tex_typst = not autosave_tex_typst
-    print('autosave for TeX and Typst is ' .. (autosave_tex_typst and 'enabled' or 'disabled'))
-end, {})
 -- local autosavepattern = {
 --     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
 --     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
@@ -89,10 +84,6 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     pattern = '*.*',
     callback = function()
         if autosave and
-        (
-            autosave_tex_typst or
-            not (vim.bo.filetype == 'typst' or vim.bo.filetype == 'tex')
-        ) and
         not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
         vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
             vim.cmd('silent write')

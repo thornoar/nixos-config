@@ -181,10 +181,10 @@ require("setup.lsp")
 require("setup.settings")
 require("setup.coloring")
 
-package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
-require('nvim-subfiles').setup({
-    bindings = { },
-    opts = {
-        jump_to_file = false,
-    }
-})
+-- package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
+-- require('nvim-subfiles').setup({
+--     bindings = { },
+--     opts = {
+--         jump_to_file = false,
+--     }
+-- })
