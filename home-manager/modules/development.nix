@@ -101,6 +101,9 @@
             # package = pkgs-unstable.neovim;
             extraPython3Packages = ps: with ps; [ sympy pynvim ];
         };
+        helix = {
+            enable = true;
+        };
         zsh = {
             enable = true;
             enableCompletion = true;
