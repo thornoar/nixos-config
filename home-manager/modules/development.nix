@@ -2,8 +2,8 @@
 {
     home.packages =  with pkgs; [
         # LaTeX
-        # (texlive.combine { inherit (texlive) scheme-full; })
-        (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote tikz; })
+        (texlive.combine { inherit (texlive) scheme-medium; })
+        # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote tikz; })
         texlab
 
         # Asymptote
