@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
     home.packages =  with pkgs; [
         # LaTeX
         # (texlive.combine { inherit (texlive) scheme-full; })
-        (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote; })
+        (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote tikz; })
         texlab
 
         # Asymptote
@@ -103,6 +103,7 @@
         };
         helix = {
             enable = true;
+            package = pkgs-unstable.helix;
         };
         zsh = {
             enable = true;
