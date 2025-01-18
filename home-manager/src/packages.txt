@@ -60,3 +60,4 @@ protonvpn-cli_2
 jq
 mpv
 pkg-config
+code-cursor
