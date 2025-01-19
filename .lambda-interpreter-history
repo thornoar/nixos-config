@@ -1,0 +1,81 @@
+1
+K*
+z
+@s <subs >reducelimit z(YY)
+2
+K
+z
+@s <subs >reducelimit z(YY)
+1
+\x.x
+z
+@r <subs >reducelimit z(YY)
+\x.x
+z
+2
+>rp >rp <subs <reducelimit z(YY)
+>rp >rp \x.x
+>rp >rd \x.x
+K
+z
+>rp >rp <subs \x,y.xzy
+>rp >rp \x.x
+<rp <rp \x.x
+>pr \x.x
+>pr >pr \x.x
+<pr <pr \x.x
+set show
+help
+^^print
+^print
+^^print
+^^print
+^print
+^print
+bindings
+clear
+AAA
+set s
+AAA
+set r
+AAA
+bindings
++A = \x.x
+bindings
+Y
+y
+\x.xyz
+y
+x
+\x.x
+set subs
+ABA
+@s <let A = \x.x <let B = \x,y.y
+AAA
+@s <let A = \x.x
+AAA
+>s <let A = \x.x
+>s @let A = \x.x
+>s @let
+help
+\x.x
+set rt
+YY
+set s
+help
+set rs
+:rs
+1
+YY
+YY
+4
+YY
+set rl
+YY
+set r
+Appl (Abst 1 (Var 2)) 3
+Appl (Abst 1 (Var 2)) (Var 3)
+help
+\\x.x
+\x.x
+set rd

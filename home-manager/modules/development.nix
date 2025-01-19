@@ -24,6 +24,7 @@
         haskellPackages.cabal-clean
         haskell-language-server
         haskell.compiler.ghc966
+        haskellPackages.glambda
 
         # Lua
         lua
