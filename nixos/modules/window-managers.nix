@@ -63,7 +63,7 @@
                 displayManager = {
                     sessionCommands = ''
                         # nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
-                        xrandr --output eDP-1 --scale 2.0x2.0
+                        xrandr --output eDP-1 --scale 1.0x1.0
                         setxkbmap -layout us,ru,de
                         xset -dpms
                         setterm -blank 0 -powerdown 0
