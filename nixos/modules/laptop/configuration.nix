@@ -199,7 +199,7 @@
             };
         };
 
-        time.timeZone = "Europe/Belgrade";
+        time.timeZone = "Asia/Hong_Kong";
 
         environment.systemPackages = with pkgs; [
             light
