@@ -106,22 +106,6 @@
 
 #let pf = proofstyle("proof", "Proof")
 
-// Russian versions
-
-#let rdef = plainstyle("definition", "Определение")
-#let rnota = plainstyle("notation", "Нотация")
-#let rexam = plainstyle("example", "Пример")
-#let rexer = plainstyle("exercise", "Упражнение")
-#let rnote = plainstyle("note", "Замечание")
-
-#let rth = statestyle("theorem", "Теорема")
-#let rlm = statestyle("lemma", "Лемма")
-#let rprop = statestyle("proposition", "Предложение")
-#let rprb = statestyle("problem", "Задача")
-#let rcor(base: "heading") = statestyle("corollary", "Следствие", base: base)
-
-#let rpf = proofstyle("proof", "Доказательство")
-
 // Main show rule
 
 #let theorem = doc => {

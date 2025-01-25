@@ -89,7 +89,6 @@
                 xsel
                 hsetroot
                 xvkbd
-                wl-clipboard
                 keynav
                 xcolor
                 xkb-switch
@@ -130,7 +129,6 @@
             environment.systemPackages = with pkgs; [
                 waybar
                 wpaperd
-                # wofi
                 tofi
                 wl-clipboard
                 xsel

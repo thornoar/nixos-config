@@ -26,7 +26,7 @@
             ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
         '';
 
-        boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+        boot.blacklistedKernelModules = [ "nouveau" /* "nvidia" "nvidia_drm" "nvidia_modeset" */ ];
 
         boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -37,18 +37,18 @@
         nixpkgs.config.nvidia.acceptLicense = true;
         hardware.nvidia = {
             modesetting.enable = true;
-            powerManagement.enable = false;
+            powerManagement.enable = true;
             powerManagement.finegrained = false;
-            nvidiaSettings = false;
+            nvidiaSettings = true;
             forceFullCompositionPipeline = false;
             open = false;
             package = config.boot.kernelPackages.nvidiaPackages.beta;
             prime = {
-                offload = {
-                    enable = true;
-                    enableOffloadCmd = true;
-                };
-                # sync.enable = true; 
+                # offload = {
+                #     enable = true;
+                #     enableOffloadCmd = true;
+                # };
+                sync.enable = true; 
                 intelBusId = "PCI:0:2:0"; 
                 nvidiaBusId = "PCI:1:0:0"; 
             };
@@ -66,6 +66,11 @@
                 clickMethod = "clickfinger";
                 disableWhileTyping = true;
             };
+        };
+
+        services.ollama = {
+            enable = true;
+            acceleration = "cuda";
         };
 
         fileSystems."/home/ramak/media" = {
