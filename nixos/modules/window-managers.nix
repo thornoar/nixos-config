@@ -131,7 +131,7 @@
                 wpaperd
                 tofi
                 wl-clipboard
-                hyprprop
+                wlprop
                 xsel
                 warpd
                 hyprpicker
