@@ -13,7 +13,7 @@
 }
 #let mtxt(str) = [ #set text(font: font); #text(str) ]
 
-#let article(wordometerargs: ()) = doc => {
+#let article = doc => {
   set page("a4", margin: (x: 0.7in, y: 1in))
   set text(12pt, font: font)
   set par(justify: true, leading: 0.5em)
@@ -27,33 +27,38 @@
     it
     v(0.1cm)
   }
+
   set math.equation(numbering: n => {
     let h1 = counter(heading).get().first()
     numbering("(1.1.1)", h1, n)
-  }, supplement: "Equation")
+  }, supplement: none)
   show: equate.with(sub-numbering: false, number-mode: "label")
   show: shorthands.with(
     ($>=$, math.gt.eq.slant),
     ($<=$, math.lt.eq.slant)
   )
+  show ref: it => {
+    if it.element != none and it.element.func() == math.equation {
+      [(#it)]
+    } else {
+      underline(it)
+    }
+  }
 
   show outline.entry.where(level: 1): it => {
     v(1em, weak: true)
     strong(it)
   }
 
-  show ref: underline
+  set outline(indent: auto, fill: repeat([.#h(3pt)]))
+  set figure(gap: 1.5em)
+
   show link: it => {
     if (type(it.dest) == str) {
       set text(blue)
       it
     } else { it }
   }
-
-  set outline(indent: auto, fill: repeat([.#h(3pt)]))
-  set figure(gap: 1.5em)
-
-  show: word-count.with(..wordometerargs)
 
   doc
 }
@@ -178,7 +183,7 @@
   doc
 }
 
-#let title-assignment(header: [header], title: [title], due: [date], ext1: [], ext2: []) = doc => {
+#let assignment-title(header: [header], title: [title], due: [date], ext1: [], ext2: []) = doc => {
   set page(
     "a4",
     margin: (x: 0.5in, top: 0.8in, bottom: 0.5in),
@@ -245,11 +250,18 @@
   doc
 }
 
-#let math-preamble(course, part, due, subnumbering: true) = doc => {
-  set math.equation(supplement: none, numbering: "(1.1)")
+#let course-assignment-preamble(course, part, due, subnumbering: true) = doc => {
+  set math.equation(supplement: none, numbering: "(1.1.1)")
   show: equate.with(sub-numbering: subnumbering, number-mode: "label")
+  show ref: it => {
+    if it.element != none and it.element.func() == math.equation {
+      [(#it)]
+    } else {
+      underline(it)
+    }
+  }
 
-  show: title-assignment(
+  show: assignment-title(
     header: [ MATH1023 Homework, #part #h(1fr) Roman Maksimovich ],
     title: course + " Homework, " + part,
     due: due
@@ -258,11 +270,11 @@
   doc
 }
 
-#let math-problem(number) = underline(strong({
-  text("Exercise " + number + ".");
+#let assignment-problem(supplement: "Exercise", number) = underline(strong({
+  text(supplement + " " + number + ".");
   h(3pt)
 }))
-#let math-solution = { underline(emph("Solution:")); h(2pt) }
+#let solution = { underline(emph("Solution:")); h(2pt) }
 
 #let diploma(
   barwidth: 38mm,
