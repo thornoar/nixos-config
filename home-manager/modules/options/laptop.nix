@@ -18,7 +18,7 @@
         magnifiedScale = 1.5;
         scratchpadWidth = "4 % 5";
         scratchpadHeight = "35 % 50";
-        firefoxScale = 1.8;
+        firefoxScale = 0.9;
     };
 
     hyprland = lib.mkForce {
