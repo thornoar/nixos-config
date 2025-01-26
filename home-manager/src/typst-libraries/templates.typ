@@ -245,32 +245,13 @@
   doc
 }
 
-#let physics-preamble(part, due) = doc => {
-  import "@preview/equate:0.2.1": equate
-  show: equate.with(breakable: true, sub-numbering: true, number-mode: "label")
-  set math.equation(numbering: "(1.1)")
-
-  show: title-assignment(
-    header: [ PHYS1312 Homework, #part #h(1fr) Roman Maksimovich ],
-    title: "PHYS1312 Homework, " + part,
-    due: due
-  )
-
-  doc
-}
-
-#let physics-problem(number) = underline(strong({
-  text("Problem " + number + ".");
-  h(3pt)
-}))
-
-#let math-preamble(part, due, subnumbering: true) = doc => {
-  set math.equation(supplement: "Relation", numbering: "(1.1)")
+#let math-preamble(course, part, due, subnumbering: true) = doc => {
+  set math.equation(supplement: none, numbering: "(1.1)")
   show: equate.with(sub-numbering: subnumbering, number-mode: "label")
 
   show: title-assignment(
     header: [ MATH1023 Homework, #part #h(1fr) Roman Maksimovich ],
-    title: "MATH1023 Homework, " + part,
+    title: course + " Homework, " + part,
     due: due
   )
 
