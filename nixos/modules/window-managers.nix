@@ -70,7 +70,7 @@
                         xset r rate 200 30
                         xset s off
                         transmission-daemon
-                        setxkbmap -option grp:alt_shift_toggle us,ru
+                        setxkbmap -option grp:alt_caps_toggle us,ru
                     '';
                 };
             };
@@ -131,7 +131,6 @@
                 wpaperd
                 tofi
                 wl-clipboard
-                wlprop
                 xsel
                 warpd
                 hyprpicker

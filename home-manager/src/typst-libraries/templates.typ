@@ -37,13 +37,6 @@
     ($>=$, math.gt.eq.slant),
     ($<=$, math.lt.eq.slant)
   )
-  show ref: it => {
-    if it.element != none and it.element.func() == math.equation {
-      [(#it)]
-    } else {
-      underline(it)
-    }
-  }
 
   show outline.entry.where(level: 1): it => {
     v(1em, weak: true)
@@ -253,13 +246,7 @@
 #let course-assignment-preamble(course, part, due, subnumbering: true) = doc => {
   set math.equation(supplement: none, numbering: "(1.1.1)")
   show: equate.with(sub-numbering: subnumbering, number-mode: "label")
-  show ref: it => {
-    if it.element != none and it.element.func() == math.equation {
-      [(#it)]
-    } else {
-      underline(it)
-    }
-  }
+  show link: underline
 
   show: assignment-title(
     header: [ MATH1023 Homework, #part #h(1fr) Roman Maksimovich ],
