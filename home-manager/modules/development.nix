@@ -1,9 +1,6 @@
 { pkgs, pkgs-unstable, ... }:
 {
     home.packages =  with pkgs; [
-        # LLMs
-        gpt4all
-
         # LaTeX
         (texlive.combine { inherit (texlive) scheme-medium; })
         # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote tikz; })
