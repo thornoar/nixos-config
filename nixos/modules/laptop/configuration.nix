@@ -71,7 +71,7 @@
         services.ollama = {
             enable = true;
             acceleration = "cuda";
-            models = "/home/ramak/media/models";
+            # models = "/home/ramak/media/models";
         };
 
         fileSystems."/home/ramak/media" = {
