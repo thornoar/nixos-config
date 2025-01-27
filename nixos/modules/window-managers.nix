@@ -122,10 +122,10 @@
                 XCURSOR_SIZE = "16";
                 BROWSER = "firefox -P hyprland";
             };
-            hardware = {
-                graphics.enable = lib.mkForce true;
-                nvidia.modesetting.enable = lib.mkForce true;
-            };
+            # hardware = {
+            #     graphics.enable = lib.mkForce true;
+            #     nvidia.modesetting.enable = lib.mkForce true;
+            # };
             environment.systemPackages = with pkgs; [
                 waybar
                 wpaperd
