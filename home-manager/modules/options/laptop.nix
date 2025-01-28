@@ -3,23 +3,24 @@
 {
     home.pointerCursor.size = 16;
 
-    xmonad = lib.mkForce {
-        desktopScale = 1.0;
-        fontsize = 10;
-        fontsizeXmobar = 22;
-        fontsizeRunPrompt = 11;
-        windowSpaceInner = 4;
-        windowSpaceOuter = 8;
-        windowBorderWidth = 0;
-        terminalOpacity = 0.9;
-        terminalPaddingX = 3;
-        terminalPaddingY = 3;
-        barHeight = 50;
-        magnifiedScale = 1.5;
-        scratchpadWidth = "4 % 5";
-        scratchpadHeight = "35 % 50";
-        firefoxScale = 0.9;
-    };
+    # xmonad = lib.mkForce {
+    #     desktopScale = 1.0;
+    #     fontsize = 10;
+    #     fontsizeXmobar = 22;
+    #     fontsizeRunPrompt = 11;
+    #     windowSpaceInner = 4;
+    #     windowSpaceOuter = 8;
+    #     windowBorderWidth = 0;
+    #     terminalOpacity = 0.9;
+    #     terminalPaddingX = 3;
+    #     terminalPaddingY = 3;
+    #     terminalPadding = 3;
+    #     barHeight = 50;
+    #     magnifiedScale = 1.5;
+    #     scratchpadWidth = "4 % 5";
+    #     scratchpadHeight = "35 % 50";
+    #     firefoxScale = 0.9;
+    # };
 
     hyprland = lib.mkForce {
         desktopScale = 2.0;
@@ -32,6 +33,8 @@
         windowSpaceOuter = 8;
         windowBorderWidth = 0;
         terminalOpacity = 0.9;
+        terminalPaddingX = 1;
+        terminalPaddingY = 1;
         terminalPadding = 1;
         rounding = 5;
         barHeight = 50;
