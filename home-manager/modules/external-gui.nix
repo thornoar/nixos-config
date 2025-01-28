@@ -148,7 +148,7 @@ in
                 TERM = "xterm-256color";
             };
             font = {
-                size = config.xmonad.fontsize;
+                size = config.hyprland.fontsize;
             };
             font.bold = {
                 family = config.misc.systemFont;
@@ -167,10 +167,11 @@ in
                 style = "Regular";
             };
             window.padding = {
-                x = config.xmonad.terminalPaddingX;
-                y = config.xmonad.terminalPaddingY;
+                x = config.hyprland.terminalPaddingX;
+                y = config.hyprland.terminalPaddingY;
             };
-            window.opacity = config.xmonad.terminalOpacity;
+            window.dynamic_padding = true;
+            window.opacity = config.hyprland.terminalOpacity;
             keyboard.bindings = [
                 { key = "PageUp"; action = "ScrollLineUp"; }
                 { key = "PageDown"; action = "ScrollLineDown"; }
@@ -185,7 +186,7 @@ in
     programs.kitty = {
         enable = true;
         font = {
-            size = config.hyprland.fontsize;
+            size = config.xmonad.fontsize;
             name = "Hack";
         };
         shellIntegration = {
@@ -197,10 +198,10 @@ in
             cursor_shape = "underline";
             cursor_underline_thickness = "1.0";
             cursor_beam_thickness = "1.0";
-            window_padding_width = ts config.hyprland.terminalPadding;
+            window_padding_width = ts config.xmonad.terminalPadding;
             foreground = config.colors.fgColor0;
             background = config.colors.bgColor0;
-            background_opacity = ts config.hyprland.terminalOpacity;
+            background_opacity = ts config.xmonad.terminalOpacity;
             color0 = config.colors.bgColor0;
             color8 = config.colors.bgColor3;
             color1 = config.colors.colorRed1;

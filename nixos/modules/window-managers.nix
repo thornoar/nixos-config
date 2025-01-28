@@ -41,7 +41,7 @@
             boot.loader.systemd-boot.sortKey = "aab";
             environment.variables = {
                 SPECIALISATION = lib.mkForce "xmonad";
-                TERMINAL = "alacritty";
+                TERMINAL = "kitty";
                 XCURSOR_SIZE = "16";
                 BROWSER = "firefox -P xmonad";
             };
@@ -118,7 +118,7 @@
                 CURSOR_INACTIVE_TIMEOUT = "1";
                 NIXOS_OZONE_WL = "1";
                 HYPRCURSOR_SIZE = "16";
-                TERMINAL = "kitty";
+                TERMINAL = "alacritty";
                 XCURSOR_SIZE = "16";
                 BROWSER = "firefox -P hyprland";
             };
