@@ -15,7 +15,7 @@
 
         # Python
         (python3.withPackages (ps: with ps; [
-            manim ipython sympy numpy
+            manim ipython sympy numpy ollama
         ]))
         pyright
 
