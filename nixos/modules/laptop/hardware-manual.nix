@@ -6,8 +6,6 @@
         loader.systemd-boot = {
             configurationLimit = 2;
         };
-        kernelParams = [ "nvidia-drm.fbdev=1" ];
-        initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
 
     nixpkgs.config.nvidia.acceptLicense = true;
@@ -36,7 +34,6 @@
         cpuFreqGovernor = "powersave";
         resumeCommands = "${pkgs.kmod}/bin/rmmod atkbd; ${pkgs.kmod}/bin/modprobe atkbd reset=1";
     };
-    services.xserver.videoDrivers = [ "nvidia" ];
 
     fileSystems."/home/ramak/media" = {
         device = "/dev/disk/by-uuid/aa543ce3-5cbd-4251-a01c-59ebe4a97f92";

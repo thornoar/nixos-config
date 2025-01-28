@@ -92,7 +92,11 @@
 
         hyprland.configuration = {
             boot.loader.systemd-boot.sortKey = "aaa";
-            environment.variables.SPECIALISATION = lib.mkForce "hyprland";
+            boot = {
+                kernelParams = [ "nvidia-drm.fbdev=1" ];
+                initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+            };
+            services.xserver.videoDrivers = [ "nvidia" ];
             programs.hyprland = {
                 enable = true;
                 package = pkgs.hyprland;
@@ -108,7 +112,8 @@
                     sddm.wayland.enable = true;
                 };
             };
-            environment.sessionVariables = {
+            environment.variables = {
+                SPECIALISATION = lib.mkForce "hyprland";
                 WLR_NO_HARDWARE_CURSORS = "1";
                 CURSOR_INACTIVE_TIMEOUT = "1";
                 NIXOS_OZONE_WL = "1";

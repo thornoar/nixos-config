@@ -22,15 +22,6 @@ in
     # xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
     xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
 
-    # # Wofi setup
-    # xdg.configFile."wofi/size.css".text = ''
-    #     * {
-    #         font-size: ${ts config.hyprland.fontsize}pt;
-    #         border-radius: ${ts config.hyprland.rounding}px;
-    #     }
-    # '';
-    # xdg.configFile."wofi/style.css".source = dotfile "wofi/style.css";
-
     # Waybar setup
     xdg.configFile."waybar/size.css".text = ''
         * {
@@ -74,8 +65,7 @@ in
     '';
     xdg.configFile."waybar/modules.json".source = dotfile "waybar/modules.json";
     
-    # xmonad setup
-
+    # Xmonad setup
     xdg.configFile."xmonad/lib/Colors.hs".text = toHaskell true ''
         module Colors where
     '' config.colors;
@@ -94,6 +84,9 @@ in
         setWallpaperCmd = "hsetroot -cover $MEDIA/wallpapers/${config.wallpaper.dir}/$(ls $MEDIA/wallpapers/${config.wallpaper.dir} | shuf -n 1) -gamma ${ts config.wallpaper.gamma} -contrast ${ts config.wallpaper.contrast}"
     '' config.misc;
     xdg.configFile."xmonad/xmonad.hs".source = dotfile "xmonad.hs";
+
+    # xmobar setup
+    xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
     # mpv configuration
     xdg.configFile."mpv/mpv.conf".text = ''
@@ -245,9 +238,6 @@ in
             # mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
         '';
     };
-
-    # xmobar setup
-    xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
     # account icon setting
     home.file.".face".source = dotfile "account-icon.png";
