@@ -5,7 +5,7 @@
 
     xmonad = lib.mkForce {
         desktopScale = 1.0;
-        fontsize = 10;
+        fontsize = 22;
         fontsizeXmobar = 22;
         fontsizeRunPrompt = 11;
         windowSpaceInner = 4;

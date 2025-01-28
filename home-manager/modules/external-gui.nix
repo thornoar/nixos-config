@@ -189,8 +189,8 @@ in
         settings = {
             cursor = config.colors.fgColor0;
             cursor_shape = "underline";
-            cursor_underline_thickness = "1.0";
-            cursor_beam_thickness = "1.0";
+            cursor_underline_thickness = "2.0";
+            cursor_beam_thickness = "2.0";
             window_padding_width = ts config.xmonad.terminalPadding;
             foreground = config.colors.fgColor0;
             background = config.colors.bgColor0;
@@ -215,7 +215,7 @@ in
             confirm_os_window_close = "0";
             scrollback_pager = "";
             allow_remote_control = "yes";
-            mouse_hide_wait = "0.1";
+            mouse_hide_wait = "1.0";
         };
         extraConfig = ''
             map ctrl+shift+right
