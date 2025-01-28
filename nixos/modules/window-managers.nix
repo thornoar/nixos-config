@@ -47,11 +47,6 @@
             };
             services.xserver.dpi = 192;
             services.xserver = {
-                # videoDrivers = [ "nvidia" ];
-                # deviceSection = ''
-                #     Option "DRI" "2"
-                #     Option "TearFree" "true"
-                # '';
                 enable = true;
                 xkb.layout = "us";
                 xkb.variant = "";
@@ -122,10 +117,6 @@
                 XCURSOR_SIZE = "16";
                 BROWSER = "firefox -P hyprland";
             };
-            # hardware = {
-            #     graphics.enable = lib.mkForce true;
-            #     nvidia.modesetting.enable = lib.mkForce true;
-            # };
             environment.systemPackages = with pkgs; [
                 waybar
                 wpaperd
