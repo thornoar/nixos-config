@@ -61,7 +61,8 @@
                     ./nixos/modules/laptop/configuration.nix
                     ./nixos/modules/laptop/hardware-configuration.nix
                     ./nixos/modules/laptop/hardware-manual.nix
-                    ./nixos/modules/laptop/window-managers.nix
+                    ./nixos/modules/laptop/xmonad.nix.nix
+                    ./nixos/modules/laptop/hyprland.nix.nix
                     ./nixos/modules/vpn.nix
                     { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
                     inputs.home-manager.nixosModules.home-manager
@@ -74,8 +75,10 @@
                                     ./home-manager/modules/options/declaration.nix
                                     ./home-manager/modules/options/laptop.nix
                                     ./home-manager/modules/scripts.nix
-                                    ./home-manager/modules/external-tui.nix
-                                    ./home-manager/modules/external-gui.nix
+                                    ./home-manager/modules/dispatch.nix
+                                    ./home-manager/modules/hyprland.nix
+                                    ./home-manager/modules/xmonad.nix
+                                    ./home-manager/modules/terminal.nix
                                     ./home-manager/modules/development.nix
                                     ./home-manager/modules/firefox.nix
                                 ];

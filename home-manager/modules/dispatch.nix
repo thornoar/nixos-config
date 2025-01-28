@@ -6,12 +6,6 @@ let
     toCSS = mkstr: lib.attrsets.foldlAttrs (str: k: v: str + "@define-color ${k} ${if mkstr then "\"" + ts v + "\"" else ts v};\n");
 in 
 {
-    imports = [
-        ./xmonad.nix
-        ./hyprland.nix
-        ./terminal.nix
-    ];
-
     xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
     # mpv configuration
