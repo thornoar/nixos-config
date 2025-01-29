@@ -13,7 +13,6 @@
             "audio"
             "sound"
             "video"
-            "networkmanager"
             "libvirtd"
             "adbusers"
         ];

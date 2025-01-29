@@ -6,6 +6,21 @@
         MUTTER_DEBUG_KMS_THREAD_TYPE="user";
     };
 
+    users.groups.ai-user = { };
+    users.users.ai-user = {
+        isSystemUser = true;
+        description = "User for AI interface";
+        group = "ai-user";
+        extraGroups = [
+            "networkmanager"
+            "sys"
+            "wheel"
+        ];
+        homeMode = "0711";
+        home = "/home/ai-user";
+        shell = "${pkgs.zsh}/bin/zsh";
+    };
+
     environment.systemPackages = with pkgs; [
         light
         brightnessctl
@@ -24,7 +39,19 @@
         ollama = {
             enable = true;
             acceleration = "cuda";
-            # models = "/home/ramak/media/models";
+            loadModels = [
+                "solar-pro:22b"
+                "mistral-small:22b"
+                "codestral:22b"
+                "dolphincoder:15b"
+                "wizard-math:13b"
+                "aya:8b"
+                "llama2-uncensored:7b"
+                "codellama:34b"
+                "deepseek-coder-v2:16b"
+                "llama3.2:1b"
+                "codegemma:7b"
+            ];
         };
         upower.enable = true;
         thermald.enable = true;

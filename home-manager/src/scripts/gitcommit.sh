@@ -3,12 +3,24 @@
 is_git_repo="$(git rev-parse --is-inside-work-tree 2> /dev/null)"
 
 if [ "$is_git_repo" != "true" ]; then
-    printf "\e[1;31m error:\e[0m Not a git repository.\n" # ]]
+    printf "\e[1;31merror:\e[0m Not a git repository.\n" # ]]
+    exit 1
+fi
+
+something_to_commit="$(git status --porcelain=v1 2>/dev/null | wc -l)"
+
+if [ "$something_to_commit" == "0" ]; then
+    printf "\e[1;31merror:\e[0m Nothing to commit.\n" # ]]
     exit 1
 fi
 
 root_dir="$(git rev-parse --show-toplevel)"
 curdir="$PWD"
+
+message="$1"
+if [ -z "$message" ]; then
+    message="automatic commit"
+fi
 
 cd "$root_dir" || exit
 
@@ -21,14 +33,14 @@ if [ $online != 0 ]; then
         read -r -e -p "| \e[35mWould you like to commit the changes without pushing? [yN]\e[0m " ans # ]]
         # (((
         case $ans in
-            [Yy]* ) git add . && git commit -m "$1" && exit 0 ;;
+            [Yy]* ) git add . && git commit -m "$message" && exit 0 ;;
             [Nn]* ) exit 0 ;;
             * ) printf "| \e[33mPlease answer [y]es or [n]o\e[0m\n" # ]]
         esac
     done
 else
     git add .
-    git commit -m "$1"
+    git commit -m "$message"
     git push
 fi
 
