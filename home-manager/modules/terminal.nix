@@ -98,7 +98,7 @@ in
             nix: "${config.colors.colorMagenta1}"
             rs: "${config.colors.colorOrange1}"
             lua: "${config.colors.colorBlue0}"
-            c: "${config.colors.colorBlue2}"
+            c: "${config.colors.colorBlue1}"
             pdf: "${config.colors.colorRed2}"
             epub: "${config.colors.colorRed2}"
             djvu: "${config.colors.colorRed2}"
