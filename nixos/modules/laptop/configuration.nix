@@ -40,17 +40,15 @@
             enable = true;
             acceleration = "cuda";
             loadModels = [
-                "solar-pro:22b"
-                "mistral-small:22b"
                 "codestral:22b"
                 "dolphincoder:15b"
-                "wizard-math:13b"
                 "aya:8b"
                 "llama2-uncensored:7b"
                 "codellama:34b"
                 "deepseek-coder-v2:16b"
                 "llama3.2:1b"
                 "codegemma:7b"
+                "gemma:7b"
             ];
         };
         upower.enable = true;
