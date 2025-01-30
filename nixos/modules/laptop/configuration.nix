@@ -44,11 +44,10 @@
                 "dolphincoder:15b"
                 "aya:8b"
                 "llama2-uncensored:7b"
-                "codellama:34b"
-                "deepseek-coder-v2:16b"
                 "llama3.2:1b"
                 "codegemma:7b"
                 "gemma:7b"
+                "deepseek-r1:14b"
             ];
         };
         upower.enable = true;
