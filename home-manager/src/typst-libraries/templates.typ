@@ -259,7 +259,7 @@
 
 #let assignment-problem(supplement: "Exercise", number) = underline(strong({
   text(supplement + " " + number + ".");
-  h(3pt)
+  linebreak()
 }))
 #let solution = { underline(emph("Solution:")); h(2pt) }
 
