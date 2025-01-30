@@ -99,11 +99,19 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = { '*.hs', '*.typ', '*.md' },
+    pattern = "*.*",
     callback = function ()
-        vim.o.tabstop = 2
-        vim.o.shiftwidth = 2
-        vim.o.expandtab = true
-        vim.o.softtabstop = 2
+        local ft = vim.bo.filetype
+        if ft == 'haskell' or ft == 'typst' or ft == "markdown" then
+            vim.o.tabstop = 2
+            vim.o.shiftwidth = 2
+            vim.o.expandtab = true
+            vim.o.softtabstop = 2
+        else
+            vim.o.tabstop = 4
+            vim.o.shiftwidth = 4
+            vim.o.expandtab = true
+            vim.o.softtabstop = 4
+        end
     end
 })
