@@ -5,7 +5,7 @@ line=""
 target=""
 query=0
 while getopts "f:l:t:q" option; do
-    case "$option" in
+    case "$option" in # (((((
         f) file="$OPTARG" ;;
         l) line="$OPTARG" ;;
         t) target="$OPTARG" ;;
