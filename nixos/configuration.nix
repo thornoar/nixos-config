@@ -86,6 +86,7 @@
             man-pages-posix
             scowl
             manix
+            update-resolv-conf
         ];
         localBinInPath = true;
         wordlist.enable = true;
@@ -97,6 +98,13 @@
         settings = {
             PermitRootLogin = "no";
             PasswordAuthentication = true;
+        };
+    };
+
+    services.openvpn.servers = {
+        us-free-2 = {
+            config = "config /root/nixos/openvpn/us-free-2.protonvpn.udp.ovpn";
+            updateResolvConf = true;
         };
     };
 

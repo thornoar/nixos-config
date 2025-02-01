@@ -92,6 +92,7 @@
         nasm
 
         # android-studio
+        flutter
     ];
 
     programs = {
