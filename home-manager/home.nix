@@ -6,6 +6,8 @@ let
         khal
         fzf
         nodejs
+        typst
+        tinymist
     ];
     insecure-packages = with pkgs; [
         sc-im

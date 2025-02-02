@@ -55,8 +55,8 @@
         java-language-server
 
         # Typst
-        typst
-        tinymist
+        # typst
+        # tinymist
         # typst-lsp
 
         # Nix
