@@ -39,12 +39,12 @@ else:
     print("\033[1;31m#\033[0m Failed to recognize command: \033[33m" + args.type + "\033[0m") # ]]]]
     exit(1)
 
-print("\033[1;34m#\033[0m Rebuild command is: \033[35m" + command + "\033[0m.") #]]]]
+print("\033[1;34m#\033[0m Rebuild command is: \033[33m" + command + "\033[0m.") #]]]]
 
 try:
     cwd = os.popen("pwd").read().strip()
     new_dir = (args.flake != "auto") and args.flake or ("NIXOS_CONFIG" in os.environ and os.environ["NIXOS_CONFIG"] or os.environ["HOME"])
-    print("\033[1;34m#\033[0m Changing to flake directory: \033[35m" + new_dir + "\033[0m.") #]]]]
+    print("\033[1;34m#\033[0m Changing to flake directory: \033[33m" + new_dir + "\033[0m.") #]]]]
     os.chdir(new_dir)
 
     behind_remote = False
@@ -84,7 +84,7 @@ try:
         flake_args = "--flake .#" + output
         if (args.impure):
             flake_args += " --impure"
-        print("\033[1;34m#\033[0m Flake arguments: \033[35m" + flake_args + "\033[0m.") #]]]]
+        print("\033[1;34m#\033[0m Flake arguments: \033[33m" + flake_args + "\033[0m.") #]]]]
 
     nom_args = ""
     if (not args.default):
@@ -118,7 +118,7 @@ try:
                     spec_args = ""
         else:
             spec_args += args.specialisation
-        print("\033[1;34m#\033[0m Specialisation arguments are: \033[35m" + spec_args + "\033[0m.") #]]]]
+        print("\033[1;34m#\033[0m Specialisation arguments are: \033[33m" + spec_args + "\033[0m.") #]]]]
         call("sudo printf \"\033[33m#\033[0m Access granted.\\n\"") #]]
 
     print("\033[1;34m#\033[0m Building configuration...") #]]
