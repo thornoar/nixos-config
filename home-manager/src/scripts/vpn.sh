@@ -126,7 +126,7 @@ elif [[ "status" =~ ^$cmd* ]]; then
 elif [[ "ip" =~ ^$cmd* ]]; then
     getip public
 elif [[ "set-password" =~ ^$cmd* ]]; then
-    sudo -s "./vpn-change-passwords.sh"
+    sudo -s "$(which vpn-change-passwords)"
 else
     printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"
     exit 1
