@@ -34,7 +34,9 @@ elif [[ "public" =~ $cmd* ]]; then
         country=$(echo "$json" | jq --raw-output ".country")
         city=$(echo "$json" | jq --raw-output ".city")
         org=$(echo "$json" | jq --raw-output ".org")
+        loc=$(echo "$json" | jq --raw-output ".loc")
         printf "\e[1;34m#\e[0m Public IP: \e[33m%s\e[0m.\n" "$ip"
+        printf "\e[1;34m#\e[0m Location: \e[33m%s\e[0m.\n" "$loc"
         printf "\e[1;34m#\e[0m Country: \e[33m%s\e[0m.\n" "$country"
         printf "\e[1;34m#\e[0m City: \e[33m%s\e[0m.\n" "$city"
         printf "\e[1;34m#\e[0m Organization: \e[33m%s\e[0m.\n" "$org"
