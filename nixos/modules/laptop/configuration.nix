@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
     environment.variables = {
@@ -37,6 +37,7 @@
             };
         };
         ollama = {
+            package = pkgs-unstable.ollama;
             enable = true;
             acceleration = "cuda";
         };

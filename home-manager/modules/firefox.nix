@@ -6,7 +6,8 @@ let
         { name = "st | Syncthing"; url = "http://127.0.0.1:8384/"; keyword = "st"; }
         { name = "ym | YouTube Music"; url = "https://music.youtube.com"; keyword = "ym"; }
         { name = "gh | GitHub"; url = "https://github.com/thornoar?tab=repositories"; keyword = "gh"; }
-        { name = "qw | Work Mail"; url = "https://mail.google.com/mail/u/1/#inbox"; keyword = "qw"; }
+        # { name = "qw | Work Mail"; url = "https://mail.google.com/mail/u/1/#inbox"; keyword = "qw"; }
+        { name = "qw | Outlook"; url = "https://outlook.office.com/mail/"; keyword = "qw"; }
         { name = "as | Personal Mail"; url = "https://mail.google.com/mail/u/0/#inbox"; keyword = "as"; }
         { name = "mn | MyNixOS"; url = "https://mynixos.com"; keyword = "mn"; }
         { name = "tr | RuTracker"; url = "https://rutracker.org"; keyword = "tr"; }
@@ -25,13 +26,13 @@ let
         { name = "sp | USTSpace"; url = "https://ust.space/home"; keyword = "sp"; }
         { name = "lt | Laundry Tickets"; url = "https://laundry.ust.hk/ldr/app/tickets"; keyword = "lt"; }
         { name = "pa | Path Advisor"; url = "https://pathadvisor.ust.hk/"; keyword = "pa"; }
-        { name = "ol | Outlook"; url = "https://outlook.office.com/mail/"; keyword = "ol"; }
         { name = "ch | ArchChinese"; url = "https://www.archchinese.com/"; keyword = "ch"; }
         { name = "ca | Canvas"; url = "https://canvas.ust.hk"; keyword = "ca"; }
         { name = "ps | pshash"; url = "https://thornoar.github.io/pshash/web/app/"; keyword = "ps"; }
         { name = "sg | sage documentation"; url = "https://doc.sagemath.org/html/en/tutorial/index.html"; keyword = "sg"; }
         { name = "rs | rust documentation"; url = "https://doc.rust-lang.org/rust-by-example/"; keyword = "rs"; }
         { name = "clj | clojure documentation"; url = "https://clojure.org/guides/getting_started"; keyword = "clj"; }
+        { name = "ftl | fasterthanli"; url = "https://fasterthanli.me/"; keyword = "ftl"; }
     ];
     userChrome = ''
         #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
@@ -62,58 +63,60 @@ let
         default = "Google";
         order = [ "Google" "Searx" ];
     };
+    baseSettings = {
+        "browser.startup.homepage" = "about:home";
+        "browser.tabs.inTitlebar" = 0;
+        "browser.toolbars.bookmarks.visibility" = "never";
+        "browser.search.defaultenginename" = "Google";
+        "browser.search.order.1" = "Google";
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "signon.rememberSignons" = false;
+        "media.hardware-video-decoding.enabled" = true;
+        "layout.css.dpi" = 96;
+    };
+    baseProfile = {
+        inherit search;
+        inherit extensions;
+        inherit bookmarks;
+        inherit userChrome;
+    };
 in
 {
     programs = {
         firefox = {
             enable = true;
-            profiles.hyprland = {
+            profiles.hyprland = baseProfile // {
                 id = 0;
                 name = "hyprland";
-                isDefault = true;
-                settings = {
-                    "browser.startup.homepage" = "about:home";
-                    "browser.tabs.inTitlebar" = 0;
-                    "browser.toolbars.bookmarks.visibility" = "never";
-                    "browser.search.defaultenginename" = "Google";
-                    "browser.search.order.1" = "Google";
-                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                    "signon.rememberSignons" = false;
-                    "media.hardware-video-decoding.enabled" = true;
+                isDefault = false;
+                settings = baseSettings // {
                     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
-                    "layout.css.dpi" = 96;
                 };
-                search = search;
-                extensions = extensions;
-                bookmarks = bookmarks;
-                userChrome = userChrome;
+            };
+            profiles.hyprland-open = baseProfile // {
+                id = 2;
+                name = "hyprland-test";
+                isDefault = true;
+                settings = baseSettings // {
+                    "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+                };
+            };
+            profiles.hyprland-clean = baseProfile // {
+                id = 3;
+                name = "hyprland-clean";
+                isDefault = false;
+                settings = baseSettings // {
+                    "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+                };
             };
             profiles.xmonad = {
                 id = 1;
                 name = "xmonad";
                 isDefault = false;
-                settings = {
-                    "browser.startup.homepage" = "about:home";
-                    "browser.tabs.inTitlebar" = 0;
-                    "browser.toolbars.bookmarks.visibility" = "never";
-                    "browser.search.defaultenginename" = "Google";
-                    "browser.search.order.1" = "Google";
-                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                    "signon.rememberSignons" = false;
-                    "media.hardware-video-decoding.enabled" = true;
+                settings = baseSettings // {
                     "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
-                    "layout.css.dpi" = 96;
                 };
-                search = search;
-                extensions = extensions;
-                bookmarks = bookmarks;
-                userChrome = userChrome;
             };
-            # profiles.default = {
-            #     id = 2;
-            #     name = "default";
-            #     isDefault = true;
-            # };
         };
     };
 }

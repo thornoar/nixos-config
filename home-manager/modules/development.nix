@@ -1,6 +1,6 @@
 { pkgs, pkgs-unstable, ... }:
 {
-    home.packages =  with pkgs; [
+    home.packages = (with pkgs; [
         # LaTeX
         (texlive.combine { inherit (texlive) scheme-full; })
         # (texlive.combine { inherit (texlive) scheme-basic dvisvgm dvipng amsmath latexmk lipsum asymptote tikz; })
@@ -12,12 +12,6 @@
         # C
         clang
         clang-tools
-
-        # Python
-        (python3.withPackages (ps: with ps; [
-            manim ipython sympy numpy ollama openai
-        ]))
-        pyright
 
         # Haskell
         cabal-install
@@ -93,13 +87,22 @@
 
         # android-studio
         flutter
-    ];
+
+        # Python
+        (python3.withPackages (ps: with ps; [
+            manim ipython sympy numpy ollama openai
+        ]))
+        pyright
+
+        devbox
+    ]) ++ (with pkgs-unstable; [
+    ]);
 
     programs = {
         neovim = {
             enable = true;
-            withPython3 = true;
             # package = pkgs-unstable.neovim;
+            withPython3 = true;
             extraPython3Packages = ps: with ps; [ sympy pynvim ];
         };
         helix = {

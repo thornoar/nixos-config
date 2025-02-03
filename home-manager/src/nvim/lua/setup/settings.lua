@@ -37,14 +37,14 @@ vim.o.laststatus = 3
 
 -- vim.g.python3_host_prog = "/etc/profiles/per-user/ramak/bin/python"
 
--- vim.g.vimtex_complete_enabled = 1
--- vim.g.vimtex_quickfix_enabled = 0
--- -- vim.g.vimtex_view_method = 'zathura'
--- -- vim.g.latex_view_general_viewer = 'zathura'
--- -- vim.g.vimtex_compiler_progname = 'nvr'
--- vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
--- vim.g.vimtex_mappings_prefix = '\\'
--- vim.cmd([[let g:vimtex_compiler_latexmk = {'continuous': 0, 'aux_dir': '.aux', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
+vim.g.vimtex_complete_enabled = 1
+vim.g.vimtex_quickfix_enabled = 0
+vim.g.vimtex_view_method = 'zathura'
+-- vim.g.latex_view_general_viewer = 'zathura'
+vim.g.vimtex_compiler_progname = 'nvr'
+vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+vim.g.vimtex_mappings_prefix = '\\'
+-- vim.cmd([[let g:vimtex_compiler_latexmk = {'callback': 1, 'continuous': 1, 'aux_dir': '.aux', 'executable': 'latexmk', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
 
 vim.cmd([[
     let tex_flavor="latex"
