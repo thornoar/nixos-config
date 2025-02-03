@@ -29,6 +29,8 @@ function getCountryName () {
         "us") printf "USA" ;;
         "nl") printf "Netherlands" ;;
         "jp") printf "Japan" ;;
+        "de") printf "Germany" ;;
+        "ca") printf "Canada" ;;
         *) printf "%s" "$1" ;;
     esac
 }

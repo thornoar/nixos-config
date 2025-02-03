@@ -101,22 +101,22 @@
         };
     };
 
-    services.openvpn.servers = {
-        server-us-2 = {
-            config = "config /root/nixos/openvpn/us-free-2.protonvpn.udp.ovpn";
-            updateResolvConf = true;
-            autoStart = false;
-        };
-        server-nl-2 = {
-            config = "config /root/nixos/openvpn/nl-free-2.protonvpn.udp.ovpn";
-            updateResolvConf = true;
-            autoStart = false;
-        };
-        server-jp-2 = {
-            config = "config /root/nixos/openvpn/jp-free-2.protonvpn.udp.ovpn";
-            updateResolvConf = true;
-            autoStart = false;
-        };
+    services.openvpn.servers = 
+    let createConfig = name: {
+        config = "config /root/nixos/openvpn/${name}.ovpn";
+        updateResolvConf = true;
+        autoStart = false;
+    };
+    in {
+        server-us-2 = createConfig "us-free-2.protonvpn.udp";
+        server-nl-2 = createConfig "nl-free-2.protonvpn.udp";
+        server-jp-2 = createConfig "jp-free-2.protonvpn.udp";
+        server-de-1 = createConfig "de-free-1.freeopenvpn.tcp";
+        server-de-2 = createConfig "de-free-2.freeopenvpn.udp";
+        server-ca-1 = createConfig "ca-free-1.vpnbook.tcp";
+        server-ca-2 = createConfig "ca-free-2.vpnbook.udp";
+        server-ca-3 = createConfig "ca-free-3.vpnbook.tcp";
+        server-ca-4 = createConfig "ca-free-4.vpnbook.udp";
     };
 
     security.sudo.package = pkgs.sudo.override { withInsults = false; };
