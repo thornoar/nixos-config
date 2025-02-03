@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+# freeopenvpn passwords: https://www.freeopenvpn.org/premium.php?cntid=Germany
+# vpnbook passwords: https://www.vpnbook.com/freevpn
+
 POSITIONAL_ARGS=()
 port="2"
 
 cmd="$1"
-country="$2"
 
 function printUsage {
     printf "usage: vpn [ connect COUNTRY | disconnect | list ] [ -p|--port PORT | -h|--help ]\n"
@@ -88,6 +90,7 @@ if [ -z "$cmd" ]; then
 fi
 
 if [[ "connect" =~ $cmd* ]]; then
+    country="$2"
     if ! serverExists "$country-$port"; then
         printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
         exit 1
@@ -122,6 +125,8 @@ elif [[ "status" =~ ^$cmd* ]]; then
     fi
 elif [[ "ip" =~ ^$cmd* ]]; then
     getip public
+elif [[ "set-password" =~ ^$cmd* ]]; then
+    sudo -s "./vpn-change-passwords.sh"
 else
     printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"
     exit 1
