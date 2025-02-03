@@ -102,17 +102,17 @@
     };
 
     services.openvpn.servers = {
-        us-free-2 = {
+        server-us-2 = {
             config = "config /root/nixos/openvpn/us-free-2.protonvpn.udp.ovpn";
             updateResolvConf = true;
             autoStart = false;
         };
-        nl-free-2 = {
+        server-nl-2 = {
             config = "config /root/nixos/openvpn/nl-free-2.protonvpn.udp.ovpn";
             updateResolvConf = true;
             autoStart = false;
         };
-        jp-free-2 = {
+        server-jp-2 = {
             config = "config /root/nixos/openvpn/jp-free-2.protonvpn.udp.ovpn";
             updateResolvConf = true;
             autoStart = false;
