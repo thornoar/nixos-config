@@ -10,7 +10,7 @@ while getopts "vlrcb" option; do
     l) list=true ;;
     r) restart=true ;;
     c) clean=true ;;
-    *) printf "\e[1;31merror:\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
+    *) printf "\e[1;31m#\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
     esac
 done
 
@@ -19,7 +19,7 @@ function start {
     nohup nvim --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
     # nohup nvim --server "$pipe" --remote-send ":silent bdelete<CR>" > /dev/null 2>&1 0< /dev/null
     if [ "$verbose" = true ]; then
-        printf "| \e[34mCreated NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
+        printf "\e[1;34m#\e[0m Created NVIM server at pipe \e[35m%s\e[34m.\e[0m\n" "$pipe"
     fi
 }
 
@@ -40,7 +40,7 @@ fi
 
 if [ "$restart" = true ]; then
     if [ "$verbose" = true ]; then
-        printf "| \e[34mRestarting neovim servers...\e[0m\n"
+        printf "\e[1;34m#\e[0m Restarting neovim servers...\e[0m\n"
     fi
 
     pipelist=()
@@ -51,10 +51,7 @@ if [ "$restart" = true ]; then
     done
 
     if [ "$verbose" = true ]; then
-        printf "| \e[34mStopping NVIM servers at the following pipes:\e[0m\n"
-        # for pipe in "${pipelist[@]}"; do
-        #     printf "  %s\n" "$pipe"
-        # done
+        printf "\e[1;34m#\e[0m Stopping NVIM servers at the following pipes:\n"
     fi
 
     for pipe in "${pipelist[@]}"; do
@@ -65,7 +62,7 @@ if [ "$restart" = true ]; then
     done
 
     if [ "$verbose" = true ]; then
-        printf "| \e[34mWaiting...\e[0m\n"
+        printf "\e[1;34m#\e[0m Waiting...\n"
     fi
     sleep 0.5
 
@@ -84,7 +81,7 @@ fi
 
 if [ "$list" = true ]; then
     if [ "$verbose" = true ]; then
-        printf "| \e[34mListing active NVIM servers:\e[0m\n" # ]]
+        printf "\e[1;34m#\e[0m Listing active NVIM servers:\n" # ]]
     fi
     for file in /run/user/1000/nvim.*.pipe; do
         if [ -e "$file" ]; then

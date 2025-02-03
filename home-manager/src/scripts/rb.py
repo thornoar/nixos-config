@@ -22,7 +22,7 @@ args = parser.parse_args()
 
 def call (str):
     if 0 != os.system(str):
-        print("| \033[31mFailed to complete.\033[0m") #]]
+        print("\033[1;31m#\033[0m Failed to complete.") #]]
         exit(1)
 
 if (args.type == "both"):
@@ -36,40 +36,40 @@ if (args.type == "home"):
 elif (args.type == "system"):
     command = "sudo nixos-rebuild"
 else:
-    print("| \033[31mFailed to recognize command:\033[0m " + args.type) # ]]
+    print("\033[1;31m#\033[0m Failed to recognize command: \033[33m" + args.type + "\033[0m") # ]]]]
     exit(1)
 
-print("| \033[34mRebuild command is: \"\033[35m" + command + "\033[34m\".\033[0m") #]]]]
+print("\033[1;34m#\033[0m Rebuild command is: \033[35m" + command + "\033[0m.") #]]]]
 
 try:
     cwd = os.popen("pwd").read().strip()
     new_dir = (args.flake != "auto") and args.flake or ("NIXOS_CONFIG" in os.environ and os.environ["NIXOS_CONFIG"] or os.environ["HOME"])
-    print("| \033[34mChanging to flake directory: \"\033[35m" + new_dir + "\033[34m\".\033[0m") #]]]]
+    print("\033[1;34m#\033[0m Changing to flake directory: \033[35m" + new_dir + "\033[0m.") #]]]]
     os.chdir(new_dir)
 
     behind_remote = False
 
     if args.git:
-        print("| \033[34mUpdating the remote repository.\033[0m") #]]
+        print("\033[1;34m#\033[0m Updating the remote repository.") #]]
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
-            print("| \033[34mLocal branch is behind remote .\033[0m") #]]
+            print("\033[1;34m#\033[0m Local branch is behind remote.") #]]
             behind_remote = True
         if "not staged for commit" in os.popen("git status").read().strip():
-            print("| \033[34mCommitting local changes.\033[0m") #]]
+            print("\033[1;34m#\033[0m Committing local changes.") #]]
             call("git add -A")
             call("git commit -m \"automatic commit\"")
             call("git pull --no-rebase --no-edit")
             call("git push")
         elif behind_remote:
-            print("| \033[34mWorking tree clean, pulling changes.\033[0m") #]]
+            print("\033[1;34m#\033[0m Working tree clean, pulling changes.") #]]
             call("git fetch && git pull")
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
-        print("| \033[34mRestoring previous flake.lock file...\033[0m") #]]
-        call("mv ./flake.lock.bak ./flake.lock")
+        print("\033[1;34m#\033[0m Restoring previous flake.lock file...") #]]
+        call("cp ./flake.lock.bak ./flake.lock")
     elif (args.update):
-        print("| \033[34mUpdating flake.lock file...\033[0m") #]]
+        print("\033[1;34m#\033[0m Updating flake.lock file...") #]]
         call("cp ./flake.lock ./flake.lock.bak")
         call("nix flake update")
 
@@ -84,7 +84,7 @@ try:
         flake_args = "--flake .#" + output
         if (args.impure):
             flake_args += " --impure"
-        print("| \033[34mFlake arguments: \"\033[35m" + flake_args + "\033[34m\".\033[0m") #]]]]
+        print("\033[1;34m#\033[0m Flake arguments: \033[35m" + flake_args + "\033[0m.") #]]]]
 
     nom_args = ""
     if (not args.default):
@@ -118,10 +118,10 @@ try:
                     spec_args = ""
         else:
             spec_args += args.specialisation
-        print("| \033[34mSpecialisation arguments are: \"\033[35m" + spec_args + "\033[34m\".\033[0m") #]]]]
-        call("sudo printf \"| \033[33mAccess granted.\033[0m\\n\"") #]]
+        print("\033[1;34m#\033[0m Specialisation arguments are: \033[35m" + spec_args + "\033[0m.") #]]]]
+        call("sudo printf \"\033[33m#\033[0m Access granted.\\n\"") #]]
 
-    print("| \033[34mBuilding configuration...\033[0m") #]]
+    print("\033[1;34m#\033[0m Building configuration...") #]]
 
     call(command + " " + args.command + " " + spec_args + " " + args.extra + " " + flake_args + nom_args)
 
@@ -138,4 +138,4 @@ try:
     if args.reboot:
         os.system("reboot")
 except KeyboardInterrupt:
-    print("\n| \033[31mInterrupted by user.\033[0m")
+    print("\n\033[1;31m#\033[0m Interrupted by user.")

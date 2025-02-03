@@ -10,7 +10,7 @@ while getopts "f:l:t:q" option; do
         l) line="$OPTARG" ;;
         t) target="$OPTARG" ;;
         q) query=1 ;;
-        *) printf "\e[1;31merror:\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
+        *) printf "\e[1;31m#\e[0m Invalid option: %s.\n" "$option"; exit 1 ;;
     esac
 done
 

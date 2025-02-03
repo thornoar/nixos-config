@@ -18,6 +18,6 @@ while getopts "bx" option; do
             nohup killall xmobar > /dev/null 2>&1
             xmonad --restart
         ;;
-        *) printf "\e[1;31merror:\e[0m Invalid option: %s\n" "$option"; exit 1 ;;
+        *) printf "\e[1;31m#\e[0m Invalid option: %s\n" "$option"; exit 1 ;;
     esac
 done
