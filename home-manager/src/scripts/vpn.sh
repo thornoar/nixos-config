@@ -5,8 +5,7 @@
 
 POSITIONAL_ARGS=()
 port="2"
-
-cmd="$1"
+raw=0
 
 function printUsage {
     printf "usage: vpn [ connect COUNTRY | disconnect | list ] [ -p|--port PORT | -h|--help ]\n"
@@ -20,11 +19,14 @@ fi
 while [[ $# -gt 0 ]]; do
     case $1 in #(((
         -p|--port) port="$2"; shift; shift ;;
+        -r|--raw) raw=1; shift ;;
         -h|--help) printUsage; exit 0 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
     esac
 done
 set -- "${POSITIONAL_ARGS[@]}"
+
+cmd="$1"
 
 function getCountryName () {
     case "$1" in # ((((
@@ -92,39 +94,61 @@ fi
 if [[ "connect" =~ $cmd* ]]; then
     country="$2"
     if ! serverExists "$country-$port"; then
-        printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+        if [ "$raw" -eq 0 ]; then
+            printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+        fi
         exit 1
     fi
     if serverActive "openvpn-server-$country-$port.service"; then
-        printf "\e[1;31m#\e[0m Already connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+        if [ "$raw" -eq 0 ]; then
+            printf "\e[1;31m#\e[0m Already connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+        else
+            printf "%s-%s\n" "$country" "$port"
+        fi
         exit 0
     fi
     disconnectAll "31"
     sudo systemctl start "openvpn-server-$country-$port.service" || exit 1
-    printf "\e[1;34m#\e[0m Connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+    if [ "$raw" -eq 0 ]; then
+        printf "\e[1;34m#\e[0m Connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+    else
+        printf "%s-%s\n" "$country" "$port"
+    fi
 elif [[ "disconnect" =~ ^$cmd* ]]; then
     disconnectAll "34"
 elif [[ "list" =~ ^$cmd* ]]; then
-    listServersPretty
+    if [ "$raw" -eq 0 ]; then listServersPretty; else listServersUgly; fi
 elif [[ "status" =~ ^$cmd* ]]; then
     connected=0
     for service in $(listServersUgly); do
         if systemctl is-active "$service" --quiet; then
             if getCountryPort "$service"; then
-                printf "\e[1;34m#\e[0m Connection active in \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
+                if [ "$raw" -eq 0 ]; then
+                    printf "\e[1;34m#\e[0m Connection active in \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
+                else
+                    printf "%s-%s\n" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+                fi
             else
-                printf "\e[1;34m#\e[0m Connection active in \e[35m%s\e[0m.\n" "$service"
+                if [ "$raw" -eq 0 ]; then
+                    printf "\e[1;34m#\e[0m Connection active in \e[35m%s\e[0m.\n" "$service"
+                else
+                    printf "%s\n" "$service"
+                fi
             fi
             connected=1
             break
         fi
     done
 
-    if [ "$connected" == "0" ]; then
-        printf "\e[1;34m#\e[0m No connections active.\n"
+    if [ "$connected" -eq 0 ]; then
+        if [ "$raw" -eq 0 ]; then
+            printf "\e[1;34m#\e[0m No connections active.\n"
+        else
+            printf "disconnected\n"
+        fi
     fi
 elif [[ "ip" =~ ^$cmd* ]]; then
-    getip public
+    if [ "$raw" -eq 0 ]; then getip public; else getip public --raw; fi
 elif [[ "set-password" =~ ^$cmd* ]]; then
     sudo -s "$(which vpn-change-passwords)"
 else

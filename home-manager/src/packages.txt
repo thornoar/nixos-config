@@ -4,8 +4,6 @@ imagemagick
 graphicsmagick
 ffmpeg
 neofetch
-file
-which
 transmission_3
 gawk
 shellcheck

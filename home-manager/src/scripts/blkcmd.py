@@ -31,7 +31,7 @@ try:
             for dirname in dirnames:
                 os.chdir(dirname)
                 if not args.silent:
-                    print(CBLUE + "#" + CEND + "Executing \"" + CGREEN + args.command + CEND + "\" in " + CPURPLE + root + "/" + dirname + CEND + "...")
+                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" in " + CPURPLE + root + "/" + dirname + CEND + "...")
                 os.system(args.command + (args.nooutput and " > /dev/null 2>&1" or ""))
                 os.chdir("..")
         else:
@@ -41,7 +41,7 @@ try:
                 if (".lib."+args.filetype in head_tail[1]):
                     continue
                 if not args.silent:
-                    print(CBLUE + "#" + CEND + "Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + "...")
+                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + "...")
                 if args.parse:
                     os.system(
                         "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +
@@ -55,5 +55,5 @@ try:
                     )
         os.chdir(cwd)
 except KeyboardInterrupt:
-    print("| " + CRED + "Interrupted by user." + CEND)
+    print(CRED + "#" + CEND + " Interrupted by user.")
     os.chdir(cwd)

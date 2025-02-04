@@ -87,6 +87,8 @@
             scowl
             manix
             update-resolv-conf
+            which
+            file
         ];
         localBinInPath = true;
         wordlist.enable = true;

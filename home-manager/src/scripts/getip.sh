@@ -22,7 +22,7 @@ fi
 
 if [[ "private" =~ $cmd* ]]; then
     ip=$(ifconfig wlp46s0 | grep -i mask | awk '{print $2}'| cut -f2 -d:)
-    if [ "$raw" == "0" ]; then
+    if [ "$raw" -eq 0 ]; then
         printf "\e[1;34m#\e[0m Private IP: \e[33m%s\e[0m.\n" "$ip"
     else
         printf "%s\n" "$ip"
@@ -30,7 +30,7 @@ if [[ "private" =~ $cmd* ]]; then
 elif [[ "public" =~ $cmd* ]]; then
     json=$(curl ipinfo.io -s)
     ip=$(echo "$json" | jq --raw-output ".ip")
-    if [ "$raw" == "0" ]; then
+    if [ "$raw" -eq 0 ]; then
         country=$(echo "$json" | jq --raw-output ".country")
         city=$(echo "$json" | jq --raw-output ".city")
         org=$(echo "$json" | jq --raw-output ".org")

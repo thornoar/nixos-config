@@ -32,7 +32,7 @@ if [ -n "$target" ]; then
 else
     while [ ! -e "/run/user/1000/nvim.$pid.pipe" ]; do
         pid=$(ps j "$pid" | awk 'NR>1 {print $1}')
-        if [[ "$pid" == "0" ]]; then
+        if [[ "$pid" -eq 0 ]]; then
             if [ $query == 1 ]; then printf "No server found.\n"; exit 1; fi
             if [ -n "$line" ] && [ -n "$file" ]; then
                 nvim +$line "$file"
