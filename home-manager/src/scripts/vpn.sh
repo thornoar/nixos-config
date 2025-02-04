@@ -8,7 +8,8 @@ port="2"
 raw=0
 
 function printUsage {
-    printf "usage: vpn [ connect COUNTRY | disconnect | list ] [ -p|--port PORT | -h|--help ]\n"
+    printf "usage: vpn [ connect COUNTRY | disconnect | list | status | ip | set-password ]\n"
+    printf "           [ -p|--port PORT | -h|--help ]\n"
 }
 
 if [ -z "$1" ]; then
