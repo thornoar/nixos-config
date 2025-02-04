@@ -1,0 +1,4 @@
+hack-font
+noto-fonts
+kochi-substitute
+nerdfonts

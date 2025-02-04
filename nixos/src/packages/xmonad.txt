@@ -1,0 +1,7 @@
+xclip
+xsel
+hsetroot
+xvkbd
+keynav
+xcolor
+xkb-switch

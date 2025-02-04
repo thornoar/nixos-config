@@ -1,0 +1,9 @@
+waybar
+wpaperd
+tofi
+wl-clipboard
+xsel
+warpd
+hyprpicker
+hyprshot
+glib

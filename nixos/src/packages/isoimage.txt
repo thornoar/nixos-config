@@ -1,0 +1,7 @@
+vim
+parted
+git
+wget
+curl
+neovim
+tmux

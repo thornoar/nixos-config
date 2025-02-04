@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, ... }:
+{ pkgs, pkgs-unstable, lib, readPackages, ... }:
 {
     specialisation.xmonad.configuration = {
         boot.loader.systemd-boot.sortKey = "aab";
@@ -42,14 +42,6 @@
                 timeout = 1;
             };
         };
-        environment.systemPackages = with pkgs; [       
-            xclip
-            xsel
-            hsetroot
-            xvkbd
-            keynav
-            xcolor
-            xkb-switch
-        ];
+        environment.systemPackages = readPackages ../../src/packages/xmonad.txt pkgs;
     };
 }

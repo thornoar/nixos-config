@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, readPackages, ... }:
 {
     specialisation.hyprland.configuration = {
         boot.loader.systemd-boot.sortKey = "aaa";
@@ -32,16 +32,6 @@
             XCURSOR_SIZE = "16";
             BROWSER = "firefox -P hyprland";
         };
-        environment.systemPackages = with pkgs; [
-            waybar
-            wpaperd
-            tofi
-            wl-clipboard
-            xsel
-            warpd
-            hyprpicker
-            hyprshot
-            glib
-        ];
+        environment.systemPackages = readPackages ../../src/packages/hyprland.txt pkgs;
     };
 }

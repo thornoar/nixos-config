@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, readPackages, ... }:
 
 {
     environment.variables = {
@@ -21,10 +21,7 @@
         shell = "${pkgs.zsh}/bin/zsh";
     };
 
-    environment.systemPackages = with pkgs; [
-        light
-        brightnessctl
-    ];
+    environment.systemPackages = readPackages ../../src/packages/laptop.txt pkgs;
 
     services = {
         libinput = {
@@ -114,10 +111,5 @@
 
     time.timeZone = "Asia/Hong_Kong";
 
-    fonts.packages = with pkgs; [
-        hack-font
-        noto-fonts
-        kochi-substitute
-        nerdfonts
-    ];
+    fonts.packages = readPackages ../../src/packages/fonts.txt pkgs;
 }
