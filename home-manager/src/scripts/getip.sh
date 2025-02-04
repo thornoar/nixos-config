@@ -4,6 +4,11 @@ function printUsage {
     printf "usage: getip [ public | private ] [ -r|--raw | -h|--help ]\n"
 }
 
+if [ -z "$1" ]; then
+    printUsage
+    exit 0
+fi
+
 raw=0
 while [[ $# -gt 0 ]]; do
     case $1 in #(((
@@ -14,11 +19,13 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}"
 
+function interrupt_handler () {
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Interrupted by user.\n"; fi
+    exit 1
+}
+trap interrupt_handler SIGINT
+
 cmd="$1"
-if [ -z "$cmd" ]; then
-    printUsage
-    exit 0
-fi
 
 if [[ "private" =~ $cmd* ]]; then
     ip=$(ifconfig wlp46s0 | grep -i mask | awk '{print $2}'| cut -f2 -d:)

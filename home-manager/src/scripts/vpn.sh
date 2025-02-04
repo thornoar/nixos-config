@@ -26,6 +26,12 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}"
 
+function interrupt_handler () {
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Interrupted by user.\n"; fi
+    exit 1
+}
+trap interrupt_handler SIGINT
+
 cmd="$1"
 
 function getCountryName () {

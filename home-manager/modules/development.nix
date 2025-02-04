@@ -40,6 +40,7 @@
                 vmcon = "virt-manager --connect qemu:///system --show-domain-console";
                 vmstart = "sudo virsh start";
                 vmstop = "sudo virsh shutdown";
+                clip = "wl-copy -n";
             };    
         };
         git = {
@@ -48,6 +49,9 @@
             userEmail = "r.a.maksimovich@gmail.com";
             extraConfig = {
                 init.defaultBranch = "master";
+            };
+            aliases = {
+                install = "!git clone \"https://github.com/thornoar/$1.git\" \"$HOME/projects/$1\"";
             };
         };
         gh = { enable = true; };

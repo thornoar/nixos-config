@@ -54,7 +54,13 @@
         readFile = file: (lib.lists.partition
             (x: 0 < lib.strings.stringLength x) 
             (lib.strings.splitString "\n" (builtins.readFile file))).right;
-        readPackages = file: pkgs': lib.lists.forEach (readFile file) (name: pkgs'.${name});
+        getAttr = set: name:
+            let split = lib.strings.splitString "." name;
+                str = lib.strings;
+            in  if (1 == builtins.length split)
+                then set.${name}
+                else getAttr (set.${builtins.head split}) (str.concatStrings (str.intersperse "." (builtins.tail split)));
+        readPackages = file: set: lib.lists.forEach (readFile file) (getAttr set);
     in
     {
         nixosConfigurations = {
