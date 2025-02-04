@@ -1,7 +1,7 @@
 { config, pkgs, inputs, system, lib, pkgs-unstable, ... }:
 
 let 
-    # [./src/packages.txt]
+    # [./src/packages/general.txt]
     unstable-packages = with pkgs-unstable; [
         khal
         fzf
@@ -52,7 +52,7 @@ in
             lib.lists.forEach (
                 lib.lists.partition
                     (x: 0 < lib.strings.stringLength x) 
-                    (lib.strings.splitString "\n" (builtins.readFile ./src/packages.txt))
+                    (lib.strings.splitString "\n" (builtins.readFile ./src/packages/general.txt))
             ).right (name: pkgs.${name})
         ) else []
     ) ++ unstable-packages ++ insecure-packages ++ custom-packages;

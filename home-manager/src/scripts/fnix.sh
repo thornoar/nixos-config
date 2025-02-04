@@ -41,7 +41,7 @@ elif [[ "preview" =~ $cmd* ]]; then
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Evaluating package derivations.\n"; fi
     nix shell --impure$packages_patched
 elif [[ "list-installed" =~ $cmd* ]]; then
-    for pac in $(cat $NIXOS_CONFIG/home-manager/src/packages.txt); do
+    for pac in $(cat $NIXOS_CONFIG/home-manager/src/packages/general.txt); do
         if [ "$raw" -eq 0 ]; then
             nix search "nixpkgs#$pac" ^ | hl "33" "$pac"
         else
@@ -49,5 +49,5 @@ elif [[ "list-installed" =~ $cmd* ]]; then
         fi
     done
 else
-    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m\n" "$cmd"; fi
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
 fi
