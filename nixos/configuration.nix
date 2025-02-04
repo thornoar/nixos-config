@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, ... }:
+{ sysname, inputs, pkgs, readPackages, ... }:
 
 {
     users.users.ramak = {
@@ -66,30 +66,7 @@
             ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
             SPECIALISATION = "default";
         };
-        systemPackages = with pkgs; [
-            home-manager
-            vim
-            wget
-            curl
-            usbutils
-            pciutils
-            gcc
-            git
-            lshw
-            zip
-            xz
-            unzip
-            unrar
-            p7zip
-            sysstat
-            man-pages
-            man-pages-posix
-            scowl
-            manix
-            update-resolv-conf
-            which
-            file
-        ];
+        systemPackages = readPackages ./src/packages/general.txt pkgs;
         localBinInPath = true;
         wordlist.enable = true;
     };

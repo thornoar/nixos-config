@@ -1,21 +1,7 @@
-{ config, pkgs, inputs, system, lib, pkgs-unstable, ... }:
+{ config, pkgs, inputs, system, lib, pkgs-unstable, readFile, readPackages, ... }:
 
-let 
-    # [./src/packages/general.txt]
-    unstable-packages = with pkgs-unstable; [
-        khal
-        fzf
-        nodejs
-        typst
-        tinymist
-    ];
-    insecure-packages = with pkgs; [
-        sc-im
-    ];
-    custom-packages = lib.lists.forEach [
-        "pshash"
-        "lambda-interpreter"
-    ] (x: inputs.${x}.packages.${system}.default);
+let
+    readCustomPackages = file: lib.lists.forEach (readFile file) (x: inputs.${x}.packages.${system}.default);
 in
 {
     home.username = "ramak";
@@ -47,15 +33,21 @@ in
     };
     nixpkgs.config.allowUnfree = true;
 
-    home.packages = (
-        if config.misc.usePackageList then (
-            lib.lists.forEach (
-                lib.lists.partition
-                    (x: 0 < lib.strings.stringLength x) 
-                    (lib.strings.splitString "\n" (builtins.readFile ./src/packages/general.txt))
-            ).right (name: pkgs.${name})
-        ) else []
-    ) ++ unstable-packages ++ insecure-packages ++ custom-packages;
+    home.packages =
+        readPackages ./src/packages/general.txt pkgs ++
+        readPackages ./src/packages/unstable.txt pkgs-unstable ++
+        readPackages ./src/packages/insecure.txt pkgs ++
+        readCustomPackages ./src/packages/custom.txt;
+
+    # (
+    #     if config.misc.usePackageList then (
+    #         lib.lists.forEach (
+    #             lib.lists.partition
+    #                 (x: 0 < lib.strings.stringLength x) 
+    #                 (lib.strings.splitString "\n" (builtins.readFile ./src/packages/general.txt))
+    #         ).right (name: pkgs.${name})
+    #     ) else []
+    # ) ++ unstable-packages ++ insecure-packages ++ custom-packages;
 
     programs = {
         home-manager = {

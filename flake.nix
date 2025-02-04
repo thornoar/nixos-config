@@ -51,6 +51,10 @@
         };
         lib = inputs.nixpkgs.lib;
         firefox-pkgs = inputs.firefox-addons.packages.${system};
+        readFile = file: (lib.lists.partition
+            (x: 0 < lib.strings.stringLength x) 
+            (lib.strings.splitString "\n" (builtins.readFile file))).right;
+        readPackages = file: pkgs': lib.lists.forEach (readFile file) (name: pkgs'.${name});
     in
     {
         nixosConfigurations = {
@@ -64,7 +68,7 @@
                     ./nixos/modules/laptop/hyprland.nix
                     ./nixos/modules/laptop/xmonad.nix
                     ./nixos/modules/vpn.nix
-                    { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; }; }
+                    { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; inherit readPackages; }; }
                     inputs.home-manager.nixosModules.home-manager
                     {
                         home-manager = {
@@ -83,7 +87,7 @@
                                     ./home-manager/modules/firefox.nix
                                 ];
                             };
-                            extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; };
+                            extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; inherit readFile; inherit readPackages; };
                         };
                     }
                     inputs.nix-index-database.nixosModules.nix-index
