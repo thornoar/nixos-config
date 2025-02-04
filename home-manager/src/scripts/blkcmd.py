@@ -38,10 +38,12 @@ try:
             for filename in fnmatch.filter(filenames, "*."+args.filetype):
                 head_tail = os.path.split(filename)
                 file = root + "/" + filename
+                if ".git" in file:
+                    continue
                 if (".lib."+args.filetype in head_tail[1]):
                     continue
                 if not args.silent:
-                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + "...")
+                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + CEND + "...")
                 if args.parse:
                     os.system(
                         "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +
