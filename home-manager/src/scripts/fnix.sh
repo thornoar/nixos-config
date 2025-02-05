@@ -8,7 +8,7 @@ section=""
 given_level_section=0
 
 function printUsage {
-    printf "usage: fnix [ preview ..PACKAGES | install PACKAGE | remove ..PACKAGES ]\n"
+    printf "usage: fnix [ preview ..PACKAGES | install ..PACKAGES | remove ..PACKAGES ]\n"
     printf "            [ system-options | collect-garbage ]\n"
     printf "            [ -h|--help | -r|--raw | -d|--desc ]\n"
     printf "            [ -l|--level user|system | -s|--section SECTION ]\n"
@@ -43,6 +43,11 @@ trap interrupt_handler SIGINT
 
 cmd="$1"
 
+function hl () {
+    escape=$(printf '\033')
+    sed "s,$2,${escape}[$1m&${escape}[0m,g"
+}
+
 function getLevel () {
     case "$1" in # ((((
         "system") printf "nixos" ;;
@@ -60,10 +65,14 @@ function printPackage () {
         fi
         return 1
     fi
-    title=$(echo "$json" | jq -r '. | keys | .[0]' | hl 33 "$pac")
-    printf "\e[1;33m#\e[0m %s\e[0m\n" "$title"
+    title=$(echo "$json" | jq -r '. | keys | .[0]')
+    if [ "$raw" -eq 0 ]; then
+        printf "\e[1;33m#\e[0m %s\e[0m\n" "$(echo "$title" | hl 33 "$pac")"
+    else
+        printf "%s\n" "$title"
+    fi
     if [ "$desc" -eq 1 ]; then
-        description=$(echo "$json" | jq ".$title")
+        description=$(echo "$json" | jq ".\"$title\".description" --raw-output)
         printf "  %s\n" "$description"
     fi
 }
@@ -83,11 +92,6 @@ function listPackages () {
         fi
     done < "$file"
     if [ "$raw" -eq 0 ]; then echo; fi
-}
-
-function hl () {
-    escape=$(printf '\033')
-    sed "s,$2,${escape}[$1m&${escape}[0m,g"
 }
 
 function queryForLevelAndSection () {
@@ -182,7 +186,7 @@ elif [[ "install" =~ ^$cmd* ]]; then
     section_backup="$section"
     changed=0
     for package in "${packages[@]}"; do
-        printPackage "$package" || exit 1
+        printPackage "$package" || continue
         if packageInstalled "$package"; then
             if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m already listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
             continue
@@ -220,6 +224,16 @@ elif [[ "collect-garbage" =~ ^$cmd* ]]; then
     sudo nix-collect-garbage --delete-old
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Deleting boot entries.\n"; fi # ]]
     nix-collect-garbage -d
+elif [[ "search" =~ ^$cmd* ]]; then
+    packages=("${@:2}")
+    if [ "$raw" -eq 0 ]; then desc=1; fi
+    if [[ ${#packages[@]} -eq 0 ]]; then
+        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
+        exit 1
+    fi
+    for package in "${packages[@]}"; do
+        printPackage "$package" || continue
+    done
 else
     if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
 fi
