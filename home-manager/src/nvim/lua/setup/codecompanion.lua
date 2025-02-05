@@ -1,4 +1,14 @@
 require("codecompanion").setup({
+    -- adapters = {
+    --     claude = function ()
+    --         return require("codecompanion.adapters").extend("copilot", {
+    --             name = "claude",
+    --             schema = {
+    --                 model = { default = "claude-3.5-sonnet" },
+    --             },
+    --         })
+    --     end,
+    -- },
     strategies = {
         chat = {
             adapter = "copilot",

@@ -59,3 +59,4 @@ pkg-config
 code-cursor
 qbittorrent
 networkmanager-openvpn
+upx
