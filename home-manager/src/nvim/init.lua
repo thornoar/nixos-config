@@ -170,14 +170,7 @@ require('lazy').setup({
             "nvim-lua/plenary.nvim",
         },
         cmd = { "Ollama", "OllamaModel" },
-        keys = {
-            {
-                "<leader>ao",
-                ":<c-u>lua require('ollama').prompt()<cr>",
-                desc = "ollama prompt",
-                mode = { "n", "v" },
-            },
-        },
+        keys = { },
         ---@type Ollama.Config
         opts = {
             model = "codeqwen:7b",
@@ -206,7 +199,6 @@ require("setup.ibl")
 require("setup.lsp")
 require("setup.settings")
 require("setup.coloring")
-
 package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
 require('nvim-subfiles').setup({
     bindings = { },

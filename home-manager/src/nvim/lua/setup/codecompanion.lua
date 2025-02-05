@@ -19,7 +19,15 @@ require("codecompanion").setup({
     },
     strategies = {
         chat = {
-            adapter = "codeqwen",
+            adapter = "ollama",
+            keymaps = {
+                send = {
+                    modes = { n = "<C-s>" },
+                },
+                close = {
+                    modes = { n = "<C-c>" },
+                },
+            },
         },
         inline = {
             adapter = "codeqwen",
