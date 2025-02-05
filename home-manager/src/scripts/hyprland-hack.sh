@@ -23,17 +23,17 @@ set -- "${POSITIONAL_ARGS[@]}"
 
 cmd="$1"
 
-if [[ "close-special" =~ ^$cmd* ]]; then
+if [[ "close-special" =~ ^"$cmd" ]]; then
     active=$(hyprctl -j monitors | jq --raw-output '.[] | select(.focused==true).specialWorkspace.name | split(":") | if length > 1 then .[1] else "" end')
     if [[ ${#active} -gt 0 ]]; then
         hyprctl dispatch togglespecialworkspace "$active"
     fi
-elif [[ "kill-all-windows" =~ ^$cmd* ]]; then
+elif [[ "kill-all-windows" =~ ^"$cmd" ]]; then
     pids=$(hyprctl -j clients | jq --raw-output ".[] | select(.workspace.id==$(hyprctl -j activeworkspace | jq ".id"))" | jq ".pid")
     for pid in $pids; do
         kill "$pid"
     done
-elif [[ "move-all-windows" =~ ^$cmd* ]]; then
+elif [[ "move-all-windows" =~ ^"$cmd" ]]; then
     cur_workspace="$(hyprctl -j activeworkspace | jq ".id")"
     cur_pids=$(hyprctl -j clients | jq --raw-output ".[] | select(.workspace.id==$cur_workspace)" | jq ".pid")
     to_workspace=$2

@@ -98,7 +98,7 @@ if [ -z "$cmd" ]; then
     exit 1
 fi
 
-if [[ "connect" =~ ^$cmd* ]]; then
+if [[ "connect" =~ ^"$cmd" ]]; then
     country="$2"
     if ! serverExists "$country-$port"; then
         if [ "$raw" -eq 0 ]; then
@@ -121,11 +121,11 @@ if [[ "connect" =~ ^$cmd* ]]; then
     else
         printf "%s-%s\n" "$country" "$port"
     fi
-elif [[ "disconnect" =~ ^$cmd* ]]; then
+elif [[ "disconnect" =~ ^"$cmd" ]]; then
     disconnectAll "34"
-elif [[ "list" =~ ^$cmd* ]]; then
+elif [[ "list" =~ ^"$cmd" ]]; then
     if [ "$raw" -eq 0 ]; then listServersPretty; else listServersUgly; fi
-elif [[ "status" =~ ^$cmd* ]]; then
+elif [[ "status" =~ ^"$cmd" ]]; then
     connected=0
     for service in $(listServersUgly); do
         if systemctl is-active "$service" --quiet; then
@@ -154,9 +154,9 @@ elif [[ "status" =~ ^$cmd* ]]; then
             printf "disconnected\n"
         fi
     fi
-elif [[ "ip" =~ ^$cmd* ]]; then
+elif [[ "ip" =~ ^"$cmd" ]]; then
     if [ "$raw" -eq 0 ]; then getip public; else getip public --raw; fi
-elif [[ "set-password" =~ ^$cmd* ]]; then
+elif [[ "set-password" =~ ^"$cmd" ]]; then
     sudo -s "$(which vpn-change-passwords)"
 else
     if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi

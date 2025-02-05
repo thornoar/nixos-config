@@ -27,14 +27,14 @@ trap interrupt_handler SIGINT
 
 cmd="$1"
 
-if [[ "private" =~ $cmd* ]]; then
+if [[ "private" =~ "$cmd" ]]; then
     ip=$(ifconfig wlp46s0 | grep -i mask | awk '{print $2}'| cut -f2 -d:)
     if [ "$raw" -eq 0 ]; then
         printf "\e[1;34m#\e[0m Private IP: \e[33m%s\e[0m.\n" "$ip"
     else
         printf "%s\n" "$ip"
     fi
-elif [[ "public" =~ $cmd* ]]; then
+elif [[ "public" =~ "$cmd" ]]; then
     json=$(curl ipinfo.io -s)
     ip=$(echo "$json" | jq --raw-output ".ip")
     if [ "$raw" -eq 0 ]; then
@@ -50,7 +50,7 @@ elif [[ "public" =~ $cmd* ]]; then
     else
         printf "%s\n" "$ip"
     fi
-elif [[ "all" =~ $cmd* ]]; then
+elif [[ "all" =~ "$cmd" ]]; then
     ip address show
 else
     printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"

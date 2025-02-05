@@ -135,10 +135,10 @@ function installPackage () {
     echo "$package" >> "$file"
 }
 
-if [[ "system-options" =~ ^$cmd* ]]; then
+if [[ "systm" =~ ^"$cmd" ]]; then
     manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'"
     exit 0
-elif [[ "preview" =~ ^$cmd* ]]; then
+elif [[ "preview" =~ ^"$cmd" ]]; then
     packages=( "${@:2}" )
     if [ "${#packages[@]}" -eq 0 ]; then
         if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
@@ -150,7 +150,7 @@ elif [[ "preview" =~ ^$cmd* ]]; then
     packages=( "${packages[@]/#/nixpkgs#}" )
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Evaluating package derivations:\n"; fi
     nix shell --impure "${packages[@]}"
-elif [[ "list-installed" =~ ^$cmd* ]]; then
+elif [[ "list-installed" =~ ^"$cmd" ]]; then
     levelList=("system" "user")
     if [ -n "$level" ]; then
         if echo "${levelList[@]}" | grep -q "$level"; then
@@ -176,7 +176,7 @@ elif [[ "list-installed" =~ ^$cmd* ]]; then
             done
         fi
     done
-elif [[ "install" =~ ^$cmd* ]]; then
+elif [[ "install" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [[ ${#packages[@]} -eq 0 ]]; then
         if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
@@ -198,7 +198,7 @@ elif [[ "install" =~ ^$cmd* ]]; then
         fi
     done
     if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
-elif [[ "remove" =~ ^$cmd* ]]; then
+elif [[ "remove" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [[ ${#packages[@]} -eq 0 ]]; then
         if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
@@ -216,7 +216,7 @@ elif [[ "remove" =~ ^$cmd* ]]; then
         awk "!/$package/" "$file" > temp && mv temp "$file"
     done
     if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
-elif [[ "collect-garbage" =~ ^$cmd* ]]; then
+elif [[ "collect-garbage" =~ ^"$cmd" ]]; then
     sudo printf ""
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the user level.\n"; fi # ]]
     nix-collect-garbage --delete-old
@@ -224,7 +224,7 @@ elif [[ "collect-garbage" =~ ^$cmd* ]]; then
     sudo nix-collect-garbage --delete-old
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Deleting boot entries.\n"; fi # ]]
     nix-collect-garbage -d
-elif [[ "search" =~ ^$cmd* ]]; then
+elif [[ "search" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [ "$raw" -eq 0 ]; then desc=1; fi
     if [[ ${#packages[@]} -eq 0 ]]; then
