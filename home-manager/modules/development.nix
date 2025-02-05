@@ -41,6 +41,7 @@
                 vmstart = "sudo virsh start";
                 vmstop = "sudo virsh shutdown";
                 clip = "wl-copy -n";
+                gpp = "g++ -std=c++11";
             };    
         };
         git = {

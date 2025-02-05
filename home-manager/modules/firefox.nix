@@ -33,6 +33,7 @@ let
         { name = "rs | rust documentation"; url = "https://doc.rust-lang.org/rust-by-example/"; keyword = "rs"; }
         { name = "clj | clojure documentation"; url = "https://clojure.org/guides/getting_started"; keyword = "clj"; }
         { name = "ftl | fasterthanli"; url = "https://fasterthanli.me/"; keyword = "ftl"; }
+        { name = "c++ | COMP2011"; url = "https://course.cse.ust.hk/comp2011"; keyword = "c++"; }
     ];
     userChrome = ''
         #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {

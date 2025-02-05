@@ -7,12 +7,12 @@ require("codecompanion").setup({
                     model = {
                         default = "codeqwen:7b",
                     },
-                    num_ctx = {
-                        default = 16384,
-                    },
-                    num_predict = {
-                        default = -1,
-                    },
+                    -- num_ctx = {
+                    --     default = 16384,
+                    -- },
+                    -- num_predict = {
+                    --     default = -1,
+                    -- },
                 },
             })
         end,
@@ -22,10 +22,10 @@ require("codecompanion").setup({
             adapter = "ollama",
             keymaps = {
                 send = {
-                    modes = { n = "<C-s>" },
+                    modes = { n = "<C-s>", i = "<C-p>" },
                 },
                 close = {
-                    modes = { n = "<C-c>" },
+                    modes = { n = "<C-c>", i = "<C-p>" },
                 },
             },
         },
