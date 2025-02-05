@@ -78,16 +78,6 @@ require('lazy').setup({
         'github/copilot.vim',
         cmd = 'Copilot'
     },
-    -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
-    -- {
-    --     'kdheepak/lazygit.nvim',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --     },
-    --     keys = {
-    --         { '<M-g>', ':LazyGit<CR>', desc = 'LazyGit' }
-    --     },
-    -- },
     {
         'kaarmu/typst.vim',
         ft = 'typst',
@@ -174,6 +164,25 @@ require('lazy').setup({
     { 'hrsh7th/cmp-path', },
     { 'octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
+    {
+        "nomnivore/ollama.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+        keys = {
+            {
+                "<leader>ao",
+                ":<c-u>lua require('ollama').prompt()<cr>",
+                desc = "ollama prompt",
+                mode = { "n", "v" },
+            },
+        },
+        ---@type Ollama.Config
+        opts = {
+            model = "codeqwen:7b",
+        },
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
