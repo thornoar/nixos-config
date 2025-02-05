@@ -169,7 +169,7 @@ require('lazy').setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+        cmd = { "Ollama", "OllamaModel" },
         keys = {
             {
                 "<leader>ao",
@@ -183,9 +183,17 @@ require('lazy').setup({
             model = "codeqwen:7b",
         },
     },
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
+require("setup.codecompanion")
 require("setup.neodev")
 require("setup.oil")
 require("setup.commands")
