@@ -9,7 +9,7 @@ raw=0
 
 function printUsage {
     printf "usage: vpn [ connect COUNTRY | disconnect | list | status | ip | set-password ]\n"
-    printf "           [ -p|--port PORT | -h|--help ]\n"
+    printf "           [ -p|--port PORT | -h|--help | -r|--raw ]\n"
 }
 
 if [ -z "$1" ]; then
@@ -94,11 +94,11 @@ function disconnectAll () {
 }
 
 if [ -z "$cmd" ]; then
-    printf "\e[1;31m#\e[0m No command given.\n"
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No command given.\n"; fi
     exit 1
 fi
 
-if [[ "connect" =~ $cmd* ]]; then
+if [[ "connect" =~ ^$cmd* ]]; then
     country="$2"
     if ! serverExists "$country-$port"; then
         if [ "$raw" -eq 0 ]; then
@@ -159,6 +159,6 @@ elif [[ "ip" =~ ^$cmd* ]]; then
 elif [[ "set-password" =~ ^$cmd* ]]; then
     sudo -s "$(which vpn-change-passwords)"
 else
-    printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
     exit 1
 fi

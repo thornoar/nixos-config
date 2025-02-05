@@ -5,9 +5,11 @@ raw=0
 desc=0
 level=""
 section=""
+given_level_section=0
 
 function printUsage {
-    printf "usage: fnix [ system-options | preview ..PACKAGES ]\n"
+    printf "usage: fnix [ preview ..PACKAGES | install PACKAGE | remove ..PACKAGES ]\n"
+    printf "            [ system-options | collect-garbage ]\n"
     printf "            [ -h|--help | -r|--raw | -d|--desc ]\n"
     printf "            [ -l|--level user|system | -s|--section SECTION ]\n"
 }
@@ -28,6 +30,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 set -- "${POSITIONAL_ARGS[@]}"
+
+if [ -n "$level" ] && [ -n "$section" ]; then
+    given_level_section=1
+fi
 
 function interrupt_handler () {
     if [ "$raw" -eq 0 ]; then printf "\n\e[1;31m#\e[0m Interrupted by user.\n"; fi
@@ -110,6 +116,21 @@ function packageInstalled () {
     return 1
 }
 
+function installPackage () {
+    queryForLevelAndSection
+    package="$1"
+    file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
+    if [ ! -f "$file" ]; then
+        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$level"; fi
+        if [ "$given_level_section" -eq 1 ]; then
+            installPackage "$package"
+        else
+            return 1
+        fi
+    fi
+    echo "$package" >> "$file"
+}
+
 if [[ "system-options" =~ ^$cmd* ]]; then
     manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'"
     exit 0
@@ -152,34 +173,45 @@ elif [[ "list-installed" =~ ^$cmd* ]]; then
         fi
     done
 elif [[ "install" =~ ^$cmd* ]]; then
-    package="$2"
-    if [ -z "$package" ]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No package given.\n"; fi
+    packages=("${@:2}")
+    if [[ ${#packages[@]} -eq 0 ]]; then
+        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
         exit 1
     fi
-    printPackage "$package" || exit 1
-    if packageInstalled "$package"; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m already listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
-        exit 1
-    fi
-    queryForLevelAndSection
-    file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
-    if [ ! -f "$file" ]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$level"; fi
-        exit 1
-    fi
-    echo "$package" >> "$file"
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
+    level_backup="$level"
+    section_backup="$section"
+    changed=0
+    for package in "${packages[@]}"; do
+        printPackage "$package" || exit 1
+        if packageInstalled "$package"; then
+            if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m already listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
+            continue
+            level="$level_backup"
+            section="$section_backup"
+        fi
+        if installPackage "$package"; then
+            changed=1
+        fi
+    done
+    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
 elif [[ "remove" =~ ^$cmd* ]]; then
-    package="$2"
-    if ! packageInstalled "$package"; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m not listed in configuration.\n" "$package"; fi
+    packages=("${@:2}")
+    if [[ ${#packages[@]} -eq 0 ]]; then
+        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
         exit 1
     fi
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Removing package \e[33m%s\e[0m listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
-    file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
-    awk "!/$package/" "$file" > temp && mv temp "$file"
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
+    changed=0
+    for package in "${packages[@]}"; do
+        if ! packageInstalled "$package"; then
+            if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m not listed in configuration.\n" "$package"; fi
+            continue
+        fi
+        changed=1
+        if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Removing package \e[33m%s\e[0m listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
+        file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
+        awk "!/$package/" "$file" > temp && mv temp "$file"
+    done
+    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
 elif [[ "collect-garbage" =~ ^$cmd* ]]; then
     sudo printf ""
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the user level.\n"; fi # ]]
