@@ -60,4 +60,3 @@ code-cursor
 qbittorrent
 networkmanager-openvpn
 upx
-gdrive
