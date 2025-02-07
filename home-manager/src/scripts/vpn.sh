@@ -4,12 +4,14 @@
 # vpnbook passwords: https://www.vpnbook.com/freevpn
 
 POSITIONAL_ARGS=()
-port="2"
+provider=""
+branch=""
 raw=0
 
 function printUsage {
     printf "usage: vpn [ connect COUNTRY | disconnect | list | status | ip | set-password ]\n"
-    printf "           [ -p|--port PORT | -h|--help | -r|--raw ]\n"
+    printf "           [ -b|--branch BRANCH | -p|--provider PROVIDER ]\n"
+    printf "           [ -h|--help | -r|--raw ]\n"
 }
 
 if [ -z "$1" ]; then
@@ -19,7 +21,8 @@ fi
 
 while [[ $# -gt 0 ]]; do
     case $1 in #(((
-        -p|--port) port="$2"; shift; shift ;;
+        -b|--branch) branch="$2"; shift; shift ;;
+        -p|--provider) provider="$2"; shift; shift ;;
         -r|--raw) raw=1; shift ;;
         -h|--help) printUsage; exit 0 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -35,13 +38,22 @@ trap interrupt_handler SIGINT
 
 cmd="$1"
 
+if [ -z "$cmd" ]; then
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No command given.\n"; fi
+    exit 1
+fi
+
 function getCountryName () {
-    case "$1" in # ((((
+    case "$1" in # ((((((((((
         "us") printf "USA" ;;
         "nl") printf "Netherlands" ;;
         "jp") printf "Japan" ;;
         "de") printf "Germany" ;;
         "ca") printf "Canada" ;;
+        "kr") printf "Korea" ;;
+        "fr") printf "France" ;;
+        "ru") printf "Russia" ;;
+        "th") printf "Thailand" ;;
         *) printf "%s" "$1" ;;
     esac
 }
@@ -58,13 +70,57 @@ function listServersUgly {
     systemctl list-unit-files --quiet | grep "openvpn-server" | awk '{print $1}'
 }
 
-function getCountryPort () {
-    [[ $1 =~ openvpn-server-([a-z]*)-([0-9]*).service ]]
+function getCountryBranchProvider () {
+    [[ $1 =~ openvpn-server-([a-z]*)-([0-9]*)-([a-z]*).service ]]
+}
+
+function configureBranchAndProvider {
+    country="$1"
+    if [ -z "$provider" ] || [ -z "$branch" ]; then
+        pattern=""
+        if [ -z "$branch" ] && [ -z "$provider" ]; then
+            pattern="openvpn-server-$country"
+        elif [ -z "$provider" ]; then
+            pattern="openvpn-server-$country-$branch"
+        else
+            pattern="openvpn-server-$country-\\([0-9]*\\)-$provider"
+        fi
+
+        while IFS='' read -r line; do
+            if getCountryBranchProvider "$line"; then
+                branch="${BASH_REMATCH[2]}"
+                provider="${BASH_REMATCH[3]}"
+                return 0
+            else
+                if [ "$raw" -eq 0 ]; then
+                    printf "\e[1;31m#\e[0m Server exists but in wrong format: \e[35m%s\e[0m.\n" "$line"
+                fi
+                exit 1
+            fi
+        done < <(systemctl list-unit-files --quiet | grep "$pattern" | awk '{print $1}')
+        if [ "$raw" -eq 0 ]; then
+            if [ -z "$branch" ] && [ -z "$provider" ]; then
+                printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on any branch.\n" "$(getCountryName "$country")"
+            elif [ -z "$provider" ]; then
+                printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$branch"
+            else
+                printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported by \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider"
+            fi
+        fi
+        exit 1
+    else
+        if ! serverExists "$country-$branch-$provider"; then
+            if [ "$raw" -eq 0 ]; then
+                printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
+            fi
+            exit 1
+        fi
+    fi
 }
 
 function printServer () {
-    if getCountryPort "$1"; then
-        printf "\e[1;34m#\e[0m \e[33m%s\e[0m on port \e[33m%s\e[0m.\e[35m%s\e[0m\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}" "$2"
+    if getCountryBranchProvider "$1"; then
+        printf "\e[1;34m#\e[0m \e[33m%s\e[0m on branch \e[33m%s\e[0m by \e[33m%s\e[0m.\e[35m%s\e[0m\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}" "$2"
     else
         printf "\e[1;31m#\e[0m Server exists but in wrong format: \e[35m%s\e[0m.\e[35m%s\e[0m\n" "$1" "$2"
     fi
@@ -84,8 +140,8 @@ function disconnectAll () {
     for service in $(listServersUgly); do
         if systemctl is-active "$service" --quiet; then
             sudo systemctl stop "$service" || exit 1
-            if getCountryPort "$service"; then
-                printf "\e[1;$1m#\e[0m Disconnected from \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
+            if getCountryBranchProvider "$service"; then
+                printf "\e[1;$1m#\e[0m Disconnected from \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
             else
                 printf "\e[1;$1m#\e[0m Disconnected from \e[35m%s\e[0m.\n" "$service"
             fi
@@ -93,33 +149,23 @@ function disconnectAll () {
     done
 }
 
-if [ -z "$cmd" ]; then
-    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No command given.\n"; fi
-    exit 1
-fi
-
 if [[ "connect" =~ ^"$cmd" ]]; then
     country="$2"
-    if ! serverExists "$country-$port"; then
+    configureBranchAndProvider "$country"
+    if serverActive "openvpn-server-$country-$branch-$provider.service"; then
         if [ "$raw" -eq 0 ]; then
-            printf "\e[1;31m#\e[0m Country \e[33m%s\e[0m not supported on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
-        fi
-        exit 1
-    fi
-    if serverActive "openvpn-server-$country-$port.service"; then
-        if [ "$raw" -eq 0 ]; then
-            printf "\e[1;31m#\e[0m Already connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+            printf "\e[1;31m#\e[0m Already connected to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
         else
-            printf "%s-%s\n" "$country" "$port"
+            printf "%s-%s-%s\n" "$country" "$branch" "$provider"
         fi
         exit 0
     fi
     disconnectAll "31"
-    sudo systemctl start "openvpn-server-$country-$port.service" || exit 1
+    sudo systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
     if [ "$raw" -eq 0 ]; then
-        printf "\e[1;34m#\e[0m Connected to \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$port"
+        printf "\e[1;34m#\e[0m Connected to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
     else
-        printf "%s-%s\n" "$country" "$port"
+        printf "%s-%s-%s\n" "$country" "$branch" "$provider"
     fi
 elif [[ "disconnect" =~ ^"$cmd" ]]; then
     disconnectAll "34"
@@ -129,11 +175,11 @@ elif [[ "status" =~ ^"$cmd" ]]; then
     connected=0
     for service in $(listServersUgly); do
         if systemctl is-active "$service" --quiet; then
-            if getCountryPort "$service"; then
+            if getCountryBranchProvider "$service"; then
                 if [ "$raw" -eq 0 ]; then
-                    printf "\e[1;34m#\e[0m Connection active in \e[33m%s\e[0m on port \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
+                    printf "\e[1;34m#\e[0m Connection active in \e[33m%s\e[0m on branch \e[33m%s\e[0m by \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
                 else
-                    printf "%s-%s\n" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+                    printf "%s-%s-%s\n" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
                 fi
             else
                 if [ "$raw" -eq 0 ]; then
