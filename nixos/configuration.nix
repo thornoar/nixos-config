@@ -92,12 +92,12 @@
         server-jp-2-protonvpn = createConfig "jp-free-2.protonvpn.udp";
         server-de-1-freeopenvpn = createConfig "de-free-1.freeopenvpn.tcp";
         server-de-2-freeopenvpn = createConfig "de-free-2.freeopenvpn.udp";
-        server-kr-1-freeopenvpn = createConfig "kr-free-1.freeopenvpn.udp";
+        server-kr-1-freeopenvpn = createConfig "kr-free-1.freeopenvpn.tcp";
         server-kr-2-freeopenvpn = createConfig "kr-free-2.freeopenvpn.udp";
         server-kr-3-freeopenvpn = createConfig "kr-free-3.freeopenvpn.udp";
         server-ru-2-freeopenvpn = createConfig "ru-free-2.freeopenvpn.udp";
         server-th-2-freeopenvpn = createConfig "th-free-2.freeopenvpn.udp";
-        server-us-1-freeopenvpn = createConfig "us-free-1.freeopenvpn.udp";
+        server-us-1-freeopenvpn = createConfig "us-free-1.freeopenvpn.tcp";
         server-us-3-freeopenvpn = createConfig "us-free-3.freeopenvpn.udp";
         server-de-3-vpnbook = createConfig "de-free-3.vpnbook.tcp";
         server-de-4-vpnbook = createConfig "de-free-4.vpnbook.udp";
