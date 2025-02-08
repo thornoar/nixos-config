@@ -95,8 +95,8 @@
         server-kr-1-freeopenvpn = createConfig "kr-free-1.freeopenvpn.udp";
         server-kr-2-freeopenvpn = createConfig "kr-free-2.freeopenvpn.udp";
         server-kr-3-freeopenvpn = createConfig "kr-free-3.freeopenvpn.udp";
-        server-ru-1-freeopenvpn = createConfig "ru-free-1.freeopenvpn.udp";
-        server-th-1-freeopenvpn = createConfig "th-free-1.freeopenvpn.udp";
+        server-ru-2-freeopenvpn = createConfig "ru-free-2.freeopenvpn.udp";
+        server-th-2-freeopenvpn = createConfig "th-free-2.freeopenvpn.udp";
         server-us-1-freeopenvpn = createConfig "us-free-1.freeopenvpn.udp";
         server-us-3-freeopenvpn = createConfig "us-free-3.freeopenvpn.udp";
         server-de-3-vpnbook = createConfig "de-free-3.vpnbook.tcp";
