@@ -161,12 +161,40 @@ if [[ "connect" =~ ^"$cmd" ]]; then
         exit 0
     fi
     disconnectAll "31"
+    if [ "$raw" -eq 0 ]; then
+        printf "\e[1;34m#\e[0m Connecting to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
+    # else
+    #     printf "%s-%s-%s\n" "$country" "$branch" "$provider"
+    fi
+    ip_before=$(curl ipinfo.io -s | jq ".ip" --raw-output)
     sudo systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
     if [ "$raw" -eq 0 ]; then
-        printf "\e[1;34m#\e[0m Connected to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
-    else
-        printf "%s-%s-%s\n" "$country" "$branch" "$provider"
+        printf "\e[1;34m#\e[0m Checking if IP was re-routed:\n"
     fi
+    for _ in $(seq 20); do
+        ip_after=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+        if [ "$ip_before" == "$ip_after" ]; then
+            if [ "$raw" -eq 0 ]; then printf "\e[1;33m#\e[0m Not yet...\n"; fi
+        else
+            if [ "$raw" -eq 0 ]; then
+                printf "\e[1;34m#\e[0m Connected. Checking internet. \n"
+            fi
+            if ping -q -c1 google.com &>/dev/null; then
+                if [ "$raw" -eq 0 ]; then
+                    printf "\e[1;34m#\e[0m Internet connection stable.\n"
+                else
+                    printf "%s-%s-%s\n" "$country" "$branch" "$provider"
+                fi
+            else
+                break
+            fi
+            exit 0
+        fi
+        sleep 0.5
+    done
+    sudo systemctl stop "openvpn-server-$country-$branch-$provider.service" || exit 1
+    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m There was a problem connecting.\n"; fi
+    exit 1
 elif [[ "disconnect" =~ ^"$cmd" ]]; then
     disconnectAll "34"
 elif [[ "list" =~ ^"$cmd" ]]; then
