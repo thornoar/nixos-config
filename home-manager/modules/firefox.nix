@@ -29,6 +29,7 @@ let
         { name = "ch | ArchChinese"; url = "https://www.archchinese.com/"; keyword = "ch"; }
         { name = "ca | Canvas"; url = "https://canvas.ust.hk"; keyword = "ca"; }
         { name = "ps | pshash"; url = "https://thornoar.github.io/pshash/web/app/"; keyword = "ps"; }
+        { name = "ds | problem-distribution"; url = "https://thornoar.github.io/problem-distribution/"; keyword = "ds"; }
         { name = "sg | sage documentation"; url = "https://doc.sagemath.org/html/en/tutorial/index.html"; keyword = "sg"; }
         { name = "rs | rust documentation"; url = "https://doc.rust-lang.org/rust-by-example/"; keyword = "rs"; }
         { name = "clj | clojure documentation"; url = "https://clojure.org/guides/getting_started"; keyword = "clj"; }
