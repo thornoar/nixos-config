@@ -249,7 +249,7 @@
   show link: underline
 
   show: assignment-title(
-    header: [ MATH1023 Homework, #part #h(1fr) Roman Maksimovich ],
+    header: [ #course Homework, #part #h(1fr) Roman Maksimovich ],
     title: course + " Homework, " + part,
     due: due
   )
