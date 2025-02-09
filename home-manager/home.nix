@@ -39,16 +39,6 @@ in
         readPackages ./src/packages/insecure.txt pkgs ++
         readCustomPackages ./src/packages/custom.txt;
 
-    # (
-    #     if config.misc.usePackageList then (
-    #         lib.lists.forEach (
-    #             lib.lists.partition
-    #                 (x: 0 < lib.strings.stringLength x) 
-    #                 (lib.strings.splitString "\n" (builtins.readFile ./src/packages/general.txt))
-    #         ).right (name: pkgs.${name})
-    #     ) else []
-    # ) ++ unstable-packages ++ insecure-packages ++ custom-packages;
-
     programs = {
         home-manager = {
             enable = true;
@@ -60,7 +50,6 @@ in
         gtk.enable = true;
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
-        # package = pkgs.rose-pine-cursor;
     };
 
     dconf.settings = {
@@ -79,10 +68,12 @@ in
         };
     };
 
-    # Keynav service
     services.keynav.enable = true;
 
-    # Enabling insecure library
+    services.dunst = {
+        enable = true;
+    };
+
     nixpkgs.config = {
         permittedInsecurePackages = [
             "libxls-1.6.2"
