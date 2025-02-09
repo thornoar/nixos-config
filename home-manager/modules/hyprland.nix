@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 let
     dotfile = str: lib.path.append ../src str;
@@ -7,6 +7,10 @@ let
                                                         in str + "\$${k} = ${if mkstr then "\"" + v' + "\"" else v'}\n");
 in
 {
+    # wayland.windowManager.hyprland.plugins = with pkgs; [
+    #     hyprexpo
+    # ];
+
     # Hyprland setup
     xdg.configFile."hypr/imports.conf".text = (toConf false "" config.hyprland) + (toConf false "" config.misc) + (toConf false "" config.colors);
     xdg.configFile."wpaperd/config.toml".text = ''

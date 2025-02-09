@@ -31,3 +31,4 @@ nasm
 flutter
 pyright
 devbox
+meson

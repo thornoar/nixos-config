@@ -28,6 +28,7 @@
             CURSOR_INACTIVE_TIMEOUT = "1";
             NIXOS_OZONE_WL = "1";
             HYPRCURSOR_SIZE = "16";
+            HYPRCURSOR_THEME = "rose-pine-cursor";
             TERMINAL = "alacritty";
             XCURSOR_SIZE = "16";
             BROWSER = "firefox -P hyprland";
