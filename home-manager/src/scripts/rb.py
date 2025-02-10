@@ -135,6 +135,8 @@ try:
 
     os.chdir(cwd)
 
+    call("notify-send \"rebuild completed!\"")
+
     if args.reboot:
         os.system("reboot")
 except KeyboardInterrupt:

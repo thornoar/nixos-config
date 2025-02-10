@@ -2,6 +2,7 @@
 
 let
     readCustomPackages = file: lib.lists.forEach (readFile file) (x: inputs.${x}.packages.${system}.default);
+    ts = builtins.toString;
 in
 {
     home.username = "ramak";
@@ -73,15 +74,22 @@ in
     services.dunst = {
         enable = true;
         settings.global = {
-            origin = "bottom-center";
+            origin = "top-right";
+            offset = "${ts (config.hyprland.windowSpaceOuter + 4)}x${ts (config.hyprland.windowSpaceOuter + 4)}";
             progress_bar = false;
             frame_width = 1;
             gap_size = 2;
-            font = "Hack Mono 11";
+            font = "Hack Nerd Font Mono 11";
             corner_radius = config.hyprland.rounding;
             frame_color = config.colors.colorMagenta1;
-            foreground = config.colors.colorWhite2;
+            foreground = config.colors.colorWhite3;
             background = config.colors.bgColor1;
+            sticky_history = false;
+            padding = config.hyprland.windowSpaceOuter;
+            horizontal_padding = config.hyprland.windowSpaceOuter;
+        };
+        settings.urgency_normal = {
+            timeout = 3;
         };
     };
 
