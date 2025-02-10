@@ -36,5 +36,10 @@ require("codecompanion").setup({
                 show_default_prompt_library = true, -- Show the default prompt library in the action palette?
             },
         },
+        chat = {
+            window = {
+                layout = "buffer",
+            },
+        },
     },
 })

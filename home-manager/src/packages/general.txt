@@ -60,4 +60,4 @@ code-cursor
 qbittorrent
 networkmanager-openvpn
 upx
-rose-pine-cursor
+xcur2png

@@ -74,7 +74,7 @@
                     ./nixos/modules/laptop/hyprland.nix
                     ./nixos/modules/laptop/xmonad.nix
                     ./nixos/modules/vpn.nix
-                    { _module.args = { sysname = "laptop"; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; inherit readPackages; }; }
+                    { _module.args = { sysname = "laptop"; inherit system; inherit inputs; inherit pkgs-unstable; inherit pkgs-old; inherit readPackages; }; }
                     inputs.home-manager.nixosModules.home-manager
                     {
                         home-manager = {

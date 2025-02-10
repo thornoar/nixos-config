@@ -72,6 +72,17 @@ in
 
     services.dunst = {
         enable = true;
+        settings.global = {
+            origin = "bottom-center";
+            progress_bar = false;
+            frame_width = 1;
+            gap_size = 2;
+            font = "Hack Mono 11";
+            corner_radius = config.hyprland.rounding;
+            frame_color = config.colors.colorMagenta1;
+            foreground = config.colors.colorWhite2;
+            background = config.colors.bgColor1;
+        };
     };
 
     nixpkgs.config = {

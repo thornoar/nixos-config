@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, readPackages, ... }:
+{ sysname, system, inputs, pkgs, readPackages, ... }:
 
 {
     users.users.ramak = {
