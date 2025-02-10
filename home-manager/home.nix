@@ -89,7 +89,7 @@ in
             horizontal_padding = config.hyprland.windowSpaceOuter;
         };
         settings.urgency_normal = {
-            timeout = 3;
+            timeout = 1;
         };
     };
 

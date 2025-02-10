@@ -188,8 +188,8 @@ if [[ "connect" =~ ^"$cmd" ]]; then
                     printf "\e[1;34m#\e[0m Connected. Checking internet. \n"
                 fi
                 unstable="0"
-                for _ in $(seq 6); do
-                    if ping -q -c1 google.com &>/dev/null; then
+                for _ in $(seq 3); do
+                    if [ "$(getip public -r)" == "$ip_after" ]; then
                         if [ "$raw" -eq 0 ]; then
                             printf "\e[1;33m#\e[0m Stable...\n"
                         fi
@@ -208,7 +208,7 @@ if [[ "connect" =~ ^"$cmd" ]]; then
                 notify-send "VPN connection to $(getCountryName "$country") established!"
                 exit 0
             fi
-            sleep 0.5
+            sleep 1.0
         done
         sudo systemctl stop "openvpn-server-$country-$branch-$provider.service" || exit 1
         if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m There was a problem connecting.\n"; fi
