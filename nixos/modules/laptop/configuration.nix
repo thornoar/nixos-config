@@ -38,21 +38,6 @@
             enable = true;
             acceleration = "cuda";
         };
-        upower.enable = true;
-        thermald.enable = true;
-        auto-cpufreq = {
-            enable = true;
-            settings = {
-                battery = {
-                    governor = "powersave";
-                    turbo = "never";
-                };
-                charger = {
-                    governor = "performance";
-                    turbo = "auto";
-                };
-            };
-        };
         syncthing = {
             enable = true;
             user = "ramak";

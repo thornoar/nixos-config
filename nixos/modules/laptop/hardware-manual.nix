@@ -9,21 +9,6 @@
     };
 
     nixpkgs.config.nvidia.acceptLicense = true;
-    hardware.nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        powerManagement.finegrained = false;
-        nvidiaSettings = true;
-        forceFullCompositionPipeline = false;
-        open = false;
-        package = config.boot.kernelPackages.nvidiaPackages.production;
-        prime = {
-            # offload = { enable = true; enableOffloadCmd = true; };
-            sync.enable = true; 
-            intelBusId = "PCI:0:0:2"; 
-            nvidiaBusId = "PCI:0:1:0"; 
-        };
-    };
     hardware.graphics = {
         enable = true;
         enable32Bit = true;
@@ -46,12 +31,52 @@
         options = [ "nofail" "rw" "user" "auto" ];
     };
 
-    services.cron = {
-        enable = true;
-        systemCronJobs = [
-            "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
-            "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
-        ];
+    services = {
+        cron = {
+            enable = true;
+            systemCronJobs = [
+                "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
+                "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
+            ];
+        };
+        upower.enable = true;
+        thermald.enable = true;
+        auto-cpufreq = {
+            enable = true;
+            settings = {
+                battery = {
+                    governor = "powersave";
+                    turbo = "never";
+                };
+                charger = {
+                    governor = "performance";
+                    turbo = "auto";
+                };
+            };
+        };
+        # tlp = {
+        #     enable = true;
+        #     settings = {
+        #         TLP_DEFAULT_MODE = "AC";
+        #
+        #         CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        #         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        #
+        #         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        #         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        #
+        #         CPU_MIN_PERF_ON_AC = 0;
+        #         CPU_MAX_PERF_ON_AC = 100;
+        #         CPU_MIN_PERF_ON_BAT = 0;
+        #         CPU_MAX_PERF_ON_BAT = 40;
+        #
+        #         CPU_BOOST_ON_AC = 1;
+        #         CPU_BOOST_ON_BAT = 0;
+        #
+        #         # START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+        #         # STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+        #     };
+        # };
     };
 
     systemd.timers."interrupt-allow-access" = {

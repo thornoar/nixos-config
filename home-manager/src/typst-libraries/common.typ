@@ -5,6 +5,7 @@
 #let mfrac(a, b) = move(a, dy: -0.2em) + "/" + move(b, dy: 0.2em, dx: -0.1em)
 #let vphantom(size) = box(height: size, width: 0pt, [])
 #let hphantom(size) = box(height: 0pt, width: size, [])
+#let hh = h(.5mm)
 
 // Colors
 #let palered = rgb("#ffc0c0")
@@ -20,3 +21,5 @@
 #let hs = h(5pt)
 #let lle = math.lt.eq.slant
 #let gge = math.gt.eq.slant
+#let liminf = $limits(op("lim inf"#hh))$
+#let limsup = $limits(op("lim sup"#hh))$

@@ -105,6 +105,7 @@ lspconfig.tinymist.setup({
     -- settings = {
     --     exportPdf = "never",
     -- },
+    offset_encoding = "utf-8",
     autostart = true,
     capabilities = lsp_capabilities,
     handlers = handlers,

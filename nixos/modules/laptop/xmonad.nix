@@ -1,7 +1,7 @@
 { pkgs, pkgs-unstable, lib, readPackages, ... }:
 {
     specialisation.xmonad.configuration = {
-        boot.loader.systemd-boot.sortKey = "aab";
+        boot.loader.systemd-boot.sortKey = "aac";
         environment.variables = {
             SPECIALISATION = lib.mkForce "xmonad";
             TERMINAL = "kitty";

@@ -5,6 +5,8 @@
 
 // Layout
 
+#let comp(f1, f2) = x => f2(f1(x))
+
 #let font = "TeX Gyre Schola"
 #let pagecount(format) = doc => {
   set page(numbering: format)
@@ -257,10 +259,10 @@
   doc
 }
 
-#let assignment-problem(supplement: "Exercise", number) = underline(strong({
+#let assignment-problem(supplement: "Exercise", number, fmt: comp(strong, underline)) = fmt({
   text(supplement + " " + number + ".");
   linebreak()
-}))
+})
 #let solution = { underline(emph("Solution:")); h(2pt) }
 
 #let diploma(

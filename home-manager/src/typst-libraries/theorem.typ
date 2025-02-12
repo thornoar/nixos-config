@@ -97,6 +97,7 @@
 #let exam = plainstyle("example", "Example")
 #let exer = plainstyle("exercise", "Exercise")
 #let note = plainstyle("note", "Note")
+#let rem = plainstyle("remark", "Remark")
 
 #let th = statestyle("theorem", "Theorem")
 #let lm = statestyle("lemma", "Lemma")

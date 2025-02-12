@@ -135,15 +135,17 @@ verbs: [
     }
     {
         key: alt-enter
-        internal: open_stay
-    }
-    {
-        invocation: devour
-        key: alt-d
         apply_to: file
-        execution: "devour xdg-open {file}"
+        execution: "sh -c \"nohup xdg-open {file} 2> /dev/null 1> /dev/null &\" &"
         leave_broot: false
     }
+    # {
+    #     invocation: devour
+    #     key: alt-d
+    #     apply_to: file
+    #     execution: "devour xdg-open {file}"
+    #     leave_broot: false
+    # }
     {
         key: shift-right
         apply_to: text_file

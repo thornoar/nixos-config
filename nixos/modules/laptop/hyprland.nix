@@ -2,11 +2,6 @@
 {
     specialisation.hyprland.configuration = {
         boot.loader.systemd-boot.sortKey = "aaa";
-        boot = {
-            kernelParams = [ "nvidia-drm.fbdev=1" ];
-            initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-        };
-        services.xserver.videoDrivers = [ "nvidia" ];
         programs.hyprland = {
             enable = true;
             package = pkgs.hyprland;
