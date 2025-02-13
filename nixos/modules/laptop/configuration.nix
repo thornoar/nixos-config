@@ -33,11 +33,6 @@
                 disableWhileTyping = true;
             };
         };
-        ollama = {
-            package = pkgs-unstable.ollama;
-            enable = true;
-            acceleration = "cuda";
-        };
         syncthing = {
             enable = true;
             user = "ramak";
