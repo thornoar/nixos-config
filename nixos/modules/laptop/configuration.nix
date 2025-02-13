@@ -6,18 +6,18 @@
         MUTTER_DEBUG_KMS_THREAD_TYPE="user";
     };
 
-    users.groups.ai-user = { };
-    users.users.ai-user = {
+    users.groups.extra = { };
+    users.users.extra = {
         isSystemUser = true;
         description = "User for AI interface";
-        group = "ai-user";
+        group = "extra";
         extraGroups = [
             "networkmanager"
             "sys"
             "wheel"
         ];
         homeMode = "0711";
-        home = "/home/ai-user";
+        home = "/home/extra";
         shell = "${pkgs.zsh}/bin/zsh";
     };
 

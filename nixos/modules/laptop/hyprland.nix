@@ -1,7 +1,7 @@
 { pkgs, pkgs-unstable, lib, readPackages, config, ... }:
 {
-    specialisation.hyprland-nvidia.configuration = {
-        boot.loader.systemd-boot.sortKey = "aab";
+    specialisation.hyprland.configuration = {
+        boot.loader.systemd-boot.sortKey = "aaa";
         boot = {
             kernelParams = [ "nvidia-drm.fbdev=1" ];
             initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
@@ -39,6 +39,7 @@
         };
         environment.systemPackages = readPackages ../../src/packages/hyprland.txt pkgs;
 
+        nixpkgs.config.nvidia.acceptLicense = true;
         hardware.nvidia = {
             modesetting.enable = true;
             powerManagement.enable = true;
@@ -48,8 +49,8 @@
             open = false;
             package = config.boot.kernelPackages.nvidiaPackages.production;
             prime = {
-                offload = { enable = true; enableOffloadCmd = true; };
-                # sync.enable = true; 
+                # offload = { enable = true; enableOffloadCmd = true; };
+                sync.enable = true; 
                 intelBusId = "PCI:0:0:2"; 
                 nvidiaBusId = "PCI:0:1:0"; 
             };

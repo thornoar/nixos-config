@@ -12,6 +12,7 @@ parser.add_argument("-u", "--update", action = "store_true", help = "update the 
 parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
 parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
 parser.add_argument("-g", "--git", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
+parser.add_argument("-a", "--alert", action = "store_true", help = "send a notification after rebuilding")
 parser.add_argument("-t", "--type", type = str, default = "system", help = "system or home")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
@@ -135,7 +136,8 @@ try:
 
     os.chdir(cwd)
 
-    call("notify-send \"rebuild completed!\"")
+    if args.alert:
+        call("notify-send \"rebuild completed!\"")
 
     if args.reboot:
         os.system("reboot")

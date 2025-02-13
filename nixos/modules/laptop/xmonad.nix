@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, readPackages, ... }:
+{ pkgs, pkgs-unstable, config, lib, readPackages, ... }:
 {
     specialisation.xmonad.configuration = {
         boot.loader.systemd-boot.sortKey = "aac";
@@ -8,8 +8,9 @@
             XCURSOR_SIZE = "16";
             BROWSER = "firefox -P xmonad";
         };
-        services.xserver.dpi = 192;
         services.xserver = {
+            dpi = 192;
+            videoDrivers = [ "nvidia" ];
             enable = true;
             xkb.layout = "us";
             xkb.variant = "";
@@ -43,5 +44,22 @@
             };
         };
         environment.systemPackages = readPackages ../../src/packages/xmonad.txt pkgs;
+
+        nixpkgs.config.nvidia.acceptLicense = true;
+        hardware.nvidia = {
+            modesetting.enable = true;
+            powerManagement.enable = true;
+            powerManagement.finegrained = false;
+            nvidiaSettings = true;
+            forceFullCompositionPipeline = false;
+            open = false;
+            package = config.boot.kernelPackages.nvidiaPackages.production;
+            prime = {
+                offload = { enable = true; enableOffloadCmd = true; };
+                # sync.enable = true; 
+                intelBusId = "PCI:0:0:2"; 
+                nvidiaBusId = "PCI:0:1:0"; 
+            };
+        };
     };
 }

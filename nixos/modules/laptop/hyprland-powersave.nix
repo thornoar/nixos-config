@@ -1,13 +1,14 @@
 { pkgs, lib, readPackages, ... }:
 {
-    specialisation.hyprland.configuration = {
-        boot.loader.systemd-boot.sortKey = "aaa";
+    specialisation.hyprland-powersave.configuration = {
+        boot.loader.systemd-boot.sortKey = "aab";
         programs.hyprland = {
             enable = true;
             package = pkgs.hyprland;
             xwayland.enable = true;
         };
         services = {
+            xserver.videoDrivers = lib.mkForce [ "nvidia" ];
             picom = {
                 enable = true;
                 backend = "glx";
@@ -17,8 +18,9 @@
                 sddm.wayland.enable = true;
             };
         };
+        powerManagement.cpuFreqGovernor = "powersave";
         environment.variables = {
-            SPECIALISATION = lib.mkForce "hyprland";
+            SPECIALISATION = lib.mkForce "hyprland-powersave";
             WLR_NO_HARDWARE_CURSORS = "1";
             CURSOR_INACTIVE_TIMEOUT = "1";
             NIXOS_OZONE_WL = "1";
@@ -47,8 +49,12 @@
             # Remove NVIDIA VGA/3D controller devices
             ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
         '';
-        boot.blacklistedKernelModules = lib.mkDefault [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+        boot.blacklistedKernelModules = lib.mkDefault [ "nouveau" "nvidia" "nvidia_drm" "nvidia_uvm" "i915" "nvidia_modeset" ];
+
+        hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
 
         hardware.nvidiaOptimus.disable = true;
+        hardware.nvidia.open = true;
+        nixpkgs.config.nvidia.acceptLicense = true;
     };
 }

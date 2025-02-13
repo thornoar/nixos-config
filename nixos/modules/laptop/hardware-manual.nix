@@ -8,7 +8,6 @@
         };
     };
 
-    nixpkgs.config.nvidia.acceptLicense = true;
     hardware.graphics = {
         enable = true;
         enable32Bit = true;
@@ -16,8 +15,8 @@
     powerManagement = {
         enable = true;
         powertop.enable = true;
-        cpuFreqGovernor = "powersave";
-        resumeCommands = "${pkgs.kmod}/bin/rmmod atkbd; ${pkgs.kmod}/bin/modprobe atkbd reset=1";
+        # cpuFreqGovernor = "powersave";
+        # resumeCommands = "${pkgs.kmod}/bin/rmmod atkbd; ${pkgs.kmod}/bin/modprobe atkbd reset=1";
     };
 
     fileSystems."/home/ramak/media" = {
@@ -54,29 +53,6 @@
                 };
             };
         };
-        # tlp = {
-        #     enable = true;
-        #     settings = {
-        #         TLP_DEFAULT_MODE = "AC";
-        #
-        #         CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        #         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        #
-        #         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        #         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-        #
-        #         CPU_MIN_PERF_ON_AC = 0;
-        #         CPU_MAX_PERF_ON_AC = 100;
-        #         CPU_MIN_PERF_ON_BAT = 0;
-        #         CPU_MAX_PERF_ON_BAT = 40;
-        #
-        #         CPU_BOOST_ON_AC = 1;
-        #         CPU_BOOST_ON_BAT = 0;
-        #
-        #         # START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-        #         # STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-        #     };
-        # };
     };
 
     systemd.timers."interrupt-allow-access" = {

@@ -20,3 +20,4 @@ manix
 update-resolv-conf
 which
 file
+powertop
