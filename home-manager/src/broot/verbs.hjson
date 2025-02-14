@@ -135,9 +135,10 @@ verbs: [
     }
     {
         key: alt-enter
-        apply_to: file
-        execution: "sh -c \"nohup xdg-open {file} 2> /dev/null 1> /dev/null &\" &"
-        leave_broot: false
+        internal: open_stay
+        # apply_to: file
+        # execution: "sh -c \"nohup xdg-open {file} 2> /dev/null 1> /dev/null &\" &"
+        # leave_broot: false
     }
     # {
     #     invocation: devour
