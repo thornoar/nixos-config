@@ -32,3 +32,4 @@ flutter
 pyright
 devbox
 meson
+coq
