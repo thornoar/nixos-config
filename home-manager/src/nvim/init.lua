@@ -37,6 +37,7 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
     'agda/cornelis',
+    'kana/vim-textobj-user',
     {
         'stevearc/oil.nvim',
         ---@module 'oil'
