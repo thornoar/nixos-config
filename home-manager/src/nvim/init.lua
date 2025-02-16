@@ -2,6 +2,7 @@ vim.loader.enable()
 
 local km = vim.keymap
 vim.g.mapleader = ';'
+vim.g.maplocalleader = ';'
 km.set('n', 'ec', ':e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>')
 
 -- $install
