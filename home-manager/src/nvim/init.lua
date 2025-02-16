@@ -37,7 +37,7 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
     'neovimhaskell/nvim-hs.vim',
-    'agda/cornelis',
+    'isovector/cornelis',
     'kana/vim-textobj-user',
     -- 'Isti115/agda.nvim',
     {
