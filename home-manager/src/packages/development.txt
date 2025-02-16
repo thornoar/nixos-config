@@ -34,3 +34,4 @@ devbox
 meson
 coq
 agda
+stack
