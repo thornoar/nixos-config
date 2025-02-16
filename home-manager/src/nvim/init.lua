@@ -36,9 +36,10 @@ require('lazy').setup({
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
-    'neovimhaskell/nvim-hs.vim',
-    'isovector/cornelis',
-    'kana/vim-textobj-user',
+    'ashinkarov/nvim-agda',
+    -- 'neovimhaskell/nvim-hs.vim',
+    -- 'isovector/cornelis',
+    -- 'kana/vim-textobj-user',
     -- 'Isti115/agda.nvim',
     {
         'stevearc/oil.nvim',
