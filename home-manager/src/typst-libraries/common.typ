@@ -23,3 +23,5 @@
 #let gge = math.gt.eq.slant
 #let liminf = $limits(op("lim inf"#hh))$
 #let limsup = $limits(op("lim sup"#hh))$
+#let dx = $d x$
+#let dt = $d t$
