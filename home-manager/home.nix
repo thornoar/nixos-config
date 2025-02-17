@@ -71,6 +71,8 @@ in
 
     services.keynav.enable = true;
 
+    services.mpris-proxy.enable = true;
+
     services.dunst = {
         enable = true;
         settings.global = {
