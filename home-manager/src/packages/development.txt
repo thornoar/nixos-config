@@ -35,3 +35,4 @@ meson
 coq
 agda
 stack
+coqPackages.coq-lsp
