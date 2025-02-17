@@ -99,6 +99,7 @@ lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup(lspbasicconfig)
 lspconfig.bashls.setup(lspbasicconfig)
+lspconfig.coq_lsp.setup(lspbasicconfig)
 -- lspconfig.kotlin_language_server.setup(lspbasicconfig)
 
 lspconfig.tinymist.setup({

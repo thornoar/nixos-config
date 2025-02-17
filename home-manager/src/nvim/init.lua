@@ -37,6 +37,8 @@ require('lazy').setup({
     'chrisbra/csv.vim',
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
+    'whonore/Coqtail',
+    'tomtomjhj/coq-lsp.nvim',
     -- 'ashinkarov/nvim-agda',
     -- 'neovimhaskell/nvim-hs.vim',
     -- 'isovector/cornelis',
