@@ -38,10 +38,10 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
     'whonore/Coqtail',
-    {
-        'thornoar/coq-lsp.nvim',
-        branch = 'add-configuration',
-    },
+    -- {
+    --     'thornoar/coq-lsp.nvim',
+    --     branch = 'add-configuration',
+    -- },
     -- 'ashinkarov/nvim-agda',
     -- 'neovimhaskell/nvim-hs.vim',
     -- 'isovector/cornelis',
