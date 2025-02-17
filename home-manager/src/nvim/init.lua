@@ -38,7 +38,10 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
     'whonore/Coqtail',
-    'tomtomjhj/coq-lsp.nvim',
+    {
+        'thornoar/coq-lsp.nvim',
+        branch = 'add-configuration',
+    },
     -- 'ashinkarov/nvim-agda',
     -- 'neovimhaskell/nvim-hs.vim',
     -- 'isovector/cornelis',
@@ -209,6 +212,7 @@ require('lazy').setup({
     -- 'thornoar/nvim-subfiles',
 }, {})
 
+require("setup.coq-lsp")
 require("setup.codecompanion")
 require("setup.neodev")
 require("setup.oil")
@@ -222,10 +226,4 @@ require("setup.ibl")
 require("setup.lsp")
 require("setup.settings")
 require("setup.coloring")
-package.path = package.path .. ';'..os.getenv('PROJECTS')..'/nvim-subfiles/lua/?.lua'
-require('nvim-subfiles').setup({
-    bindings = { },
-    opts = {
-        jump_to_file = false,
-    }
-})
+require("setup.nvim-subfiles")
