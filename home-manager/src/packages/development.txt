@@ -36,3 +36,4 @@ coq
 agda
 stack
 coqPackages.coq-lsp
+ocaml

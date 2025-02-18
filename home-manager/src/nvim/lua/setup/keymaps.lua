@@ -102,25 +102,7 @@ vim.keymap.set('n', '<C-M-u>', '<C-w><')
 vim.keymap.set('n', '<C-M-k>', '<C-w>=')
 vim.keymap.set('n', '<C-M-w>', '<C-w>o')
 vim.keymap.set('n', '<C-Delete>', '<cmd>wqa<CR>')
-vim.keymap.set('n', '<C-c>', function()
-    local buf = vim.api.nvim_win_get_buf(0)
-    local can_write = not (vim.bo[buf].readonly or (vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''))
-    if (#vim.api.nvim_list_wins() < 2) then
-        if can_write then vim.cmd("write") end
-        for _, ui in pairs(vim.api.nvim_list_uis()) do
-            if ui.chan and not ui.stdout_tty then
-                vim.fn.chanclose(ui.chan)
-            end
-        end
-    else
-        if can_write then
-            vim.cmd('write')
-            vim.cmd('quit')
-        else
-            vim.cmd('quit!')
-        end
-    end
-end, { noremap = true })
+-- vim.keymap.set('n', '<C-c>', '<cmd>Detach<CR>')
 
 -- $keymaps:command
 vim.keymap.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'nvim-server; zsh\' &') end)
