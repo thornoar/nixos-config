@@ -33,7 +33,6 @@ pyright
 devbox
 meson
 coq
-agda
 stack
 coqPackages.coq-lsp
 ocaml
