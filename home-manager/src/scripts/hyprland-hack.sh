@@ -45,6 +45,7 @@ elif [[ "move-all-windows" =~ ^"$cmd" ]]; then
     for pid in $to_pids; do
         hyprctl dispatch movetoworkspacesilent "$cur_workspace,pid:$pid"
     done
+    hyprctl dispatch workspace "$to_workspace"
 else
     if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
     exit 1

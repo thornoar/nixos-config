@@ -121,6 +121,9 @@
     boot.loader.timeout = 35996;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.supportedFilesystems = [ "ntfs" ];
+    systemd.extraConfig = ''
+        DefaultTimeoutStopSec=3s
+    '';
 
     nix.gc = {
         automatic = true;

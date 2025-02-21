@@ -36,3 +36,4 @@ coq
 stack
 coqPackages.coq-lsp
 ocaml
+glibc
