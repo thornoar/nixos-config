@@ -37,3 +37,6 @@ stack
 coqPackages.coq-lsp
 ocaml
 glibc
+glibc.static
+libffi
+libtool

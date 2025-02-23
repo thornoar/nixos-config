@@ -35,6 +35,7 @@ let
         { name = "clj | clojure documentation"; url = "https://clojure.org/guides/getting_started"; keyword = "clj"; }
         { name = "ftl | fasterthanli"; url = "https://fasterthanli.me/"; keyword = "ftl"; }
         { name = "c++ | COMP2011"; url = "https://course.cse.ust.hk/comp2011"; keyword = "c++"; }
+        { name = "ww | MATH2023"; url = "https://webwork.math.ust.hk/webwork2"; keyword = "ww"; }
     ];
     userChrome = ''
         #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
