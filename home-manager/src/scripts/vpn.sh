@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# freeopenvpn passwords: https://www.freeopenvpn.org/premium.php?cntid=Germany
-# vpnbook passwords: https://www.vpnbook.com/freevpn
-
 POSITIONAL_ARGS=()
 provider=""
 branch=""
