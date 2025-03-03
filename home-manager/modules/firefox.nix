@@ -112,7 +112,7 @@ in
                     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
                 };
             };
-            profiles.xmonad = {
+            profiles.xmonad = baseProfile // {
                 id = 1;
                 name = "xmonad";
                 isDefault = false;

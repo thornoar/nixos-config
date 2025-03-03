@@ -10,14 +10,14 @@
         };
         services.xserver = {
             dpi = 192;
-            videoDrivers = [ "nvidia" ];
+            # videoDrivers = [ "nvidia" ];
             enable = true;
             xkb.layout = "us";
             xkb.variant = "";
             windowManager.xmonad = {
                 enable = true;
                 enableContribAndExtras = true;
-                haskellPackages = pkgs-unstable.haskellPackages;
+                # haskellPackages = pkgs-unstable.haskellPackages;
             };
             displayManager = {
                 sessionCommands = ''
@@ -52,7 +52,7 @@
             powerManagement.finegrained = false;
             nvidiaSettings = true;
             forceFullCompositionPipeline = false;
-            open = false;
+            open = true;
             package = config.boot.kernelPackages.nvidiaPackages.production;
             prime = {
                 offload = { enable = true; enableOffloadCmd = true; };
