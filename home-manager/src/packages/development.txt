@@ -40,3 +40,4 @@ glibc
 glibc.static
 libffi
 libtool
+nixfmt
