@@ -1,30 +1,36 @@
 { pkgs, modulesPath, ... }:
 
 {
-    imports = [
-        "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+  imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
+
+  config = {
+    # boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
+    # boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
+
+    boot.initrd.kernelModules = [
+      "xhci_hcd"
+      "ehci_pci"
+      "ahci"
+      "hid_microsoft"
+      "hid_generic"
+      "dm_mod"
+      "atkbd"
     ];
 
-    config = {
-        # boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
-        # boot.kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
+    nixpkgs.config.allowUnfree = true;
 
-        boot.initrd.kernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "hid_microsoft" "hid_generic" "dm_mod" "atkbd" ];
+    nixpkgs.hostPlatform = "x86_64-linux";
 
-        nixpkgs.config.allowUnfree = true;
+    environment.systemPackages = with pkgs; [
+      vim
+      parted
+      git
+      wget
+      curl
+      neovim
+      tmux
+    ];
 
-        nixpkgs.hostPlatform = "x86_64-linux";
-
-        environment.systemPackages = with pkgs; [
-            vim
-            parted
-            git
-            wget
-            curl
-            neovim
-            tmux
-        ];
-
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    };
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 }

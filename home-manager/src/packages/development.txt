@@ -21,14 +21,10 @@ nixd
 alejandra
 nodePackages.typescript-language-server
 nodePackages.bash-language-server
-clojure
-clojure-lsp
 leiningen
-swi-prolog
 sage
 tmux
 nasm
-flutter
 pyright
 devbox
 meson

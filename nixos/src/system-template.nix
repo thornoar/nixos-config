@@ -1,18 +1,16 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-    options = {
+  options = {
 
-    };
-    config = {
-        environment.variables = {
-            PCTYPE = "---";
-        };
+  };
+  config = {
+    environment.variables = { PCTYPE = "---"; };
 
-        fileSystems."/path/to/dir" = {
-            device = "/dev/---";
-            fsType = "ext4";
-            options = [ "nofail" "rw" "user" "auto" ];
-        };
+    fileSystems."/path/to/dir" = {
+      device = "/dev/---";
+      fsType = "ext4";
+      options = [ "nofail" "rw" "user" "auto" ];
     };
+  };
 }
