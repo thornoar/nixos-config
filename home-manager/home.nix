@@ -31,6 +31,7 @@ in {
       "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
       "image/svg+xml" = [ "imv.desktop" ];
       "text/csv" = [ "sc-im.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
     };
     defaultApplications = associations.added;
   };
