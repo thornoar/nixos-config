@@ -42,7 +42,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Arcane";
+    dir = "Frieren";
     gamma = 0.9;
     contrast = 1.0;
   };

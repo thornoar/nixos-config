@@ -7,3 +7,4 @@ warpd
 hyprpicker
 hyprshot
 glib
+waydroid
