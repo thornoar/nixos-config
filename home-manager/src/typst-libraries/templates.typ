@@ -1,7 +1,7 @@
 #import "@preview/wrap-it:0.1.1": *
 #import "@preview/wordometer:0.1.4": total-words, word-count
-#import "@preview/equate:0.2.1": equate
-#import "@preview/quick-maths:0.1.0": shorthands
+#import "@preview/equate:0.3.1": equate
+#import "@preview/quick-maths:0.2.1": shorthands
 
 // Layout
 
@@ -248,7 +248,7 @@
 #let course-assignment-preamble(course, part, due, subnumbering: true) = doc => {
   set math.equation(supplement: none, numbering: "(1.1.1)")
   show: equate.with(sub-numbering: subnumbering, number-mode: "label")
-  show link: underline
+  // show link: underline
 
   show: assignment-title(
     header: [ #course Homework, #part #h(1fr) Roman Maksimovich ],
