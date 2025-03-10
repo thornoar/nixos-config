@@ -62,4 +62,4 @@ networkmanager-openvpn
 upx
 xcur2png
 audacity
-bluez
+blueman
