@@ -45,7 +45,6 @@
     strong(it)
   }
 
-  set outline(indent: auto, fill: repeat([.#h(3pt)]))
   set figure(gap: 1.5em)
 
   show link: it => {
