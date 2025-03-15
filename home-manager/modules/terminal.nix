@@ -143,6 +143,10 @@ in {
 
   programs.zsh.envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
   programs.zsh.initExtra = builtins.readFile (dotfile "zsh/initExtra.zsh");
+  xdg.configFile."nix-develop/.zshrc".text = ''
+    source ~/.zshrc
+    PS1="[%{$fg[magenta]%}develop%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
+  '';
 
   home.file.".Rprofile".source = dotfile "Rprofile";
 

@@ -48,8 +48,3 @@ upx
 pkg-config
 pstree
 ripgrep
-wxGTK32
-raygui
-raylib
-mlocate
-zlib
