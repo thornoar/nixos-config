@@ -72,7 +72,7 @@ end, { nargs = '?' })
 
 vim.api.nvim_create_user_command("Detach", function ()
     local buf = vim.api.nvim_win_get_buf(0)
-    local can_write = not (vim.bo[buf].readonly or (vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == ''))
+    local can_write = vim.bo[buf].buftype == "" and (not vim.bo[buf].readonly) -- and (not vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) != ''))
     if (#vim.api.nvim_list_wins() < 2) then
         if can_write then vim.cmd("write") end
         for _, ui in pairs(vim.api.nvim_list_uis()) do

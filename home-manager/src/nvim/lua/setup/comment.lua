@@ -14,7 +14,7 @@ require('Comment').setup({
     extra = {
         above = '<C-\\>O',
         below = '<C-\\>o',
-        eol = '<C-S-a>',
+        eol = '<C-S-\\>',
     },
     mappings = {
         basic = true,

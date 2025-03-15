@@ -46,6 +46,7 @@
         vmstop = "sudo virsh shutdown";
         clip = "wl-copy -n";
         gpp = "g++ -std=c++11 -Wall";
+        gitlog = "git log --oneline --graph --decorate";
       };
     };
     git = {

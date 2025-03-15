@@ -97,7 +97,14 @@ lspconfig.nixd.setup({
 })
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
-lspconfig.clangd.setup(lspbasicconfig)
+lspconfig.clangd.setup({
+    autostart = false,
+    capabilities = lsp_capabilities,
+    handlers = handlers,
+    root_dir = function (_)
+        return vim.loop.cwd()
+    end,
+})
 lspconfig.bashls.setup(lspbasicconfig)
 -- lspconfig.coq_lsp.setup(lspbasicconfig)
 -- lspconfig.kotlin_language_server.setup(lspbasicconfig)

@@ -38,6 +38,7 @@ require('lazy').setup({
     'JuliaEditorSupport/julia-vim',
     'mbbill/undotree',
     'whonore/Coqtail',
+    'bfrg/vim-c-cpp-modern',
     {
         'thornoar/coq-lsp.nvim',
         branch = 'add-configuration',

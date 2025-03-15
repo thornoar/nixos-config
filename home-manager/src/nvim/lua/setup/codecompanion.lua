@@ -1,14 +1,4 @@
 require("codecompanion").setup({
-    -- adapters = {
-    --     claude = function ()
-    --         return require("codecompanion.adapters").extend("copilot", {
-    --             name = "claude",
-    --             schema = {
-    --                 model = { default = "claude-3.5-sonnet" },
-    --             },
-    --         })
-    --     end,
-    -- },
     strategies = {
         chat = {
             adapter = "copilot",
@@ -38,8 +28,10 @@ require("codecompanion").setup({
         },
         chat = {
             window = {
-                layout = "buffer",
+                layout = "vertical",
             },
         },
     },
 })
+vim.keymap.set("n", "<C-S-a>", "<cmd>CodeCompanionActions<CR>")
+vim.keymap.set("n", "<C-S-s>", "<cmd>CodeCompanionChat<CR>")
