@@ -98,7 +98,7 @@ lspconfig.nixd.setup({
 lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.hls.setup(lspbasicconfig)
 lspconfig.clangd.setup({
-    autostart = false,
+    autostart = true,
     capabilities = lsp_capabilities,
     handlers = handlers,
     root_dir = function (_)
