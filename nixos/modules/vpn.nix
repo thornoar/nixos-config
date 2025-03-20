@@ -28,6 +28,6 @@
   # services.openvpn.servers = {
   #     homeVPN = { config = '' config /root/nixos/openvpn/homeVPN.conf ''; };
   # };
-  services.resolved.enable = true;
-  services.mullvad-vpn.enable = true;
+  services.resolved.enable = false;
+  services.mullvad-vpn.enable = false;
 }
