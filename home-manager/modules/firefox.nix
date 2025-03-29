@@ -22,7 +22,6 @@ let
       url = "https://github.com/thornoar?tab=repositories";
       keyword = "gh";
     }
-    # { name = "qw | Work Mail"; url = "https://mail.google.com/mail/u/1/#inbox"; keyword = "qw"; }
     {
       name = "qw | Outlook";
       url = "https://outlook.office.com/mail/";
@@ -222,19 +221,19 @@ in {
       profiles.hyprland = baseProfile // {
         id = 0;
         name = "hyprland";
-        isDefault = false;
-        settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
-        };
-      };
-      profiles.hyprland-open = baseProfile // {
-        id = 2;
-        name = "hyprland-test";
         isDefault = true;
         settings = baseSettings // {
           "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
         };
       };
+      # profiles.hyprland-open = baseProfile // {
+      #   id = 2;
+      #   name = "hyprland-test";
+      #   isDefault = false;
+      #   settings = baseSettings // {
+      #     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+      #   };
+      # };
       profiles.hyprland-clean = baseProfile // {
         id = 3;
         name = "hyprland-clean";

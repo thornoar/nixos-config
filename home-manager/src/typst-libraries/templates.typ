@@ -15,7 +15,7 @@
 }
 #let mtxt(str) = [ #set text(font: font); #text(str) ]
 
-#let article = doc => {
+#let article-rule = doc => {
   set page("a4", margin: (x: 0.7in, y: 1in))
   set text(12pt, font: font)
   set par(justify: true, leading: 0.5em)
@@ -59,7 +59,7 @@
 
 // Templates
 
-#let title(
+#let title-rule(
   downstep: 0pt,
   title,
   author: "Roman Maksimovich",
@@ -177,69 +177,84 @@
   doc
 }
 
-#let assignment-title(header: [header], title: [title], due: [date], ext1: [], ext2: []) = doc => {
-  set page(
-    "a4",
-    margin: (x: 0.5in, top: 0.8in, bottom: 0.5in),
-    header: box(
-      stroke: (left: none, right: none, top: none, bottom: .7pt),
-      inset: (bottom: 5pt),
-      header
-    ),
-    numbering: "1"
-  )
-  set text(size: 12pt)
-  show: word-count
-
+#let assignment-title(
+  title: [title],
+  due: [date],
+  ext1: [],
+	ext2: [],
+	inset: (left: 8pt, bottom: 8pt),
+	fontsize: 14pt
+) = {
   let hasextra = ext1 != [] or ext2 != []
-
   let fields = (
     (
       table.cell(
-        colspan: if (hasextra) { 2 } else { 1 },
-        inset: (left: 8pt, bottom: 8pt),
+        colspan: if (hasextra) { 2 } else { 1 }, inset: inset,
         {
           set text(20pt)
           title; h(1fr)
         }
       ),
       table.hline(),
-      {
-        text(14pt, "Roman Maksimovich, ID: 21098878")
-        h(1fr)
-      }
+      { text(fontsize, "Roman Maksimovich, ID: 21098878"); h(1fr) }
     ),
     if (hasextra) {
       (
         {
-          set text(14pt)
+          set text(fontsize)
           ext1
           h(1fr)
         }
       )
     } else { () },
     {
-      text(14pt, "Due date: " + due)
+      text(fontsize, "Due date: " + due)
       h(1fr)
     },
     if (hasextra) {
       (
         {
-          set text(14pt)
+          set text(fontsize)
           ext2
           h(1fr)
         }
       )
     } else { () },
   ).flatten()
-
   table(
     columns: if (hasextra) { 2 } else {1},
     align: (left, left),
-    inset: (left: 8pt, bottom: 3pt),
+    inset: (left: inset.left, bottom: 3pt),
     stroke: (left: 1pt, top: none, right: none, bottom: none),
     ..fields
   )
+}
+
+#let assignment-title-rule(
+  header: [header],
+	title: [title],
+	due: [date],
+	ext1: [],
+	ext2: [],
+	inset: (left: 8pt, bottom: 8pt),
+	fontsize: 14pt
+) = doc => {
+  set page(
+    "a4",
+    margin: (x: 0.5in, top: 0.8in, bottom: 0.5in),
+    header: if (header == none) { none } else {
+      box(
+        stroke: (left: none, right: none, top: none, bottom: .7pt),
+        inset: (bottom: 5pt),
+        header
+      )
+    },
+    numbering: "1"
+  )
+  set text(size: 12pt)
+  assignment-title(title: title, due: due, ext1: ext1, ext2: ext2, inset: inset, fontsize: fontsize)
+
+  show: word-count
 
   doc
 }
@@ -249,7 +264,7 @@
   show: equate.with(sub-numbering: subnumbering, number-mode: "label")
   // show link: underline
 
-  show: assignment-title(
+  show: assignment-title-rule(
     header: [ #course Homework, #part #h(1fr) Roman Maksimovich ],
     title: course + " Homework, " + part,
     due: due
@@ -442,7 +457,7 @@
   rotate(phi,scale(x: sx*100%, y: sy*100%,rotate(theta,content)))
 }
 
-#let namedgaps(
+#let named-gaps(
   names,
   length: 10em,
   stroke: 0.5pt,
