@@ -10,7 +10,7 @@ endif
 syn keyword     asyStatement     break return continue unravel as
 syn keyword     asyConditional   if else
 syn keyword     asyRepeat        while for do
-syn keyword     asyExternal      access from import include settings config defaultconfig
+syn keyword     asyExternal      access from import include " settings config export paths defaultconfig defaultexport defaultpaths
 syn keyword     asyOperator      new operator
 
 " basic asymptote keywords
@@ -24,7 +24,7 @@ syn keyword     asyStorageClass  static public restricted private explicit
 syn keyword     asyStructure     struct typedef
 syn keyword     asyType          void bool bool3 int real string file arrowbar Label interpolate
 syn keyword     asyType          pair triple transform guide path pen frame picture slice orientation arrowhead
-syn keyword     asyType          smooth hole subset animation element deferredPath gauss dpar globalconfig systemconfig sectionconfig smoothconfig drawingconfig helpconfig arrowconfig
+syn keyword     asyType          smooth hole subset animation element deferredPath gauss dpar
 
 " module specific keywords
 syn keyword   asyConstant      currentpicture currentpen
@@ -124,7 +124,7 @@ syn keyword asyConstant      unitsphere unithemisphere unitplane octant1
 syn keyword asyConstant      unitcone unitsolidcone unitcube unitcylinder
 syn keyword asyConstant      unitdisk unittube
 
-syn match asyModule display       "\(\(import\|acess\|unravel\|include\)\s\+\)\@<=\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\|export\|pathmethods\)"
+syn match asyModule display       "\(\(import\|access\|unravel\|include\)\s\+\)\@<=\(plain\|simplex\|math\|interpolate\|geometry\|trembling\|stats\|patterns\|markers\|map\|tree\|binarytree\|drawtree\|syzygy\|feynman\|roundedpath\|animation\|embed\|slide\|MetaPost\|babel\|labelpath\|labelpath3\|annotate\|CAD\|graph\|palette\|three\|obj\|graph3\|grid3\|solids\|tube\|flowchart\|contour\|contour3\|smoothcontour3\|slopefield\|ode\|smoothmanifold\|export\|pathmethods\)"
 
 " syn match   asyConst       "default\w*"
 " syn match   asyConst       "df\w*"
@@ -147,6 +147,7 @@ syn match  asyNumberError display contained "\d*e[-+]\=\(e[-+]\=\)*\.[0-9.]*"
 " Highlight function names
 syn match    asyCustomFunc     "\w\+\s*(\@="
 syn match    asyCustomFunc     "\(\.\.\)\@<!\.\@<=\w\+"
+syn match    asyCustomFunc     ""
 hi def link  asyCustomFunc Function
 
 syn match    asyPathOperator   "\.\@<!\.\.\.\@!"

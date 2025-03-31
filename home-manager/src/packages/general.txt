@@ -51,3 +51,4 @@ networkmanager-openvpn
 xcur2png
 audacity
 sc-im
+vimb
