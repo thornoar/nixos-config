@@ -45,10 +45,10 @@ flameshot
 imv
 fd
 alsa-utils
-mpv
 qbittorrent
 networkmanager-openvpn
 xcur2png
 audacity
 sc-im
 vimb
+mpv
