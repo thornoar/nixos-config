@@ -13,6 +13,8 @@ in {
 
   # mpv configuration
   xdg.configFile."mpv/mpv.conf".text = ''
+    ao=alsa
+    audio-device=auto
     loop-file=inf
     sub-file-paths=RusSubs:subs:subtitles
   '';

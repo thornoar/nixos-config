@@ -261,8 +261,7 @@
 
 #let course-assignment-preamble(course, part, due, subnumbering: true) = doc => {
   set math.equation(supplement: none, numbering: "(1.1.1)")
-  show: equate.with(sub-numbering: subnumbering, number-mode: "label")
-  // show link: underline
+  show: equate.with(sub-numbering: subnumbering, number-mode: "label", breakable: true)
 
   show: assignment-title-rule(
     header: [ #course Homework, #part #h(1fr) Roman Maksimovich ],
