@@ -147,7 +147,6 @@ syn match  asyNumberError display contained "\d*e[-+]\=\(e[-+]\=\)*\.[0-9.]*"
 " Highlight function names
 syn match    asyCustomFunc     "\w\+\s*(\@="
 syn match    asyCustomFunc     "\(\.\.\)\@<!\.\@<=\w\+"
-syn match    asyCustomFunc     ""
 hi def link  asyCustomFunc Function
 
 syn match    asyPathOperator   "\.\@<!\.\.\.\@!"
