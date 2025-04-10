@@ -10,7 +10,7 @@ endif
 syn keyword     asyStatement     break return continue unravel as
 syn keyword     asyConditional   if else
 syn keyword     asyRepeat        while for do
-syn keyword     asyExternal      access from import include " settings config export paths defaultconfig defaultexport defaultpaths
+syn keyword     asyExternal      access from import include config export settings paths " defaultconfig defaultexport defaultpaths
 syn keyword     asyOperator      new operator
 
 " basic asymptote keywords
