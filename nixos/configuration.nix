@@ -131,8 +131,23 @@
 
   networking.hostName = sysname;
   networking.networkmanager.enable = true;
+  
+  console.keyMap = "us";
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    # inputMethod = {
+    #   enable = true;
+    #   type = "fcitx5";
+    #   fcitx5.addons = with pkgs; [
+    #     fcitx5-mozc
+    #     fcitx5-gtk
+    #     fcitx5-configtool
+    #   ];
+    #   # type = "ibus";
+    #   # ibus.engines = with pkgs.ibus-engines; [ mozc hangul ];
+    # };
+  };
 
   programs.zsh = {
     enable = true;
@@ -161,6 +176,10 @@
 
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };
+
+  # fonts.fontconfig = {
+  #   ultimate.enable = true;
+  # };
 
   system.stateVersion = "23.11";
 }
