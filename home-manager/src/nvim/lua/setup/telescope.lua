@@ -55,3 +55,4 @@ require('telescope').setup({
 })
 require('telescope').load_extension('git_grep')
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('ht')

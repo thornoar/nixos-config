@@ -210,6 +210,11 @@ require('lazy').setup({
             require("telescope").load_extension("lazygit")
         end,
     },
+    {
+        'mrcjkb/haskell-tools.nvim',
+        version = '4', -- Recommended
+        lazy = false, -- This plugin is already lazy
+    }
     -- 'thornoar/nvim-subfiles',
 }, {})
 

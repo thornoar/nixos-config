@@ -10,6 +10,7 @@ parser.add_argument("-b", "--background", action = "store_true", help = "run com
 parser.add_argument("-p", "--parse", action = "store_true", help = "use parsecmd to parse commands")
 parser.add_argument("-s", "--silent", action = "store_true", help = "report the commands and files they are ran on")
 parser.add_argument("-n", "--nooutput", action = "store_true", help = "suppress output from commands")
+parser.add_argument("-c", "--noexit", action = "store_true", help = "continue execution if one fails")
 parser.add_argument("filetype", type = str)
 parser.add_argument("command", type = str)
 args = parser.parse_args()
@@ -22,6 +23,13 @@ CEND = "\033[0m"#]
 
 cwd = os.getcwd()
 
+def call (cmd):
+    code = os.system(cmd)
+    if (code > 0 and not args.noexit):
+        print(CRED + "#" + CEND + " Could not complete.")
+        os.chdir(cwd)
+        exit(1)
+
 try:
     for root, dirnames, filenames in os.walk('.'):
         os.chdir(root)
@@ -32,7 +40,7 @@ try:
                 os.chdir(dirname)
                 if not args.silent:
                     print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" in " + CPURPLE + root + "/" + dirname + CEND + "...")
-                os.system(args.command + (args.nooutput and " > /dev/null 2>&1" or ""))
+                call(args.command + (args.nooutput and " > /dev/null 2>&1" or ""))
                 os.chdir("..")
         else:
             for filename in fnmatch.filter(filenames, "*."+args.filetype):
@@ -45,12 +53,12 @@ try:
                 if not args.silent:
                     print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + CEND + "...")
                 if args.parse:
-                    os.system(
+                    call(
                         "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +
                         (args.nooutput and " > /dev/null 2>&1" or "")
                     )
                 else:
-                    os.system(
+                    call(
                         args.command + " " + head_tail[1] +
                         (args.background and '&' or '') +
                         (args.nooutput and " > /dev/null 2>&1" or "")
