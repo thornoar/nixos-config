@@ -49,3 +49,6 @@ pkg-config
 pstree
 ripgrep
 wxGTK32
+clojure
+clojure-lsp
+leiningen
