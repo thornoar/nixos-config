@@ -40,8 +40,6 @@ local handlers =  {
 }
 
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
-local util = require 'lspconfig.util'
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
@@ -51,20 +49,22 @@ local lspbasicconfig = {
     end,
 }
 
-if not configs.asy_ls then
-    configs.asy_ls = {
-        default_config = {
-            cmd = {'asy', '-lsp'},
-            filetypes = {'asy'},
-            root_dir = function(fname)
-                return util.find_git_ancestor(fname)
-            end,
-            single_file_support = true,
-            settings = {},
-        },
-    }
-end
-lspconfig.asy_ls.setup(lspbasicconfig)
+-- local configs = require('lspconfig.configs')
+-- local util = require 'lspconfig.util'
+-- if not configs.asy_ls then
+--     configs.asy_ls = {
+--         default_config = {
+--             cmd = {'asy', '-lsp'},
+--             filetypes = {'asy'},
+--             root_dir = function(fname)
+--                 return util.find_git_ancestor(fname)
+--             end,
+--             single_file_support = true,
+--             settings = {},
+--         },
+--     }
+-- end
+-- lspconfig.asy_ls.setup(lspbasicconfig)
 
 vim.diagnostic.config({
     float = { border = "rounded", },
@@ -107,7 +107,14 @@ lspconfig.clangd.setup({
 })
 lspconfig.bashls.setup(lspbasicconfig)
 -- lspconfig.coq_lsp.setup(lspbasicconfig)
--- lspconfig.kotlin_language_server.setup(lspbasicconfig)
+-- lspconfig.kotlin_language_server.setup({
+--     autostart = true,
+--     capabilities = lsp_capabilities,
+--     handlers = handlers,
+--     root_dir = function (_)
+--         return vim.loop.cwd()
+--     end,
+-- })
 
 lspconfig.tinymist.setup({
     -- settings = {
