@@ -197,11 +197,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745415524,
-        "narHash": "sha256-OlPi/iefaMN1VLApymXUXy0hh7+tmKLa4psjvqpVEyU=",
+        "lastModified": 1745825429,
+        "narHash": "sha256-i3jDt9ghA21OkkKjBk5a7Xok+ESskMPNA8WP+MUZxVk=",
         "owner": "thornoar",
         "repo": "pshash",
-        "rev": "8babfad39aa187dbf2bf9da776c3af4ebd8c061e",
+        "rev": "6affe7b9bfe9d0e9c291bbcd7ec8de371c59fdd0",
         "type": "github"
       },
       "original": {
