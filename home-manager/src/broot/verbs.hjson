@@ -5,6 +5,11 @@ verbs: [
         leave_broot: false
     }
     {
+        invocation: srm
+        external: rm -rf {file}
+        leave_broot: false
+    }
+    {
         invocation: "call {command}"
         external: "sh -c \"nohup {command} {file} > /dev/null 2>&1 &\""
         leave_broot: false

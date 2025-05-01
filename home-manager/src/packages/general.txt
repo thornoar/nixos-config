@@ -52,3 +52,4 @@ audacity
 sc-im
 vimb
 mpv
+swww
