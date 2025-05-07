@@ -8,9 +8,10 @@
     colors = lib.mkOption {
       type = lib.types.attrs;
       default = {
-        bgColor0 = "#0b0c0d";
         # bgColor0 = "#000000";
-        bgColor1 = "#0f0f0f";
+        # bgColor1 = "#0f0f0f";
+        bgColor0 = "#0b0c0d";
+        bgColor1 = "#0b0c0d";
         bgColor2 = "#262728";
         bgColor3 = "#4d4e4f";
         fgColor0 = "#17a88b";
