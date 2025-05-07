@@ -45,7 +45,7 @@
         vmstart = "sudo virsh start";
         vmstop = "sudo virsh shutdown";
         clip = "wl-copy -n";
-        gpp = "g++ -std=c++11 -Wall";
+        gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
         gitlog = "git log --oneline --graph --decorate";
       };
     };
