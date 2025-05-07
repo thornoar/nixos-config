@@ -53,3 +53,5 @@ sc-im
 vimb
 mpv
 swww
+tor-browser
+ocamlPackages.cpdf

@@ -75,17 +75,15 @@ in {
     enable = true;
     settings.global = {
       origin = "top-right";
-      offset = "${ts (config.hyprland.windowSpaceOuter + 4)}x${
-          ts (config.hyprland.windowSpaceOuter + 4)
-        }";
+      offset = "${ts (config.hyprland.windowSpaceOuter + 10)}x${ts (config.hyprland.windowSpaceOuter + 10)}";
       progress_bar = false;
       frame_width = 1;
       gap_size = 2;
       font = "Hack Nerd Font Mono 11";
       corner_radius = config.hyprland.rounding;
-      frame_color = config.colors.colorMagenta1;
+      frame_color = config.colors.colorMagenta0;
       foreground = config.colors.colorWhite3;
-      background = config.colors.bgColor1;
+      background = config.colors.bgColor0;
       sticky_history = false;
       padding = config.hyprland.windowSpaceOuter;
       horizontal_padding = config.hyprland.windowSpaceOuter;

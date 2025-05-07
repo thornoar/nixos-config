@@ -76,6 +76,7 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = true;
+      PubkeyAuthentication = true;
     };
   };
 

@@ -52,3 +52,4 @@ wxGTK32
 clojure
 clojure-lsp
 leiningen
+gnupg

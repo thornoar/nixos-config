@@ -18,6 +18,7 @@ window#waybar {
 #pulseaudio,
 #clock,
 #backlight {
+	border: 1px solid @bgColor1;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 5px;
@@ -35,9 +36,8 @@ window#waybar {
 #network,
 #cpu,
 #memory,
-#battery,
-#battery.charging,
-#battery.plugged {
+#battery {
+	border: 1px solid @bgColor1;
 	margin-top: 0px;
 	margin-left: 10px;
 	margin-right: 0px;
@@ -51,7 +51,15 @@ window#waybar {
     padding-bottom: 2px;
 }
 
+#battery.plugged,
+#battery.charging,
+#battery.full {
+	/* border: 1px solid @colorMagenta0; */
+	color: @colorMagenta0;
+}
+
 #workspaces button {
+	border: 1px solid @bgColor1;
 	margin-right: 10px;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -64,8 +72,9 @@ window#waybar {
     padding-bottom: 2px;
 }
 #workspaces button.active {
+	/* border: 1px solid @colorMagenta1; */
 	margin-right: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
     color: @colorMagenta0;
 }
