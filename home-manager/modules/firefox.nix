@@ -24,7 +24,7 @@ let
     }
     {
       name = "qw | Outlook";
-      url = "https://outlook.office.com/mail/";
+      url = "https://outlook.office365.com/mail/";
       keyword = "qw";
     }
     {
