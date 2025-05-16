@@ -18,7 +18,7 @@ window#waybar {
 #pulseaudio,
 #clock,
 #backlight {
-	border: 1px solid @bgColor1;
+	/* border: 1px solid @bgColor1; */
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 5px;
@@ -37,7 +37,7 @@ window#waybar {
 #cpu,
 #memory,
 #battery {
-	border: 1px solid @bgColor1;
+	/* border: 1px solid @bgColor1; */
 	margin-top: 0px;
 	margin-left: 10px;
 	margin-right: 0px;
