@@ -129,6 +129,7 @@
                 inherit inputs;
                 inherit pkgs-unstable;
                 inherit pkgs-old;
+                inherit readPackages;
               };
             }
             inputs.home-manager.nixosModules.home-manager
