@@ -13,7 +13,7 @@
     };
 
     services.xserver = {
-      videoDrivers = [ "nvidia" ];
+      # videoDrivers = [ "nvidia" ];
       displayManager = {
         sessionCommands = ''
           nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
@@ -78,14 +78,14 @@
 
     boot.loader.systemd-boot = { configurationLimit = 5; };
 
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-    };
+    # hardware.nvidia = {
+    #   modesetting.enable = true;
+    #   powerManagement.enable = false;
+    #   powerManagement.finegrained = false;
+    #   open = false;
+    #   nvidiaSettings = true;
+    #   package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # };
 
     time.timeZone = "Europe/Belgrade";
   };
