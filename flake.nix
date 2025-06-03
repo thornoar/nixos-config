@@ -150,6 +150,8 @@
                   inherit system;
                   inherit firefox-pkgs;
                   inherit pkgs-unstable;
+                  inherit readFile;
+                  inherit readPackages;
                 };
               };
             }
