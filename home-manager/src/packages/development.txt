@@ -43,12 +43,10 @@ cheat
 cmake
 gnumake
 jq
-code-cursor
 upx
 pkg-config
 pstree
 ripgrep
-wxGTK32
 clojure
 clojure-lsp
 leiningen
