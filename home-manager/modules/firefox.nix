@@ -194,8 +194,8 @@ let
   ];
   search = {
     force = true;
-    default = "Google";
-    order = [ "Google" "Searx" ];
+    default = "google";
+    order = [ "google" "searx" ];
   };
   baseSettings = {
     "browser.startup.homepage" = "about:home";

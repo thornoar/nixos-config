@@ -30,7 +30,6 @@ devbox
 meson
 coq
 stack
-coqPackages.coq-lsp
 ocaml
 glibc
 glibc.static

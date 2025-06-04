@@ -2,4 +2,3 @@ hack-font
 noto-fonts
 ipafont
 kochi-substitute
-nerdfonts

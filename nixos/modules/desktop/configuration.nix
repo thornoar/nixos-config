@@ -39,7 +39,7 @@
     networking.networkmanager.wifi.backend = "iwd";
 
     services.syncthing = {
-      enable = true;
+      enable = false;
       user = "ramak";
       dataDir = "/home/ramak/dls";
       configDir = "/home/ramak/.config/syncthing";

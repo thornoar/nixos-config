@@ -2,6 +2,7 @@
   specialisation.hyprland.configuration = {
     boot.loader.systemd-boot.sortKey = "aaa";
     boot = {
+      # kernelPackages = pkgs.linuxPackages_hardened;
       kernelParams = [ "nvidia-drm.fbdev=1" ];
       initrd.kernelModules =
         [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
@@ -47,7 +48,7 @@
       powerManagement.finegrained = false;
       nvidiaSettings = true;
       forceFullCompositionPipeline = false;
-      open = false;
+      open = true;
       package = config.boot.kernelPackages.nvidiaPackages.production;
       prime = {
         # offload = { enable = true; enableOffloadCmd = true; };

@@ -30,7 +30,7 @@
       };
     };
     syncthing = {
-      enable = true;
+      enable = false;
       user = "ramak";
       dataDir = "/home/ramak/dls";
       configDir = "/home/ramak/.config/syncthing";
@@ -90,5 +90,6 @@
 
   time.timeZone = "Europe/Belgrade";
 
+  # May need to add nerd fonts
   fonts.packages = readPackages ../../src/packages/fonts.txt pkgs;
 }
