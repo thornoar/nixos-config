@@ -210,9 +210,12 @@ let
   };
   baseProfile = {
     inherit search;
-    inherit extensions;
-    inherit bookmarks;
     inherit userChrome;
+    extensions.packages = extensions;
+    bookmarks = {
+      force = true;
+      settings = bookmarks;
+    };
   };
 in {
   programs = {
