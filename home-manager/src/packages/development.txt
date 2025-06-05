@@ -4,7 +4,7 @@ clang-tools
 cabal-install
 haskellPackages.cabal-clean
 haskell-language-server
-haskell.compiler.ghc966
+haskell.compiler.ghc984
 lua
 luarocks
 lua-language-server

@@ -87,7 +87,12 @@ require('lualine').setup{
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_b = { 'branch', 'diff', {
+                'diagnostics',
+                symbols = {error = 'E ', warn = 'W ', info = 'I ', hint = 'H '},
+                update_in_insert = true, -- Update diagnostics in insert mode.
+            }
+        },
         lualine_c = { 'filename', keymap },
         lualine_x = { 'filetype' },
         lualine_y = { 'progress' },
