@@ -10,6 +10,7 @@ in {
     WALLPAPER_DIR = config.wallpaper.dir;
   };
 
+  xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = rec {
     enable = true;
     associations.added = {
@@ -29,6 +30,13 @@ in {
     ++ readPackages ../src/packages/unstable.txt pkgs-unstable
     ++ readPackages ../src/packages/insecure.txt pkgs
     ++ readCustomPackages ../src/packages/custom.txt;
+
+  home.pointerCursor = {
+    x11.enable = true;
+    gtk.enable = true;
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+  };
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {

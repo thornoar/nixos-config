@@ -153,9 +153,6 @@ in {
   # neofetch setup
   xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
 
-  # mimeapps handling
-  xdg.configFile."mimeapps.list".force = true;
-
   # khal configuration
   xdg.configFile."khal/config".source = dotfile "khal.config.ini";
 
