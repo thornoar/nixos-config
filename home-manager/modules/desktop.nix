@@ -7,5 +7,6 @@
         (ps: with ps; [ manim ipython sympy numpy ollama openai ]))
       broot
       nvd
+      tmux
     ];
 }
