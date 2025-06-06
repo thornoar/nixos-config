@@ -90,23 +90,6 @@
   ..args
 )
 
-// Further shorthands
-
-#let def = plainstyle("definition", "Definition")
-#let nota = plainstyle("notation", "Notation")
-#let exam = plainstyle("example", "Example")
-#let exer = plainstyle("exercise", "Exercise")
-#let note = plainstyle("note", "Note")
-#let rem = plainstyle("remark", "Remark")
-
-#let th = statestyle("theorem", "Theorem")
-#let lm = statestyle("lemma", "Lemma")
-#let prop = statestyle("proposition", "Proposition")
-#let prb = statestyle("problem", "Problem")
-#let cor(base: "heading") = statestyle("corollary", "Corollary", base: base)
-
-#let pf = proofstyle("proof", "Proof")
-
 // Main show rule
 
 #let theorem = doc => {
