@@ -14,13 +14,6 @@
     BAT_THEME = "base16";
   };
 
-  home.pointerCursor = {
-    x11.enable = true;
-    gtk.enable = true;
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   programs = { home-manager = { enable = true; }; };

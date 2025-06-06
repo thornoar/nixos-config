@@ -27,7 +27,7 @@
       };
     };
 
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
 
     fileSystems."/home/ramak/media" = {
       device = "/dev/disk/by-uuid/baf7b861-a1fa-4261-b38f-b7200bee9faf";
