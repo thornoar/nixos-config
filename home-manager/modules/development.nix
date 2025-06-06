@@ -1,21 +1,4 @@
 { pkgs, pkgs-unstable, readPackages, ... }: {
-  home.packages = with pkgs;
-    [
-      (python3.withPackages
-        (ps: with ps; [ manim ipython sympy numpy ollama openai ]))
-      (rWrapper.override {
-        packages = with rPackages; [
-          languageserver
-          ggplot2
-          dplyr
-          xts
-          pracma
-          latex2exp
-        ];
-      })
-      (texlive.combine { inherit (texlive) scheme-full; })
-    ] ++ readPackages ../src/packages/development.txt pkgs;
-
   programs = {
     neovim = {
       enable = true;

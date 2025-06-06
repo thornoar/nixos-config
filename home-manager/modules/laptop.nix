@@ -26,7 +26,23 @@ in {
     defaultApplications = associations.added;
   };
 
-  home.packages = readPackages ../src/packages/general.txt pkgs
+  home.packages = with pkgs;
+    [
+      (python3.withPackages
+        (ps: with ps; [ manim ipython sympy numpy ollama openai ]))
+      (rWrapper.override {
+        packages = with rPackages; [
+          languageserver
+          ggplot2
+          dplyr
+          xts
+          pracma
+          latex2exp
+        ];
+      })
+      (texlive.combine { inherit (texlive) scheme-full; })
+    ] ++ readPackages ../src/packages/development.txt pkgs
+    ++ readPackages ../src/packages/general.txt pkgs
     ++ readPackages ../src/packages/unstable.txt pkgs-unstable
     ++ readPackages ../src/packages/insecure.txt pkgs
     ++ readCustomPackages ../src/packages/custom.txt;
