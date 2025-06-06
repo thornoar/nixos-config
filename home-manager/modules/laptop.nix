@@ -25,17 +25,10 @@ in {
     defaultApplications = associations.added;
   };
 
-  home.packages = readPackages ./src/packages/general.txt pkgs
-    ++ readPackages ./src/packages/unstable.txt pkgs-unstable
-    ++ readPackages ./src/packages/insecure.txt pkgs
-    ++ readCustomPackages ./src/packages/custom.txt;
-
-  home.pointerCursor = {
-    x11.enable = true;
-    gtk.enable = true;
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-  };
+  home.packages = readPackages ../src/packages/general.txt pkgs
+    ++ readPackages ../src/packages/unstable.txt pkgs-unstable
+    ++ readPackages ../src/packages/insecure.txt pkgs
+    ++ readCustomPackages ../src/packages/custom.txt;
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
