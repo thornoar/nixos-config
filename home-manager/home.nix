@@ -1,11 +1,6 @@
 { config, pkgs, inputs, system, lib, pkgs-unstable, readFile, readPackages, ... }:
 
-let
-  readCustomPackages = file:
-    lib.lists.forEach (readFile file)
-    (x: inputs.${x}.packages.${system}.default);
-  ts = builtins.toString;
-in {
+{
   home.username = "ramak";
   home.homeDirectory = "/home/ramak";
   xdg.userDirs = {
