@@ -92,6 +92,7 @@
                 users.ramak = { ... }: {
                   imports = [
                     ./home-manager/home.nix
+                    ./home-manager/modules/laptop.nix
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/scripts.nix
