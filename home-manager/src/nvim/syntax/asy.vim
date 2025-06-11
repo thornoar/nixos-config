@@ -31,7 +31,7 @@ syn keyword   asyConstant      currentpicture currentpen
 syn keyword   asyConstant      inch inches in cm mm bp pt up down right left
 syn keyword   asyConstant      E NE N NW W SW S SE
 syn keyword   asyConstant      ENE NNE NNW WNW WSW SSW SSE ESE
-syn keyword   asyConstant      pi twopi
+syn keyword   asyConstant      pi twopi None NoMargin
 syn keyword   asyConstant      CCW CW SimpleHead TeXHead HookHead
 syn keyword   asyConstant      undefined sqrtEpsilon Align mantissaBits
 syn keyword   asyConstant      identity zeroTransform invert
