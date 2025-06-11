@@ -22,7 +22,7 @@ syn keyword     asyConstant      realEpsilon realDigits
 syn keyword     asyPathSpec      and cycle controls tension atleast curl
 syn keyword     asyStorageClass  static public restricted private explicit
 syn keyword     asyStructure     struct typedef
-syn keyword     asyType          void bool bool3 int real string file arrowbar Label interpolate
+syn keyword     asyType          void bool bool3 int real string file arrowbar Label interpolate margin
 syn keyword     asyType          pair triple transform guide path pen frame picture slice orientation arrowhead
 syn keyword     asyType          smooth hole subset animation element deferredPath gauss dpar
 
