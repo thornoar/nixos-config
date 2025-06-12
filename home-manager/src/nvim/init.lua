@@ -185,7 +185,7 @@ require('lazy').setup({
         keys = { },
         ---@type Ollama.Config
         opts = {
-            model = "codeqwen:7b",
+            model = "codegemma:7b",
         },
     },
     {
