@@ -11,6 +11,7 @@
 #let th = statestyle("theorem", "Теорема")
 #let lm = statestyle("lemma", "Лемма")
 #let prop = statestyle("proposition", "Предложение")
+#let stat = statestyle("statement", "Утверждение")
 #let prb = statestyle("problem", "Задача")
 #let cor(base: "heading") = statestyle("corollary", "Следствие", base: base)
 
