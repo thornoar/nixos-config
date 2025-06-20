@@ -12,6 +12,6 @@
 #let prop = statestyle("proposition", "Proposition")
 #let stat = statestyle("statement", "Statement")
 #let prb = statestyle("problem", "Problem")
-#let cor(base: "heading") = statestyle("corollary", "Corollary", base: base)
+#let cor = statestyle("corollary", "Corollary")
 
 #let pf = proofstyle("proof", "Proof")

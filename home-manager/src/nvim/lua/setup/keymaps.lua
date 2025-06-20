@@ -50,7 +50,7 @@ vim.keymap.set('n', '<C-x>', 'dd')
 -- $keymaps:insert
 vim.keymap.set('i', '<C-Space>', ' ')
 vim.keymap.set('i', '<C-Delete>', '<BS><Delete>')
--- vim.keymap.set('i', '<C-x>', '<C-n>')
+-- vim.keymap.set('i', '<C-n>', '<Nop>', { silent = true })
 vim.keymap.set('i', '<M-a>', '<C-o>$;')
 vim.keymap.set('i', '<C-x>', '<Esc>[s1z=A')
 vim.keymap.set('n', 'x', 'i')
