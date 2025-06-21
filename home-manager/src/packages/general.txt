@@ -18,7 +18,7 @@ graphviz
 ghostscript
 telegram-desktop
 discord
-whatsapp-for-linux
+whatsie
 obs-studio
 zoom-us
 zathura
@@ -51,3 +51,4 @@ audacity
 sc-im
 mpv
 ocamlPackages.cpdf
+bat
