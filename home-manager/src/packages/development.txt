@@ -50,3 +50,4 @@ clojure
 clojure-lsp
 leiningen
 gnupg
+zlib

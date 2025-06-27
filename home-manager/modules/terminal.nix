@@ -191,4 +191,11 @@ in {
 
   # pshash config
   xdg.configFile."pshash/pshash.conf".source = dotfile "pshash.conf";
+
+  # haskeline config
+  home.file.".haskeline".text = ''
+    editMode: Vi
+    historyDuplicates: IgnoreConsecutive
+    bellStyle: NoBell
+  '';
 }
