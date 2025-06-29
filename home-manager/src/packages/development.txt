@@ -4,7 +4,6 @@ clang-tools
 cabal-install
 haskellPackages.cabal-clean
 haskell-language-server
-haskell.compiler.ghc984
 lua
 luarocks
 lua-language-server
@@ -50,4 +49,4 @@ clojure
 clojure-lsp
 leiningen
 gnupg
-zlib
+haskellPackages.hoogle

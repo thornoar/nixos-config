@@ -40,6 +40,9 @@ in {
           latex2exp
         ];
       })
+      (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
+        QuickCheck
+      ]))
       (texlive.combine { inherit (texlive) scheme-full; })
     ] ++ readPackages ../src/packages/development.txt pkgs
     ++ readPackages ../src/packages/general.txt pkgs

@@ -1,0 +1,3 @@
+let escapeArg arg = "'" ++ concatMap (\c -> if c == '\'' then "'\"'\"'" else [c]) arg ++ "'"
+:def! search return . (":! hoogle " ++) . escapeArg
+:def! doc return . (":! hoogle --info " ++) . escapeArg

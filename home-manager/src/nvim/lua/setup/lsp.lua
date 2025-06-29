@@ -7,8 +7,10 @@ for name, icon in pairs(symbols) do
     local hl = "DiagnosticSign" .. name
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
-vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.goto_prev() end)
-vim.keymap.set('n', '<C-d>', function () vim.diagnostic.goto_next() end)
+vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', '<C-d>', function () vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set('n', '<M-S-d>', function () vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+vim.keymap.set('n', '<M-d>', function () vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)

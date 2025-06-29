@@ -126,6 +126,9 @@ in {
   # asymptote configuration
   home.file.".asy/config.asy".source = dotfile "config.asy";
 
+  # GHCi configuration
+  home.file.".ghci".source = dotfile "ghci";
+
   # moc configuration
   home.file.".moc/config".text = ''
     Theme = nightly_theme
