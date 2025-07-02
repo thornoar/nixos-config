@@ -18,10 +18,10 @@ function precmd() {
 bindkey "^[[1;3D" backward-word 
 bindkey "^[[1;3C" forward-word
 
-typeset -U PATH path
-BINPATH="$PROJECTS"
-path+=("$BINPATH" "${BINPATH}"/*/bin)
-export PATH
+# typeset -U PATH path
+# BINPATH="$PROJECTS"
+# path+=("$BINPATH" "${BINPATH}"/*/bin)
+# export PATH
 
 eval "$(fzf --zsh)"
 bindkey "^[[1;5B" fzf-file-widget
