@@ -20,3 +20,4 @@ update-resolv-conf
 which
 file
 powertop
+gparted
