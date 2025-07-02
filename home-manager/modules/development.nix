@@ -13,7 +13,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
+      autosuggestion.enable = false;
       syntaxHighlighting.enable = true;
       shellAliases = {
         torrent = "transmission-remote";

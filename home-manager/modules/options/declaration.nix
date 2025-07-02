@@ -10,8 +10,8 @@
       default = {
         # bgColor0 = "#000000";
         # bgColor1 = "#0f0f0f";
-        bgColor0 = "#0f0f0f";
-        bgColor1 = "#0f0f0f";
+        bgColor0 = "#0c0c10";
+        bgColor1 = "#121215";
         bgColor2 = "#262728";
         bgColor3 = "#4d4e4f";
         fgColor0 = "#17a88b";

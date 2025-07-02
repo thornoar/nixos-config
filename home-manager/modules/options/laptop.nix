@@ -32,7 +32,7 @@
     windowSpaceInner = 4;
     windowSpaceOuter = 8;
     windowBorderWidth = 0;
-    terminalOpacity = 0.9;
+    terminalOpacity = 0.92;
     terminalPaddingX = 1;
     terminalPaddingY = 1;
     terminalPadding = 1;
@@ -42,7 +42,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Landscapes";
+    dir = "Chains";
     gamma = 0.9;
     contrast = 1.0;
   };
