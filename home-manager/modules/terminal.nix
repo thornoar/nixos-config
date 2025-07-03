@@ -151,6 +151,16 @@ in {
     PS1="[%{$fg[magenta]%}develop%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
   '';
 
+  xdg.configFile."special-terminal/.zshrc".text = ''
+    source ~/.zshrc
+    PS1="[%{$fg[magenta]%}terminal%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
+  '';
+
+  xdg.configFile."special-music/.zshrc".text = ''
+    source ~/.zshrc
+    PS1="[%{$fg[blue]%}music%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
+  '';
+
   home.file.".Rprofile".source = dotfile "Rprofile";
 
   # neofetch setup
