@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, lib, pkgs-unstable, readFile, readPackages, ... }:
+{ config, pkgs, ... }:
 
 {
   home.username = "ramak";
@@ -27,5 +27,5 @@
 
   nixpkgs.config = { permittedInsecurePackages = [ "libxls-1.6.2" ]; };
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.05";
 }

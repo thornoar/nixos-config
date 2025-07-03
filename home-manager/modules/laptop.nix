@@ -44,7 +44,8 @@ in {
         QuickCheck
       ]))
       (texlive.combine { inherit (texlive) scheme-full; })
-    ] ++ readPackages ../src/packages/development.txt pkgs
+    ]
+    ++ readPackages ../src/packages/development.txt pkgs
     ++ readPackages ../src/packages/general.txt pkgs
     ++ readPackages ../src/packages/unstable.txt pkgs-unstable
     ++ readPackages ../src/packages/insecure.txt pkgs

@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, readPackages, ... }:
+{ pkgs, readPackages, ... }:
 
 {
   environment.variables = {

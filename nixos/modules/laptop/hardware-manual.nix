@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, ... }: {
+{ pkgs, ... }: {
   boot = {
     blacklistedKernelModules = [
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"

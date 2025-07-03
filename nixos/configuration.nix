@@ -1,4 +1,4 @@
-{ sysname, system, inputs, pkgs, readPackages, ... }:
+{ sysname, inputs, pkgs, readPackages, ... }:
 
 {
   users.users.ramak = {
@@ -182,5 +182,5 @@
   #   ultimate.enable = true;
   # };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.05";
 }

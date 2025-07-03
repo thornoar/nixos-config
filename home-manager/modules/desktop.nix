@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, lib, pkgs-unstable, readFile, readPackages, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   home.packages = (with pkgs;

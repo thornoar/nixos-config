@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, config, lib, readPackages, ... }: {
+{ pkgs, config, lib, readPackages, ... }: {
   specialisation.xmonad.configuration = {
     boot.loader.systemd-boot.sortKey = "aac";
     environment.variables = {

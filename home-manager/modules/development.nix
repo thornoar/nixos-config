@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, readPackages, ... }: {
+{ pkgs-unstable, ... }: {
   programs = {
     neovim = {
       enable = true;
