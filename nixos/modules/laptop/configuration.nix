@@ -2,6 +2,8 @@
 
 {
   environment.variables = {
+    ARCHVM = "192.168.122.35";
+    DEBIANVM = "192.168.122.127";
     PCTYPE = "laptop";
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };

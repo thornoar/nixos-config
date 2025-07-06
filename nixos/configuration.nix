@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, readPackages, ... }:
+{ sysname, inputs, pkgs, pkgs-unstable, readPackages, ... }:
 
 {
   users.users.ramak = {
@@ -113,7 +113,7 @@
     server-fr-4-vpnbook = createConfig "fr-free-4.vpnbook.udp";
   };
 
-  security.sudo.package = pkgs.sudo.override { withInsults = false; };
+  security.sudo.package = pkgs-unstable.sudo;
 
   boot.loader.systemd-boot = { enable = true; };
   boot.loader.timeout = 35996;

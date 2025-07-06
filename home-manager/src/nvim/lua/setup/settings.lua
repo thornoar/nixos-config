@@ -7,6 +7,7 @@ vim.o.breakat = '   '
 vim.opt.autochdir=true
 vim.o.shell = '/usr/bin/env zsh'
 vim.wo.number = true
+vim.wo.relativenumber = true
 vim.o.mouse = 'a'
 vim.o.breakindent = true
 vim.o.undofile = true

@@ -73,7 +73,7 @@
             ./nixos/modules/laptop/hardware-manual.nix
             ./nixos/modules/laptop/hyprland.nix
             ./nixos/modules/laptop/hyprland-powersave.nix
-            ./nixos/modules/laptop/xmonad.nix
+            # ./nixos/modules/laptop/xmonad.nix
             ./nixos/modules/vpn.nix
             {
               _module.args = {
@@ -98,7 +98,7 @@
                     ./home-manager/modules/scripts.nix
                     ./home-manager/modules/dispatch.nix
                     ./home-manager/modules/hyprland.nix
-                    ./home-manager/modules/xmonad.nix
+                    # ./home-manager/modules/xmonad.nix
                     ./home-manager/modules/terminal.nix
                     ./home-manager/modules/development.nix
                     ./home-manager/modules/firefox.nix

@@ -1,5 +1,3 @@
-khal
-fzf
 nodejs
 typst
 tinymist

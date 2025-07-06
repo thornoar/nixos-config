@@ -50,3 +50,4 @@ clojure-lsp
 leiningen
 gnupg
 haskellPackages.hoogle
+fzf
