@@ -25,8 +25,6 @@
         grep = "grep --color=auto";
         def = "dict -h dict.org";
         vmcon = "virt-manager --connect qemu:///system --show-domain-console";
-        vmstart = "sudo virsh start";
-        vmstop = "sudo virsh shutdown";
         clip = "wl-copy -n";
         gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
         gitlog = "git log --oneline --graph --decorate";
