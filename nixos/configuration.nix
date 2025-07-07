@@ -178,9 +178,5 @@
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };
 
-  # fonts.fontconfig = {
-  #   ultimate.enable = true;
-  # };
-
   system.stateVersion = "25.05";
 }

@@ -8,6 +8,8 @@ let
 in {
   home.sessionVariables = {
     WALLPAPER_DIR = config.wallpaper.dir;
+    ARCHVM = "192.168.122.35";
+    DEBIANVM = "192.168.122.127";
   };
 
   xdg.configFile."mimeapps.list".force = true;
