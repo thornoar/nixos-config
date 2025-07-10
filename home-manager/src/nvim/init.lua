@@ -43,20 +43,17 @@ require('lazy').setup({
         'thornoar/coq-lsp.nvim',
         branch = 'add-configuration',
     },
-    -- 'ashinkarov/nvim-agda',
-    -- 'neovimhaskell/nvim-hs.vim',
-    -- 'isovector/cornelis',
-    -- 'kana/vim-textobj-user',
-    -- 'Isti115/agda.nvim',
-    {
-        'stevearc/oil.nvim',
-        ---@module 'oil'
-        ---@type oil.SetupOpts
-        opts = {},
-        -- Optional dependencies
-        -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-    },
+
+    -- {
+    --     'stevearc/oil.nvim',
+    --     ---@module 'oil'
+    --     ---@type oil.SetupOpts
+    --     opts = {},
+    --     -- Optional dependencies
+    --     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    --     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    -- },
+
     -- {
     --     "lervag/vimtex",
     --     lazy = false,     -- we don't want to lazy load VimTeX
@@ -220,7 +217,7 @@ require('lazy').setup({
 
 require("setup.codecompanion")
 require("setup.neodev")
-require("setup.oil")
+-- require("setup.oil")
 require("setup.commands")
 require("setup.coq-lsp")
 require("setup.keymaps")
@@ -232,5 +229,5 @@ require("setup.ibl")
 require("setup.lsp")
 require("setup.settings")
 require("setup.coloring")
-require("setup.spell")
+-- require("setup.spell")
 -- require("setup.nvim-subfiles")
