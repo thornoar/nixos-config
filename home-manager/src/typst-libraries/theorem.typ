@@ -25,13 +25,10 @@
     if (name != none) { name = namefmt(name) } else { name = [] }
     if (title == auto) { title = head }
     if (number != none) { title += " " + number }
+    if (numbering == none) { title = [#title.] }
 
     if (titlefmt == auto) {
-      if (numbering == none) {
-        title = [ *#title.* ]
-      } else {
-        title = strong(title)
-      }
+      title = strong(underline(title))
     } else {
       title = titlefmt(title)
     }
