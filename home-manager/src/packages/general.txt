@@ -53,3 +53,4 @@ mpv
 ocamlPackages.cpdf
 bat
 bc
+manix

@@ -135,7 +135,7 @@ function installPackage () {
     echo "$package" >> "$file"
 }
 
-if [[ "systm" =~ ^"$cmd" ]]; then
+if [[ "system" =~ ^"$cmd" ]]; then
     manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'"
     exit 0
 elif [[ "preview" =~ ^"$cmd" ]]; then
