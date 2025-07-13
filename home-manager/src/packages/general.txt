@@ -52,3 +52,4 @@ sc-im
 mpv
 ocamlPackages.cpdf
 bat
+bc
