@@ -5,6 +5,11 @@ verbs: [
         leave_broot: false
     }
     {
+        invocation: clip
+        external: "wl-copy -n \"{file}\""
+        leave_broot: false
+    }
+    {
         invocation: srm
         external: rm -rf {file}
         leave_broot: false

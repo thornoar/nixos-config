@@ -79,6 +79,8 @@
           kpenter = "enter";
           kp5 = "down";
           rightalt = "leftmeta";
+          capslock = "esc";
+          esc = "capslock";
         };
       };
     };
