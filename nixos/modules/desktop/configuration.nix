@@ -87,6 +87,6 @@
     #   package = config.boot.kernelPackages.nvidiaPackages.beta;
     # };
 
-    time.timeZone = "Europe/Belgrade";
+    time.timeZone = "Europe/Minsk";
   };
 }
