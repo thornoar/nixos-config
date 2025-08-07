@@ -182,7 +182,7 @@ require('lazy').setup({
         keys = { },
         ---@type Ollama.Config
         opts = {
-            model = "codegemma:7b",
+            model = "gpt-oss:20b",
         },
     },
     {
