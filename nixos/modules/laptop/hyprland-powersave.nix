@@ -7,7 +7,7 @@
       xwayland.enable = true;
     };
     services = {
-      xserver.videoDrivers = lib.mkForce [ "nvidia" ];
+      xserver.videoDrivers = lib.mkForce ["nvidia" "modesetting"];
       picom = {
         enable = true;
         backend = "glx";
@@ -61,7 +61,9 @@
     hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
 
     hardware.nvidiaOptimus.disable = true;
-    hardware.nvidia.open = true;
+    hardware.nvidia.prime.sync.enable = false;
+    hardware.nvidia.open = false;
     nixpkgs.config.nvidia.acceptLicense = true;
+    systemd.services.nbfc_service.enable = lib.mkForce false;
   };
 }
