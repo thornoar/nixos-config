@@ -13,7 +13,7 @@ local compilefunc = {
     ['tex'] = function (name)
         return autosave and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
     end,
-    ['typst'] = function (name) return ('typst compile ' .. name) end,
+    ['typst'] = function (name) return ('!typst compile ' .. name) end,
     ['lua'] = function (name) return ('!lua ' .. name) end,
     ['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
