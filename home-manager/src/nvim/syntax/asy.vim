@@ -59,7 +59,7 @@ syn keyword   asyConstant      springgreen purple royalblue salmon brown
 syn keyword   asyConstant      olive darkbrown pink palegrey lightgrey
 syn keyword   asyConstant      mediumgrey grey heavygrey deepgrey darkgrey
 
-syn keyword   asyConstant      dn ucircle usquare smoothcolor subsetcolor convexpath concavepath cartesian combined free plain deferredPaths savedDeferredPaths simple simples
+syn keyword   asyConstant      dn ucircle usquare smoothcolor subsetcolor convexpaths concavepaths debugpaths cartesian combined free plain deferredPaths savedDeferredPaths simple simples
 
 
 syn keyword asyConstant      GreenYellow Yellow Goldenrod Dandelion

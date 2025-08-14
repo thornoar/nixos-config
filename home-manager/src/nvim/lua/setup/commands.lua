@@ -13,7 +13,7 @@ local compilefunc = {
     ['tex'] = function (name)
         return autosave and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
     end,
-    ['typst'] = function (_) return ('') end,
+    ['typst'] = function (name) return ('typst compile ' .. name) end,
     ['lua'] = function (name) return ('!lua ' .. name) end,
     ['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
@@ -21,7 +21,6 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
-    -- ['typst'] = function (_) return 'TypstWatch' end,
     ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
