@@ -1,4 +1,4 @@
-{ pkgs, lib, readPackages, ... }: {
+{ pkgs, pkgs-unstable, lib, readPackages, ... }: {
   specialisation.hyprland-powersave.configuration = {
     boot.loader.systemd-boot.sortKey = "aab";
     programs.hyprland = {
@@ -29,6 +29,7 @@
       BROWSER = "firefox -P hyprland";
     };
     environment.systemPackages =
+      with pkgs-unstable; [ waybar ] ++
       readPackages ../../src/packages/hyprland.txt pkgs;
 
     boot.extraModprobeConfig = lib.mkDefault ''

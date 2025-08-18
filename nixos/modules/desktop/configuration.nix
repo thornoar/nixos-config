@@ -32,7 +32,7 @@
     fileSystems."/home/ramak/media" = {
       device = "/dev/disk/by-uuid/baf7b861-a1fa-4261-b38f-b7200bee9faf";
       fsType = "ext4";
-      options = [ "nofail" "rw" "user" "auto" ];
+      options = [ "nofail" "rw" "user" "auto" "exec" ];
     };
 
     networking.wireless.iwd.enable = true;

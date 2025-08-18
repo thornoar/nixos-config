@@ -39,6 +39,7 @@
       BROWSER = "firefox -P hyprland";
     };
     environment.systemPackages =
+      with pkgs-unstable; [ waybar ] ++
       readPackages ../../src/packages/hyprland.txt pkgs;
 
     nixpkgs.config.nvidia.acceptLicense = true;
