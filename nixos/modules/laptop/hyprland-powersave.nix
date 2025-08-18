@@ -12,6 +12,10 @@
         enable = true;
         backend = "glx";
       };
+      displayManager = {
+        sddm.enable = true;
+        sddm.wayland.enable = true;
+      };
     };
     powerManagement.cpuFreqGovernor = "powersave";
     environment.variables = {

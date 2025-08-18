@@ -20,15 +20,6 @@
   environment.systemPackages = readPackages ../../src/packages/laptop.txt pkgs;
 
   services = {
-    displayManager = {
-      sddm.enable = true;
-      sddm.wayland.enable = true;
-      # ly.enable = true;
-      autoLogin = {
-        enable = true;
-        user = "ramak";
-      };
-    };
     libinput = {
       enable = true;
       touchpad = {
@@ -92,6 +83,10 @@
           esc = "capslock";
         };
       };
+    };
+    displayManager.autoLogin = {
+      enable = false;
+      user = "ramak";
     };
   };
 
