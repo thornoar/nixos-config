@@ -19,7 +19,7 @@ curdir="$PWD"
 
 message="$1"
 if [ -z "$message" ]; then
-    message="$(date +%c)"
+    message="$(date +"%d %b %Y (%a): %H:%M")"
 fi
 
 cd "$root_dir" || exit
