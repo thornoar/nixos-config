@@ -19,7 +19,7 @@ curdir="$PWD"
 
 message="$1"
 if [ -z "$message" ]; then
-    message="automatic commit"
+    message="$(date +%c)"
 fi
 
 cd "$root_dir" || exit
