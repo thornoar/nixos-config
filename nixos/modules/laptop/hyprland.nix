@@ -18,10 +18,6 @@
         enable = true;
         backend = "glx";
       };
-      displayManager = {
-        sddm.enable = true;
-        sddm.wayland.enable = true;
-      };
       ollama = {
         package = pkgs-unstable.ollama;
         enable = true;
