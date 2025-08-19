@@ -51,3 +51,10 @@ leiningen
 gnupg
 haskellPackages.hoogle
 fzf
+shellcheck
+tldr
+ghostscript
+nix-output-monitor
+nvd
+pdf2svg
+manix

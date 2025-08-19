@@ -21,6 +21,7 @@
       displayManager = {
         sddm.enable = true;
         sddm.wayland.enable = true;
+        # ly.enable = true;
       };
       ollama = {
         package = pkgs-unstable.ollama;

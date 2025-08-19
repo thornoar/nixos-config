@@ -102,24 +102,6 @@ verbs: [
         execution: ":focus ~"
     }
     {
-        key: alt-t
-        invocation: terminal
-        external: "sh -c \"nohup $TERMINAL -e sh -c 'cd \"{directory}\"; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
-        leave_broot: false
-    }
-    {
-        key: alt-b
-        invocation: filemanager
-        external: "sh -c \"nohup $TERMINAL -e zsh -c 'cd \"{directory}\"; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
-        leave_broot: false
-    }
-    {
-        key: ctrl-x
-        invocation: terminal
-        external: "sh -c \"nohup $TERMINAL -e zsh -c 'cd {directory}; nvim-server; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
-        leave_broot: false
-    }
-    {
         keys: [
             left
             right
@@ -151,17 +133,7 @@ verbs: [
     {
         key: alt-enter
         internal: open_stay
-        # apply_to: file
-        # execution: "sh -c \"nohup xdg-open {file} 2> /dev/null 1> /dev/null &\" &"
-        # leave_broot: false
     }
-    # {
-    #     invocation: devour
-    #     key: alt-d
-    #     apply_to: file
-    #     execution: "devour xdg-open {file}"
-    #     leave_broot: false
-    # }
     {
         key: shift-right
         apply_to: text_file

@@ -15,6 +15,7 @@
       displayManager = {
         sddm.enable = true;
         sddm.wayland.enable = true;
+        # ly.enable = true;
       };
     };
     powerManagement.cpuFreqGovernor = "powersave";

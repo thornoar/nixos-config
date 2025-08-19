@@ -229,14 +229,6 @@ in {
           "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
         };
       };
-      # profiles.hyprland-open = baseProfile // {
-      #   id = 2;
-      #   name = "hyprland-test";
-      #   isDefault = false;
-      #   settings = baseSettings // {
-      #     "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
-      #   };
-      # };
       profiles.hyprland-clean = baseProfile // {
         id = 3;
         name = "hyprland-clean";
@@ -245,14 +237,14 @@ in {
           "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
         };
       };
-      profiles.xmonad = baseProfile // {
-        id = 1;
-        name = "xmonad";
-        isDefault = false;
-        settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
-        };
-      };
+      # profiles.xmonad = baseProfile // {
+      #   id = 1;
+      #   name = "xmonad";
+      #   isDefault = false;
+      #   settings = baseSettings // {
+      #     "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
+      #   };
+      # };
     };
   };
 }

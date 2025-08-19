@@ -92,16 +92,13 @@
                 users.ramak = { ... }: {
                   imports = [
                     ./home-manager/home.nix
-                    ./home-manager/modules/laptop.nix
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/laptop.nix
-                    ./home-manager/modules/scripts.nix
-                    ./home-manager/modules/dispatch.nix
+                    ./home-manager/modules/laptop.nix
+                    # ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/hyprland.nix
                     # ./home-manager/modules/xmonad.nix
-                    ./home-manager/modules/terminal.nix
                     ./home-manager/modules/development.nix
-                    ./home-manager/modules/firefox.nix
                   ];
                 };
                 extraSpecialArgs = {
