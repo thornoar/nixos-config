@@ -141,7 +141,7 @@ function listServersPretty {
 function disconnectAll () {
     for service in $(listServersUgly); do
         if systemctl is-active "$service" --quiet; then
-            sudo systemctl stop "$service" || exit 1
+            doas systemctl stop "$service" || exit 1
             if getCountryBranchProvider "$service"; then
                 printf "\e[1;$1m#\e[0m Disconnected from \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
             else
@@ -172,7 +172,7 @@ if [[ "connect" =~ ^"$cmd" ]]; then
             printf "\e[1;34m#\e[0m Connecting to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
         fi
         ip_before=$(curl ipinfo.io -s | jq ".ip" --raw-output)
-        sudo systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
+        doas systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
         if [ "$raw" -eq 0 ]; then
             printf "\e[1;34m#\e[0m Checking if IP was re-routed:\n"
         fi
@@ -207,7 +207,7 @@ if [[ "connect" =~ ^"$cmd" ]]; then
             fi
             sleep 1.0
         done
-        sudo systemctl stop "openvpn-server-$country-$branch-$provider.service" || exit 1
+        doas systemctl stop "openvpn-server-$country-$branch-$provider.service" || exit 1
         if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m There was a problem connecting.\n"; fi
     done
     exit 1
@@ -247,7 +247,7 @@ elif [[ "status" =~ ^"$cmd" ]]; then
 elif [[ "ip" =~ ^"$cmd" ]]; then
     if [ "$raw" -eq 0 ]; then getip public; else getip public --raw; fi
 elif [[ "set-password" =~ ^"$cmd" ]]; then
-    sudo -s "$(which vpn-change-passwords)"
+    doas -s "$(which vpn-change-passwords)"
 else
     if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
     exit 1

@@ -158,6 +158,7 @@ in {
       clip = "wl-copy -n";
       gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
       gitlog = "git log --oneline --graph --decorate";
+      # sudo = "doas";
     };
     envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
     initContent = builtins.readFile (dotfile "zsh/initExtra.zsh");
