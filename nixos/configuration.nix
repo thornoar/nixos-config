@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, readPackages, ... }:
+{ sysname, inputs, pkgs, pkgs-unstable, readPackages, ... }:
 
 {
   users.users.ramak = {
@@ -114,12 +114,26 @@
   };
 
   security = {
-    sudo.enable = false;
-    doas = {
+    sudo = {
       enable = true;
-      extraConfig = ''
-      '';
+      package = pkgs-unstable.sudo;
     };
+    # doas = {
+    #   enable = true;
+    #   # extraConfig = ''
+    #   #   permit persist :wheel as root
+    #   # '';
+    #   extraRules = [
+    #     # Allow execution of any command by any user in group wheel, requiring
+    #     # a password and keeping any previously-defined environment variables.
+    #     {
+    #       groups = [ "wheel" ];
+    #       noPass = false;
+    #       keepEnv = true;
+    #       persist = true;
+    #     }
+    #   ];
+    # };
   };
 
   boot.loader.systemd-boot = { enable = true; };

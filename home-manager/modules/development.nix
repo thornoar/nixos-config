@@ -158,7 +158,6 @@ in {
       clip = "wl-copy -n";
       gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
       gitlog = "git log --oneline --graph --decorate";
-      # sudo = "doas";
     };
     envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
     initContent = builtins.readFile (dotfile "zsh/initExtra.zsh");
@@ -237,7 +236,9 @@ in {
       enable = true;
       userName = "Roman Maksimovich";
       userEmail = "r.a.maksimovich@gmail.com";
-      extraConfig = { init.defaultBranch = "master"; };
+      extraConfig = {
+        init.defaultBranch = "master";
+      };
       aliases = {
         install = ''
           !git clone "https://github.com/thornoar/$1.git" "$HOME/projects/$1"'';

@@ -217,11 +217,11 @@ elif [[ "remove" =~ ^"$cmd" ]]; then
     done
     if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
 elif [[ "collect-garbage" =~ ^"$cmd" ]]; then
-    doas printf ""
+    sudo printf ""
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the user level.\n"; fi # ]]
     nix-collect-garbage --delete-old
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the root level.\n"; fi # ]]
-    doas nix-collect-garbage --delete-old
+    sudo nix-collect-garbage --delete-old
     if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Deleting boot entries.\n"; fi # ]]
     nix-collect-garbage -d
 elif [[ "search" =~ ^"$cmd" ]]; then
