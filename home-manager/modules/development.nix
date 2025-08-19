@@ -195,8 +195,9 @@ in {
   # tmux configuration
   xdg.configFile."tmux/tmux.conf".source = dotfile "tmux/tmux.conf";
 
+  # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
-    # typst libraries
+    # Typst libraries
     lib.lists.flatten (lib.lists.forEach
       (lib.filesystem.listFilesRecursive (dotfile "typst-libraries")) (filename:
         let
@@ -220,10 +221,13 @@ in {
               '';
             };
           }
-        ]))) // {
-          # LaTeX libraries
-          "latex".source = dotfile "latex-libraries";
-        };
+        ]
+      )
+    )
+  ) // {
+    # LaTeX libraries
+    "latex".source = dotfile "latex-libraries";
+  };
 
   # pshash config
   xdg.configFile."pshash/pshash.conf".source = dotfile "pshash.conf";
