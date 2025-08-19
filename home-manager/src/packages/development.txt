@@ -36,7 +36,6 @@ libffi
 libtool
 nixfmt-classic
 gawk
-thefuck
 cheat
 cmake
 gnumake
