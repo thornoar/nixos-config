@@ -1,0 +1,14 @@
+default_flags:"gi"
+terminal_title: "[broot] {git-name}"
+date_time_format: %Y-%m-%d %R
+show_selection_mark: true
+special_paths: {
+    # "/media/slow-backup-disk"    : no-enter
+    # "/home/dys/useless"    : hide
+    # "/home/dys/my-link-I-want-to-explore"    : enter
+}
+content_search_max_file_size: 10MB
+imports: [
+    verbs.hjson
+    colorscheme.hjson
+]

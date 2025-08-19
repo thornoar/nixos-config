@@ -58,3 +58,4 @@ nix-output-monitor
 nvd
 pdf2svg
 manix
+broot

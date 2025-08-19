@@ -34,15 +34,15 @@ in {
   xdg.configFile."nvim/init.lua".source = dotfile "nvim/init.lua";
 
   # Broot configuration
-  programs.broot = {
-    enable = true;
-    enableZshIntegration = true;
-    settings.imports = [
-      "colorscheme.hjson"
-      "verbs.hjson"
-    ];
-  };
-  # xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
+  # programs.broot = {
+  #   enable = true;
+  #   enableZshIntegration = true;
+  #   settings.imports = [
+  #     "colorscheme.hjson"
+  #     "verbs.hjson"
+  #   ];
+  # };
+  xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
   xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
   xdg.configFile."broot/colorscheme.hjson".text = ''
     skin: {
@@ -167,7 +167,7 @@ in {
       gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
       gitlog = "git log --oneline --graph --decorate";
     };
-    # envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
+    envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
     initContent = builtins.readFile (dotfile "zsh/initExtra.zsh");
   };
   xdg.configFile."nix-develop/.zshrc".text = ''

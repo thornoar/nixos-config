@@ -59,7 +59,7 @@ try:
         if "not staged for commit" in os.popen("git status").read().strip():
             print("\033[1;34m#\033[0m Committing local changes.") #]]
             call("git add -A")
-            call("git commit -m \"automatic commit\"")
+            call("git commit -m \"$(date +'%d %b %Y (%a): %H:%M')\"")
             call("git pull --no-rebase --no-edit")
             call("git push")
         elif behind_remote:
