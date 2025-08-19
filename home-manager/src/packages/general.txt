@@ -2,7 +2,6 @@ playerctl
 imagemagick
 graphicsmagick
 ffmpeg
-neofetch
 transmission_3
 nix-du
 killall
@@ -38,3 +37,5 @@ sc-im
 mpv
 bat
 bc
+neofetch
+pfetch
