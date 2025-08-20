@@ -21,7 +21,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Landscapes";
+    dir = "Sci-Fi";
     gamma = 0.9;
     contrast = 1.0;
   };

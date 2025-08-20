@@ -1,6 +1,7 @@
 @import '/home/ramak/.config/colors.css';
 
 * {
+	/* border: 1px solid @bgColor1; */
 	border: none;
 	border-radius: 0px;
     font-family: "Hack";
@@ -59,7 +60,7 @@ window#waybar {
 }
 
 #workspaces button {
-	/* border: 1px solid @bgColor1; */
+	/* border: 1px solid @bgColor0; */
 	margin-right: 10px;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -72,9 +73,10 @@ window#waybar {
     padding-bottom: 2px;
 }
 #workspaces button.active {
-	border: 1px solid @colorMagenta1;
+	border: 1px solid @colorMagenta0;
 	margin-right: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
+	background: @bgColor0;
     color: @colorMagenta0;
 }

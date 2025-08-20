@@ -167,6 +167,11 @@ let
       url = "https://webwork.math.ust.hk/webwork2";
       keyword = "ww";
     }
+    {
+      name = "ag | appr-game";
+      url = "https://thornoar.github.io/appr-game/";
+      keyword = "ag";
+    }
   ];
   userChrome = ''
     #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
