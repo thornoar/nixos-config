@@ -32,7 +32,6 @@
     monitorName = "eDP-1";
     wmStartupCommand =
       "sleep 8; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";
-    srcPath = /home/ramak/projects/nixos-config/home-manager/src;
   };
 
   # xmonad = lib.mkForce {

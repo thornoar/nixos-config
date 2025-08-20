@@ -143,7 +143,7 @@
       type = lib.types.attrs;
       default = {
         dotFileImmut = dotFile (x: x) ../src;
-        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink config.misc.srcPath;
+        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink (lib.path.append config.home.homeDirectory /projects/nixos-config/home-manager/src);
       };
     };
   };
