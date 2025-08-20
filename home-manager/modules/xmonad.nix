@@ -1,7 +1,6 @@
 { lib, config, ... }:
 
 let
-  dotfile = str: lib.path.append ../src str;
   ts = builtins.toString;
   toHaskell = mkstr:
     lib.attrsets.foldlAttrs (str: k: v:
@@ -30,13 +29,13 @@ in {
         ts config.wallpaper.gamma
       } -contrast ${ts config.wallpaper.contrast}"
     '' config.misc;
-    xdg.configFile."xmonad/xmonad.hs".source = dotfile "xmonad.hs";
+    xdg.configFile."xmonad/xmonad.hs" = config.util.dotFileMut "xmonad.hs";
 
     # xmobar configuration
     xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
     # Kitty configuration
-    xdg.configFile."kitty/minimal.lua".source = dotfile "kitty/minimal.lua";
+    xdg.configFile."kitty/minimal.lua" = config.util.dotFileMut "kitty/minimal.lua";
     programs.kitty = {
       enable = true;
       font = {
@@ -101,12 +100,12 @@ in {
     };
 
     # keynav configuration
-    xdg.configFile."keynav/keynavrc".source = dotfile "keynavrc";
+    xdg.configFile."keynav/keynavrc" = config.util.dotFileMut "keynavrc";
 
     # Transparent cursor theme
-    home.file.".local/share/icons/transparent".source = dotfile "transparent";
+    home.file.".local/share/icons/transparent" = config.util.dotFileMut "transparent";
 
     # account icon setting
-    home.file.".face".source = dotfile "account-icon.png";
+    home.file.".face" = config.util.dotFileMut "account-icon.png";
   };
 }

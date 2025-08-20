@@ -62,6 +62,11 @@
           getAttr (set.${builtins.head split})
           (str.concatStrings (str.intersperse "." (builtins.tail split)));
       readPackages = file: set: lib.lists.forEach (readFile file) (getAttr set);
+      dotFile = mkLink: srcPath: path: {
+        enable = true;
+        recursive = true;
+        source = mkLink (lib.path.append srcPath path);
+      };
     in {
       nixosConfigurations = {
         laptop = lib.nixosSystem {
@@ -108,6 +113,7 @@
                   inherit pkgs-unstable;
                   inherit readFile;
                   inherit readPackages;
+                  inherit dotFile;
                 };
               };
             }

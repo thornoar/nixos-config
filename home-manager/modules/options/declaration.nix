@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, dotFile, ... }:
 
 {
   options = let
@@ -136,6 +136,14 @@
       default = {
         usePackageList = true;
         systemFont = "Hack";
+      };
+    };
+
+    util = lib.mkOption {
+      type = lib.types.attrs;
+      default = {
+        dotFileImmut = dotFile (x: x) ../src;
+        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink config.misc.srcPath;
       };
     };
   };

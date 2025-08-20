@@ -1,11 +1,11 @@
 { inputs, system, pkgs, lib, config, pkgs-unstable, readPackages, readFile, ... }:
 let
-  dotfile = str: lib.path.append ../src str;
   ts = builtins.toString;
   toLua = lib.attrsets.foldlAttrs (str: k: v:
     str + ''
       M.${k} = "${ts v}"
-    '');
+    ''
+  );
   readCustomPackages = file:
     lib.lists.forEach (readFile file)
     (x: inputs.${x}.packages.${system}.default);
@@ -17,25 +17,24 @@ in {
   # Neovim configuration
   programs.neovim = {
     enable = true;
-    # package = pkgs-unstable.neovim;
     withPython3 = true;
     extraPython3Packages = ps: with ps; [ sympy pynvim ];
   };
-  xdg.configFile."nvim/ftdetect".source = dotfile "nvim/ftdetect";
-  xdg.configFile."nvim/syntax".source = dotfile "nvim/syntax";
-  xdg.configFile."nvim/UltiSnips".source = dotfile "nvim/UltiSnips";
-  xdg.configFile."nvim/after".source = dotfile "nvim/after";
-  xdg.configFile."nvim/lua/setup".source = dotfile "nvim/lua/setup";
+  xdg.configFile."nvim/ftdetect" = config.util.dotFileMut "nvim/ftdetect";
+  xdg.configFile."nvim/syntax" = config.util.dotFileMut "nvim/syntax";
+  xdg.configFile."nvim/UltiSnips" = config.util.dotFileMut "nvim/UltiSnips";
+  xdg.configFile."nvim/after" = config.util.dotFileMut "nvim/after";
+  xdg.configFile."nvim/lua/setup" = config.util.dotFileMut "nvim/lua/setup";
   xdg.configFile."nvim/lua/colors.lua".text = toLua ''
     local M = {}
   '' config.colors + ''
     return M
   '';
-  xdg.configFile."nvim/init.lua".source = dotfile "nvim/init.lua";
+  xdg.configFile."nvim/init.lua" = config.util.dotFileMut "nvim/init.lua";
 
   # Broot configuration
-  xdg.configFile."broot/conf.hjson".source = dotfile "broot/conf.hjson";
-  xdg.configFile."broot/verbs.hjson".source = dotfile "broot/verbs.hjson";
+  xdg.configFile."broot/conf.hjson" = config.util.dotFileMut "broot/conf.hjson";
+  xdg.configFile."broot/verbs.hjson" = config.util.dotFileMut "broot/verbs.hjson";
   xdg.configFile."broot/colorscheme.hjson".text = ''
     skin: {
         default: "${config.colors.colorWhite3} None / ${config.colors.colorWhite4} None"
@@ -134,10 +133,10 @@ in {
   '';
 
   # Asymptote configuration
-  home.file.".asy/config.asy".source = dotfile "config.asy";
+  home.file.".asy/config.asy" = config.util.dotFileMut "config.asy";
 
   # GHCi configuration
-  home.file.".ghci".source = dotfile "ghci";
+  home.file.".ghci" = config.util.dotFileMut "ghci";
 
   # zsh configuration
   programs.zsh = {
@@ -159,8 +158,8 @@ in {
       gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
       gitlog = "git log --oneline --graph --decorate";
     };
-    envExtra = builtins.readFile (dotfile "zsh/envExtra.zsh");
-    initContent = builtins.readFile (dotfile "zsh/initExtra.zsh");
+    envExtra = builtins.readFile ../src/zsh/envExtra.zsh;
+    initContent = builtins.readFile ../src/zsh/initExtra.zsh;
   };
   xdg.configFile."nix-develop/.zshrc".text = ''
     source ~/.zshrc
@@ -176,22 +175,22 @@ in {
   '';
 
   # R configuration
-  home.file.".Rprofile".source = dotfile "Rprofile";
+  home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
 
   # neofetch configuration
-  xdg.configFile."neofetch/config.conf".source = dotfile "neofetch.conf";
+  xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
   # khal configuration
-  xdg.configFile."khal/config".source = dotfile "khal.config.ini";
+  xdg.configFile."khal/config" = config.util.dotFileMut "khal.config.ini";
 
   # tmux configuration
-  xdg.configFile."tmux/tmux.conf".source = dotfile "tmux/tmux.conf";
+  xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
 
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
     # Typst libraries
     lib.lists.flatten (lib.lists.forEach
-      (lib.filesystem.listFilesRecursive (dotfile "typst-libraries")) (filename:
+      (lib.filesystem.listFilesRecursive ../src/typst-libraries) (filename:
         let
           strname = ts filename;
           last = lib.lists.last (lib.strings.splitString "/" strname);
@@ -218,11 +217,11 @@ in {
     )
   ) // {
     # LaTeX libraries
-    "latex".source = dotfile "latex-libraries";
+    "latex" = config.util.dotFileMut "latex-libraries";
   };
 
   # pshash config
-  xdg.configFile."pshash/pshash.conf".source = dotfile "pshash.conf";
+  xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
 
   # haskeline config
   home.file.".haskeline".text = ''

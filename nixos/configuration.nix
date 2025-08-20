@@ -48,7 +48,6 @@
       XDG_CACHE_HOME = "$HOME/.cache";
       PROJECTS = "$HOME/projects";
       NIXOS_CONFIG = "${PROJECTS}/nixos-config";
-      NIXOS_LOCAL = "${PROJECTS}/nixos-local-config";
       MEDIA = "$HOME/media";
       DE = "generic";
       NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";

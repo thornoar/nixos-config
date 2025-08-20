@@ -1,7 +1,6 @@
 { lib, config, ... }:
 
 let
-  dotfile = str: lib.path.append ../src str;
   ts = builtins.toString;
   toConf = mkstr:
     lib.attrsets.foldlAttrs (str: k: v:
@@ -43,8 +42,7 @@ in {
       path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
       duration = "3m"
     '';
-    # xdg.configFile."hypr/hyprpaper.conf".source = dotfile "hypr/hyprpaper.conf";
-    xdg.configFile."hypr/hyprland.conf".source = dotfile "hypr/hyprland.conf";
+    xdg.configFile."hypr/hyprland.conf" = config.util.dotFileMut "hypr/hyprland.conf";
 
     # Waybar configuration
     xdg.configFile."waybar/size.css".text = ''
@@ -53,7 +51,7 @@ in {
           border-radius: ${ts config.hyprland.rounding}px;
       }
     '';
-    xdg.configFile."waybar/style.css".source = dotfile "waybar/style.css";
+    xdg.configFile."waybar/style.css" = config.util.dotFileMut "waybar/style.css";
     xdg.configFile."waybar/config".text = ''
       {
           "layer": "top",
@@ -87,7 +85,7 @@ in {
           ]
       }
     '';
-    xdg.configFile."waybar/modules.json".source = dotfile "waybar/modules.json";
+    xdg.configFile."waybar/modules.json" = config.util.dotFileMut "waybar/modules.json";
 
     xdg.configFile."tofi/config".text = ''
       font-size = ${ts config.hyprland.fontsize}
@@ -119,7 +117,7 @@ in {
       margin-left = ${ts config.hyprland.windowSpaceOuter}
       margin-right = ${ts config.hyprland.windowSpaceOuter}
 
-    '' + builtins.readFile (dotfile "tofi.conf");
+    '' + builtins.readFile ../src/tofi.conf;
 
     programs.alacritty = {
       enable = true;
