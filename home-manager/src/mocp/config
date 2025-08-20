@@ -1,0 +1,5 @@
+Theme = nightly_theme
+Keymap = keymap
+Repeat = yes
+Shuffle = no
+AutoNext = yes

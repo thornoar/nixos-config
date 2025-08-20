@@ -161,18 +161,9 @@ in {
     envExtra = builtins.readFile ../src/zsh/envExtra.zsh;
     initContent = builtins.readFile ../src/zsh/initExtra.zsh;
   };
-  xdg.configFile."nix-develop/.zshrc".text = ''
-    source ~/.zshrc
-    PS1="[%{$fg[magenta]%}develop%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
-  '';
-  xdg.configFile."special-terminal/.zshrc".text = ''
-    source ~/.zshrc
-    PS1="[%{$fg[magenta]%}terminal%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
-  '';
-  xdg.configFile."special-music/.zshrc".text = ''
-    source ~/.zshrc
-    PS1="[%{$fg[blue]%}music%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
-  '';
+  xdg.configFile."nix-develop/.zshrc" = config.util.dotFileMut "zsh/nix-develop.zsh";
+  xdg.configFile."special-terminal/.zshrc" = config.util.dotFileMut "zsh/special-terminal.zsh";
+  xdg.configFile."special-music/.zshrc" = config.util.dotFileMut "zsh/special-music.zsh";
 
   # R configuration
   home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
@@ -224,11 +215,7 @@ in {
   xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
 
   # haskeline config
-  home.file.".haskeline".text = ''
-    editMode: Vi
-    historyDuplicates: IgnoreConsecutive
-    bellStyle: NoBell
-  '';
+  home.file.".haskeline" = config.util.dotFileMut "haskeline";
 
   programs = {
     git = {

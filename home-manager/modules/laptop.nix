@@ -65,27 +65,11 @@ in
     xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
     # moc configuration
-    home.file.".moc/config".text = ''
-      Theme = nightly_theme
-      Keymap = keymap
-      Repeat = yes
-      Shuffle = no
-      AutoNext = yes
-    '';
-    home.file.".moc/keymap".text = ''
-      go    = ENTER RIGHT
-      go_up = U LEFT
-      #seek_forward  = RIGHT
-      #seek_backward = LEFT
-    '';
+    home.file.".moc/config" = config.util.dotFileMut "mocp/config";
+    home.file.".moc/keymap" = config.util.dotFileMut "mocp/keymap";
 
     # mpv configuration
-    xdg.configFile."mpv/mpv.conf".text = ''
-      ao=alsa
-      audio-device=auto
-      loop-file=inf
-      sub-file-paths=RusSubs:subs:subtitles
-    '';
+    xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 
     # zathura configuration
     xdg.configFile."zathura/zathurarc".text = ''
