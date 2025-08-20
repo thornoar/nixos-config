@@ -10,7 +10,7 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     programs.hyprland = {
       enable = true;
-      package = pkgs.hyprland;
+      # package = pkgs.hyprland;
       xwayland.enable = true;
     };
     services = {
