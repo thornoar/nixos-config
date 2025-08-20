@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, pkgs-unstable, readPackages, ... }:
+{ sysname, inputs, pkgs, readPackages, ... }:
 
 {
   users.users.ramak = {
@@ -115,7 +115,6 @@
   security = {
     sudo = {
       enable = true;
-      package = pkgs-unstable.sudo;
     };
     # doas = {
     #   enable = true;
@@ -148,7 +147,11 @@
     dates = "daily";
     options = "--delete-older-than 1d";
   };
-  nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    auto-optimise-store = true;
+    # cores = 20;
+    # max-jobs = 1;
+  };
 
   networking.hostName = sysname;
   networking.networkmanager.enable = true;

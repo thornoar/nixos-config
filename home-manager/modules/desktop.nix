@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = (with pkgs;
@@ -8,8 +8,6 @@
       broot
       nvd
       tmux
-    ]) ++ (with pkgs-unstable;
-    [
       fzf
     ]);
 }

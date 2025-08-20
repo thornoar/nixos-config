@@ -1,4 +1,4 @@
-{ inputs, system, pkgs, lib, config, pkgs-unstable, readPackages, readFile, ... }:
+{ inputs, system, pkgs, lib, config, readPackages, readFile, ... }:
 let
   ts = builtins.toString;
   toLua = lib.attrsets.foldlAttrs (str: k: v:
@@ -255,6 +255,5 @@ in {
       (texlive.combine { inherit (texlive) scheme-full; })
     ]
     ++ readPackages ../src/packages/development.txt pkgs
-    ++ readPackages ../src/packages/unstable.txt pkgs-unstable
     ++ readCustomPackages ../src/packages/custom.txt;
 }

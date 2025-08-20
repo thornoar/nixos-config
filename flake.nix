@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs-unstable = { url = "github:NixOS/nixpkgs/nixos-unstable"; };
     nixpkgs = { url = "github:NixOS/nixpkgs/nixos-25.05"; };
-    nixpkgs-old = { url = "github:NixOS/nixpkgs/nixos-24.05"; };
+    # nixpkgs-old = { url = "github:NixOS/nixpkgs/nixos-24.05"; };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,10 +43,10 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-old = import inputs.nixpkgs-old {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      # pkgs-old = import inputs.nixpkgs-old {
+      #   inherit system;
+      #   config.allowUnfree = true;
+      # };
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
       readFile = file:
@@ -86,7 +86,6 @@
                 inherit system;
                 inherit inputs;
                 inherit pkgs-unstable;
-                inherit pkgs-old;
                 inherit readPackages;
               };
             }
@@ -110,7 +109,6 @@
                   inherit inputs;
                   inherit system;
                   inherit firefox-pkgs;
-                  inherit pkgs-unstable;
                   inherit readFile;
                   inherit readPackages;
                   inherit dotFile;
@@ -132,7 +130,6 @@
                 sysname = "desktop";
                 inherit inputs;
                 inherit pkgs-unstable;
-                inherit pkgs-old;
                 inherit readPackages;
               };
             }
@@ -155,7 +152,7 @@
                   inherit inputs;
                   inherit system;
                   inherit firefox-pkgs;
-                  inherit pkgs-unstable;
+                  # inherit pkgs-unstable;
                   inherit readFile;
                   inherit readPackages;
                 };

@@ -16,7 +16,6 @@
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        # haskellPackages = pkgs-unstable.haskellPackages;
       };
       displayManager = {
         sessionCommands = ''

@@ -1,5 +1,5 @@
 Theme = nightly_theme
 Keymap = keymap
 Repeat = yes
-Shuffle = no
+Shuffle = yes
 AutoNext = yes

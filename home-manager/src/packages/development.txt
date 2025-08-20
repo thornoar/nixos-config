@@ -58,3 +58,6 @@ nvd
 pdf2svg
 manix
 broot
+nodejs
+typst
+tinymist

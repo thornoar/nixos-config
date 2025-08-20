@@ -24,7 +24,6 @@
         # ly.enable = true;
       };
       ollama = {
-        package = pkgs-unstable.ollama;
         enable = true;
         acceleration = "cuda";
       };
