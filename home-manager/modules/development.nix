@@ -198,7 +198,7 @@ in {
         in [
           {
             name = "typst/packages/local/" + base + "/0.0.0/main.typ";
-            value = { source = strname; };
+            value = config.util.dotFileMut ("typst-libraries/" + builtins.baseNameOf filename);
           }
           {
             name = "typst/packages/local/" + base + "/0.0.0/typst.toml";

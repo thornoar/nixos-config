@@ -11,7 +11,7 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
     ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
     ['tex'] = function (name)
-        return autosave and ('!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name) or ''
+        return '!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name
     end,
     ['typst'] = function (name) return ('!typst compile ' .. name) end,
     ['lua'] = function (name) return ('!lua ' .. name) end,

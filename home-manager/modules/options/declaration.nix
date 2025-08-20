@@ -141,9 +141,10 @@
 
     util = lib.mkOption {
       type = lib.types.attrs;
-      default = {
+      default = rec {
+        srcPath = /home/ramak/projects/nixos-config/home-manager/src;
         dotFileImmut = dotFile (x: x) ../src;
-        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink /home/ramak/projects/nixos-config/home-manager/src;
+        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink srcPath;
       };
     };
   };
