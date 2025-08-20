@@ -13,7 +13,6 @@ let
 in {
   imports = [
     ./firefox.nix
-    ./dispatch.nix
   ];
 
   config = {
