@@ -231,6 +231,10 @@ in {
       };
     };
     gh = { enable = true; };
+    nh = {
+      enable = true;
+      flake = "$NIXOS_CONFIG";
+    };
   };
 
   home.packages = with pkgs;

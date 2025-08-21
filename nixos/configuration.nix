@@ -121,12 +121,7 @@
     };
     # doas = {
     #   enable = true;
-    #   # extraConfig = ''
-    #   #   permit persist :wheel as root
-    #   # '';
     #   extraRules = [
-    #     # Allow execution of any command by any user in group wheel, requiring
-    #     # a password and keeping any previously-defined environment variables.
     #     {
     #       groups = [ "wheel" ];
     #       noPass = false;
