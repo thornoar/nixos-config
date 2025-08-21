@@ -69,28 +69,30 @@ vim.api.nvim_create_user_command('Terminal', function (args)
     vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\' &')
 end, { nargs = '?' })
 
-vim.api.nvim_create_user_command("Detach", function ()
-    local buf = vim.api.nvim_win_get_buf(0)
-    local can_write = vim.bo[buf].buftype == "" and (not vim.bo[buf].readonly) -- and (not vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) != ''))
+local detach = function ()
     if (#vim.api.nvim_list_wins() < 2) then
-        if can_write then vim.cmd("write") end
         for _, ui in pairs(vim.api.nvim_list_uis()) do
             if ui.chan then
                 vim.fn.chanclose(ui.chan)
-                -- print("ass we can")
             else
                 print("cannot quit")
             end
         end
     else
-        if can_write then
-            vim.cmd('write')
-            vim.cmd('quit')
-        else
-            vim.cmd('quit!')
-        end
+        vim.cmd('quit!')
     end
+end
+
+vim.api.nvim_create_user_command("SaveAndDetach", function ()
+    local buf = vim.api.nvim_win_get_buf(0)
+    local can_write = vim.bo[buf].buftype == "" and (not vim.bo[buf].readonly) and (not vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) ~= "")
+    if can_write then
+        vim.cmd("write")
+    end
+    detach()
 end, {})
+
+vim.api.nvim_create_user_command("Detach", detach, {})
 
 -- $autocommands
 vim.api.nvim_create_user_command('AutoSave', function()

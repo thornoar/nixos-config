@@ -4,7 +4,7 @@
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"
     ];
     kernelPackages = pkgs.linuxPackages_6_12;
-    loader.systemd-boot = { configurationLimit = 2; };
+    loader.systemd-boot = { configurationLimit = 5; };
   };
 
   hardware.graphics = {

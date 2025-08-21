@@ -100,7 +100,7 @@ vim.keymap.set('n', '<C-M-Down>', '<C-w>-')
 vim.keymap.set('n', '<C-M-Right>', '<C-w>>')
 vim.keymap.set('n', '<C-M-Left>', '<C-w><')
 vim.keymap.set('n', '<C-Delete>', '<cmd>wqa<CR>')
-vim.keymap.set('n', '<S-Home>', '<cmd>Detach<CR>')
+vim.keymap.set('n', '<S-Home>', '<cmd>SaveAndDetach<CR>')
 
 -- $keymaps:command
 vim.keymap.set('n', '<M-t>', function () vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'nvim-server; zsh\' &') end)
