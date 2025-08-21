@@ -64,7 +64,7 @@ local function keymap()
 end
 require('lualine').setup{
     options = {
-        icons_enabled = true,
+        icons_enabled = false,
         theme = {
             normal = {
                 a = { fg = colors.bgColor0, bg = colors.colorMagenta1, gui = 'bold' },
