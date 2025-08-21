@@ -36,9 +36,6 @@
       };
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
-      readFile = file:
-        (lib.lists.partition (x: 0 < lib.strings.stringLength x)
-          (lib.strings.splitString "\n" (builtins.readFile file))).right;
       getAttr = set: name:
         let
           split = lib.strings.splitString "." name;
@@ -48,6 +45,9 @@
         else
           getAttr (set.${builtins.head split})
           (str.concatStrings (str.intersperse "." (builtins.tail split)));
+      readFile = file:
+        (lib.lists.partition (x: 0 < lib.strings.stringLength x)
+          (lib.strings.splitString "\n" (builtins.readFile file))).right;
       readPackages = file: set: lib.lists.forEach (readFile file) (getAttr set);
       dotFile = mkLink: srcPath: path: {
         enable = true;

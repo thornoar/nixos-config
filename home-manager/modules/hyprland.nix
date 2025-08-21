@@ -161,7 +161,9 @@ in {
           COLORTERM = "truecolor";
           TERM = "xterm-256color";
         };
-        font = { size = config.hyprland.fontsize; };
+        font = {
+          size = config.hyprland.fontsize;
+        };
         font.bold = {
           family = config.misc.systemFont;
           style = "Bold";

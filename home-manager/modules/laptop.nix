@@ -31,7 +31,7 @@ in
 
     gtk = {
       enable = true;
-      font.name = "Hack Mono 11";
+      font.name = config.misc.systemFont + " 11";
       theme = {
         name = "deepin-dark";
         package = pkgs.deepin.deepin-gtk-theme;
@@ -50,7 +50,7 @@ in
         progress_bar = false;
         frame_width = 1;
         gap_size = 2;
-        font = "Hack Nerd Font Mono 11";
+        font = config.misc.systemFont + " 11";
         corner_radius = config.hyprland.rounding;
         frame_color = config.colors.colorMagenta0;
         foreground = config.colors.colorWhite3;

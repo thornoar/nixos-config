@@ -1,4 +1,4 @@
-{ pkgs, readPackages, ... }:
+{ pkgs, lib, readPackages, ... }:
 
 {
   environment.variables = {
@@ -50,5 +50,7 @@
 
   time.timeZone = "Europe/Belgrade";
 
-  fonts.packages = readPackages ../../src/packages/fonts.txt pkgs;
+  fonts.packages =
+    # (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)) ++
+    readPackages ../../src/packages/fonts.txt pkgs;
 }

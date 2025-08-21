@@ -1,47 +1,48 @@
 vim.loader.enable()
 
 local km = vim.keymap
-vim.g.mapleader = ';'
-vim.g.maplocalleader = ';'
-km.set('n', 'ec', ':e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>')
+vim.g.mapleader = ";"
+vim.g.maplocalleader = ";"
+km.set("n", "ec", ":e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>")
 
 -- $install
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable',
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
         lazypath,
     }
 end
 vim.opt.rtp:prepend(lazypath)
-require('lazy').setup({
+require("lazy").setup({
     defaults = { lazy = true },
-    'tpope/vim-rhubarb',
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
-    'tpope/vim-fugitive',
-    'sagarrakshe/toggle-bool',
-    'farmergreg/vim-lastplace',
-    'sirver/ultisnips',
-    'neovimhaskell/haskell-vim',
-    'numToStr/Comment.nvim',
-    'ap/vim-css-color',
-    'nanozuki/tabby.nvim',
-    'lewis6991/gitsigns.nvim',
-    'hjson/vim-hjson',
-    'dkarter/bullets.vim',
-    'chrisbra/csv.vim',
-    'JuliaEditorSupport/julia-vim',
-    'mbbill/undotree',
-    'whonore/Coqtail',
-    'bfrg/vim-c-cpp-modern',
+    "tpope/vim-rhubarb",
+    "tpope/vim-surround",
+    "tpope/vim-repeat",
+    "tpope/vim-fugitive",
+    "sagarrakshe/toggle-bool",
+    "farmergreg/vim-lastplace",
+    "sirver/ultisnips",
+    "neovimhaskell/haskell-vim",
+    "numToStr/Comment.nvim",
+    "ap/vim-css-color",
+    "nanozuki/tabby.nvim",
+    "lewis6991/gitsigns.nvim",
+    "hjson/vim-hjson",
+    "dkarter/bullets.vim",
+    "chrisbra/csv.vim",
+    "JuliaEditorSupport/julia-vim",
+    "mbbill/undotree",
+    "whonore/Coqtail",
+    "bfrg/vim-c-cpp-modern",
+    "nvim-tree/nvim-web-devicons",
     {
-        'thornoar/coq-lsp.nvim',
-        branch = 'add-configuration',
+        "thornoar/coq-lsp.nvim",
+        branch = "add-configuration",
     },
 
     -- {
@@ -63,6 +64,7 @@ require('lazy').setup({
     --         vim.g.vimtex_view_method = "zathura"
     --     end
     -- },
+
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -81,32 +83,32 @@ require('lazy').setup({
         },
     },
     {
-        'nvim-lualine/lualine.nvim',
+        "nvim-lualine/lualine.nvim",
     },
     {
-        'github/copilot.vim',
-        cmd = 'Copilot'
+        "github/copilot.vim",
+        cmd = "Copilot"
     },
     {
-        'kaarmu/typst.vim',
-        ft = 'typst',
+        "kaarmu/typst.vim",
+        ft = "typst",
         lazy = false,
     },
     {
-        'nvim-telescope/telescope.nvim', tag = '0.1.6',
+        "nvim-telescope/telescope.nvim", tag = "0.1.6",
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            "nvim-lua/plenary.nvim",
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
     },
     {
-        'davvid/telescope-git-grep.nvim',
+        "davvid/telescope-git-grep.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
     {
-        'altermo/ultimate-autopair.nvim',
-        event = { 'InsertEnter','CmdlineEnter' },
-        branch = 'v0.6',
+        "altermo/ultimate-autopair.nvim",
+        event = { "InsertEnter","CmdlineEnter" },
+        branch = "v0.6",
         opts = {
             space2 = { enable = true },
             tabout = { enable = true },
@@ -116,7 +118,7 @@ require('lazy').setup({
                 enable_reverse = true,
                 hopout = false,
                 faster = false,
-                map = '<M-/>',
+                map = "<M-/>",
         },
         internal_pairs={-- *ultimate-autopair-pairs-default-pairs*
             {'[',']',fly=true,dosuround=true,newline=true,space=true},
@@ -134,33 +136,33 @@ require('lazy').setup({
     },
     },
     {
-        'navarasu/onedark.nvim',
+        "navarasu/onedark.nvim",
         priority = 1000,
     },
     {
-        'lukas-reineke/indent-blankline.nvim',
-        version = '3.5.4',
-        main = 'ibl',
+        "lukas-reineke/indent-blankline.nvim",
+        version = "3.5.4",
+        main = "ibl",
         opts = {},
     },
     {
-        'nvim-treesitter/nvim-treesitter',
+        "nvim-treesitter/nvim-treesitter",
         dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
-        build = ':TSUpdate',
+        build = ":TSUpdate",
     },
     {
-        'neovim/nvim-lspconfig',
+        "neovim/nvim-lspconfig",
         dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
+            "hrsh7th/cmp-nvim-lsp",
         },
     },
-    { 'simrat39/rust-tools.nvim' },
+    { "simrat39/rust-tools.nvim" },
     {
-        'hrsh7th/nvim-cmp',
+        "hrsh7th/nvim-cmp",
         dependencies = {
-            'L3MON4D3/LuaSnip',
+            "L3MON4D3/LuaSnip",
         },
     },
     {
@@ -173,18 +175,18 @@ require('lazy').setup({
     { 'hrsh7th/cmp-path', },
     { 'octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
-    {
-        "nomnivore/ollama.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        cmd = { "Ollama", "OllamaModel" },
-        keys = { },
-        ---@type Ollama.Config
-        opts = {
-            model = "gpt-oss:20b",
-        },
-    },
+    -- {
+    --     "nomnivore/ollama.nvim",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --     },
+    --     cmd = { "Ollama", "OllamaModel" },
+    --     keys = { },
+    --     ---@type Ollama.Config
+    --     opts = {
+    --         model = "gpt-oss:20b",
+    --     },
+    -- },
     {
         "olimorris/codecompanion.nvim",
         dependencies = {
