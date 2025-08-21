@@ -164,6 +164,9 @@ in {
   xdg.configFile."nix-develop/.zshrc" = config.util.dotFileMut "zsh/nix-develop.zsh";
   xdg.configFile."special-terminal/.zshrc" = config.util.dotFileMut "zsh/special-terminal.zsh";
   xdg.configFile."special-music/.zshrc" = config.util.dotFileMut "zsh/special-music.zsh";
+  xdg.configFile."nix-develop/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
+  xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
+  xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
   # R configuration
   home.file.".Rprofile" = config.util.dotFileMut "Rprofile";

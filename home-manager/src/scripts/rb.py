@@ -68,10 +68,7 @@ try:
     if (args.flake != "--"):
         output = args.output
         if (output == "auto"):
-            if (args.type == "system"):
-                output = os.popen("hostname").read().strip()
-            if (args.type == "home"):
-                output = os.environ["USER"]
+            output = os.popen("hostname").read().strip()
         flake_args = "--flake .#" + output
         if (args.impure):
             flake_args += " --impure"
@@ -79,10 +76,7 @@ try:
 
     nom_args = ""
     if (not args.default):
-        if (args.type == "system"):
-            nom_args = " --log-format internal-json |& nom --json"
-        if (args.type == "home"):
-            nom_args = " |& nom"
+        nom_args = " --log-format internal-json |& nom --json"
 
     old_gen = os.popen("readlink -f /run/current-system").read().strip()
 
@@ -91,7 +85,7 @@ try:
         args.extra = "--" + args.extra
 
     spec_args = ""
-    if (args.type == "system" and args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
+    if (args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
         spec_args = "--specialisation "
         if (args.specialisation == "auto"):
             env = os.environ["SPECIALISATION"]
