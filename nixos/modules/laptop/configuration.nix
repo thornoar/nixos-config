@@ -1,4 +1,4 @@
-{ pkgs, lib, readPackages, ... }:
+{ pkgs, ... }:
 
 {
   environment.variables = {
@@ -6,7 +6,7 @@
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };
 
-  environment.systemPackages = readPackages ../../src/packages/laptop.txt pkgs;
+  environment.systemPackages = pkgs.readPackages ../../src/packages/laptop.txt pkgs;
 
   services = {
     libinput = {
@@ -50,7 +50,5 @@
 
   time.timeZone = "Europe/Belgrade";
 
-  fonts.packages =
-    # (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)) ++
-    readPackages ../../src/packages/fonts.txt pkgs;
+  fonts.packages = pkgs.readPackages ../../src/packages/fonts.txt pkgs;
 }

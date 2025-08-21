@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, readPackages, config, ... }: {
+{ pkgs, lib, config, ... }: {
   boot.loader.systemd-boot.sortKey = "aaa";
   boot = {
     # kernelPackages = pkgs.linuxPackages_hardened;
@@ -39,7 +39,7 @@
     BROWSER = "firefox -P hyprland";
   };
   environment.systemPackages =
-    with pkgs-unstable; [ waybar ] ++
+    with pkgs.unstable; [ waybar ] ++
     readPackages ../../src/packages/hyprland.txt pkgs;
 
   nixpkgs.config.nvidia.acceptLicense = true;

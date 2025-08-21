@@ -1,4 +1,4 @@
-{ sysname, inputs, pkgs, readPackages, ... }:
+{ sysname, pkgs, ... }:
 
 {
   users.users.ramak = {
@@ -20,7 +20,7 @@
   };
 
   nix = {
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    nixPath = [ "nixpkgs=${pkgs.inputs.nixpkgs}" ];
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
@@ -29,8 +29,8 @@
       warn-dirty = false
     '';
     registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      ${sysname}.flake = inputs.self;
+      nixpkgs.flake = pkgs.inputs.nixpkgs;
+      ${sysname}.flake = pkgs.inputs.self;
     };
   };
 
@@ -68,7 +68,7 @@
       ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
       SPECIALISATION = "default";
     };
-    systemPackages = readPackages ./src/packages/general.txt pkgs;
+    systemPackages = pkgs.readPackages ./src/packages/general.txt pkgs;
     localBinInPath = true;
     wordlist.enable = true;
   };
@@ -180,10 +180,10 @@
     audio.enable = true;
     pulse.enable = true;
   };
-  nixpkgs.config = {
-    pulseaudio = true;
-    allowUnfree = true;
-  };
+  # nixpkgs.config = {
+  #   pulseaudio = true;
+  #   allowUnfree = true;
+  # };
 
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };

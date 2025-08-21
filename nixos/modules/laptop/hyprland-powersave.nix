@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, readPackages, ... }: {
+{ pkgs, lib, ... }: {
   boot.loader.systemd-boot.sortKey = "aab";
   programs.hyprland = {
     enable = true;
@@ -30,8 +30,8 @@
     BROWSER = "firefox -P hyprland";
   };
   environment.systemPackages =
-    with pkgs-unstable; [ waybar ] ++
-    readPackages ../../src/packages/hyprland.txt pkgs;
+    with pkgs.unstable; [ waybar ] ++
+    pkgs.readPackages ../../src/packages/hyprland.txt pkgs;
 
   boot.extraModprobeConfig = lib.mkDefault ''
     blacklist nouveau
@@ -65,6 +65,6 @@
   hardware.nvidiaOptimus.disable = true;
   hardware.nvidia.prime.sync.enable = false;
   hardware.nvidia.open = false;
-  nixpkgs.config.nvidia.acceptLicense = true;
+  # nixpkgs.config.
   systemd.services.nbfc_service.enable = lib.mkForce false;
 }

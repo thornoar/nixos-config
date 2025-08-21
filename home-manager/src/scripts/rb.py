@@ -28,8 +28,8 @@ def call (str):
         exit(1)
 
 if (args.type == "both"):
-    call("rb system " + " ".join(sys.argv[2:]))
-    call("rb home " + " ".join(sys.argv[2:]))
+    call("rb -t system " + " ".join(sys.argv[3:]))
+    call("rb -t home " + " ".join(sys.argv[3:]))
     exit(0)
 
 command = ""

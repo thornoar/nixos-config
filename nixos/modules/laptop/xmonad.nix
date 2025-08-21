@@ -1,4 +1,4 @@
-{ pkgs, config, lib, readPackages, ... }: {
+{ pkgs, config, lib, ... }: {
   boot.loader.systemd-boot.sortKey = "aac";
   environment.variables = {
     SPECIALISATION = lib.mkForce "xmonad";
@@ -42,7 +42,7 @@
     };
   };
   environment.systemPackages =
-    readPackages ../../src/packages/xmonad.txt pkgs;
+    pkgs.readPackages ../../src/packages/xmonad.txt pkgs;
 
   nixpkgs.config.nvidia.acceptLicense = true;
   hardware.nvidia = {

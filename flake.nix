@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs-unstable = { url = "github:NixOS/nixpkgs/nixos-unstable"; };
     nixpkgs = { url = "github:NixOS/nixpkgs/nixos-25.05"; };
-    # nixpkgs-old = { url = "github:NixOS/nixpkgs/nixos-24.05"; };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,14 +25,6 @@
   outputs = inputs:
     let
       system = "x86_64-linux";
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
       getAttr = set: name:
@@ -54,10 +45,30 @@
         recursive = true;
         source = mkLink (lib.path.append srcPath path);
       };
+      addition = final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit (final) system;
+        };
+        inherit inputs;
+        inherit firefox-pkgs;
+        inherit readFile;
+        inherit readPackages;
+        inherit dotFile;
+      };
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        config = {
+          pulseaudio = true;
+          allowUnfree = true;
+          nvidia.acceptLicense = true;
+        };
+        overlays = [ addition ];
+      };
     in {
       nixosConfigurations = {
         laptop = lib.nixosSystem {
           inherit system;
+          inherit pkgs;
           modules = [
             ./nixos/configuration.nix
             ./nixos/modules/laptop/configuration.nix
@@ -67,16 +78,8 @@
             # ./nixos/modules/laptop/hyprland.nix
             ./nixos/modules/laptop/hyprland-powersave.nix
             # ./nixos/modules/laptop/xmonad.nix
-            ./nixos/modules/vpn.nix
-            {
-              _module.args = {
-                sysname = "laptop";
-                inherit system;
-                inherit inputs;
-                inherit pkgs-unstable;
-                inherit readPackages;
-              };
-            }
+            # ./nixos/modules/vpn.nix
+            { _module.args = { sysname = "laptop"; }; }
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -93,14 +96,7 @@
                     ./home-manager/modules/development.nix
                   ];
                 };
-                extraSpecialArgs = {
-                  inherit inputs;
-                  inherit system;
-                  inherit firefox-pkgs;
-                  inherit readFile;
-                  inherit readPackages;
-                  inherit dotFile;
-                };
+                extraSpecialArgs = { inherit pkgs; };
               };
             }
             inputs.nix-index-database.nixosModules.nix-index
@@ -109,18 +105,12 @@
 
         desktop = lib.nixosSystem {
           inherit system;
+          inherit pkgs;
           modules = [
             ./nixos/configuration.nix
             ./nixos/modules/desktop/configuration.nix
             ./nixos/modules/desktop/hardware-configuration.nix
-            {
-              _module.args = {
-                sysname = "desktop";
-                inherit inputs;
-                inherit pkgs-unstable;
-                inherit readPackages;
-              };
-            }
+            { _module.args = { sysname = "desktop"; }; }
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -136,14 +126,7 @@
                     ./home-manager/modules/development.nix
                   ];
                 };
-                extraSpecialArgs = {
-                  inherit inputs;
-                  inherit system;
-                  inherit firefox-pkgs;
-                  # inherit pkgs-unstable;
-                  inherit readFile;
-                  inherit readPackages;
-                };
+                extraSpecialArgs = { inherit pkgs; };
               };
             }
             inputs.nix-index-database.nixosModules.nix-index
@@ -158,7 +141,6 @@
               _module.args = {
                 sysname = "minimal";
                 inherit inputs;
-                inherit pkgs-unstable;
               };
             }
           ];
@@ -175,7 +157,14 @@
       #         inherit pkgs;
       #         modules = [
       #             ./home-manager/home.nix
-      #             inputs.home-manager-diff.hmModules.default
+      #             ./home-manager/modules/options/declaration.nix
+      #             ./home-manager/modules/options/laptop.nix
+      #             ./home-manager/modules/laptop.nix
+      #             # ./home-manager/modules/options/laptop.nix
+      #             ./home-manager/modules/hyprland.nix
+      #             # ./home-manager/modules/xmonad.nix
+      #             ./home-manager/modules/development.nix
+      #             # inputs.home-manager-diff.hmModules.default
       #             # {
       #             #     home.packages = [
       #             #         inputs.pshash.packages.${system}.default
@@ -183,7 +172,7 @@
       #             #     ];
       #             # }
       #         ];
-      #         extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
+      #         # extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
       #     };
       # };
     };

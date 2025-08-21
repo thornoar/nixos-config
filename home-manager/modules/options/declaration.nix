@@ -1,4 +1,4 @@
-{ lib, config, dotFile, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   options = let
@@ -143,8 +143,8 @@
       type = lib.types.attrs;
       default = rec {
         srcPath = /home/ramak/projects/nixos-config/home-manager/src;
-        dotFileImmut = dotFile (x: x) ../src;
-        dotFileMut = dotFile config.lib.file.mkOutOfStoreSymlink srcPath;
+        dotFileImmut = pkgs.dotFile (x: x) ../src;
+        dotFileMut = pkgs.dotFile config.lib.file.mkOutOfStoreSymlink srcPath;
       };
     };
   };

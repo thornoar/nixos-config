@@ -1,4 +1,4 @@
-{ firefox-pkgs, config, ... }:
+{ pkgs, config, ... }:
 
 let
   bookmarks = [
@@ -191,7 +191,7 @@ let
         color: ${config.colors.colorWhite2} !important;
     }
   '';
-  extensions = with firefox-pkgs; [
+  extensions = with pkgs.firefox-pkgs; [
     darkreader
     vimium
     adblocker-ultimate

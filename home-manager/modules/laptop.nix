@@ -1,4 +1,4 @@
-{ config, pkgs, lib, readPackages, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   ts = builtins.toString;
@@ -19,8 +19,8 @@ in
     };
 
     home.packages =
-      readPackages ../src/packages/general.txt pkgs
-      ++ readPackages ../src/packages/insecure.txt pkgs;
+      pkgs.readPackages ../src/packages/general.txt pkgs
+      ++ pkgs.readPackages ../src/packages/insecure.txt pkgs;
 
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {

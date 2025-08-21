@@ -1,4 +1,4 @@
-{ inputs, system, pkgs, lib, config, readPackages, readFile, ... }:
+{ pkgs, lib, config, ... }:
 let
   ts = builtins.toString;
   toLua = lib.attrsets.foldlAttrs (str: k: v:
@@ -7,8 +7,8 @@ let
     ''
   );
   readCustomPackages = file:
-    lib.lists.forEach (readFile file)
-    (x: inputs.${x}.packages.${system}.default);
+    lib.lists.forEach (pkgs.readFile file)
+    (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
 in {
   imports = [
     ./scripts.nix
