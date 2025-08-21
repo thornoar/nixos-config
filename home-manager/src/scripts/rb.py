@@ -2,7 +2,6 @@
 
 import os
 import argparse
-import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--impure", action = "store_true", help = "use the corresponding flag in \"nixos-rebuild\"")
@@ -14,7 +13,6 @@ parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the 
 parser.add_argument("-g", "--git", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
 parser.add_argument("-G", "--onlygit", action = "store_true", help = "just commit changes, without rebuilding")
 parser.add_argument("-a", "--alert", action = "store_true", help = "send a notification after rebuilding")
-parser.add_argument("-t", "--type", type = str, default = "system", help = "system or home")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
 parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
 parser.add_argument("-f", "--flake", type = str, default = "auto", help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
@@ -27,19 +25,7 @@ def call (str):
         print("\033[1;31m#\033[0m Failed to complete.") #]]
         exit(1)
 
-if (args.type == "both"):
-    call("rb -t system " + " ".join(sys.argv[3:]))
-    call("rb -t home " + " ".join(sys.argv[3:]))
-    exit(0)
-
-command = ""
-if (args.type == "home"):
-    command = "home-manager"
-elif (args.type == "system"):
-    command = "sudo nixos-rebuild"
-else:
-    print("\033[1;31m#\033[0m Failed to recognize command: \033[33m" + args.type + "\033[0m") # ]]]]
-    exit(1)
+command = "sudo nixos-rebuild"
 
 print("\033[1;34m#\033[0m Rebuild command is: \033[33m" + command + "\033[0m.") #]]]]
 
@@ -133,10 +119,7 @@ try:
     new_gen = os.popen("readlink -f /run/current-system").read().strip()
 
     if (not args.nodiff):
-        if (args.type == "system"):
-            call("nvd diff " + old_gen + " " + new_gen)
-        else:
-            call("hmd --auto")
+        call("nvd diff " + old_gen + " " + new_gen)
 
     os.chdir(cwd)
 

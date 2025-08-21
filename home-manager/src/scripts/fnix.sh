@@ -8,8 +8,8 @@ section=""
 given_level_section=0
 
 function printUsage {
-    printf "usage: fnix [ preview ..PACKAGES | install ..PACKAGES | remove ..PACKAGES ]\n"
-    printf "            [ system-options | collect-garbage ]\n"
+    printf "usage: fnix [ preview ..PACKAGES | install ..PACKAGES | remove ..PACKAGES | search ..PACKAGES ]\n"
+    printf "            [ system-options | collect-garbage | list-installed ]\n"
     printf "            [ -h|--help | -r|--raw | -d|--desc ]\n"
     printf "            [ -l|--level user|system | -s|--section SECTION ]\n"
 }
@@ -135,7 +135,7 @@ function installPackage () {
     echo "$package" >> "$file"
 }
 
-if [[ "system" =~ ^"$cmd" ]]; then
+if [[ "system-options" =~ ^"$cmd" ]]; then
     manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview="manix '{}'"
     exit 0
 elif [[ "preview" =~ ^"$cmd" ]]; then
