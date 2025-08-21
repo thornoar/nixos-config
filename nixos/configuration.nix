@@ -21,7 +21,10 @@
 
   nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
     extraOptions = ''
       warn-dirty = false
     '';
@@ -147,11 +150,6 @@
     dates = "daily";
     options = "--delete-older-than 1d";
   };
-  nix.settings = {
-    auto-optimise-store = true;
-    # cores = 20;
-    # max-jobs = 1;
-  };
 
   networking.hostName = sysname;
   networking.networkmanager.enable = true;
@@ -160,17 +158,6 @@
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    # inputMethod = {
-    #   enable = true;
-    #   type = "fcitx5";
-    #   fcitx5.addons = with pkgs; [
-    #     fcitx5-mozc
-    #     fcitx5-gtk
-    #     fcitx5-configtool
-    #   ];
-    #   # type = "ibus";
-    #   # ibus.engines = with pkgs.ibus-engines; [ mozc hangul ];
-    # };
   };
 
   programs.zsh = {

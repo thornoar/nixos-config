@@ -21,20 +21,11 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pshash = {
-      url = "github:thornoar/pshash/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lambda-interpreter = {
-      url = "github:thornoar/lambda-interpreter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs:
     let
       system = "x86_64-linux";
-
       pkgs-unstable = import inputs.nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
@@ -43,10 +34,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-      # pkgs-old = import inputs.nixpkgs-old {
-      #   inherit system;
-      #   config.allowUnfree = true;
-      # };
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
       readFile = file:
@@ -76,8 +63,9 @@
             ./nixos/modules/laptop/configuration.nix
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
-            ./nixos/modules/laptop/hyprland.nix
-            ./nixos/modules/laptop/hyprland-powersave.nix
+            ./nixos/modules/laptop/specialisations.nix
+            # ./nixos/modules/laptop/hyprland.nix
+            # ./nixos/modules/laptop/hyprland-powersave.nix
             # ./nixos/modules/laptop/xmonad.nix
             ./nixos/modules/vpn.nix
             {
