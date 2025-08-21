@@ -63,9 +63,9 @@
             ./nixos/modules/laptop/configuration.nix
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
-            ./nixos/modules/laptop/specialisations.nix
+            # ./nixos/modules/laptop/specialisations.nix
             # ./nixos/modules/laptop/hyprland.nix
-            # ./nixos/modules/laptop/hyprland-powersave.nix
+            ./nixos/modules/laptop/hyprland-powersave.nix
             # ./nixos/modules/laptop/xmonad.nix
             ./nixos/modules/vpn.nix
             {

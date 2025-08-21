@@ -105,8 +105,7 @@ try:
         args.extra = "--" + args.extra
 
     spec_args = ""
-
-    if (args.type == "system"):
+    if (args.type == "system" and args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
         spec_args = "--specialisation "
         if (args.specialisation == "auto"):
             env = os.environ["SPECIALISATION"]
@@ -124,7 +123,8 @@ try:
         else:
             spec_args += args.specialisation
         print("\033[1;34m#\033[0m Specialisation arguments are: \033[33m" + spec_args + "\033[0m.") #]]]]
-        call("sudo printf \"\033[1;33m#\033[0m Access granted.\\n\"") # ]]
+
+    call("sudo printf \"\033[1;33m#\033[0m Access granted.\\n\"") # ]]
 
     print("\033[1;34m#\033[0m Building configuration...") #]]
 
