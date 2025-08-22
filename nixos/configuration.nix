@@ -81,6 +81,10 @@
       PubkeyAuthentication = true;
     };
   };
+  programs.ssh.startAgent = true;
+  programs.gnupg = {
+    agent.enable = true;
+  };
 
   services.openvpn.servers = let
     createConfig = name: {

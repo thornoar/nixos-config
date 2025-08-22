@@ -40,6 +40,7 @@ require("lazy").setup({
     "whonore/Coqtail",
     "bfrg/vim-c-cpp-modern",
     "nvim-tree/nvim-web-devicons",
+    "axieax/urlview.nvim",
     {
         "thornoar/coq-lsp.nvim",
         branch = "add-configuration",
@@ -249,4 +250,5 @@ require("setup.coloring")
 require("setup.spell")
 require("setup.twilight")
 require("setup.nvim-biscuits")
+require("setup.urlview")
 -- require("setup.nvim-subfiles")

@@ -144,7 +144,7 @@ in {
     enableCompletion = true;
     autosuggestion.enable = false;
     syntaxHighlighting.enable = true;
-    shellAliases = {
+    shellAliases = rec {
       torrent = "transmission-remote";
       film = "transmission-remote -w ~/media/films -a ";
       music = "transmission-remote -w ~/media/music -a ";
@@ -157,6 +157,8 @@ in {
       clip = "wl-copy -n";
       gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
       gitlog = "git log --oneline --graph --decorate";
+      encrypt = "openssl enc -aes-256-cfb -iter 1000 -a";
+      decrypt = "${encrypt} -d";
     };
     envExtra = builtins.readFile ../src/zsh/envExtra.zsh;
     initContent = builtins.readFile ../src/zsh/initExtra.zsh;

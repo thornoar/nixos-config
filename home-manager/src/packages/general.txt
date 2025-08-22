@@ -39,3 +39,5 @@ bat
 bc
 neofetch
 pfetch
+caligula
+gimp3

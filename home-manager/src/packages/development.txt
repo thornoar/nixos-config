@@ -47,7 +47,6 @@ ripgrep
 clojure
 clojure-lsp
 leiningen
-gnupg
 haskellPackages.hoogle
 fzf
 shellcheck
@@ -61,3 +60,4 @@ broot
 nodejs
 typst
 tinymist
+pastel

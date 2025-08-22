@@ -21,3 +21,4 @@ which
 file
 powertop
 gparted
+openssl
