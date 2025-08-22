@@ -14,6 +14,7 @@
         bgColor1 = "#121215";
         bgColor2 = "#262728";
         bgColor3 = "#4d4e4f";
+        commentColor = "#5c6370";
         fgColor0 = "#17a88b";
         brfgColor = "#00bc96";
 

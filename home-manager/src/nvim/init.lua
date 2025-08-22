@@ -210,10 +210,25 @@ require("lazy").setup({
         end,
     },
     {
-        'mrcjkb/haskell-tools.nvim',
-        version = '4', -- Recommended
+        "mrcjkb/haskell-tools.nvim",
+        version = "4", -- Recommended
         lazy = false, -- This plugin is already lazy
-    }
+    },
+    {
+        "folke/twilight.nvim",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
+    },
+    {
+        "code-biscuits/nvim-biscuits",
+        requires = {
+            "nvim-treesitter/nvim-treesitter",
+            -- run = ":TSUpdate"
+        },
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -232,4 +247,6 @@ require("setup.lsp")
 require("setup.settings")
 require("setup.coloring")
 require("setup.spell")
+require("setup.twilight")
+require("setup.nvim-biscuits")
 -- require("setup.nvim-subfiles")
