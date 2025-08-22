@@ -50,7 +50,6 @@ leiningen
 haskellPackages.hoogle
 fzf
 shellcheck
-tldr
 ghostscript
 nix-output-monitor
 nvd
@@ -61,3 +60,4 @@ nodejs
 typst
 tinymist
 pastel
+tealdeer

@@ -170,6 +170,16 @@ in {
   xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
+  # Bat configuration
+  programs.bat = {
+    enable = true;
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+    ];
+  };
+  home.sessionVariables.BAT_THEME = "ansi";
+
   # R configuration
   home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
 

@@ -11,7 +11,7 @@
     pictures = "${config.home.homeDirectory}/media/pictures";
   };
   home.sessionVariables = {
-    BAT_THEME = "base16";
+    BAT_THEME = "ansi";
   };
 
   home.pointerCursor = {
