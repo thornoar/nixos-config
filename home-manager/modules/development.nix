@@ -173,10 +173,7 @@ in {
   # Bat configuration
   programs.bat = {
     enable = true;
-    extraPackages = with pkgs.bat-extras; [
-      batdiff
-      batman
-    ];
+    extraPackages = with pkgs.bat-extras; [ batman ];
   };
   home.sessionVariables.BAT_THEME = "ansi";
 
