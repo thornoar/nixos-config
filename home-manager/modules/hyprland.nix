@@ -27,6 +27,8 @@ in {
         "video/vnd.avi" = [ "mpv.desktop" ];
         "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
         "image/svg+xml" = [ "firefox.desktop" ];
+        "image/jpeg" = [ "imv.desktop" ];
+        "image/png" = [ "imv.desktop" ];
         "text/csv" = [ "sc-im.desktop" ];
         "text/html" = [ "firefox.desktop" ];
       };

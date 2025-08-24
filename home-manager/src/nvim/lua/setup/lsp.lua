@@ -36,7 +36,6 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 --     { "╰", hl_name },
 --     { "│", hl_name },
 -- }
-vim.o.winborder = "rounded"
 -- local handlers =  {
 --     -- ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
 --     -- ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
@@ -90,11 +89,11 @@ lspconfig.nixd.setup({
                 expr = "import <nixpkgs { }>",
             },
             formatting = {
-                command = { "alejandra" },
+                command = { "nixfmt" },
             },
             options = {
                 nixos = {
-                    expr = "(builtins.getFlake \"/home/ramak/projects/nixos-config\").nixosConfigurations.master.options",
+                    expr = "(builtins.getFlake \"/home/ramak/projects/nixos-config\").nixosConfigurations.laptop.options",
                 },
             },
         },
