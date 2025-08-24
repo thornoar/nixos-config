@@ -55,7 +55,13 @@ verbs: [
     {
         invocation: create {subpath}
         shortcut: cr
-        execution: "$EDITOR -f {directory}/{subpath}"
+        execution: "nvim-client -f {directory}/{subpath}"
+        leave_broot: false
+    }
+    {
+        invocation: create {subpath}
+        shortcut: scr
+        execution: "$EDITOR {directory}/{subpath}"
         leave_broot: false
     }
     {
@@ -131,22 +137,18 @@ verbs: [
         internal: back
     }
     {
-        invocation: edit
-        shortcut: e
-        keys: [
-            enter
-            alt-right
-        ]
+        key: enter
         apply_to: file
         working_dir: "{root}"
-        execution: "$EDITOR -f {file}"
+        execution: "nvim-client -f {file}"
         leave_broot: false
     }
     {
-        key: alt-right
-        invocation: focus
-        apply_to: directory
-        internal: focus
+        invocation: edit
+        apply_to: file
+        working_dir: "{root}"
+        execution: "$EDITOR {file}"
+        leave_broot: false
     }
     {
         key: alt-enter
@@ -155,25 +157,32 @@ verbs: [
     {
         key: shift-right
         apply_to: text_file
-        execution: "$EDITOR -f {file} -l {line}"
+        execution: "nvim-client -f {file} -l {line}"
         leave_broot: false
     }
     {
-        key: ctrl-d
-        internal: toggle_stage
+        key: alt-right
+        apply_to: text_file
+        execution: "$EDITOR {file} +{line}"
+        leave_broot: false
     }
     {
-        key: ctrl-shift-s
+        key: alt-shift-s
         shortcut: sa
         internal: stage_all_files
     }
     {
-        invocation: gtr
-        execution: ":focus {git-root}"
+        key: alt-shift-d
+        shortcut: sa
+        internal: clear_stage
     }
     {
         key: alt-s
         cmd: ":toggle_stage;:line_down"
+    }
+    {
+        invocation: gtr
+        execution: ":focus {git-root}"
     }
     {
         key: ctrl-s

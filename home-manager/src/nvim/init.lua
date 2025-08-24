@@ -176,18 +176,18 @@ require("lazy").setup({
     { 'hrsh7th/cmp-path', },
     { 'octaltree/cmp-look' },
     { 'folke/neodev.nvim', opts = {} },
-    -- {
-    --     "nomnivore/ollama.nvim",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --     },
-    --     cmd = { "Ollama", "OllamaModel" },
-    --     keys = { },
-    --     ---@type Ollama.Config
-    --     opts = {
-    --         model = "gpt-oss:20b",
-    --     },
-    -- },
+    {
+        "nomnivore/ollama.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        cmd = { "Ollama", "OllamaModel" },
+        keys = { },
+        ---@type Ollama.Config
+        opts = {
+            model = "codegemma:7b",
+        },
+    },
     {
         "olimorris/codecompanion.nvim",
         dependencies = {

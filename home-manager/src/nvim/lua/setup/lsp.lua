@@ -24,28 +24,31 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local hl_name = "FloatBorder"
+-- local hl_name = "FloatBorder"
 -- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
-local border = {
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { "│", hl_name },
-    { "╯", hl_name },
-    { "─", hl_name },
-    { "╰", hl_name },
-    { "│", hl_name },
-}
-local handlers =  {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-}
+-- local border = {
+--     { "╭", hl_name },
+--     { "─", hl_name },
+--     { "╮", hl_name },
+--     { "│", hl_name },
+--     { "╯", hl_name },
+--     { "─", hl_name },
+--     { "╰", hl_name },
+--     { "│", hl_name },
+-- }
+vim.o.winborder = "rounded"
+-- local handlers =  {
+--     -- ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+--     -- ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+--     -- ["textDocument/hover"] =  vim.lsp.handlers.hover,
+--     -- ["textDocument/signatureHelp"] =  vim.lsp.handlers.signature_help,
+-- }
 
 local lspconfig = require('lspconfig')
 local lspbasicconfig = {
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
+    -- handlers = handlers,
     root_dir = function (_)
         return vim.loop.cwd()
     end,
@@ -78,7 +81,7 @@ lspconfig.pyright.setup(lspbasicconfig)
 lspconfig.clojure_lsp.setup(lspbasicconfig)
 -- lspconfig.nil_ls.setup(lspbasicconfig)
 lspconfig.nixd.setup({
-    handlers = handlers,
+    -- handlers = handlers,
     capabilities = lsp_capabilities,
     cmd = { "nixd" },
     settings = {
@@ -102,7 +105,7 @@ lspconfig.r_language_server.setup(lspbasicconfig)
 lspconfig.clangd.setup({
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
+    -- handlers = handlers,
     root_dir = function (_)
         return vim.loop.cwd()
     end,
@@ -125,7 +128,7 @@ lspconfig.tinymist.setup({
     offset_encoding = "utf-8",
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
+    -- handlers = handlers,
     root_dir = function (_)
         return vim.loop.cwd()
     end,
@@ -134,7 +137,7 @@ lspconfig.tinymist.setup({
 lspconfig.rust_analyzer.setup({
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
+    -- handlers = handlers,
     settings = {
         ['rust-analyzer'] = {
             check = {
@@ -162,7 +165,7 @@ rt.inlay_hints.enable()
 lspconfig.lua_ls.setup({
     autostart = true,
     capabilities = lsp_capabilities,
-    handlers = handlers,
+    -- handlers = handlers,
     root_dir = function (_)
         return vim.loop.cwd()
     end,

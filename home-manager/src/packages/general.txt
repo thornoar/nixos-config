@@ -40,3 +40,4 @@ neofetch
 pfetch
 caligula
 gimp3
+calcure

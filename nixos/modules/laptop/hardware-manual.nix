@@ -3,7 +3,7 @@
     blacklistedKernelModules = [
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"
     ];
-    kernelPackages = pkgs.linuxPackages_6_12;
+    kernelPackages = pkgs.linuxPackages_latest;
     loader.systemd-boot = { configurationLimit = 5; };
   };
 
@@ -14,7 +14,7 @@
   powerManagement = {
     enable = true;
     powertop.enable = true;
-    # cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "powersave";
     # resumeCommands = "${pkgs.kmod}/bin/rmmod atkbd; ${pkgs.kmod}/bin/modprobe atkbd reset=1";
   };
 
@@ -30,13 +30,13 @@
   };
 
   services = {
-    cron = {
-      enable = true;
-      systemCronJobs = [
-        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
-        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
-      ];
-    };
+    # cron = {
+    #   enable = true;
+    #   systemCronJobs = [
+    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
+    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
+    #   ];
+    # };
     upower.enable = true;
     thermald.enable = true;
     auto-cpufreq = {
@@ -54,18 +54,20 @@
     };
   };
 
-  systemd.timers."interrupt-allow-access" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "1";
-      OnUnitActiveSec = "10m";
-      Unit = "interrupt-allow-access.service";
-    };
-  };
-  systemd.services."interrupt-allow-access" = {
+  # systemd.timers."interrupt-silence" = {
+  #   wantedBy = [ "timers.target" ];
+  #   timerConfig = {
+  #     OnBootSec = "0";
+  #     OnUnitActiveSec = "10m";
+  #     Unit = "interrupt-silence.service";
+  #   };
+  # };
+  systemd.services."interrupt-silence" = {
     script = ''
       chmod 777 /sys/firmware/acpi/interrupts/sci
       chmod 777 /sys/firmware/acpi/interrupts/gpe6F
+      ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci || ${pkgs.coreutils}/bin/echo -n ""
+      ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F || ${pkgs.coreutils}/bin/echo -n ""
     '';
     serviceConfig = {
       Type = "oneshot";

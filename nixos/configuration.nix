@@ -55,7 +55,7 @@
       DE = "generic";
       NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
       TEXINPUTS = ".:${XDG_DATA_HOME}/latex:$TEXINPUTS";
-      EDITOR = "nvim-client";
+      EDITOR = "vim";
       VISUAL = "${EDITOR}";
       HISTCONTROL = "ignoreboth";
       READER = "zathura";
@@ -165,7 +165,17 @@
   };
   users.defaultUserShell = pkgs.zsh;
 
-  documentation.dev.enable = true;
+  documentation = {
+    enable = true;
+    dev.enable = true;
+    doc.enable = true;
+    info.enable = true;
+    man.enable = true;
+    nixos = {
+      enable = true;
+      includeAllModules = true;
+    };
+  };
 
   hardware.enableAllFirmware = true;
 
@@ -183,6 +193,10 @@
   #   pulseaudio = true;
   #   allowUnfree = true;
   # };
+
+  services.fwupd = {
+    enable = true;
+  };
 
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };
