@@ -64,10 +64,6 @@ vim.api.nvim_create_user_command('Japanese', function () vim.bo.keymap = 'kana' 
 vim.api.nvim_create_user_command('Spell', function () vim.wo.spell = not vim.wo.spell end, {})
 vim.api.nvim_create_user_command('SilentWrite', function () vim.cmd('silent write') end, {})
 vim.api.nvim_create_user_command('Wrap', function () vim.o.wrap = not vim.o.wrap end, {})
-vim.api.nvim_create_user_command('Terminal', function (args)
-    local dir = args and args['args'] or '.'
-    vim.cmd('silent !$TERMINAL --title \'Terminal\' -e zsh -c \'cd '..dir..'; zsh\' &')
-end, { nargs = '?' })
 
 local detach = function ()
     if (#vim.api.nvim_list_wins() < 2) then

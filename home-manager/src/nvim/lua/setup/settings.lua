@@ -63,10 +63,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
-vim.api.nvim_create_autocmd("VimLeave", {
-    pattern = "*",
-    callback = function () vim.opt.guicursor = { "a:ver25" } end
-})
+-- vim.api.nvim_create_autocmd("VimLeave", {
+--     pattern = "*",
+--     callback = function ()
+--         vim.opt.guicursor = { "a:hor1" }
+--     end
+-- })
 
 vim.g.typst_embedded_languages = { "haskell", "c", "java" }
 

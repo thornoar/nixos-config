@@ -100,8 +100,6 @@ vim.keymap.set("n", "<C-Delete>", "<cmd>wqa<CR>")
 vim.keymap.set("n", "<S-Home>", "<cmd>SaveAndDetach<CR>")
 
 -- $keymaps:command
-vim.keymap.set("n", "<M-t>", function () vim.cmd("silent !$TERMINAL --title \"Terminal\" -e zsh -c \"nvim-server -f; zsh\" &") end)
-vim.keymap.set("n", "<M-b>", function () vim.cmd("silent !$TERMINAL --title \"Viewer\" -e zsh -c \"nvim-server -f; br; zsh\"&") end)
 vim.keymap.set("n", "<leader>ek", function () vim.cmd("edit $NIXOS_CONFIG/home-manager/home.nix") end)
 vim.keymap.set("n", "<leader>eK", function () vim.cmd("tabnew $NIXOS_CONFIG/home-manager/home.nix") end)
 vim.keymap.set("n", "<leader>el", function () vim.cmd("edit $NIXOS_CONFIG/home-manager/src/nvim/init.lua") end)

@@ -14,7 +14,9 @@ in {
     ./scripts.nix
   ];
 
-  # Neovim configuration
+  # Vim/Neovim configuration
+  programs.vim.enable = true;
+  # home.file.".vimrc".text = "set number";
   programs.neovim = {
     enable = true;
     withPython3 = true;
@@ -144,23 +146,7 @@ in {
     enableCompletion = true;
     autosuggestion.enable = false;
     syntaxHighlighting.enable = true;
-    shellAliases = rec {
-      torrent = "transmission-remote";
-      film = "transmission-remote -w ~/media/films -a ";
-      music = "transmission-remote -w ~/media/music -a ";
-      lbr = "clear; br";
-      open = "xdg-open";
-      close = "exit";
-      grep = "grep --color=auto";
-      def = "dict -h dict.org";
-      vmcon = "virt-manager --connect qemu:///system --show-domain-console";
-      clip = "wl-copy -n";
-      gpp = "g++ -std=c++11 -Wall -fsanitize=leak,address,undefined";
-      gitlog = "git log --oneline --graph --decorate";
-      encrypt = "openssl enc -aes-256-cfb -iter 1000 -a";
-      decrypt = "${encrypt} -d";
-      lsbr = "br -c \":print_tree\"";
-    };
+    shellAliases = {};
     initContent = "source ~/.config/zsh/initExtra.zsh";
     envExtra = "source ~/.config/zsh/envExtra.zsh";
   };
