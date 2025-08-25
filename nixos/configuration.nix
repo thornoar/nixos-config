@@ -82,8 +82,9 @@
     };
   };
   programs.ssh.startAgent = true;
-  programs.gnupg = {
-    agent.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-tty;
   };
 
   services.openvpn.servers = let
@@ -197,6 +198,8 @@
   services.fwupd = {
     enable = true;
   };
+
+  services.locate.enable = true;
 
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };

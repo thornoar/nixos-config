@@ -159,10 +159,13 @@ in {
       gitlog = "git log --oneline --graph --decorate";
       encrypt = "openssl enc -aes-256-cfb -iter 1000 -a";
       decrypt = "${encrypt} -d";
+      lsbr = "br -c \":print_tree\"";
     };
-    envExtra = builtins.readFile ../src/zsh/envExtra.zsh;
-    initContent = builtins.readFile ../src/zsh/initExtra.zsh;
+    initContent = "source ~/.config/zsh/initExtra.zsh";
+    envExtra = "source ~/.config/zsh/envExtra.zsh";
   };
+  xdg.configFile."zsh/initExtra.zsh" = config.util.dotFileMut "zsh/initExtra.zsh";
+  xdg.configFile."zsh/envExtra.zsh" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."nix-develop/.zshrc" = config.util.dotFileMut "zsh/nix-develop.zsh";
   xdg.configFile."special-terminal/.zshrc" = config.util.dotFileMut "zsh/special-terminal.zsh";
   xdg.configFile."special-music/.zshrc" = config.util.dotFileMut "zsh/special-music.zsh";

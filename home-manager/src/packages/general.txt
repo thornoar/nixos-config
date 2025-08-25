@@ -41,3 +41,4 @@ pfetch
 caligula
 gimp3
 calcure
+sops

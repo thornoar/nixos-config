@@ -186,24 +186,16 @@ cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'path' },
-        { name = 'buffer' },
+        -- { name = 'buffer' },
         { name = 'ultisnips' },
-        {
-            name = 'look',
-            keyword_length = 2,
-            option = {
-                convert_case = true,
-                loud = true,
-                dict = os.getenv('WORDLIST')
-            }
-        },
         -- {
-        --     name = "html-css",
+        --     name = 'look',
+        --     keyword_length = 2,
         --     option = {
-        --         enable_on = {
-        --             'html'
-        --         },
-        --     },
+        --         convert_case = true,
+        --         loud = true,
+        --         dict = os.getenv('WORDLIST')
+        --     }
         -- },
     },
     window = {

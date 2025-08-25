@@ -248,8 +248,8 @@ myPrograms = [
   ]
 
 myScratchpads = [
-    NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad' -e zsh -c 'nvim-server; zsh'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
-    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e zsh -c 'nvim-server; br'") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
+    NS "Terminal" (myTerminal++" --title 'Terminal Scratchpad' -e zsh -c 'nvim-server -f; zsh'") (title =? "Terminal Scratchpad") (customFloating myFloatingRectangle),
+    NS "Viewer" (myTerminal++" --title 'Viewer Scratchpad' -e zsh -c 'nvim-server -f; br'") (title =? "Viewer Scratchpad") (customFloating myFloatingRectangle),
     NS "Calculator" (myTerminal++" --title 'Calculator Scratchpad' -e qalc") (title =? "Calculator Scratchpad") (customFloating myFloatingRectangle),
     NS "System Monitor" (myTerminal ++ " --title 'System Scratchpad' -e btop") (title =? "System Scratchpad") (customFloating myFloatingRectangle),
     NS "Music Player" (myTerminal++" --title 'Music Player Scratchpad' -e mocp") (title =? "Music Player Scratchpad") (customFloating myFloatingRectangle)
@@ -278,7 +278,7 @@ myKeys = [
     ("M-S-<Delete>", killAll),
 
     -- Quick Programs
-    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvim-server; br; zsh'")),
+    ("M-x", spawn (myTerminal ++ " --title 'Editor' -e zsh -c 'nvim-server -f; br; zsh'")),
     ("M-b", spawn (myBrowser ++ " -P xmonad")),
     ("M-t", spawn (myTerminal ++ " --title 'Terminal'")),
 

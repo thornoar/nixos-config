@@ -122,7 +122,7 @@ verbs: [
     {
         key: ctrl-x
         invocation: terminal
-        external: "sh -c \"nohup $TERMINAL -e zsh -c 'cd {directory}; nvim-server; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
+        external: "sh -c \"nohup $TERMINAL -e zsh -c 'cd {directory}; nvim-server -f; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
         leave_broot: false
     }
     {
