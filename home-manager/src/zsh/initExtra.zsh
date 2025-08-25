@@ -16,9 +16,9 @@ bindkey "^[[1;5A" fzf-history-widget
 
 alias -- clip='wl-copy -n'
 alias -- close=exit
-alias -- decrypt='openssl enc -aes-256-cfb -iter 1000 -a -d'
+alias -- decrypt='openssl enc -aes-256-cfb -iter 100 -a -d'
 alias -- def='dict -h dict.org'
-alias -- encrypt='openssl enc -aes-256-cfb -iter 1000 -a'
+alias -- encrypt='openssl enc -aes-256-cfb -iter 100 -a'
 alias -- film='transmission-remote -w ~/media/films -a '
 alias -- gitlog='git log --oneline --graph --decorate'
 alias -- gpp='g++ -std=c++11 -Wall -fsanitize=leak,address,undefined'
