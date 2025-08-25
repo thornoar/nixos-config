@@ -20,47 +20,45 @@ parser.add_argument("-o", "--output", type = str, default = "auto", help = "flak
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
 args = parser.parse_args()
 
+CRED = "\033[31m"#]
+CEND = "\033[0m"#]
+
 def call (str):
     if 0 != os.system(str):
-        print("\033[1;31m#\033[0m Failed to complete.") #]]
+        print(CRED + "Failed to complete." + CEND)
         exit(1)
 
 command = "sudo nixos-rebuild"
 
-print("\033[1;34m#\033[0m Rebuild command is: \033[33m" + command + "\033[0m.") #]]]]
-
 try:
     cwd = os.popen("pwd").read().strip()
     new_dir = (args.flake != "auto") and args.flake or ("NIXOS_CONFIG" in os.environ and os.environ["NIXOS_CONFIG"] or os.environ["HOME"])
-    print("\033[1;34m#\033[0m Changing to flake directory: \033[33m" + new_dir + "\033[0m.") #]]]]
     os.chdir(new_dir)
 
     behind_remote = False
 
     if args.git or args.onlygit:
-        print("\033[1;34m#\033[0m Updating the remote repository.") #]]
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
-            print("\033[1;34m#\033[0m Local branch is behind remote.") #]]
+            print("> Local branch is behind remote.") #]]
             behind_remote = True
         if "not staged for commit" in os.popen("git status").read().strip():
-            print("\033[1;34m#\033[0m Committing local changes.") #]]
             call("git add -A")
             call("git commit -m \"$(date +'%d %b %Y (%a): %H:%M')\"")
             call("git pull --no-rebase --no-edit")
             call("git push")
         elif behind_remote:
-            print("\033[1;34m#\033[0m Working tree clean, pulling changes.") #]]
+            print("> Working tree clean, pulling changes.") #]]
             call("git fetch && git pull")
 
     if args.onlygit:
         exit(0)
 
     if (args.restore and os.path.exists("./flake.lock.bak")):
-        print("\033[1;34m#\033[0m Restoring previous flake.lock file...") #]]
+        print("> Restoring previous flake.lock file...") #]]
         call("cp ./flake.lock.bak ./flake.lock")
     elif (args.update):
-        print("\033[1;34m#\033[0m Updating flake.lock file...") #]]
+        print("> Updating flake.lock file...") #]]
         call("cp ./flake.lock ./flake.lock.bak")
         call("nix flake update")
 
@@ -72,7 +70,6 @@ try:
         flake_args = "--flake .#" + output
         if (args.impure):
             flake_args += " --impure"
-        print("\033[1;34m#\033[0m Flake arguments: \033[33m" + flake_args + "\033[0m.") #]]]]
 
     nom_args = ""
     if (not args.default):
@@ -102,11 +99,8 @@ try:
                     spec_args = ""
         else:
             spec_args += args.specialisation
-        print("\033[1;34m#\033[0m Specialisation arguments are: \033[33m" + spec_args + "\033[0m.") #]]]]
 
-    call("sudo printf \"\033[1;33m#\033[0m Access granted.\\n\"") # ]]
-
-    print("\033[1;34m#\033[0m Building configuration...") #]]
+    call("sudo echo -n") # ]]
 
     call(command + " " + args.command + " " + spec_args + " " + args.extra + " " + flake_args + nom_args)
 
@@ -123,4 +117,4 @@ try:
     if args.reboot:
         os.system("reboot")
 except KeyboardInterrupt:
-    print("\n\033[1;31m#\033[0m Interrupted by user.")
+    print(CRED + "Interrupted by user." + CEND)

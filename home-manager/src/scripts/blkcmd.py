@@ -17,8 +17,6 @@ args = parser.parse_args()
 
 CRED = "\033[31m"#]
 CGREEN = "\033[32m"#]
-CPURPLE = "\033[35m"#]
-CBLUE = "\033[1;34m"#]
 CEND = "\033[0m"#]
 
 cwd = os.getcwd()
@@ -26,7 +24,7 @@ cwd = os.getcwd()
 def call (cmd):
     code = os.system(cmd)
     if (code > 0 and not args.noexit):
-        print(CRED + "#" + CEND + " Could not complete.")
+        print(CRED + "Failed to complete." + CEND)
         os.chdir(cwd)
         exit(1)
 
@@ -39,8 +37,9 @@ try:
             for dirname in dirnames:
                 os.chdir(dirname)
                 if not args.silent:
-                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" in " + CPURPLE + root + "/" + dirname + CEND + "...")
+                    print("> Executing \"" + CGREEN + args.command + CEND + "\" in " + root + "/" + dirname + ":")
                 call(args.command + (args.nooutput and " > /dev/null 2>&1" or ""))
+                # print()
                 os.chdir("..")
         else:
             for filename in fnmatch.filter(filenames, "*."+args.filetype):
@@ -51,7 +50,7 @@ try:
                 if (".lib."+args.filetype in head_tail[1]):
                     continue
                 if not args.silent:
-                    print(CBLUE + "#" + CEND + " Executing \"" + CGREEN + args.command + CEND + "\" on " + CPURPLE + file + CEND + "...")
+                    print("> Executing \"" + CGREEN + args.command + CEND + "\" on " + file + ":")
                 if args.parse:
                     call(
                         "parsecmd \"" + args.command + (args.background and '&' or '') + "\" \"" + head_tail[1] + "\"" +
@@ -65,5 +64,5 @@ try:
                     )
         os.chdir(cwd)
 except KeyboardInterrupt:
-    print(CRED + "#" + CEND + " Interrupted by user.")
+    print(CRED + "Interrupted by user." + CEND)
     os.chdir(cwd)

@@ -10,9 +10,9 @@ let
     lib.lists.forEach (pkgs.readFile file)
     (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
 in {
-  imports = [
-    ./scripts.nix
-  ];
+  # imports = [
+  #   ./scripts.nix
+  # ];
 
   # Vim/Neovim configuration
   programs.vim.enable = true;
@@ -134,12 +134,6 @@ in {
     }
   '';
 
-  # Asymptote configuration
-  home.file.".asy/config.asy" = config.util.dotFileMut "config.asy";
-
-  # GHCi configuration
-  home.file.".ghci" = config.util.dotFileMut "ghci";
-
   # zsh configuration
   programs.zsh = {
     enable = true;
@@ -166,9 +160,6 @@ in {
   };
   home.sessionVariables.BAT_THEME = "ansi";
 
-  # R configuration
-  home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
-
   # neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
@@ -182,7 +173,8 @@ in {
   xdg.dataFile = builtins.listToAttrs (
     # Typst libraries
     lib.lists.flatten (lib.lists.forEach
-      (lib.filesystem.listFilesRecursive ../src/typst-libraries) (filename:
+      (lib.filesystem.listFilesRecursive ../src/typst-libraries)
+      (filename:
         let
           strname = ts filename;
           last = lib.lists.last (lib.strings.splitString "/" strname);
@@ -212,11 +204,37 @@ in {
     "latex" = config.util.dotFileMut "latex-libraries";
   };
 
+  home.file = builtins.listToAttrs (
+    lib.lists.forEach
+      (lib.filesystem.listFilesRecursive ../src/scripts)
+      (filename: {
+          name = ".local/bin/" + (
+            lib.strings.head (
+              lib.strings.splitString "." (
+                lib.lists.last
+                (lib.strings.splitString "/" (builtins.toString filename))
+              )
+            )
+          );
+          value = config.util.dotFileMut ("scripts/" + builtins.baseNameOf filename);
+        }
+      )
+  ) // {
+    # haskeline config
+    ".haskeline" = config.util.dotFileMut "haskeline";
+
+    # Asymptote configuration
+    ".asy/config.asy" = config.util.dotFileMut "config.asy";
+
+    # R configuration
+    ".Rprofile" = config.util.dotFileMut "Rprofile";
+
+    # GHCi configuration
+    ".ghci" = config.util.dotFileMut "ghci";
+  };
+
   # pshash config
   xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
-
-  # haskeline config
-  home.file.".haskeline" = config.util.dotFileMut "haskeline";
 
   programs = {
     git = {

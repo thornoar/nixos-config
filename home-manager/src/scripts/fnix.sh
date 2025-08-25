@@ -36,7 +36,7 @@ if [ -n "$level" ] && [ -n "$section" ]; then
 fi
 
 function interrupt_handler () {
-    if [ "$raw" -eq 0 ]; then printf "\n\e[1;31m#\e[0m Interrupted by user.\n"; fi
+    if [ "$raw" -eq 0 ]; then printf "\n\e[31mInterrupted by user.\e[0m\n"; fi
     exit 1
 }
 trap interrupt_handler SIGINT
@@ -61,13 +61,13 @@ function printPackage () {
     json=$(nix search "nixpkgs#$pac" ^ --no-write-lock-file --quiet --offline --json 2>/dev/null)
     if [ -z "$json" ]; then
         if [ "$raw" -eq 0 ]; then
-            printf "\e[1;31m#\e[0m Package not found: \e[33m%s\e[0m.\n" "$pac"
+            printf "Package not found: \e[33m%s\e[0m.\n" "$pac" # ]]
         fi
         return 1
     fi
     title=$(echo "$json" | jq -r '. | keys | .[0]')
     if [ "$raw" -eq 0 ]; then
-        printf "\e[1;33m#\e[0m %s\e[0m\n" "$(echo "$title" | hl 33 "$pac")"
+        printf "# %s\n" "$(echo "$title" | hl 33 "$pac")"
     else
         printf "%s\n" "$title"
     fi
@@ -83,7 +83,7 @@ function listPackages () {
     cur_section="${base%.*}"
     # cur_section="$2"
     if [ "$cur_section" == "custom" ]; then return 0; fi
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Listing packages in section \e[1;34m%s\e[0m:\n" "$cur_section"; fi
+    if [ "$raw" -eq 0 ]; then printf "> Listing packages in section \e[34m%s\e[0m:\n" "$cur_section"; fi
     while IFS= read -r pac; do
         if [ "$raw" -eq 0 ]; then
             printPackage "$pac"
@@ -96,11 +96,11 @@ function listPackages () {
 
 function queryForLevelAndSection () {
     if [ -z "$level" ]; then
-        read -r -p '[1;35m#[0m Enter the package level: [35m' level
-        printf "\e[0m"
+        read -r -p '? Enter the package level: [35m' level # ]
+        printf "\e[0m" # ]
     fi
     if [ -z "$section" ]; then
-        read -r -p '[1;35m#[0m Section to put the package in: [35m' section
+        read -r -p '? Section to put the package in: [35m' section # ]
         printf "\e[0m"
     fi
 }
@@ -125,7 +125,7 @@ function installPackage () {
     package="$1"
     file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
     if [ ! -f "$file" ]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$level"; fi
+        if [ "$raw" -eq 0 ]; then printf "! Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$level"; fi
         if [ "$given_level_section" -eq 1 ]; then
             installPackage "$package"
         else
@@ -141,14 +141,14 @@ if [[ "system-options" =~ ^"$cmd" ]]; then
 elif [[ "preview" =~ ^"$cmd" ]]; then
     packages=( "${@:2}" )
     if [ "${#packages[@]}" -eq 0 ]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
+        if [ "$raw" -eq 0 ]; then printf "! No packages given.\n"; fi
         exit 1
     fi
     for pac in "${packages[@]}"; do
         printPackage "$pac" || exit 1
     done
     packages=( "${packages[@]/#/nixpkgs#}" )
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Evaluating package derivations:\n"; fi
+    if [ "$raw" -eq 0 ]; then printf "> Evaluating package derivations:\n"; fi
     nix shell --impure "${packages[@]}"
 elif [[ "list-installed" =~ ^"$cmd" ]]; then
     levelList=("system" "user")
@@ -156,18 +156,18 @@ elif [[ "list-installed" =~ ^"$cmd" ]]; then
         if echo "${levelList[@]}" | grep -q "$level"; then
             levelList=("$level")
         else
-            if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown level: \e[33m%s\e[0m.\n" "$level"; fi
+            if [ "$raw" -eq 0 ]; then printf "! Unknown level: \e[33m%s\e[0m.\n" "$level"; fi
             exit 1
         fi
     fi
     for cur_level in "${levelList[@]}"; do
-        if [ "$raw" -eq 0 ]; then printf "\e[1;35m#\e[0m Listing packages on level \e[1;35m%s\e[0m:\n" "$cur_level"; fi
+        if [ "$raw" -eq 0 ]; then printf "> Listing packages on level \e[1;35m%s\e[0m:\n" "$cur_level"; fi
         if [ -n "$section" ]; then
             file="$NIXOS_CONFIG/$(getLevel "$cur_level")/src/packages/$section.txt"
             if [ -f "$file" ]; then
                 listPackages "$file"
             else
-                if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$cur_level"; fi
+                if [ "$raw" -eq 0 ]; then printf "! Section \e[35m%s\e[0m not found on \e[35m%s\e[0m level.\n" "$section" "$cur_level"; fi
                 exit 1
             fi
         else
@@ -179,7 +179,7 @@ elif [[ "list-installed" =~ ^"$cmd" ]]; then
 elif [[ "install" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [[ ${#packages[@]} -eq 0 ]]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
+        if [ "$raw" -eq 0 ]; then printf "! No packages given.\n"; fi
         exit 1
     fi
     level_backup="$level"
@@ -188,7 +188,7 @@ elif [[ "install" =~ ^"$cmd" ]]; then
     for package in "${packages[@]}"; do
         printPackage "$package" || continue
         if packageInstalled "$package"; then
-            if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m already listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
+            if [ "$raw" -eq 0 ]; then printf "! Package \e[33m%s\e[0m already listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
             continue
             level="$level_backup"
             section="$section_backup"
@@ -197,43 +197,43 @@ elif [[ "install" =~ ^"$cmd" ]]; then
             changed=1
         fi
     done
-    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
+    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "> Rebuild the system to apply changes.\n"; fi
 elif [[ "remove" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [[ ${#packages[@]} -eq 0 ]]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
+        if [ "$raw" -eq 0 ]; then printf "! No packages given.\n"; fi
         exit 1
     fi
     changed=0
     for package in "${packages[@]}"; do
         if ! packageInstalled "$package"; then
-            if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Package \e[33m%s\e[0m not listed in configuration.\n" "$package"; fi
+            if [ "$raw" -eq 0 ]; then printf "! Package \e[33m%s\e[0m not listed in configuration.\n" "$package"; fi
             continue
         fi
         changed=1
-        if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Removing package \e[33m%s\e[0m listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
+        if [ "$raw" -eq 0 ]; then printf "> Removing package \e[33m%s\e[0m listed on \e[35m%s\e[0m level under section \e[35m%s\e[0m.\n" "$package" "$level" "$section"; fi
         file="$NIXOS_CONFIG/$(getLevel "$level")/src/packages/$section.txt"
         awk "!/$package/" "$file" > temp && mv temp "$file"
     done
-    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "\e[1;34m#\e[0m Rebuild the system to apply changes.\n"; fi
+    if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "> Rebuild the system to apply changes.\n"; fi
 elif [[ "collect-garbage" =~ ^"$cmd" ]]; then
     sudo printf ""
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the user level.\n"; fi # ]]
+    if [ "$raw" -eq 0 ]; then printf "> Collecting garbage on the user level.\n"; fi # ]]
     nix-collect-garbage --delete-old
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Collecting garbage on the root level.\n"; fi # ]]
+    if [ "$raw" -eq 0 ]; then printf "> Collecting garbage on the root level.\n"; fi # ]]
     sudo nix-collect-garbage --delete-old
-    if [ "$raw" -eq 0 ]; then printf "\e[1;34m#\e[0m Deleting boot entries.\n"; fi # ]]
+    if [ "$raw" -eq 0 ]; then printf "> Deleting boot entries.\n"; fi # ]]
     nix-collect-garbage -d
 elif [[ "search" =~ ^"$cmd" ]]; then
     packages=("${@:2}")
     if [ "$raw" -eq 0 ]; then desc=1; fi
     if [[ ${#packages[@]} -eq 0 ]]; then
-        if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m No packages given.\n"; fi
+        if [ "$raw" -eq 0 ]; then printf "! No packages given.\n"; fi
         exit 1
     fi
     for package in "${packages[@]}"; do
         printPackage "$package" || continue
     done
 else
-    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
+    if [ "$raw" -eq 0 ]; then printf "! Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
 fi

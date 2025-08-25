@@ -29,3 +29,4 @@ alias -- music='transmission-remote -w ~/media/music -a '
 alias -- open=xdg-open
 alias -- torrent=transmission-remote
 alias -- vmcon='virt-manager --connect qemu:///system --show-domain-console'
+alias -- fdate='date +"%d %b %Y (%a): %H:%M"'

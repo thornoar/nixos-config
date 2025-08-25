@@ -20,17 +20,17 @@ done
 set -- "${POSITIONAL_ARGS[@]}"
 
 function interrupt_handler () {
-    if [ "$raw" -eq 0 ]; then printf "\e[1;31m#\e[0m Interrupted by user.\n"; fi
+    if [ "$raw" -eq 0 ]; then printf "\e[31mInterrupted by user.\e[0m\n"; fi # ]]
     exit 1
 }
 trap interrupt_handler SIGINT
 
 cmd="$1"
 
-if [[ "private" =~ "$cmd" ]]; then
+if [[ "private" =~ $cmd ]]; then
     ip=$(ifconfig wlp46s0 | grep -i mask | awk '{print $2}'| cut -f2 -d:)
     if [ "$raw" -eq 0 ]; then
-        printf "\e[1;34m#\e[0m Private IP: \e[33m%s\e[0m.\n" "$ip"
+        printf "# Private IP: \e[33m%s\e[0m.\n" "$ip"
     else
         printf "%s\n" "$ip"
     fi
@@ -42,17 +42,17 @@ elif [[ "public" =~ "$cmd" ]]; then
         city=$(echo "$json" | jq --raw-output ".city")
         org=$(echo "$json" | jq --raw-output ".org")
         loc=$(echo "$json" | jq --raw-output ".loc")
-        printf "\e[1;34m#\e[0m Public IP: \e[33m%s\e[0m.\n" "$ip"
-        printf "\e[1;34m#\e[0m Location: \e[33m%s\e[0m.\n" "$loc"
-        printf "\e[1;34m#\e[0m Country: \e[33m%s\e[0m.\n" "$country"
-        printf "\e[1;34m#\e[0m City: \e[33m%s\e[0m.\n" "$city"
-        printf "\e[1;34m#\e[0m Organization: \e[33m%s\e[0m.\n" "$org"
+        printf "# Public IP: \e[33m%s\e[0m.\n" "$ip"
+        printf "# Location: \e[33m%s\e[0m.\n" "$loc"
+        printf "# Country: \e[33m%s\e[0m.\n" "$country"
+        printf "# City: \e[33m%s\e[0m.\n" "$city"
+        printf "# Organization: \e[33m%s\e[0m.\n" "$org"
     else
         printf "%s\n" "$ip"
     fi
 elif [[ "all" =~ "$cmd" ]]; then
     ip address show
 else
-    printf "\e[1;31m#\e[0m Unknown command: \e[33m%s\e[0m.\n" "$cmd"
+    printf "! Unknown command: \e[33m%s\e[0m.\n" "$cmd"
     exit 1
 fi

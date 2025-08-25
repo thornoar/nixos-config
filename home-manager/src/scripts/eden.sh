@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $# -lt 1 ]; then
-    printf "Which file to edit? Give an argument.\n"
+    printf "A file argument is required.\n"
     exit 1
 fi
 
