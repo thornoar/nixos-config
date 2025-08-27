@@ -39,8 +39,9 @@ require("lazy").setup({
     "mbbill/undotree",
     "whonore/Coqtail",
     "bfrg/vim-c-cpp-modern",
-    "nvim-tree/nvim-web-devicons",
+    -- "nvim-tree/nvim-web-devicons",
     "axieax/urlview.nvim",
+    -- "smithbm2316/centerpad.nvim",
     {
         "thornoar/coq-lsp.nvim",
         branch = "add-configuration",
@@ -65,22 +66,38 @@ require("lazy").setup({
     --         vim.g.vimtex_view_method = "zathura"
     --     end
     -- },
-
+    {
+        "cdmill/focus.nvim",
+        cmd = { "Focus", "Zen", "Narrow" },
+        opts = {
+            border = "none",
+            window = {
+                width = 80,
+                -- options = {
+                --     border = "none",
+                -- },
+            },
+            auto_zen = true,
+            zen = {
+                diagnostics = true,
+            },
+        }
+    },
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
         cmd = "Trouble",
         keys = {
             {
-                "<M-S-o>",
+                "<C-M-d>",
                 "<cmd>Trouble diagnostics toggle<cr>",
                 desc = "Diagnostics (Trouble)",
             },
-            {
-                "<M-o>",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Buffer Diagnostics (Trouble)",
-            },
+            -- {
+            --     "<>",
+            --     "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+            --     desc = "Buffer Diagnostics (Trouble)",
+            -- },
         },
     },
     {

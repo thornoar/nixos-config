@@ -7,16 +7,15 @@ for name, icon in pairs(symbols) do
     local hl = "DiagnosticSign" .. name
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 end
-vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.jump({ count = -1, float = true }) end)
+-- vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.keymap.set('n', '<C-d>', function () vim.diagnostic.jump({ count = 1, float = true }) end)
-vim.keymap.set('n', '<M-S-d>', function () vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+-- vim.keymap.set('n', '<M-S-d>', function () vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', '<M-d>', function () vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover() end, opts)
-        -- vim.keymap.set('n', '<C-M-CR>', function () vim.lsp.buf.references() end, opts)
+        vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover({ border = "rounded" }) end, opts)
         vim.keymap.set('n', '<M-C-CR>', function () vim.lsp.buf.references() end, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
         vim.keymap.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
@@ -37,8 +36,8 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 --     { "│", hl_name },
 -- }
 -- local handlers =  {
---     -- ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
---     -- ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+--     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+--     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 --     -- ["textDocument/hover"] =  vim.lsp.handlers.hover,
 --     -- ["textDocument/signatureHelp"] =  vim.lsp.handlers.signature_help,
 -- }
