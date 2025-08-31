@@ -261,6 +261,8 @@
 
 #let course-assignment-preamble(course, part, due, subnumbering: true) = doc => {
   set math.equation(supplement: none, numbering: "(1.1.1)")
+  // set text(font: "TeX Gyre Schola")
+  show math.equation: set text(font: "New Computer Modern Math")
   show: equate.with(sub-numbering: subnumbering, number-mode: "label", breakable: true)
 
   show: assignment-title-rule(

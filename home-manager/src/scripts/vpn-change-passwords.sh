@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# freeopenvpn passwords: https://www.freeopenvpn.org/premium.php?cntid=Germany
+# freeopenvpn passwords: https://www.freeopenvpn.org/
 # vpnbook passwords: https://www.vpnbook.com/freevpn (afsz8r7)
 
 read -r -p "Enter VPN provider: " provider

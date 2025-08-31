@@ -48,7 +48,7 @@
     };
   };
 
-  time.timeZone = "Europe/Belgrade";
+  time.timeZone = "Asia/Hong_Kong";
 
   fonts.packages = pkgs.readPackages ../../src/packages/fonts.txt pkgs;
 }
