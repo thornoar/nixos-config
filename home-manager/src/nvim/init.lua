@@ -46,7 +46,55 @@ require("lazy").setup({
         "thornoar/coq-lsp.nvim",
         branch = "add-configuration",
     },
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     opts = {
+    --         -- add any options here
+    --     },
+    --     dependencies = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         -- "rcarriga/nvim-notify",
+    --     }
+    -- },
+    {
+        "scalameta/nvim-metals",
+        ft = { "scala", "sbt", "java" },
+        opts = function()
+            local metals_config = require("metals").bare_config()
+            metals_config.settings = {
+                -- verboseCompilation = true,
+                -- inlayHints = {
+                --     byNameParameters = { enable = true },
+                --     hintsInPatternMatch = { enable = true },
+                --     implicitArguments = { enable = true },
+                --     implicitConversions = { enable = true },
+                --     inferredTypes = { enable = true },
+                --     typeParameters = { enable = true },
+                --     javaProperties = {
+                --         '-Dmetals.showMessage=off',
+                --     },
+                -- },
+                useGlobalExecutable = true,
+            }
 
+            return metals_config
+        end,
+        config = function(self, metals_config)
+            local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = self.ft,
+                callback = function()
+                    require("metals").initialize_or_attach(metals_config)
+                end,
+                group = nvim_metals_group,
+            })
+        end
+    },
     -- {
     --     'stevearc/oil.nvim',
     --     ---@module 'oil'
@@ -268,4 +316,5 @@ require("setup.spell")
 require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
+-- require("setup.noice")
 -- require("setup.nvim-subfiles")

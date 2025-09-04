@@ -43,3 +43,4 @@ gimp3
 calcure
 sops
 pdftk
+tor-browser

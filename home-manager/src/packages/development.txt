@@ -61,3 +61,6 @@ typst
 tinymist
 pastel
 tealdeer
+scala
+coursier
+metals

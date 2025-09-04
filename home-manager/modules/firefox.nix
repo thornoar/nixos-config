@@ -42,9 +42,14 @@ let
       url = "https://rutracker.org";
       keyword = "tr";
     }
+    # {
+    #   name = "li | LibGen";
+    #   url = "https://libgen.is";
+    #   keyword = "li";
+    # }
     {
-      name = "li | LibGen";
-      url = "https://libgen.is";
+      name = "li | Anna's Archive";
+      url = "https://annas-archive.org/";
       keyword = "li";
     }
     {
