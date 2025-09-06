@@ -3,6 +3,7 @@
 POSITIONAL_ARGS=()
 provider=""
 branch=""
+country=""
 raw=0
 
 function printUsage {
@@ -20,6 +21,7 @@ while [[ $# -gt 0 ]]; do
     case $1 in #(((
         -b|--branch) branch="$2"; shift; shift ;;
         -p|--provider) provider="$2"; shift; shift ;;
+        -c|--country) country="$2"; shift; shift ;;
         -r|--raw) raw=1; shift ;;
         -h|--help) printUsage; exit 0 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -64,7 +66,20 @@ function serverActive () {
 }
 
 function listServersUgly {
-    systemctl list-unit-files --quiet | grep "openvpn-server" | awk '{print $1}'
+    output=$(systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}')
+    grepcountry=""
+    if [ -n "$country" ]; then
+        output=$(echo "$output" | grep "$country")
+    fi
+    grepprovider=""
+    if [ -n "$provider" ]; then
+        output=$(echo "$output" | grep "$provider")
+    fi
+    grepbranch=""
+    if [ -n "$branch" ]; then
+        output=$(echo "$output" | grep "$branch")
+    fi
+    echo "$output"
 }
 
 function getCountryBranchProvider () {
@@ -72,7 +87,6 @@ function getCountryBranchProvider () {
 }
 
 function configureBranchAndProvider {
-    country="$1"
     configurations=()
     if [ -z "$provider" ] || [ -z "$branch" ]; then
         pattern=""
@@ -152,7 +166,6 @@ function disconnectAll () {
 }
 
 if [[ "connect" =~ ^"$cmd" ]]; then
-    country="$2"
     configureBranchAndProvider "$country"
     for config in "${configurations[@]}"; do
         if [[ $config =~ ([0-9]*)-([a-z]*) ]]; then

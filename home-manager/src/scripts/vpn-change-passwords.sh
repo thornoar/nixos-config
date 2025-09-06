@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # freeopenvpn passwords: https://www.freeopenvpn.org/
-# vpnbook passwords: https://www.vpnbook.com/freevpn (afsz8r7)
+# vpnbook passwords: https://www.vpnbook.com/freevpn (m34wk9w)
 
 read -r -p "Enter VPN provider: " provider
 if [ -z "$provider" ]; then
