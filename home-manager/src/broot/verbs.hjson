@@ -161,6 +161,11 @@ verbs: [
         leave_broot: false
     }
     {
+        invocation: reload
+        execution: "nvim-server -rv"
+        leave_broot: false
+    }
+    {
         key: alt-right
         apply_to: text_file
         execution: "$EDITOR {file} +{line}"

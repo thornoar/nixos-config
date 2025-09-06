@@ -120,6 +120,17 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    pattern = { "*.mls" },
+    callback = function ()
+        vim.keymap.set("n", "<C-CR>", function ()
+            vim.cmd("silent !touch %")
+            vim.cmd("edit!")
+            -- vim.cmd("edit")
+        end)
+    end
+})
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = "*.*",
     callback = function ()
         local ft = vim.bo.filetype
