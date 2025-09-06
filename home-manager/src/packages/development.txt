@@ -64,3 +64,4 @@ tealdeer
 scala
 coursier
 metals
+cloc
