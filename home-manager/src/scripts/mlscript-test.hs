@@ -29,7 +29,7 @@ formatContents [] = []
 formatContents ((':':flag1):(':':flag2):rest) = formatContents $ ((':':flag1) ++ " " ++ (':':flag2)) : rest
 formatContents [':':flags, pr] = [':':flags, "", "> " ++ pr, ""]
 formatContents ((':':flags):pr:rest) = (':':flags) : "" : ("> " ++ pr) : "" : rest ++ [""]
-formatContents [pr] = ["> " ++ pr] ++ [""]
+formatContents [pr] = ["> " ++ pr, ""]
 formatContents (pr:rest) = ("> " ++ pr) : "" : rest ++ [""]
 
 readTest :: FilePath -> IO ()
