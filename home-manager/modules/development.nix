@@ -274,6 +274,7 @@ in {
       })
       (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
         QuickCheck
+        haskeline
       ]))
       (texlive.combine { inherit (texlive) scheme-full; })
     ]

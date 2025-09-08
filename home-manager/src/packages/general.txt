@@ -15,7 +15,6 @@ telegram-desktop
 discord
 whatsie
 obs-studio
-zoom-us
 zathura
 libnotify
 gifski
