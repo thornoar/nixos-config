@@ -61,7 +61,7 @@ main = do
         _ -> id
       loop :: [String] -> String -> Bool -> InputT IO ()
       loop flags curpr write = do
-        outputStr "\ESC[2J\ESC[H"
+        outputStr "\ESC[2J\ESC[H" -- ]]
         liftIO $ do
           when write $ writeTest fname (map (replace '#' ' ') flags) curpr >> threadDelay 200000
           readTest fname
