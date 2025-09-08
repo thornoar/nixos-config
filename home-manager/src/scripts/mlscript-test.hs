@@ -51,26 +51,32 @@ main = do
   let fname = case args of
         [] -> defaultFile
         (str:_) -> str
+      -- the name of the test file read from command line, defaults to `defaultFile`
+
       sfname = last (split '/' "" fname)
+      -- the shortened version (without full path)
+
+      modifyFlags :: String -> [String] -> [String]
+      modifyFlags pr = case pr of
+        "//" -> const []
+        ':':flag -> (++ [flag])
+        '/':flag -> filter (/= flag)
+        _ -> id
+
+      -- foldr' :: (a -> b -> b) -> b -> [a] -> b
+      -- foldr' _ !b [] = b
+      -- foldr' f !b (a:as) = foldr' f (f a b) as
+
       loop :: [String] -> String -> Bool -> InputT IO ()
+      -- the main REPL loop
       loop flags curpr write = do
         liftIO $ do
           when write $ writeTest fname (map (replace '#' ' ') flags) curpr >> threadDelay 200000
           readTest fname
         prompt <- getInputLine $ "(" ++ sfname ++ ") # "
-        let modifyFlags :: String -> [String] -> [String]
-            modifyFlags pr = case pr of
-              "//" -> const []
-              ':':flag -> (flag :)
-              '/':flag -> filter (/= flag)
-              _ -> id
-            foldr' :: (a -> b -> b) -> b -> [a] -> b
-            foldr' _ !b [] = b
-            foldr' f !b (a:as) = foldr' f (f a b) as
-
         case prompt of
           Just pr@(c:_)
-            | c `elem` [':', '/'] -> loop (foldr' modifyFlags flags (words pr)) curpr True
+            | c `elem` [':', '/'] -> loop (foldl (flip modifyFlags) flags (words pr)) curpr True
           Just "exit" -> liftIO (removeFile fname)
           Just "" -> loop flags curpr False
           Just pr -> loop flags pr True
