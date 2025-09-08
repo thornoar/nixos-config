@@ -7,6 +7,7 @@ import Control.Concurrent (threadDelay)
 import Control.Monad (when)
 import System.Directory (removeFile)
 import System.Directory.Internal.Prelude (getArgs)
+-- import System.Console.ANSI (clearScreen)
 
 defaultFile :: FilePath
 defaultFile = "/home/ramak/projects/mlscript/hkmc2/shared/src/auto_test.mls"
@@ -14,8 +15,8 @@ defaultFile = "/home/ramak/projects/mlscript/hkmc2/shared/src/auto_test.mls"
 settings :: Settings IO
 settings = Settings {
   complete = noCompletion,
-  historyFile = Nothing,
-  autoAddHistory = False
+  historyFile = Just "~/.mlscript-test-history",
+  autoAddHistory = True
 }
 
 writeTest :: FilePath -> [String] -> String -> IO ()
@@ -26,10 +27,10 @@ writeTest fname flags curpr = do
 formatContents :: [String] -> [String]
 formatContents [] = []
 formatContents ((':':flag1):(':':flag2):rest) = formatContents $ ((':':flag1) ++ " " ++ (':':flag2)) : rest
-formatContents [':':flags, pr] = ["", ':':flags, "", "> " ++ pr, ""]
-formatContents ((':':flags):pr:rest) = "" : (':':flags) : "" : ("> " ++ pr) : "" : rest ++ [""]
-formatContents [pr] = ["", "> " ++ pr] ++ [""]
-formatContents (pr:rest) = "" : ("> " ++ pr) : "" : rest ++ [""]
+formatContents [':':flags, pr] = [':':flags, "", "> " ++ pr, ""]
+formatContents ((':':flags):pr:rest) = (':':flags) : "" : ("> " ++ pr) : "" : rest ++ [""]
+formatContents [pr] = ["> " ++ pr] ++ [""]
+formatContents (pr:rest) = ("> " ++ pr) : "" : rest ++ [""]
 
 readTest :: FilePath -> IO ()
 readTest fname = do
@@ -51,29 +52,20 @@ main = do
   let fname = case args of
         [] -> defaultFile
         (str:_) -> str
-      -- the name of the test file read from command line, defaults to `defaultFile`
-
-      sfname = last (split '/' "" fname)
-      -- the shortened version (without full path)
-
+      basePrompt = "(" ++ last (split '/' "" fname) ++ ") # "
       modifyFlags :: String -> [String] -> [String]
       modifyFlags pr = case pr of
         "//" -> const []
         ':':flag -> (++ [flag])
         '/':flag -> filter (/= flag)
         _ -> id
-
-      -- foldr' :: (a -> b -> b) -> b -> [a] -> b
-      -- foldr' _ !b [] = b
-      -- foldr' f !b (a:as) = foldr' f (f a b) as
-
       loop :: [String] -> String -> Bool -> InputT IO ()
-      -- the main REPL loop
       loop flags curpr write = do
+        outputStr "\ESC[2J\ESC[H"
         liftIO $ do
           when write $ writeTest fname (map (replace '#' ' ') flags) curpr >> threadDelay 200000
           readTest fname
-        prompt <- getInputLine $ "(" ++ sfname ++ ") # "
+        prompt <- getInputLine basePrompt
         case prompt of
           Just pr@(c:_)
             | c `elem` [':', '/'] -> loop (foldl (flip modifyFlags) flags (words pr)) curpr True
