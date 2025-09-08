@@ -6,9 +6,10 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Concurrent (threadDelay)
 import Control.Monad (when)
 import System.Directory (removeFile)
+import System.Directory.Internal.Prelude (getArgs)
 
-file :: FilePath
-file = "/home/ramak/projects/mlscript/hkmc2/shared/src/auto_test.mls"
+defaultFile :: FilePath
+defaultFile = "/home/ramak/projects/mlscript/hkmc2/shared/src/auto_test.mls"
 
 settings :: Settings IO
 settings = Settings {
@@ -17,52 +18,62 @@ settings = Settings {
   autoAddHistory = False
 }
 
-writeTest :: [String] -> String -> IO ()
-writeTest flags curpr = do
+writeTest :: FilePath -> [String] -> String -> IO ()
+writeTest fname flags curpr = do
   let contents = unlines $ map (':':) flags ++ [curpr]
-  writeFile file contents
+  writeFile fname contents
 
-modifyContents :: [String] -> [String]
-modifyContents [] = []
-modifyContents [pr] = ["", "> " ++ pr] ++ [""]
-modifyContents ((':':flag1):(':':flag2):rest) = modifyContents $ ((':':flag1) ++ " " ++ (':':flag2)) : rest
-modifyContents ((':':flags):pr:rest) = "" : (':':flags) : "" : ("> " ++ pr) : "" : rest ++ [""]
-modifyContents (pr:rest) = "" : ("> " ++ pr) : "" : rest ++ [""]
+formatContents :: [String] -> [String]
+formatContents [] = []
+formatContents ((':':flag1):(':':flag2):rest) = formatContents $ ((':':flag1) ++ " " ++ (':':flag2)) : rest
+formatContents [':':flags, pr] = ["", ':':flags, "", "> " ++ pr, ""]
+formatContents ((':':flags):pr:rest) = "" : (':':flags) : "" : ("> " ++ pr) : "" : rest ++ [""]
+formatContents [pr] = ["", "> " ++ pr] ++ [""]
+formatContents (pr:rest) = "" : ("> " ++ pr) : "" : rest ++ [""]
 
-readTest :: IO ()
-readTest = do
-  !contents <- readFile file
-  putStr $ unlines $ modifyContents (lines contents)
+readTest :: FilePath -> IO ()
+readTest fname = do
+  !contents <- readFile fname
+  putStr $ unlines $ formatContents (lines contents)
 
 replace :: Char -> Char -> String -> String
 replace from to = map (\ x -> if x == from then to else x)
 
-exit :: IO ()
-exit = removeFile file
-
-loop :: [String] -> String -> Bool -> InputT IO ()
-loop flags curpr write = do
-  liftIO $ do
-    when write $ writeTest (map (replace '#' ' ') flags) curpr >> threadDelay 200000
-    readTest
-  prompt <- getInputLine "(test) # "
-  let modifyFlags :: String -> [String] -> [String]
-      modifyFlags pr = case pr of
-        "//" -> const []
-        ':':flag -> (flag :)
-        '/':flag -> filter (/= flag)
-        _ -> id
-      foldr' :: (a -> b -> b) -> b -> [a] -> b
-      foldr' _ !b [] = b
-      foldr' f !b (a:as) = foldr' f (f a b) as
-
-  case prompt of
-    Just pr@(c:_)
-      | c `elem` [':', '/'] -> loop (foldr' modifyFlags flags (words pr)) curpr True
-    Just "exit" -> liftIO exit
-    Just "" -> loop flags curpr False
-    Just pr -> loop flags pr True
-    _ -> loop flags curpr False
+split :: Char -> String -> String -> [String]
+split _ acc [] = [acc]
+split c acc (c':rest)
+  | c == c' = acc : split c "" rest
+  | otherwise = split c (acc ++ [c']) rest
 
 main :: IO ()
-main = writeFile file "" >> runInputT settings (loop [] "" False)
+main = do
+  args <- getArgs
+  let fname = case args of
+        [] -> defaultFile
+        (str:_) -> str
+      sfname = last (split '/' "" fname)
+      loop :: [String] -> String -> Bool -> InputT IO ()
+      loop flags curpr write = do
+        liftIO $ do
+          when write $ writeTest fname (map (replace '#' ' ') flags) curpr >> threadDelay 200000
+          readTest fname
+        prompt <- getInputLine $ "(" ++ sfname ++ ") # "
+        let modifyFlags :: String -> [String] -> [String]
+            modifyFlags pr = case pr of
+              "//" -> const []
+              ':':flag -> (flag :)
+              '/':flag -> filter (/= flag)
+              _ -> id
+            foldr' :: (a -> b -> b) -> b -> [a] -> b
+            foldr' _ !b [] = b
+            foldr' f !b (a:as) = foldr' f (f a b) as
+
+        case prompt of
+          Just pr@(c:_)
+            | c `elem` [':', '/'] -> loop (foldr' modifyFlags flags (words pr)) curpr True
+          Just "exit" -> liftIO (removeFile fname)
+          Just "" -> loop flags curpr False
+          Just pr -> loop flags pr True
+          _ -> loop flags curpr False
+  writeFile fname ""
+  runInputT settings (loop [] "" False)
