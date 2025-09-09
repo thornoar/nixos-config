@@ -18,7 +18,7 @@ local compilefunc = {
     ['java'] = function (name) return ('!javac ' .. name .. ' && java Main') end,
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
-    ['scala'] = function (name) return ('!scala-cli run ' .. name) end,
+    ['scala'] = function (name) return ('!scala ' .. name) end,
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,

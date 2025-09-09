@@ -278,6 +278,7 @@ in {
       ]))
       (texlive.combine { inherit (texlive) scheme-full; })
     ]
+    # ++ (with pkgs.unstable; [ lua ])
     ++ readPackages ../src/packages/development.txt pkgs
     ++ readCustomPackages ../src/packages/custom.txt;
 }
