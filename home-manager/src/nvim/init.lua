@@ -67,6 +67,7 @@ require("lazy").setup({
         opts = function()
             local metals_config = require("metals").bare_config()
             metals_config.settings = {
+                fallbackScalaVersion = "3.3.5";
                 -- verboseCompilation = true,
                 -- inlayHints = {
                 --     byNameParameters = { enable = true },

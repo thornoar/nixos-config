@@ -10,10 +10,6 @@ let
     lib.lists.forEach (pkgs.readFile file)
     (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
 in {
-  # imports = [
-  #   ./scripts.nix
-  # ];
-
   # Vim/Neovim configuration
   programs.vim.enable = true;
   # home.file.".vimrc".text = "set number";

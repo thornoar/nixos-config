@@ -1,4 +1,4 @@
-{ sysname, pkgs, ... }:
+{ sysname, pkgs, config, lib, ... }:
 
 {
   users.users.ramak = {
@@ -27,6 +27,8 @@
     };
     extraOptions = ''
       warn-dirty = false
+      keep-outputs = true
+      keep-derivations = true
     '';
     registry = {
       nixpkgs.flake = pkgs.inputs.nixpkgs;
@@ -137,10 +139,13 @@
     # };
   };
 
-  boot.loader.systemd-boot = { enable = true; };
-  boot.loader.timeout = 35996;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot = {
+    loader.systemd-boot = { enable = true; };
+    loader.timeout = 35996;
+    loader.efi.canTouchEfiVariables = true;
+    supportedFilesystems = [ "ntfs" ];
+    cleanTmpDir = true;
+  };
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=3s
   '';
@@ -203,6 +208,11 @@
 
   virtualisation.libvirtd.enable = true;
   programs = { virt-manager.enable = true; };
+
+  environment.etc."current-system-packages".text =
+    let packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+        sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+     in builtins.concatStringsSep "\n" sortedUnique;
 
   system.stateVersion = "25.05";
 }

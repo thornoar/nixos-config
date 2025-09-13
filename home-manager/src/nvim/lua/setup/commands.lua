@@ -123,9 +123,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = { "*.mls" },
     callback = function ()
         vim.keymap.set("n", "<C-CR>", function ()
-            vim.cmd("silent !touch %")
-            vim.cmd("edit!")
-            -- vim.cmd("edit")
+            vim.cmd("silent write")
+            vim.cmd("silent !kill -10 $(pidof mlscript-test)")
         end)
     end
 })
