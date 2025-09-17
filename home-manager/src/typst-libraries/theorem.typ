@@ -28,7 +28,7 @@
     if (numbering == none) { title = [#title.] }
 
     if (titlefmt == auto) {
-      title = strong(underline(title))
+      title = strong(title)
     } else {
       title = titlefmt(title)
     }

@@ -7,15 +7,14 @@
 
 #let comp(f1, f2) = x => f2(f1(x))
 
-#let font = "TeX Gyre Schola"
 #let pagecount(format) = doc => {
   set page(numbering: format)
   counter(page).update(1)
   doc
 }
-#let mtxt(str) = [ #set text(font: font); #text(str) ]
+#let mtxt(str, font: "TeX Gyre Schola") = [ #set text(font: font); #text(str) ]
 
-#let article-rule = doc => {
+#let article-rule(font: "TeX Gyre Schola") = doc => {
   set page("a4", margin: (x: 0.7in, y: 1in))
   set text(12pt, font: font)
   set par(justify: true, leading: 0.5em)

@@ -134,7 +134,7 @@ let
     }
     {
       name = "ps | pshash";
-      url = "https://thornoar.github.io/pshash/web/app/";
+      url = "https://thornoar.github.io/pshash-web/app/";
       keyword = "ps";
     }
     {
@@ -176,6 +176,11 @@ let
       name = "ag | appr-game";
       url = "https://thornoar.github.io/appr-game/";
       keyword = "ag";
+    }
+    {
+      name = "lm | Learning Materials";
+      url = "https://docs.google.com/spreadsheets/d/1n9OG9_T1miRNApyKFhJKNE7OhfgQF8qAFSyrUugXwpY/edit#gid=1245663652";
+      keyword = "lm";
     }
   ];
   userChrome = ''
