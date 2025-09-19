@@ -107,7 +107,7 @@ in {
       outline-width = 0
       outline-color =${config.colors.bgColor0} 
       border-width = 1
-      border-color =${config.colors.colorMagenta1} 
+      border-color =${config.colors.primary} 
       corner-radius = ${ts config.hyprland.rounding}
       padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
       padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
@@ -123,40 +123,24 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
-        colors.bright = {
-          black = config.colors.bgColor3;
-          blue = config.colors.colorBlue1;
-          cyan = config.colors.colorCyan;
-          green = config.colors.colorGreen1;
-          magenta = config.colors.colorMagenta1;
-          red = config.colors.colorRed1;
-          white = config.colors.colorWhite1;
-          yellow = config.colors.colorYellow1;
-        };
-        colors.dim = {
-          black = config.colors.bgColor0;
-          blue = config.colors.colorBlue1;
-          cyan = config.colors.colorCyan;
-          green = config.colors.colorGreen1;
-          magenta = config.colors.colorMagenta1;
-          red = config.colors.colorRed1;
-          white = config.colors.bgColor3;
-          yellow = config.colors.colorYellow1;
-        };
-        colors.normal = {
-          black = config.colors.bgColor0;
-          blue = config.colors.colorBlue1;
-          cyan = config.colors.colorCyan;
-          green = config.colors.colorGreen1;
-          magenta = config.colors.colorMagenta1;
-          red = config.colors.colorRed1;
-          white = config.colors.colorWhite0;
-          yellow = config.colors.colorYellow1;
-        };
-        colors.primary = {
-          background = config.colors.bgColor0;
-          bright_foreground = config.colors.brfgColor;
-          foreground = config.colors.fgColor0;
+        colors = rec {
+          normal = {
+            black = config.colors.bgColor0;
+            blue = config.colors.colorBlue1;
+            cyan = config.colors.colorCyan;
+            green = config.colors.colorGreen1;
+            magenta = config.colors.colorMagenta1;
+            red = config.colors.colorRed1;
+            white = config.colors.colorWhite0;
+            yellow = config.colors.colorYellow1;
+          };
+          bright = normal;
+          dim = normal;
+          primary = {
+            background = config.colors.bgColor0;
+            bright_foreground = config.colors.brfgColor;
+            foreground = config.colors.fgColor0;
+          };
         };
         cursor = { style = "Underline"; };
         env = {

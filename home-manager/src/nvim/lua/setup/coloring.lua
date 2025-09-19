@@ -3,7 +3,7 @@ local colors = require("colors")
 require('tabby.tabline').set(function(line)
     return {
         line.tabs().foreach(function(tab)
-            local hl = tab.is_current() and { fg = colors.colorMagenta0, bg = colors.bgColor0 } or { fg = colors.colorWhite3, bg = colors.bgColor0 }
+            local hl = tab.is_current() and { fg = colors.colorMagenta1, bg = colors.bgColor0 } or { fg = colors.colorWhite3, bg = colors.bgColor0 }
             return {
                 line.sep("", hl, { bg = colors.bgColor0 }),
                 tab.name(),
@@ -54,7 +54,7 @@ vim.cmd([[
     highlight Operator guifg=aquamarine
     highlight Keyword guifg=plum
 ]])
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.colorMagenta1, bg = colors.bgColor0 })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.primary, bg = colors.bgColor0 })
 vim.api.nvim_set_hl(0, "BiscuitColor", { fg = colors.commentColor })
 
 local function keymap()
@@ -68,7 +68,7 @@ require('lualine').setup{
         icons_enabled = false,
         theme = {
             normal = {
-                a = { fg = colors.bgColor0, bg = colors.colorMagenta1, gui = 'bold' },
+                a = { fg = colors.bgColor0, bg = colors.primary, gui = 'bold' },
                 b = { fg = colors.colorWhite3, bg = colors.bgColor0 },
                 c = { fg = colors.colorWhite3, bg = colors.bgColor0 },
             },

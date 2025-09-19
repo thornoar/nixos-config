@@ -21,7 +21,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Gruvbox";
+    dir = "Chains";
     gamma = 0.9;
     contrast = 1.0;
   };

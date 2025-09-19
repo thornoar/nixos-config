@@ -144,7 +144,7 @@
     loader.timeout = 35996;
     loader.efi.canTouchEfiVariables = true;
     supportedFilesystems = [ "ntfs" ];
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
   };
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=3s

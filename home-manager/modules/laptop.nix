@@ -52,7 +52,7 @@ in
         gap_size = 2;
         font = config.misc.systemFont + " 11";
         corner_radius = config.hyprland.rounding;
-        frame_color = config.colors.colorMagenta0;
+        frame_color = config.colors.primary;
         foreground = config.colors.colorWhite3;
         background = config.colors.bgColor0;
         sticky_history = false;

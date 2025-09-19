@@ -7,16 +7,19 @@
   in {
     colors = lib.mkOption {
       type = lib.types.attrs;
-      default = {
-        # bgColor0 = "#000000";
-        # bgColor1 = "#0f0f0f";
+      default = rec {
+        primary = "#d3d3d3";
+        # primary = fgColor0;
+
         bgColor0 = "#0c0c10";
         bgColor1 = "#121215";
         bgColor2 = "#262728";
         bgColor3 = "#4d4e4f";
         commentColor = "#5c6370";
         fgColor0 = "#17a88b";
+        # fgColor0 = primary;
         brfgColor = "#00bc96";
+        # brfgColor = fgColor0;
 
         colorBlack = "#000000";
 
@@ -49,10 +52,10 @@
         colorGreen2 = "#78971a";
         colorGreen4 = "#98c379";
 
-        colorMagenta0 = "#ff79c6";
+        colorMagenta0 = "#e772c1";
         colorMagenta1 = "#bd93f9";
         colorMagenta2 = "#c678dd";
-        colorMagenta3 = "#b16286";
+        colorMagenta3 = "#b36596";
       };
     };
 
@@ -97,27 +100,27 @@
             ${config.xmobar.extraOptions}
             commands = [
                 Run Alsa "default" "Master" [
-                    "--template", "<fc=${config.colors.colorMagenta0}>VOL: <volumestatus></fc>",
+                    "--template", "<fc=${config.colors.primary}>VOL: <volumestatus></fc>",
                     "--suffix", "True",
                     "--",
                     "--on", ""
                 ],
-                Run Date "<fc=${config.colors.colorMagenta0}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta0}>%a %Y-%m-%d</fc>" "date" 10,
+                Run Date "<fc=${config.colors.primary}>%H:%M:%S</fc> | <fc=${config.colors.colorMagenta0}>%a %Y-%m-%d</fc>" "date" 10,
                 Run XMonadLog,
                 ${config.xmobar.extraCommands}
                 Run Kbd [
-                    ("us", "<fc=${config.colors.colorMagenta1}>US</fc>"),
-                    ("ru", "<fc=${config.colors.colorMagenta1}>RU</fc>"),
-                    ("de", "<fc=${config.colors.colorMagenta1}>DE</fc>")
+                    ("us", "<fc=${config.colors.primary}>US</fc>"),
+                    ("ru", "<fc=${config.colors.primary}>RU</fc>"),
+                    ("de", "<fc=${config.colors.primary}>DE</fc>")
                 ],
-                Run MultiCpu       [ "--template" , "<fc=${config.colors.colorMagenta1}>CPU:</fc> <total0><fc=${config.colors.colorMagenta1}>%</fc>"
+                Run MultiCpu       [ "--template" , "<fc=${config.colors.primary}>CPU:</fc> <total0><fc=${config.colors.colorMagenta1}>%</fc>"
                      , "--Low"      , "50"         -- units: %
                      , "--High"     , "85"         -- units: %
                      , "--low"      , "green"
                      , "--normal"   , "orange"
                      , "--high"     , "red"
                  ] 10,
-                Run Memory         [ "--template" ,"<fc=${config.colors.colorMagenta1}>RAM:</fc> <usedratio><fc=${config.colors.colorMagenta1}>%</fc>"
+                Run Memory         [ "--template" ,"<fc=${config.colors.primary}>RAM:</fc> <usedratio><fc=${config.colors.colorMagenta1}>%</fc>"
                     , "--Low"      , "20"        -- units: %
                     , "--High"     , "90"        -- units: %
                     , "--low"      , "darkgreen"
