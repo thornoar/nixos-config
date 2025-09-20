@@ -64,14 +64,14 @@ in
 
     xdg.configFile."colors.css".text = (toCSS false "" config.colors);
 
-    # moc configuration
+    # Moc configuration
     home.file.".moc/config" = config.util.dotFileMut "mocp/config";
     home.file.".moc/keymap" = config.util.dotFileMut "mocp/keymap";
 
-    # mpv configuration
+    # Mpv configuration
     xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 
-    # zathura configuration
+    # Zathura configuration
     xdg.configFile."zathura/zathurarc".text = ''
       set window-title-basename "true"
       set selection-clipboard "clipboard"
@@ -108,7 +108,7 @@ in
       set recolor-darkcolor           "${config.colors.colorWhite1}" # Foreground
 
       set adjust-open width
-      # set recolor true
+      set recolor true
       set guioptions none
 
       map <S-Up> feedkeys "zI"
