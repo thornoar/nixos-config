@@ -14,9 +14,6 @@ bindkey "^[[1;5B" fzf-file-widget
 bindkey "^[[1;5C" fzf-cd-widget
 bindkey "^[[1;5A" fzf-history-widget
 
-setopt dot_glob
-setopt extended_glob
-
 alias -- clip='wl-copy -n'
 alias -- close=exit
 alias -- decrypt='openssl enc -aes-256-cfb -iter 100 -a -d'
