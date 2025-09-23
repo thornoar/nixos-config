@@ -14,8 +14,6 @@ in
 
     home.sessionVariables = {
       WALLPAPER_DIR = config.wallpaper.dir;
-      ARCHVM = "192.168.122.35";
-      DEBIANVM = "192.168.122.127";
     };
 
     home.packages =

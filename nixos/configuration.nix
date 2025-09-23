@@ -207,7 +207,7 @@
   services.locate.enable = true;
 
   virtualisation.libvirtd.enable = true;
-  programs = { virt-manager.enable = true; };
+  programs.virt-manager.enable = true;
 
   environment.etc."current-system-packages".text =
     let packages = builtins.map (p: "${p.name}") config.environment.systemPackages;

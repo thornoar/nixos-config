@@ -10,9 +10,6 @@
     documents = "${config.home.homeDirectory}/docs";
     pictures = "${config.home.homeDirectory}/media/pictures";
   };
-  home.sessionVariables = {
-    BAT_THEME = "ansi";
-  };
 
   home.pointerCursor = {
     x11.enable = true;
