@@ -43,3 +43,4 @@ calcure
 sops
 pdftk
 tor-browser
+adbfs-rootless

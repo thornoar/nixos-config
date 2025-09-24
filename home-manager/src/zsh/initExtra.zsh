@@ -34,4 +34,4 @@ alias -- develop='export ZDOTDIR="$XDG_CONFIG_HOME/nix-develop" && nix develop'
 
 export ARCHVM="192.168.122.35"
 export DEBIANVM="192.168.122.127"
-export SAMSUNG="10.89.226.157"
+export SAMSUNG="10.89.226.157:6969"
