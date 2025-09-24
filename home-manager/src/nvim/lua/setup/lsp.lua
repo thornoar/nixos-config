@@ -109,6 +109,7 @@ lspconfig.clangd.setup({
     end,
 })
 lspconfig.bashls.setup(lspbasicconfig)
+lspconfig.asm_lsp.setup(lspbasicconfig)
 -- lspconfig.coq_lsp.setup(lspbasicconfig)
 -- lspconfig.kotlin_language_server.setup({
 --     autostart = true,

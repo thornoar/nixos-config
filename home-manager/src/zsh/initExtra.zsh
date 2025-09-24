@@ -20,7 +20,7 @@ alias -- decrypt='openssl enc -aes-256-cfb -iter 100 -a -d'
 alias -- def='dict -h dict.org'
 alias -- encrypt='openssl enc -aes-256-cfb -iter 100 -a'
 alias -- film='transmission-remote -w ~/media/films -a '
-alias -- gitlog='git log --oneline --graph --decorate'
+alias -- gitlog='git log --oneline --graph --decorate --all'
 alias -- gpp='g++ -std=c++11 -Wall -fsanitize=leak,address,undefined'
 alias -- grep='grep --color=auto'
 alias -- lbr='clear; br'
@@ -31,6 +31,8 @@ alias -- torrent=transmission-remote
 alias -- vmcon='virt-manager --connect qemu:///system --show-domain-console'
 alias -- fdate='date +"%d %b %Y (%a): %H:%M"'
 alias -- develop='export ZDOTDIR="$XDG_CONFIG_HOME/nix-develop" && nix develop'
+
+export PATH=$PATH:~/media/sandbox/bin
 
 export ARCHVM="192.168.122.35"
 export DEBIANVM="192.168.122.127"

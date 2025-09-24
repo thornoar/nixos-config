@@ -24,6 +24,8 @@ leiningen
 sage
 tmux
 nasm
+fasm
+asm-lsp
 pyright
 devbox
 meson
