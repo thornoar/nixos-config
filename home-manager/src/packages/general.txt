@@ -44,3 +44,5 @@ sops
 pdftk
 tor-browser
 adbfs-rootless
+w3m
+hyprprop

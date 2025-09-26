@@ -1,0 +1,8 @@
+keymap m MARK
+keymap [ PREV
+keymap ] NEXT
+keymap C-p WRAP_TOGGLE
+keymap C-w GOTO
+keymap C-W TAB_GOTO
+keymap T TAB_LINK
+keymap A ACCESSKEY

@@ -228,6 +228,9 @@ in {
 
     # GHCi configuration
     ".ghci" = config.util.dotFileMut "ghci";
+
+    # w3m config
+    ".w3m/keymap" = config.util.dotFileMut "w3m.keymap";
   };
 
   # pshash config
