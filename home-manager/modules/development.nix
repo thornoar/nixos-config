@@ -233,8 +233,11 @@ in {
     ".w3m/keymap" = config.util.dotFileMut "w3m.keymap";
   };
 
-  # pshash config
+  # Pshash config
   xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
+
+  # Cheat config
+  xdg.configFile."cheat/conf.yaml" = config.util.dotFileMut "cheat.conf.yaml";
 
   programs = {
     git = {
