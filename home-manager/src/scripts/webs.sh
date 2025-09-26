@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+w3m "duckduckgo.com/?q=${*}"

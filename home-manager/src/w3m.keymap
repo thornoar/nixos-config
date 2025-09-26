@@ -6,3 +6,5 @@ keymap C-w GOTO
 keymap C-W TAB_GOTO
 keymap T TAB_LINK
 keymap A ACCESSKEY
+keymap DOWN UP
+keymap UP DOWN
