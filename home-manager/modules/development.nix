@@ -237,7 +237,7 @@ in {
   xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
 
   # Cheat config
-  xdg.configFile."cheat/conf.yaml" = config.util.dotFileMut "cheat.conf.yaml";
+  xdg.configFile."cheat/conf.yml" = config.util.dotFileMut "cheat.conf.yml";
 
   programs = {
     git = {
