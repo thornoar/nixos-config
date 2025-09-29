@@ -8,14 +8,14 @@
     resolution = "2880x1620";
     fontsize = 11;
     fontsizeWaybar = 11;
-    windowSpaceInner = 4;
-    windowSpaceOuter = 8;
+    windowSpaceInner = 0;
+    windowSpaceOuter = 0;
     windowBorderWidth = 0;
     terminalOpacity = 0.92;
     terminalPaddingX = 1;
     terminalPaddingY = 1;
     terminalPadding = 1;
-    rounding = 5;
+    rounding = 0;
     barHeight = 50;
     firefoxScale = 1.8;
   };

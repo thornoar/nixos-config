@@ -8,7 +8,8 @@
     colors = lib.mkOption {
       type = lib.types.attrs;
       default = rec {
-        primary = "#d3d3d3";
+        primary = colorWhite3;
+        # primary = "#d3d3d3";
         # primary = fgColor0;
 
         bgColor0 = "#0c0c10";
@@ -25,8 +26,9 @@
 
         colorWhite0 = "#ffffff";
         colorWhite1 = "#f8f8f2";
-        colorWhite2 = "#e6efff";
-        colorWhite3 = "#bbbbbb";
+        colorWhite2 = "#e6efef";
+        colorWhite3 = "#abb2bf";
+        # colorWhite3 = "#bfbfbf";
         colorWhite4 = "#595f6b";
 
         colorYellow0 = "#f1fa8c";

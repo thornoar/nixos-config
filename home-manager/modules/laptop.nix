@@ -43,7 +43,7 @@ in
     services.dunst = {
       enable = true;
       settings.global = {
-        origin = "top-right";
+        origin = "top";
         offset = "${ts (config.hyprland.windowSpaceOuter + 10)}x${ts (config.hyprland.windowSpaceOuter + 10)}";
         progress_bar = false;
         frame_width = 1;
@@ -54,8 +54,8 @@ in
         foreground = config.colors.colorWhite3;
         background = config.colors.bgColor0;
         sticky_history = false;
-        padding = config.hyprland.windowSpaceOuter;
-        horizontal_padding = config.hyprland.windowSpaceOuter;
+        padding = config.hyprland.windowSpaceOuter + 5;
+        horizontal_padding = config.hyprland.windowSpaceOuter + 5;
       };
       settings.urgency_normal = { timeout = 1; };
     };

@@ -5,29 +5,47 @@
 	border: none;
 	border-radius: 0px;
     font-family: "Hack";
-	min-height: 10px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+	min-height: 0px;
+    /* margin-top: 0px; */
+    /* margin-bottom: 0px; */
 }
 
 @import "./size.css";
 
 window#waybar {
-	background: transparent;
+	/* background: transparent; */
+	background: @bgColor0;
+}
+
+#pulseaudio,
+#clock {
+	border-right: 1px solid @primary;
+}
+
+#backlight {
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 #pulseaudio,
 #clock,
 #backlight {
-	/* border: 1px solid @bgColor1; */
-	margin-top: 0px;
-	margin-bottom: 0px;
-	margin-left: 5px;
-	margin-right: 5px;
-	padding-left: 8px;
-	padding-right: 8px;
+	padding-left: 12px;
+	padding-right: 12px;
 	transition: none;
     color: @primary;
+	background: @bgColor0;
+}
+
+#language,
+#network,
+#cpu,
+#memory,
+#battery {
+	padding-left: 12px;
+	padding-right: 12px;
+	transition: none;
+	color: @primary;
 	background: @bgColor0;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -36,34 +54,19 @@ window#waybar {
 #language,
 #network,
 #cpu,
-#memory,
-#battery {
-	/* border: 1px solid @bgColor1; */
-	margin-top: 0px;
-	margin-left: 10px;
-	margin-right: 0px;
-	padding-left: 8px;
-	padding-right: 8px;
-	margin-bottom: 0px;
-	transition: none;
-	color: @primary;
-	background: @bgColor0;
-    padding-top: 2px;
-    padding-bottom: 2px;
+#memory {
+	border-right: 1px solid @primary;
 }
 
 #battery.plugged,
 #battery.charging,
 #battery.full {
-	/* border: 1px solid @primary; */
 	color: @primary;
 }
 
 #workspaces button {
-	/* border: 1px solid @bgColor0; */
-	margin-right: 10px;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
     padding-top: 0px;
     padding-bottom: 0px;
 	transition: none;
@@ -73,10 +76,10 @@ window#waybar {
     padding-bottom: 2px;
 }
 #workspaces button.active {
-	border: 1px solid @primary;
-	margin-right: 10px;
-    padding-left: 4px;
-    padding-right: 4px;
-	background: @bgColor0;
-    color: @primary;
+	/* border: 1px solid @bgColor0; */
+	/* border: none; */
+    /* padding-left: 9px; */
+    /* padding-right: 9px; */
+	background: @colorWhite3;
+    color: @bgColor0;
 }
