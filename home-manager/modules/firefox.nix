@@ -209,15 +209,15 @@ let
   ];
   search = {
     force = true;
-    default = "google";
-    order = [ "google" "searx" ];
+    default = "duckduckgo";
+    order = [ "duckduckgo" "searx" ];
   };
   baseSettings = {
     "browser.startup.homepage" = "about:home";
     "browser.tabs.inTitlebar" = 0;
     "browser.toolbars.bookmarks.visibility" = "never";
-    "browser.search.defaultenginename" = "Google";
-    "browser.search.order.1" = "Google";
+    "browser.search.defaultenginename" = "DuckDuckGo";
+    "browser.search.order.1" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "signon.rememberSignons" = false;
     "media.hardware-video-decoding.enabled" = true;

@@ -25,3 +25,4 @@
 #let limsup = $limits(op("lim sup"#hh))$
 #let dx = $d x$
 #let dt = $d t$
+#let gen(it) = $lr(angle.l it angle.r)$

@@ -42,10 +42,6 @@
         };
       };
     };
-    displayManager.autoLogin = {
-      enable = true;
-      user = "ramak";
-    };
   };
 
   time.timeZone = "Asia/Hong_Kong";

@@ -14,6 +14,10 @@
       sddm.enable = true;
       sddm.wayland.enable = true;
       # ly.enable = true;
+      autoLogin = {
+        enable = true;
+        user = "ramak";
+      };
     };
     ollama = {
       enable = true;

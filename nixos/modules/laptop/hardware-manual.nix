@@ -30,13 +30,13 @@
   };
 
   services = {
-    # cron = {
-    #   enable = true;
-    #   systemCronJobs = [
-    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
-    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
-    #   ];
-    # };
+    cron = {
+      enable = true;
+      systemCronJobs = [
+        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
+        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
+      ];
+    };
     upower.enable = true;
     thermald.enable = true;
     auto-cpufreq = {
