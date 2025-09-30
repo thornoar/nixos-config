@@ -52,11 +52,10 @@ printf "\n"
 
 if [ -e "$file" ]; then
     openssl enc $args -pass "pass:$password" -d -in "$file" -out "$tmpfile" || exit 1
-fi
-
-if [[ "$(file -b --mime-type "$tmpfile")" != "text/plain" ]]; then
-    printf "Bad decryption (incorrect password or wrong encryption arguments)\n"
-    exit 1
+    if [[ "$(file -b --mime-type "$tmpfile")" != "text/plain" ]]; then
+        printf "Bad decryption (incorrect password or wrong encryption arguments)\n"
+        exit 1
+    fi
 fi
 
 $EDITOR "$tmpfile" || exit 1
