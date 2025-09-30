@@ -1,5 +1,5 @@
 autoload -U colors && colors
-PS1="[%{$fg[red]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
+PS1="[%{$fg[blue]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
 
 function precmd() {
     echo -ne '\e[4 q'

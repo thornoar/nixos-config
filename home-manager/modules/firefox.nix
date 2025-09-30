@@ -207,24 +207,24 @@ let
     adblocker-ultimate
     export-cookies-txt
   ];
-  search = {
-    force = true;
-    default = "duckduckgo";
-    order = [ "duckduckgo" "searx" ];
-  };
+  # search = {
+  #   force = false;
+  #   default = "duckduckgo";
+  #   order = [ "duckduckgo" "searx" ];
+  # };
   baseSettings = {
     "browser.startup.homepage" = "about:home";
     "browser.tabs.inTitlebar" = 0;
     "browser.toolbars.bookmarks.visibility" = "never";
-    "browser.search.defaultenginename" = "DuckDuckGo";
-    "browser.search.order.1" = "DuckDuckGo";
+    # "browser.search.defaultenginename" = "DuckDuckGo";
+    # "browser.search.order.1" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "signon.rememberSignons" = false;
     "media.hardware-video-decoding.enabled" = true;
     "layout.css.dpi" = 96;
   };
   baseProfile = {
-    inherit search;
+    # inherit search;
     inherit userChrome;
     extensions.packages = extensions;
     bookmarks = {
@@ -252,14 +252,6 @@ in {
           "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
         };
       };
-      # profiles.xmonad = baseProfile // {
-      #   id = 1;
-      #   name = "xmonad";
-      #   isDefault = false;
-      #   settings = baseSettings // {
-      #     "layout.css.devPixelsPerPx" = config.xmonad.firefoxScale;
-      #   };
-      # };
     };
   };
 }

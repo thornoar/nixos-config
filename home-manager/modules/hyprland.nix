@@ -90,12 +90,12 @@ in {
 
     xdg.configFile."tofi/config".text = ''
       font-size = ${ts config.hyprland.fontsize}
-      text-color = ${config.colors.colorWhite1}
-      prompt-color =${config.colors.colorWhite1} 
+      text-color = ${config.colors.primary}
+      prompt-color =${config.colors.primary} 
       placeholder-color = ${config.colors.bgColor3}
-      input-color =${config.colors.colorWhite1} 
-      default-result-color =${config.colors.colorWhite1} 
-      selection-color = ${config.colors.colorMagenta1}
+      input-color =${config.colors.primary} 
+      default-result-color =${config.colors.primary} 
+      selection-color = ${config.colors.fgColor0}
       selection-background = ${config.colors.bgColor0}
       selection-match-color = ${config.colors.colorMagenta0}
       width = ${
@@ -109,10 +109,14 @@ in {
       border-width = 1
       border-color =${config.colors.primary} 
       corner-radius = ${ts config.hyprland.rounding}
-      padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
-      padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
-      padding-left = ${ts config.hyprland.windowSpaceOuter}
-      padding-right = ${ts config.hyprland.windowSpaceOuter}
+      # padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
+      # padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
+      # padding-left = ${ts config.hyprland.windowSpaceOuter}
+      # padding-right = ${ts config.hyprland.windowSpaceOuter}
+      padding-top = 5
+      padding-bottom = 0
+      padding-left = 10
+      padding-right = 10
       margin-top = ${ts config.hyprland.windowSpaceOuter}
       margin-bottom = 0
       margin-left = ${ts config.hyprland.windowSpaceOuter}
@@ -139,7 +143,7 @@ in {
           primary = {
             background = config.colors.bgColor0;
             bright_foreground = config.colors.brfgColor;
-            foreground = config.colors.fgColor0;
+            foreground = config.colors.primary;
           };
         };
         cursor = { style = "Underline"; };
