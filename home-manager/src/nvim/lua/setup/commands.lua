@@ -67,16 +67,12 @@ vim.api.nvim_create_user_command('SilentWrite', function () vim.cmd('silent writ
 vim.api.nvim_create_user_command('Wrap', function () vim.o.wrap = not vim.o.wrap end, {})
 
 local detach = function ()
-    if (#vim.api.nvim_list_wins() < 2) then
-        for _, ui in pairs(vim.api.nvim_list_uis()) do
-            if ui.chan then
-                vim.fn.chanclose(ui.chan)
-            else
-                print("cannot quit")
-            end
+    for _, ui in pairs(vim.api.nvim_list_uis()) do
+        if ui.chan then
+            vim.fn.chanclose(ui.chan)
+        else
+            print("cannot quit")
         end
-    else
-        vim.cmd('quit!')
     end
 end
 

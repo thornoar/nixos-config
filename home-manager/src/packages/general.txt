@@ -45,3 +45,4 @@ pdftk
 adbfs-rootless
 w3m
 hyprprop
+pulseaudio

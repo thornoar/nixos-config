@@ -128,7 +128,7 @@ in {
         djvu: "${config.colors.colorRed2}"
         lock: "${config.colors.colorWhite0}"
         torrent: "${config.colors.colorGreen1}"
-        enc: "${config.colors.Red1}"
+        enc: "${config.colors.colorRed1}"
     }
   '';
 
