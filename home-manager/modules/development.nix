@@ -151,12 +151,12 @@ in {
   xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
-  # Bat configuration
-  programs.bat = {
-    enable = true;
-    extraPackages = with pkgs.bat-extras; [ batman ];
-  };
-  home.sessionVariables.BAT_THEME = "ansi";
+  # # Bat configuration
+  # programs.bat = {
+  #   enable = true;
+  #   extraPackages = with pkgs.bat-extras; [ batman ];
+  # };
+  # home.sessionVariables.BAT_THEME = "ansi";
 
   # neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
