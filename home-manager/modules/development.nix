@@ -158,14 +158,17 @@ in {
   # };
   # home.sessionVariables.BAT_THEME = "ansi";
 
-  # neofetch configuration
+  # Neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
-  # khal configuration
+  # Khal configuration
   xdg.configFile."khal/config" = config.util.dotFileMut "khal.config.ini";
 
-  # tmux configuration
+  # Tmux configuration
   xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
+
+  # Btop config
+  xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop.conf";
 
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
