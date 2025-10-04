@@ -168,7 +168,8 @@ in {
   xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
 
   # Btop config
-  xdg.configFile."btop" = config.util.dotFileMut "btop";
+  xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop/btop.conf";
+  xdg.configFile."btop/themes" = config.util.dotFileMut "btop/themes";
 
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
