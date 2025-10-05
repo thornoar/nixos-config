@@ -167,9 +167,9 @@ in {
   # Tmux configuration
   xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
 
-  # Btop config
-  xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop/btop.conf";
-  xdg.configFile."btop/themes" = config.util.dotFileMut "btop/themes";
+  # # Btop config
+  # xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop/btop.conf";
+  # xdg.configFile."btop/themes" = config.util.dotFileMut "btop/themes";
 
   # Htop config
   xdg.configFile."htop/htoprc" = config.util.dotFileMut "htop/htoprc";

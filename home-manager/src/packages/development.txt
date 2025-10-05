@@ -29,7 +29,7 @@ glibc
 glibc.static
 libffi
 libtool
-nixfmt
+nixfmt-classic
 cheat
 cmake
 gnumake
