@@ -6,7 +6,6 @@ transmission_3
 killall
 dict
 moc
-btop
 toipe
 libqalculate
 telegram-desktop
@@ -33,3 +32,4 @@ adbfs-rootless
 w3m
 alsa-utils
 pulseaudio
+htop
