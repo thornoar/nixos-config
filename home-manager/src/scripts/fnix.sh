@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-POSITIONAL_ARGS=()
+# POSITIONAL_ARGS=()
 raw=0
 desc=0
 level=""
@@ -19,17 +19,18 @@ if [ -z "$1" ]; then
     exit 0
 fi
 
-while [[ $# -gt 0 ]]; do
-    case $1 in #((((
-        -r|--raw) raw=1; shift ;;
-        -d|--desc) desc=1; shift ;;
-        -l|--level) level="$2"; shift; shift ;;
-        -s|--section) section="$2"; shift; shift ;;
-        -h|--help) printUsage; exit 0 ;;
-        *) POSITIONAL_ARGS+=("$1"); shift ;;
-    esac
-done
-set -- "${POSITIONAL_ARGS[@]}"
+case $1 in #((((
+    -r|--raw) raw=1; shift ;;
+    -d|--desc) desc=1; shift ;;
+    -l|--level) level="$2"; shift; shift ;;
+    -s|--section) section="$2"; shift; shift ;;
+    -h|--help) printUsage; exit 0 ;;
+    # *) POSITIONAL_ARGS+=("$1"); shift ;;
+esac
+
+# while [[ $# -gt 0 ]]; do
+# done
+# set -- "${POSITIONAL_ARGS[@]}"
 
 if [ -n "$level" ] && [ -n "$section" ]; then
     given_level_section=1
@@ -216,6 +217,8 @@ elif [[ "remove" =~ ^"$cmd" ]]; then
         awk "!/$package/" "$file" > temp && mv temp "$file"
     done
     if [ "$raw" -eq 0 ] && [ "$changed" -eq 1 ]; then printf "> Rebuild the system to apply changes.\n"; fi
+elif [[ "run" =~ ^"$cmd" ]]; then
+    nix run "nixpkgs#$2" -- "${@:3}"
 elif [[ "collect-garbage" =~ ^"$cmd" ]]; then
     sudo printf ""
     if [ "$raw" -eq 0 ]; then printf "> Collecting garbage on the user level.\n"; fi # ]]

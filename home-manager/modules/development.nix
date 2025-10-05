@@ -171,6 +171,9 @@ in {
   xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop/btop.conf";
   xdg.configFile."btop/themes" = config.util.dotFileMut "btop/themes";
 
+  # Htop config
+  xdg.configFile."htop/htoprc" = config.util.dotFileMut "htop/htoprc";
+
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
     # Typst libraries
