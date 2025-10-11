@@ -33,3 +33,5 @@ w3m
 alsa-utils
 pulseaudio
 htop
+acpi
+lm_sensors

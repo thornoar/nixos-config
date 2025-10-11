@@ -296,6 +296,10 @@ require("lazy").setup({
             -- run = ":TSUpdate"
         },
     },
+    {
+        "karb94/neoscroll.nvim",
+        opts = {}
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -317,5 +321,6 @@ require("setup.spell")
 require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
+require("setup.neoscroll")
 -- require("setup.noice")
 -- require("setup.nvim-subfiles")
