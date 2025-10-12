@@ -12,6 +12,7 @@ function ask {
         blkcmd dir "gitcommit" -c
     else
         echo "> Cancelled."
+        exit 0
     fi
 }
 
