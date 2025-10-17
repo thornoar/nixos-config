@@ -35,3 +35,4 @@ pulseaudio
 htop
 acpi
 lm_sensors
+cl-wordle
