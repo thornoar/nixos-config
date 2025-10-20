@@ -12,7 +12,7 @@
 
     // Clock
     "clock": {
-      "format": "{:%H:%M:%S %a %d.%m.%Y}",
+      "format": "{:%H:%M:%S %a %d}",
       "interval": 1,
       "tooltip": false
     },
