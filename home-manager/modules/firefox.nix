@@ -182,6 +182,11 @@ let
       url = "https://docs.google.com/spreadsheets/d/1n9OG9_T1miRNApyKFhJKNE7OhfgQF8qAFSyrUugXwpY/edit#gid=1245663652";
       keyword = "lm";
     }
+    {
+      name = "pr | Web Print";
+      url = "https://netprint.ust.hk/app?service=page/UserWebPrint";
+      keyword = "pr";
+    }
   ];
   userChrome = ''
     #unified-extensions-button, #unified-extensions-button > .toolbarbutton-icon {
