@@ -106,7 +106,7 @@ in
       set recolor-darkcolor           "${config.colors.colorWhite1}" # Foreground
 
       set adjust-open width
-      set recolor true
+      set recolor false
       set guioptions none
 
       map <S-Up> feedkeys "zI"

@@ -27,3 +27,4 @@
 #let dt = $d t$
 #let gen(it) = $lr(angle.l it angle.r)$
 #let st = $#h(0pt):#h(5pt)$
+#let wh = $#h(0pt),#h(5pt)$
