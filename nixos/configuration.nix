@@ -30,10 +30,10 @@
       keep-outputs = true
       keep-derivations = true
     '';
-    registry = {
-      nixpkgs.flake = pkgs.inputs.nixpkgs;
-      ${sysname}.flake = pkgs.inputs.self;
-    };
+    # registry = {
+    #   nixpkgs.flake = import pkgs.inputs.nixpkgs;
+    #   ${sysname}.flake = pkgs.inputs.self;
+    # };
   };
 
   programs.nix-index = {
