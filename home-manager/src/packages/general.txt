@@ -36,3 +36,4 @@ htop
 acpi
 lm_sensors
 cl-wordle
+graphviz

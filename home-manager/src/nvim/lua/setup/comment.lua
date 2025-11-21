@@ -25,4 +25,5 @@ require('Comment').setup({
 })
 local ft = require('Comment.ft')
 ft.set('asy', { '//%s', '/*%s*/' })
+ft.set('mlscript', { '//%s', '/*%s*/' })
 ft.set('hjson', { '#%s' })

@@ -27,7 +27,7 @@ syn match    mlsFlag           "^:\w\+"
 
 " function names
 syn match    mlsCustomFunc     "\w\+\s*(\@="
-syn match    mlsCustomFunc     "\w\+\s*\(of\)\@="
+syn match    mlsCustomFunc     "\w\+\s\+\(of\)\@="
 syn match    mlsCustomFunc     "\(\.\.\)\@<!\.\@<=\w\+"
 
 " module names

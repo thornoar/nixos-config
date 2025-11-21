@@ -188,15 +188,15 @@ cmp.setup({
         { name = 'path' },
         -- { name = 'buffer' },
         { name = 'ultisnips' },
-        -- {
-        --     name = 'look',
-        --     keyword_length = 2,
-        --     option = {
-        --         convert_case = true,
-        --         loud = true,
-        --         dict = os.getenv('WORDLIST')
-        --     }
-        -- },
+        {
+            name = 'look',
+            keyword_length = 2,
+            option = {
+                convert_case = true,
+                loud = true,
+                dict = os.getenv('WORDLIST')
+            }
+        },
     },
     window = {
         completion = cmp.config.window.bordered(),
