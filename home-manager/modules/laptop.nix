@@ -65,6 +65,7 @@ in
     # Moc configuration
     home.file.".moc/config" = config.util.dotFileMut "mocp/config";
     home.file.".moc/keymap" = config.util.dotFileMut "mocp/keymap";
+    home.file.".moc/themes/ramak" = config.util.dotFileMut "mocp/theme";
 
     # Mpv configuration
     xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
