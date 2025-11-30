@@ -8,6 +8,11 @@ let
       keyword = "yt";
     }
     {
+      name = "yt-dlp | YouTube Download";
+      url = "https://ytdlp.online/";
+      keyword = "dlp";
+    }
+    {
       name = "st | Syncthing";
       url = "http://127.0.0.1:8384/";
       keyword = "st";
