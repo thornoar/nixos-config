@@ -7,7 +7,7 @@ let
     ''
   );
   readCustomPackages = file:
-    lib.lists.forEach (pkgs.readFile file)
+    lib.lists.forEach (pkgs.tools.readFile file)
     (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
 in {
   # Vim/Neovim configuration
@@ -290,6 +290,6 @@ in {
       (texlive.combine { inherit (texlive) scheme-full; })
     ]
     # ++ (with pkgs.unstable; [ lua ])
-    ++ readPackages ../src/packages/development.txt pkgs
+    ++ pkgs.tools.readPackages ../src/packages/development.txt pkgs
     ++ readCustomPackages ../src/packages/custom.txt;
 }

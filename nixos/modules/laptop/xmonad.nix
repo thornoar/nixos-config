@@ -42,7 +42,7 @@
     };
   };
   environment.systemPackages =
-    pkgs.readPackages ../../src/packages/xmonad.txt pkgs;
+    pkgs.tools.readPackages ../../src/packages/xmonad.txt pkgs;
 
   nixpkgs.config.nvidia.acceptLicense = true;
   hardware.nvidia = {

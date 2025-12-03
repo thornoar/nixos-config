@@ -17,8 +17,8 @@ in
     };
 
     home.packages =
-      pkgs.readPackages ../src/packages/general.txt pkgs
-      ++ pkgs.readPackages ../src/packages/insecure.txt pkgs;
+      pkgs.tools.readPackages ../src/packages/general.txt pkgs
+      ++ pkgs.tools.readPackages ../src/packages/insecure.txt pkgs;
 
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {

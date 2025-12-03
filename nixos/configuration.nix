@@ -70,7 +70,7 @@
       ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
       SPECIALISATION = "default";
     };
-    systemPackages = pkgs.readPackages ./src/packages/general.txt pkgs;
+    systemPackages = pkgs.tools.readPackages ./src/packages/general.txt pkgs;
     localBinInPath = true;
     wordlist.enable = true;
   };

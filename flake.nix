@@ -44,12 +44,15 @@
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
           inherit (final) system;
+          config.allowUnfree = true;
         };
         inherit inputs;
         inherit firefox-pkgs;
-        inherit readFile;
-        inherit readPackages;
-        inherit dotFile;
+        tools = {
+          inherit readFile;
+          inherit readPackages;
+          inherit dotFile;
+        };
       };
       pkgs = import inputs.nixpkgs {
         inherit system;

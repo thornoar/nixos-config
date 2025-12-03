@@ -20,6 +20,7 @@
       };
     };
     ollama = {
+      package = pkgs.unstable.ollama;
       enable = true;
       acceleration = "cuda";
     };
@@ -39,7 +40,7 @@
 
   environment.systemPackages =
     with pkgs.unstable; [ waybar ] ++
-    pkgs.readPackages ../../src/packages/hyprland.txt pkgs;
+    pkgs.tools.readPackages ../../src/packages/hyprland.txt pkgs;
 
   boot.extraModprobeConfig = lib.mkDefault ''
     blacklist nouveau

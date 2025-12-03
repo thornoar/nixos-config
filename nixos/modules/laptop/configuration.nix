@@ -6,7 +6,7 @@
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };
 
-  environment.systemPackages = pkgs.readPackages ../../src/packages/laptop.txt pkgs;
+  environment.systemPackages = pkgs.tools.readPackages ../../src/packages/laptop.txt pkgs;
 
   services = {
     libinput = {
@@ -46,5 +46,5 @@
 
   time.timeZone = "Asia/Hong_Kong";
 
-  fonts.packages = pkgs.readPackages ../../src/packages/fonts.txt pkgs;
+  fonts.packages = pkgs.tools.readPackages ../../src/packages/fonts.txt pkgs;
 }
