@@ -2,11 +2,13 @@
 
 curdir=$(pwd)
 cd "$HOME/projects" || exit
-blkcmd dir "git status -s" -c
+# blkcmd dir "git status -s" -c
 dirty=0
 
 for dir in ./*; do
+    printf "> Checking directory \e[32m%s\e[0m:\n" "$dir"
     cd "$dir" || exit
+    git status -s
     if git diff-index --quiet HEAD; then
         dirty=1
     fi
