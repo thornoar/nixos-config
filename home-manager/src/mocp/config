@@ -3,3 +3,4 @@ Keymap = keymap
 Repeat = yes
 Shuffle = yes
 AutoNext = yes
+MusicDir = /home/ramak/media/music

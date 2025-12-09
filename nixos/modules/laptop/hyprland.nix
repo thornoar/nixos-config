@@ -49,20 +49,20 @@
 
   hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
 
-  hardware.nvidiaOptimus.disable = true;
+  # hardware.nvidiaOptimus.disable = true;
   hardware.nvidia = {
-    # modesetting.enable = true;
-    prime.sync.enable = false;
+    modesetting.enable = true;
+    # prime.sync.enable = false;
     open = false;
-    # prime = {
-    #   offload = {
-    #     enable = true;
-    #     enableOffloadCmd = true;
-    #   };
-    #   intelBusId = "PCI:0:2:0";
-    #   nvidiaBusId = "PCI:1:0:0";
-    # };
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
-  systemd.services.nbfc_service.enable = lib.mkForce false;
+  # systemd.services.nbfc_service.enable = lib.mkForce false;
 }
