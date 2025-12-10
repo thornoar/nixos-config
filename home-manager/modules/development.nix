@@ -251,10 +251,10 @@
       };
     };
     gh = { enable = true; };
-    nh = {
-      enable = true;
-      flake = "$NIXOS_CONFIG";
-    };
+    # nh = {
+    #   enable = true;
+    #   flake = "$NIXOS_CONFIG";
+    # };
   };
 
   home.packages = let
