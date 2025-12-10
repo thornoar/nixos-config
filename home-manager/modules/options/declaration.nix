@@ -16,6 +16,7 @@
         fg1 = "#00bc96";
 
         black = "#000000";
+        # blackFg = commentColor;
 
         white0 = "#ffffff";
         white1 = "#f8f8f2";

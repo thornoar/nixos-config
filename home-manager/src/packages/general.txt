@@ -19,7 +19,6 @@ pandoc
 yt-dlp
 xournalpp
 maestral
-swayimg
 networkmanager-openvpn
 sc-im
 mpv
@@ -37,3 +36,4 @@ acpi
 lm_sensors
 cl-wordle
 graphviz
+libxkbcommon
