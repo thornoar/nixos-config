@@ -9,7 +9,6 @@
   };
 
   services = {
-    xserver.videoDrivers = lib.mkForce ["nvidia" "modesetting"];
     displayManager = {
       sddm.enable = true;
       sddm.wayland.enable = true;
@@ -18,11 +17,6 @@
         enable = true;
         user = "ramak";
       };
-    };
-    ollama = {
-      package = pkgs.unstable.ollama;
-      enable = true;
-      acceleration = "cuda";
     };
   };
 
@@ -41,28 +35,4 @@
   environment.systemPackages =
     with pkgs.unstable; [ waybar ] ++
     pkgs.tools.readPackages ../../src/packages/hyprland.txt pkgs;
-
-  boot.extraModprobeConfig = lib.mkDefault ''
-    blacklist nouveau
-    options nouveau modeset=0
-  '';
-
-  hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
-
-  # hardware.nvidiaOptimus.disable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    prime = {
-      # offload = {
-      #   enable = true;
-      #   enableOffloadCmd = true;
-      # };
-      sync.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
-  # systemd.services.nbfc_service.enable = lib.mkForce false;
 }

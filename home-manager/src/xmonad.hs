@@ -174,12 +174,12 @@ searchList = [
 
 myTabTheme = def {
     fontName            = myFont,
-    activeColor         = bgColor0,
-    inactiveColor       = bgColor0,
-    activeBorderColor   = bgColor0,
-    inactiveBorderColor = bgColor0,
+    activeColor         = bg0,
+    inactiveColor       = bg0,
+    activeBorderColor   = bg0,
+    inactiveBorderColor = bg0,
     activeTextColor     = primary,
-    inactiveTextColor   = colorWhite3,
+    inactiveTextColor   = white3,
     decoHeight          = barHeight
   }
 
@@ -219,11 +219,11 @@ myXPKeymap = M.fromList $
 myXPConfig :: XPConfig
 myXPConfig = def {
     font                = myFont,
-    bgColor             = bgColor0,
-    fgColor             = colorWhite0,
+    bgColor             = bg0,
+    fgColor             = white0,
     bgHLight            = primary,
-    fgHLight            = colorBlack,
-    borderColor         = colorBlue2,
+    fgHLight            = black,
+    borderColor         = blue2,
     promptBorderWidth   = 0,
     promptKeymap        = myXPKeymap,
     position            = Top,
@@ -420,12 +420,12 @@ myXmobarPP = def {
     concatLoggers :: [Logger] -> Logger
     concatLoggers = fmap (fmap (intercalate ppSep) . sequence) . sequence
     blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta  = xmobarColor colorMagenta0 ""
-    blue     = xmobarColor colorMagenta1 ""
-    white    = xmobarColor colorWhite0 ""
-    yellow   = xmobarColor colorYellow0 ""
-    red      = xmobarColor colorRed0 ""
-    lowWhite = xmobarColor colorWhite3 ""
+    magenta  = xmobarColor magenta0 ""
+    blue     = xmobarColor magenta1 ""
+    white    = xmobarColor white0 ""
+    yellow   = xmobarColor yellow0 ""
+    red      = xmobarColor red0 ""
+    lowWhite = xmobarColor white3 ""
 
 -- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 myHandleEventHook = mempty
@@ -435,7 +435,7 @@ main = xmonad . ewmhFullscreen . ewmh . withSB (statusBarProp "xmobar" (pure myX
 defaults = def {
     terminal            = myTerminal,
     focusFollowsMouse   = myFocusFollowsMouse,
-    focusedBorderColor  = colorMagenta0,
+    focusedBorderColor  = magenta0,
     normalBorderColor   = primary,
     clickJustFocuses    = myClickJustFocuses,
     borderWidth         = windowBorderWidth,

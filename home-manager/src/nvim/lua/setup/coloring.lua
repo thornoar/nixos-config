@@ -3,26 +3,26 @@ local colors = require("colors")
 require('tabby.tabline').set(function(line)
     return {
         line.tabs().foreach(function(tab)
-            local hl = tab.is_current() and { fg = colors.colorMagenta1, bg = colors.bgColor0 } or { fg = colors.colorWhite3, bg = colors.bgColor0 }
+            local hl = tab.is_current() and { fg = colors.magenta1, bg = colors.bg0 } or { fg = colors.white3, bg = colors.bg0 }
             return {
-                line.sep("", hl, { bg = colors.bgColor0 }),
+                line.sep("", hl, { bg = colors.bg0 }),
                 tab.name(),
-                line.sep("", hl, { bg = colors.bgColor0 }),
+                line.sep("", hl, { bg = colors.bg0 }),
                 hl = hl,
                 margin = ' ',
             }
         end),
-        hl = { bg = colors.bgColor0 },
+        hl = { bg = colors.bg0 },
     }
 end)
 
 require('onedark').setup  {
     style = 'dark',
     colors = {
-        bg0 = colors.bgColor0,
-        bg1 = colors.bgColor0,
-        bg2 = colors.bgColor2,
-        bg3 = colors.bgColor3,
+        bg0 = colors.bg0,
+        bg1 = colors.bg0,
+        bg2 = colors.bg2,
+        bg3 = colors.bg3,
     },
     transparent = true,
     term_colors = true,
@@ -55,7 +55,7 @@ vim.cmd([[
     highlight Keyword guifg=plum
     highlight Comment gui=NONE
 ]])
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.primary, bg = colors.bgColor0 })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.primary, bg = colors.bg0 })
 vim.api.nvim_set_hl(0, "BiscuitColor", { fg = colors.commentColor })
 
 local function keymap()
@@ -69,19 +69,19 @@ require('lualine').setup{
         icons_enabled = false,
         theme = {
             normal = {
-                a = { fg = colors.bgColor0, bg = colors.primary, gui = 'bold' },
-                b = { fg = colors.colorWhite3, bg = colors.bgColor0 },
-                c = { fg = colors.colorWhite3, bg = colors.bgColor0 },
+                a = { fg = colors.bg0, bg = colors.primary, gui = 'bold' },
+                b = { fg = colors.white3, bg = colors.bg0 },
+                c = { fg = colors.white3, bg = colors.bg0 },
             },
-            command = { a = { fg = colors.bgColor0, bg = colors.colorYellow1, gui = 'bold' } },
-            insert = { a = { fg = colors.bgColor0, bg = colors.colorRed1, gui = 'bold' } },
-            visual = { a = { fg = colors.bgColor0, bg = colors.colorMagenta0, gui = 'bold' } },
-            terminal = { a = { fg = colors.bgColor0, bg = colors.colorCyan, gui = 'bold' } },
-            replace = { a = { fg = colors.bgColor0, bg = colors.colorMagenta1, gui = 'bold' } },
+            command = { a = { fg = colors.bg0, bg = colors.yellow1, gui = 'bold' } },
+            insert = { a = { fg = colors.bg0, bg = colors.red1, gui = 'bold' } },
+            visual = { a = { fg = colors.bg0, bg = colors.magenta0, gui = 'bold' } },
+            terminal = { a = { fg = colors.bg0, bg = colors.cyan, gui = 'bold' } },
+            replace = { a = { fg = colors.bg0, bg = colors.magenta1, gui = 'bold' } },
             inactive = {
-                a = { fg = colors.bgColor0, bg = colors.bgColor0, gui = 'bold' },
-                b = { fg = colors.bgColor0, bg = colors.bgColor0 },
-                c = { fg = colors.bgColor0, bg = colors.bgColor0 },
+                a = { fg = colors.bg0, bg = colors.bg0, gui = 'bold' },
+                b = { fg = colors.bg0, bg = colors.bg0 },
+                c = { fg = colors.bg0, bg = colors.bg0 },
             },
         },
         component_separators = '|',

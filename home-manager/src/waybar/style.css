@@ -1,7 +1,7 @@
 @import '/home/ramak/.config/colors.css';
 
 * {
-	/* border: 1px solid @bgColor1; */
+	/* border: 1px solid @bg1; */
 	border: none;
 	border-radius: 0px;
     font-family: "Hack";
@@ -14,7 +14,7 @@
 
 window#waybar {
 	/* background: transparent; */
-	background: @bgColor0;
+	background: @bg0;
 }
 
 #pulseaudio,
@@ -34,7 +34,7 @@ window#waybar {
 	padding-right: 12px;
 	transition: none;
     color: @primary;
-	background: @bgColor0;
+	background: @bg0;
 }
 
 #language,
@@ -46,7 +46,7 @@ window#waybar {
 	padding-right: 12px;
 	transition: none;
 	color: @primary;
-	background: @bgColor0;
+	background: @bg0;
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -71,15 +71,15 @@ window#waybar {
     padding-bottom: 0px;
 	transition: none;
 	color: @primary;
-	background: @bgColor0;
+	background: @bg0;
     padding-top: 2px;
     padding-bottom: 2px;
 }
 #workspaces button.active {
-	/* border: 1px solid @bgColor0; */
+	/* border: 1px solid @bg0; */
 	/* border: none; */
     /* padding-left: 9px; */
     /* padding-right: 9px; */
 	background: @colorWhite3;
-    color: @bgColor0;
+    color: @bg0;
 }

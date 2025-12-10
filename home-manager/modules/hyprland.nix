@@ -2,14 +2,6 @@
 
 let
   ts = builtins.toString;
-  toConf = mkstr:
-    lib.attrsets.foldlAttrs (str: k: v:
-      let
-        v' =
-          lib.strings.stringAsChars (x: if x == "#" then "0xff" else x) (ts v);
-      in str + ''
-        ''$${k} = ${if mkstr then ''"'' + v' + ''"'' else v'}
-      '');
 in {
   imports = [
     ./firefox.nix
@@ -36,8 +28,8 @@ in {
     };
 
     # Hyprland configuration
-    xdg.configFile."hypr/imports.conf".text = (toConf false "" config.hyprland)
-      + (toConf false "" config.misc) + (toConf false "" config.colors);
+    xdg.configFile."hypr/imports.conf".text = (config.util.toConf false "" config.hyprland)
+      + (config.util.toConf false "" config.misc) + (config.util.toConf false "" config.colors);
     xdg.configFile."wpaperd/config.toml".text = ''
       [${config.misc.monitorName}]
       path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
@@ -92,20 +84,20 @@ in {
       font-size = ${ts config.hyprland.fontsize}
       text-color = ${config.colors.primary}
       prompt-color =${config.colors.primary} 
-      placeholder-color = ${config.colors.bgColor3}
+      placeholder-color = ${config.colors.bg3}
       input-color =${config.colors.primary} 
       default-result-color =${config.colors.primary} 
-      selection-color = ${config.colors.fgColor0}
-      selection-background = ${config.colors.bgColor0}
-      selection-match-color = ${config.colors.colorMagenta0}
+      selection-color = ${config.colors.fg0}
+      selection-background = ${config.colors.bg0}
+      selection-match-color = ${config.colors.magenta0}
       width = ${
         ts
         (config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter)
       }
       height = 50%
-      background-color =${config.colors.bgColor0} 
+      background-color =${config.colors.bg0} 
       outline-width = 0
-      outline-color =${config.colors.bgColor0} 
+      outline-color =${config.colors.bg0} 
       border-width = 1
       border-color =${config.colors.primary} 
       corner-radius = ${ts config.hyprland.rounding}
@@ -129,20 +121,20 @@ in {
       settings = {
         colors = rec {
           normal = {
-            black = config.colors.bgColor0;
-            blue = config.colors.colorBlue1;
-            cyan = config.colors.colorCyan;
-            green = config.colors.colorGreen1;
-            magenta = config.colors.colorMagenta1;
-            red = config.colors.colorRed1;
-            white = config.colors.colorWhite0;
-            yellow = config.colors.colorYellow1;
+            black = config.colors.bg0;
+            blue = config.colors.blue1;
+            cyan = config.colors.cyan;
+            green = config.colors.green1;
+            magenta = config.colors.magenta1;
+            red = config.colors.red1;
+            white = config.colors.white0;
+            yellow = config.colors.yellow1;
           };
           bright = normal;
           dim = normal;
           primary = {
-            background = config.colors.bgColor0;
-            bright_foreground = config.colors.brfgColor;
+            background = config.colors.bg0;
+            bright_foreground = config.colors.fg1;
             foreground = config.colors.primary;
           };
         };

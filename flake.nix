@@ -23,6 +23,7 @@
       system = "x86_64-linux";
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
+
       getAttr = set: name:
         let
           split = lib.strings.splitString "." name;
@@ -32,15 +33,13 @@
         else
           getAttr (set.${builtins.head split})
           (str.concatStrings (str.intersperse "." (builtins.tail split)));
+
       readFile = file:
         (lib.lists.partition (x: 0 < lib.strings.stringLength x)
           (lib.strings.splitString "\n" (builtins.readFile file))).right;
+      
       readPackages = file: set: lib.lists.forEach (readFile file) (getAttr set);
-      dotFile = mkLink: srcPath: path: {
-        enable = true;
-        recursive = true;
-        source = mkLink (lib.path.append srcPath path);
-      };
+
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
           inherit (final) system;
@@ -51,9 +50,9 @@
         tools = {
           inherit readFile;
           inherit readPackages;
-          inherit dotFile;
         };
       };
+
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
@@ -63,6 +62,7 @@
         };
         overlays = [ addition ];
       };
+      
     in {
       nixosConfigurations = {
         laptop = lib.nixosSystem {
@@ -73,10 +73,7 @@
             ./nixos/modules/laptop/configuration.nix
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
-            # ./nixos/modules/laptop/specialisations.nix
             ./nixos/modules/laptop/hyprland.nix
-            # ./nixos/modules/laptop/xmonad.nix
-            # ./nixos/modules/vpn.nix
             { _module.args = { sysname = "laptop"; }; }
             inputs.home-manager.nixosModules.home-manager
             {
@@ -88,9 +85,7 @@
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/laptop.nix
-                    # ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/hyprland.nix
-                    # ./home-manager/modules/xmonad.nix
                     ./home-manager/modules/development.nix
                   ];
                 };
@@ -149,29 +144,5 @@
           modules = [ ./isoimage/configuration.nix ];
         };
       };
-
-      # homeConfigurations = {
-      #     ramak = inputs.home-manager.lib.homeManagerConfiguration {
-      #         inherit pkgs;
-      #         modules = [
-      #             ./home-manager/home.nix
-      #             ./home-manager/modules/options/declaration.nix
-      #             ./home-manager/modules/options/laptop.nix
-      #             ./home-manager/modules/laptop.nix
-      #             # ./home-manager/modules/options/laptop.nix
-      #             ./home-manager/modules/hyprland.nix
-      #             # ./home-manager/modules/xmonad.nix
-      #             ./home-manager/modules/development.nix
-      #             # inputs.home-manager-diff.hmModules.default
-      #             # {
-      #             #     home.packages = [
-      #             #         inputs.pshash.packages.${system}.default
-      #             #         inputs.lambda-interpreter.packages.${system}.default
-      #             #     ];
-      #             # }
-      #         ];
-      #         # extraSpecialArgs = { inherit inputs; inherit system; inherit firefox-pkgs; inherit pkgs-unstable; inherit pkgs-old; };
-      #     };
-      # };
     };
 }

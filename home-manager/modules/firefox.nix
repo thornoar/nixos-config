@@ -47,11 +47,6 @@ let
       url = "https://rutracker.org";
       keyword = "tr";
     }
-    # {
-    #   name = "li | LibGen";
-    #   url = "https://libgen.is";
-    #   keyword = "li";
-    # }
     {
       name = "li | Anna's Archive";
       url = "https://annas-archive.org/";
@@ -207,8 +202,8 @@ let
     #navigator-toolbox { font-family:Hack !important }
     #urlbar ::-moz-selection,
     .searchbar-textbox ::-moz-selection {
-        background-color: ${config.colors.colorBlue1} !important;
-        color: ${config.colors.colorWhite2} !important;
+        background-color: ${config.colors.blue1} !important;
+        color: ${config.colors.white2} !important;
     }
   '';
   extensions = with pkgs.firefox-pkgs; [
@@ -217,17 +212,10 @@ let
     adblocker-ultimate
     export-cookies-txt
   ];
-  # search = {
-  #   force = false;
-  #   default = "duckduckgo";
-  #   order = [ "duckduckgo" "searx" ];
-  # };
   baseSettings = {
     "browser.startup.homepage" = "about:home";
     "browser.tabs.inTitlebar" = 0;
     "browser.toolbars.bookmarks.visibility" = "never";
-    # "browser.search.defaultenginename" = "DuckDuckGo";
-    # "browser.search.order.1" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "signon.rememberSignons" = false;
     "media.hardware-video-decoding.enabled" = true;

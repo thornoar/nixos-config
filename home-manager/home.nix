@@ -22,7 +22,7 @@
 
   programs = { home-manager = { enable = true; }; };
 
-  nixpkgs.config = { permittedInsecurePackages = [ "libxls-1.6.2" ]; };
+  # nixpkgs.config = { permittedInsecurePackages = [ "libxls-1.6.2" ]; };
 
   home.stateVersion = "25.05";
 }

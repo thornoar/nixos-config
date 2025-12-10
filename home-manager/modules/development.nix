@@ -1,15 +1,5 @@
 { pkgs, lib, config, ... }:
-let
-  ts = builtins.toString;
-  toLua = lib.attrsets.foldlAttrs (str: k: v:
-    str + ''
-      M.${k} = "${ts v}"
-    ''
-  );
-  readCustomPackages = file:
-    lib.lists.forEach (pkgs.tools.readFile file)
-    (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
-in {
+{
   # Vim/Neovim configuration
   programs.vim.enable = true;
   # home.file.".vimrc".text = "set number";
@@ -23,7 +13,7 @@ in {
   xdg.configFile."nvim/UltiSnips" = config.util.dotFileMut "nvim/UltiSnips";
   xdg.configFile."nvim/after" = config.util.dotFileMut "nvim/after";
   xdg.configFile."nvim/lua/setup" = config.util.dotFileMut "nvim/lua/setup";
-  xdg.configFile."nvim/lua/colors.lua".text = toLua ''
+  xdg.configFile."nvim/lua/colors.lua".text = config.util.toLua ''
     local M = {}
   '' config.colors + ''
     return M
@@ -35,70 +25,70 @@ in {
   xdg.configFile."broot/verbs.hjson" = config.util.dotFileMut "broot/verbs.hjson";
   xdg.configFile."broot/colorscheme.hjson".text = ''
     skin: {
-        default: "${config.colors.colorWhite3} None / ${config.colors.colorWhite4} None"
-        tree: "${config.colors.bgColor3} None / ${config.colors.bgColor2} None"
-        parent: "${config.colors.colorYellow0} None / ${config.colors.colorYellow1} None"
-        file: "${config.colors.fgColor0} None / ${config.colors.fgColor0} None"
+        default: "${config.colors.white3} None / ${config.colors.white4} None"
+        tree: "${config.colors.bg3} None / ${config.colors.bg2} None"
+        parent: "${config.colors.yellow0} None / ${config.colors.yellow1} None"
+        file: "${config.colors.fg0} None / ${config.colors.fg0} None"
         directory: "${config.colors.primary} None Bold / ${config.colors.primary} None"
-        exe: "${config.colors.colorGreen1} None"
-        link: "${config.colors.colorGreen1} None"
-        pruning: "${config.colors.colorWhite4} None"
+        exe: "${config.colors.green1} None"
+        link: "${config.colors.green1} None"
+        pruning: "${config.colors.white4} None"
         perm__: "None None"
-        perm_r: "${config.colors.colorYellow0} None"
-        perm_w: "${config.colors.colorRed1} None"
-        perm_x: "${config.colors.colorOrange0} None"
-        owner: "${config.colors.colorWhite2} None"
-        group: "${config.colors.colorWhite3} None"
-        count: "${config.colors.colorWhite4} None"
-        size: "${config.colors.colorWhite4} None"
-        dates: "${config.colors.colorWhite3} None"
-        sparse: "${config.colors.colorYellow0} None"
+        perm_r: "${config.colors.yellow0} None"
+        perm_w: "${config.colors.red1} None"
+        perm_x: "${config.colors.orange0} None"
+        owner: "${config.colors.white2} None"
+        group: "${config.colors.white3} None"
+        count: "${config.colors.white4} None"
+        size: "${config.colors.white4} None"
+        dates: "${config.colors.white3} None"
+        sparse: "${config.colors.yellow0} None"
         content_extract: "ansi(29) None"
-        content_match: "${config.colors.colorMagenta0} None Bold"
-        git_branch: "${config.colors.colorWhite2} None"
-        git_insertions: "${config.colors.colorGreen4} None"
-        git_deletions: "${config.colors.colorRed1} None"
-        git_status_current: "${config.colors.bgColor2} None"
-        git_status_modified: "${config.colors.colorBlue1} None"
-        git_status_new: "${config.colors.colorGreen4} None Bold"
-        git_status_ignored: "${config.colors.colorWhite3} None"
-        git_status_conflicted: "${config.colors.colorRed1} None"
-        git_status_other: "${config.colors.colorRed1} None"
-        selected_line: "None ${config.colors.bgColor2} / None ${config.colors.bgColor2}"
-        char_match: "${config.colors.colorMagenta3} None"
-        file_error: "${config.colors.colorRed1} None"
-        flag_label: "${config.colors.colorWhite4} None"
-        flag_value: "${config.colors.colorMagenta3} None Bold"
-        input: "${config.colors.colorWhite2} None / ${config.colors.colorWhite4} None"
-        status_error: "${config.colors.colorWhite3} ${config.colors.colorRed0}"
-        status_job: "${config.colors.colorYellow1} ${config.colors.bgColor1}"
-        status_normal: "None ${config.colors.bgColor0} / None None"
-        status_italic: "${config.colors.colorMagenta3} ${config.colors.bgColor0} / None None"
-        status_bold: "${config.colors.colorMagenta3} ${config.colors.bgColor0} Bold / None None"
-        status_code: "${config.colors.colorWhite2} ${config.colors.bgColor0} / None None"
-        status_ellipsis: "${config.colors.colorWhite2} ${config.colors.bgColor0} Bold / None None"
+        content_match: "${config.colors.magenta0} None Bold"
+        git_branch: "${config.colors.white2} None"
+        git_insertions: "${config.colors.green4} None"
+        git_deletions: "${config.colors.red1} None"
+        git_status_current: "${config.colors.bg2} None"
+        git_status_modified: "${config.colors.blue1} None"
+        git_status_new: "${config.colors.green4} None Bold"
+        git_status_ignored: "${config.colors.white3} None"
+        git_status_conflicted: "${config.colors.red1} None"
+        git_status_other: "${config.colors.red1} None"
+        selected_line: "None ${config.colors.bg2} / None ${config.colors.bg2}"
+        char_match: "${config.colors.magenta3} None"
+        file_error: "${config.colors.red1} None"
+        flag_label: "${config.colors.white4} None"
+        flag_value: "${config.colors.magenta3} None Bold"
+        input: "${config.colors.white2} None / ${config.colors.white4} None"
+        status_error: "${config.colors.white3} ${config.colors.red0}"
+        status_job: "${config.colors.yellow1} ${config.colors.bg1}"
+        status_normal: "None ${config.colors.bg0} / None None"
+        status_italic: "${config.colors.magenta3} ${config.colors.bg0} / None None"
+        status_bold: "${config.colors.magenta3} ${config.colors.bg0} Bold / None None"
+        status_code: "${config.colors.white2} ${config.colors.bg0} / None None"
+        status_ellipsis: "${config.colors.white2} ${config.colors.bg0} Bold / None None"
         purpose_normal: "None None"
-        purpose_italic: "${config.colors.colorMagenta3} None"
-        purpose_bold: "${config.colors.colorMagenta3} None Bold"
+        purpose_italic: "${config.colors.magenta3} None"
+        purpose_bold: "${config.colors.magenta3} None Bold"
         purpose_ellipsis: "None None"
-        scrollbar_track: "${config.colors.bgColor0} None / ${config.colors.bgColor0} None"
-        scrollbar_thumb: "${config.colors.colorWhite3} None / ${config.colors.colorWhite4} None"
+        scrollbar_track: "${config.colors.bg0} None / ${config.colors.bg0} None"
+        scrollbar_thumb: "${config.colors.white3} None / ${config.colors.white4} None"
         help_paragraph: "None None"
-        help_bold: "${config.colors.colorOrange1} None Bold"
-        help_italic: "${config.colors.colorMagenta3} None"
-        help_code: "${config.colors.colorGreen4} ${config.colors.bgColor1}"
-        help_headers: "${config.colors.colorOrange1} None Bold"
-        help_table_border: "${config.colors.bgColor0} None"
-        preview_title: "${config.colors.colorWhite3} None / ${config.colors.colorWhite4} None"
-        preview: "${config.colors.colorWhite3} ${config.colors.bgColor0} / ${config.colors.colorWhite3} ${config.colors.bgColor0}"
-        preview_line_number: "${config.colors.colorWhite4} None / ${config.colors.colorWhite4} None"
-        preview_match: "None ${config.colors.bgColor0} Bold"
-        hex_null: "${config.colors.colorWhite4} None"
-        hex_ascii_graphic: "${config.colors.colorWhite3} None"
-        hex_ascii_whitespace: "${config.colors.colorOrange0} None"
-        hex_ascii_other: "${config.colors.colorOrange1} None"
-        hex_non_ascii: "${config.colors.colorOrange1} None"
-        staging_area_title: "${config.colors.colorWhite3} None / ${config.colors.colorWhite4} None"
+        help_bold: "${config.colors.orange1} None Bold"
+        help_italic: "${config.colors.magenta3} None"
+        help_code: "${config.colors.green4} ${config.colors.bg1}"
+        help_headers: "${config.colors.orange1} None Bold"
+        help_table_border: "${config.colors.bg0} None"
+        preview_title: "${config.colors.white3} None / ${config.colors.white4} None"
+        preview: "${config.colors.white3} ${config.colors.bg0} / ${config.colors.white3} ${config.colors.bg0}"
+        preview_line_number: "${config.colors.white4} None / ${config.colors.white4} None"
+        preview_match: "None ${config.colors.bg0} Bold"
+        hex_null: "${config.colors.white4} None"
+        hex_ascii_graphic: "${config.colors.white3} None"
+        hex_ascii_whitespace: "${config.colors.orange0} None"
+        hex_ascii_other: "${config.colors.orange1} None"
+        hex_non_ascii: "${config.colors.orange1} None"
+        staging_area_title: "${config.colors.white3} None / ${config.colors.white4} None"
         mode_command_mark: "gray(5) ansi(204) Bold"
         good_to_bad_0: "ansi(28)"
         good_to_bad_1: "ansi(29)"
@@ -112,23 +102,23 @@ in {
         good_to_bad_9: "ansi(196)"
     }
     ext_colors: {
-        txt: "${config.colors.colorWhite3}"
-        asy: "${config.colors.colorYellow1}"
-        py: "${config.colors.colorCyan}"
-        typ: "${config.colors.colorCyan}"
-        hs: "${config.colors.colorMagenta2}"
-        vim: "${config.colors.colorGreen2}"
-        nix: "${config.colors.colorMagenta1}"
-        rs: "${config.colors.colorOrange1}"
-        lua: "${config.colors.colorBlue0}"
-        c: "${config.colors.colorBlue1}"
-        r: "${config.colors.colorBlue0}"
-        pdf: "${config.colors.colorRed2}"
-        epub: "${config.colors.colorRed2}"
-        djvu: "${config.colors.colorRed2}"
-        lock: "${config.colors.colorWhite0}"
-        torrent: "${config.colors.colorGreen1}"
-        enc: "${config.colors.colorRed1}"
+        txt: "${config.colors.white3}"
+        asy: "${config.colors.yellow1}"
+        py: "${config.colors.cyan}"
+        typ: "${config.colors.cyan}"
+        hs: "${config.colors.magenta2}"
+        vim: "${config.colors.green2}"
+        nix: "${config.colors.magenta1}"
+        rs: "${config.colors.orange1}"
+        lua: "${config.colors.blue0}"
+        c: "${config.colors.blue1}"
+        r: "${config.colors.blue0}"
+        pdf: "${config.colors.red2}"
+        epub: "${config.colors.red2}"
+        djvu: "${config.colors.red2}"
+        lock: "${config.colors.white0}"
+        torrent: "${config.colors.green1}"
+        enc: "${config.colors.red1}"
     }
   '';
 
@@ -181,7 +171,7 @@ in {
       (lib.filesystem.listFilesRecursive ../src/typst-libraries)
       (filename:
         let
-          strname = ts filename;
+          strname = builtins.toString filename;
           last = lib.lists.last (lib.strings.splitString "/" strname);
           base = lib.lists.head (lib.strings.splitString "." last);
         in [
@@ -267,7 +257,11 @@ in {
     };
   };
 
-  home.packages = with pkgs;
+  home.packages = let
+    readCustomPackages = file:
+      lib.lists.forEach (pkgs.tools.readFile file)
+      (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
+    in with pkgs;
     [
       (python3.withPackages (ps: with ps; [
           manim ipython sympy numpy ollama openai

@@ -1,16 +1,17 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+{
   boot = {
     blacklistedKernelModules = [
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     loader.systemd-boot = { configurationLimit = 10; };
+    extraModprobeConfig = lib.mkDefault ''
+      blacklist nouveau
+      options nouveau modeset=0
+    '';
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -94,9 +95,36 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = { General.Experimental = true; };
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = { General.Experimental = true; };
+    };
+
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [ intel-compute-runtime ];
+    };
+
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      prime = {
+        # offload = {
+        #   enable = true;
+        #   enableOffloadCmd = true;
+        # };
+        sync.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+    # nvidiaOptimus.disable = true;
   };
+
+  services.xserver.videoDrivers = lib.mkForce ["nvidia" "modesetting"];
+
+  # systemd.services.nbfc_service.enable = lib.mkForce false;
 }

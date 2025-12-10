@@ -42,6 +42,11 @@
         };
       };
     };
+    ollama = {
+      package = pkgs.unstable.ollama;
+      enable = true;
+      acceleration = "cuda";
+    };
   };
 
   programs = {
