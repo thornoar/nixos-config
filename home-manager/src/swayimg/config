@@ -1,78 +1,51 @@
 # Swayimg configuration file.
-# vim: filetype=conf
+# vim: filetype=dosini
 
-# This file contains the default configuration.
-# The viewer searches for the config file in the following locations:
-# 1. $XDG_CONFIG_HOME/swayimg/config
-# 2. $HOME/.config/swayimg/config
-# 3. $XDG_CONFIG_DIRS/swayimg/config
-# 4. /etc/xdg/swayimg/config
-
-# Any of these options can be overridden using the --config argument
-# on the command line, for instance:
-# $ swayimg --config="general.mode=gallery"
+include colors
 
 [general]
 mode = viewer
 size = image
 position = auto
-# overlay = no
+overlay = no
 decoration = no
 sigusr1 = reload
 sigusr2 = next_file
 app_id = swayimg
 
-# [drm]
-# path = auto
-# connector = auto
-# mode = auto
+[drm]
+path = auto
+connector = auto
+mode = auto
 
 [viewer]
-window = "#00000000"
 transparency = grid
 scale = optimal
 position = center
 antialiasing = mks13
-# loop = yes
+loop = yes
 history = 1
-# preload = 1
+preload = 1
 
-# [slideshow]
-# # Slideshow image display time (seconds)
-# time = 3
-# # Window background color (auto/extend/mirror/RGBA)
-# window = auto
-# # Background for transparent images (grid/RGBA)
-# transparency = #000000ff
-# # Default image scale (optimal/width/height/fit/fill/real)
-# scale = fit
-# # Initial image position on the window (center/top/bottom/free/...)
-# position = center
-# # Anti-aliasing mode (none/box/bilinear/bicubic/mks13)
-# antialiasing = mks13
+[slideshow]
+time = 3
+window = auto
+transparency = grid
+scale = fit
+position = center
+antialiasing = mks13
 
 [gallery]
-# Height and width of each thumbnail (pixels)
 size = 200
-# Max number of invisible thumbnails stored in memory cache
 cache = 100
-# Load not only visible but also adjacent thumbnails
-# preload = no
-# Enable/disable storing thumbnails in persistent storage (yes/no)
+preload = no
 pstore = no
-# Fill the entire tile with thumbnail (yes/no)
 fill = yes
-# Anti-aliasing mode for thumbnails (none/box/bilinear/bicubic/mks13)
 antialiasing = mks13
-# Background color of the window (RGBA)
 window = #00000000
-# Background color of non-selected tiles (RGBA)
 background = #202020ff
-# Background color of the selected tile (RGBA)
 select = #404040ff
-# Border color of the selected tile (RGBA)
 border = #000000ff
-# Shadow color of the selected tile (RGBA)
 shadow = #000000ff
 
 [list]
@@ -80,45 +53,35 @@ shadow = #000000ff
 order = alpha
 recursive = no
 all = no
-# Enable file system monitoring for adding new images to the list (yes/no)
-# fsmon = yes
+fsmon = yes
 
 [font]
-# Font name
 name = Hack
-# Font size (pt)
 size = 12
-# Font color (RGBA)
 color = #00000000
-# Shadow color (RGBA)
 shadow = #00000000
-# Background color (RGBA)
 background = #00000000
 
 [info]
 show = no
-# padding = 10
-# info_timeout = 5
-# status_timeout = 3
 
-# Display scheme for viewer mode (position = content)
 [info.viewer]
 top_left = none
 top_right = none
 bottom_left = none
 bottom_right = none
 
-# [info.slideshow]
-# top_left = none
-# top_right = none
-# bottom_left = none
-# bottom_right = none
+[info.slideshow]
+top_left = none
+top_right = none
+bottom_left = none
+bottom_right = none
 
-# [info.gallery]
-# top_left = none
-# top_right = none
-# bottom_left = none
-# bottom_right = none
+[info.gallery]
+top_left = none
+top_right = none
+bottom_left = none
+bottom_right = none
 
 [keys.viewer]
 F1 = help
@@ -155,21 +118,21 @@ i = info
 Shift+Delete = exec rm -f '%' && echo "File removed: %"; skip_file
 q = exit
 
-# [keys.slideshow]
-# F1 = help
-# Home = first_file
-# End = last_file
-# Prior = prev_file
-# Next = next_file
-# Shift+r = rand_file
-# Shift+d = prev_dir
-# d = next_dir
-# Space = pause
-# i = info
-# f = fullscreen
-# Return = mode
-# Escape = exit
-# q = exit
+[keys.slideshow]
+F1 = help
+Home = first_file
+End = last_file
+Prior = prev_file
+Next = next_file
+Shift+r = rand_file
+Shift+d = prev_dir
+d = next_dir
+Space = pause
+i = info
+f = fullscreen
+Return = mode
+Escape = exit
+q = exit
 
 [keys.gallery]
 F1 = help

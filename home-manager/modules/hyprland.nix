@@ -39,6 +39,10 @@ in {
 
     # Swayimg configuration
     xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
+    xdg.configFile."swayimg/colors".text = ''
+      [viewer]
+      window = ${config.colors.bg0}ff
+    '';
 
     # Waybar configuration
     xdg.configFile."waybar/size.css".text = ''
