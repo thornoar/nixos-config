@@ -19,7 +19,7 @@ pandoc
 yt-dlp
 xournalpp
 maestral
-imv
+swayimg
 networkmanager-openvpn
 sc-im
 mpv

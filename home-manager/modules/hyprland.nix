@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, ... }:
 
 let
   ts = builtins.toString;
@@ -19,8 +19,8 @@ in {
         "video/vnd.avi" = [ "mpv.desktop" ];
         "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
         "image/svg+xml" = [ "firefox.desktop" ];
-        "image/jpeg" = [ "imv.desktop" ];
-        "image/png" = [ "imv.desktop" ];
+        "image/jpeg" = [ "swayimg.desktop" ];
+        "image/png" = [ "swayimg.desktop" ];
         "text/csv" = [ "sc-im.desktop" ];
         "text/html" = [ "firefox.desktop" ];
       };
@@ -36,6 +36,9 @@ in {
       duration = "3m"
     '';
     xdg.configFile."hypr/hyprland.conf" = config.util.dotFileMut "hypr/hyprland.conf";
+
+    # Swayimg configuration
+    xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
 
     # Waybar configuration
     xdg.configFile."waybar/size.css".text = ''

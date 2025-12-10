@@ -80,6 +80,6 @@ window#waybar {
 	/* border: none; */
     /* padding-left: 9px; */
     /* padding-right: 9px; */
-	background: @colorWhite3;
+	background: @white3;
     color: @bg0;
 }
