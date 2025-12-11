@@ -151,9 +151,9 @@
   '';
 
   nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 1d";
+    automatic = false;
+    # dates = "daily";
+    # options = "--delete-older-than 1d";
   };
 
   networking.hostName = sysname;
