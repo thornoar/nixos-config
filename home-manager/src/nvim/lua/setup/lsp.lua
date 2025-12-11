@@ -57,7 +57,7 @@ local lspbasicconfig = {
 -- if not configs.asy_ls then
 --     configs.asy_ls = {
 --         default_config = {
---             cmd = {'asy', '-lsp'},
+--             cmd = {"asy", "--lsp"},
 --             filetypes = {'asy'},
 --             root_dir = function(fname)
 --                 return util.find_git_ancestor(fname)

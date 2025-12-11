@@ -109,13 +109,6 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = { '*.tex', '*.typ', '*.md' },
-    callback = function ()
-        vim.o.wrap = true
-    end
-})
-
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = { "*.mls", "*.scala" },
     callback = function ()
         vim.keymap.set("n", "<C-CR>", function ()
@@ -125,10 +118,20 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     end
 })
 
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--     pattern = { "*.tex", "*.txt", "*.typ", "*.md" },
+--     callback = function ()
+--         vim.o.wrap = true
+--         vim.opt.spell = true
+--         vim.opt.spelllang = { "en", "ru" }
+--     end
+-- })
+
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = "*.*",
     callback = function ()
         local ft = vim.bo.filetype
+
         if ft == 'haskell' or ft == 'scala' or ft == 'typst' or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" then
             vim.o.tabstop = 2
             vim.o.shiftwidth = 2
@@ -140,6 +143,12 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.shiftwidth = 4
             vim.o.expandtab = true
             vim.o.softtabstop = 4
+        end
+
+        if ft == "tex" or ft == "markdown" or ft == 'typst' or ft == "text" then
+            vim.o.wrap = true
+            vim.opt.spell = true
+            vim.opt.spelllang = { "en", "ru" }
         end
     end
 })
