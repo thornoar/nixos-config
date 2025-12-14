@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# A script that applies the `command` to all files in the current directory that have the specified `filetype`.
+
 import os
 import fnmatch
 import argparse
@@ -8,9 +10,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-r", "--recursive", action = "store_true", help = "search for files recursively in current directory")
 parser.add_argument("-b", "--background", action = "store_true", help = "run commands in background")
 parser.add_argument("-p", "--parse", action = "store_true", help = "use parsecmd to parse commands")
-parser.add_argument("-s", "--silent", action = "store_true", help = "report the commands and files they are ran on")
+parser.add_argument("-s", "--silent", action = "store_true", help = "do not report the commands and files they are ran on")
 parser.add_argument("-n", "--nooutput", action = "store_true", help = "suppress output from commands")
-parser.add_argument("-c", "--noexit", action = "store_true", help = "continue execution if one fails")
+parser.add_argument("-c", "--noexit", action = "store_true", help = "continue execution if any command fails")
 parser.add_argument("filetype", type = str)
 parser.add_argument("command", type = str)
 args = parser.parse_args()

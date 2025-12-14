@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# `parsecmd "cmd % arg2 %" arg1` is rewritten to `cmd arg1 arg2 arg1`. This script is useful when you need to pass a long file path more than once.
+
 import os
 import argparse
 
