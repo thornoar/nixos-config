@@ -34,9 +34,9 @@
           kp3 = "pagedown";
           kp7 = "home";
           kp9 = "pageup";
-          kpenter = "enter";
+          kpenter = "leftmeta";
           kp5 = "down";
-          rightalt = "leftmeta";
+          # rightalt = "leftmeta";
           capslock = "esc";
           esc = "capslock";
         };

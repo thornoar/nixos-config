@@ -5,7 +5,14 @@
   programs.hyprland = {
     enable = true;
     package = pkgs.hyprland;
-    xwayland.enable = true;
+    withUWSM = true;
+    # xwayland.enable = true;
+  };
+  environment.sessionVariables.HYPR_PLUGIN_DIR = pkgs.symlinkJoin {
+    name = "hyprland-plugins";
+    paths = with pkgs.hyprlandPlugins; [
+      hyprexpo
+    ];
   };
 
   services = {

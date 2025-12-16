@@ -28,6 +28,13 @@
     };
   };
 
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   plugins = with pkgs.hyprlandPlugins; [
+  #     hyprexpo
+  #   ];
+  # };
+
   # services.keynav.enable = true;
 
   services.mpris-proxy.enable = true;

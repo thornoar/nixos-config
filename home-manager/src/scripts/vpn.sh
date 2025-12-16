@@ -115,18 +115,18 @@ function configureBranchAndProvider {
         if [ "$found" -eq 1 ]; then return 0; fi
         if [ "$raw" -eq 0 ]; then
             if [ -z "$branch" ] && [ -z "$provider" ]; then
-                printf "! Country \e[33m%s\e[0m not supported on any branch.\n" "$(getCountryName "$country")"
+                printf "! Country \e[33m\"%s\"\e[0m not supported on any branch.\n" "$(getCountryName "$country")"
             elif [ -z "$provider" ]; then
-                printf "! Country \e[33m%s\e[0m not supported on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$branch"
+                printf "! Country \e[33m\"%s\"\e[0m not supported on branch \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$branch"
             else
-                printf "! Country \e[33m%s\e[0m not supported by \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider"
+                printf "! Country \e[33m\"%s\"\e[0m not supported by \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$provider"
             fi
         fi
         exit 1
     else
         if ! serverExists "$country-$branch-$provider"; then
             if [ "$raw" -eq 0 ]; then
-                printf "! Country \e[33m%s\e[0m not supported by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
+                printf "! Country \e[33m\"%s\"\e[0m not supported by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
             fi
             exit 1
         fi

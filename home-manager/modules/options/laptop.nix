@@ -21,7 +21,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Sci-Fi";
+    dir = "Asymptotic";
     gamma = 0.9;
     contrast = 1.0;
   };
