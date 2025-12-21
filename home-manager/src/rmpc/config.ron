@@ -13,10 +13,10 @@
     volume_step: 5,
     max_fps: 30,
     scrolloff: 0,
-    wrap_navigation: false,
+    wrap_navigation: true,
     enable_mouse: false,
     status_update_interval_ms: 1000,
-    select_current_song_on_change: false,
+    select_current_song_on_change: true,
     album_art: (
         method: None,
     ),
@@ -48,6 +48,7 @@
             "I":            ShowCurrentSongInfo,
             "O":            ShowOutputs,
             "P":            ShowDecoders,
+            // "C":            DeleteAll,
         },
         navigation: {
             "<Up>":         Up,
