@@ -69,6 +69,9 @@
   # MPD configuration
   xdg.configFile."mpd/mpd.conf" = config.util.dotFileMut "mpd/mpd.conf";
 
+  # Rpmc configuration
+  xdg.configFile."rmpc/config.ron" = config.util.dotFileMut "rmpc/config.ron";
+
   # Mpv configuration
   xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 

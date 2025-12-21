@@ -6,6 +6,8 @@ transmission_3
 killall
 dict
 moc
+mpd
+rmpc
 toipe
 libqalculate
 telegram-desktop
