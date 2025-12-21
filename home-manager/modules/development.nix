@@ -2,7 +2,6 @@
 {
   # Vim/Neovim configuration
   programs.vim.enable = true;
-  # home.file.".vimrc".text = "set number";
   programs.neovim = {
     enable = true;
     withPython3 = true;
@@ -27,57 +26,57 @@
     skin: {
         default: "${config.colors.white3} None / ${config.colors.white4} None"
         tree: "${config.colors.bg3} None / ${config.colors.bg2} None"
-        parent: "${config.colors.yellow0} None / ${config.colors.yellow1} None"
-        file: "${config.colors.fg0} None / ${config.colors.fg0} None"
+        parent: "${config.colors.green1} None / ${config.colors.green4} None"
+        file: "${config.colors.green5} None / ${config.colors.green5} None"
         directory: "${config.colors.primary} None Bold / ${config.colors.primary} None"
         exe: "${config.colors.green1} None"
-        link: "${config.colors.green1} None"
+        link: "${config.colors.cyan} None"
         pruning: "${config.colors.white4} None"
         perm__: "None None"
-        perm_r: "${config.colors.yellow0} None"
-        perm_w: "${config.colors.red1} None"
-        perm_x: "${config.colors.orange0} None"
-        owner: "${config.colors.white2} None"
+        perm_r: "${config.colors.green2} None"
+        perm_w: "${config.colors.green5} None"
+        perm_x: "${config.colors.green1} None"
+        owner: "${config.colors.primary} None"
         group: "${config.colors.white3} None"
         count: "${config.colors.white4} None"
         size: "${config.colors.white4} None"
         dates: "${config.colors.white3} None"
         sparse: "${config.colors.yellow0} None"
         content_extract: "ansi(29) None"
-        content_match: "${config.colors.magenta0} None Bold"
+        content_match: "${config.colors.red0} None Bold"
         git_branch: "${config.colors.white2} None"
         git_insertions: "${config.colors.green4} None"
         git_deletions: "${config.colors.red1} None"
         git_status_current: "${config.colors.bg2} None"
         git_status_modified: "${config.colors.blue1} None"
-        git_status_new: "${config.colors.green4} None Bold"
+        git_status_new: "${config.colors.green4} None"
         git_status_ignored: "${config.colors.white3} None"
         git_status_conflicted: "${config.colors.red1} None"
         git_status_other: "${config.colors.red1} None"
         selected_line: "None ${config.colors.bg2} / None ${config.colors.bg2}"
-        char_match: "${config.colors.magenta3} None"
+        char_match: "${config.colors.red0} None"
         file_error: "${config.colors.red1} None"
         flag_label: "${config.colors.white4} None"
-        flag_value: "${config.colors.magenta3} None Bold"
+        flag_value: "${config.colors.green5} None"
         input: "${config.colors.white2} None / ${config.colors.white4} None"
         status_error: "${config.colors.white3} ${config.colors.red0}"
         status_job: "${config.colors.yellow1} ${config.colors.bg1}"
         status_normal: "None ${config.colors.bg0} / None None"
-        status_italic: "${config.colors.magenta3} ${config.colors.bg0} / None None"
-        status_bold: "${config.colors.magenta3} ${config.colors.bg0} Bold / None None"
+        status_italic: "${config.colors.green5} ${config.colors.bg0} / None None"
+        status_bold: "${config.colors.green5} ${config.colors.bg0} Bold / None None"
         status_code: "${config.colors.white2} ${config.colors.bg0} / None None"
         status_ellipsis: "${config.colors.white2} ${config.colors.bg0} Bold / None None"
         purpose_normal: "None None"
-        purpose_italic: "${config.colors.magenta3} None"
-        purpose_bold: "${config.colors.magenta3} None Bold"
+        purpose_italic: "${config.colors.green5} None"
+        purpose_bold: "${config.colors.green5} None"
         purpose_ellipsis: "None None"
         scrollbar_track: "${config.colors.bg0} None / ${config.colors.bg0} None"
         scrollbar_thumb: "${config.colors.white3} None / ${config.colors.white4} None"
         help_paragraph: "None None"
-        help_bold: "${config.colors.orange1} None Bold"
-        help_italic: "${config.colors.magenta3} None"
+        help_bold: "${config.colors.green5} None"
+        help_italic: "${config.colors.cyan} None"
         help_code: "${config.colors.green4} ${config.colors.bg1}"
-        help_headers: "${config.colors.orange1} None Bold"
+        help_headers: "${config.colors.green5} None Bold"
         help_table_border: "${config.colors.bg0} None"
         preview_title: "${config.colors.white3} None / ${config.colors.white4} None"
         preview: "${config.colors.white3} ${config.colors.bg0} / ${config.colors.white3} ${config.colors.bg0}"
@@ -85,11 +84,11 @@
         preview_match: "None ${config.colors.bg0} Bold"
         hex_null: "${config.colors.white4} None"
         hex_ascii_graphic: "${config.colors.white3} None"
-        hex_ascii_whitespace: "${config.colors.orange0} None"
-        hex_ascii_other: "${config.colors.orange1} None"
-        hex_non_ascii: "${config.colors.orange1} None"
+        hex_ascii_whitespace: "${config.colors.cyan} None"
+        hex_ascii_other: "${config.colors.green5} None"
+        hex_non_ascii: "${config.colors.green5} None"
         staging_area_title: "${config.colors.white3} None / ${config.colors.white4} None"
-        mode_command_mark: "gray(5) ansi(204) Bold"
+        mode_command_mark: "${config.colors.white3} None"
         good_to_bad_0: "ansi(28)"
         good_to_bad_1: "ansi(29)"
         good_to_bad_2: "ansi(29)"
@@ -141,13 +140,6 @@
   xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
-  # # Bat configuration
-  # programs.bat = {
-  #   enable = true;
-  #   extraPackages = with pkgs.bat-extras; [ batman ];
-  # };
-  # home.sessionVariables.BAT_THEME = "ansi";
-
   # Neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
@@ -157,11 +149,7 @@
   # Tmux configuration
   xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
 
-  # # Btop config
-  # xdg.configFile."btop/btop.conf" = config.util.dotFileMut "btop/btop.conf";
-  # xdg.configFile."btop/themes" = config.util.dotFileMut "btop/themes";
-
-  # Htop config
+  # Htop configuration
   xdg.configFile."htop/htoprc" = config.util.dotFileMut "htop/htoprc";
 
   # Libraries configuration
@@ -226,9 +214,6 @@
 
     # GHCi configuration
     ".ghci" = config.util.dotFileMut "ghci";
-
-    # w3m config
-    ".w3m/keymap" = config.util.dotFileMut "w3m.keymap";
   };
 
   # Pshash config
@@ -286,6 +271,10 @@
     # LaTeX
     (texlive.combine { inherit (texlive) scheme-full; })
     texlab
+
+    # Typst
+    typst
+    tinymist
 
     # C/C++
     clang
@@ -360,12 +349,11 @@
     ghostscript
     pdf2svg
     nodejs
-    typst
-    tinymist
     pastel
     tealdeer
     coursier
     cloc
     tmux
+    bc
   ]);
 }

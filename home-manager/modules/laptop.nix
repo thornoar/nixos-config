@@ -16,8 +16,6 @@
     transmission_3
     killall
     dict
-    moc
-    toipe
     libqalculate
     telegram-desktop
     discord
@@ -26,19 +24,16 @@
     zathura
     libnotify
     tagainijisho
-    pandoc
     xournalpp
     maestral
     networkmanager-openvpn
     sc-im
     mpv
-    bc
     neofetch
     caligula
     gimp3
     pdftk
     adbfs-rootless
-    w3m
     alsa-utils
     pulseaudio
     htop
@@ -70,13 +65,6 @@
     };
   };
 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   plugins = with pkgs.hyprlandPlugins; [
-  #     hyprexpo
-  #   ];
-  # };
-
   # services.keynav.enable = true;
 
   services.mpris-proxy.enable = true;
@@ -102,11 +90,6 @@
   };
 
   xdg.configFile."colors.css".text = (config.util.toCSS false "" config.colors);
-
-  # Moc configuration
-  home.file.".moc/config" = config.util.dotFileMut "mocp/config";
-  home.file.".moc/keymap" = config.util.dotFileMut "mocp/keymap";
-  home.file.".moc/themes/ramak" = config.util.dotFileMut "mocp/theme";
 
   # MPD configuration
   xdg.configFile."mpd/mpd.conf" = config.util.dotFileMut "mpd/mpd.conf";

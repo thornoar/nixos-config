@@ -12,8 +12,8 @@
         bg2 = "#262728";
         bg3 = "#4d4e4f";
         commentColor = "#5c6370";
-        fg0 = "#17a88b";
-        fg1 = "#00bc96";
+        fg0 = green5;
+        fg1 = green6;
 
         black = "#000000";
         # blackFg = commentColor;
@@ -40,12 +40,14 @@
         blue1 = "#61afef";
         blue2 = "#6272a4";
 
-        cyan = "#56b6c2";
-
         green0 = "#89a870";
         green1 = "#329c48";
         green2 = "#78971a";
         green4 = "#98c379";
+        green5 = "#17a88b";
+        green6 = "#00bc96";
+
+        cyan = "#56b6c2";
 
         magenta0 = "#e772c1";
         magenta1 = "#bd93f9";
@@ -56,12 +58,12 @@
 
     hyprland = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
     };
 
     wallpaper = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
     };
 
     misc = lib.mkOption {
