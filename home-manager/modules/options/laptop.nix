@@ -31,6 +31,6 @@
     systemFont = "Hack Nerd Font Mono";
     monitorName = "eDP-1";
     wmStartupCommand =
-      "sleep 8; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";
+      "sleep 2; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";
   };
 }

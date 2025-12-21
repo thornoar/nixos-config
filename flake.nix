@@ -24,21 +24,9 @@
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
 
-      getAttr = set: name:
-        let
-          split = lib.strings.splitString "." name;
-          str = lib.strings;
-        in if (1 == builtins.length split) then
-          set.${name}
-        else
-          getAttr (set.${builtins.head split})
-          (str.concatStrings (str.intersperse "." (builtins.tail split)));
-
       readFile = file:
         (lib.lists.partition (x: 0 < lib.strings.stringLength x)
           (lib.strings.splitString "\n" (builtins.readFile file))).right;
-      
-      readPackages = file: set: lib.lists.forEach (readFile file) (getAttr set);
 
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
@@ -49,7 +37,6 @@
         inherit firefox-pkgs;
         tools = {
           inherit readFile;
-          inherit readPackages;
         };
       };
 
@@ -62,7 +49,6 @@
         };
         overlays = [ addition ];
       };
-      
     in {
       nixosConfigurations = {
         laptop = lib.nixosSystem {

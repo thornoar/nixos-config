@@ -24,5 +24,17 @@
 
   # nixpkgs.config = { permittedInsecurePackages = [ "libxls-1.6.2" ]; };
 
+  # services.mpd = rec {
+  #   enable = true;
+  #   playlistDirectory = musicDirectory + ./Playlists;
+  #   musicDirectory = /home/ramak/media/music;
+  #   extraConfig = ''
+  #     audio_output {
+  #       type "pipewire"
+  #       name "Pipewire Playback"
+  #     }
+  #   '';
+  # };
+
   home.stateVersion = "25.05";
 }

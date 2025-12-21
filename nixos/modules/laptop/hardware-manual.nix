@@ -31,13 +31,13 @@
   };
 
   services = {
-    cron = {
-      enable = true;
-      systemCronJobs = [
-        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
-        "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
-      ];
-    };
+    # cron = {
+    #   enable = true;
+    #   systemCronJobs = [
+    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
+    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
+    #   ];
+    # };
     upower.enable = true;
     thermald.enable = true;
     # auto-cpufreq = {
@@ -73,18 +73,20 @@
     };
   };
 
-  # systemd.timers."interrupt-silence" = {
-  #   wantedBy = [ "timers.target" ];
-  #   timerConfig = {
-  #     OnBootSec = "0";
-  #     OnUnitActiveSec = "10m";
-  #     Unit = "interrupt-silence.service";
-  #   };
-  # };
+  systemd.timers."interrupt-silence" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "0";
+      OnUnitActiveSec = "5s";
+      Unit = "interrupt-silence.service";
+    };
+  };
   systemd.services."interrupt-silence" = {
     script = ''
       chmod 777 /sys/firmware/acpi/interrupts/sci
       chmod 777 /sys/firmware/acpi/interrupts/gpe6F
+      ${pkgs.coreutils}/bin/echo mask > /sys/firmware/acpi/interrupts/sci || ${pkgs.coreutils}/bin/echo -n ""
+      ${pkgs.coreutils}/bin/echo mask > /sys/firmware/acpi/interrupts/gpe6F || ${pkgs.coreutils}/bin/echo -n ""
       ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci || ${pkgs.coreutils}/bin/echo -n ""
       ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F || ${pkgs.coreutils}/bin/echo -n ""
     '';

@@ -70,7 +70,32 @@
       ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
       SPECIALISATION = "default";
     };
-    systemPackages = pkgs.tools.readPackages ./src/packages/general.txt pkgs;
+    systemPackages = with pkgs; [
+      home-manager
+      vim
+      wget
+      curl
+      usbutils
+      pciutils
+      gcc
+      git
+      lshw
+      zip
+      xz
+      unzip
+      unrar
+      p7zip
+      sysstat
+      man-pages
+      man-pages-posix
+      scowl
+      update-resolv-conf
+      which
+      file
+      powertop
+      gparted
+      openssl
+    ];
     localBinInPath = true;
     wordlist.enable = true;
   };

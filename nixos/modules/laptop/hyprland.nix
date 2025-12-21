@@ -39,7 +39,18 @@
     BROWSER = "firefox -P hyprland";
   };
 
-  environment.systemPackages =
-    with pkgs.unstable; [ waybar ] ++
-    pkgs.tools.readPackages ../../src/packages/hyprland.txt pkgs;
+  environment.systemPackages = (with pkgs; [   
+    wpaperd
+    tofi
+    wl-clipboard
+    xsel
+    warpd
+    hyprpicker
+    hyprshot
+    hyprprop
+    glib
+    waydroid
+  ]) ++ (with pkgs.unstable; [
+    waybar
+  ]);
 }

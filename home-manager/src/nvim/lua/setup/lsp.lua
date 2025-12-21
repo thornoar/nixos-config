@@ -23,24 +23,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
--- local hl_name = "FloatBorder"
--- local border = { '+', '-', '+', '|', '+', '-', '+', '|' }
--- local border = {
---     { "╭", hl_name },
---     { "─", hl_name },
---     { "╮", hl_name },
---     { "│", hl_name },
---     { "╯", hl_name },
---     { "─", hl_name },
---     { "╰", hl_name },
---     { "│", hl_name },
--- }
--- local handlers =  {
---     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
---     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
---     -- ["textDocument/hover"] =  vim.lsp.handlers.hover,
---     -- ["textDocument/signatureHelp"] =  vim.lsp.handlers.signature_help,
--- }
 
 local lspconfig = require('lspconfig')
 local lspbasicconfig = {
@@ -52,23 +34,6 @@ local lspbasicconfig = {
     end,
 }
 
--- local configs = require('lspconfig.configs')
--- local util = require 'lspconfig.util'
--- if not configs.asy_ls then
---     configs.asy_ls = {
---         default_config = {
---             cmd = {"asy", "--lsp"},
---             filetypes = {'asy'},
---             root_dir = function(fname)
---                 return util.find_git_ancestor(fname)
---             end,
---             single_file_support = true,
---             settings = {},
---         },
---     }
--- end
--- lspconfig.asy_ls.setup(lspbasicconfig)
-
 vim.diagnostic.config({
     float = { border = "rounded", },
 })
@@ -76,7 +41,7 @@ vim.diagnostic.config({
 lspconfig.texlab.setup(lspbasicconfig)
 lspconfig.ts_ls.setup(lspbasicconfig)
 lspconfig.pyright.setup(lspbasicconfig)
-lspconfig.clojure_lsp.setup(lspbasicconfig)
+-- lspconfig.clojure_lsp.setup(lspbasicconfig)
 -- lspconfig.nil_ls.setup(lspbasicconfig)
 lspconfig.nixd.setup({
     -- handlers = handlers,
@@ -110,15 +75,6 @@ lspconfig.clangd.setup({
 })
 lspconfig.bashls.setup(lspbasicconfig)
 lspconfig.asm_lsp.setup(lspbasicconfig)
--- lspconfig.coq_lsp.setup(lspbasicconfig)
--- lspconfig.kotlin_language_server.setup({
---     autostart = true,
---     capabilities = lsp_capabilities,
---     handlers = handlers,
---     root_dir = function (_)
---         return vim.loop.cwd()
---     end,
--- })
 
 lspconfig.tinymist.setup({
     -- settings = {

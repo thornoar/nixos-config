@@ -6,7 +6,10 @@
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
   };
 
-  environment.systemPackages = pkgs.tools.readPackages ../../src/packages/laptop.txt pkgs;
+  environment.systemPackages = with pkgs; [
+    light
+    brightnessctl
+  ];
 
   services = {
     libinput = {
@@ -61,5 +64,12 @@
 
   time.timeZone = "Asia/Hong_Kong";
 
-  fonts.packages = pkgs.tools.readPackages ../../src/packages/fonts.txt pkgs;
+  fonts.packages = with pkgs; [
+    noto-fonts
+    ipafont
+    kochi-substitute
+    newcomputermodern
+    hack-font
+    nerd-fonts.hack
+  ];
 }

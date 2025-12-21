@@ -7,10 +7,52 @@
     WALLPAPER_DIR = config.wallpaper.dir;
   };
 
-  home.packages =
-    pkgs.tools.readPackages ../src/packages/general.txt pkgs
-    ++ pkgs.tools.readPackages ../src/packages/insecure.txt pkgs
-    ++ pkgs.tools.readPackages ../src/packages/unstable.txt pkgs.unstable;
+  home.packages = (with pkgs; [
+    mpd
+    playerctl
+    imagemagick
+    graphicsmagick
+    ffmpeg
+    transmission_3
+    killall
+    dict
+    moc
+    toipe
+    libqalculate
+    telegram-desktop
+    discord
+    whatsie
+    obs-studio
+    zathura
+    libnotify
+    tagainijisho
+    pandoc
+    xournalpp
+    maestral
+    networkmanager-openvpn
+    sc-im
+    mpv
+    bc
+    neofetch
+    caligula
+    gimp3
+    pdftk
+    adbfs-rootless
+    w3m
+    alsa-utils
+    pulseaudio
+    htop
+    acpi
+    lm_sensors
+    cl-wordle
+    graphviz
+    libxkbcommon
+    broot
+  ]) ++ (with pkgs.unstable; [
+    swayimg
+    rmpc
+    yt-dlp
+  ]);
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {

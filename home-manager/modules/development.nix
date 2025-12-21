@@ -257,34 +257,115 @@
     # };
   };
 
-  home.packages = let
-    readCustomPackages = file:
-      lib.lists.forEach (pkgs.tools.readFile file)
-      (x: pkgs.inputs.${x}.packages.${pkgs.system}.default);
-    in with pkgs;
-    [
-      (python3.withPackages (ps: with ps; [
-          manim ipython sympy numpy ollama openai mutagen
-        ]
-      ))
-      (rWrapper.override {
-        packages = with rPackages; [
-          languageserver
-          ggplot2
-          dplyr
-          xts
-          pracma
-          latex2exp
-        ];
-      })
-      (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
-        QuickCheck
-        haskeline
-        vector
-      ]))
-      (texlive.combine { inherit (texlive) scheme-full; })
-    ]
-    # ++ (with pkgs.unstable; [ lua ])
-    ++ pkgs.tools.readPackages ../src/packages/development.txt pkgs
-    ++ readCustomPackages ../src/packages/custom.txt;
+  home.packages = (with pkgs; [
+    # Python
+    (python3.withPackages (ps: with ps; [
+      manim ipython sympy numpy ollama openai mutagen
+    ]))
+    sage
+    pyright
+
+    # R
+    (rWrapper.override {
+      packages = with rPackages; [
+        languageserver ggplot2 dplyr xts pracma latex2exp
+      ];
+    })
+
+    # Haskell
+    (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
+      QuickCheck
+      haskeline
+      vector
+    ]))
+    cabal-install
+    haskellPackages.cabal-clean
+    haskellPackages.hoogle
+    haskell-language-server
+
+    # LaTeX
+    (texlive.combine { inherit (texlive) scheme-full; })
+    texlab
+
+    # C/C++
+    clang
+    clang-tools
+    glibc
+    glibc.static
+    cmake
+
+    # Lua
+    lua
+    lua-language-server
+
+    # # Go
+    # go
+
+    # # Julia
+    # julia
+
+    # Rust
+    cargo
+    rustc
+    rust-analyzer
+    evcxr
+
+    # # Java
+    # openjdk17
+    # java-language-server
+
+    # # Clojure
+    # leiningen
+    # clojure
+    # clojure-lsp
+
+    # Scala
+    scala
+    scala-cli
+    metals
+    sbt
+
+    # Node packages
+    nodePackages.typescript-language-server
+    nodePackages.bash-language-server
+
+    # Assembly
+    nasm
+    asm-lsp
+
+    # Nix
+    nixfmt-classic
+    manix
+    nix-output-monitor
+    nvd
+    nixd
+
+    # Coq
+    coq
+
+    # Ocaml
+    ocaml
+
+    # Other development tools
+    libffi
+    libtool
+    cheat
+    gnumake
+    jq
+    upx
+    pkg-config
+    pstree
+    fzf
+    shellcheck
+    ghostscript
+    pdf2svg
+    nodejs
+    typst
+    tinymist
+    pastel
+    tealdeer
+    coursier
+    cloc
+    tmux
+  ]);
 }
