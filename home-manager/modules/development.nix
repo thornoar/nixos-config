@@ -264,7 +264,7 @@
     in with pkgs;
     [
       (python3.withPackages (ps: with ps; [
-          manim ipython sympy numpy ollama openai
+          manim ipython sympy numpy ollama openai mutagen
         ]
       ))
       (rWrapper.override {

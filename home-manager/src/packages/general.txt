@@ -7,7 +7,6 @@ killall
 dict
 moc
 mpd
-rmpc
 toipe
 libqalculate
 telegram-desktop
@@ -18,7 +17,6 @@ zathura
 libnotify
 tagainijisho
 pandoc
-yt-dlp
 xournalpp
 maestral
 networkmanager-openvpn

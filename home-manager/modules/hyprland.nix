@@ -128,7 +128,7 @@ in {
       settings = {
         colors = rec {
           normal = {
-            black = config.colors.commentColor;
+            black = config.colors.bg0;
             blue = config.colors.blue1;
             cyan = config.colors.cyan;
             green = config.colors.green1;

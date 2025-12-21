@@ -1,1 +1,3 @@
 swayimg
+rmpc
+yt-dlp
