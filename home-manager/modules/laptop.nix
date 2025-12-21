@@ -71,6 +71,7 @@
 
   # Rpmc configuration
   xdg.configFile."rmpc/config.ron" = config.util.dotFileMut "rmpc/config.ron";
+  xdg.configFile."rmpc/ramak-theme.ron" = config.util.dotFileMut "rmpc/ramak-theme.ron";
 
   # Mpv configuration
   xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";

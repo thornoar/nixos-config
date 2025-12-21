@@ -4,8 +4,11 @@
 (
     address: "127.0.0.1:6600",
     password: None,
-    theme: None,
     cache_dir: None,
+    lyrics_dir: None,
+    lyrics_offset_ms: 0,
+    enable_lyrics_index: false,
+    theme: None,
     on_song_change: None,
     volume_step: 5,
     max_fps: 30,
