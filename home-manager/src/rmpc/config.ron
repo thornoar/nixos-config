@@ -8,7 +8,7 @@
     lyrics_dir: None,
     lyrics_offset_ms: 0,
     enable_lyrics_index: false,
-    theme: None,
+    theme: Some("ramak"),
     on_song_change: None,
     volume_step: 5,
     max_fps: 30,
