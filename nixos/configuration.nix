@@ -69,6 +69,10 @@
       XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
       ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
       SPECIALISATION = "default";
+      NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
+      NIX_PACKAGE_SEARCH_EXACT_COLOR = "cyan";
+      NIX_PACKAGE_SEARCH_DIRECT_COLOR = "yellow";
+      NIX_PACKAGE_SEARCH_INDIRECT_COLOR = "white";
     };
     systemPackages = with pkgs; [
       home-manager

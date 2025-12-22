@@ -300,6 +300,13 @@ require("lazy").setup({
         "karb94/neoscroll.nvim",
         opts = {}
     },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        ---@module "render-markdown"
+        ---@type render.md.UserConfig
+        opts = {},
+    },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -321,5 +328,6 @@ require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
 require("setup.neoscroll")
+require("setup.render-markdown")
 -- require("setup.noice")
 -- require("setup.nvim-subfiles")

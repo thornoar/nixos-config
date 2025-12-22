@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   home.pointerCursor.size = 16;
@@ -43,6 +43,9 @@
     graphviz
     libxkbcommon
     broot
+    foot
+    nps
+    pastel
   ]) ++ (with pkgs.unstable; [
     swayimg
     rmpc

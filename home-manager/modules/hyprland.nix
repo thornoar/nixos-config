@@ -87,6 +87,7 @@ in {
     '';
     xdg.configFile."waybar/modules.json" = config.util.dotFileMut "waybar/modules.json";
 
+    # Tofi configuration
     xdg.configFile."tofi/config".text = ''
       font-size = ${ts config.hyprland.fontsize}
       text-color = ${config.colors.primary}
@@ -123,6 +124,12 @@ in {
 
     '' + builtins.readFile ../src/tofi.conf;
 
+    # Foot configuration
+    xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
+    xdg.configFile."foot/colors.ini".text = ''
+    '';
+    
+    # Alacritty configuration
     programs.alacritty = {
       enable = true;
       settings = {

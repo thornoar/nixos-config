@@ -72,4 +72,24 @@
     hack-font
     nerd-fonts.hack
   ];
+
+  systemd.timers."refresh-nps-cache" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+        Persistent = true;
+      Unit = "refresh-nps-cache.service";
+    };
+  };
+  systemd.services."refresh-nps-cache" = {
+    path = [ "/run/current-system/sw/" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "ramak";
+    };
+    script = ''
+      set -eu
+      ${pkgs.nps}/bin/nps -e -r -dddd
+    '';
+  };
 }
