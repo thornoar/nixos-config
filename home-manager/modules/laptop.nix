@@ -3,10 +3,6 @@
 {
   home.pointerCursor.size = 16;
 
-  home.sessionVariables = {
-    WALLPAPER_DIR = config.wallpaper.dir;
-  };
-
   home.packages = (with pkgs; [
     mpd
     playerctl
@@ -91,15 +87,6 @@
     };
     settings.urgency_normal = { timeout = 1; };
   };
-
-  xdg.configFile."colors.css".text = (config.util.toCSS false "" config.colors);
-
-  # MPD configuration
-  xdg.configFile."mpd/mpd.conf" = config.util.dotFileMut "mpd/mpd.conf";
-
-  # Rpmc configuration
-  xdg.configFile."rmpc/config.ron" = config.util.dotFileMut "rmpc/config.ron";
-  xdg.configFile."rmpc/themes/ramak.ron" = config.util.dotFileMut "rmpc/theme.ron";
 
   # Mpv configuration
   xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";

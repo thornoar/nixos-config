@@ -186,21 +186,21 @@ require("lazy").setup({
                 hopout = false,
                 faster = false,
                 map = "<M-/>",
+            },
+            internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
+                {'[',']',fly=true,dosuround=true,newline=true,space=true},
+                {'(',')',fly=true,dosuround=true,newline=true,space=true},
+                {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
+                {'{','}',fly=true,dosuround=true,newline=true,space=true},
+                {'"','"',suround=true,multiline=false},
+                {'`','`', nft={'tex'},multiline=false},
+                {'``',"''",ft={'tex'}},
+                {'```','```',newline=true,ft={'markdown'}},
+                {'<!--','-->',ft={'markdown','html'},space=true},
+                {'"""','"""',newline=true,ft={'python'}},
+                {"'''","'''",newline=true,ft={'python'}},
+            },
         },
-        internal_pairs={-- *ultimate-autopair-pairs-default-pairs*
-            {'[',']',fly=true,dosuround=true,newline=true,space=true},
-            {'(',')',fly=true,dosuround=true,newline=true,space=true},
-            {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
-            {'{','}',fly=true,dosuround=true,newline=true,space=true},
-            {'"','"',suround=true,multiline=false},
-            {'`','`', nft={'tex'},multiline=false},
-            {'``',"''",ft={'tex'}},
-            {'```','```',newline=true,ft={'markdown'}},
-            {'<!--','-->',ft={'markdown','html'},space=true},
-            {'"""','"""',newline=true,ft={'python'}},
-            {"'''","'''",newline=true,ft={'python'}},
-        },
-    },
     },
     {
         "navarasu/onedark.nvim",
@@ -228,9 +228,9 @@ require("lazy").setup({
     { "simrat39/rust-tools.nvim" },
     {
         "hrsh7th/nvim-cmp",
-        dependencies = {
-            "L3MON4D3/LuaSnip",
-        },
+        -- dependencies = {
+        --     "L3MON4D3/LuaSnip",
+        -- },
     },
     {
         "quangnguyen30192/cmp-nvim-ultisnips",
@@ -300,13 +300,13 @@ require("lazy").setup({
         "karb94/neoscroll.nvim",
         opts = {}
     },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        ---@module "render-markdown"
-        ---@type render.md.UserConfig
-        opts = {},
-    },
+    -- {
+    --     "MeanderingProgrammer/render-markdown.nvim",
+    --     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    --     ---@module "render-markdown"
+    --     ---@type render.md.UserConfig
+    --     opts = {},
+    -- },
     -- 'thornoar/nvim-subfiles',
 }, {})
 
@@ -328,6 +328,6 @@ require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
 require("setup.neoscroll")
-require("setup.render-markdown")
+-- require("setup.render-markdown")
 -- require("setup.noice")
 -- require("setup.nvim-subfiles")

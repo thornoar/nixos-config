@@ -30,10 +30,10 @@
       keep-outputs = true
       keep-derivations = true
     '';
-    # registry = {
-    #   nixpkgs.flake = import pkgs.inputs.nixpkgs;
-    #   ${sysname}.flake = pkgs.inputs.self;
-    # };
+    registry = {
+      nixpkgs.flake = pkgs.inputs.nixpkgs;
+      ${sysname}.flake = pkgs.inputs.self;
+    };
   };
 
   programs.nix-index = {
@@ -46,7 +46,7 @@
   environment = {
     variables = rec {
       NIXPKGS_ALLOW_UNFREE = "1";
-      NIXPKGS_ALLOW_BROKEN = "1";
+      # NIXPKGS_ALLOW_BROKEN = "1";
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
@@ -58,7 +58,7 @@
       NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
       TEXINPUTS = ".:${XDG_DATA_HOME}/latex:$TEXINPUTS";
       EDITOR = "vim";
-      VISUAL = "${EDITOR}";
+      VISUAL = EDITOR;
       HISTCONTROL = "ignoreboth";
       READER = "zathura";
       FILEMANAGER = "br";
@@ -155,29 +155,7 @@
     sudo = {
       enable = true;
     };
-    # doas = {
-    #   enable = true;
-    #   extraRules = [
-    #     {
-    #       groups = [ "wheel" ];
-    #       noPass = false;
-    #       keepEnv = true;
-    #       persist = true;
-    #     }
-    #   ];
-    # };
   };
-
-  boot = {
-    loader.systemd-boot = { enable = true; };
-    loader.timeout = 35996;
-    loader.efi.canTouchEfiVariables = true;
-    supportedFilesystems = [ "ntfs" ];
-    tmp.cleanOnBoot = true;
-  };
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=3s
-  '';
 
   nix.gc = {
     automatic = false;

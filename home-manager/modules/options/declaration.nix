@@ -69,7 +69,6 @@
     misc = lib.mkOption {
       type = lib.types.attrs;
       default = {
-        usePackageList = true;
         systemFont = "Hack";
       };
     };

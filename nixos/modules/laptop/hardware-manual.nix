@@ -5,12 +5,24 @@
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
-    loader.systemd-boot = { configurationLimit = 10; };
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 10;
+      };
+      efi.canTouchEfiVariables = true;
+      timeout = 35996;
+    };
     extraModprobeConfig = lib.mkDefault ''
       blacklist nouveau
       options nouveau modeset=0
     '';
+    supportedFilesystems = [ "ntfs" ];
+    tmp.cleanOnBoot = true;
   };
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=3s
+  '';
 
   powerManagement = {
     enable = true;

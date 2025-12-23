@@ -1,7 +1,9 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   ts = builtins.toString;
+  bc = lib.strings.removePrefix "#";
+  clr = config.colors;
 in {
   imports = [
     ./firefox.nix
@@ -29,7 +31,7 @@ in {
 
     # Hyprland configuration
     xdg.configFile."hypr/imports.conf".text = (config.util.toConf false "" config.hyprland)
-      + (config.util.toConf false "" config.misc) + (config.util.toConf false "" config.colors);
+      + (config.util.toConf false "" config.misc) + (config.util.toConf false "" clr);
     xdg.configFile."wpaperd/config.toml".text = ''
       [${config.misc.monitorName}]
       path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
@@ -41,10 +43,11 @@ in {
     xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
     xdg.configFile."swayimg/colors".text = ''
       [viewer]
-      window = ${config.colors.bg0}ff
+      window = ${clr.bg0}ff
     '';
 
     # Waybar configuration
+
     xdg.configFile."waybar/size.css".text = ''
       * {
           font-size: ${ts config.hyprland.fontsizeWaybar}pt;
@@ -52,6 +55,7 @@ in {
       }
     '';
     xdg.configFile."waybar/style.css" = config.util.dotFileMut "waybar/style.css";
+    xdg.configFile."waybar/colors.css".text = (config.util.toCSS false "" config.colors);
     xdg.configFile."waybar/config".text = ''
       {
           "layer": "top",
@@ -90,24 +94,24 @@ in {
     # Tofi configuration
     xdg.configFile."tofi/config".text = ''
       font-size = ${ts config.hyprland.fontsize}
-      text-color = ${config.colors.primary}
-      prompt-color =${config.colors.primary} 
-      placeholder-color = ${config.colors.bg3}
-      input-color =${config.colors.primary} 
-      default-result-color =${config.colors.primary} 
-      selection-color = ${config.colors.fg0}
-      selection-background = ${config.colors.bg0}
-      selection-match-color = ${config.colors.magenta0}
+      text-color = ${clr.primary}
+      prompt-color =${clr.primary} 
+      placeholder-color = ${clr.bg3}
+      input-color =${clr.primary} 
+      default-result-color =${clr.primary} 
+      selection-color = ${clr.fg0}
+      selection-background = ${clr.bg0}
+      selection-match-color = ${clr.magenta0}
       width = ${
         ts
         (config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter)
       }
       height = 50%
-      background-color =${config.colors.bg0} 
+      background-color =${clr.bg0} 
       outline-width = 0
-      outline-color =${config.colors.bg0} 
+      outline-color =${clr.bg0} 
       border-width = 1
-      border-color =${config.colors.primary} 
+      border-color =${clr.primary} 
       corner-radius = ${ts config.hyprland.rounding}
       # padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
       # padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
@@ -126,84 +130,150 @@ in {
 
     # Foot configuration
     xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
-    xdg.configFile."foot/colors.ini".text = ''
+    xdg.configFile."foot/share.ini".text = ''
+      font=Hack Nerd Font Mono:size=${ts config.hyprland.fontsize}
+      # font-bold=Hack Nerd Font Mono:weight=bold
+      # font-italic=Hack Nerd Font Mono:slant=italic
+      # font-bold-italic=Hack Nerd Font Mono:weight=bold:slant=italic
+
+      pad=0x0
+
+      [colors]
+      alpha=${ts config.hyprland.terminalOpacity}
+      alpha-mode=default # Can be `default`, `matching` or `all`
+      background=${bc clr.bg0}
+      foreground=${bc clr.primary}
+
+      regular0=${bc clr.black}    # black
+      regular1=${bc clr.red1}     # red
+      regular2=${bc clr.green1}   # green
+      regular3=${bc clr.yellow1}  # yellow
+      regular4=${bc clr.blue1}    # blue
+      regular5=${bc clr.magenta1} # magenta
+      regular6=${bc clr.cyan}     # cyan
+      regular7=${bc clr.white0}   # white
+
+      bright0=${bc clr.black}       # bright black
+      bright1=${bc clr.red1}        # bright red
+      bright2=${bc clr.green1}      # bright green
+      bright3=${bc clr.yellow1}     # bright yellow
+      bright4=${bc clr.blue1}       # bright blue
+      bright5=${bc clr.magenta1}    # bright magenta
+      bright6=${bc clr.cyan}        # bright cyan
+      bright7=${bc clr.white0}      # bright white
+
+      # dim-blend-towards=black
+      dim0=${bc clr.black}   
+      dim1=${bc clr.red1}    
+      dim2=${bc clr.green1}  
+      dim3=${bc clr.yellow1} 
+      dim4=${bc clr.blue1}   
+      dim5=${bc clr.magenta1}
+      dim6=${bc clr.cyan}    
+      dim7=${bc clr.white0}  
+
+      ## Sixel colors
+      # sixel0 =  000000
+      # sixel1 =  3333cc
+      # sixel2 =  cc2121
+      # sixel3 =  33cc33
+      # sixel4 =  cc33cc
+      # sixel5 =  33cccc
+      # sixel6 =  cccc33
+      # sixel7 =  878787
+      # sixel8 =  424242
+      # sixel9 =  545499
+      # sixel10 = 994242
+      # sixel11 = 549954
+      # sixel12 = 995499
+      # sixel13 = 549999
+      # sixel14 = 999954
+      # sixel15 = cccccc
+
+      ## Misc colors
+      # selection-foreground=<inverse foreground/background>
+      # selection-background=<inverse foreground/background>
+      # jump-labels=regular0 regular3               # black-on-yellow
+      # scrollback-indicator=<regular0> <bright4>   # black-on-bright-blue
+      # search-box-no-match=<regular0> <regular1>   # black-on-red
+      # search-box-match=<regular0> <regular3>      # black-on-yellow
+      # urls=<regular3>
     '';
     
-    # Alacritty configuration
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        colors = rec {
-          normal = {
-            black = config.colors.bg0;
-            blue = config.colors.blue1;
-            cyan = config.colors.cyan;
-            green = config.colors.green1;
-            magenta = config.colors.magenta1;
-            red = config.colors.red1;
-            white = config.colors.white0;
-            yellow = config.colors.yellow1;
-          };
-          bright = normal;
-          dim = normal;
-          primary = {
-            background = config.colors.bg0;
-            bright_foreground = config.colors.fg1;
-            foreground = config.colors.primary;
-          };
-        };
-        cursor = { style = "Underline"; };
-        env = {
-          COLORTERM = "truecolor";
-          TERM = "xterm-256color";
-        };
-        font = {
-          size = config.hyprland.fontsize;
-        };
-        font.bold = {
-          family = config.misc.systemFont;
-          style = "Bold";
-        };
-        font.bold_italic = {
-          family = config.misc.systemFont;
-          style = "Bold Italic";
-        };
-        font.italic = {
-          family = config.misc.systemFont;
-          style = "Italic";
-        };
-        font.normal = {
-          family = config.misc.systemFont;
-          style = "Regular";
-        };
-        window.padding = {
-          x = config.hyprland.terminalPaddingX;
-          y = config.hyprland.terminalPaddingY;
-        };
-        window.dynamic_padding = true;
-        window.opacity = config.hyprland.terminalOpacity;
-        keyboard.bindings = [
-          {
-            key = "PageUp";
-            action = "ScrollLineUp";
-          }
-          {
-            key = "PageDown";
-            action = "ScrollLineDown";
-          }
-          {
-            key = "PageUp";
-            mods = "Alt";
-            action = "ScrollPageUp";
-          }
-          {
-            key = "PageDown";
-            mods = "Alt";
-            action = "ScrollPageDown";
-          }
-        ];
-      };
-    };
+    # # Alacritty configuration
+    # programs.alacritty = {
+    #   enable = true;
+    #   settings = {
+    #     colors = rec {
+    #       normal = {
+    #         black = clr.bg0;
+    #         blue = clr.blue1;
+    #         cyan = clr.cyan;
+    #         green = clr.green1;
+    #         magenta = clr.magenta1;
+    #         red = clr.red1;
+    #         white = clr.white0;
+    #         yellow = clr.yellow1;
+    #       };
+    #       bright = normal;
+    #       dim = normal;
+    #       primary = {
+    #         background = clr.bg0;
+    #         bright_foreground = clr.fg1;
+    #         foreground = clr.primary;
+    #       };
+    #     };
+    #     cursor = { style = "Underline"; };
+    #     env = {
+    #       COLORTERM = "truecolor";
+    #       TERM = "xterm-256color";
+    #     };
+    #     font = {
+    #       size = config.hyprland.fontsize;
+    #     };
+    #     font.bold = {
+    #       family = config.misc.systemFont;
+    #       style = "Bold";
+    #     };
+    #     font.bold_italic = {
+    #       family = config.misc.systemFont;
+    #       style = "Bold Italic";
+    #     };
+    #     font.italic = {
+    #       family = config.misc.systemFont;
+    #       style = "Italic";
+    #     };
+    #     font.normal = {
+    #       family = config.misc.systemFont;
+    #       style = "Regular";
+    #     };
+    #     window.padding = {
+    #       x = config.hyprland.terminalPaddingX;
+    #       y = config.hyprland.terminalPaddingY;
+    #     };
+    #     window.dynamic_padding = true;
+    #     window.opacity = config.hyprland.terminalOpacity;
+    #     keyboard.bindings = [
+    #       {
+    #         key = "PageUp";
+    #         action = "ScrollLineUp";
+    #       }
+    #       {
+    #         key = "PageDown";
+    #         action = "ScrollLineDown";
+    #       }
+    #       {
+    #         key = "PageUp";
+    #         mods = "Alt";
+    #         action = "ScrollPageUp";
+    #       }
+    #       {
+    #         key = "PageDown";
+    #         mods = "Alt";
+    #         action = "ScrollPageDown";
+    #       }
+    #     ];
+    #   };
+    # };
   };
 }
-

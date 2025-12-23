@@ -27,7 +27,6 @@
   };
 
   misc = lib.mkForce {
-    usePackageList = true;
     systemFont = "Hack Nerd Font Mono";
     monitorName = "eDP-1";
     wmStartupCommand =

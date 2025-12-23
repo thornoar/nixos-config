@@ -135,7 +135,6 @@ lspconfig.lua_ls.setup({
 
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})
-local luasnip = require('luasnip')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local cmp = require('cmp')
 cmp.setup({
@@ -174,18 +173,10 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-Right>'] = cmp.mapping(function(fallback)
-            if luasnip.locally_jumpable(1) then
-                luasnip.jump(1)
-            else
-                cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-            end
+            cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
         end, { 'i', 's' }),
         ['<C-Left>'] = cmp.mapping(function(fallback)
-            if luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                cmp_ultisnips_mappings.jump_backwards(fallback)
-            end
+            cmp_ultisnips_mappings.jump_backwards(fallback)
         end, { 'i', 's' }),
     }),
     snippet = {

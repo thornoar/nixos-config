@@ -28,13 +28,13 @@
   };
 
   environment.variables = {
-    SPECIALISATION = lib.mkForce "hyprland-powersave";
+    SPECIALISATION = lib.mkForce "hyprland";
     SPECIALISATION_ENABLE = "0";
     WLR_NO_HARDWARE_CURSORS = "1";
     CURSOR_INACTIVE_TIMEOUT = "1";
     NIXOS_OZONE_WL = "1";
     HYPRCURSOR_SIZE = "16";
-    TERMINAL = "alacritty";
+    TERMINAL = "footclient";
     XCURSOR_SIZE = "16";
     BROWSER = "firefox -P hyprland";
   };
