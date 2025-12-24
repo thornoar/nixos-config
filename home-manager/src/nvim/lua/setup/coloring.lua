@@ -54,6 +54,7 @@ vim.cmd([[
     highlight Operator guifg=aquamarine
     highlight Keyword guifg=plum
     highlight Comment gui=NONE
+    highlight IblIndent guifg=grey
 ]])
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.primary, bg = colors.bg0 })
 vim.api.nvim_set_hl(0, "BiscuitColor", { fg = colors.commentColor })

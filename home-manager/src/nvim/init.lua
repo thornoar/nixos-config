@@ -42,10 +42,9 @@ require("lazy").setup({
     -- "nvim-tree/nvim-web-devicons",
     "axieax/urlview.nvim",
     -- "smithbm2316/centerpad.nvim",
-    {
-        "thornoar/coq-lsp.nvim",
-        branch = "add-configuration",
-    },
+    -- {
+    --     "tomtomjhj/coq-lsp.nvim",
+    -- },
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",
@@ -225,7 +224,7 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
         },
     },
-    { "simrat39/rust-tools.nvim" },
+    -- { "simrat39/rust-tools.nvim" },
     {
         "hrsh7th/nvim-cmp",
         -- dependencies = {
@@ -278,7 +277,7 @@ require("lazy").setup({
     },
     {
         "mrcjkb/haskell-tools.nvim",
-        version = "^6", -- Recommended
+        -- version = "^6", -- Recommended
         lazy = false, -- This plugin is already lazy
     },
     {
@@ -314,7 +313,7 @@ require("setup.codecompanion")
 require("setup.neodev")
 -- require("setup.oil")
 require("setup.commands")
-require("setup.coq-lsp")
+-- require("setup.coq-lsp")
 require("setup.keymaps")
 require("setup.telescope")
 require("setup.comment")

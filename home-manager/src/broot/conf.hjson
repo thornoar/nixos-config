@@ -8,6 +8,9 @@ special_paths: {
     # "/home/dys/my-link-I-want-to-explore"    : enter
 }
 content_search_max_file_size: 10MB
+lines_before_match_in_preview: 1
+lines_after_match_in_preview: 1
+auto_open_staging_area: false
 imports: [
     verbs.hjson
     colorscheme.hjson

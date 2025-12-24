@@ -65,6 +65,7 @@ in {
           "margin-right": ${ts config.hyprland.windowSpaceOuter},
           "layer": "top",
           "spacing": 0,
+          "height": 24,
 
           "include": [
               "~/.config/waybar/modules.json"
@@ -131,10 +132,7 @@ in {
     # Foot configuration
     xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
     xdg.configFile."foot/share.ini".text = ''
-      font=Hack Nerd Font Mono:size=${ts config.hyprland.fontsize}
-      # font-bold=Hack Nerd Font Mono:weight=bold
-      # font-italic=Hack Nerd Font Mono:slant=italic
-      # font-bold-italic=Hack Nerd Font Mono:weight=bold:slant=italic
+      font=JetBrains Mono:size=${ts config.hyprland.fontsize}
 
       pad=0x0
 

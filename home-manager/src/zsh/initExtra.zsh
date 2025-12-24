@@ -1,3 +1,5 @@
+setopt CORRECT
+
 autoload -U colors && colors
 PS1="[%{$fg[blue]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
 

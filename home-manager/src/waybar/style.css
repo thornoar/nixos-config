@@ -4,8 +4,8 @@
 	/* border: 1px solid @bg1; */
 	border: none;
 	border-radius: 0px;
-    font-family: "Hack";
-	min-height: 0px;
+    font-family: "JetBrains Mono";
+	min-height: 0;
     /* margin-top: 0px; */
     /* margin-bottom: 0px; */
 }
@@ -22,10 +22,10 @@ window#waybar {
 	border-right: 1px solid @primary;
 }
 
-#backlight {
-	margin-top: 4px;
-	margin-bottom: 4px;
-}
+/* #backlight { */
+/* 	margin-top: 2px; */
+/* 	margin-bottom: 2px; */
+/* } */
 
 #pulseaudio,
 #clock,

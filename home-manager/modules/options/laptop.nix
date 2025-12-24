@@ -27,7 +27,7 @@
   };
 
   misc = lib.mkForce {
-    systemFont = "Hack Nerd Font Mono";
+    systemFont = "JetBrains Mono";
     monitorName = "eDP-1";
     wmStartupCommand =
       "sleep 2; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";

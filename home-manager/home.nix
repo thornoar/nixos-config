@@ -20,11 +20,20 @@
 
   home.sessionVariables = {
     WALLPAPER_DIR = config.wallpaper.dir;
+    BAT_THEME = "ansi";
   };
 
   nixpkgs.config.allowUnfree = true;
 
   programs = { home-manager = { enable = true; }; };
+
+  # Bat
+  programs.bat = {
+    enable = true;
+    extraPackages = with pkgs.bat-extras; [
+      batman
+    ];
+  };
 
   # zsh configuration
   programs.zsh = {
@@ -125,7 +134,7 @@
         preview_title: "${config.colors.white3} None / ${config.colors.white4} None"
         preview: "None ${config.colors.bg0}"
         preview_line_number: "${config.colors.primary} None / ${config.colors.primary} None"
-        preview_match: "${config.colors.red0} ${config.colors.bg0} Bold"
+        preview_match: "${config.colors.bg0} ${config.colors.red0} Bold"
         hex_null: "${config.colors.white4} None"
         hex_ascii_graphic: "${config.colors.white3} None"
         hex_ascii_whitespace: "${config.colors.cyan} None"

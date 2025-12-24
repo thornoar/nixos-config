@@ -1,4 +1,3 @@
--- $ibl
 require('ibl').setup({
     indent = {
         char = '|',

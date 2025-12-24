@@ -1,4 +1,3 @@
--- $treesitter
 require("nvim-treesitter.configs").setup({
     auto_install = false,
     modules = {},
@@ -9,7 +8,7 @@ require("nvim-treesitter.configs").setup({
         "vimdoc", "vim", "hjson",
         "java", "markdown_inline",
         "typst", "html", "css",
-        -- "yaml", "latex"
+        "yaml", "latex"
     },
     highlight = { enable = true },
     indent = { enable = false },

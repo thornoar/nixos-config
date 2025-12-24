@@ -24,26 +24,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lspconfig = require('lspconfig')
-local lspbasicconfig = {
-    autostart = true,
-    capabilities = lsp_capabilities,
-    -- handlers = handlers,
-    root_dir = function (_)
-        return vim.loop.cwd()
-    end,
-}
+-- local lspbasicconfig = {
+--     autostart = true,
+--     capabilities = lsp_capabilities,
+--     -- handlers = handlers,
+--     root_dir = function (_)
+--         return vim.loop.cwd()
+--     end,
+-- }
 
 vim.diagnostic.config({
     float = { border = "rounded", },
 })
 
-lspconfig.texlab.setup(lspbasicconfig)
-lspconfig.ts_ls.setup(lspbasicconfig)
-lspconfig.pyright.setup(lspbasicconfig)
--- lspconfig.clojure_lsp.setup(lspbasicconfig)
--- lspconfig.nil_ls.setup(lspbasicconfig)
-lspconfig.nixd.setup({
+vim.lsp.enable("texlab")
+
+vim.lsp.enable("ts_ls")
+
+vim.lsp.enable("pyright")
+
+-- vim.lsp.enable("clojure_lsp")
+-- vim.lsp.enable("nil_ls")
+
+vim.lsp.config("nixd", {
     -- handlers = handlers,
     capabilities = lsp_capabilities,
     cmd = { "nixd" },
@@ -63,9 +66,13 @@ lspconfig.nixd.setup({
         },
     },
 })
-lspconfig.r_language_server.setup(lspbasicconfig)
--- lspconfig.hls.setup(lspbasicconfig)
-lspconfig.clangd.setup({
+vim.lsp.enable("nixd")
+
+vim.lsp.enable("r_language_server")
+
+-- vim.lsp.enable("hls")
+
+vim.lsp.config("clangd", {
     autostart = true,
     capabilities = lsp_capabilities,
     -- handlers = handlers,
@@ -73,10 +80,13 @@ lspconfig.clangd.setup({
         return vim.loop.cwd()
     end,
 })
-lspconfig.bashls.setup(lspbasicconfig)
-lspconfig.asm_lsp.setup(lspbasicconfig)
+vim.lsp.enable("clangd")
 
-lspconfig.tinymist.setup({
+vim.lsp.enable("bashls")
+
+vim.lsp.enable("asm_lsp")
+
+vim.lsp.config("tinymist", {
     -- settings = {
     --     exportPdf = "never",
     -- },
@@ -88,36 +98,39 @@ lspconfig.tinymist.setup({
         return vim.loop.cwd()
     end,
 })
+vim.lsp.enable("tinymist")
 
-lspconfig.rust_analyzer.setup({
-    autostart = true,
-    capabilities = lsp_capabilities,
-    -- handlers = handlers,
-    settings = {
-        ['rust-analyzer'] = {
-            check = {
-                command = "clippy"
-            },
-            diagnostics = {
-                enable = true
-            },
-        },
-    },
-})
-local rt = require("rust-tools")
-rt.setup({
-    server = {
-        on_attach = function(_, bufnr)
-            -- Hover actions
-            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-        end,
-    },
-})
-rt.inlay_hints.enable()
+-- lspconfig.rust_analyzer.setup({
+--     autostart = true,
+--     capabilities = lsp_capabilities,
+--     -- handlers = handlers,
+--     settings = {
+--         ['rust-analyzer'] = {
+--             check = {
+--                 command = "clippy"
+--             },
+--             diagnostics = {
+--                 enable = true
+--             },
+--         },
+--     },
+-- })
+vim.lsp.enable("rust_analyzer")
 
-lspconfig.lua_ls.setup({
+-- local rt = require("rust-tools")
+-- rt.setup({
+--     server = {
+--         on_attach = function(_, bufnr)
+--             -- Hover actions
+--             vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+--             -- Code action groups
+--             vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+--         end,
+--     },
+-- })
+-- rt.inlay_hints.enable()
+
+vim.lsp.config("lua_ls", {
     autostart = true,
     capabilities = lsp_capabilities,
     -- handlers = handlers,
@@ -132,6 +145,7 @@ lspconfig.lua_ls.setup({
         }
     }
 })
+vim.lsp.enable("lua_ls")
 
 vim.api.nvim_create_user_command('LA', 'LspStart', {})
 vim.api.nvim_create_user_command('LD', 'LspStop', {})

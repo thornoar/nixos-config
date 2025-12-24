@@ -56,7 +56,7 @@ all = no
 fsmon = yes
 
 [font]
-name = Hack
+name = JetBrains Mono
 size = 12
 color = #00000000
 shadow = #00000000

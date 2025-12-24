@@ -6,6 +6,26 @@
     enable = true;
     withPython3 = true;
     extraPython3Packages = ps: with ps; [ sympy pynvim ];
+    extraPackages = with pkgs; [
+      tree-sitter
+      ripgrep
+      fd
+      haskellPackages.fast-tags
+      haskellPackages.haskell-debug-adapter
+      haskellPackages.ghci-dap
+      pyright
+      haskell-language-server
+      tinymist
+      lua-language-server
+      rust-analyzer
+      # java-language-server
+      # clojure-lsp
+      metals
+      nodePackages.typescript-language-server
+      nodePackages.bash-language-server
+      asm-lsp
+      nixd
+    ];
   };
   xdg.configFile."nvim/ftdetect" = config.util.dotFileMut "nvim/ftdetect";
   xdg.configFile."nvim/syntax" = config.util.dotFileMut "nvim/syntax";
@@ -105,7 +125,6 @@
       manim ipython sympy numpy ollama openai mutagen
     ]))
     sage
-    pyright
 
     # R
     (rWrapper.override {
@@ -123,7 +142,6 @@
     cabal-install
     haskellPackages.cabal-clean
     haskellPackages.hoogle
-    haskell-language-server
 
     # LaTeX
     (texlive.combine { inherit (texlive) scheme-full; })
@@ -131,7 +149,6 @@
 
     # Typst
     typst
-    tinymist
 
     # C/C++
     clang
@@ -141,8 +158,8 @@
     cmake
 
     # Lua
-    lua
-    lua-language-server
+    lua5_1
+    luarocks
 
     # # Go
     # go
@@ -153,38 +170,30 @@
     # Rust
     cargo
     rustc
-    rust-analyzer
     evcxr
 
     # # Java
     # openjdk17
-    # java-language-server
 
     # # Clojure
     # leiningen
     # clojure
-    # clojure-lsp
 
     # Scala
     scala
     scala-cli
-    metals
     sbt
 
     # Node packages
-    nodePackages.typescript-language-server
-    nodePackages.bash-language-server
 
     # Assembly
     nasm
-    asm-lsp
 
     # Nix
     nixfmt-classic
     manix
     nix-output-monitor
     nvd
-    nixd
 
     # Coq
     coq
