@@ -62,7 +62,7 @@
     gamemode.enable = true;
   };
 
-  time.timeZone = "Asia/Hong_Kong";
+  time.timeZone = "Europe/Belgrade";
 
   fonts.packages = with pkgs; [
     noto-fonts
