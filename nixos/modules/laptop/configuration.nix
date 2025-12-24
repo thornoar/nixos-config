@@ -65,13 +65,14 @@
   time.timeZone = "Europe/Belgrade";
 
   fonts.packages = with pkgs; [
-    noto-fonts
+    # noto-fonts
     ipafont
     kochi-substitute
     newcomputermodern
     hack-font
     jetbrains-mono
     # nerd-fonts.jetbrains-mono
+    # dejavu_fonts
   ];
 
   systemd.timers."refresh-nps-cache" = {
