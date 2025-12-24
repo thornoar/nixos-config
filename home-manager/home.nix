@@ -6,8 +6,8 @@
   xdg.userDirs = {
     enable = true;
     download = "${config.home.homeDirectory}/dls";
-    desktop = "${config.home.homeDirectory}/dsk";
-    documents = "${config.home.homeDirectory}/docs";
+    desktop = "${config.home.homeDirectory}/dls";
+    documents = "${config.home.homeDirectory}/dls";
     pictures = "${config.home.homeDirectory}/media/pictures";
   };
 
