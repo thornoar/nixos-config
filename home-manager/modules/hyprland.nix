@@ -41,17 +41,25 @@ in {
 
     # Swayimg configuration
     xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
-    xdg.configFile."swayimg/colors".text = ''
+    xdg.configFile."swayimg/shared".text = ''
       [viewer]
       window = ${clr.bg0}ff
+
+      [font]
+      name = ${config.misc.systemFont}
+      size = ${ts config.hyprland.fontsize}
+      color = #00000000
+      shadow = #00000000
+      background = #00000000
     '';
 
     # Waybar configuration
 
-    xdg.configFile."waybar/size.css".text = ''
+    xdg.configFile."waybar/shared.css".text = ''
       * {
           font-size: ${ts config.hyprland.fontsizeWaybar}pt;
           border-radius: ${ts config.hyprland.rounding}px;
+          font-family: "${config.misc.systemFont}";
       }
     '';
     xdg.configFile."waybar/style.css" = config.util.dotFileMut "waybar/style.css";
@@ -94,6 +102,7 @@ in {
 
     # Tofi configuration
     xdg.configFile."tofi/config".text = ''
+      font = "${config.misc.systemFont}"
       font-size = ${ts config.hyprland.fontsize}
       text-color = ${clr.primary}
       prompt-color =${clr.primary} 
@@ -132,7 +141,7 @@ in {
     # Foot configuration
     xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
     xdg.configFile."foot/share.ini".text = ''
-      font=JetBrains Mono:size=${ts config.hyprland.fontsize}
+      font=${config.misc.systemFont}:size=${ts config.hyprland.fontsize}, Noto Color Emoji
 
       pad=0x0
 

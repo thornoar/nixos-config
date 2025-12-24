@@ -199,7 +199,7 @@ let
     #alltabs-button {
         display: none !important;
     }
-    #navigator-toolbox { font-family:JetBrains Mono !important }
+    #navigator-toolbox { font-family:${config.misc.systemFont} !important }
     #urlbar ::-moz-selection,
     .searchbar-textbox ::-moz-selection {
         background-color: ${config.colors.blue1} !important;

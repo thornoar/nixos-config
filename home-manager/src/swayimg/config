@@ -1,7 +1,7 @@
 # Swayimg configuration file.
 # vim: filetype=dosini
 
-include colors
+include shared
 
 [general]
 mode = viewer
@@ -54,13 +54,6 @@ order = alpha
 recursive = no
 all = no
 fsmon = yes
-
-[font]
-name = JetBrains Mono
-size = 12
-color = #00000000
-shadow = #00000000
-background = #00000000
 
 [info]
 show = no

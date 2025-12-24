@@ -19,12 +19,14 @@
 
     // CPU
     "cpu": {
-        "format": "CPU: {usage}%"
+        "format": "CPU {usage}%",
+        "tooltip": false
     },
 
     // Memory
     "memory": {
-        "format": "MEM: {}%"
+        "format": "MEM {}%",
+        "tooltip": false
     },
 
     "hyprland/language": {
@@ -36,13 +38,13 @@
     // Network
     "network": {
         "format": "{ifname}",
-        "format-wifi": "WIFI: {signalStrength}%",
-        "format-ethernet": "ETH: {ifname}",
-        "format-disconnected": "Disconnected",
-        "tooltip-format": "{ifname} via {gwaddri}",
-        "tooltip-format-wifi": "WIFI: {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
-        "tooltip-format-ethernet": "ETH: {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-        "tooltip-format-disconnected": "Disconnected",
+        "format-wifi": "WIFI {signalStrength}%",
+        "format-ethernet": "ETH {ifname}",
+        "format-disconnected": "OFFLINE",
+        "tooltip-format": "",
+        "tooltip-format-wifi": "",
+        "tooltip-format-ethernet": "",
+        "tooltip-format-disconnected": "OFFLINE",
         "max-length": 50
     },
 
@@ -53,21 +55,23 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "BAT: {capacity}%",
-        "format-plugged": "CHARGING"
+        "format": "BAT {capacity}%",
+        "format-plugged": "CHARGE {capacity}%",
+        "tooltip": false
     },
 
     // Pulseaudio
     "pulseaudio": {
-        "format": "VOL: {volume}%",
-        "format-muted": "VOL: MUTED",
-        "format-source": "VOL: {volume}%"
+        "format": "{volume}% VOL",
+        "format-muted": "MUTED",
+        "format-source": "VOL {volume}%",
     },
 
 
     // backlight:
     "backlight": {
-        "format": "BRI: {percent}%",
-        "scroll-step": 1
+        "format": "BRI {percent}%",
+        "scroll-step": 1,
+        "tooltip": false
     }
 }

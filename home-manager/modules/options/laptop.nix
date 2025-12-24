@@ -29,7 +29,7 @@
   misc = lib.mkForce {
     systemFont = "JetBrains Mono";
     monitorName = "eDP-1";
-    wmStartupCommand =
-      "sleep 2; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";
+    # wmStartupCommand =
+    #   "sleep 2; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F; sleep 1; echo disable > /sys/firmware/acpi/interrupts/gpe6F";
   };
 }
