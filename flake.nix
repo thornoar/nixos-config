@@ -19,7 +19,7 @@
     nix-output-monitor = {
       url = "github:thornoar/nix-output-monitor";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
   };
 
   outputs = inputs:
