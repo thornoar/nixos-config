@@ -38,6 +38,7 @@ try:
     behind_remote = False
 
     if args.git or args.onlygit:
+        print("git")
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
             print("> Local branch is behind remote.") #]]
