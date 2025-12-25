@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
 fast=0
-verbose=1
+verbose=0
 delete=0
 list=0
 rst=0
 all=0
-while getopts "fvdlra" option; do
+showhelp=0
+while getopts "fvdlrah" option; do
     case "$option" in
     f) fast=1 ;;
-    v) verbose=0 ;;
+    v) verbose=1 ;;
     d) delete=1 ;;
     l) list=1 ;;
     r) rst=1 ;;
     a) all=1 ;;
+    h) showhelp=1 ;;
     *) exit 1 ;;
     esac
 done
@@ -34,6 +36,18 @@ if [ $fast == 1 ]; then
     exit 0
 fi
 
+if [ $showhelp == 1 ]; then
+    printf "usage: nvim-server [OPTIONS]\n"
+    printf "  -f    skip all checks and start the server\n"
+    printf "  -v    print log messages\n"
+    printf "  -d    delete the currently running server\n"
+    printf "  -l    check if there is an active server attached to the current PID\n"
+    printf "  -r    restart the server\n"
+    printf "  -a    apply an action to all running servers\n"
+    printf "  -h    show this help message\n"
+    exit 0
+fi
+
 function stop {
     pipe="$1"
     nohup nvim --server "$pipe" --remote-send "<esc>:wqa<CR>" > /dev/null 2>&1 0< /dev/null
@@ -43,7 +57,7 @@ function stop {
 if [ $all == 1 ]; then
     if [ $delete == 1 ]; then
         if [ $verbose == 1 ]; then
-            printf "> Deleting all active NVIM servers:\n" # ]]
+            printf "> Deleting all active NVIM servers:\n"
         fi
         for pipe in /run/user/1000/nvim.*.pipe; do
             if [ -e "$pipe" ]; then

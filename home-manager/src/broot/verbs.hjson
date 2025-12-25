@@ -162,7 +162,7 @@ verbs: [
     }
     {
         invocation: reload
-        execution: "nvim-server -rv"
+        execution: "nvim-server -r"
         leave_broot: false
     }
     {

@@ -171,35 +171,42 @@ require("lazy").setup({
         "davvid/telescope-git-grep.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
+    -- {
+    --     "altermo/ultimate-autopair.nvim",
+    --     event = { "InsertEnter","CmdlineEnter" },
+    --     branch = "v0.6",
+    --     opts = {
+    --         space2 = { enable = true },
+    --         tabout = { enable = true },
+    --         fastwarp = {
+    --             enable = true,
+    --             enable_normal = true,
+    --             enable_reverse = true,
+    --             hopout = false,
+    --             faster = false,
+    --             map = "<M-/>",
+    --         },
+    --         internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
+    --             {'[',']',fly=true,dosuround=true,newline=true,space=true},
+    --             {'(',')',fly=true,dosuround=true,newline=true,space=true},
+    --             {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
+    --             {'{','}',fly=true,dosuround=true,newline=true,space=true},
+    --             {'"','"',suround=true,multiline=false},
+    --             {'`','`', nft={'tex'},multiline=false},
+    --             {'``',"''",ft={'tex'}},
+    --             {'```','```',newline=true,ft={'markdown'}},
+    --             {'<!--','-->',ft={'markdown','html'},space=true},
+    --             {'"""','"""',newline=true,ft={'python'}},
+    --             {"'''","'''",newline=true,ft={'python'}},
+    --         },
+    --     },
+    -- },
     {
-        "altermo/ultimate-autopair.nvim",
-        event = { "InsertEnter","CmdlineEnter" },
-        branch = "v0.6",
-        opts = {
-            space2 = { enable = true },
-            tabout = { enable = true },
-            fastwarp = {
-                enable = true,
-                enable_normal = true,
-                enable_reverse = true,
-                hopout = false,
-                faster = false,
-                map = "<M-/>",
-            },
-            internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
-                {'[',']',fly=true,dosuround=true,newline=true,space=true},
-                {'(',')',fly=true,dosuround=true,newline=true,space=true},
-                {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
-                {'{','}',fly=true,dosuround=true,newline=true,space=true},
-                {'"','"',suround=true,multiline=false},
-                {'`','`', nft={'tex'},multiline=false},
-                {'``',"''",ft={'tex'}},
-                {'```','```',newline=true,ft={'markdown'}},
-                {'<!--','-->',ft={'markdown','html'},space=true},
-                {'"""','"""',newline=true,ft={'python'}},
-                {"'''","'''",newline=true,ft={'python'}},
-            },
-        },
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equivalent to setup({}) function
     },
     {
         "navarasu/onedark.nvim",
@@ -327,6 +334,7 @@ require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
 require("setup.neoscroll")
+require("setup.nvim-autopairs")
 -- require("setup.render-markdown")
 -- require("setup.noice")
 -- require("setup.nvim-subfiles")

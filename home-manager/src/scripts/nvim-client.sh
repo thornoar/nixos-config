@@ -3,14 +3,25 @@
 file=""
 line=""
 target=""
-while getopts "f:l:t:v" option; do
-    case "$option" in # ((((
+showhelp=0
+while getopts "f:l:t:h" option; do
+    case "$option" in # (((((
         f) file="$OPTARG" ;;
         l) line="$OPTARG" ;;
         t) target="$OPTARG" ;;
+        h) showhelp=1 ;;
         *) exit 1 ;;
     esac
 done
+
+if [ $showhelp == 1 ]; then
+    printf "usage: nvim-client [OPTIONS]\n"
+    printf "  -f FILE    the file to edit\n"
+    printf "  -l NUM     the line number to jump to\n"
+    printf "  -t PIPE    the target pipe to find the server\n"
+    printf "  -h         show this help message\n"
+    exit 0
+fi
 
 pid="$PPID"
 
