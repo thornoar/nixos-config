@@ -3,6 +3,10 @@ setopt CORRECT
 autoload -U colors && colors
 PS1="[%{$fg[blue]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
 
+function preexec() {
+    timer=$(($(date +%s%0N)/1000000))
+}
+
 function precmd() {
     echo -ne '\e[4 q'
     if [ $timer ]; then
