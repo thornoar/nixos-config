@@ -16,10 +16,6 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nix-output-monitor = {
-    #   url = "github:thornoar/nix-output-monitor";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = inputs:

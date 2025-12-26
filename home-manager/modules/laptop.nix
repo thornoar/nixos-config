@@ -42,6 +42,7 @@
     foot
     nps
     pastel
+    wf-recorder
   ]) ++ (with pkgs.unstable; [
     swayimg
     rmpc

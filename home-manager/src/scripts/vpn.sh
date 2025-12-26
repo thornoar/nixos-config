@@ -215,7 +215,7 @@ if [[ "connect" =~ ^"$cmd" ]]; then
                         printf "%s-%s-%s\n" "$country" "$branch" "$provider"
                     fi
                 fi
-                notify-send "VPN connection to $(getCountryName "$country") established!"
+                notify-send "VPN connection to $(getCountryName "$country") established"
                 exit 0
             fi
             sleep 1.0

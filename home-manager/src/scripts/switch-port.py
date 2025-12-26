@@ -24,4 +24,4 @@ try:
     if sel_desc != "":
         os.system("pactl set-default-sink " + names[descs.index(sel_desc)])
 except:
-    os.system("notify-send 'could not switch audio output device'")
+    os.system("notify-send \"switch-port\" \"could not switch audio output device\"")

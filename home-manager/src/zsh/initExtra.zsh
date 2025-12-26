@@ -35,9 +35,10 @@ alias -- fdate='date +"%d %b %Y (%a): %H:%M"'
 alias -- develop='export ZDOTDIR="$XDG_CONFIG_HOME/nix-develop" && nix develop'
 alias -- pdraw='watch -n 1 "upower -e | grep "battery" | xargs upower -i"'
 alias -- cdgit='cd $(git rev-parse --git-dir)/..'
+alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
 
 export PATH=$PATH:~/media/sandbox/bin
 
-export ARCHVM="192.168.122.35"
+export ARCHVM="192.168.122.168"
 export DEBIANVM="192.168.122.127"
 export SAMSUNG="10.89.226.157:6969"

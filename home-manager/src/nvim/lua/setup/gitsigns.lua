@@ -1,5 +1,20 @@
 -- $gitsigns
 require('gitsigns').setup({
+    signs = {
+        add          = { text = '+' },
+        change       = { text = '~' },
+        delete       = { text = '-' },
+        topdelete    = { text = '-' },
+        changedelete = { text = '~' },
+        untracked    = { text = '?' },
+    },
+    signs_staged = {
+        add          = { text = '+' },
+        change       = { text = '~' },
+        delete       = { text = '-' },
+        topdelete    = { text = '-' },
+        changedelete = { text = '~' },
+    },
     numhl = true,
     current_line_blame = false,
     current_line_blame_opts = {
@@ -32,9 +47,7 @@ require('gitsigns').setup({
         end)
         map("v", "<leader>gs", function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end)
         map("v", "<leader>gr", function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end)
-        map("n", "<leader>gs", gitsigns.stage_hunk)
         map("n", "<leader>gr", gitsigns.reset_hunk)
-        map("n", "<leader>gS", gitsigns.stage_buffer)
         map("n", "<leader>gR", gitsigns.reset_buffer)
         map("n", "<leader>gq", gitsigns.setqflist)
         map("n", "<M-s>", gitsigns.preview_hunk_inline)

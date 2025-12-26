@@ -38,7 +38,6 @@ try:
     behind_remote = False
 
     if args.git or args.onlygit:
-        print("git")
         call("git remote update")
         if "branch is behind" in os.popen("git status").read().strip():
             print("> Local branch is behind remote.") #]]
@@ -113,7 +112,7 @@ try:
     os.chdir(cwd)
 
     if args.alert:
-        call("notify-send \"rebuild completed!\"")
+        call("notify-send \"NixOS rebuild\" \"finished system upgrade\"")
 
     if args.reboot:
         os.system("reboot")
