@@ -5,6 +5,12 @@ PS1="[%{$fg[blue]%}%n%{$reset_color%}] %{$fg[yellow]%}%2~ %{$reset_color%}: "
 
 function precmd() {
     echo -ne '\e[4 q'
+    if [ $timer ]; then
+    now=$(($(date +%s%0N)/1000000))
+    elapsed=$(($now-$timer))
+    export RPROMPT="< %{$fg[yellow]%}${elapsed}ms%{$reset_color%}"
+    unset timer
+    fi
     unset MYVIMRC
 }
 
