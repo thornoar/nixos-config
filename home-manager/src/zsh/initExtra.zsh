@@ -39,6 +39,6 @@ alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;
 
 export PATH=$PATH:~/media/sandbox/bin
 
-export ARCHVM="192.168.122.168"
+export ARCHVM="192.168.122.167"
 export DEBIANVM="192.168.122.127"
 export SAMSUNG="10.89.226.157:6969"
