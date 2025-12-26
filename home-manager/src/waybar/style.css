@@ -75,6 +75,7 @@ window#waybar {
     padding-top: 0px;
     padding-bottom: 0px;
 	color: @primary;
+    transition: none;
 	background: transparent;
     box-shadow: none;
 }
