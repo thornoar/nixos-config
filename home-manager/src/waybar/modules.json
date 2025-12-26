@@ -55,8 +55,8 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "BAT {capacity}%",
-        "format-plugged": "CHARGE {capacity}%",
+        "format": "{capacity}%",
+        "format-plugged": "{capacity}%",
         "tooltip": false
     },
 
@@ -65,6 +65,7 @@
         "format": "{volume}% VOL",
         "format-muted": "MUTED",
         "format-source": "VOL {volume}%",
+        "tooltip": false
     },
 
 

@@ -119,7 +119,7 @@ jobs: $ncpus
 -- offline: False
 -- lib: False
 -- package-env:
--- overwrite-policy:
+overwrite-policy: always
 -- install-method:
 installdir: /home/ramak/.local/bin
 -- token:

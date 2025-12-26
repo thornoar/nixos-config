@@ -103,6 +103,8 @@
     ".ghci" = config.util.dotFileMut "ghci";
   };
 
+  xdg.configFile."cabal/config" = config.util.dotFileMut "cabal/config";
+
   programs = {
     git = {
       enable = true;
