@@ -140,5 +140,14 @@
 
   services.xserver.videoDrivers = lib.mkForce ["nvidia" "modesetting"];
 
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        
+      }
+    ];
+    ensureDefaultPrinter = "Xerox_WorkCentre_3025";
+  };
+
   # systemd.services.nbfc_service.enable = lib.mkForce false;
 }

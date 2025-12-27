@@ -1,4 +1,9 @@
 verbs: [
+    # {
+    #     invocation: "md {subpath}"
+    #     external: ":mkdir {subpath};:focus {directory}/{subpath}"
+    #     leave_broot: false
+    # }
     {
         invocation: rm
         external: del {file}

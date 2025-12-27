@@ -82,6 +82,23 @@
       server-fr-3-vpnbook = createConfig "fr-free-3.vpnbook.tcp";
       server-fr-4-vpnbook = createConfig "fr-free-4.vpnbook.udp";
     };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        gutenprint
+        gutenprintBin
+        hplip
+        splix
+        foomatic-db-ppds
+        foomatic-db-nonfree
+        (writeTextDir "share/cups/model/xerox/wc3025.ppd" (builtins.readFile ../../src/Xerox_WorkCentre_3025.ppd))
+      ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
   };
 
   virtualisation.libvirtd.enable = true;
