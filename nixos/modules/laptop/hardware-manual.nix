@@ -143,7 +143,13 @@
   # hardware.printers = {
   #   ensurePrinters = [
   #     {
-  #       
+  #       name = "Xerox_WorkCentre_3025";
+  #       location = "Home";
+  #       deviceUri = "socket://192.168.0.38";
+  #       model = "xerox/wc3025.ppd";
+  #       ppdOptions = {
+  #         pageSize = "A4";
+  #       };
   #     }
   #   ];
   #   ensureDefaultPrinter = "Xerox_WorkCentre_3025";

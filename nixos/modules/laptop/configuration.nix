@@ -91,7 +91,7 @@
         splix
         foomatic-db-ppds
         foomatic-db-nonfree
-        (writeTextDir "share/cups/model/xerox/wc3025.ppd" (builtins.readFile ../../src/Xerox_WorkCentre_3025.ppd))
+        # (writeTextDir "share/cups/model/xerox/wc3025.ppd" (builtins.readFile ../../src/Xerox_WorkCentre_3025.ppd))
       ];
     };
     avahi = {

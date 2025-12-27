@@ -51,4 +51,6 @@ export PATH=$PATH:~/media/sandbox/bin
 
 export ARCHVM="192.168.122.167"
 export DEBIANVM="192.168.122.127"
+export DESKTOP="192.168.0.28"
+export LAPTOP="192.168.0.37"
 export SAMSUNG="10.89.226.157:6969"

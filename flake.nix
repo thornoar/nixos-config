@@ -100,7 +100,6 @@
                     ./home-manager/modules/desktop.nix
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/desktop.nix
-                    ./home-manager/modules/scripts.nix
                     ./home-manager/modules/terminal.nix
                     ./home-manager/modules/development.nix
                   ];

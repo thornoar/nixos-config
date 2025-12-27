@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "ramak";
@@ -180,6 +180,24 @@
   # Rpmc configuration
   xdg.configFile."rmpc/config.ron" = config.util.dotFileMut "rmpc/config.ron";
   xdg.configFile."rmpc/themes/ramak.ron" = config.util.dotFileMut "rmpc/theme.ron";
+
+  # Home scripts
+  home.file = builtins.listToAttrs (
+    lib.lists.forEach
+      (lib.filesystem.listFilesRecursive ./src/scripts)
+      (filename: {
+          name = ".local/bin/" + (
+            lib.strings.head (
+              lib.strings.splitString "." (
+                lib.lists.last
+                (lib.strings.splitString "/" (builtins.toString filename))
+              )
+            )
+          );
+          value = config.util.dotFileMut ("scripts/" + builtins.baseNameOf filename);
+        }
+      )
+  );
 
   home.stateVersion = "25.05";
 }

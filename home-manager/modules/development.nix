@@ -74,34 +74,17 @@
     "latex" = config.util.dotFileMut "latex-libraries";
   };
 
-  home.file = builtins.listToAttrs (
-    lib.lists.forEach
-      (lib.filesystem.listFilesRecursive ../src/scripts)
-      (filename: {
-          name = ".local/bin/" + (
-            lib.strings.head (
-              lib.strings.splitString "." (
-                lib.lists.last
-                (lib.strings.splitString "/" (builtins.toString filename))
-              )
-            )
-          );
-          value = config.util.dotFileMut ("scripts/" + builtins.baseNameOf filename);
-        }
-      )
-  ) // {
-    # haskeline config
-    ".haskeline" = config.util.dotFileMut "haskeline";
+  # haskeline config
+  home.file.".haskeline" = config.util.dotFileMut "haskeline";
 
-    # Asymptote configuration
-    ".asy/config.asy" = config.util.dotFileMut "config.asy";
+  # Asymptote configuration
+  home.file.".asy/config.asy" = config.util.dotFileMut "config.asy";
 
-    # R configuration
-    ".Rprofile" = config.util.dotFileMut "Rprofile";
+  # R configuration
+  home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
 
-    # GHCi configuration
-    ".ghci" = config.util.dotFileMut "ghci";
-  };
+  # GHCi configuration
+  home.file.".ghci" = config.util.dotFileMut "ghci";
 
   xdg.configFile."cabal/config" = config.util.dotFileMut "cabal/config";
 
