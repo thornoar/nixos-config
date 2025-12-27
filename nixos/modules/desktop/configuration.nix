@@ -78,7 +78,7 @@
 
     boot.loader.systemd-boot = {
       enable = true;
-      configurationLimit = 10;
+      configurationLimit = 2;
     };
 
     # hardware.nvidia = {
