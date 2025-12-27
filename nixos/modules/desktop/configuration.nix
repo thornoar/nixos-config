@@ -7,25 +7,25 @@
     environment.variables = { PCTYPE = "desktop"; };
 
     hardware.graphics = {
-      enable = true;
+      enable = false;
       # driSupport = true;
       # driSupport32Bit = true;
     };
 
-    services.xserver = {
-      # videoDrivers = [ "nvidia" ];
-      displayManager = {
-        sessionCommands = ''
-          nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
-          setxkbmap -layout us,ru,de
-          xset -dpms
-          setterm -blank 0 -powerdown 0
-          xset r rate 200 30
-          xset s off
-          transmission-daemon
-        '';
-      };
-    };
+    # services.xserver = {
+    #   # videoDrivers = [ "nvidia" ];
+    #   displayManager = {
+    #     sessionCommands = ''
+    #       nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+    #       setxkbmap -layout us,ru,de
+    #       xset -dpms
+    #       setterm -blank 0 -powerdown 0
+    #       xset r rate 200 30
+    #       xset s off
+    #       transmission-daemon
+    #     '';
+    #   };
+    # };
 
     boot.kernelPackages = pkgs.linuxPackages_6_12;
 
@@ -76,7 +76,7 @@
       };
     };
 
-    boot.loader.systemd-boot = { configurationLimit = 5; };
+    boot.loader.systemd-boot = { configurationLimit = 10; };
 
     # hardware.nvidia = {
     #   modesetting.enable = true;
@@ -87,6 +87,6 @@
     #   package = config.boot.kernelPackages.nvidiaPackages.beta;
     # };
 
-    time.timeZone = "Europe/Moscow";
+    time.timeZone = "Europe/Belgrade";
   };
 }
