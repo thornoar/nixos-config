@@ -32,6 +32,7 @@
     '';
     registry = {
       nixpkgs.flake = pkgs.inputs.nixpkgs;
+      nixpkgs-unstable.flake = pkgs.inputs.nixpkgs-unstable;
       ${sysname}.flake = pkgs.inputs.self;
     };
   };
