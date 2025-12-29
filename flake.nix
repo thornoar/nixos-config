@@ -53,6 +53,7 @@
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
             ./nixos/modules/laptop/hyprland.nix
+            ./nixos/modules/laptop/niri.nix
             { _module.args = { sysname = "laptop"; }; }
             inputs.home-manager.nixosModules.home-manager
             {

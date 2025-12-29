@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  hyprland = lib.mkForce {
+  window = lib.mkForce {
     desktopScale = 2.0;
     widthPixels = 2880;
     heightPixels = 1620;

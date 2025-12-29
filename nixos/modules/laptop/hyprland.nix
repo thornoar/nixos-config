@@ -24,7 +24,7 @@
     HYPRCURSOR_SIZE = "16";
     TERMINAL = "foot";
     XCURSOR_SIZE = "16";
-    BROWSER = "firefox -P hyprland";
+    BROWSER = "firefox";
   };
 
   environment.systemPackages = (with pkgs; [   

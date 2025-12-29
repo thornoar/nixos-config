@@ -73,18 +73,18 @@
     enable = true;
     settings.global = {
       origin = "top-center";
-      offset = "${builtins.toString (config.hyprland.windowSpaceOuter + 10)}x${builtins.toString (config.hyprland.windowSpaceOuter + 10)}";
+      offset = "${builtins.toString (config.window.windowSpaceOuter + 10)}x${builtins.toString (config.window.windowSpaceOuter + 10)}";
       progress_bar = false;
       frame_width = 1;
       gap_size = 2;
       font = config.misc.systemFont + " 11";
-      corner_radius = config.hyprland.rounding;
+      corner_radius = config.window.rounding;
       frame_color = config.colors.primary;
       foreground = config.colors.white3;
       background = config.colors.bg0;
       sticky_history = false;
-      padding = config.hyprland.windowSpaceOuter + 5;
-      horizontal_padding = config.hyprland.windowSpaceOuter + 5;
+      padding = config.window.windowSpaceOuter + 5;
+      horizontal_padding = config.window.windowSpaceOuter + 5;
       width = "(0,1000)";
     };
     settings.urgency_normal = { timeout = 1; };

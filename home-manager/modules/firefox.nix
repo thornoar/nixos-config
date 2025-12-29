@@ -234,20 +234,20 @@ in {
   programs = {
     firefox = {
       enable = true;
-      profiles.hyprland = baseProfile // {
+      profiles.laptop = baseProfile // {
         id = 0;
-        name = "hyprland";
+        name = "laptop";
         isDefault = true;
         settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+          "layout.css.devPixelsPerPx" = config.window.firefoxScale;
         };
       };
-      profiles.hyprland-clean = baseProfile // {
+      profiles.laptop-clean = baseProfile // {
         id = 3;
-        name = "hyprland-clean";
+        name = "laptop-clean";
         isDefault = false;
         settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.hyprland.firefoxScale;
+          "layout.css.devPixelsPerPx" = config.window.firefoxScale;
         };
       };
     };

@@ -56,7 +56,7 @@
       };
     };
 
-    hyprland = lib.mkOption {
+    window = lib.mkOption {
       type = lib.types.attrs;
       default = {};
     };

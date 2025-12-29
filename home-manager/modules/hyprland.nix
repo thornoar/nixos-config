@@ -30,7 +30,7 @@ in {
     };
 
     # Hyprland configuration
-    xdg.configFile."hypr/imports.conf".text = (config.util.toConf false "" config.hyprland)
+    xdg.configFile."hypr/imports.conf".text = (config.util.toConf false "" config.window)
       + (config.util.toConf false "" config.misc) + (config.util.toConf false "" clr);
     xdg.configFile."wpaperd/config.toml".text = ''
       [${config.misc.monitorName}]
@@ -47,7 +47,7 @@ in {
 
       [font]
       name = ${config.misc.systemFont}
-      size = ${ts config.hyprland.fontsize}
+      size = ${ts config.window.fontsize}
       color = #00000000
       shadow = #00000000
       background = #00000000
@@ -57,8 +57,8 @@ in {
 
     xdg.configFile."waybar/shared.css".text = ''
       * {
-          font-size: ${ts config.hyprland.fontsizeWaybar}pt;
-          border-radius: ${ts config.hyprland.rounding}px;
+          font-size: ${ts config.window.fontsizeWaybar}pt;
+          border-radius: ${ts config.window.rounding}px;
           font-family: "${config.misc.systemFont}";
       }
     '';
@@ -67,10 +67,10 @@ in {
     xdg.configFile."waybar/config".text = ''
       {
           "layer": "top",
-          "margin-top": ${ts config.hyprland.windowSpaceOuter},
+          "margin-top": ${ts config.window.windowSpaceOuter},
           "margin-bottom": 0,
-          "margin-left": ${ts config.hyprland.windowSpaceOuter},
-          "margin-right": ${ts config.hyprland.windowSpaceOuter},
+          "margin-left": ${ts config.window.windowSpaceOuter},
+          "margin-right": ${ts config.window.windowSpaceOuter},
           "layer": "top",
           "spacing": 0,
           "height": 24,
@@ -103,7 +103,7 @@ in {
     # Tofi configuration
     xdg.configFile."tofi/config".text = ''
       font = "${config.misc.systemFont}"
-      font-size = ${ts config.hyprland.fontsize}
+      font-size = ${ts config.window.fontsize}
       text-color = ${clr.primary}
       prompt-color =${clr.primary} 
       placeholder-color = ${clr.bg3}
@@ -114,7 +114,7 @@ in {
       selection-match-color = ${clr.magenta0}
       width = ${
         ts
-        (config.hyprland.widthPixels / 2 - 2 * config.hyprland.windowSpaceOuter)
+        (config.window.widthPixels / 2 - 2 * config.window.windowSpaceOuter)
       }
       height = 50%
       background-color =${clr.bg0} 
@@ -122,31 +122,31 @@ in {
       outline-color =${clr.bg0} 
       border-width = 1
       border-color =${clr.primary} 
-      corner-radius = ${ts config.hyprland.rounding}
-      # padding-top = ${ts (config.hyprland.windowSpaceOuter / 2)}
-      # padding-bottom = ${ts (config.hyprland.windowSpaceOuter / 2)}
-      # padding-left = ${ts config.hyprland.windowSpaceOuter}
-      # padding-right = ${ts config.hyprland.windowSpaceOuter}
+      corner-radius = ${ts config.window.rounding}
+      # padding-top = ${ts (config.window.windowSpaceOuter / 2)}
+      # padding-bottom = ${ts (config.window.windowSpaceOuter / 2)}
+      # padding-left = ${ts config.window.windowSpaceOuter}
+      # padding-right = ${ts config.window.windowSpaceOuter}
       padding-top = 5
       padding-bottom = 0
       padding-left = 10
       padding-right = 10
-      margin-top = ${ts config.hyprland.windowSpaceOuter}
+      margin-top = ${ts config.window.windowSpaceOuter}
       margin-bottom = 0
-      margin-left = ${ts config.hyprland.windowSpaceOuter}
-      margin-right = ${ts config.hyprland.windowSpaceOuter}
+      margin-left = ${ts config.window.windowSpaceOuter}
+      margin-right = ${ts config.window.windowSpaceOuter}
 
     '' + builtins.readFile ../src/tofi.conf;
 
     # Foot configuration
     xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
     xdg.configFile."foot/share.ini".text = ''
-      font=${config.misc.systemFont}:size=${ts config.hyprland.fontsize}, Noto Color Emoji
+      font=${config.misc.systemFont}:size=${ts config.window.fontsize}, Noto Color Emoji
 
       pad=0x0
 
       [colors]
-      alpha=${ts config.hyprland.terminalOpacity}
+      alpha=${ts config.window.terminalOpacity}
       alpha-mode=default # Can be `default`, `matching` or `all`
       background=${bc clr.bg0}
       foreground=${bc clr.primary}
@@ -236,7 +236,7 @@ in {
     #       TERM = "xterm-256color";
     #     };
     #     font = {
-    #       size = config.hyprland.fontsize;
+    #       size = config.window.fontsize;
     #     };
     #     font.bold = {
     #       family = config.misc.systemFont;
@@ -255,11 +255,11 @@ in {
     #       style = "Regular";
     #     };
     #     window.padding = {
-    #       x = config.hyprland.terminalPaddingX;
-    #       y = config.hyprland.terminalPaddingY;
+    #       x = config.window.terminalPaddingX;
+    #       y = config.window.terminalPaddingY;
     #     };
     #     window.dynamic_padding = true;
-    #     window.opacity = config.hyprland.terminalOpacity;
+    #     window.opacity = config.window.terminalOpacity;
     #     keyboard.bindings = [
     #       {
     #         key = "PageUp";
