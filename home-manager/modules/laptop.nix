@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-{
+let
+  ts = builtins.toString;
+  bc = lib.strings.removePrefix "#";
+  clr = config.colors;
+in {
   home.pointerCursor.size = 16;
 
   home.packages = (with pkgs; [
@@ -65,6 +69,25 @@
     };
   };
 
+  # xdg-mime configuration
+  xdg.configFile."mimeapps.list".force = true;
+  xdg.mimeApps = rec {
+    enable = true;
+    associations.added = {
+      "application/pdf" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+      "audio/mpeg" = [ "mpv.desktop" ];
+      "audio/mp3" = [ "mpv.desktop" ];
+      "video/vnd.avi" = [ "mpv.desktop" ];
+      "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
+      "image/svg+xml" = [ "firefox.desktop" ];
+      "image/jpeg" = [ "swayimg.desktop" ];
+      "image/png" = [ "swayimg.desktop" ];
+      "text/csv" = [ "sc-im.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+    };
+    defaultApplications = associations.added;
+  };
+
   # services.keynav.enable = true;
 
   services.mpris-proxy.enable = true;
@@ -79,9 +102,9 @@
       gap_size = 2;
       font = config.misc.systemFont + " 11";
       corner_radius = config.window.rounding;
-      frame_color = config.colors.primary;
-      foreground = config.colors.white3;
-      background = config.colors.bg0;
+      frame_color = clr.primary;
+      foreground = clr.white3;
+      background = clr.bg0;
       sticky_history = false;
       padding = config.window.windowSpaceOuter + 5;
       horizontal_padding = config.window.windowSpaceOuter + 5;
@@ -98,36 +121,36 @@
     set window-title-basename "true"
     set selection-clipboard "clipboard"
 
-    set notification-error-bg       "${config.colors.red0}" # Red
-    set notification-error-fg       "${config.colors.white1}" # Foreground
-    set notification-warning-bg     "${config.colors.orange0}" # Orange
-    set notification-warning-fg     "${config.colors.bg2}" # Selection
-    set notification-bg             "${config.colors.bg0}" # Background
-    set notification-fg             "${config.colors.white1}" # Foreground
-    set completion-bg               "${config.colors.bg0}" # Background
-    set completion-fg               "${config.colors.blue2}" # Comment
-    set completion-group-bg         "${config.colors.bg0}" # Background
-    set completion-group-fg         "${config.colors.blue2}" # Comment
-    set completion-highlight-bg     "${config.colors.bg2}" # Selection
-    set completion-highlight-fg     "${config.colors.white1}" # Foreground
-    set index-bg                    "${config.colors.bg0}" # Background
-    set index-fg                    "${config.colors.white1}" # Foreground
-    set index-active-bg             "${config.colors.bg2}" # Current Line
-    set index-active-fg             "${config.colors.white1}" # Foreground
-    set inputbar-bg                 "${config.colors.bg0}" # Background
-    set inputbar-fg                 "${config.colors.white1}" # Foreground
-    set statusbar-bg                "${config.colors.bg0}" # Background
-    set statusbar-fg                "${config.colors.white1}" # Foreground
-    set highlight-color             "${config.colors.orange0}" # Orange
-    set highlight-active-color      "${config.colors.magenta0}" # Pink
-    set default-bg                  "${config.colors.bg0}" # Background
-    set default-fg                  "${config.colors.white1}" # Foreground
+    set notification-error-bg       "${clr.red0}" # Red
+    set notification-error-fg       "${clr.white1}" # Foreground
+    set notification-warning-bg     "${clr.orange0}" # Orange
+    set notification-warning-fg     "${clr.bg2}" # Selection
+    set notification-bg             "${clr.bg0}" # Background
+    set notification-fg             "${clr.white1}" # Foreground
+    set completion-bg               "${clr.bg0}" # Background
+    set completion-fg               "${clr.blue2}" # Comment
+    set completion-group-bg         "${clr.bg0}" # Background
+    set completion-group-fg         "${clr.blue2}" # Comment
+    set completion-highlight-bg     "${clr.bg2}" # Selection
+    set completion-highlight-fg     "${clr.white1}" # Foreground
+    set index-bg                    "${clr.bg0}" # Background
+    set index-fg                    "${clr.white1}" # Foreground
+    set index-active-bg             "${clr.bg2}" # Current Line
+    set index-active-fg             "${clr.white1}" # Foreground
+    set inputbar-bg                 "${clr.bg0}" # Background
+    set inputbar-fg                 "${clr.white1}" # Foreground
+    set statusbar-bg                "${clr.bg0}" # Background
+    set statusbar-fg                "${clr.white1}" # Foreground
+    set highlight-color             "${clr.orange0}" # Orange
+    set highlight-active-color      "${clr.magenta0}" # Pink
+    set default-bg                  "${clr.bg0}" # Background
+    set default-fg                  "${clr.white1}" # Foreground
     set render-loading              true
-    set render-loading-fg           "${config.colors.bg0}" # Background
-    set render-loading-bg           "${config.colors.white1}" # Foreground
+    set render-loading-fg           "${clr.bg0}" # Background
+    set render-loading-bg           "${clr.white1}" # Foreground
 
-    set recolor-lightcolor          "${config.colors.bg0}" # Background
-    set recolor-darkcolor           "${config.colors.white1}" # Foreground
+    set recolor-lightcolor          "${clr.bg0}" # Background
+    set recolor-darkcolor           "${clr.white1}" # Foreground
 
     set adjust-open width
     set recolor false
@@ -139,5 +162,126 @@
     map <M-Down> feedkeys "<PageDown>"
 
     set zoom-max 50000
+  '';
+
+  # Swayimg configuration
+  xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
+  xdg.configFile."swayimg/shared".text = ''
+    [viewer]
+    window = ${clr.bg0}ff
+
+    [font]
+    name = ${config.misc.systemFont}
+    size = ${builtins.toString config.window.fontsize}
+    color = #00000000
+    shadow = #00000000
+    background = #00000000
+  '';
+
+  # Tofi configuration
+  xdg.configFile."tofi/config".text = ''
+    font = "${config.misc.systemFont}"
+    font-size = ${ts config.window.fontsize}
+    text-color = ${clr.primary}
+    prompt-color =${clr.primary} 
+    placeholder-color = ${clr.bg3}
+    input-color =${clr.primary} 
+    default-result-color =${clr.primary} 
+    selection-color = ${clr.fg0}
+    selection-background = ${clr.bg0}
+    selection-match-color = ${clr.magenta0}
+    width = ${
+      ts
+      (config.window.widthPixels / 2 - 2 * config.window.windowSpaceOuter)
+    }
+    height = 50%
+    background-color =${clr.bg0} 
+    outline-width = 0
+    outline-color =${clr.bg0} 
+    border-width = 1
+    border-color =${clr.primary} 
+    corner-radius = ${ts config.window.rounding}
+    # padding-top = ${ts (config.window.windowSpaceOuter / 2)}
+    # padding-bottom = ${ts (config.window.windowSpaceOuter / 2)}
+    # padding-left = ${ts config.window.windowSpaceOuter}
+    # padding-right = ${ts config.window.windowSpaceOuter}
+    padding-top = 5
+    padding-bottom = 0
+    padding-left = 10
+    padding-right = 10
+    margin-top = ${ts config.window.windowSpaceOuter}
+    margin-bottom = 0
+    margin-left = ${ts config.window.windowSpaceOuter}
+    margin-right = ${ts config.window.windowSpaceOuter}
+
+  '' + builtins.readFile ../src/tofi.conf;
+
+  # Foot configuration
+  xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
+  xdg.configFile."foot/share.ini".text = ''
+    font=${config.misc.systemFont}:size=${ts config.window.fontsize}, Noto Color Emoji
+
+    pad=0x0
+
+    [colors]
+    alpha=${ts config.window.terminalOpacity}
+    alpha-mode=default # Can be `default`, `matching` or `all`
+    background=${bc clr.bg0}
+    foreground=${bc clr.primary}
+
+    regular0=${bc clr.black}    # black
+    regular1=${bc clr.red1}     # red
+    regular2=${bc clr.green1}   # green
+    regular3=${bc clr.yellow1}  # yellow
+    regular4=${bc clr.blue1}    # blue
+    regular5=${bc clr.magenta1} # magenta
+    regular6=${bc clr.cyan}     # cyan
+    regular7=${bc clr.white0}   # white
+
+    bright0=${bc clr.black}       # bright black
+    bright1=${bc clr.red1}        # bright red
+    bright2=${bc clr.green1}      # bright green
+    bright3=${bc clr.yellow1}     # bright yellow
+    bright4=${bc clr.blue1}       # bright blue
+    bright5=${bc clr.magenta1}    # bright magenta
+    bright6=${bc clr.cyan}        # bright cyan
+    bright7=${bc clr.white0}      # bright white
+
+    # dim-blend-towards=black
+    dim0=${bc clr.black}   
+    dim1=${bc clr.red1}    
+    dim2=${bc clr.green1}  
+    dim3=${bc clr.yellow1} 
+    dim4=${bc clr.blue1}   
+    dim5=${bc clr.magenta1}
+    dim6=${bc clr.cyan}    
+    dim7=${bc clr.white0}  
+
+    ## Sixel colors
+    # sixel0 =  000000
+    # sixel1 =  3333cc
+    # sixel2 =  cc2121
+    # sixel3 =  33cc33
+    # sixel4 =  cc33cc
+    # sixel5 =  33cccc
+    # sixel6 =  cccc33
+    # sixel7 =  878787
+    # sixel8 =  424242
+    # sixel9 =  545499
+    # sixel10 = 994242
+    # sixel11 = 549954
+    # sixel12 = 995499
+    # sixel13 = 549999
+    # sixel14 = 999954
+    # sixel15 = cccccc
+
+    ## Misc colors
+    # selection-foreground=<inverse foreground/background>
+    # selection-background=<inverse foreground/background>
+    # jump-labels=regular0 regular3               # black-on-yellow
+    # scrollback-indicator=<regular0> <bright4>   # black-on-bright-blue
+    # search-box-no-match=<regular0> <regular1>   # black-on-red
+    # search-box-match=<regular0> <regular3>      # black-on-yellow
+    # urls=<regular3>
   '';
 }

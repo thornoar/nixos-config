@@ -66,6 +66,8 @@
                     ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/laptop.nix
                     ./home-manager/modules/hyprland.nix
+                    ./home-manager/modules/niri.nix
+                    ./home-manager/modules/firefox.nix
                     ./home-manager/modules/development.nix
                   ];
                 };
