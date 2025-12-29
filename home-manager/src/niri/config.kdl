@@ -92,7 +92,7 @@ layout {
         proportion 1.0
     }
 
-    default-column-width { proportion 1.0; }
+    default-column-width { proportion 0.5; }
 
     // You can change how the focus ring looks.
     focus-ring {
@@ -136,21 +136,28 @@ layout {
     }
 }
 
-workspace "terminal" {
-    open-on-output "eDP-1"
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
+workspace "7"
+
+window-rule {
+    match at-startup=true
+    match title=".*Scratchpad$"
+
+    default-column-width { proportion 1.0; }
+    open-on-workspace "scratch"
 }
 
-workspace "music" {
-    open-on-output "eDP-1"
-}
+workspace "scratch"
 
-workspace "monitor" {
-    open-on-output "eDP-1"
-}
-
-workspace "calculator" {
-    open-on-output "eDP-1"
-}
+// workspace "t"
+// workspace "m"
+// workspace "s"
+// workspace "c"
 
 spawn-at-startup "waybar"
 spawn-at-startup "mpd"
@@ -179,7 +186,8 @@ screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 
 // Animation settings.
 animations {
-    off
+    // off
+    slowdown 0.5
 }
 
 binds {
@@ -193,10 +201,11 @@ binds {
     // Super+Alt+L { spawn "swaylock"; }
 
     // Scratchpads
-    Mod+C { focus-workspace "terminal"; }
-    Mod+V { focus-workspace "music"; }
-    Mod+S { focus-workspace "monitor"; }
-    Mod+Q { focus-workspace "calculator"; }
+    // Mod+C { focus-workspace "t"; }
+    // Mod+V { focus-workspace "m"; }
+    // Mod+S { focus-workspace "s"; }
+    // Mod+Q { focus-workspace "c"; }
+    Mod+C { focus-workspace "scratch"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
@@ -251,32 +260,28 @@ binds {
     Mod+Alt+Page_Down { move-column-to-workspace-down; }
     Mod+Alt+Page_Up   { move-column-to-workspace-up; }
 
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+Alt+1 { move-column-to-workspace 1; }
-    Mod+Alt+2 { move-column-to-workspace 2; }
-    Mod+Alt+3 { move-column-to-workspace 3; }
-    Mod+Alt+4 { move-column-to-workspace 4; }
-    Mod+Alt+5 { move-column-to-workspace 5; }
-    Mod+Alt+6 { move-column-to-workspace 6; }
-    Mod+Alt+7 { move-column-to-workspace 7; }
-    Mod+Alt+8 { move-column-to-workspace 8; }
-    Mod+Alt+9 { move-column-to-workspace 9; }
+    Mod+1 { focus-workspace "1"; }
+    Mod+2 { focus-workspace "2"; }
+    Mod+3 { focus-workspace "3"; }
+    Mod+4 { focus-workspace "4"; }
+    Mod+5 { focus-workspace "5"; }
+    Mod+6 { focus-workspace "6"; }
+    Mod+7 { focus-workspace "7"; }
+    Mod+Alt+1 { move-column-to-workspace "1"; }
+    Mod+Alt+2 { move-column-to-workspace "2"; }
+    Mod+Alt+3 { move-column-to-workspace "3"; }
+    Mod+Alt+4 { move-column-to-workspace "4"; }
+    Mod+Alt+5 { move-column-to-workspace "5"; }
+    Mod+Alt+6 { move-column-to-workspace "6"; }
+    Mod+Alt+7 { move-column-to-workspace "7"; }
 
     Mod+Shift+Tab { focus-workspace-previous; }
 
-    // Mod+Ctrl+Left  { consume-or-expel-window-left; }
-    // Mod+Ctrl+Right { consume-or-expel-window-right; }
+    Mod+Ctrl+Left  { consume-or-expel-window-left; }
+    Mod+Ctrl+Right { consume-or-expel-window-right; }
 
-    Mod+Ctrl+Left  { consume-window-into-column; }
-    Mod+Ctrl+Right { expel-window-from-column; }
+    // Mod+Ctrl+Left  { consume-window-into-column; }
+    // Mod+Ctrl+Right { expel-window-from-column; }
 
     Mod+Slash { switch-preset-column-width; }
     Mod+Shift+Slash { switch-preset-window-height; }

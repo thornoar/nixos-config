@@ -9,6 +9,9 @@
             "*": 10
         }
     },
+    "niri/workspaces": {
+        "format": "{name}"
+    },
 
     // Clock
     "clock": {
@@ -33,7 +36,12 @@
         "format": "{}",
         "format-ru": "RU",
         "format-en": "US"
-    }, 
+    },
+    "niri/language": {
+        "format": "{}",
+        "format-ru": "RU",
+        "format-en": "US"
+    },
 
     // Network
     "network": {
