@@ -21,10 +21,12 @@
         disableWhileTyping = true;
       };
     };
+
     logind.extraConfig = ''
       HandleLidSwitch=ignore
       HandleLidSwitchExternalPower=ignore
     '';
+
     keyd = {
       enable = true;
       keyboards.default.settings = {
@@ -45,11 +47,34 @@
         };
       };
     };
+
+    displayManager = {
+      # sddm.enable = true;
+      # sddm.wayland.enable = true;
+      ly.enable = true;
+      # autoLogin = {
+      #   enable = true;
+      #   user = "ramak";
+      # };
+    };
+
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      jack.enable = true;
+      audio.enable = true;
+      pulse.enable = true;
+    };
+
     ollama = {
       package = pkgs.unstable.ollama;
       enable = true;
       acceleration = "cuda";
     };
+
     openvpn.servers = let
       createConfig = name: {
         config = "config /root/nixos/openvpn/${name}.ovpn";
@@ -82,6 +107,7 @@
       server-fr-3-vpnbook = createConfig "fr-free-3.vpnbook.tcp";
       server-fr-4-vpnbook = createConfig "fr-free-4.vpnbook.udp";
     };
+
     printing = {
       enable = true;
       drivers = with pkgs; [
@@ -94,6 +120,7 @@
         # (writeTextDir "share/cups/model/xerox/wc3025.ppd" (builtins.readFile ../../src/Xerox_WorkCentre_3025.ppd))
       ];
     };
+
     avahi = {
       enable = true;
       nssmdns4 = true;
@@ -104,16 +131,6 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-    jack.enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-  };
   # nixpkgs.config = {
   #   pulseaudio = true;
   #   allowUnfree = true;

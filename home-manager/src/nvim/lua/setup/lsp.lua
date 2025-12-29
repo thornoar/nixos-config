@@ -1,4 +1,8 @@
 -- $lsp
+
+-- local myborder = { "|", " ", "|", "|" }
+local myborder = "single"
+
 vim.diagnostic.config({
     virtual_text = false
 })
@@ -15,7 +19,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local opts = { buffer = event.buf }
-        vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover({ border = "rounded" }) end, opts)
+        vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover({ border = myborder }) end, opts)
         vim.keymap.set('n', '<M-C-CR>', function () vim.lsp.buf.references() end, opts)
         vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
         vim.keymap.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
@@ -24,17 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- local lspbasicconfig = {
---     autostart = true,
---     capabilities = lsp_capabilities,
---     -- handlers = handlers,
---     root_dir = function (_)
---         return vim.loop.cwd()
---     end,
--- }
-
 vim.diagnostic.config({
-    float = { border = "rounded", },
+    float = { border = myborder, },
 })
 
 vim.lsp.enable("texlab")
@@ -72,14 +67,11 @@ vim.lsp.enable("r_language_server")
 
 -- vim.lsp.enable("hls")
 
-vim.lsp.config("clangd", {
-    autostart = true,
-    capabilities = lsp_capabilities,
-    -- handlers = handlers,
-    root_dir = function (_)
-        return vim.loop.cwd()
-    end,
-})
+-- vim.lsp.config("clangd", {
+--     autostart = true,
+--     -- capabilities = lsp_capabilities,
+--     -- handlers = handlers,
+-- })
 vim.lsp.enable("clangd")
 
 vim.lsp.enable("bashls")
@@ -87,16 +79,8 @@ vim.lsp.enable("bashls")
 vim.lsp.enable("asm_lsp")
 
 vim.lsp.config("tinymist", {
-    -- settings = {
-    --     exportPdf = "never",
-    -- },
     offset_encoding = "utf-8",
     autostart = true,
-    capabilities = lsp_capabilities,
-    -- handlers = handlers,
-    root_dir = function (_)
-        return vim.loop.cwd()
-    end,
 })
 vim.lsp.enable("tinymist")
 
@@ -134,9 +118,6 @@ vim.lsp.config("lua_ls", {
     autostart = true,
     capabilities = lsp_capabilities,
     -- handlers = handlers,
-    root_dir = function (_)
-        return vim.loop.cwd()
-    end,
     settings = {
         Lua = {
             diagnostics = {

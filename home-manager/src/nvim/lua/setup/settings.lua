@@ -37,7 +37,6 @@ vim.g.neovide_transparency = 0.9
 vim.o.laststatus = 3
 vim.o.fixendofline = false
 vim.o.fixeol = false
--- vim.o.winborder = "rounded"
 
 -- vim.g.vimtex_complete_enabled = 1
 -- vim.g.vimtex_quickfix_enabled = 0

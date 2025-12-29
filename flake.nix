@@ -24,10 +24,6 @@
       lib = inputs.nixpkgs.lib;
       firefox-pkgs = inputs.firefox-addons.packages.${system};
 
-      readFile = file:
-        (lib.lists.partition (x: 0 < lib.strings.stringLength x)
-          (lib.strings.splitString "\n" (builtins.readFile file))).right;
-
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
           inherit (final) system;
@@ -35,17 +31,14 @@
         };
         inherit inputs;
         inherit firefox-pkgs;
-        tools = {
-          inherit readFile;
-        };
       };
 
       pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
-          pulseaudio = true;
+          # pulseaudio = true;
           allowUnfree = true;
-          nvidia.acceptLicense = true;
+          # nvidia.acceptLicense = true;
         };
         overlays = [ addition ];
       };

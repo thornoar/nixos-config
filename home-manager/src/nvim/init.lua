@@ -267,10 +267,10 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    {
-        "stevearc/dressing.nvim",
-        opts = {},
-    },
+    -- {
+    --     "stevearc/dressing.nvim",
+    --     opts = {},
+    -- },
     {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration

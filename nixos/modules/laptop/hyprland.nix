@@ -15,18 +15,6 @@
     ];
   };
 
-  services = {
-    displayManager = {
-      sddm.enable = true;
-      sddm.wayland.enable = true;
-      # ly.enable = true;
-      autoLogin = {
-        enable = true;
-        user = "ramak";
-      };
-    };
-  };
-
   environment.variables = {
     SPECIALISATION = lib.mkForce "hyprland";
     SPECIALISATION_ENABLE = "0";
