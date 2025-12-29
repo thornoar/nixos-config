@@ -1,10 +1,7 @@
 // Configuration for the Niri compositor
 
-include "config2.kdl"
+include "./share.kdl"
 
-// Input device configuration.
-// Find the full list of options on the wiki:
-// https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
         xkb {
@@ -16,9 +13,6 @@ input {
         repeat-rate 30
     }
 
-    // Next sections include libinput settings.
-    // Omitting settings disables them, or leaves them at their default values.
-    // All commented-out settings here are examples, not defaults.
     touchpad {
         // off
         // tap
@@ -70,14 +64,6 @@ output "eDP-1" {
 }
 
 layout {
-    gaps 0
-
-    // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
-    //   or right edge of the screen.
-    // - "always", the focused column will always be centered.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
-    //   together with the previously focused column.
     center-focused-column "never"
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
@@ -92,48 +78,12 @@ layout {
         proportion 1.0
     }
 
-    default-column-width { proportion 0.5; }
-
-    // You can change how the focus ring looks.
     focus-ring {
         off
-        width 1
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
-
-        // Color of the ring on inactive monitors.
-        inactive-color "#505050"
     }
-
-    // You can also add a border. It's similar to the focus ring, but always visible.
-    border {
-        // off
-        width 1
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
-    }
-
-    // You can enable drop shadows for windows.
+    border { }
     shadow { }
-
-    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
-    // You can think of them as a kind of outer gaps. They are set in logical pixels.
-    // Left and right struts will cause the next window to the side to always be visible.
-    // Top and bottom struts will simply add outer gaps in addition to the area occupied by
-    // layer-shell panels and regular gaps.
-    struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
-    }
+    struts { }
 }
 
 workspace "1"
@@ -144,39 +94,29 @@ workspace "5"
 workspace "6"
 workspace "7"
 
-window-rule {
-    match at-startup=true
-    match title=".*Scratchpad$"
+workspace "AUX"
 
+window-rule {
+    match title=".*-scratch$"
+    match at-startup=true
     default-column-width { proportion 1.0; }
-    open-on-workspace "scratch"
+    open-on-workspace "AUX"
 }
 
-workspace "scratch"
-
-// workspace "t"
-// workspace "m"
-// workspace "s"
-// workspace "c"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' zsh -c 'rmpc; zsh'"
+spawn-sh-at-startup "foot --title 'system-scratch' zsh -c 'htop; zsh'"
+spawn-sh-at-startup "foot --title 'calc-scratch' zsh -c 'qalc -s autocalc; zsh'"
 
 spawn-at-startup "waybar"
 spawn-at-startup "mpd"
 spawn-at-startup "wpaperd" "-d"
 spawn-at-startup "transmission-daemon"
 
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
 hotkey-overlay {
-    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
 }
 
-// Uncomment this line to ask the clients to omit their client-side decorations if possible.
-// If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
-// This option will also fix border/focus ring drawing behind some semitransparent windows.
-// After enabling or disabling this, you need to restart the apps for this to take effect.
 prefer-no-csd
 
 // You can change the path where screenshots are saved.
@@ -186,7 +126,7 @@ screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 
 // Animation settings.
 animations {
-    // off
+    off
     slowdown 0.5
 }
 
@@ -201,11 +141,10 @@ binds {
     // Super+Alt+L { spawn "swaylock"; }
 
     // Scratchpads
-    // Mod+C { focus-workspace "t"; }
-    // Mod+V { focus-workspace "m"; }
-    // Mod+S { focus-workspace "s"; }
-    // Mod+Q { focus-workspace "c"; }
-    Mod+C { focus-workspace "scratch"; }
+    Mod+C { spawn-sh "niri-scratch terminal-scratch"; }
+    Mod+V { spawn-sh "niri-scratch music-scratch"; }
+    Mod+S { spawn-sh "niri-scratch system-scratch"; }
+    Mod+Q { spawn-sh "niri-scratch calc-scratch"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
@@ -283,9 +222,9 @@ binds {
     // Mod+Ctrl+Left  { consume-window-into-column; }
     // Mod+Ctrl+Right { expel-window-from-column; }
 
-    Mod+Slash { switch-preset-column-width; }
-    Mod+Shift+Slash { switch-preset-window-height; }
-    Mod+Ctrl+Slash { reset-window-height; }
+    Mod+Backslash { switch-preset-column-width; }
+    Mod+Shift+Backslash { switch-preset-window-height; }
+    Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Tab { fullscreen-window; }
 
