@@ -2,6 +2,7 @@
 {
   programs.niri = {
     enable = true;
+    package = pkgs.unstable.niri;
   };
 
   # environment.variables = {

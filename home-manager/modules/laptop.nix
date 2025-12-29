@@ -47,6 +47,7 @@ in {
     nps
     pastel
     wf-recorder
+    wev
   ]) ++ (with pkgs.unstable; [
     swayimg
     rmpc
