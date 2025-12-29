@@ -1,4 +1,4 @@
 { config, lib, ... }:
 {
-  xdg.configFile."niri/config.kbl" = config.util.dotFileMut "niri/config.kbl";
+  xdg.configFile."niri/config.kdl" = config.util.dotFileMut "niri/config.kdl";
 }
