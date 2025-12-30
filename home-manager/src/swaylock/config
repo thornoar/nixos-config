@@ -1,12 +1,7 @@
 daemonize
 show-failed-attempts
-clock
-screenshot
-effect-blur=13x13
-effect-vignette=0.5:0.5
 color=6272A4
-font="Inter"
-indicator
+font="JetBrains Mono"
 indicator-radius=200
 indicator-thickness=20
 line-color=282A36
@@ -29,7 +24,6 @@ ring-clear-color=8BE9FD
 line-clear-color=8BE9FD
 line-wrong-color=282A36
 bs-hl-color=8BE9FD
-grace=2
 grace-no-mouse
 grace-no-touch
 datestr=%a, %B %e
