@@ -127,9 +127,6 @@ hotkey-overlay {
 
 prefer-no-csd
 
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 
 // Animation settings.
@@ -148,7 +145,7 @@ binds {
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
     Mod+Ctrl+B { spawn "firefox"; }
-    // Super+Alt+L { spawn "swaylock"; }
+    Super+Ctrl+A { spawn "swaylock"; }
 
     // Scratchpads
     Mod+C { spawn-sh "niri-hack scratch terminal"; }
