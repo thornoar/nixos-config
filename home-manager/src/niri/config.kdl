@@ -95,10 +95,15 @@ workspace "7"
 
 workspace "AUX"
 
-window-rule {
-    match app-id="foot"
-    default-column-width { proportion 0.5; }
-}
+// window-rule {
+//     match app-id="foot"
+//     default-column-width { proportion 0.5; }
+// }
+
+// window-rule {
+//     match title="^wide-.*"
+//     default-column-width { proportion 1.0; }
+// }
 
 window-rule {
     match title=".*-scratch$" at-startup=true
@@ -136,8 +141,10 @@ animations {
 binds {
     // Lauching programs
     Mod+T { spawn "foot"; }
+    // Mod+R { spawn "foot" "--title" "'wide-terminal'"; }
     Mod+Shift+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
+    // Mod+D { spawn-sh "foot --title 'wide-broot' zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
     Mod+Ctrl+B { spawn "firefox"; }
