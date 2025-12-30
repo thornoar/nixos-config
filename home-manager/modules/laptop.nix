@@ -340,4 +340,5 @@ in {
   # Swaylock configuration
   programs.swaylock.enable = true;
   xdg.configFile."swaylock/config" = config.util.dotFileMut "swaylock/config";
+  xdg.configFile."swaylock/background.png" = config.util.dotFileMut "swaylock/background.png";
 }

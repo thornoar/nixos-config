@@ -140,6 +140,7 @@ animations {
     workspace-switch { off; }
     screenshot-ui-open { off; }
     config-notification-open-close { off; }
+    window-resize { off; }
 }
 
 binds {
