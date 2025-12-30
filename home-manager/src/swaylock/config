@@ -1,8 +1,8 @@
 daemonize
 show-failed-attempts
 color=6272A4
-font="JetBrains Mono"
-indicator-radius=200
+hide-keyboard-layout
+indicator-radius=100
 indicator-thickness=20
 line-color=282A36
 ring-color=BD93F9
@@ -24,9 +24,4 @@ ring-clear-color=8BE9FD
 line-clear-color=8BE9FD
 line-wrong-color=282A36
 bs-hl-color=8BE9FD
-grace-no-mouse
-grace-no-touch
-datestr=%a, %B %e
-timestr=%I:%M %p
-fade-in=0.4
 ignore-empty-password

@@ -14,11 +14,19 @@ if [ "$cmd" = "scratch" ]; then
     else
         niri msg action focus-workspace-previous
     fi
-elif [ "$cmd" = "toggle-shrink" ]; then
+elif [ "$cmd" = "seq" ]; then
+    for action in "${@:2}"; do
+        niri msg action "$action"
+    done
+elif [ "$cmd" = "shrink" ]; then
     cur_wsp_id="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).id')"
     for win_id in $(niri msg -j windows | jq ".[] | select(.workspace_id == $cur_wsp_id).id"); do
-        # niri msg action set-window-width --id "$win_id" "proportion 0.5"
-        niri msg action switch-preset-window-width --id "$win_id"
+        niri msg action set-window-width --id "$win_id" "50%"
     done
     niri msg action focus-column-first
+elif [ "$cmd" = "close-all" ]; then
+    cur_wsp_id="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).id')"
+    for win_id in $(niri msg -j windows | jq ".[] | select(.workspace_id == $cur_wsp_id).id"); do
+        niri msg action close-window --id "$win_id"
+    done
 fi

@@ -66,6 +66,10 @@ output "eDP-1" {
 layout {
     center-focused-column "never"
 
+    // anchor "right"
+
+    always-center-single-column
+
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
         proportion 0.5
@@ -95,10 +99,10 @@ workspace "7"
 
 workspace "AUX"
 
-// window-rule {
-//     match app-id="foot"
-//     default-column-width { proportion 0.5; }
-// }
+window-rule {
+    match app-id="foot"
+    default-column-width { proportion 0.5; }
+}
 
 // window-rule {
 //     match title="^wide-.*"
@@ -131,8 +135,11 @@ screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 
 // Animation settings.
 animations {
-    off
-    slowdown 0.4
+    // off
+    slowdown 0.35
+    workspace-switch { off; }
+    screenshot-ui-open { off; }
+    config-notification-open-close { off; }
 }
 
 binds {
@@ -184,7 +191,8 @@ binds {
 
     Mod+Escape repeat=false { toggle-overview; }
 
-    Mod+W repeat=false { close-window; }
+    Mod+W repeat=false { spawn "niri-hack" "seq" "close-window" "focus-column-left"; }
+    Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
@@ -226,8 +234,8 @@ binds {
     Mod+Ctrl+Left  { consume-or-expel-window-left; }
     Mod+Ctrl+Right { consume-or-expel-window-right; }
 
-    Mod+Backslash { switch-preset-column-width; }
-    Mod+Shift+Backslash { spawn "niri-hack" "toggle-shrink"; }
+    Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
+    Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Tab { fullscreen-window; }
