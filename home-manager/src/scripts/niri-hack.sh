@@ -3,17 +3,23 @@
 cmd="$1"
 
 if [ "$cmd" = "scratch" ]; then
-    scratch_win_id="$(niri msg -j windows | jq ".[] | select(.title == \"$2-scratch\").id")"
-    if [ -z "$scratch_win_id" ]; then
-        echo "$scratch_win_id"
-        exit 0
-    fi
-    cur_win_id="$(niri msg -j windows | jq '.[] | select(.is_focused == true).id')"
-    if [[ "$cur_win_id" != "$scratch_win_id" ]]; then
-        niri msg action focus-window --id "$scratch_win_id"
-    else
+    cur_wsp_name="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).name')"
+    if [ "$cur_wsp_name" = "\"$2\"" ]; then
         niri msg action focus-workspace-previous
+    else
+        niri msg action focus-workspace "$2"
     fi
+    # scratch_win_id="$(niri msg -j windows | jq ".[] | select(.title == \"$2-scratch\").id")"
+    # if [ -z "$scratch_win_id" ]; then
+    #     echo "$scratch_win_id"
+    #     exit 0
+    # fi
+    # cur_win_id="$(niri msg -j windows | jq '.[] | select(.is_focused == true).id')"
+    # if [[ "$cur_win_id" != "$scratch_win_id" ]]; then
+    #     niri msg action focus-window --id "$scratch_win_id"
+    # else
+    #     niri msg action focus-workspace-previous
+    # fi
 elif [ "$cmd" = "seq" ]; then
     for action in "${@:2}"; do
         niri msg action "$action"

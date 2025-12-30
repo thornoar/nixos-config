@@ -66,8 +66,6 @@ output "eDP-1" {
 layout {
     center-focused-column "never"
 
-    // anchor "right"
-
     always-center-single-column
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
@@ -94,10 +92,11 @@ workspace "2"
 workspace "3"
 workspace "4"
 workspace "5"
-workspace "6"
-workspace "7"
 
-workspace "AUX"
+workspace "T"
+workspace "M"
+workspace "S"
+workspace "C"
 
 window-rule {
     match app-id="foot"
@@ -110,9 +109,20 @@ window-rule {
 // }
 
 window-rule {
-    match title=".*-scratch$" at-startup=true
-    default-column-width { proportion 1.0; }
-    open-on-workspace "AUX"
+    match title="terminal-scratch" at-startup=true
+    open-on-workspace "T"
+}
+window-rule {
+    match title="music-scratch" at-startup=true
+    open-on-workspace "M"
+}
+window-rule {
+    match title="system-scratch" at-startup=true
+    open-on-workspace "S"
+}
+window-rule {
+    match title="calc-scratch" at-startup=true
+    open-on-workspace "C"
 }
 
 spawn-at-startup "waybar"
@@ -120,10 +130,10 @@ spawn-at-startup "mpd"
 spawn-at-startup "wpaperd" "-d"
 spawn-at-startup "transmission-daemon"
 
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch'"
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' zsh -c 'rmpc; zsh'"
-spawn-sh-at-startup "foot --title 'system-scratch' zsh -c 'htop; zsh'"
-spawn-sh-at-startup "foot --title 'calc-scratch' zsh -c 'qalc -s autocalc; zsh'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch' --app-id 'stratch'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' --app-id 'stratch' zsh -c 'rmpc; zsh'"
+spawn-sh-at-startup "foot --title 'system-scratch' --app-id 'stratch' zsh -c 'htop; zsh'"
+spawn-sh-at-startup "foot --title 'calc-scratch' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
 
 hotkey-overlay {
     skip-at-startup
@@ -136,30 +146,29 @@ screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 // Animation settings.
 animations {
     // off
-    slowdown 0.35
+    slowdown 0.3
     workspace-switch { off; }
     screenshot-ui-open { off; }
     config-notification-open-close { off; }
     window-resize { off; }
+    // horizontal-view-movement { off; }
 }
 
 binds {
     // Lauching programs
     Mod+T { spawn "foot"; }
-    // Mod+R { spawn "foot" "--title" "'wide-terminal'"; }
     Mod+Shift+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
-    // Mod+D { spawn-sh "foot --title 'wide-broot' zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
     Mod+Ctrl+B { spawn "firefox"; }
     Super+Ctrl+A { spawn "swaylock"; }
 
     // Scratchpads
-    Mod+C { spawn-sh "niri-hack scratch terminal"; }
-    Mod+V { spawn-sh "niri-hack scratch music"; }
-    Mod+S { spawn-sh "niri-hack scratch system"; }
-    Mod+Q { spawn-sh "niri-hack scratch calc"; }
+    Mod+C { spawn-sh "niri-hack scratch T"; }
+    Mod+V { spawn-sh "niri-hack scratch M"; }
+    Mod+S { spawn-sh "niri-hack scratch S"; }
+    Mod+Q { spawn-sh "niri-hack scratch C"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
@@ -220,15 +229,11 @@ binds {
     Mod+3 { focus-workspace "3"; }
     Mod+4 { focus-workspace "4"; }
     Mod+5 { focus-workspace "5"; }
-    Mod+6 { focus-workspace "6"; }
-    Mod+7 { focus-workspace "7"; }
     Mod+Alt+1 { move-column-to-workspace "1"; }
     Mod+Alt+2 { move-column-to-workspace "2"; }
     Mod+Alt+3 { move-column-to-workspace "3"; }
     Mod+Alt+4 { move-column-to-workspace "4"; }
     Mod+Alt+5 { move-column-to-workspace "5"; }
-    Mod+Alt+6 { move-column-to-workspace "6"; }
-    Mod+Alt+7 { move-column-to-workspace "7"; }
 
     Mod+Shift+Tab { focus-workspace-previous; }
 
@@ -255,13 +260,7 @@ binds {
     Mod+Shift+V       { toggle-window-floating; }
     Mod+Ctrl+V { switch-focus-between-floating-and-tiling; }
 
-    // Toggle tabbed column display mode.
-    // Windows in this column will appear as vertical tabs,
-    // rather than stacked on top of each other.
     Mod+Ctrl+Home { toggle-column-tabbed-display; }
-
-    // Mod+Space       { switch-layout "next"; }
-    // Mod+Shift+Space { switch-layout "prev"; }
 
     Mod+F1 { screenshot; }
     Mod+F2 { screenshot-window; }
