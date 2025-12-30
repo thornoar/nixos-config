@@ -76,7 +76,6 @@ layout {
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
     preset-window-heights {
-        proportion 0.5
         proportion 1.0
     }
 
@@ -131,7 +130,7 @@ screenshot-path "~/media/pictures/%Y-%m-%d-%H-%M-%S.png"
 // Animation settings.
 animations {
     off
-    slowdown 0.5
+    slowdown 0.4
 }
 
 binds {
@@ -145,10 +144,10 @@ binds {
     // Super+Alt+L { spawn "swaylock"; }
 
     // Scratchpads
-    Mod+C { spawn-sh "niri-scratch terminal-scratch"; }
-    Mod+V { spawn-sh "niri-scratch music-scratch"; }
-    Mod+S { spawn-sh "niri-scratch system-scratch"; }
-    Mod+Q { spawn-sh "niri-scratch calc-scratch"; }
+    Mod+C { spawn-sh "niri-hack scratch terminal"; }
+    Mod+V { spawn-sh "niri-hack scratch music"; }
+    Mod+S { spawn-sh "niri-hack scratch system"; }
+    Mod+Q { spawn-sh "niri-hack scratch calc"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
@@ -224,7 +223,7 @@ binds {
     Mod+Ctrl+Right { consume-or-expel-window-right; }
 
     Mod+Backslash { switch-preset-column-width; }
-    Mod+Shift+Backslash { switch-preset-window-height; }
+    Mod+Shift+Backslash { spawn "niri-hack" "toggle-shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Tab { fullscreen-window; }

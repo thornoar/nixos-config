@@ -175,6 +175,8 @@
 
   programs.adb.enable = true;
 
+  security.pam.services.swaylock = {};
+
   systemd.timers."refresh-nps-cache" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {

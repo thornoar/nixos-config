@@ -89,8 +89,6 @@ in {
     defaultApplications = associations.added;
   };
 
-  # services.keynav.enable = true;
-
   services.mpris-proxy.enable = true;
 
   services.dunst = {
@@ -338,4 +336,8 @@ in {
     path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
     duration = "3m"
   '';
+
+  # Swaylock configuration
+  programs.swaylock.enable = true;
+  xdg.configFile."swaylock/config" = config.util.dotFileMut "swaylock/config";
 }
