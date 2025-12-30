@@ -7,58 +7,7 @@ in {
   # Hyprland configuration
   xdg.configFile."hypr/imports.conf".text = (config.util.toConf false "" config.window)
     + (config.util.toConf false "" config.misc) + (config.util.toConf false "" clr);
-  xdg.configFile."wpaperd/config.toml".text = ''
-    [${config.misc.monitorName}]
-    path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
-    duration = "3m"
-  '';
   xdg.configFile."hypr/hyprland.conf" = config.util.dotFileMut "hypr/hyprland.conf";
-
-  # Waybar configuration
-  xdg.configFile."waybar/shared.css".text = ''
-    * {
-        font-size: ${ts config.window.fontsizeWaybar}pt;
-        border-radius: ${ts config.window.rounding}px;
-        font-family: "${config.misc.systemFont}";
-    }
-  '';
-  xdg.configFile."waybar/style.css" = config.util.dotFileMut "waybar/style.css";
-  xdg.configFile."waybar/colors.css".text = (config.util.toCSS false "" config.colors);
-  xdg.configFile."waybar/config".text = ''
-    {
-        "layer": "top",
-        "margin-top": ${ts config.window.windowSpaceOuter},
-        "margin-bottom": 0,
-        "margin-left": ${ts config.window.windowSpaceOuter},
-        "margin-right": ${ts config.window.windowSpaceOuter},
-        "layer": "top",
-        "spacing": 0,
-        "height": 24,
-
-        "include": [
-            "~/.config/waybar/modules.json"
-        ],
-
-        "modules-left": [
-            "niri/workspaces",
-        ],
-
-        "modules-center": [
-            "pulseaudio",
-            "clock",
-            "backlight",
-        ],
-
-        "modules-right": [
-            "niri/language",
-            "network",
-            "cpu",
-            "memory",
-            "battery", 
-        ]
-    }
-  '';
-  xdg.configFile."waybar/modules.json" = config.util.dotFileMut "waybar/modules.json";
   
   # # Alacritty configuration
   # programs.alacritty = {

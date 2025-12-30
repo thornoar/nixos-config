@@ -68,7 +68,7 @@
       CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
       XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
       ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
-      SPECIALISATION = "default";
+      # SPECIALISATION = "default";
       NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
       NIX_PACKAGE_SEARCH_EXACT_COLOR = "cyan";
       NIX_PACKAGE_SEARCH_DIRECT_COLOR = "yellow";

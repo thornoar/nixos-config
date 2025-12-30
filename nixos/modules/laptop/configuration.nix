@@ -4,6 +4,19 @@
   environment.variables = {
     PCTYPE = "laptop";
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
+    # SPECIALISATION = lib.mkForce "hyprland";
+    # SPECIALISATION_ENABLE = "0";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    CURSOR_INACTIVE_TIMEOUT = "1";
+    NIXOS_OZONE_WL = "1";
+    HYPRCURSOR_SIZE = "16";
+    TERMINAL = "foot";
+    XCURSOR_SIZE = "16";
+    BROWSER = "firefox";
+    XDG_SESSION_TYPE = "wayland";
+    GBM_BACKEND = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
   };
 
   environment.systemPackages = with pkgs; [
@@ -52,10 +65,10 @@
       sddm.enable = true;
       sddm.wayland.enable = true;
       # ly.enable = true;
-      # autoLogin = {
-      #   enable = true;
-      #   user = "ramak";
-      # };
+      autoLogin = {
+        enable = true;
+        user = "ramak";
+      };
     };
 
     pipewire = {

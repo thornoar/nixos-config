@@ -222,7 +222,7 @@ in {
   xdg.configFile."foot/share.ini".text = ''
     font=${config.misc.systemFont}:size=${ts config.window.fontsize}, Noto Color Emoji
 
-    pad=0x0
+    pad=${ts config.window.terminalPaddingX}x${ts config.window.terminalPaddingY}
 
     [colors]
     alpha=${ts config.window.terminalOpacity}
@@ -284,5 +284,58 @@ in {
     # search-box-no-match=<regular0> <regular1>   # black-on-red
     # search-box-match=<regular0> <regular3>      # black-on-yellow
     # urls=<regular3>
+  '';
+
+  # Waybar configuration
+  xdg.configFile."waybar/shared.css".text = ''
+    * {
+        font-size: ${ts config.window.fontsizeWaybar}pt;
+        border-radius: ${ts config.window.rounding}px;
+        font-family: "${config.misc.systemFont}";
+    }
+  '';
+  xdg.configFile."waybar/style.css" = config.util.dotFileMut "waybar/style.css";
+  xdg.configFile."waybar/colors.css".text = (config.util.toCSS false "" config.colors);
+  xdg.configFile."waybar/config".text = ''
+    {
+        "layer": "top",
+        "margin-top": ${ts config.window.windowSpaceOuter},
+        "margin-bottom": 0,
+        "margin-left": ${ts config.window.windowSpaceOuter},
+        "margin-right": ${ts config.window.windowSpaceOuter},
+        "layer": "top",
+        "spacing": 0,
+        "height": 24,
+
+        "include": [
+            "~/.config/waybar/modules.json"
+        ],
+
+        "modules-left": [
+            "niri/workspaces",
+        ],
+
+        "modules-center": [
+            "pulseaudio",
+            "clock",
+            "backlight",
+        ],
+
+        "modules-right": [
+            "niri/language",
+            "network",
+            "cpu",
+            "memory",
+            "battery", 
+        ]
+    }
+  '';
+  xdg.configFile."waybar/modules.json" = config.util.dotFileMut "waybar/modules.json";
+
+  # Wpaperd configuration
+  xdg.configFile."wpaperd/config.toml".text = ''
+    [${config.misc.monitorName}]
+    path = "/home/ramak/media/wallpapers/${config.wallpaper.dir}"
+    duration = "3m"
   '';
 }

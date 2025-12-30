@@ -72,15 +72,15 @@ layout {
         proportion 1.0
     }
 
+    default-column-width { proportion 1.0; }
+
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
     preset-window-heights {
         proportion 0.5
         proportion 1.0
     }
 
-    focus-ring {
-        off
-    }
+    focus-ring { off; }
     border { }
     shadow { }
     struts { }
@@ -97,21 +97,25 @@ workspace "7"
 workspace "AUX"
 
 window-rule {
-    match title=".*-scratch$"
-    match at-startup=true
+    match app-id="foot"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match title=".*-scratch$" at-startup=true
     default-column-width { proportion 1.0; }
     open-on-workspace "AUX"
 }
-
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch'"
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' zsh -c 'rmpc; zsh'"
-spawn-sh-at-startup "foot --title 'system-scratch' zsh -c 'htop; zsh'"
-spawn-sh-at-startup "foot --title 'calc-scratch' zsh -c 'qalc -s autocalc; zsh'"
 
 spawn-at-startup "waybar"
 spawn-at-startup "mpd"
 spawn-at-startup "wpaperd" "-d"
 spawn-at-startup "transmission-daemon"
+
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' zsh -c 'rmpc; zsh'"
+spawn-sh-at-startup "foot --title 'system-scratch' zsh -c 'htop; zsh'"
+spawn-sh-at-startup "foot --title 'calc-scratch' zsh -c 'qalc -s autocalc; zsh'"
 
 hotkey-overlay {
     skip-at-startup
@@ -219,9 +223,6 @@ binds {
     Mod+Ctrl+Left  { consume-or-expel-window-left; }
     Mod+Ctrl+Right { consume-or-expel-window-right; }
 
-    // Mod+Ctrl+Left  { consume-window-into-column; }
-    // Mod+Ctrl+Right { expel-window-from-column; }
-
     Mod+Backslash { switch-preset-column-width; }
     Mod+Shift+Backslash { switch-preset-window-height; }
     Mod+Ctrl+Backslash { reset-window-height; }
@@ -255,4 +256,10 @@ binds {
     Mod+Shift+P { screenshot-screen; }
 
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Mod+Ctrl+P { spawn "wpaperctl" "next"; }
+}
+
+recent-windows {
+    off
 }

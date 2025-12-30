@@ -14,5 +14,14 @@ in {
         urgent-color "${clr.red1}"
       }
     }
+
+    recent-windows {
+      highlight {
+        active-color "${clr.primary}"
+        urgent-color "${clr.red1}"
+        padding 30
+        corner-radius 0
+      }
+    }
   '';
 }

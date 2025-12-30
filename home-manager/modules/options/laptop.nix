@@ -12,8 +12,8 @@
     windowSpaceOuter = 0;
     windowBorderWidth = 0;
     terminalOpacity = 0.92;
-    terminalPaddingX = 1;
-    terminalPaddingY = 1;
+    terminalPaddingX = 2;
+    terminalPaddingY = 0;
     terminalPadding = 1;
     rounding = 0;
     barHeight = 50;

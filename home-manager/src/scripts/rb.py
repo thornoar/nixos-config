@@ -82,23 +82,23 @@ try:
         args.extra = "--" + args.extra
 
     spec_args = ""
-    if (args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
-        spec_args = "--specialisation "
-        if (args.specialisation == "auto"):
-            env = os.environ["SPECIALISATION"]
-            if (env == "default"):
-                spec_args = ""
-            elif (env != ""):
-                spec_args += env
-            else:
-                if (os.environ["XDG_SESSION_TYPE"] == "wayland"):
-                    spec_args += "hyprland"
-                elif (os.environ["XDG_SESSION_TYPE"] == "none+xmonad"):
-                    spec_args += "xmonad"
-                else:
-                    spec_args = ""
-        else:
-            spec_args += args.specialisation
+    # if (args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
+    #     spec_args = "--specialisation "
+    #     if (args.specialisation == "auto"):
+    #         env = os.environ["SPECIALISATION"]
+    #         if (env == "default"):
+    #             spec_args = ""
+    #         elif (env != ""):
+    #             spec_args += env
+    #         else:
+    #             if (os.environ["XDG_SESSION_TYPE"] == "wayland"):
+    #                 spec_args += "hyprland"
+    #             elif (os.environ["XDG_SESSION_TYPE"] == "none+xmonad"):
+    #                 spec_args += "xmonad"
+    #             else:
+    #                 spec_args = ""
+    #     else:
+    #         spec_args += args.specialisation
 
     call("sudo echo -n") # ]]
 
