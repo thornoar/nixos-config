@@ -23,5 +23,9 @@ in {
         corner-radius 0
       }
     }
+
+    overview {
+      backdrop-color "${clr.bg0}"
+    }
   '';
 }

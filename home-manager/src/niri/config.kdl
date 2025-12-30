@@ -263,3 +263,10 @@ binds {
 recent-windows {
     off
 }
+
+overview {
+    zoom 0.5
+    workspace-shadow {
+        off
+    }
+}
