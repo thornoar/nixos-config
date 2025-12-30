@@ -10,7 +10,8 @@
         }
     },
     "niri/workspaces": {
-        "format": "{name}"
+        "format": "{name}",
+        "disable-click": true
     },
 
     // Clock

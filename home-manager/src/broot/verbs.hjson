@@ -16,17 +16,17 @@ verbs: [
     }
     {
         invocation: "call {command}"
-        external: "sh -c \"nohup {command} {file} > /dev/null 2>&1 &\""
+        external: "sh -c \"nohup {command} \"{file}\" > /dev/null 2>&1 &\""
         leave_broot: false
     }
     {
         invocation: "cmd {command}"
-        external: "parsecmd {command} {file}"
+        external: "parsecmd {command} \"{file}\""
         leave_broot: false
     }
     {
         invocation: "acmd {command}"
-        external: "parsecmd \"{command} %\" {file}"
+        external: "parsecmd \"{command} %\" \"{file}\""
         leave_broot: false
     }
     {
@@ -153,6 +153,14 @@ verbs: [
     {
         key: alt-enter
         internal: open_stay
+    }
+    {
+        key: alt-p
+        apply_to: file
+        execution: "mpv \"{file}\" --no-audio-display"
+        # execution: "foot"
+        # execution: "nvim-client -f {file}"
+        leave_broot: false
     }
     {
         key: shift-right

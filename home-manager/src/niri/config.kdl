@@ -84,7 +84,9 @@ layout {
     focus-ring { off; }
     border { }
     shadow { }
-    struts { }
+    struts {
+        // right 60
+    }
 }
 
 workspace "1"
@@ -219,8 +221,8 @@ binds {
     Mod+Alt+Home { move-column-to-first; }
     Mod+Alt+End  { move-column-to-last; }
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Page_Down      { spawn "niri-hack" "next-wsp"; }
+    Mod+Page_Up      { spawn "niri-hack" "prev-wsp"; }
     Mod+Alt+Page_Down { move-column-to-workspace-down; }
     Mod+Alt+Page_Up   { move-column-to-workspace-up; }
 
@@ -241,6 +243,7 @@ binds {
     Mod+Ctrl+Right { consume-or-expel-window-right; }
 
     Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
+    Mod+D { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
     Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }
