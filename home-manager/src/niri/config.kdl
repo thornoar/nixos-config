@@ -109,19 +109,19 @@ window-rule {
 // }
 
 window-rule {
-    match title="terminal-scratch" at-startup=true
+    match title="T" at-startup=true
     open-on-workspace "T"
 }
 window-rule {
-    match title="music-scratch" at-startup=true
+    match title="M" at-startup=true
     open-on-workspace "M"
 }
 window-rule {
-    match title="system-scratch" at-startup=true
+    match title="S" at-startup=true
     open-on-workspace "S"
 }
 window-rule {
-    match title="calc-scratch" at-startup=true
+    match title="C" at-startup=true
     open-on-workspace "C"
 }
 
@@ -130,10 +130,10 @@ spawn-at-startup "mpd"
 spawn-at-startup "wpaperd" "-d"
 spawn-at-startup "transmission-daemon"
 
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'terminal-scratch' --app-id 'stratch'"
-spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'music-scratch' --app-id 'stratch' zsh -c 'rmpc; zsh'"
-spawn-sh-at-startup "foot --title 'system-scratch' --app-id 'stratch' zsh -c 'htop; zsh'"
-spawn-sh-at-startup "foot --title 'calc-scratch' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'T' --app-id 'stratch'"
+spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'M' --app-id 'stratch' zsh -c 'rmpc; zsh'"
+spawn-sh-at-startup "foot --title 'S' --app-id 'stratch' zsh -c 'htop; zsh'"
+spawn-sh-at-startup "foot --title 'C' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
 
 hotkey-overlay {
     skip-at-startup
