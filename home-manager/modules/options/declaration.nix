@@ -7,7 +7,8 @@
       default = rec {
         primary = white3;
 
-        bg0 = "#0c0c10";
+        # bg0 = "#0c0c10";
+        bg0 = "#000000";
         bg1 = "#121215";
         bg2 = "#262728";
         bg3 = "#4d4e4f";

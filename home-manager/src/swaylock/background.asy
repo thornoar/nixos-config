@@ -5,8 +5,8 @@ settings.render = 8;
 
 size(32 cm, 18 cm, keepAspect = true);
 
-pen bgcolor = rgb("#0c0c10");
-// pen bgcolor = rgb("#000000");
+// pen bgcolor = rgb("#0c0c10");
+pen bgcolor = rgb("#000000");
 pen cwhite = rgb("#abb2bf");
 pen cwgreen = rgb("#329c48");
 pen cgreen = rgb("#00bc96");
