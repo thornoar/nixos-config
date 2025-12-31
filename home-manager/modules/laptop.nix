@@ -339,6 +339,34 @@ in {
 
   # Swaylock configuration
   programs.swaylock.enable = true;
-  xdg.configFile."swaylock/config" = config.util.dotFileMut "swaylock/config";
+  xdg.configFile."swaylock/config".text = ''
+    daemonize
+    hide-keyboard-layout
+    indicator-radius=115
+    indicator-thickness=25
+    line-color=${bc clr.bg0}00
+    ring-color=${bc clr.bg0}00
+    inside-color=${bc clr.bg0}00
+    key-hl-color=${bc clr.primary}
+    separator-color=${bc clr.bg0}00
+    text-color=${bc clr.primary}
+    text-caps-lock-color=${bc clr.primary}00
+    line-ver-color=${bc clr.bg0}00
+    ring-ver-color=${bc clr.green5}
+    inside-ver-color=${bc clr.bg0}00
+    text-ver-color=${bc clr.primary}00
+    ring-wrong-color=${bc clr.red1}
+    text-wrong-color=${bc clr.red1}00
+    inside-wrong-color=${bc clr.red1}00
+    inside-clear-color=${bc clr.bg0}00
+    text-clear-color=${bc clr.primary}00
+    ring-clear-color=${bc clr.yellow1}
+    line-clear-color=${bc clr.bg0}00
+    line-wrong-color=${bc clr.bg0}00
+    bs-hl-color=${bc clr.yellow1}
+    ignore-empty-password
+    indicator-idle-visible
+    image=~/.config/swaylock/background.png
+  '';
   xdg.configFile."swaylock/background.png" = config.util.dotFileMut "swaylock/background.png";
 }

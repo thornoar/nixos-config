@@ -36,7 +36,7 @@ elif [[ "kill-all-windows" =~ ^"$cmd" ]]; then
 elif [[ "move-all-windows" =~ ^"$cmd" ]]; then
     cur_workspace="$(hyprctl -j activeworkspace | jq ".id")"
     cur_pids=$(hyprctl -j clients | jq --raw-output ".[] | select(.workspace.id==$cur_workspace)" | jq ".pid")
-    to_workspace=$2
+    to_workspace="$2"
     hyprctl dispatch workspace "$to_workspace"
     to_pids=$(hyprctl -j clients | jq --raw-output ".[] | select(.workspace.id==$(hyprctl -j activeworkspace | jq ".id"))" | jq ".pid")
     for pid in $cur_pids; do
