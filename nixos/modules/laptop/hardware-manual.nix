@@ -89,7 +89,7 @@
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "0";
-      OnUnitActiveSec = "5s";
+      OnUnitActiveSec = "15s";
       Unit = "interrupt-silence.service";
     };
   };

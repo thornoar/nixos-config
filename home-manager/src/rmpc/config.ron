@@ -112,6 +112,10 @@
             pane: Pane(Directories),
         ),
         (
+            name: "Search",
+            pane: Pane(Search),
+        ),
+        (
             name: "Albums",
             pane: Pane(Albums),
         ),
@@ -122,10 +126,6 @@
         (
             name: "Artists",
             pane: Pane(Artists),
-        ),
-        (
-            name: "Search",
-            pane: Pane(Search),
         ),
     ],
 )

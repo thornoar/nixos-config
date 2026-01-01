@@ -19,7 +19,7 @@ end)
 require('onedark').setup  {
     style = 'dark',
     colors = {
-        bg0 = colors.bg0,
+        bg0 = colors.bg1,
         bg1 = colors.bg0,
         bg2 = colors.bg2,
         bg3 = colors.bg3,
