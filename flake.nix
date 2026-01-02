@@ -16,10 +16,10 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri = {
-      url= "github:markstos/niri/add-output-anchor";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # niri = {
+    #   url= "github:markstos/niri/add-output-anchor";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs:

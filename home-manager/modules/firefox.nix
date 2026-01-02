@@ -205,6 +205,10 @@ let
         background-color: ${config.colors.blue1} !important;
         color: ${config.colors.white2} !important;
     }
+    * {
+      border-radius: ${builtins.toString config.window.rounding} !important;
+      -moz-window-shadow: none !important;
+    }
   '';
   extensions = with pkgs.firefox-pkgs; [
     darkreader
