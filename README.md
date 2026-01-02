@@ -11,3 +11,5 @@ All of the above mentioned Nix modules are pieced together in `flake.nix` which 
 - The `outputs` --- NixOS system derivations which include certain modules from the `nixos` and `home-manager` directories.
 
 Both the `nixos` and `home-manager` directories have a `src` subdirectory which contains all the "source files" --- mostly configuration files for external programs such as Neovim or Htop. These files are then symlinked against by Nix, which allows to configure all of the user's programs in the same repository and then dynamically reconfigure without rebuilding the system.
+
+The `secrets` directory contains enciphered secrets related to the configuration. The files are encrypted using the [pshash](https://github.com/thornoar/pshash) algorithm.
