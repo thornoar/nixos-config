@@ -1,6 +1,6 @@
 # Roma's NixOS configuration
 
-This repository contains most of how my system is built (excluding the configs containing secrets).
+This repository contains most of how my system is built (excluding for now the configs containing secrets).
 
 The system-level configuration lives in the `nixos` directory, with `configuration.nix` being the main module and other modules available in the `modules` subdirectory.
 
