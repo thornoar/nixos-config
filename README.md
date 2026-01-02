@@ -4,7 +4,7 @@ This repository contains most of how my system is built (excluding the configs c
 
 The system-level configuration lives in the `nixos` directory, with `configuration.nix` being the main module and other modules available in the `modules` subdirectory.
 
-The user-level configuration lives in `home-manager` and works using (Home Manager)[https://nix-community.github.io/home-manager/] to configure user files, programs, etc. The main module is `home.nix`, with additional modules in the `modules` subdirectory.
+The user-level configuration lives in `home-manager` and works using [Home Manager](https://nix-community.github.io/home-manager/) to configure user files, programs, etc. The main module is `home.nix`, with additional modules in the `modules` subdirectory.
 
 All of the above mentioned Nix modules are pieced together in `flake.nix` which defines
 - The `inputs` --- references to Nix package repositories, and
