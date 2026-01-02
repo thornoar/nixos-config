@@ -23,6 +23,11 @@
     BAT_THEME = "ansi";
   };
 
+  xdg.configFile."current-user-packages".text =
+    let packages = builtins.map (p: "${p.name}") config.home.packages;
+        sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+     in builtins.concatStringsSep "\n" sortedUnique;
+
   nixpkgs.config.allowUnfree = true;
 
   programs = { home-manager = { enable = true; }; };
