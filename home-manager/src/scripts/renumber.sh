@@ -2,8 +2,9 @@
 
 i=1
 for file in ./*.$1; do
-    stripped="${file:$2}"
-    # stripped="${file#*-}"
+    nfile="$(basename "$file")"
+    stripped="${nfile:$2}"
+    # stripped="${nfile#*.}"
     newname=$(printf "%02d. %s" "$i" "$stripped")
     # echo "$newname"
     mv -- "$file" "$newname"
