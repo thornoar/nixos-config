@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 i=1
-for file in ./*.$1; do
+for file in ./*."$1"; do
     nfile="$(basename "$file")"
     stripped="${nfile:$2}"
     # stripped="${nfile#*.}"
