@@ -80,7 +80,7 @@ in {
       "audio/mp3" = [ "mpv.desktop" ];
       "video/vnd.avi" = [ "mpv.desktop" ];
       "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
-      "image/svg+xml" = [ "firefox.desktop" ];
+      "image/svg+xml" = [ "swayimg.desktop" ];
       "image/jpeg" = [ "swayimg.desktop" ];
       "image/png" = [ "swayimg.desktop" ];
       "text/csv" = [ "sc-im.desktop" ];

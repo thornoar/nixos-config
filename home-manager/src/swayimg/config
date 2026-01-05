@@ -19,7 +19,7 @@ connector = auto
 mode = auto
 
 [viewer]
-transparency = grid
+transparency = #ffffff
 scale = optimal
 position = center
 antialiasing = mks13
