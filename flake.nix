@@ -96,7 +96,6 @@
                     ./home-manager/modules/desktop.nix
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/desktop.nix
-                    # ./home-manager/modules/development.nix
                   ];
                 };
                 extraSpecialArgs = { inherit pkgs; };
