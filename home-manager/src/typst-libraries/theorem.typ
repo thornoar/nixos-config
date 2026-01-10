@@ -8,7 +8,7 @@
   identifier,
   head,
   supplement: auto,
-  numbering: "1.1.",
+  numbering: "1.1",
   refnumbering: "1.1",
   titlefmt: auto,
   namefmt: x => [ (#x):],
@@ -18,14 +18,18 @@
   base_level: none,
   ..blockargs
 ) = {
-  if (head == auto) { head = upper([#identifier.first()]) + identifier.slice(1, identifier.len()) }
+  if (head == auto) {
+    head = upper(
+      [#identifier.first()]
+    ) + identifier.slice(1, identifier.len())
+  }
   if (supplement == auto) { supplement = head }
 
   let fmt(name, number, body, title: auto) = {
     if (name != none) { name = namefmt(name) } else { name = [] }
     if (title == auto) { title = head }
     if (number != none) { title += " " + number }
-    if (numbering == none) { title = [#title.] }
+    title = [#title.]
 
     if (titlefmt == auto) {
       title = strong(title)
@@ -56,7 +60,7 @@
 
 // Shorthands
 
-#let plainstyle(identifier, head, breakable: false, ..args) = thmstyle(
+#let plainstyle(identifier, head, breakable: true, ..args) = thmstyle(
   identifier,
   head,
   breakable: breakable,

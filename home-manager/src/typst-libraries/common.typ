@@ -28,6 +28,7 @@
 #let gen(it) = $lr(angle.l it angle.r)$
 #let st = $#h(0pt):#h(5pt)$
 #let wh = $#h(0pt),#h(5pt)$
+#let aa = $#h(0pt),#h(5pt)$
 
 // Styles
 #let latex = {

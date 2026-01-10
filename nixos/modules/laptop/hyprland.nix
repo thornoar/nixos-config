@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  boot.loader.systemd-boot.sortKey = "aaa";
-
   programs.hyprland = {
     enable = true;
     package = pkgs.hyprland;

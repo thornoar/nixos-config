@@ -48,6 +48,7 @@ in {
     pastel
     wf-recorder
     wev
+    flac
   ]) ++ (with pkgs.unstable; [
     swayimg
     rmpc

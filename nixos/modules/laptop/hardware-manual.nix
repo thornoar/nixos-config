@@ -11,7 +11,7 @@
         configurationLimit = 10;
       };
       efi.canTouchEfiVariables = true;
-      timeout = 35996;
+      timeout = 3;
     };
     extraModprobeConfig = lib.mkDefault ''
       blacklist nouveau
@@ -28,7 +28,6 @@
     enable = true;
     powertop.enable = true;
     cpuFreqGovernor = "powersave";
-    # resumeCommands = "${pkgs.kmod}/bin/rmmod atkbd; ${pkgs.kmod}/bin/modprobe atkbd reset=1";
   };
 
   fileSystems."/home/ramak/media" = {

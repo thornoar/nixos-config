@@ -173,7 +173,7 @@ require("lazy").setup({
     },
     -- {
     --     "altermo/ultimate-autopair.nvim",
-    --     event = { "InsertEnter","CmdlineEnter" },
+    --     event = { "InsertEnter" },
     --     branch = "v0.6",
     --     opts = {
     --         space2 = { enable = true },
@@ -201,13 +201,13 @@ require("lazy").setup({
     --         },
     --     },
     -- },
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
-        -- use opts = {} for passing setup options
-        -- this is equivalent to setup({}) function
-    },
+    -- {
+    --     'windwp/nvim-autopairs',
+    --     event = "InsertEnter",
+    --     config = true
+    --     -- use opts = {} for passing setup options
+    --     -- this is equivalent to setup({}) function
+    -- },
     {
         "navarasu/onedark.nvim",
         priority = 1000,

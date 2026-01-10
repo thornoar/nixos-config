@@ -111,19 +111,19 @@ window-rule {
 // }
 
 window-rule {
-    match title="T" at-startup=true
+    match title="^T$" at-startup=true
     open-on-workspace "T"
 }
 window-rule {
-    match title="M" at-startup=true
+    match title="^M$" at-startup=true
     open-on-workspace "M"
 }
 window-rule {
-    match title="S" at-startup=true
+    match title="^S$" at-startup=true
     open-on-workspace "S"
 }
 window-rule {
-    match title="C" at-startup=true
+    match title="^C$" at-startup=true
     open-on-workspace "C"
 }
 
@@ -153,6 +153,8 @@ animations {
     screenshot-ui-open { off; }
     config-notification-open-close { off; }
     window-resize { off; }
+    window-open { off; }
+    window-close { off; }
     // horizontal-view-movement { off; }
 }
 
@@ -164,6 +166,7 @@ binds {
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
     Mod+Ctrl+B { spawn "firefox"; }
+    Mod+B { spawn "pkill" "-USR1" "waybar"; }
     Super+Ctrl+A { spawn "swaylock"; }
 
     // Scratchpads
@@ -189,7 +192,7 @@ binds {
     Mod+Shift+Up { spawn "rmpc" "prev"; }
     Mod+Shift+Right { spawn "rmpc" "seek" "+5"; }
     Mod+Shift+Left { spawn "rmpc" "seek" "-5"; }
-    Mod+Ctrl+Shift+Right { spawn "rmpc" "seek +15"; }
+    Mod+Ctrl+Shift+Right { spawn "rmpc" "seek" "+15"; }
     Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
     Mod+Shift+C { spawn "rmpc" "clear"; }
 
@@ -203,7 +206,8 @@ binds {
 
     Mod+Escape repeat=false { toggle-overview; }
 
-    Mod+W repeat=false { spawn "niri-hack" "seq" "close-window" "focus-column-left"; }
+    Mod+W repeat=false { close-window; }
+    // Mod+W repeat=false { spawn "niri-hack" "seq" "close-window" "focus-column-left"; }
     Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
 
     Mod+Left  { focus-column-left; }
@@ -221,8 +225,10 @@ binds {
     Mod+Alt+Home { move-column-to-first; }
     Mod+Alt+End  { move-column-to-last; }
 
-    Mod+Page_Down      { spawn "niri-hack" "next-wsp"; }
-    Mod+Page_Up      { spawn "niri-hack" "prev-wsp"; }
+    // Mod+Page_Down      { spawn "niri-hack" "next-wsp"; }
+    // Mod+Page_Up      { spawn "niri-hack" "prev-wsp"; }
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up      { focus-workspace-up; }
     Mod+Alt+Page_Down { move-column-to-workspace-down; }
     Mod+Alt+Page_Up   { move-column-to-workspace-up; }
 
@@ -242,7 +248,8 @@ binds {
     Mod+Ctrl+Left  { consume-or-expel-window-left; }
     Mod+Ctrl+Right { consume-or-expel-window-right; }
 
-    Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
+    // Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
+    Mod+Backslash { switch-preset-column-width; }
     Mod+D { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
     Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }

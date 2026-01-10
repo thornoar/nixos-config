@@ -57,6 +57,11 @@ vim.keymap.set("i", "<M-r>", "X<bs><C-o>:Russian<CR>")
 vim.keymap.set("i", "<M-g>", "X<bs><C-o>:Deutsch<CR>")
 vim.keymap.set("i", "<M-j>", "X<bs><C-o>:Japanese<CR>")
 vim.keymap.set("i", "<C-m>", "$$<Left>")
+vim.keymap.set("i", "<C-'>", "\"\"<Left>")
+vim.keymap.set("i", "<C-9>", "()<Left>")
+vim.keymap.set("i", "<C-[>", "[]<Left>")
+vim.keymap.set("i", "<C-;>", "{}<Left>")
+vim.keymap.set("i", "<C-BS>", "<BS><DEL>")
 
 -- $keymaps:terminal
 vim.keymap.set("t", "<C-q>", "<C-\\><C-n>")
