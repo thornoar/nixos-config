@@ -157,8 +157,11 @@
     rustc
     evcxr
 
-    # # Java
-    # openjdk17
+    # Java and Android
+    openjdk17
+    # android-studio
+    # android-studio-tools
+    # androidenv.androidPkgs.androidsdk
 
     # # Clojure
     # leiningen

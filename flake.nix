@@ -38,6 +38,7 @@
         config = {
           # pulseaudio = true;
           allowUnfree = true;
+          # android_sdk.accept_license = true;
           # nvidia.acceptLicense = true;
         };
         overlays = [ addition ];

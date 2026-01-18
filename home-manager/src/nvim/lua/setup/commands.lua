@@ -11,7 +11,7 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
     ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
     ['tex'] = function (name)
-        return '!latexmk -g -pdf -synctex=1 -verbose -auxdir=./.aux ./' .. name
+        return '!latexmk -g -pdf -synctex=1 -interaction=nonstopmode -verbose -auxdir=./.aux ./' .. name
     end,
     ['typst'] = function (name) return ('!typst compile ' .. name) end,
     ['lua'] = function (name) return ('!lua ' .. name) end,
@@ -22,7 +22,7 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
-    ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -auxdir=./.aux ./' .. name) end,
+    ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -interaction=nonstopmode -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
     return function ()
