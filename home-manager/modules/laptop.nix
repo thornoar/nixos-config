@@ -49,6 +49,8 @@ in {
     wf-recorder
     wev
     flac
+    lrcget
+    python312Packages.syncedlyrics
   ]) ++ (with pkgs.unstable; [
     swayimg
     rmpc

@@ -176,6 +176,7 @@
         lock: "${config.colors.white0}"
         torrent: "${config.colors.green1}"
         enc: "${config.colors.red1}"
+        lrc: "${config.colors.yellow2}"
     }
   '';
 
