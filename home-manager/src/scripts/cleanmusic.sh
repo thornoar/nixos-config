@@ -2,34 +2,176 @@
 
 shopt -s globstar
 
-i=1
+function orphan_flac {
+    for file in ./**/*.flac; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.flac}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+        fi
+    done
+}
 
-# for file in ./**/*.mp3 ./**/*.m4a ./**/*.flac; do
-for file in ./**/*.mp3; do
-    pref="${file%*.mp3}"
+function search_flac {
+    iflac=1
+    for file in ./**/*.flac; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.flac}"
+        artist=""
+        title=""
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            artist="$(metaflac --show-tag=ARTIST "$file" | awk -F'=' '{print $2}')"
+            title="$(metaflac --show-tag=TITLE "$file" | awk -F'=' '{print $2}')"
+            echo "$iflac $artist - $title"
+            syncedlyrics "$artist - $title" --synced-only -o "$pref.lrc" > /dev/null
+        fi
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "-- trying plain lyrics"
+            syncedlyrics "$artist - $title" --plain-only -o "$pref.txt" > /dev/null
+        fi
+        ((iflac++))
+    done
+}
 
-    # if test -f "$pref.txt"; then
-    if test ! -f "$pref.lrc" -a -f "$pref.txt"; then
-    # if test ! -f "$pref.flac" -a ! -f "$pref.mp3" -a ! -f "$pref.m4a"; then
+function patch_flac {
+    for file in ./**/*.flac; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.flac}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+            echo "[au: instrumental]" > "$pref.lrc"
+        fi
+    done
+}
 
-        # artist="$(metaflac --show-tag=ARTIST "$file" | awk -F'=' '{print $2}')"
-        # title="$(metaflac --show-tag=TITLE "$file" | awk -F'=' '{print $2}')"
-        # artist="$(ffprobe -v quiet -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 "$file")"
-        # title="$(ffprobe -v quiet -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 "$file")"
+function orphan_m4a {
+    for file in ./**/*.m4a; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.m4a}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+        fi
+    done
+}
 
-        echo "$file"
+function search_m4a {
+    im4a=1
+    for file in ./**/*.m4a; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.m4a}"
+        artist=""
+        title=""
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            artist="$(ffprobe -v quiet -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 "$file")"
+            title="$(ffprobe -v quiet -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 "$file")"
+            echo "$iflac $artist - $title"
+            syncedlyrics "$artist - $title" --synced-only -o "$pref.lrc" > /dev/null
+        fi
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "-- trying plain lyrics"
+            syncedlyrics "$artist - $title" --plain-only -o "$pref.txt" > /dev/null
+        fi
+        ((im4a++))
+    done
+}
 
-        # del "$pref.txt"
-        # echo "[au: instrumental]" > "$pref.lrc"
+function patch_m4a {
+    for file in ./**/*.m4a; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.m4a}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+            echo "[au: instrumental]" > "$pref.lrc"
+        fi
+    done
+}
 
-        # echo "$artist"
-        # echo "$title"
-        # syncedlyrics "$artist - $title" --synced-only -o "$pref.lrc" > /dev/null
-        # echo -e "\n$i\n"
-        # ((i++))
-    fi
+function orphan_mp3 {
+    for file in ./**/*.mp3; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.mp3}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+        fi
+    done
+}
+
+function search_mp3 {
+    imp3=1
+    for file in ./**/*.mp3; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.mp3}"
+        artist=""
+        title=""
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            artist="$(ffprobe -v quiet -show_entries format_tags=artist -of default=noprint_wrappers=1:nokey=1 "$file")"
+            title="$(ffprobe -v quiet -show_entries format_tags=title -of default=noprint_wrappers=1:nokey=1 "$file")"
+            echo "$iflac $artist - $title"
+            syncedlyrics "$artist - $title" --synced-only -o "$pref.lrc" > /dev/null
+        fi
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "-- trying plain lyrics"
+            syncedlyrics "$artist - $title" --plain-only -o "$pref.txt" > /dev/null
+        fi
+        ((imp3++))
+    done
+}
+
+function patch_mp3 {
+    for file in ./**/*.mp3; do
+        if test ! -f "$file"; then
+            continue
+        fi
+        pref="${file%*.mp3}"
+        if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
+            echo "$file"
+            echo "[au: instrumental]" > "$pref.lrc"
+        fi
+    done
+}
+
+orphan=0
+search=0
+patch=0
+while getopts "osp" option; do
+    case "$option" in # (((((
+        o) orphan=1 ;;
+        s) search=1 ;;
+        p) patch=1 ;;
+        *) exit 1 ;;
+    esac
 done
 
-# find . -type f -name "*.$ext" -exec bash -c "process_file \"{}\"" \;
+if [ $orphan == 1 ]; then
+    orphan_flac
+    orphan_m4a
+    orphan_mp3
+fi
 
-# 955
+if [ $search == 1 ]; then
+    search_flac
+    search_m4a
+    search_mp3
+fi
+
+if [ $patch == 1 ]; then
+    patch_flac
+    patch_m4a
+    patch_mp3
+fi

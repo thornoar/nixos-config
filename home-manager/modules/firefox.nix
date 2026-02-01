@@ -49,7 +49,7 @@ let
     }
     {
       name = "li | Anna's Archive";
-      url = "https://annas-archive.org/";
+      url = "https://annas-archive.li/";
       keyword = "li";
     }
     {

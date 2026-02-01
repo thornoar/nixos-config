@@ -39,10 +39,11 @@ try:
 
     if args.git or args.onlygit:
         call("git remote update")
-        if "branch is behind" in os.popen("git status").read().strip():
+        status = os.popen("git status").read().strip()
+        if "branch is behind" in status:
             print("> Local branch is behind remote.") #]]
             behind_remote = True
-        if "not staged for commit" in os.popen("git status").read().strip():
+        if ("not staged for commit" in status) or "new file" in status:
             call("git add -A")
             call("git commit -m \"$(date +'%d %b %Y (%a): %H:%M')\"")
             call("git pull --no-rebase --no-edit")

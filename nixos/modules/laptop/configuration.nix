@@ -54,6 +54,7 @@
           kp9 = "pageup";
           kpenter = "leftmeta";
           kp5 = "down";
+          kpdelete = "delete";
           # rightalt = "leftmeta";
           capslock = "esc";
           esc = "capslock";
@@ -159,7 +160,7 @@
     gamemode.enable = true;
   };
 
-  time.timeZone = "Europe/Belgrade";
+  time.timeZone = "Asia/Hong_Kong";
 
   fonts.packages = with pkgs; [
     # noto-fonts

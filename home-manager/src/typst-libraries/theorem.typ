@@ -64,6 +64,7 @@
   identifier,
   head,
   breakable: breakable,
+  // inset: (top: 0.1in),
   ..args
 )
 #let statestyle(identifier, head, breakable: false, ..args) = thmstyle(
@@ -71,6 +72,7 @@
   head,
   breakable: breakable,
   bodyfmt: emph,
+  // inset: (top: 0.1in),
   ..args
 )
 #let proofstyle(identifier, head, breakable: true, ..args) = thmproof(

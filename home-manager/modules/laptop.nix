@@ -17,7 +17,6 @@ in {
     killall
     dict
     libqalculate
-    telegram-desktop
     discord
     whatsie
     obs-studio
@@ -55,6 +54,7 @@ in {
     swayimg
     rmpc
     yt-dlp
+    telegram-desktop
   ]);
 
   dconf.settings = {
@@ -155,7 +155,7 @@ in {
     set recolor-darkcolor           "${clr.white1}" # Foreground
 
     set adjust-open width
-    set recolor false
+    set recolor true
     set guioptions none
 
     map <S-Up> feedkeys "zI"
