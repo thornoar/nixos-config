@@ -48,9 +48,14 @@ let
       keyword = "tr";
     }
     {
-      name = "li | Anna's Archive";
+      name = "aa | Anna's Archive";
       url = "https://annas-archive.li/";
-      keyword = "li";
+      keyword = "aa";
+    }
+    {
+      name = "li | Library Genesis";
+      url = "https://libgen.li/";
+      keyword = "aa";
     }
     {
       name = "ni | Nixhub.io";
