@@ -19,6 +19,7 @@ in {
     libqalculate
     discord
     whatsie
+    unstable.telegram-desktop
     obs-studio
     zathura
     libnotify
@@ -50,11 +51,9 @@ in {
     flac
     lrcget
     python312Packages.syncedlyrics
-  ]) ++ (with pkgs.unstable; [
-    swayimg
-    rmpc
-    yt-dlp
-    telegram-desktop
+    unstable.swayimg
+    unstable.rmpc
+    unstable.yt-dlp
   ]);
 
   dconf.settings = {

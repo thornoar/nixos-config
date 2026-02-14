@@ -15,7 +15,7 @@
       haskellPackages.ghci-dap
       pyright
       haskell-language-server
-      tinymist
+      unstable.tinymist
       lua-language-server
       rust-analyzer
       # java-language-server
@@ -133,7 +133,7 @@
     texlab
 
     # Typst
-    typst
+    unstable.typst
 
     # C/C++
     clang
