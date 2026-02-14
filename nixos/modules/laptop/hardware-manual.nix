@@ -4,7 +4,7 @@
     blacklistedKernelModules = [
       "nouveau" # "nvidia" "nvidia_drm" "nvidia_modeset"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_18;
     loader = {
       systemd-boot = {
         enable = true;
@@ -20,9 +20,9 @@
     supportedFilesystems = [ "ntfs" ];
     tmp.cleanOnBoot = true;
   };
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=3s
-  '';
+  # systemd.extraConfig = ''
+  #   DefaultTimeoutStopSec=3s
+  # '';
 
   powerManagement = {
     enable = true;

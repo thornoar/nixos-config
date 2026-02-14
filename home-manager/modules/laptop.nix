@@ -13,12 +13,12 @@ in {
     imagemagick
     graphicsmagick
     ffmpeg
-    transmission_3
+    transmission_4
     killall
     dict
     libqalculate
     discord
-    whatsie
+    # whatsie
     unstable.telegram-desktop
     obs-studio
     zathura
@@ -67,8 +67,8 @@ in {
     enable = true;
     font.name = config.misc.systemFont + " 11";
     theme = {
-      name = "deepin-dark";
-      package = pkgs.deepin.deepin-gtk-theme;
+      name = "Adwaita-dark";
+      # package = pkgs.deepin.deepin-gtk-theme;
     };
   };
 

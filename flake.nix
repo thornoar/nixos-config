@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs-unstable = { url = "github:NixOS/nixpkgs/nixos-unstable"; };
-    nixpkgs = { url = "github:NixOS/nixpkgs/nixos-25.05"; };
+    nixpkgs = { url = "github:NixOS/nixpkgs/nixos-25.11"; };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-addons = {
@@ -22,15 +22,14 @@
     let
       system = "x86_64-linux";
       lib = inputs.nixpkgs.lib;
-      firefox-pkgs = inputs.firefox-addons.packages.${system};
 
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
-          inherit (final) system;
+          system = final.stdenv.hostPlatform.system;
           config.allowUnfree = true;
         };
         inherit inputs;
-        inherit firefox-pkgs;
+        firefox-pkgs = inputs.firefox-addons.packages.${system};
       };
 
       pkgs = import inputs.nixpkgs {
@@ -107,7 +106,7 @@
         };
 
         minimal = lib.nixosSystem {
-          system = system;
+          inherit system;
           modules = [
             ./nixos/configuration.nix
             {

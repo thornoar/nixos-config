@@ -35,10 +35,10 @@
       };
     };
 
-    logind.extraConfig = ''
-      HandleLidSwitch=ignore
-      HandleLidSwitchExternalPower=ignore
-    '';
+    logind.settings.Login = {
+      HandleLidSwitch = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
+    };
 
     keyd = {
       enable = true;

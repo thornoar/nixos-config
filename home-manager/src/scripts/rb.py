@@ -103,7 +103,10 @@ try:
 
     call("sudo echo -n") # ]]
 
-    call(command + " " + args.command + " " + spec_args + " " + args.extra + " " + flake_args + nom_args)
+    fullcmd = command + " " + args.command + " " + spec_args + " " + flake_args + " " + args.extra + nom_args
+
+    print("> " + fullcmd)
+    call(fullcmd)
 
     new_gen = os.popen("readlink -f /run/current-system").read().strip()
 

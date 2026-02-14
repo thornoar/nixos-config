@@ -91,14 +91,14 @@
   programs = {
     git = {
       enable = true;
-      userName = "Roman Maksimovich";
-      userEmail = "r.a.maksimovich@gmail.com";
-      extraConfig = {
+      settings = {
         init.defaultBranch = "master";
-      };
-      aliases = {
-        install = ''
-          !git clone "https://github.com/thornoar/$1.git" "$HOME/projects/$1"'';
+        user.name = "Roman Maksimovich";
+        user.email = "r.a.maksimovich@gmail.com";
+        alias = {
+          install = ''
+            !git clone https://github.com/thornoar/$1.git /home/ramak/projects/$1'';
+        };
       };
     };
     gh = { enable = true; };
@@ -107,9 +107,10 @@
   home.packages = (with pkgs; [
     # Python
     (python3.withPackages (ps: with ps; [
-      manim ipython sympy numpy ollama openai mutagen
+      ipython sympy numpy ollama openai mutagen
     ]))
     sage
+    manim
 
     # R
     (rWrapper.override {
