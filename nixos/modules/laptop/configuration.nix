@@ -169,7 +169,7 @@
     newcomputermodern
     hack-font
     jetbrains-mono
-    # nerd-fonts.hack
+    nerd-fonts.hack
     # nerd-fonts.jetbrains-mono
     # dejavu_fonts
   ];

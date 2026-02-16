@@ -83,7 +83,7 @@ require("lazy").setup({
     "axieax/urlview.nvim",
     {
         "scalameta/nvim-metals",
-        -- ft = { "scala", "sbt", "java" },
+        ft = { "scala", "sbt", "java" },
         opts = function()
             local metals_config = require("metals").bare_config()
             metals_config.settings = {
@@ -120,8 +120,50 @@ require("lazy").setup({
     },
     {
         "folke/trouble.nvim",
-        opts = {}, -- for default options, refer to the configuration section for custom setup.
-        cmd = "Trouble",
+        opts = {
+            icons = {
+                indent = {
+                    top           = "│ ",
+                    middle        = "├╴",
+                    last          = "└╴",
+                    fold_open     = " +",
+                    fold_closed   = "- ",
+                    ws            = " ",
+                    file          = "",
+                },
+                folder_closed   = "",
+                folder_open     = "",
+                kinds = {
+                    Array         = "A ",
+                    Boolean       = "B ",
+                    Class         = "",
+                    Constant      = "",
+                    Constructor   = "C ",
+                    Enum          = "E ",
+                    EnumMember    = "",
+                    Event         = "",
+                    Field         = "",
+                    File          = "",
+                    Function      = "F ",
+                    Interface     = "I ",
+                    Key           = "K ",
+                    Method        = "",
+                    Module        = "M ",
+                    Namespace     = "N ",
+                    Null          = "",
+                    Number        = "",
+                    Object        = "",
+                    Operator      = "O ",
+                    Package       = "P ",
+                    Property      = "",
+                    String        = "S ",
+                    Struct        = "",
+                    TypeParameter = "TP ",
+                    Variable      = "V ",
+                },
+            },
+        },
+        -- cmd = "Trouble",
         keys = {
             {
                 "<C-M-d>",
@@ -129,6 +171,7 @@ require("lazy").setup({
                 desc = "Diagnostics (Trouble)",
             },
         },
+        lazy = false,
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -167,11 +210,11 @@ require("lazy").setup({
                 map = "<M-/>",
             },
             internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
-                {'[',']',fly=true,dosuround=true,newline=true,space=true},
-                {'(',')',fly=true,dosuround=true,newline=true,space=true},
-                {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
-                {'{','}',fly=true,dosuround=true,newline=true,space=true},
-                {'"','"',suround=true,multiline=false},
+                {'[',']',fly=true,dosuround=false,newline=true,space=true},
+                {'(',')',fly=true,dosuround=false,newline=true,space=true},
+                {'<','>',fly=true,dosuround=false,newline=true,space=false, ft = {"html","markdown"}},
+                {'{','}',fly=true,dosuround=false,newline=true,space=true},
+                {'"','"',suround=false,multiline=false},
                 {'`','`', nft={'tex'},multiline=false},
                 {'``',"''",ft={'tex'}},
                 {'```','```',newline=true,ft={'markdown'}},
@@ -225,7 +268,6 @@ require("lazy").setup({
         },
         cmd = { "Ollama", "OllamaModel" },
         keys = { },
-        ---@type Ollama.Config
         opts = {
             model = "codegemma:7b",
         },
