@@ -38,6 +38,7 @@
     return M
   '';
   xdg.configFile."nvim/init.lua" = config.util.dotFileMut "nvim/init.lua";
+  xdg.configFile."nvim/lazy-lock.json" = config.util.dotFileMut "nvim/lazy-lock.json";
 
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (

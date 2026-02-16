@@ -1,9 +1,8 @@
 vim.loader.enable()
 
-local km = vim.keymap
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
-km.set("n", "ec", ":e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>")
+vim.keymap.set("n", "ec", ":e $NIXOS_CONFIG/home-manager/src/nvim/init.lua<CR>")
 
 -- $install
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -18,8 +17,49 @@ if not vim.loop.fs_stat(lazypath) then
     }
 end
 vim.opt.rtp:prepend(lazypath)
+
+local lazy_config = {
+    defaults = {
+        lazy = false,
+        version = "*",
+    },
+    rocks = {
+        enabled = false,
+    },
+    ui = {
+        size = { width = 0.8, height = 0.8 },
+        border = "single",
+        -- title_pos = "right",
+        icons = {
+            cmd = "> ",
+            config = "C ",
+            debug = "D ",
+            event = "E ",
+            favorite = "F ",
+            ft = "FT ",
+            init = "I ",
+            import = "",
+            keys = "K ",
+            lazy = "L ",
+            loaded = "+",
+            not_loaded = "-",
+            plugin = "<- ",
+            runtime = "RT ",
+            require = "! ",
+            source = "<- ",
+            start = "",
+            task = "✔ ",
+            list = {
+                "+",
+                "->",
+                "*",
+                "-",
+            },
+        },
+    },
+}
+
 require("lazy").setup({
-    defaults = { lazy = true },
     "tpope/vim-rhubarb",
     "tpope/vim-surround",
     "tpope/vim-repeat",
@@ -39,46 +79,15 @@ require("lazy").setup({
     "mbbill/undotree",
     "whonore/Coqtail",
     "bfrg/vim-c-cpp-modern",
-    -- "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     "axieax/urlview.nvim",
-    -- "smithbm2316/centerpad.nvim",
-    -- {
-    --     "tomtomjhj/coq-lsp.nvim",
-    -- },
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     opts = {
-    --         -- add any options here
-    --     },
-    --     dependencies = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         -- "rcarriga/nvim-notify",
-    --     }
-    -- },
     {
         "scalameta/nvim-metals",
-        ft = { "scala", "sbt", "java" },
+        -- ft = { "scala", "sbt", "java" },
         opts = function()
             local metals_config = require("metals").bare_config()
             metals_config.settings = {
                 fallbackScalaVersion = "3.3.5";
-                -- verboseCompilation = true,
-                -- inlayHints = {
-                --     byNameParameters = { enable = true },
-                --     hintsInPatternMatch = { enable = true },
-                --     implicitArguments = { enable = true },
-                --     implicitConversions = { enable = true },
-                --     inferredTypes = { enable = true },
-                --     typeParameters = { enable = true },
-                --     javaProperties = {
-                --         '-Dmetals.showMessage=off',
-                --     },
-                -- },
                 useGlobalExecutable = true,
             }
 
@@ -95,25 +104,6 @@ require("lazy").setup({
             })
         end
     },
-    -- {
-    --     'stevearc/oil.nvim',
-    --     ---@module 'oil'
-    --     ---@type oil.SetupOpts
-    --     opts = {},
-    --     -- Optional dependencies
-    --     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    --     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-    -- },
-
-    -- {
-    --     "lervag/vimtex",
-    --     lazy = false,     -- we don't want to lazy load VimTeX
-    --     -- tag = "v2.15", -- uncomment to pin to a specific release
-    --     init = function()
-    --         -- VimTeX configuration goes here, e.g.
-    --         vim.g.vimtex_view_method = "zathura"
-    --     end
-    -- },
     {
         "cdmill/focus.nvim",
         cmd = { "Focus", "Zen", "Narrow" },
@@ -121,9 +111,6 @@ require("lazy").setup({
             border = "none",
             window = {
                 width = 80,
-                -- options = {
-                --     border = "none",
-                -- },
             },
             auto_zen = true,
             zen = {
@@ -141,11 +128,6 @@ require("lazy").setup({
                 "<cmd>Trouble diagnostics toggle<cr>",
                 desc = "Diagnostics (Trouble)",
             },
-            -- {
-            --     "<>",
-            --     "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-            --     desc = "Buffer Diagnostics (Trouble)",
-            -- },
         },
     },
     {
@@ -157,8 +139,6 @@ require("lazy").setup({
     },
     {
         "kaarmu/typst.vim",
-        ft = "typst",
-        lazy = false,
     },
     {
         "nvim-telescope/telescope.nvim", tag = "0.1.6",
@@ -171,46 +151,36 @@ require("lazy").setup({
         "davvid/telescope-git-grep.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" }
     },
-    -- {
-    --     "altermo/ultimate-autopair.nvim",
-    --     event = { "InsertEnter" },
-    --     branch = "v0.6",
-    --     opts = {
-    --         space2 = { enable = true },
-    --         tabout = { enable = true },
-    --         fastwarp = {
-    --             enable = true,
-    --             enable_normal = true,
-    --             enable_reverse = true,
-    --             hopout = false,
-    --             faster = false,
-    --             map = "<M-/>",
-    --         },
-    --         internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
-    --             {'[',']',fly=true,dosuround=true,newline=true,space=true},
-    --             {'(',')',fly=true,dosuround=true,newline=true,space=true},
-    --             {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
-    --             {'{','}',fly=true,dosuround=true,newline=true,space=true},
-    --             {'"','"',suround=true,multiline=false},
-    --             {'`','`', nft={'tex'},multiline=false},
-    --             {'``',"''",ft={'tex'}},
-    --             {'```','```',newline=true,ft={'markdown'}},
-    --             {'<!--','-->',ft={'markdown','html'},space=true},
-    --             {'"""','"""',newline=true,ft={'python'}},
-    --             {"'''","'''",newline=true,ft={'python'}},
-    --         },
-    --     },
-    -- },
     {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true,
-        -- use opts = {} for passing setup options
-        -- this is equivalent to setup({}) function
+        "altermo/ultimate-autopair.nvim",
+        -- event = { "InsertEnter" },
+        branch = "v0.6",
+        opts = {
+            space2 = { enable = true },
+            tabout = { enable = true },
+            fastwarp = {
+                enable = true,
+                enable_normal = true,
+                enable_reverse = true,
+                hopout = false,
+                faster = false,
+                map = "<M-/>",
+            },
+            internal_pairs = {-- *ultimate-autopair-pairs-default-pairs*
+                {'[',']',fly=true,dosuround=true,newline=true,space=true},
+                {'(',')',fly=true,dosuround=true,newline=true,space=true},
+                {'<','>',fly=true,dosuround=true,newline=true,space=false, ft = {"html","markdown"}},
+                {'{','}',fly=true,dosuround=true,newline=true,space=true},
+                {'"','"',suround=true,multiline=false},
+                {'`','`', nft={'tex'},multiline=false},
+                {'``',"''",ft={'tex'}},
+                {'```','```',newline=true,ft={'markdown'}},
+                {'<!--','-->',ft={'markdown','html'},space=true},
+                {'"""','"""',newline=true,ft={'python'}},
+                {"'''","'''",newline=true,ft={'python'}},
+            },
+        },
     },
-    -- {
-    --     "cohama/lexima.vim",
-    -- },
     {
         "navarasu/onedark.nvim",
         priority = 1000,
@@ -237,9 +207,6 @@ require("lazy").setup({
     -- { "simrat39/rust-tools.nvim" },
     {
         "hrsh7th/nvim-cmp",
-        -- dependencies = {
-        --     "L3MON4D3/LuaSnip",
-        -- },
     },
     {
         "quangnguyen30192/cmp-nvim-ultisnips",
@@ -270,23 +237,9 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    -- {
-    --     "stevearc/dressing.nvim",
-    --     opts = {},
-    -- },
-    {
-        "kdheepak/lazygit.nvim",
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        config = function()
-            require("telescope").load_extension("lazygit")
-        end,
-    },
     {
         "mrcjkb/haskell-tools.nvim",
+        commit = "52f1438",
         -- version = "^6", -- Recommended
         lazy = false, -- This plugin is already lazy
     },
@@ -309,15 +262,7 @@ require("lazy").setup({
         "karb94/neoscroll.nvim",
         opts = {}
     },
-    -- {
-    --     "MeanderingProgrammer/render-markdown.nvim",
-    --     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    --     ---@module "render-markdown"
-    --     ---@type render.md.UserConfig
-    --     opts = {},
-    -- },
-    -- 'thornoar/nvim-subfiles',
-}, {})
+}, lazy_config)
 
 require("setup.codecompanion")
 require("setup.neodev")
@@ -337,7 +282,7 @@ require("setup.twilight")
 require("setup.nvim-biscuits")
 require("setup.urlview")
 require("setup.neoscroll")
-require("setup.nvim-autopairs")
+-- require("setup.nvim-autopairs")
 -- require("setup.render-markdown")
 -- require("setup.noice")
 -- require("setup.nvim-subfiles")

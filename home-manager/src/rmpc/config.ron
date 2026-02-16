@@ -72,11 +72,11 @@
             "<Esc>":        Close,
             "K":            MoveUp,
             "D":            Delete,
+            "<C-s>":        Save(kind: Modal(all: true)),
         },
         queue: {
             "C":            DeleteAll,
             "<CR>":         Play,
-            "<C-s>":        Save,
             "a":            AddToPlaylist,
             "d":            Delete,
             "i":            ShowInfo,
