@@ -126,6 +126,10 @@ snippet it "textit" i
 \\emph{$0}
 endsnippet
 
+snippet tt "textit" i
+\\texttt{$0}
+endsnippet
+
 priority 100
 snippet ... "ldots" i
 \\ldots
@@ -201,7 +205,7 @@ snippet ref "ref"
 \\ref{$0}
 endsnippet
 
-snippet display "Display Math" w
+snippet disp "Display Math" w
 \\[
     ${0:${VISUAL}}
 \\]
@@ -548,7 +552,7 @@ _\\text{$0}
 endsnippet
 
 # context "math()"
-snippet tt "text" i
+snippet tx "text" i
 \\text{$0}
 endsnippet
 

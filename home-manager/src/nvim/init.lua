@@ -253,9 +253,6 @@ require("lazy").setup({
     },
     {
         "quangnguyen30192/cmp-nvim-ultisnips",
-        config = function()
-            require("cmp_nvim_ultisnips").setup({})
-        end,
     },
     { 'hrsh7th/cmp-buffer', },
     { 'hrsh7th/cmp-path', },

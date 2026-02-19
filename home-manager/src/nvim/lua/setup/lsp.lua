@@ -9,7 +9,11 @@ vim.diagnostic.config({
 local symbols = { Error = "E", Info = "I", Hint = "H", Warn = "W" }
 for name, icon in pairs(symbols) do
     local hl = "DiagnosticSign" .. name
-    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+    vim.diagnostic.config({signs = {
+        text = icon,
+        texthl = hl,
+        numhl = hl,
+    }})
 end
 -- vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.keymap.set('n', '<C-d>', function () vim.diagnostic.jump({ count = 1, float = true }) end)
@@ -167,12 +171,22 @@ cmp.setup({
         ['<C-Up>'] = cmp.mapping.scroll_docs(-1),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-Right>'] = cmp.mapping(function(fallback)
-            cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+        ['<C-CR>'] = cmp.mapping(function(fallback)
+            vim.fn["UltiSnips#ExpandSnippetOrJump"]()
+            -- if vim.g.ulti_expand_or_jump_res == 0 then
+            --     -- Operation failed, input tab, and call fallback
+            --     vim.fn["feedkeys"](vim.api.nvim_replace_termcodes("<C-Right>", true, true, true), 'n')
+            --     fallback()
+            -- end
         end, { 'i', 's' }),
-        ['<C-Left>'] = cmp.mapping(function(fallback)
-            cmp_ultisnips_mappings.jump_backwards(fallback)
-        end, { 'i', 's' }),
+        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+        --     vim.fn["UltiSnips#JumpBackwards"]()
+        --     -- if vim.g.ulti_jump_backwards_res == 0 then
+        --     --     -- Operation failed, input tab, and call fallback
+        --     --     vim.fn["feedkeys"](vim.api.nvim_replace_termcodes("<C-Left>", true, true, true), 'n')
+        --     --     fallback()
+        --     -- end
+        -- end, { 'i', 's' }),
     }),
     snippet = {
         expand = function(args)
