@@ -7,16 +7,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--impure", action = "store_true", help = "use the corresponding flag in \"nixos-rebuild\"")
 parser.add_argument("-d", "--default", action = "store_true", help = "do not use nix-output-manager to show build progress")
 parser.add_argument("-n", "--nodiff", action = "store_true", help = "do not use nvd to diff the new generation with the old one")
-parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
-parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
+# parser.add_argument("-u", "--update", action = "store_true", help = "update the flake.lock file, saving the previous one")
+# parser.add_argument("-r", "--restore", action = "store_true", help = "restore the previous flake.lock file")
 parser.add_argument("-b", "--reboot", action = "store_true", help = "reboot the system after the rebuild")
 parser.add_argument("-g", "--git", action = "store_true", help = "use git to syncronize the flake directory with a remote repository")
 parser.add_argument("-G", "--onlygit", action = "store_true", help = "just commit changes, without rebuilding")
 parser.add_argument("-a", "--alert", action = "store_true", help = "send a notification after rebuilding")
 parser.add_argument("-c", "--command", type = str, default = "switch", help = "command to use with \"nixos-rebuild\". default is \"switch\"")
-parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
+# parser.add_argument("-s", "--specialisation", type = str, default = "auto", help = "the specialisation to switch to.")
 parser.add_argument("-f", "--flake", type = str, default = "auto", help = "flake to use. default is \"$NIXOS_CONFIG\". a value of \"--\" will disable flakes")
-parser.add_argument("-o", "--output", type = str, default = "auto", help = "flake output to use. default is \"master\"")
+parser.add_argument("-o", "--output", type = str, default = "auto", help = "flake output to use")
 parser.add_argument("-e", "--extra", type = str, default = "", help = "extra options to pass to \"nixos-rebuild\"")
 args = parser.parse_args()
 
@@ -55,20 +55,20 @@ try:
     if args.onlygit:
         exit(0)
 
-    if (args.restore and os.path.exists("./flake.lock.bak")):
-        print("> Restoring previous flake.lock file...") #]]
-        call("cp ./flake.lock.bak ./flake.lock")
-    elif (args.update):
-        print("> Updating flake.lock file...") #]]
-        call("cp ./flake.lock ./flake.lock.bak")
-        call("nix flake update")
+    # if (args.restore and os.path.exists("./flake.lock.bak")):
+    #     print("> Restoring previous flake.lock file...") #]]
+    #     call("cp ./flake.lock.bak ./flake.lock")
+    # elif (args.update):
+    #     print("> Updating flake.lock file...") #]]
+    #     call("cp ./flake.lock ./flake.lock.bak")
+    #     call("nix flake update")
 
     flake_args = ""
     if (args.flake != "--"):
         output = args.output
         if (output == "auto"):
             output = os.popen("hostname").read().strip()
-        flake_args = "--flake .#" + output
+        flake_args = " --flake .#" + output
         if (args.impure):
             flake_args += " --impure"
 
@@ -80,9 +80,9 @@ try:
 
     if (args.extra != ""):
         args.extra = args.extra.replace(", ", " --")
-        args.extra = "--" + args.extra
+        args.extra = " --" + args.extra
 
-    spec_args = ""
+    # spec_args = ""
     # if (args.specialisation != "none" and os.environ["SPECIALISATION_ENABLE"] != "0"):
     #     spec_args = "--specialisation "
     #     if (args.specialisation == "auto"):
@@ -101,9 +101,9 @@ try:
     #     else:
     #         spec_args += args.specialisation
 
-    call("sudo echo -n") # ]]
+    call("sudo echo -n")
 
-    fullcmd = command + " " + args.command + " " + spec_args + " " + flake_args + " " + args.extra + nom_args
+    fullcmd = command + " " + args.command + flake_args + args.extra + nom_args
 
     print("> " + fullcmd)
     call(fullcmd)

@@ -161,8 +161,8 @@
 
     # Java and Android
     openjdk17
-    # android-studio
-    # android-studio-tools
+    android-studio
+    android-studio-tools
     # androidenv.androidPkgs.androidsdk
 
     # # Clojure

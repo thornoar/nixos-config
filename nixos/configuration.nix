@@ -15,6 +15,7 @@
       "video"
       "libvirtd"
       "adbusers"
+      "kvm"
     ];
     homeMode = "0711";
   };

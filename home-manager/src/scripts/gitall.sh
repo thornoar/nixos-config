@@ -5,7 +5,7 @@ cd "$HOME/projects" || exit
 # blkcmd dir "git status -s" -c
 dirty=0
 
-for dir in ./*; do
+for dir in *; do
     printf "> Checking directory \e[32m%s\e[0m:\n" "$dir"
     cd "$dir" || exit
     git status -s
@@ -17,7 +17,7 @@ done
 
 if [ $dirty = 1 ]; then
     read -r -p "? Commit & push all changes? (y/N) " answer
-    answer=${answer:-Y}
+    answer=${answer:-N}
     if [[ "$answer" =~ ^[Yy]$ ]]; then
         cd "$HOME/projects" || exit
         blkcmd dir "gitcommit" -c
