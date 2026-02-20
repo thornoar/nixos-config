@@ -100,6 +100,8 @@
       powertop
       gparted
       openssl
+      lsof
+      tree
     ];
     localBinInPath = true;
     wordlist.enable = true;

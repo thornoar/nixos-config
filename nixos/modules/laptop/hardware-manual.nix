@@ -35,8 +35,13 @@
     fsType = "ext4";
     options = [ "nofail" "rw" "user" "auto" "exec" ];
   };
+  fileSystems."/home/ramak/media/music" = {
+    device = "/dev/disk/by-uuid/5f1b40e6-bf58-4ea7-a2b3-b6080f3fcff7";
+    fsType = "ext4";
+    options = [ "nofail" "rw" "user" "auto" "exec" ];
+  };
   fileSystems."/home/ramak/media/films" = {
-    device = "/dev/disk/by-uuid/d365c266-1fdd-42b1-a576-e7e9efd3e53f";
+    device = "/dev/disk/by-uuid/26692c83-41e8-4a50-9596-7c2812775818";
     fsType = "ext4";
     options = [ "nofail" "rw" "user" "auto" "exec" ];
   };
