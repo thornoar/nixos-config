@@ -269,13 +269,13 @@ require("lazy").setup({
             model = "codegemma:7b",
         },
     },
-    {
-        "olimorris/codecompanion.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-    },
+    -- {
+    --     "olimorris/codecompanion.nvim",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-treesitter/nvim-treesitter",
+    --     },
+    -- },
     {
         "mrcjkb/haskell-tools.nvim",
         commit = "52f1438",
@@ -303,7 +303,7 @@ require("lazy").setup({
     },
 }, lazy_config)
 
-require("setup.codecompanion")
+-- require("setup.codecompanion")
 require("setup.neodev")
 -- require("setup.oil")
 require("setup.commands")

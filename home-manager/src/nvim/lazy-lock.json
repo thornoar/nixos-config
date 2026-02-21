@@ -7,7 +7,6 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef" },
   "cmp-nvim-ultisnips": { "branch": "main", "commit": "21f02b62deb409ce69928a23406076bd0043ddbc" },
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
-  "codecompanion.nvim": { "branch": "main", "commit": "d5b129c65b243a368871dc3f2705642467995c0d" },
   "copilot.vim": { "branch": "release", "commit": "a12fd5672110c8aa7e3c8419e28c96943ca179be" },
   "csv.vim": { "branch": "master", "commit": "ab776a6266593e9e0d8643cdb7e577f81c0eab7d" },
   "focus.nvim": { "branch": "main", "commit": "0f51cb7ff2640737858249015b6af0ea6cb28904" },
