@@ -168,7 +168,7 @@ binds {
     Mod+Shift+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
-    Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
+    Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npowerdown' | tofi)"; }
     Mod+Ctrl+B { spawn "firefox"; }
     Mod+B { spawn "pkill" "-USR1" "waybar"; }
     Super+Ctrl+A { spawn "swaylock"; }
