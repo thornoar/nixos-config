@@ -13,6 +13,12 @@ if [ "$cmd" = "scratch" ]; then
         fi
         niri msg action focus-workspace "$2"
     fi
+elif [ "$cmd" = "shrink" ]; then
+    cur_wsp_id="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).id')"
+    for win_id in $(niri msg -j windows | jq ".[] | select(.workspace_id == $cur_wsp_id).id"); do
+        niri msg action set-window-width --id "$win_id" "50%"
+    done
+    niri msg action focus-column-first
 elif [ "$cmd" = "seq" ]; then
     for action in "${@:2}"; do
         niri msg action "$action"
@@ -27,12 +33,6 @@ elif [ "$cmd" = "prev-wsp" ]; then
     if [[ "$cur_wsp_name" =~ [1-5] ]]; then
         niri msg action focus-workspace-up
     fi
-elif [ "$cmd" = "shrink" ]; then
-    cur_wsp_id="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).id')"
-    for win_id in $(niri msg -j windows | jq ".[] | select(.workspace_id == $cur_wsp_id).id"); do
-        niri msg action set-window-width --id "$win_id" "50%"
-    done
-    niri msg action focus-column-first
 elif [ "$cmd" = "close-all" ]; then
     cur_wsp_id="$(niri msg -j workspaces | jq '.[] | select(.is_active == true).id')"
     for win_id in $(niri msg -j windows | jq ".[] | select(.workspace_id == $cur_wsp_id).id"); do

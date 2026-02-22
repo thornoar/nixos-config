@@ -312,7 +312,7 @@ in {
         ],
 
         "modules-left": [
-            "hyprland/workspaces",
+            "niri/workspaces",
         ],
 
         "modules-center": [
@@ -322,7 +322,7 @@ in {
         ],
 
         "modules-right": [
-            "hyprland/language",
+            "niri/language",
             "network",
             "cpu",
             "memory",

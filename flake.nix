@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs-unstable = { url = "github:NixOS/nixpkgs/nixos-unstable"; };
+    nixpkgs-old = { url = "github:NixOS/nixpkgs/nixos-25.05"; };
     nixpkgs = { url = "github:NixOS/nixpkgs/nixos-25.11"; };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -25,6 +26,10 @@
 
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
+          system = final.stdenv.hostPlatform.system;
+          config.allowUnfree = true;
+        };
+        old = import inputs.nixpkgs-old {
           system = final.stdenv.hostPlatform.system;
           config.allowUnfree = true;
         };
@@ -52,8 +57,8 @@
             ./nixos/modules/laptop/configuration.nix
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
-            ./nixos/modules/laptop/hyprland.nix
-            # ./nixos/modules/laptop/niri.nix
+            # ./nixos/modules/laptop/hyprland.nix
+            ./nixos/modules/laptop/niri.nix
             { _module.args = { sysname = "laptop"; }; }
             inputs.home-manager.nixosModules.home-manager
             {
@@ -65,8 +70,8 @@
                     ./home-manager/modules/options/declaration.nix
                     ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/laptop.nix
-                    ./home-manager/modules/hyprland.nix
-                    # ./home-manager/modules/niri.nix
+                    # ./home-manager/modules/hyprland.nix
+                    ./home-manager/modules/niri.nix
                     ./home-manager/modules/firefox.nix
                     ./home-manager/modules/development.nix
                   ];

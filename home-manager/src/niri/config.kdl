@@ -74,7 +74,7 @@ layout {
         proportion 1.0
     }
 
-    default-column-width { proportion 1.0; }
+    default-column-width { proportion 0.5; }
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
     preset-window-heights {
@@ -100,10 +100,10 @@ workspace "M"
 workspace "S"
 workspace "C"
 
-window-rule {
-    match app-id="foot"
-    default-column-width { proportion 0.5; }
-}
+// window-rule {
+//     match app-id="foot"
+//     default-column-width { proportion 0.5; }
+// }
 
 // window-rule {
 //     match title="^wide-.*"
@@ -267,7 +267,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+5%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+Shift+V       { toggle-window-floating; }
+    Mod+Shift+V { toggle-window-floating; }
     Mod+Ctrl+V { switch-focus-between-floating-and-tiling; }
 
     Mod+Ctrl+Home { toggle-column-tabbed-display; }
