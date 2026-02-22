@@ -7,8 +7,7 @@ if [ "$cmd" = "scratch" ]; then
     if [ "$cur_wsp_name" = "$2" ]; then
         niri msg action focus-workspace "$(cat /tmp/wsphook)"
     else
-        if [[ "$cur_wsp_name" =~ [0-9] ]]; then
-            echo hi
+        if [[ "$cur_wsp_name" =~ [A-E] ]]; then
             echo "$cur_wsp_name" > /tmp/wsphook
         fi
         niri msg action focus-workspace "$2"

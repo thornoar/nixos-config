@@ -197,4 +197,19 @@
       ${pkgs.nps}/bin/nps -e -r -dddd
     '';
   };
+  # systemd.services."kill-mpd-server" = {
+  #   enable = true;
+  #   before = ["umount.target"];
+  #   wantedBy = ["shutdown.target" "reboot.target"];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.mpd}/bin/mpd --kill";
+  #     RemainAfterExit = true;
+  #     User = "ramak";
+  #   };
+  #   # script = ''
+  #   #   ${pkgs.coreutils}/bin/echo "killing the MPD daemon before umount"
+  #   #   ${pkgs.mpd}/bin/mpd --kill
+  #   # '';
+  # };
 }

@@ -84,3 +84,6 @@ window#waybar {
     color: @bg0;
     font-weight: bold;
 }
+/* #workspaces button#niri-workspace-T { */
+/* 	border-left: 1px solid @primary; */
+/* } */

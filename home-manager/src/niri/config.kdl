@@ -89,16 +89,16 @@ layout {
     }
 }
 
-workspace "1"
-workspace "2"
-workspace "3"
-workspace "4"
-workspace "5"
+workspace "A"
+workspace "B"
+workspace "C"
+workspace "D"
+workspace "E"
 
 workspace "T"
 workspace "M"
 workspace "S"
-workspace "C"
+workspace "Q"
 
 // window-rule {
 //     match app-id="foot"
@@ -113,18 +113,22 @@ workspace "C"
 window-rule {
     match title="^T$" at-startup=true
     open-on-workspace "T"
+    default-column-width { proportion 1.0; }
 }
 window-rule {
     match title="^M$" at-startup=true
     open-on-workspace "M"
+    default-column-width { proportion 1.0; }
 }
 window-rule {
     match title="^S$" at-startup=true
     open-on-workspace "S"
+    default-column-width { proportion 1.0; }
 }
 window-rule {
-    match title="^C$" at-startup=true
-    open-on-workspace "C"
+    match title="^Q$" at-startup=true
+    open-on-workspace "Q"
+    default-column-width { proportion 1.0; }
 }
 
 spawn-at-startup "waybar"
@@ -135,7 +139,7 @@ spawn-at-startup "transmission-daemon"
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'T' --app-id 'stratch'"
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'M' --app-id 'stratch' zsh -c 'rmpc; zsh'"
 spawn-sh-at-startup "foot --title 'S' --app-id 'stratch' zsh -c 'htop; zsh'"
-spawn-sh-at-startup "foot --title 'C' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
+spawn-sh-at-startup "foot --title 'Q' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
 
 hotkey-overlay {
     skip-at-startup
@@ -173,7 +177,7 @@ binds {
     Mod+C { spawn-sh "niri-hack scratch T"; }
     Mod+V { spawn-sh "niri-hack scratch M"; }
     Mod+S { spawn-sh "niri-hack scratch S"; }
-    Mod+Q { spawn-sh "niri-hack scratch C"; }
+    Mod+Q { spawn-sh "niri-hack scratch Q"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
@@ -231,17 +235,19 @@ binds {
     Mod+Page_Up      { focus-workspace-up; }
     Mod+Alt+Page_Down { move-column-to-workspace-down; }
     Mod+Alt+Page_Up   { move-column-to-workspace-up; }
+    Mod+Shift+Alt+Page_Down { move-workspace-down; }
+    Mod+Shift+Alt+Page_Up   { move-workspace-up; }
 
-    Mod+1 { focus-workspace "1"; }
-    Mod+2 { focus-workspace "2"; }
-    Mod+3 { focus-workspace "3"; }
-    Mod+4 { focus-workspace "4"; }
-    Mod+5 { focus-workspace "5"; }
-    Mod+Alt+1 { move-column-to-workspace "1"; }
-    Mod+Alt+2 { move-column-to-workspace "2"; }
-    Mod+Alt+3 { move-column-to-workspace "3"; }
-    Mod+Alt+4 { move-column-to-workspace "4"; }
-    Mod+Alt+5 { move-column-to-workspace "5"; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+Alt+1 { move-column-to-workspace 1; }
+    Mod+Alt+2 { move-column-to-workspace 2; }
+    Mod+Alt+3 { move-column-to-workspace 3; }
+    Mod+Alt+4 { move-column-to-workspace 4; }
+    Mod+Alt+5 { move-column-to-workspace 5; }
 
     Mod+Shift+Tab { focus-workspace-previous; }
 
