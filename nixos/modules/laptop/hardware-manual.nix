@@ -20,9 +20,6 @@
     supportedFilesystems = [ "ntfs" ];
     tmp.cleanOnBoot = true;
   };
-  # systemd.extraConfig = ''
-  #   DefaultTimeoutStopSec=3s
-  # '';
 
   powerManagement = {
     enable = true;

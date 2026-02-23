@@ -197,6 +197,15 @@
       ${pkgs.nps}/bin/nps -e -r -dddd
     '';
   };
+
+  systemd.settings.Manager = {
+    DefaultTimeoutStopSec = "5s";
+    RebootWatchdogSec = "1min";
+  };
+  systemd.user.extraConfig = ''
+    DefaultTimeoutStopSec=5s
+  '';
+
   # systemd.services."kill-mpd-server" = {
   #   enable = true;
   #   before = ["umount.target"];
