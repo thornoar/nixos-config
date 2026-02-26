@@ -45,12 +45,14 @@ alias -- fdate='date +"%d %b %Y (%a): %H:%M"'
 alias -- develop='export ZDOTDIR="$XDG_CONFIG_HOME/nix-develop" && nix develop'
 alias -- pdraw='watch -n 1 "upower -e | grep "battery" | xargs upower -i"'
 alias -- cdgit='cd $(git rev-parse --git-dir)/..'
-alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
+alias -- crp='cabal run pshash --'
+# alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
 
 export PATH=$PATH:~/media/sandbox/bin
 
 export ARCHVM="192.168.122.167"
 export DEBIANVM="192.168.122.127"
+export WIN10VM="192.168.122.61"
 export DESKTOP="192.168.0.28"
 export LAPTOP="192.168.0.37"
 export SAMSUNG="192.168.0.33:5555"

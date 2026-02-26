@@ -69,8 +69,8 @@ window#waybar {
 }
 
 #workspaces button {
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
     padding-top: 0px;
     padding-bottom: 0px;
 	color: @primary;
@@ -80,7 +80,8 @@ window#waybar {
 	/* border-left: 1px solid @primary; */
 }
 #workspaces button.active {
-	background: @white3;
+    /* padding-top: 1px; */
+	background: @gray0;
     color: @bg0;
     font-weight: bold;
 }

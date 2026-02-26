@@ -50,6 +50,8 @@ in {
     wev
     flac
     lrcget
+    libsixel
+    net-tools
     python312Packages.syncedlyrics
     unstable.swayimg
     unstable.rmpc
@@ -61,15 +63,19 @@ in {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 
   gtk = {
     enable = true;
-    font.name = config.misc.systemFont + " 11";
+    font.name = config.misc.systemFont;
     theme = {
-      name = "Adwaita-dark";
-      # package = pkgs.deepin.deepin-gtk-theme;
+      name = "Breeze";
+      package = pkgs.kdePackages.breeze-gtk;
     };
+    colorScheme = "dark";
   };
 
   # xdg-mime configuration
@@ -104,7 +110,7 @@ in {
       font = config.misc.systemFont + " 11";
       corner_radius = config.window.rounding;
       frame_color = clr.primary;
-      foreground = clr.white3;
+      foreground = clr.gray0;
       background = clr.bg0;
       sticky_history = false;
       padding = config.window.windowSpaceOuter + 5;

@@ -3,7 +3,7 @@ local colors = require("colors")
 require('tabby.tabline').set(function(line)
     return {
         line.tabs().foreach(function(tab)
-            local hl = tab.is_current() and { fg = colors.magenta1, bg = colors.bg0 } or { fg = colors.white3, bg = colors.bg0 }
+            local hl = tab.is_current() and { fg = colors.magenta1, bg = colors.bg0 } or { fg = colors.gray0, bg = colors.bg0 }
             return {
                 line.sep("", hl, { bg = colors.bg0 }),
                 tab.name(),
@@ -71,8 +71,8 @@ require('lualine').setup{
         theme = {
             normal = {
                 a = { fg = colors.bg0, bg = colors.primary, gui = 'bold' },
-                b = { fg = colors.white3, bg = colors.bg0 },
-                c = { fg = colors.white3, bg = colors.bg0 },
+                b = { fg = colors.gray0, bg = colors.bg0 },
+                c = { fg = colors.gray0, bg = colors.bg0 },
             },
             command = { a = { fg = colors.bg0, bg = colors.yellow1, gui = 'bold' } },
             insert = { a = { fg = colors.bg0, bg = colors.red1, gui = 'bold' } },

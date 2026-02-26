@@ -5,7 +5,7 @@
     colors = lib.mkOption {
       type = lib.types.attrs;
       default = rec {
-        primary = white3;
+        primary = gray0;
 
         # bg0 = "#0c0c10";
         bg0 = "#000000";
@@ -22,8 +22,9 @@
         white0 = "#ffffff";
         white1 = "#f8f8f2";
         white2 = "#e6efef";
-        white3 = "#abb2bf";
-        white4 = "#595f6b";
+
+        gray0 = "#abb2bf";
+        gray1 = "#4f4f5d";
 
         yellow0 = "#f1fa8c";
         yellow1 = "#d19a66";

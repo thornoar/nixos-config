@@ -98,7 +98,7 @@
         user.email = "r.a.maksimovich@gmail.com";
         alias = {
           install = ''
-            !git clone https://github.com/thornoar/$1.git /home/ramak/projects/$1'';
+            !f() { git clone https://github.com/thornoar/$1.git /home/ramak/projects/$1; }; f'';
         };
       };
     };
@@ -181,7 +181,7 @@
 
     # Nix
     nixfmt-classic
-    manix
+    # manix
     nix-output-monitor
     nvd
 

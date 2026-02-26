@@ -31,6 +31,7 @@ input {
         // off
         // natural-scroll
         accel-speed 1.0
+        // accel-speed 0.05
         accel-profile "flat"
         // scroll-method "no-scroll"
     }
@@ -109,6 +110,13 @@ workspace "Q"
 //     match title="^wide-.*"
 //     default-column-width { proportion 1.0; }
 // }
+
+window-rule {
+    match app-id="firefox"
+    match app-id="org.telegram.desktop"
+    match app-id="discord"
+    default-column-width { proportion 1.0; }
+}
 
 window-rule {
     match title="^T$" at-startup=true
@@ -211,6 +219,7 @@ binds {
     Mod+Escape repeat=false { toggle-overview; }
 
     Mod+W repeat=false { close-window; }
+    Mod+Delete repeat=false { close-window; }
     // Mod+W repeat=false { spawn "niri-hack" "seq" "close-window" "focus-column-left"; }
     Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
 
@@ -248,6 +257,11 @@ binds {
     Mod+Alt+3 { move-column-to-workspace 3; }
     Mod+Alt+4 { move-column-to-workspace 4; }
     Mod+Alt+5 { move-column-to-workspace 5; }
+    Mod+Shift+Alt+1 { move-workspace-to-index 1; }
+    Mod+Shift+Alt+2 { move-workspace-to-index 2; }
+    Mod+Shift+Alt+3 { move-workspace-to-index 3; }
+    Mod+Shift+Alt+4 { move-workspace-to-index 4; }
+    Mod+Shift+Alt+5 { move-workspace-to-index 5; }
 
     Mod+Shift+Tab { focus-workspace-previous; }
 

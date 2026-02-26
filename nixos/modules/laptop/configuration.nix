@@ -206,6 +206,11 @@
     DefaultTimeoutStopSec=5s
   '';
 
+  # environment.variables = {
+  #   "QT_STYLE_OVERRIDE" = pkgs.lib.mkForce "adwaita-dark";
+  # };
+
+
   # systemd.services."kill-mpd-server" = {
   #   enable = true;
   #   before = ["umount.target"];

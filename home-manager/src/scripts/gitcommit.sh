@@ -35,7 +35,7 @@ if [ $online -ne 0 ]; then
         case $ans in
             [Yy]* ) git add . && git commit -m "$message" && exit 0 ;;
             [Nn]* ) exit 0 ;;
-            * ) printf "! You know the rules, and so do I...\e[0m\n" # ]]
+            * ) printf "! You know the rules, and so do I...\n"
         esac
     done
 else

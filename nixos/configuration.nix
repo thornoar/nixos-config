@@ -115,7 +115,8 @@
       PubkeyAuthentication = true;
     };
   };
-  # programs.ssh.startAgent = true;
+  programs.ssh.startAgent = true;
+  services.gnome.gnome-keyring.enable = false;
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-tty;
