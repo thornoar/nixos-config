@@ -177,6 +177,7 @@ binds {
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'restart\npowerdown' | tofi)"; }
+    Mod+Shift+Return { spawn "switch-port"; }
     Mod+Ctrl+B { spawn "firefox"; }
     Mod+B { spawn "pkill" "-USR1" "waybar"; }
     Super+Ctrl+A { spawn "swaylock"; }
