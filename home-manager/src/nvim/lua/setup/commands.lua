@@ -22,7 +22,7 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
-    ['tex'] = function (name) return ('terminal latexmk -g -pdf -pvc -synctex=1 -interaction=nonstopmode -auxdir=./.aux ./' .. name) end,
+    ['tex'] = function (name) return ('terminal latexmk -g -pdf -synctex=1 -interaction=nonstopmode -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
     return function ()
@@ -132,20 +132,23 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     callback = function ()
         local ft = vim.bo.filetype
 
-        if ft == 'haskell' or ft == 'scala' or ft == 'typst' or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" then
+        if ft == "haskell" or ft == "scala" or ft == "typst" or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" then
             vim.o.tabstop = 2
             vim.o.shiftwidth = 2
-            vim.o.expandtab = true
             vim.o.softtabstop = 2
             vim.opt.spell = false
-        else
-            vim.o.tabstop = 4
-            vim.o.shiftwidth = 4
-            vim.o.expandtab = true
-            vim.o.softtabstop = 4
+            vim.o.wrap = false
         end
 
-        if ft == "tex" or ft == "markdown" or ft == 'typst' or ft == "text" then
+        if ft == "asy" then
+            vim.o.tabstop = 4
+            vim.o.shiftwidth = 4
+            vim.o.softtabstop = 4
+            vim.opt.spell = false
+            vim.o.wrap = false
+        end
+
+        if ft == "tex" or ft == "markdown" or ft == "typst" or ft == "text" then
             vim.o.wrap = true
             vim.opt.spell = true
             vim.opt.spelllang = { "en", "ru" }

@@ -50,6 +50,17 @@ function patch_flac {
     done
 }
 
+function find_covers {
+    find . -type d -print0 | while IFS= read -r -d '' dir; do
+    # Check if this directory contains any subdirectories
+        if [ -z "$(find "$dir" -mindepth 1 -maxdepth 1 -type d -print -quit)" ]; then
+            if test ! -f "$dir/cover.jpg"; then
+                echo "$dir"
+            fi
+        fi
+    done
+}
+
 orphan=0
 search=0
 patch=0
@@ -73,3 +84,5 @@ fi
 if [ $patch == 1 ]; then
     patch_flac
 fi
+
+find_covers

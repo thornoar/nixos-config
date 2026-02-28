@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # freeopenvpn passwords: https://www.freeopenvpn.org/
-# vpnbook passwords: https://www.vpnbook.com/freevpn (m34wk9w)
+# also https://ipspeed.info/free-openvpn.php
+# vpnbook passwords: https://www.vpnbook.com/freevpn (wy3hcg9)
 
 read -r -p "Enter VPN provider: " provider
 if [ -z "$provider" ]; then
@@ -17,7 +18,7 @@ if [ -z "$new_password" ]; then
     printf "Please provide the new password.\n"
     exit 1
 fi
-for file in /root/nixos/openvpn/$country-*.$provider.*.ovpn; do
+for file in $HOME/media/openvpn/$country-*.$provider.*.ovpn; do
     if [ -f "$file" ]; then
         sed -i "N;s/^.*\\n\\(<\\/auth-user-pass>\\)/$new_password\\n\\1/;P;D" "$file"
     fi

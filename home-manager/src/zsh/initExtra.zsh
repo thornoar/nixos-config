@@ -56,3 +56,6 @@ export WIN10VM="192.168.122.61"
 export DESKTOP="192.168.0.28"
 export LAPTOP="192.168.0.37"
 export SAMSUNG="192.168.0.33:5555"
+
+unsetopt correct_all
+unsetopt correct
