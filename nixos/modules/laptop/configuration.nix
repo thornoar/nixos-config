@@ -91,7 +91,7 @@
 
     openvpn.servers = let
       createConfig = name: {
-        config = "config /home/ramak/media/openvpn/${name}.ovpn";
+        config = "config /home/ramak/projects/nixos-config/nixos/src/openvpn/${name}.ovpn";
         updateResolvConf = true;
         autoStart = false;
       };
