@@ -18,7 +18,7 @@ if [ -z "$new_password" ]; then
     printf "Please provide the new password.\n"
     exit 1
 fi
-for file in $HOME/media/openvpn/$country-*.$provider.*.ovpn; do
+for file in $HOME/projects/nixos-config/nixos/src/openvpn/$country-*.$provider.*.ovpn; do
     if [ -f "$file" ]; then
         sed -i "N;s/^.*\\n\\(<\\/auth-user-pass>\\)/$new_password\\n\\1/;P;D" "$file"
     fi

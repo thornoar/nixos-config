@@ -66,20 +66,21 @@ function serverActive () {
 }
 
 function listServersUgly {
-    output=$(systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}')
-    grepcountry=""
-    if [ -n "$country" ]; then
-        output=$(echo "$output" | grep "$country")
-    fi
-    grepprovider=""
-    if [ -n "$provider" ]; then
-        output=$(echo "$output" | grep "$provider")
-    fi
-    grepbranch=""
-    if [ -n "$branch" ]; then
-        output=$(echo "$output" | grep "$branch")
-    fi
-    echo "$output"
+    # output=$(systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}')
+    # grepcountry=""
+    # if [ -n "$country" ]; then
+    #     output=$(echo "$output" | grep "$country")
+    # fi
+    # grepprovider=""
+    # if [ -n "$provider" ]; then
+    #     output=$(echo "$output" | grep "$provider")
+    # fi
+    # grepbranch=""
+    # if [ -n "$branch" ]; then
+    #     output=$(echo "$output" | grep "$branch")
+    # fi
+    # echo "$output"
+    systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}'
 }
 
 function getCountryBranchProvider () {

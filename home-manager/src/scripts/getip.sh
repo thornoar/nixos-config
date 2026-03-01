@@ -34,8 +34,14 @@ if [[ "private" =~ $cmd ]]; then
     else
         printf "%s\n" "$ip"
     fi
-elif [[ "public" =~ "$cmd" ]]; then
+elif [[ "public" =~ $cmd ]]; then
     json=$(curl ipinfo.io -s)
+    if [ -z "$json" ]; then
+        if [ "$raw" -eq 0 ]; then
+            echo "No connection"
+        fi
+        exit 0
+    fi
     ip=$(echo "$json" | jq --raw-output ".ip")
     if [ "$raw" -eq 0 ]; then
         country=$(echo "$json" | jq --raw-output ".country")
@@ -50,7 +56,7 @@ elif [[ "public" =~ "$cmd" ]]; then
     else
         printf "%s\n" "$ip"
     fi
-elif [[ "all" =~ "$cmd" ]]; then
+elif [[ "all" =~ $cmd ]]; then
     ip address show
 else
     printf "! Unknown command: \e[33m%s\e[0m.\n" "$cmd"
