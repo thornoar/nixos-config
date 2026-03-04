@@ -1,3 +1,6 @@
-require("urlview").setup({
-
-})
+return {
+    "axieax/urlview.nvim",
+    config = function ()
+        require("urlview").setup({})
+    end
+}
