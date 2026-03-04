@@ -266,7 +266,7 @@ require("lazy").setup({
         cmd = { "Ollama", "OllamaModel" },
         keys = { },
         opts = {
-            model = "codegemma:7b",
+            model = "qwen3-coder-next:cloud",
         },
     },
     -- {
