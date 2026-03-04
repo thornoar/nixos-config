@@ -31,6 +31,7 @@
   xdg.configFile."nvim/syntax" = config.util.dotFileMut "nvim/syntax";
   xdg.configFile."nvim/UltiSnips" = config.util.dotFileMut "nvim/UltiSnips";
   xdg.configFile."nvim/after" = config.util.dotFileMut "nvim/after";
+  xdg.configFile."nvim/spell" = config.util.dotFileMut "nvim/spell";
   xdg.configFile."nvim/lua/setup" = config.util.dotFileMut "nvim/lua/setup";
   xdg.configFile."nvim/lua/colors.lua".text = config.util.toLua ''
     local M = {}

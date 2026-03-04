@@ -97,6 +97,6 @@
 
 #let theorem = doc => {
   show: thmrules.with(qed-symbol: $square.filled.medium$)
-  show link: underline
+  // show link: underline
   doc
 }

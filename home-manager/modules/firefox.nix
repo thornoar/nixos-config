@@ -3,6 +3,11 @@
 let
   bookmarks = [
     {
+      name = "gm | Google Maps";
+      url = "https://www.google.com/maps";
+      keyword = "gm";
+    }
+    {
       name = "yt | YouTube";
       url = "https://youtube.com";
       keyword = "yt";
