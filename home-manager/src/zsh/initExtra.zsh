@@ -46,7 +46,7 @@ alias -- develop='export ZDOTDIR="$XDG_CONFIG_HOME/nix-develop" && nix develop'
 alias -- pdraw='watch -n 1 "upower -e | grep "battery" | xargs upower -i"'
 alias -- cdgit='cd $(git rev-parse --git-dir)/..'
 alias -- crp='cabal run pshash --'
-alias -- amyc='java -jar $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/amyc-assembly-1.7.jar --interpret'
+alias -- amyc='java -jar $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/amyc-assembly-1.7.jar --interpret $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/lab01-interpreter/library/*.amy'
 # alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
 
 export PATH=$PATH:~/media/sandbox/bin
