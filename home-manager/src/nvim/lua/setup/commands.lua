@@ -22,7 +22,7 @@ local compilefunc = {
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
-    ['tex'] = function (name) return ('terminal latexmk -g -pdf -synctex=1 -interaction=nonstopmode -auxdir=./.aux ./' .. name) end,
+    ['tex'] = function (name) return ('terminal latexmk -g -pvc -pdf -synctex=1 -interaction=nonstopmode -auxdir=./.aux ./' .. name) end,
 }
 local compile = function (daemon, silent)
     return function ()

@@ -1,6 +1,6 @@
 // Theorems support
 
-#import "@preview/ctheorems:1.1.3": *
+#import "@preview/ctheorems:1.1.3": thmenv, thmrules, thmproof
 
 // Basic function
 
@@ -11,18 +11,18 @@
   numbering: "1.1",
   refnumbering: "1.1",
   titlefmt: auto,
-  namefmt: x => [ (#x):],
+  namefmt: x => [ (#x)],
   bodyfmt: x => x,
   separator: h(0.2em),
   base: "heading",
   base_level: none,
   ..blockargs
 ) = {
-  if (head == auto) {
-    head = upper(
-      [#identifier.first()]
-    ) + identifier.slice(1, identifier.len())
-  }
+  // if (head == auto) {
+  //   head = upper(
+  //     [#identifier.first()]
+  //   ) + identifier.slice(1, identifier.len())
+  // }
   if (supplement == auto) { supplement = head }
 
   let fmt(name, number, body, title: auto) = {
@@ -60,24 +60,24 @@
 
 // Shorthands
 
-#let plainstyle(identifier, head, breakable: true, ..args) = thmstyle(
-  identifier,
+#let plainstyle(head, breakable: true, ..args) = thmstyle(
+  "thm",
   head,
   breakable: breakable,
   // inset: (top: 0.1in),
   ..args
 )
-#let statestyle(identifier, head, breakable: false, ..args) = thmstyle(
-  identifier,
+#let statestyle(head, breakable: false, ..args) = thmstyle(
+  "thm",
   head,
   breakable: breakable,
   bodyfmt: emph,
   // inset: (top: 0.1in),
   ..args
 )
-#let proofstyle(identifier, head, breakable: true, ..args) = thmproof(
-  identifier,
-  head,
+#let proofstyle(breakable: true, ..args) = thmproof(
+  "proof",
+  "Proof",
   breakable: breakable,
   ..args,
   inset: (left: 10pt, bottom: 2pt),
@@ -95,7 +95,7 @@
 
 // Main show rule
 
-#let theorem = doc => {
+#let theorem-rule = doc => {
   show: thmrules.with(qed-symbol: $square.filled.medium$)
   // show link: underline
   doc
