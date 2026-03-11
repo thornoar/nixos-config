@@ -3,6 +3,11 @@
 let
   bookmarks = [
     {
+      name = "lrc | Lyrics Sync";
+      url = "https://mp3apps.net/appfiles/lrcfile/LyricsFileCreator.html";
+      keyword = "lrc";
+    }
+    {
       name = "gm | Google Maps";
       url = "https://www.google.com/maps";
       keyword = "gm";
