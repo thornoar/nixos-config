@@ -17,6 +17,7 @@ in {
     killall
     dict
     libqalculate
+    qalculate-gtk
     discord
     # whatsie
     unstable.telegram-desktop
@@ -56,6 +57,7 @@ in {
     unstable.swayimg
     unstable.rmpc
     unstable.yt-dlp
+    poppler-utils
   ]);
 
   dconf.settings = {
