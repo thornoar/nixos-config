@@ -195,7 +195,6 @@
     # Other development tools
     libffi
     libtool
-    cheat
     gnumake
     jq
     upx
@@ -210,7 +209,6 @@
     tealdeer
     coursier
     cloc
-    tmux
     bc
   ]);
 }

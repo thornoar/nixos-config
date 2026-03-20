@@ -8,7 +8,6 @@ in {
   home.pointerCursor.size = 16;
 
   home.packages = (with pkgs; [
-    mpd
     playerctl
     imagemagick
     graphicsmagick
@@ -16,8 +15,6 @@ in {
     transmission_4
     killall
     dict
-    libqalculate
-    qalculate-gtk
     discord
     # whatsie
     unstable.telegram-desktop
@@ -30,20 +27,16 @@ in {
     networkmanager-openvpn
     sc-im
     mpv
-    neofetch
-    caligula
     gimp3
     pdftk
     adbfs-rootless
     alsa-utils
     pulseaudio
-    htop
     acpi
     lm_sensors
     cl-wordle
     graphviz
     libxkbcommon
-    broot
     foot
     nps
     pastel
@@ -55,7 +48,6 @@ in {
     net-tools
     python312Packages.syncedlyrics
     unstable.swayimg
-    unstable.rmpc
     unstable.yt-dlp
     poppler-utils
   ]);
@@ -121,9 +113,6 @@ in {
     };
     settings.urgency_normal = { timeout = 1; };
   };
-
-  # Mpv configuration
-  xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 
   # Zathura configuration
   xdg.configFile."zathura/zathurarc".text = ''
@@ -379,4 +368,7 @@ in {
     image=~/.config/swaylock/background.png
   '';
   xdg.configFile."swaylock/background.png" = config.util.dotFileMut "swaylock/background.png";
+
+  # Transmission configuration
+  xdg.configFile."transmission-daemon/settings.json" = config.util.dotFileMut "transmission/settings.json";
 }

@@ -118,7 +118,7 @@ spawn-at-startup "transmission-daemon"
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title 'T' --app-id 'stratch'"
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'M' --app-id 'stratch' zsh -c 'sleep 1; rmpc; zsh'"
 spawn-sh-at-startup "foot --title 'S' --app-id 'stratch' zsh -c 'htop; zsh'"
-spawn-sh-at-startup "foot --title 'Q' --app-id 'stratch' zsh -c 'qalc -s autocalc; zsh'"
+spawn-sh-at-startup "foot --title 'Q' --app-id 'stratch' zsh -c 'qalc; zsh'"
 
 hotkey-overlay {
     skip-at-startup

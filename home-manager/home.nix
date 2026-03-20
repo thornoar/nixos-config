@@ -1,6 +1,19 @@
 { config, pkgs, lib, ... }:
 
 {
+  home.packages = with pkgs; [
+    neofetch
+    tmux
+    htop
+    cheat
+    broot
+    mpd
+    unstable.rmpc
+    libqalculate
+    qalculate-gtk
+    caligula
+  ];
+
   home.username = "ramak";
   home.homeDirectory = "/home/ramak";
   xdg.userDirs = {
@@ -61,11 +74,14 @@
   xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
+  # # Mpv configuration
+  # xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
+
   # Neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
-  # Khal configuration
-  xdg.configFile."khal/config" = config.util.dotFileMut "khal.config.ini";
+  # # Khal configuration
+  # xdg.configFile."khal/config" = config.util.dotFileMut "khal.config.ini";
 
   # Tmux configuration
   xdg.configFile."tmux/tmux.conf" = config.util.dotFileMut "tmux/tmux.conf";
@@ -188,6 +204,9 @@
   # Rpmc configuration
   xdg.configFile."rmpc/config.ron" = config.util.dotFileMut "rmpc/config.ron";
   xdg.configFile."rmpc/themes/ramak.ron" = config.util.dotFileMut "rmpc/theme.ron";
+
+  # Qalculate configuration
+  xdg.configFile."qalculate/qalc.cfg" = config.util.dotFileMut "qalculate/qalc.cfg";
 
   # Home scripts
   home.file = builtins.listToAttrs (
