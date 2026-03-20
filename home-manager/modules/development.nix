@@ -109,7 +109,7 @@
   home.packages = (with pkgs; [
     # Python
     (python3.withPackages (ps: with ps; [
-      ipython sympy numpy ollama openai mutagen
+      ipython sympy numpy ollama openai mutagen requests beautifulsoup4
     ]))
     sage
     manim
@@ -144,6 +144,7 @@
     glibc
     glibc.static
     cmake
+    lld
 
     # Lua
     lua5_1

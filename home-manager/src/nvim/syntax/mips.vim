@@ -470,10 +470,10 @@ hi def link mipsLabel               Label
 hi def link mipsRegister            Identifier
 hi def link mipsDirective           Type
 hi def link mipsInstruction         Statement
-hi def link mipsAlias               mipsInstruction
-hi def link mipsMacro               mipsInstruction
-hi def link mipsPseudoInstruction   PreProc
-hi def link mipsPseudoDirective     PreProc
+hi def link mipsAlias               PreProc
+hi def link mipsMacro               PreProc
+hi def link mipsPseudoInstruction   Special
+hi def link mipsPseudoDirective     Special
 "}}}
 
 let b:current_syntax = "mips"

@@ -136,6 +136,18 @@ return {
         })
         vim.lsp.enable("lua_ls")
 
+        vim.lsp.config("mipsls", {
+            cmd = { "/home/ramak/projects/hkust-courses/COMP2611-Computer-Organization/mips-language-server" },
+            filetypes = { "mips" },
+            settings = {
+                mipsls = {
+                    dialect = "spim",
+                    version = "mips32r6",
+                }
+            }
+        })
+        vim.lsp.enable("mipsls")
+
         vim.api.nvim_create_user_command('LA', 'LspStart', {})
         vim.api.nvim_create_user_command('LD', 'LspStop', {})
     end

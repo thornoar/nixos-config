@@ -1,4 +1,5 @@
 -- $settings
+vim.o.foldmethod = "marker"
 vim.o.swapfile = false
 vim.o.wrap = false
 vim.o.linebreak = true

@@ -31,5 +31,6 @@ return {
         ft.set('hjson', { '#%s' })
         ft.set('dosini', { '#%s' })
         ft.set('cabalconfig', { '--%s' })
+        ft.set('mips', { '#%s' })
     end
 }
