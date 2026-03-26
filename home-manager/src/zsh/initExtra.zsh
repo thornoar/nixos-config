@@ -31,13 +31,13 @@ alias -- close=exit
 alias -- decrypt='openssl enc -aes-256-cfb -iter 100 -a -d'
 alias -- def='dict -h dict.org'
 alias -- encrypt='openssl enc -aes-256-cfb -iter 100 -a'
+alias -- music='transmission-remote -w ~/media/workshop -a '
 alias -- film='transmission-remote -w ~/media/films -a '
 alias -- gitlog='git log --oneline --graph --decorate --all'
 alias -- gpp='g++ -std=c++11 -Wall -fsanitize=leak,address,undefined'
 alias -- grep='grep --color=auto'
 alias -- lbr='clear; br'
 alias -- lsbr='br -c ":print_tree"'
-alias -- music='transmission-remote -w ~/media/music -a '
 alias -- open=xdg-open
 alias -- torrent=transmission-remote
 alias -- vmcon='virt-manager --connect qemu:///system --show-domain-console'

@@ -55,7 +55,7 @@ verbs: [
     {
         invocation: create {subpath}
         shortcut: cr
-        execution: "nvim-client -f {directory}/{subpath}"
+        execution: "nvim-client {directory}/{subpath}"
         leave_broot: false
     }
     {
@@ -140,7 +140,7 @@ verbs: [
         key: enter
         apply_to: file
         working_dir: "{root}"
-        execution: "nvim-client -f {file}"
+        execution: "nvim-client {file}"
         leave_broot: false
     }
     {
@@ -158,14 +158,12 @@ verbs: [
         key: alt-p
         apply_to: file
         execution: "mpv \"{file}\" --no-audio-display"
-        # execution: "foot"
-        # execution: "nvim-client -f {file}"
         leave_broot: false
     }
     {
         key: shift-right
         apply_to: text_file
-        execution: "nvim-client -f {file} -l {line}"
+        execution: "nvim-client -l {line} {file}"
         leave_broot: false
     }
     {

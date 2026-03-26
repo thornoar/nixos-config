@@ -19,6 +19,7 @@ local compilefunc = {
     ['pdf'] = function (name) return ('!nohup zathura ' .. name .. '&') end,
     ['nix'] = function (name) return ('!nix eval --file ' .. name) end,
     ['scala'] = function (name) return ('!scala ' .. name) end,
+    ['bc'] = function (name) return ('!bc -q -l ' .. name) end,
 }
 local daemonfunc = {
     ['typst'] = function (name) return ('terminal typst watch ' .. name .. ' --root ..') end,
@@ -37,6 +38,7 @@ local compile = function (daemon, silent)
 end
 vim.api.nvim_create_user_command('Compile', compile(false, false), {})
 vim.keymap.set('n', '<leader>o', ':Compile<CR>')
+vim.keymap.set('n', '<M-o>', ':Compile<CR>')
 vim.keymap.set({'n', 'i'}, '<C-a>', compile(false, true))
 vim.keymap.set({'n', 'i'}, '<C-M-a>', compile(true, false))
 

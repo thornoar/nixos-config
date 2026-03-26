@@ -272,6 +272,9 @@ binds {
     Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     Mod+Ctrl+P { spawn "wpaperctl" "next"; }
+
+    Mod+Ctrl+1 { spawn "niri" "msg" "output" "eDP-1" "scale" "1"; }
+    Mod+Ctrl+2 { spawn "niri" "msg" "output" "eDP-1" "scale" "2"; }
 }
 
 recent-windows {

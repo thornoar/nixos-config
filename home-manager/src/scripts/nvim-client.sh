@@ -4,19 +4,30 @@ file=""
 line=""
 target=""
 showhelp=0
-while getopts "f:l:t:h" option; do
-    case "$option" in # (((((
-        f) file="$OPTARG" ;;
-        l) line="$OPTARG" ;;
-        t) target="$OPTARG" ;;
-        h) showhelp=1 ;;
-        *) exit 1 ;;
+
+while [[ $# -gt 0 ]]; do
+    case $1 in #(((
+        -l|--line) line="$2"; shift; shift ;;
+        -t|--target) target="$2"; shift; shift ;;
+        -h|--help) showhelp=1; shift; shift ;;
+        *) POSITIONAL_ARGS+=("$1"); shift ;;
     esac
 done
+set -- "${POSITIONAL_ARGS[@]}"
+file="$1"
+
+# while getopts "f:l:t:h" option; do
+#     case "$option" in # (((((
+#         f) file="$OPTARG" ;;
+#         l) line="$OPTARG" ;;
+#         t) target="$OPTARG" ;;
+#         h) showhelp=1 ;;
+#         *) exit 1 ;;
+#     esac
+# done
 
 if [ $showhelp == 1 ]; then
-    printf "usage: nvim-client [OPTIONS]\n"
-    printf "  -f FILE    the file to edit\n"
+    printf "usage: nvim-client [OPTIONS] FILE\n"
     printf "  -l NUM     the line number to jump to\n"
     printf "  -t PIPE    the target pipe to find the server\n"
     printf "  -h         show this help message\n"

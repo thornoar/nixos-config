@@ -145,6 +145,7 @@
     glibc.static
     cmake
     lld
+    llvmPackages.bintools-unwrapped
 
     # Lua
     lua5_1
@@ -163,6 +164,7 @@
 
     # Java and Android
     openjdk17
+    # jdk8
     android-studio
     android-studio-tools
     # androidenv.androidPkgs.androidsdk

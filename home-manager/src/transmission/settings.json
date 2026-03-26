@@ -17,7 +17,7 @@
     "cache-size-mb": 4,
     "default-trackers": "",
     "dht-enabled": true,
-    "download-dir": "/home/ramak/media/music",
+    "download-dir": "/home/ramak/media/workshop",
     "download-queue-enabled": true,
     "download-queue-size": 5,
     "encryption": 1,

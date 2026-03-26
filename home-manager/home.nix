@@ -36,6 +36,7 @@
   home.sessionVariables = {
     WALLPAPER_DIR = config.wallpaper.dir;
     BAT_THEME = "ansi";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   xdg.configFile."current-user-packages".text =
