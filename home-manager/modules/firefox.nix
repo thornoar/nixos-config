@@ -3,6 +3,11 @@
 let
   bookmarks = [
     {
+      name = "bao | Baopals";
+      url = "https://www.baopals.com/";
+      keyword = "bao";
+    }
+    {
       name = "lrc | Lyrics Sync";
       url = "https://mp3apps.net/appfiles/lrcfile/LyricsFileCreator.html";
       keyword = "lrc";
