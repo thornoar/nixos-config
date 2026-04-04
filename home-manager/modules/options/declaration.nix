@@ -110,6 +110,12 @@
             M.${k} = "${ts v}"
           ''
         );
+
+        toHaskell = mkstr: lib.attrsets.foldlAttrs (str: k: v:
+          str + ''
+            ${k} = ${if mkstr then ''"'' + ts v + ''"'' else ts v}
+          ''
+        );
       };
     };
   };
