@@ -1,22 +1,22 @@
 return {
     "numToStr/Comment.nvim",
     config = function ()
-        require('Comment').setup({
+        require("Comment").setup({
             ignore = nil,
             padding = true,
             sticky = true,
             toggler = {
-                line = '\\\\',
-                block = '||',
+                line = "\\\\",
+                block = "||",
             },
             opleader = {
-                line = '\\',
-                block = '|',
+                line = "\\",
+                block = "|",
             },
             extra = {
-                above = '<C-\\>O',
-                below = '<C-\\>o',
-                eol = '<C-S-\\>',
+                above = "<C-\\>O",
+                below = "<C-\\>o",
+                eol = "<C-S-\\>",
             },
             mappings = {
                 basic = true,
@@ -25,12 +25,13 @@ return {
             pre_hook = nil,
             post_hook = nil,
         })
-        local ft = require('Comment.ft')
-        ft.set('asy', { '//%s', '/*%s*/' })
-        ft.set('mlscript', { '//%s', '/*%s*/' })
-        ft.set('hjson', { '#%s' })
-        ft.set('dosini', { '#%s' })
-        ft.set('cabalconfig', { '--%s' })
-        ft.set('mips', { '#%s' })
+        local ft = require("Comment.ft")
+        ft.set("asy", { "//%s", "/*%s*/" })
+        ft.set("mlscript", { "//%s", "/*%s*/" })
+        ft.set("hjson", { "#%s" })
+        ft.set("dosini", { "#%s" })
+        ft.set("cabalconfig", { "--%s" })
+        ft.set("mips", { "#%s" })
+        ft.set("amy", { "//%s" })
     end
 }

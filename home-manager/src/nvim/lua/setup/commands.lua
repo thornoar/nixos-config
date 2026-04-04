@@ -134,7 +134,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     callback = function ()
         local ft = vim.bo.filetype
 
-        if ft == "haskell" or ft == "scala" or ft == "typst" or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" then
+        if ft == "haskell" or ft == "scala" or ft == "typst" or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" or ft == "amy" then
             vim.o.tabstop = 2
             vim.o.shiftwidth = 2
             vim.o.softtabstop = 2
