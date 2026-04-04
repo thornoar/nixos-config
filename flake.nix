@@ -58,7 +58,7 @@
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
             # ./nixos/modules/laptop/hyprland.nix
-            ./nixos/modules/laptop/xmonad.nix
+            # ./nixos/modules/laptop/xmonad.nix
             ./nixos/modules/laptop/niri.nix
             { _module.args = { sysname = "laptop"; }; }
             inputs.home-manager.nixosModules.home-manager
@@ -72,7 +72,7 @@
                     ./home-manager/modules/options/laptop.nix
                     ./home-manager/modules/laptop.nix
                     # ./home-manager/modules/hyprland.nix
-                    ./home-manager/modules/xmonad.nix
+                    # ./home-manager/modules/xmonad.nix
                     ./home-manager/modules/niri.nix
                     ./home-manager/modules/firefox.nix
                     ./home-manager/modules/development.nix
