@@ -67,7 +67,7 @@
       sddm.wayland.enable = true;
       # ly.enable = true;
       autoLogin = {
-        enable = true;
+        enable = false;
         user = "ramak";
       };
     };

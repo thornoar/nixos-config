@@ -50,7 +50,9 @@ in {
     unstable.swayimg
     unstable.yt-dlp
     poppler-utils
-    armips
+    # armips
+    xspim
+    mars-mips
   ]);
 
   dconf.settings = {
