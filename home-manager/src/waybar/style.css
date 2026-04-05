@@ -27,6 +27,7 @@ window#waybar {
 	transition: none;
     color: @primary;
 	background: @bg0;
+	/* border-bottom: 1px solid @primary; */
 }
 
 #language,
@@ -52,6 +53,7 @@ window#waybar {
 #cpu,
 #memory {
 	border-right: 1px solid @primary;
+	/* border-bottom: 1px solid @primary; */
 }
 
 #battery.plugged,
@@ -60,6 +62,7 @@ window#waybar {
 #battery.full {
 	background: @bg0;
 	color: @primary;
+	/* border-bottom: 1px solid @primary; */
 }
 
 #workspace {
@@ -77,6 +80,7 @@ window#waybar {
     transition: none;
 	background: transparent;
     box-shadow: none;
+	/* border-bottom: 1px solid @primary; */
 	/* border-left: 1px solid @primary; */
 }
 #workspaces button.active {

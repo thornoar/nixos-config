@@ -7,29 +7,28 @@ in {
   xdg.configFile."xmonad/lib/Colors.hs".text = config.util.toHaskell true ''
     module Colors where
   '' config.colors;
-  xdg.configFile."xmonad/lib/Size.hs".text = config.util.toHaskell false ''
-    module Size where
-    import XMonad
-    import Data.Ratio
-    barHeight :: Dimension
-    magnifiedScale :: Rational
-    windowSpaceInner :: Int
-    windowSpaceOuter :: Int
-    windowBorderWidth :: Dimension
-  '' config.xmonad;
+  # xdg.configFile."xmonad/lib/Size.hs".text = config.util.toHaskell false ''
+  #   module Size where
+  #   import XMonad
+  #   import Data.Ratio
+  #   barHeight :: Dimension
+  #   windowSpaceInner :: Int
+  #   windowSpaceOuter :: Int
+  #   windowBorderWidth :: Dimension
+  # '' config.window;
   xdg.configFile."xmonad/lib/Misc.hs".text = config.util.toHaskell true ''
     module Misc where
     setWallpaperCmd = "hsetroot -cover $MEDIA/wallpapers/${config.wallpaper.dir}/$(ls $MEDIA/wallpapers/${config.wallpaper.dir} | shuf -n 1) -gamma ${
       ts config.wallpaper.gamma
     } -contrast ${ts config.wallpaper.contrast}"
   '' config.misc;
-  xdg.configFile."xmonad/xmonad.hs" = config.util.dotFileMut "xmonad.hs";
+  xdg.configFile."xmonad/xmonad.hs" = config.util.dotFileMut "xmonad/xmonad.hs";
 
   # xmobar configuration
-  xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
+  # xdg.configFile."xmobar/xmobarrc".text = config.xmobarOptions;
 
   # Kitty configuration
-  xdg.configFile."kitty/minimal.lua" = config.util.dotFileMut "kitty/minimal.lua";
+  # xdg.configFile."kitty/minimal.lua" = config.util.dotFileMut "kitty/minimal.lua";
   programs.kitty = {
     enable = true;
     font = {
@@ -84,7 +83,7 @@ in {
       map ctrl+shift+space show_scrollback
 
       # scrollback_pager nvim --noplugin -u ~/.config/kitty/minimal.lua -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer -"
-      scrollback_pager nvim --noplugin -u ~/.config/kitty/minimal.lua -c "START"
+      # scrollback_pager nvim --noplugin -u ~/.config/kitty/minimal.lua -c "START"
 
       # action_alias kitty_scrollback_nvim kitten /home/ramak/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py
       # map kitty_mod+h kitty_scrollback_nvim
@@ -95,10 +94,4 @@ in {
 
   # keynav configuration
   xdg.configFile."keynav/keynavrc" = config.util.dotFileMut "keynavrc";
-
-  # Transparent cursor theme
-  home.file.".local/share/icons/transparent" = config.util.dotFileMut "transparent";
-
-  # account icon setting
-  home.file.".face" = config.util.dotFileMut "account-icon.png";
 }

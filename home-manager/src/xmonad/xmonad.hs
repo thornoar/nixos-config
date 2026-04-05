@@ -77,13 +77,42 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 -- import XMonad.Hooks.ManageHelpers
 
-import Colors
-import Size
+import qualified Colors as CLR
+-- import Size
 import Misc
 windowSpaceInner' :: Int
 windowSpaceInner' = windowSpaceInner `div` 2
 myFloatingRectangle :: W.RationalRect
 myFloatingRectangle = W.RationalRect ((1 - scratchpadWidth) / 2) ((1 - scratchpadHeight) / 2) scratchpadWidth scratchpadHeight
+magnifiedScale :: Rational
+magnifiedScale = 3 % 2
+barHeight :: Dimension
+barHeight = 50
+windowSpaceInner :: Int
+windowSpaceInner = 0
+windowSpaceOuter :: Int
+windowSpaceOuter = 0
+windowBorderWidth :: Dimension
+windowBorderWidth = 1
+scratchpadWidth :: Rational
+scratchpadWidth = 4 % 5;
+scratchpadHeight :: Rational
+scratchpadHeight = 35 % 50;
+fontsizeXmobar :: Int
+fontsizeXmobar = 22
+fontsizeRunPrompt :: Int
+fontsizeRunPrompt = 11
+wmStartupCommands :: [String]
+wmStartupCommands = [
+    "xrandr --output eDP-1 --scale 1.0x1.0"
+  , "setxkbmap -layout us,ru,de"
+  , "xset -dpms"
+  , "setterm -blank 0 -powerdown 0"
+  , "xset r rate 200 30"
+  , "xset s off"
+  , "transmission-daemon"
+  , "setxkbmap -option grp:alt_caps_toggle us,ru"
+  ]
 
 grid = named "Grid"
   $ spacingWithEdge windowSpaceInner'
@@ -121,7 +150,7 @@ ffmap :: (Monad m) => (a -> b -> c) -> m a -> m b -> m c
 ffmap f ma mb = ma >>= (\x -> fmap (f x) mb)
 
 myTerminal :: String
-myTerminal = "$TERMINAL"
+myTerminal = "kitty"
 
 myBrowser :: String
 myBrowser = "firefox"
@@ -138,7 +167,7 @@ myModMask = mod4Mask
 myStartupHook :: X ()
 myStartupHook = do
   spawn setWallpaperCmd
-  spawn wmStartupCommand
+  sequence_ $ map spawnOnce wmStartupCommands
   -- spawn $ myTerminal ++ " -e sh -c \"" ++ wmStartupCommand ++ "\""
 
 myWorkspaces :: [String]
@@ -174,12 +203,12 @@ searchList = [
 
 myTabTheme = def {
     fontName            = myFont,
-    activeColor         = bgColor0,
-    inactiveColor       = bgColor0,
-    activeBorderColor   = bgColor0,
-    inactiveBorderColor = bgColor0,
-    activeTextColor     = colorMagenta0,
-    inactiveTextColor   = colorWhite3,
+    activeColor         = CLR.bg0,
+    inactiveColor       = CLR.bg0,
+    activeBorderColor   = CLR.bg0,
+    inactiveBorderColor = CLR.bg0,
+    activeTextColor     = CLR.magenta0,
+    inactiveTextColor   = CLR.primary,
     decoHeight          = barHeight
   }
 
@@ -219,11 +248,11 @@ myXPKeymap = M.fromList $
 myXPConfig :: XPConfig
 myXPConfig = def {
     font                = myFont,
-    bgColor             = bgColor0,
-    fgColor             = colorWhite0,
-    bgHLight            = colorMagenta1,
-    fgHLight            = colorBlack,
-    borderColor         = colorBlue2,
+    bgColor             = CLR.bg0,
+    fgColor             = CLR.white0,
+    bgHLight            = CLR.magenta1,
+    fgHLight            = CLR.black,
+    borderColor         = CLR.blue2,
     promptBorderWidth   = 0,
     promptKeymap        = myXPKeymap,
     position            = Top,
@@ -412,20 +441,20 @@ myXmobarPP = def {
   where
     totalLogger :: Logger
     totalLogger = do
-        windows <- gets (W.index . windowset)
-        return . Just . show $ length windows
+      windows <- gets (W.index . windowset)
+      return . Just . show $ length windows
     minimizedLogger :: Logger
     minimizedLogger = withMinimized $ return . return . show . length
     ppSep = " | "
     concatLoggers :: [Logger] -> Logger
     concatLoggers = fmap (fmap (intercalate ppSep) . sequence) . sequence
     blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta  = xmobarColor colorMagenta0 ""
-    blue     = xmobarColor colorMagenta1 ""
-    white    = xmobarColor colorWhite0 ""
-    yellow   = xmobarColor colorYellow0 ""
-    red      = xmobarColor colorRed0 ""
-    lowWhite = xmobarColor colorWhite3 ""
+    magenta  = xmobarColor CLR.magenta0 ""
+    blue     = xmobarColor CLR.magenta1 ""
+    white    = xmobarColor CLR.white0 ""
+    yellow   = xmobarColor CLR.yellow0 ""
+    red      = xmobarColor CLR.red0 ""
+    lowWhite = xmobarColor CLR.primary ""
 
 -- myHandleEventHook = swallowEventHook (className =? "Alacritty" <&&> title =? "Viewer") (return True)
 myHandleEventHook = mempty
@@ -435,8 +464,8 @@ main = xmonad . ewmhFullscreen . ewmh . withSB (statusBarProp "xmobar" (pure myX
 defaults = def {
     terminal            = myTerminal,
     focusFollowsMouse   = myFocusFollowsMouse,
-    focusedBorderColor  = colorMagenta0,
-    normalBorderColor   = colorMagenta1,
+    focusedBorderColor  = CLR.magenta0,
+    normalBorderColor   = CLR.magenta1,
     clickJustFocuses    = myClickJustFocuses,
     borderWidth         = windowBorderWidth,
     modMask             = myModMask,

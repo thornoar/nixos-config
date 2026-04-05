@@ -41,6 +41,7 @@
     keynav
     xcolor
     xkb-switch
+    xmobar
   ];
 
 #   nixpkgs.config.nvidia.acceptLicense = true;
