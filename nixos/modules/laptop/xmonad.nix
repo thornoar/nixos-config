@@ -33,6 +33,7 @@
       timeout = 1;
     };
   };
+
   environment.systemPackages = with pkgs; [
     xclip
     xsel
