@@ -51,8 +51,10 @@ in {
     unstable.yt-dlp
     poppler-utils
     # armips
+    qtspim
     xspim
     mars-mips
+    libreoffice-still
   ]);
 
   dconf.settings = {
@@ -60,9 +62,9 @@ in {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
+    # "org/gnome/desktop/interface" = {
+    #   color-scheme = "prefer-light";
+    # };
   };
 
   gtk = {
@@ -72,7 +74,7 @@ in {
       name = "Breeze";
       package = pkgs.kdePackages.breeze-gtk;
     };
-    colorScheme = "dark";
+    colorScheme = "light";
   };
 
   # xdg-mime configuration

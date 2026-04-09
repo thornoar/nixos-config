@@ -4,8 +4,6 @@
   environment.variables = {
     PCTYPE = "laptop";
     MUTTER_DEBUG_KMS_THREAD_TYPE = "user";
-    # SPECIALISATION = lib.mkForce "hyprland";
-    # SPECIALISATION_ENABLE = "0";
     WLR_NO_HARDWARE_CURSORS = "1";
     CURSOR_INACTIVE_TIMEOUT = "1";
     NIXOS_OZONE_WL = "1";
@@ -55,7 +53,6 @@
           kpenter = "leftmeta";
           kp5 = "down";
           kpdelete = "delete";
-          # rightalt = "leftmeta";
           capslock = "esc";
           esc = "capslock";
         };
@@ -66,8 +63,9 @@
       sddm.enable = true;
       sddm.wayland.enable = true;
       # ly.enable = true;
+      defaultSession = "niri";
       autoLogin = {
-        enable = false;
+        enable = true;
         user = "ramak";
       };
     };
