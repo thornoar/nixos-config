@@ -44,6 +44,9 @@
           allowUnfree = true;
           android_sdk.accept_license = true;
           # nvidia.acceptLicense = true;
+          # permittedInsecurePackages = [
+          #   "qtwebengine-5.15.19"
+          # ];
         };
         overlays = [ addition ];
       };

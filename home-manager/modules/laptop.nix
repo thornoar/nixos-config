@@ -62,9 +62,9 @@ in {
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
-    # "org/gnome/desktop/interface" = {
-    #   color-scheme = "prefer-light";
-    # };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 
   gtk = {
@@ -74,7 +74,7 @@ in {
       name = "Breeze";
       package = pkgs.kdePackages.breeze-gtk;
     };
-    colorScheme = "light";
+    colorScheme = "dark";
   };
 
   # xdg-mime configuration
