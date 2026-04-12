@@ -144,7 +144,7 @@ animations {
 binds {
     // Lauching programs
     Mod+T { spawn "foot"; }
-    Mod+Shift+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
+    Mod+Control+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
     Mod+Ctrl+Return { spawn-sh "$(echo -e 'restart\npowerdown' | tofi)"; }
@@ -177,8 +177,13 @@ binds {
     Mod+Shift+Up { spawn "rmpc" "prev"; }
     Mod+Shift+Right { spawn "rmpc" "seek" "+5"; }
     Mod+Shift+Left { spawn "rmpc" "seek" "-5"; }
+    Mod+Shift+S { spawn "rmpc" "next"; }
+    Mod+Shift+W { spawn "rmpc" "prev"; }
+    Mod+Shift+D { spawn "rmpc" "seek" "+5"; }
+    Mod+Shift+A { spawn "rmpc" "seek" "-5"; }
     Mod+Ctrl+Shift+Right { spawn "rmpc" "seek" "+15"; }
     Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
+    Mod+Shift+Delete { spawn "rmpc" "clear"; }
     Mod+Shift+C { spawn "rmpc" "clear"; }
 
     // Example brightness key mappings for brightnessctl.
@@ -194,7 +199,7 @@ binds {
     Mod+W repeat=false { close-window; }
     Mod+Delete repeat=false { close-window; }
     // Mod+W repeat=false { spawn "niri-hack" "seq" "close-window" "focus-column-left"; }
-    Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
+    // Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
