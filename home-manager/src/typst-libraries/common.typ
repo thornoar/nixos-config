@@ -19,16 +19,18 @@
 // Math
 #let circ = math.circle.stroked.tiny
 #let hs = h(5pt)
+#let hss = h(2pt)
 #let lle = math.lt.eq.slant
 #let gge = math.gt.eq.slant
 #let liminf = $limits(op("lim inf"#hh))$
 #let limsup = $limits(op("lim sup"#hh))$
-#let dx = $d x$
-#let dt = $d t$
+#let dx = $#h(2pt) d x$
+#let dt = $#h(2pt) d t$
 #let gen(it) = $lr(angle.l it angle.r)$
 #let st = $#h(0pt):#h(5pt)$
 #let wh = $#h(0pt),#h(5pt)$
 #let aa = $#h(0pt),#h(5pt)$
+#let wo = $without$
 
 // Styles
 #let latex = {
