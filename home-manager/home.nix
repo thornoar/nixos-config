@@ -93,6 +93,9 @@
   # Pshash config
   xdg.configFile."pshash/pshash.conf" = config.util.dotFileMut "pshash.conf";
 
+  # Onedrive config
+  xdg.configFile."onedrive/config" = config.util.dotFileMut "onedrive/config";
+
   # Cheat config
   xdg.configFile."cheat/conf.yml" = config.util.dotFileMut "cheat.conf.yml";
 
