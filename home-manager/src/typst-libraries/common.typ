@@ -26,7 +26,7 @@
 #let limsup = $limits(op("lim sup"#hh))$
 #let dx = $#h(2pt) d x$
 #let dt = $#h(2pt) d t$
-#let gen(it) = $lr(angle.l it angle.r)$
+#let gen(it) = $lr(chevron.l it chevron.r)$
 #let st = $#h(0pt):#h(5pt)$
 #let wh = $#h(0pt),#h(5pt)$
 #let aa = $#h(0pt),#h(5pt)$

@@ -149,7 +149,7 @@
 #skip_file = "~*|.~*|*.tmp|*.swp|*.partial"
 
 ## Skip syncing files larger than this size in MB.
-#skip_size = "0"
+skip_size = "10"
 
 ## Skip symbolic links during sync.
 #skip_symlinks = "false"
@@ -161,7 +161,7 @@
 #sync_business_shared_items = "false"
 
 ## Local directory to sync with OneDrive.
-#sync_dir = "~/OneDrive"
+sync_dir = "~/media/climbing-onedrive"
 
 ## Permissions to apply to created local directories.
 #sync_dir_permissions = "700"

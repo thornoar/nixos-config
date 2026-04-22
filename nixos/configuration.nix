@@ -115,7 +115,7 @@
       PubkeyAuthentication = true;
     };
   };
-  services.onedrive.enable = true;
+  # services.onedrive.enable = true;
   programs.ssh.startAgent = true;
   services.gnome.gnome-keyring.enable = false;
   programs.gnupg.agent = {

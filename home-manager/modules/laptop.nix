@@ -341,6 +341,11 @@ in {
     duration = "3m"
   '';
 
+  # Chromium
+  programs.chromium = {
+    enable = true;
+  };
+
   # Swaylock configuration
   programs.swaylock.enable = true;
   xdg.configFile."swaylock/config".text = ''

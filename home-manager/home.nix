@@ -12,6 +12,7 @@
     libqalculate
     qalculate-gtk
     caligula
+    onedrive
   ];
 
   home.username = "ramak";
