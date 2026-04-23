@@ -384,4 +384,7 @@ in {
 
   # Transmission configuration
   xdg.configFile."transmission-daemon/settings.json" = config.util.dotFileMut "transmission/settings.json";
+
+  # Yt-dlp configuration
+  xdg.configFile."yt-dlp/config" = config.util.dotFileMut "yt-dlp/config";
 }

@@ -155,7 +155,10 @@ verbs: [
         internal: open_stay
     }
     {
-        key: alt-p
+        keys: [
+            alt-p
+            alt-a
+        ]
         apply_to: file
         execution: "mpv \"{file}\" --no-audio-display"
         leave_broot: false

@@ -1,6 +1,5 @@
---merge-output-format mp4
 --embed-thumbnail
 --embed-metadata
 --write-subs
 --sub-lang en
---output ~/media/youtube/%(title)s.%(ext)s
+--output "~/media/youtube/[%(id)s] %(uploader)s - %(title)s.%(ext)s"
