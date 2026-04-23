@@ -48,6 +48,7 @@ alias -- cdgit='cd $(git rev-parse --git-dir)/..'
 alias -- crp='cabal run pshash --'
 alias -- amyi='java -jar $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/amyc-assembly-1.7.jar --interpret $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/lab01-interpreter/library/*.amy'
 alias -- amyc='java -jar $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Construction/amyc-assembly-1.7.jar'
+alias -- record='wf-recorder -a=alsa_output.usb-Logitech_PRO_X_2_LIGHTSPEED_0000000000000000-00.analog-stereo.monitor -Dyf -F "[resolution=2880x1620]" -f'
 # alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
 
 export PATH=$PATH:~/media/sandbox/bin

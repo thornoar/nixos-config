@@ -10,7 +10,6 @@
     mpd
     unstable.rmpc
     libqalculate
-    qalculate-gtk
     caligula
     onedrive
   ];

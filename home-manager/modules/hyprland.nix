@@ -1,7 +1,6 @@
 { config, ... }:
 
 let
-  ts = builtins.toString;
   clr = config.colors;
 in {
   # Hyprland configuration

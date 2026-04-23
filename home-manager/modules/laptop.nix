@@ -13,23 +13,22 @@ in {
     graphicsmagick
     ffmpeg
     transmission_4
-    killall
     dict
     discord
     # whatsie
     unstable.telegram-desktop
-    obs-studio
+    # obs-studio
     zathura
     libnotify
     tagainijisho
     xournalpp
     maestral
     networkmanager-openvpn
-    sc-im
+    # sc-im
     mpv
-    gimp3
+    # gimp3
     pdftk
-    adbfs-rootless
+    # adbfs-rootless
     alsa-utils
     pulseaudio
     acpi
@@ -43,7 +42,7 @@ in {
     wf-recorder
     wev
     flac
-    lrcget
+    # lrcget
     libsixel
     net-tools
     python312Packages.syncedlyrics
@@ -51,9 +50,9 @@ in {
     unstable.yt-dlp
     poppler-utils
     # armips
-    qtspim
+    # qtspim
     xspim
-    mars-mips
+    # mars-mips
     libreoffice-still
   ]);
 
@@ -92,6 +91,10 @@ in {
       "image/png" = [ "swayimg.desktop" ];
       "text/csv" = [ "sc-im.desktop" ];
       "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
     };
     defaultApplications = associations.added;
   };

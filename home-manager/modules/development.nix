@@ -114,12 +114,12 @@
     sage
     manim
 
-    # R
-    (rWrapper.override {
-      packages = with rPackages; [
-        languageserver ggplot2 dplyr xts pracma latex2exp
-      ];
-    })
+    # # R
+    # (rWrapper.override {
+    #   packages = with rPackages; [
+    #     languageserver ggplot2 dplyr xts pracma latex2exp
+    #   ];
+    # })
 
     # Haskell
     (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
