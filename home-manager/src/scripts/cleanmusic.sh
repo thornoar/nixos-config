@@ -52,10 +52,15 @@ function patch_flac {
 
 function find_covers {
     find . -type d -print0 | while IFS= read -r -d '' dir; do
-    # Check if this directory contains any subdirectories
         if [ -z "$(find "$dir" -mindepth 1 -maxdepth 1 -type d -print -quit)" ]; then
             if test ! -f "$dir/cover.jpg"; then
                 echo "$dir"
+                for file in "$dir"/*.flac; do
+                    if test ! -f "$file"; then
+                        break
+                    fi
+                    metaflac --export-picture-to="$dir/cover.jpg" "$file" && break
+                done
             fi
         fi
     done
@@ -64,11 +69,13 @@ function find_covers {
 orphan=0
 search=0
 patch=0
-while getopts "osp" option; do
+cover=0
+while getopts "ospc" option; do
     case "$option" in # (((((
         o) orphan=1 ;;
         s) search=1 ;;
         p) patch=1 ;;
+        c) cover=1 ;;
         *) exit 1 ;;
     esac
 done
@@ -85,4 +92,6 @@ if [ $patch == 1 ]; then
     patch_flac
 fi
 
-find_covers
+if [ $cover == 1 ]; then
+    find_covers
+fi
