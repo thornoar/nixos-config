@@ -12,6 +12,9 @@ parser.add_argument("-d", "--download", action = "store_true", help = "download 
 parser.add_argument("-t", "--ext", type = str, default = "mp4", help = "the extension of the video/audio, when downloading")
 parser.add_argument("-c", "--cache", action = "store_true", help = "retrieve video information from cache")
 parser.add_argument("-x", "--clear", action = "store_true", help = "delete all items from cache")
+parser.add_argument("-e", "--edit", action = "store_true", help = "edit the cache file")
+parser.add_argument("-s", "--subs", action = "store_true", help = "whether to also download subtitles")
+parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", help = "the directory to save the videos to")
 args = parser.parse_args()
 
 def id2url (id: str):
@@ -21,34 +24,38 @@ def select_video (d: dict):
     print("Choose a video to " + (args.download and "download:" or "watch:"))
     for k, v in d.items():
         print(str(k) + ". " + v[1] + " - " + v[2])
-    index = ""
-    print("Your choice: ", end = "")
-    while True:
-        try:
-            index = input()
-        except:
-            print("\nExiting...")
-            exit(0)
-        if index.isdigit() and int(index) in d:
-            index = int(index)
-            break
-        else:
-            print("Try again: ", end = "")
-    return id2url(d[index][0])
+    print("Your choices: ", end = "")
+    try:
+        index_str = input()
+        if (index_str == "a"):
+            return list(map(lambda v: id2url(v[0]), d.values()))
+        return list(map(lambda str: id2url(d[int(str)][0]), index_str.split(",")))
+    except:
+        print("\nExiting...")
+        exit(0)
 
-link: str = "none"
+links: list[str] = []
 dir = os.environ["XDG_CACHE_HOME"] + "/yt"
 fname = "links.cache"
 fullfname = dir + "/" + fname
+
+yt_dlp_flags = "--output \"" + args.path + "/[%(id)s] %(uploader)s - %(title)s.%(ext)s\"" + " -t" + args.ext + " "
+if args.subs:
+    yt_dlp_flags += "--write-subs --sub-lang en "
+
 if not os.path.exists(fullfname):
     print("Cache file does not exist, creating...")
     os.system("mkdir -p " + dir)
     os.system("touch " + fullfname)
 
+if args.edit:
+    os.system("vim " + fullfname)
+    exit(0)
+
 if (len(args.url) > 0):
-    link = args.url
+    links = [args.url]
 elif (len(args.id) > 0):
-    link = id2url(args.id)
+    links = [id2url(args.id)]
 elif args.clear:
     cf = open(fullfname, "r+")
     print("Clearing cache...")
@@ -68,7 +75,7 @@ elif args.cache:
         print("No cached videos!")
         exit(0)
     cf.close()
-    link = select_video(videos)
+    links = select_video(videos)
 elif (len(args.query) > 0):
     videos: dict = {}
     counter = 0;
@@ -114,11 +121,13 @@ elif (len(args.query) > 0):
             cf.write(v[0] + ";;" + v[1] + ";;" + v[2] + "\n")
     cf.close()
     
-    link = select_video(videos)
+    links = select_video(videos)
 
-print(link)
+print(links)
 
 if (args.download):
-    os.system("yt-dlp " + link + " -t" + args.ext)
+    for link in links:
+        os.system("yt-dlp " + yt_dlp_flags + link)
 else:
-    os.system("mpv " + link)
+    for link in links:
+        os.system("mpv " + link)

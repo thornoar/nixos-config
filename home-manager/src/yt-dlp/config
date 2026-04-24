@@ -1,5 +1,3 @@
 --embed-thumbnail
 --embed-metadata
---write-subs
---sub-lang en
 --output "~/media/youtube/[%(id)s] %(uploader)s - %(title)s.%(ext)s"

@@ -186,8 +186,12 @@ verbs: [
         internal: stage_all_files
     }
     {
+        shortcut: os
+        internal: open_staging_area
+    }
+    {
         key: alt-shift-d
-        shortcut: sa
+        shortcut: sc
         internal: clear_stage
     }
     {
