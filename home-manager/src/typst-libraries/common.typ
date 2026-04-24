@@ -25,6 +25,8 @@
 #let liminf = $limits(op("lim inf"#hh))$
 #let limsup = $limits(op("lim sup"#hh))$
 #let dx = $#h(2pt) d x$
+#let dy = $#h(2pt) d y$
+#let dz = $#h(2pt) d z$
 #let dt = $#h(2pt) d t$
 #let gen(it) = $lr(chevron.l it chevron.r)$
 #let st = $#h(0pt):#h(5pt)$
