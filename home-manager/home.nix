@@ -75,8 +75,8 @@
   xdg.configFile."special-terminal/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
   xdg.configFile."special-music/.zshenv" = config.util.dotFileMut "zsh/envExtra.zsh";
 
-  # # Mpv configuration
-  # xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
+  # Mpv configuration
+  xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 
   # Neofetch configuration
   xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
