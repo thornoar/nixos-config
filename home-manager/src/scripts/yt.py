@@ -7,7 +7,7 @@ import subprocess
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("url", type = str, help = "the url of a YouTube video")
+parser.add_argument("-l", "--url", type = str, default = "", help = "the url of a YouTube video")
 parser.add_argument("-i", "--id", type = str, default = "", help = "the id of a YouTube video")
 parser.add_argument("-q", "--query", type = str, default = "", help = "a search query")
 parser.add_argument("-d", "--download", action = "store_true", help = "download the video instead of streaming")
