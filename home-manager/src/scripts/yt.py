@@ -17,6 +17,7 @@ parser.add_argument("-x", "--clear", action = "store_true", help = "delete all i
 parser.add_argument("-e", "--edit", action = "store_true", help = "edit the cache file")
 parser.add_argument("-s", "--subs", action = "store_true", help = "whether to also download subtitles")
 parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", help = "the directory to save the videos to")
+parser.add_argument("-o", "--output", type = str, default = "%(uploader)s - %(title)s [%(id)s].%(ext)s", help = "the directory to save the videos to")
 args = parser.parse_args()
 
 # Creating the cache file if it doesn't exist
@@ -71,6 +72,8 @@ elif args.cache:
     videos: dict = {}
     counter = 1
     for line in cf:
+        if not (args.query in line):
+            continue
         parts = line.rstrip().split(";;")
         videos[counter] = parts
         counter += 1
@@ -135,7 +138,15 @@ else:
     exit(0)
 
 if (args.download):
-    yt_dlp_flags = "--output \"" + args.path + "/[%(id)s] %(uploader)s - %(title)s.%(ext)s\"" + " -t" + args.ext + " "
+    yt_dlp_format_flags = " "
+    if (args.ext in ["mp3", "flac", "alac", "m4a"]):
+        yt_dlp_format_flags = "-x --audio-format " + args.ext + " "
+    else:
+        yt_dlp_format_flags = "--merge-output-format " + args.ext + " "
+
+    print(yt_dlp_format_flags)
+
+    yt_dlp_flags = "--output \"" + args.path + "/" + args.output + "\" " + yt_dlp_format_flags
     if args.subs:
         yt_dlp_flags += "--write-subs --sub-lang en "
     for link in links:
