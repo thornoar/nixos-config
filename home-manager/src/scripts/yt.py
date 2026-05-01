@@ -18,6 +18,7 @@ parser.add_argument("-e", "--edit", action = "store_true", help = "edit the cach
 parser.add_argument("-s", "--subs", action = "store_true", help = "whether to also download subtitles")
 parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", help = "the directory to save the videos to")
 parser.add_argument("-o", "--output", type = str, default = "%(uploader)s - %(title)s [%(id)s].%(ext)s", help = "the directory to save the videos to")
+parser.add_argument("-n", "--number", type = int, default = 100, help = "the number of search results to produce")
 args = parser.parse_args()
 
 # Creating the cache file if it doesn't exist
@@ -84,7 +85,8 @@ elif args.cache:
     links = select_video(videos)
 elif (len(args.query) > 0):
     videos: dict = {}
-    counter = 0;
+    counter = 0
+    # counter2 = 0
     sep = "-" * 60
     title = ""
     uploader = ""
@@ -97,7 +99,7 @@ elif (len(args.query) > 0):
         text = True,
         bufsize = 1,
     )
-    while True:
+    while counter < 3 * args.number:
         try:
             if (counter % 3 == 0):
                 print(sep)
@@ -112,10 +114,10 @@ elif (len(args.query) > 0):
             elif (counter % 3 == 0):
                 videos[counter // 3] = [cur, uploader, title]
         except:
-            proc.terminate()
             print("\n" + sep + "\n- Finished searching for videos -\n" + sep)
             break
 
+    proc.terminate()
     cf = open(cache_full_name, "r")
     ids = []
     for line in cf:
