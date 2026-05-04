@@ -21,7 +21,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Asymptotic";
+    dir = "Yuseiboushi";
     gamma = 0.9;
     contrast = 1.0;
   };

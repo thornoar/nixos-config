@@ -16,6 +16,7 @@ parser.add_argument("-c", "--cache", action = "store_true", help = "retrieve vid
 parser.add_argument("-x", "--clear", action = "store_true", help = "delete all items from cache")
 parser.add_argument("-e", "--edit", action = "store_true", help = "edit the cache file")
 parser.add_argument("-s", "--subs", action = "store_true", help = "whether to also download subtitles")
+parser.add_argument("-g", "--go", action = "store_true", help = "whether to visit the youtube website to search")
 parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", help = "the directory to save the videos to")
 parser.add_argument("-o", "--output", type = str, default = "%(uploader)s - %(title)s [%(id)s].%(ext)s", help = "the directory to save the videos to")
 parser.add_argument("-n", "--number", type = int, default = 100, help = "the number of search results to produce")
@@ -67,6 +68,9 @@ elif args.clear:
     cf.seek(0)
     cf.truncate()
     cf.close()
+    exit(0)
+elif args.go:
+    os.system("xdg-open https://www.youtube.com/results?search_query=" + args.query)
     exit(0)
 elif args.cache:
     cf = open(cache_full_name, "r")
