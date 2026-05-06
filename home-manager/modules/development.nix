@@ -182,6 +182,8 @@
 
     # Assembly
     nasm
+    wabt
+    wasmtime
 
     # Nix
     nixfmt-classic
