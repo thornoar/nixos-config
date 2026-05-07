@@ -100,7 +100,7 @@ require("lazy").setup({
     require("setup.twilight"),
     require("setup.nvim-biscuits"),
     require("setup.neoscroll"),
-    require("setup.codecompanion"),
+    -- require("setup.codecompanion"),
 }, lazy_config)
 
 require("setup.commands")

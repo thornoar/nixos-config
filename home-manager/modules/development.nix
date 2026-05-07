@@ -215,5 +215,6 @@
     coursier
     cloc
     bc
+    # github-copilot-cli
   ]);
 }
