@@ -47,7 +47,7 @@
         config = {
           # pulseaudio = true;
           allowUnfree = true;
-          allowBroken = true;
+          # allowBroken = true;
           android_sdk.accept_license = true;
           # nvidia.acceptLicense = true;
           # permittedInsecurePackages = [

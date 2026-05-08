@@ -108,7 +108,7 @@
 
   home.packages = (with pkgs; [
     # Python
-    (python3.withPackages (ps: with ps; [
+    (old.python3.withPackages (ps: with ps; [
       ipython
       sympy
       numpy
