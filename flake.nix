@@ -17,11 +17,15 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # cargo2nix = {
+    #   url = "github:cargo2nix/cargo2nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs:
     let
-      system = "x86_64-linux";
+      platform = "x86_64-linux";
       lib = inputs.nixpkgs.lib;
 
       addition = final: prev: {
@@ -34,14 +38,16 @@
           config.allowUnfree = true;
         };
         inherit inputs;
-        firefox-pkgs = inputs.firefox-addons.packages.${system};
+        inherit platform;
+        firefox-pkgs = inputs.firefox-addons.packages.${platform};
       };
 
       pkgs = import inputs.nixpkgs {
-        inherit system;
+        system = platform;
         config = {
           # pulseaudio = true;
           allowUnfree = true;
+          allowBroken = true;
           android_sdk.accept_license = true;
           # nvidia.acceptLicense = true;
           # permittedInsecurePackages = [
@@ -53,7 +59,7 @@
     in {
       nixosConfigurations = {
         laptop = lib.nixosSystem {
-          inherit system;
+          system = platform;
           inherit pkgs;
           modules = [
             ./nixos/configuration.nix
@@ -85,7 +91,7 @@
         };
 
         desktop = lib.nixosSystem {
-          inherit system;
+          system = platform;
           inherit pkgs;
           modules = [
             ./nixos/configuration.nix
@@ -112,7 +118,7 @@
         };
 
         minimal = lib.nixosSystem {
-          inherit system;
+          system = platform;
           modules = [
             ./nixos/configuration.nix
             {

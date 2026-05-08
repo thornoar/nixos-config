@@ -109,10 +109,19 @@
   home.packages = (with pkgs; [
     # Python
     (python3.withPackages (ps: with ps; [
-      ipython sympy numpy ollama openai mutagen requests beautifulsoup4
+      ipython
+      sympy
+      numpy
+      ollama
+      openai
+      mutagen
+      requests
+      beautifulsoup4
+      manim
+      manim-slides
     ]))
     sage
-    manim
+    # manim
 
     # # R
     # (rWrapper.override {
@@ -159,7 +168,7 @@
 
     # Rust
     cargo
-    rustc
+    unstable.rustc
     evcxr
 
     # Java and Android
