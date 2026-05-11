@@ -70,7 +70,7 @@ elif args.clear:
     cf.close()
     exit(0)
 elif args.go:
-    os.system("xdg-open https://www.youtube.com/results?search_query=" + args.query)
+    os.system("xdg-open https://www.youtube.com/results?search_query=" + args.query.replace(" ", "+"))
     exit(0)
 elif args.cache:
     cf = open(cache_full_name, "r")
