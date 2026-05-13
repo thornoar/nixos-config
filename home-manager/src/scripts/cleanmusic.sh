@@ -66,16 +66,46 @@ function find_covers {
     done
 }
 
+function update_covers {
+    find . -type d -print0 | while IFS= read -r -d '' dir; do
+        if [ -z "$(find "$dir" -mindepth 1 -maxdepth 1 -type d -print -quit)" ]; then
+            if test -f "$dir/cover.jpg"; then
+                for file in "$dir"/*.flac; do
+                    metaflac --remove --block-type=PICTURE "$file"
+                    metaflac --import-picture-from="$dir/cover.jpg" "$file"
+                done
+            fi
+        fi
+    done
+}
+
+function update_covers_indiv {
+    for file in ./*.flac; do
+        echo "$file"
+        metaflac --export-picture-to tmp.jpg "$file"
+        magick ./tmp.jpg -crop 720x+280+0 tmp.jpg
+        file ./tmp.jpg
+        metaflac --remove --block-type=PICTURE "$file"
+        metaflac "$file" --import-picture-from tmp.jpg
+        rm ./tmp.jpg
+        echo ""
+    done
+}
+
 orphan=0
 search=0
 patch=0
 cover=0
-while getopts "ospc" option; do
+update=0
+indiv=0
+while getopts "ospcui" option; do
     case "$option" in # (((((
         o) orphan=1 ;;
         s) search=1 ;;
         p) patch=1 ;;
         c) cover=1 ;;
+        u) update=1 ;;
+        i) indiv=1 ;;
         *) exit 1 ;;
     esac
 done
@@ -94,4 +124,12 @@ fi
 
 if [ $cover == 1 ]; then
     find_covers
+fi
+
+if [ $update == 1 ]; then
+    update_covers
+fi
+
+if [ $indiv == 1 ]; then
+    update_covers_indiv
 fi
