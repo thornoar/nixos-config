@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# The music library protocol:
+# - All music files must be in `flac` format.
+# - A music file `name.flac` must have a `name.lrc` or `name.txt` in the same directory.
+# - Every directory containing music files must have a `cover.jpg` file.
+# - The PICTURE metadata block of every music file must coincide with the `cover.jpg` in the same directory.
+# - No directory may contain both files and directories.
+
 shopt -s globstar
 
 function orphan_flac {
@@ -98,17 +105,32 @@ patch=0
 cover=0
 update=0
 indiv=0
-while getopts "ospcui" option; do
+msg=0
+while getopts "ospcuyh" option; do
     case "$option" in # (((((
         o) orphan=1 ;;
         s) search=1 ;;
         p) patch=1 ;;
         c) cover=1 ;;
         u) update=1 ;;
-        i) indiv=1 ;;
+        y) indiv=1 ;;
+        h) msg=1 ;;
         *) exit 1 ;;
     esac
 done
+
+if [ $msg == 1 ]; then
+    printf "usage: cleanmusic [ -o -s -p -c -u -y -h ]\n"
+    printf "flags:\n"
+    printf "  -o  list all songs in CWD without a lyrics file\n"
+    printf "  -s  search lyrics files for all songs in CWD\n"
+    printf "  -p  add the [au:instrumental] tag to all songs without lyric files\n"
+    printf "  -c  generate \`cover.jpg\` files from metadata\n"
+    printf "  -u  write \`cover.jpg\` files to the music metadata\n"
+    printf "  -y  used to process the covers of YM-downloaded songs\n"
+    printf "  -h  show this help message\n"
+    exit 0
+fi
 
 if [ $orphan == 1 ]; then
     orphan_flac
