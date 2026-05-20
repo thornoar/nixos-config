@@ -7,7 +7,7 @@ elseif exists("b:current_syntax")
 endif
 
 " useful C/C++/Java keywords
-syn keyword     asyStatement     break return continue unravel as
+syn keyword     asyStatement     break return continue unravel as using
 syn keyword     asyConditional   if else
 syn keyword     asyRepeat        while for do
 syn keyword     asyExternal      access from import include config export settings " defaultconfig defaultexport defaultpaths
