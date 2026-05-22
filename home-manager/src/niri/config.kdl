@@ -185,7 +185,7 @@ binds {
     Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
     Mod+Shift+Delete { spawn "rmpc" "clear"; }
     Mod+Shift+C { spawn "rmpc" "clear"; }
-    Mod+Shift+R { spawn-sh "rmpc clear; rmpc addrandom artist; rmpc single off; rmpc play"; }
+    Mod+Shift+R { spawn-sh "rmpc clear; rmpc addrandom album 1; rmpc single off; rmpc play"; }
     Mod+Shift+E { spawn-sh "rmpc clear; rmpc load \"$(ls $MEDIA/music/Playlists | shuf -n 1 | sed 's/\\..*//g')\"; rmpc single off; rmpc play"; }
 
     // Example brightness key mappings for brightnessctl.
