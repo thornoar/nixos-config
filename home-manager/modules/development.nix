@@ -169,6 +169,7 @@
     # Rust
     cargo
     unstable.rustc
+    unstable.rustfmt
     evcxr
 
     # Java and Android

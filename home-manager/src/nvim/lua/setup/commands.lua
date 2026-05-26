@@ -1,4 +1,4 @@
-local autosave = false
+local autosave = true
 
 -- $commands
 local compilefunc = {

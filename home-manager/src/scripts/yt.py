@@ -20,6 +20,7 @@ parser.add_argument("-g", "--go", action = "store_true", help = "whether to visi
 parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", help = "the directory to save the videos to")
 parser.add_argument("-o", "--output", type = str, default = "%(uploader)s - %(title)s [%(id)s].%(ext)s", help = "the directory to save the videos to")
 parser.add_argument("-n", "--number", type = int, default = 100, help = "the number of search results to produce")
+parser.add_argument("-b", "--batch-file", type = str, default = "", help = "file to read links from")
 args = parser.parse_args()
 
 # Creating the cache file if it doesn't exist
@@ -139,7 +140,7 @@ if (len(links) > 0):
     print("Using the following links:")
     for link in links:
         print("- " + link)
-else:
+elif (len(args.batch_file) == 0):
     print("No links, exiting...")
     exit(0)
 
@@ -155,8 +156,11 @@ if (args.download):
     yt_dlp_flags = "--output \"" + args.path + "/" + args.output + "\" " + yt_dlp_format_flags
     if args.subs:
         yt_dlp_flags += "--write-subs --sub-lang en "
-    for link in links:
-        os.system("yt-dlp " + yt_dlp_flags + link)
+    if (len(args.batch_file) > 0):
+        os.system("yt-dlp " + yt_dlp_flags + "--batch-file " + args.batch_file)
+    else:
+        for link in links:
+            os.system("yt-dlp " + yt_dlp_flags + link)
 else:
     for link in links:
         os.system("mpv " + link)

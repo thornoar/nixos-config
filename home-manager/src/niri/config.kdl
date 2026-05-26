@@ -204,7 +204,9 @@ binds {
     // Mod+Shift+W repeat=false { spawn "niri-hack" "close-all"; }
 
     Mod+Left  { focus-column-left; }
+    Mod+A  { focus-column-left; }
     Mod+Right { focus-column-right; }
+    Mod+D { focus-column-right; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
 
@@ -250,8 +252,7 @@ binds {
 
     // Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
     Mod+Backslash { switch-preset-column-width; }
-    Mod+D { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
-    Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
+    // Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Tab { fullscreen-window; }
