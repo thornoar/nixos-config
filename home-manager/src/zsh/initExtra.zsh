@@ -51,7 +51,7 @@ alias -- amyc='java -jar $PROJECTS/hkust-courses/COMP4121-Modern-Compiler-Constr
 alias -- record='wf-recorder -a=alsa_output.usb-Logitech_PRO_X_2_LIGHTSPEED_0000000000000000-00.analog-stereo.monitor -Dyf -F "[resolution=2880x1620]" -f'
 # alias -- nixos-opt="manix \"\" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --preview=\"manix '{}'\""
 
-export PATH=$PATH:~/media/sandbox/bin
+export PATH="$PATH:$HOME/media/sandbox/bin:$HOME/.local/share/cargo/bin"
 
 export ARCHVM="192.168.122.167"
 export DEBIANVM="192.168.122.127"

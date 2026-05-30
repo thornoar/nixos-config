@@ -191,6 +191,8 @@ binds {
     // Example brightness key mappings for brightnessctl.
     Mod+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
     Mod+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+    Mod+Shift+X allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
+    Mod+Shift+Z allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
     Mod+Alt+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "1+"; }
     Mod+Alt+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "1-"; }
     Mod+Ctrl+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "100%"; }

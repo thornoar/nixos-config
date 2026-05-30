@@ -50,3 +50,5 @@ typeclasses
 bourguignon
 coprime
 shipout
+lexing
+lexed
