@@ -26,7 +26,7 @@ in {
     networkmanager-openvpn
     # sc-im
     mpv
-    # gimp3
+    gimp3
     pdftk
     # adbfs-rootless
     alsa-utils

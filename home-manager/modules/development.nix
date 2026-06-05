@@ -225,6 +225,7 @@
     coursier
     cloc
     bc
+    zlib
     # github-copilot-cli
   ]);
 }

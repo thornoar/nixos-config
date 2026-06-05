@@ -28,6 +28,11 @@
       platform = "x86_64-linux";
       lib = inputs.nixpkgs.lib;
 
+      meta = {
+        configHome = /home/ramak/projects/nixos-config;
+        inherit platform;
+      };
+
       addition = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
           system = final.stdenv.hostPlatform.system;
@@ -38,7 +43,6 @@
           config.allowUnfree = true;
         };
         inherit inputs;
-        inherit platform;
         firefox-pkgs = inputs.firefox-addons.packages.${platform};
       };
 
@@ -67,7 +71,7 @@
             ./nixos/modules/laptop/hardware-configuration.nix
             ./nixos/modules/laptop/hardware-manual.nix
             ./nixos/modules/laptop/niri.nix
-            { _module.args = { sysname = "laptop"; }; }
+            { _module.args = { sysname = "laptop"; inherit meta; }; }
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -97,7 +101,7 @@
             ./nixos/configuration.nix
             ./nixos/modules/desktop/configuration.nix
             ./nixos/modules/desktop/hardware-configuration.nix
-            { _module.args = { sysname = "desktop"; }; }
+            { _module.args = { sysname = "desktop"; inherit meta; }; }
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -124,7 +128,6 @@
             {
               _module.args = {
                 sysname = "minimal";
-                inherit inputs;
               };
             }
           ];

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, meta, ... }:
 
 {
   environment.variables = {
@@ -88,28 +88,19 @@
     };
 
     openvpn.servers = let
-      createConfig = fname: {
-        config = "config ${fname}";
+      createConfig = name: {
+        config = "config /home/ramak/projects/nixos-config/nixos/src/openvpn/${name}.ovpn";
+        # config = "config ${fname}";
         updateResolvConf = true;
         autoStart = false;
       };
-      fname2attrs = fname:
-        let basename = lib.lists.last (lib.strings.splitString "/" fname);
-            nopref = lib.strings.head (lib.strings.splitString "." fname);
-         in { name = "server-" + nopref; value = createConfig fname; };
-    in builtins.listToAttrs (lib.lists.forEach (lib.filesystem.listFilesRecursive ../../src/openvpn) fname2attrs);
-    # {
-    #   server-us-2-protonvpn = createConfig "us-free-1.protonvpn.udp";
-    #   server-nl-2-protonvpn = createConfig "nl-free-1.protonvpn.udp";
-    #   server-jp-2-protonvpn = createConfig "jp-free-1.protonvpn.udp";
-    #   server-de-1-freeopenvpn = createConfig "de-free-1.freeopenvpn.tcp";
-    #   server-de-2-freeopenvpn = createConfig "de-free-2.freeopenvpn.udp";
-    #   server-kr-1-freeopenvpn = createConfig "kr-free-1.freeopenvpn.tcp";
-    #   server-kr-2-freeopenvpn = createConfig "kr-free-2.freeopenvpn.udp";
-    #   server-kr-3-freeopenvpn = createConfig "kr-free-3.freeopenvpn.udp";
-    #   server-ru-2-freeopenvpn = createConfig "ru-free-2.freeopenvpn.udp";
-    #   server-th-2-freeopenvpn = createConfig "th-free-2.freeopenvpn.udp";
-    # };
+      fname2attrs = name: { name = "server-" + name; value = createConfig name; };
+    in builtins.listToAttrs 
+      (lib.lists.forEach [
+          "us-1-protonvpn"
+          "nl-1-protonvpn"
+          "jp-1-protonvpn"
+        ] fname2attrs);
 
     printing = {
       enable = true;
@@ -131,6 +122,12 @@
     # };
   };
 
+  # hardware.sane = {
+  #   enable = true;
+  #   netConf = "192.168.0.34";
+  #   openFirewall = true;
+  # };
+
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
@@ -149,9 +146,12 @@
     gamemode.enable = true;
   };
 
-  time.timeZone = "Asia/Hong_Kong";
+  time.timeZone = "Europe/Belgrade";
 
-  fonts.packages = with pkgs; [
+  fonts.packages =
+  let
+    handwriting = pkgs.stdenv.mkDerivation
+  in with pkgs; [
     # noto-fonts
     ipafont
     kochi-substitute
