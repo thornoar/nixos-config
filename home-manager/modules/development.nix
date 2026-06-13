@@ -108,7 +108,7 @@
 
   home.packages = (with pkgs; [
     # Python
-    (old.python3.withPackages (ps: with ps; [
+    (python3.withPackages (ps: with ps; [
       ipython
       sympy
       numpy
@@ -117,8 +117,8 @@
       mutagen
       requests
       beautifulsoup4
-      manim
-      manim-slides
+      # manim
+      # manim-slides
     ]))
     sage
     # manim
