@@ -1,4 +1,4 @@
-{ pkgs, lib, meta, ... }:
+{ pkgs, lib, ... }:
 
 {
   environment.variables = {
@@ -148,10 +148,7 @@
 
   time.timeZone = "Europe/Belgrade";
 
-  fonts.packages =
-  let
-    handwriting = pkgs.stdenv.mkDerivation
-  in with pkgs; [
+  fonts.packages = with pkgs; [
     # noto-fonts
     ipafont
     kochi-substitute
@@ -161,7 +158,7 @@
     # nerd-fonts.hack
     nerd-fonts.jetbrains-mono
     # dejavu_fonts
-  ];
+  ] ++ [ (pkgs.callPackage ./font-handwriting.nix { inherit pkgs; }) ];
 
   programs.adb.enable = true;
 
