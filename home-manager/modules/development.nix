@@ -80,13 +80,14 @@
   home.file.".haskeline" = config.util.dotFileMut "haskeline";
 
   # Asymptote configuration
-  home.file.".asy/config.asy" = config.util.dotFileMut "config.asy";
+  # home.file.".asy/config.asy" = config.util.dotFileMut "config.asy";
+  xdg.configFile."asymptote/config.asy" = config.util.dotFileMut "config.asy";
 
   # R configuration
   home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
 
   # GHCi configuration
-  home.file.".ghci" = config.util.dotFileMut "ghci";
+  xdg.configFile.".ghci" = config.util.dotFileMut "ghci";
 
   xdg.configFile."cabal/config" = config.util.dotFileMut "cabal/config";
 

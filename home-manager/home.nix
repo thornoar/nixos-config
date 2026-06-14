@@ -14,6 +14,8 @@
     onedrive
   ];
 
+  home.preferXdgDirectories = true;
+
   # services.mpd = {
   #   enable = true;
   #   dbFile = "/home/ramak/.local/share/mpd/tag_cache";
