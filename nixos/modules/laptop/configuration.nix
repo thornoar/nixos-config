@@ -36,6 +36,7 @@
     logind.settings.Login = {
       HandleLidSwitch = "ignore";
       HandleLidSwitchExternalPower = "ignore";
+      KillUserProcesses = true;
     };
 
     keyd = {
@@ -197,19 +198,19 @@
   # };
 
 
-  # systemd.services."kill-mpd-server" = {
-  #   enable = true;
-  #   before = ["umount.target"];
-  #   wantedBy = ["shutdown.target" "reboot.target"];
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = "${pkgs.mpd}/bin/mpd --kill";
-  #     RemainAfterExit = true;
-  #     User = "ramak";
-  #   };
-  #   # script = ''
-  #   #   ${pkgs.coreutils}/bin/echo "killing the MPD daemon before umount"
-  #   #   ${pkgs.mpd}/bin/mpd --kill
-  #   # '';
-  # };
+  systemd.services."kill-mpd-server" = {
+    enable = true;
+    wantedBy = ["multi-user.target"];
+    before = ["umount.target" "shutdown.target" "reboot.target" "halt.target"];
+    unitConfig = {
+      RequiresMountsFor = ["/home/ramak/media" "/home/ramak/media/music"];
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStop = "${pkgs.mpd}/bin/mpd --kill";
+      ExecStart = "${pkgs.coreutils}/bin/true";
+      RemainAfterExit = true;
+      User = "ramak";
+    };
+  };
 }

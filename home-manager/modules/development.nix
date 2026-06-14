@@ -11,8 +11,8 @@
       ripgrep
       fd
       haskellPackages.fast-tags
-      haskellPackages.haskell-debug-adapter
-      haskellPackages.ghci-dap
+      # haskellPackages.haskell-debug-adapter
+      # haskellPackages.ghci-dap
       pyright
       haskell-language-server
       unstable.tinymist
