@@ -71,15 +71,21 @@
       };
     };
 
-    pipewire = {
+    pulseaudio = {
       enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      jack.enable = true;
-      audio.enable = true;
-      pulse.enable = true;
+      support32Bit = true;
+    };
+
+    pipewire = {
+      enable = false;
+      # alsa = {
+      #   enable = true;
+      #   support32Bit = true;
+      # };
+      # # systemWide = true;
+      # jack.enable = true;
+      # audio.enable = true;
+      # pulse.enable = true;
     };
 
     ollama = {
@@ -198,17 +204,19 @@
   # };
 
 
-  systemd.services."kill-mpd-server" = {
+  systemd.services."auto" = {
     enable = true;
     wantedBy = ["multi-user.target"];
+    after = ["graphical-session.target"];
     before = ["umount.target" "shutdown.target" "reboot.target" "halt.target"];
     unitConfig = {
-      RequiresMountsFor = ["/home/ramak/media" "/home/ramak/media/music"];
+      RequiresMountsFor = ["/home/ramak/media" "/home/ramak/media/music" "/home/ramak/media/films"];
     };
     serviceConfig = {
       Type = "simple";
-      ExecStop = "${pkgs.mpd}/bin/mpd --kill";
-      ExecStart = "${pkgs.coreutils}/bin/true";
+      ExecStart = "/bin/sh /home/ramak/.local/bin/onboot";
+      # ExecStart = "${pkgs.coreutils}/bin/true";
+      ExecStop = "/bin/sh /home/ramak/.local/bin/onshutdown";
       RemainAfterExit = true;
       User = "ramak";
     };

@@ -17,10 +17,6 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # cargo2nix = {
-    #   url = "github:cargo2nix/cargo2nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = inputs:
@@ -49,7 +45,7 @@
       pkgs = import inputs.nixpkgs {
         system = platform;
         config = {
-          # pulseaudio = true;
+          pulseaudio = true;
           allowUnfree = true;
           # allowBroken = true;
           android_sdk.accept_license = true;
