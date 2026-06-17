@@ -53,6 +53,8 @@
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_CACHE_HOME = "$HOME/.cache";
       ASYMPTOTE_HOME = "${XDG_CONFIG_HOME}/asymptote";
+      # ANDROID_USER_HOME = "${XDG_DATA_HOME}/android";
+      GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
       PROJECTS = "$HOME/projects";
       NIXOS_CONFIG = "${PROJECTS}/nixos-config";
       MEDIA = "$HOME/media";
