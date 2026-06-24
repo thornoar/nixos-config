@@ -16,7 +16,7 @@ in {
     dict
     discord
     # whatsie
-    unstable.telegram-desktop
+    telegram-desktop
     # obs-studio
     zathura
     libnotify
@@ -173,7 +173,7 @@ in {
 
   # Swayimg configuration
   xdg.configFile."swayimg/config" = config.util.dotFileMut "swayimg/config";
-  xdg.configFile."swayimg/init.lua" = config.util.dotFileMut "swayimg/init.lua";
+  # xdg.configFile."swayimg/init.lua" = config.util.dotFileMut "swayimg/init.lua";
   xdg.configFile."swayimg/shared".text = ''
     [viewer]
     window = ${clr.bg0}ff
@@ -185,13 +185,13 @@ in {
     shadow = #00000000
     background = #00000000
   '';
-  xdg.configFile."swayimg/shared.lua".text = ''
-    swayimg.text.set_font("${config.misc.systemFont}")
-    swayimg.text.set_size("${builtins.toString config.window.fontsize}")
-    swayimg.text.set_foreground(0xff${bc clr.primary})
-    swayimg.text.set_background(0xff${bc clr.bg0})
-    swayimg.viewer.set_window_background(0xff${bc clr.bg0})
-  '';
+  # xdg.configFile."swayimg/shared.lua".text = ''
+  #   swayimg.text.set_font("${config.misc.systemFont}")
+  #   swayimg.text.set_size("${builtins.toString config.window.fontsize}")
+  #   swayimg.text.set_foreground(0xff${bc clr.primary})
+  #   swayimg.text.set_background(0xff${bc clr.bg0})
+  #   swayimg.viewer.set_window_background(0xff${bc clr.bg0})
+  # '';
 
   # Tofi configuration
   xdg.configFile."tofi/config".text = ''

@@ -156,7 +156,7 @@ binds {
     // Scratchpads
     Mod+C { spawn-sh "niri-hack scratch T"; }
     Mod+V { spawn-sh "niri-hack scratch M"; }
-    Mod+BracketRight { spawn-sh "niri-hack scratch M"; }
+    Mod+Slash { spawn-sh "niri-hack scratch M"; }
     Mod+S { spawn-sh "niri-hack scratch S"; }
     Mod+Q { spawn-sh "niri-hack scratch Q"; }
 

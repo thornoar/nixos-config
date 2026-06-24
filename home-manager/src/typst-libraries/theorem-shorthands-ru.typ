@@ -2,17 +2,17 @@
 
 // Further shorthands
 
-#let def = plainstyle("thm", "Определение")
-#let nota = plainstyle("thm", "Нотация")
-#let exam = plainstyle("thm", "Пример")
-#let exer = plainstyle("thm", "Упражнение")
-#let rem = plainstyle("thm", "Замечание")
+#let def = plainstyle("Определение", "thm")
+#let nota = plainstyle("Нотация", "thm")
+#let exam = plainstyle("Пример", "thm")
+#let exer = plainstyle("Упражнение", "thm")
+#let rem = plainstyle("Замечание", "thm")
 
-#let th = statestyle("thm", "Теорема")
-#let lm = statestyle("thm", "Лемма")
-#let prop = statestyle("thm", "Предложение")
-#let stat = statestyle("thm", "Утверждение")
-#let prb = statestyle("thm", "Задача")
-#let cor = statestyle("thm", "Следствие")
+#let th = statestyle("Теорема", "thm")
+#let lm = statestyle("Лемма", "thm")
+#let prop = statestyle("Предложение", "thm")
+#let stat = statestyle("Утверждение", "thm")
+#let prb = statestyle("Задача", "thm")
+#let cor = statestyle("Следствие", "thm")
 
-#let pf = proofstyle("thm", "Доказательство")
+#let pf = proofstyle("Доказательство", "thm")

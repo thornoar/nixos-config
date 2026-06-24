@@ -45,7 +45,7 @@
       pkgs = import inputs.nixpkgs {
         system = platform;
         config = {
-          pulseaudio = true;
+          # pulseaudio = true;
           allowUnfree = true;
           # allowBroken = true;
           android_sdk.accept_license = true;

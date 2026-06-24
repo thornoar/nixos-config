@@ -104,6 +104,6 @@ require("lazy").setup({
 }, lazy_config)
 
 require("setup.commands")
-require("setup.keymaps")
 require("setup.settings")
 require("setup.coloring")
+require("setup.keymaps")

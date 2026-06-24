@@ -33,6 +33,7 @@
 #let wh = $#h(0pt),#h(5pt)$
 #let aa = $#h(0pt),#h(5pt)$
 #let wo = $without$
+#let empty = math.diameter
 
 // Styles
 #let latex = {

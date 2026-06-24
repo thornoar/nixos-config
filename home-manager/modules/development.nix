@@ -11,6 +11,7 @@
       ripgrep
       fd
       haskellPackages.fast-tags
+      # haskellPackages.agda-language-server
       # haskellPackages.haskell-debug-adapter
       # haskellPackages.ghci-dap
       pyright
@@ -205,6 +206,9 @@
     # Coq
     coq
 
+    # Agda
+    # agda
+
     # Ocaml
     ocaml
 
@@ -228,5 +232,7 @@
     bc
     zlib
     # github-copilot-cli
+
+    codex
   ]);
 }

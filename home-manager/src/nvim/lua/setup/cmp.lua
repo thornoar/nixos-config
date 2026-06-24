@@ -27,7 +27,7 @@ return {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
             },
-            mapping = cmp.mapping.preset.insert({
+            mapping = {
                 ["<Down>"] = cmp.mapping(function (fallback)
                     cmp.close()
                     fallback()
@@ -45,7 +45,7 @@ return {
                 ["<C-CR>"] = cmp.mapping(function(fallback)
                     vim.fn["UltiSnips#ExpandSnippetOrJump"]()
                 end, { "i", "s" }),
-            }),
+            },
             snippet = {
                 expand = function(args)
                     -- luasnip.lsp_expand(args.body)

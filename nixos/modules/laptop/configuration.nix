@@ -71,21 +71,21 @@
       };
     };
 
-    pulseaudio = {
-      enable = true;
-      support32Bit = true;
-    };
+    # pulseaudio = {
+    #   enable = true;
+    #   support32Bit = true;
+    # };
 
     pipewire = {
-      enable = false;
-      # alsa = {
-      #   enable = true;
-      #   support32Bit = true;
-      # };
-      # # systemWide = true;
-      # jack.enable = true;
-      # audio.enable = true;
-      # pulse.enable = true;
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      # systemWide = true;
+      jack.enable = true;
+      audio.enable = true;
+      pulse.enable = true;
     };
 
     ollama = {

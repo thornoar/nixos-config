@@ -47,7 +47,6 @@ vim.keymap.set("n", "<C-x>", "[s1z=")
 -- $keymaps:insert
 vim.keymap.set("i", "<C-Space>", " ")
 vim.keymap.set("i", "<C-Delete>", "<BS><Delete>")
--- vim.keymap.set('i', '<C-n>', '<Nop>', { silent = true })
 vim.keymap.set("i", "<M-a>", "<C-o>$;")
 -- vim.keymap.set("i", "<C-x>", "<Esc>[s1z=A")
 vim.keymap.set("n", "x", "i")
@@ -122,3 +121,5 @@ vim.keymap.set("n", "<C-l>", function () vim.cmd("silent UrlView") end)
 vim.keymap.set("n", "<M-t>", function ()
         os.execute("nohup $TERMINAL >/dev/null 2>&1 &")
     end)
+
+vim.keymap.set("i", "<C-n>", function () print("missed!") end)
