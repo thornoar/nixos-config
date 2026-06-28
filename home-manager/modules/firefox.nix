@@ -235,6 +235,7 @@ let
     vimium
     adblocker-ultimate
     export-cookies-txt
+    youtube-no-translation
   ];
   baseSettings = {
     "browser.startup.homepage" = "about:home";

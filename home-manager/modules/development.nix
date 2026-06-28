@@ -203,11 +203,10 @@
     nix-output-monitor
     nvd
 
-    # Coq
+    # Proof assistants
     coq
-
-    # Agda
     # agda
+    lean
 
     # Ocaml
     ocaml

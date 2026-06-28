@@ -163,6 +163,8 @@ binds {
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
     Mod+Shift+Page_Down allow-when-locked=true { spawn "amixer" "sset" "Master" "5%-"; }
+    Mod+Shift+E allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }
+    Mod+Shift+C allow-when-locked=true { spawn "amixer" "sset" "Master" "5%-"; }
     Mod+Shift+End        allow-when-locked=true { spawn "amixer" "sset" "Master" "toggle"; }
 
     // General playback controls
@@ -173,6 +175,7 @@ binds {
     // Local playback control
     Mod+Space { spawn "rmpc" "togglepause"; }
     Mod+Shift+Home { spawn "rmpc" "seek" "0"; }
+    Mod+Shift+Q { spawn "rmpc" "seek" "0"; }
     Mod+Shift+Down { spawn "rmpc" "next"; }
     Mod+Shift+Up { spawn "rmpc" "prev"; }
     Mod+Shift+Right { spawn "rmpc" "seek" "+5"; }
@@ -184,15 +187,15 @@ binds {
     Mod+Ctrl+Shift+Right { spawn "rmpc" "seek" "+15"; }
     Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
     Mod+Shift+Delete { spawn "rmpc" "clear"; }
-    Mod+Shift+Q { spawn "rmpc" "clear"; }
-    Mod+Shift+R { spawn-sh "rmpc clear; rmpc addrandom album 1; rmpc single off; rmpc play"; }
-    Mod+Shift+E { spawn-sh "rmpc clear; rmpc load \"$(ls $MEDIA/music/Playlists | shuf -n 1 | sed 's/\\..*//g')\"; rmpc single off; rmpc play"; }
+    Mod+Shift+Backslash { spawn "rmpc" "clear"; }
+    Mod+Shift+Alt+Tab { spawn-sh "rmpc clear; rmpc addrandom album 1; rmpc single off; rmpc play"; }
+    Mod+Shift+Tab { spawn-sh "rmpc clear; rmpc load \"$(ls $MEDIA/music/Playlists | shuf -n 1 | sed 's/\\..*//g')\"; rmpc single off; rmpc play"; }
 
     // Example brightness key mappings for brightnessctl.
-    Mod+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
-    Mod+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
-    Mod+Shift+C allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
-    Mod+Shift+X allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+    Mod+Ctrl+Period allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
+    Mod+Ctrl+Comma allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+    Mod+Ctrl+C allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
+    Mod+Ctrl+X allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
     Mod+Alt+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "1+"; }
     Mod+Alt+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "1-"; }
     Mod+Ctrl+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "100%"; }
@@ -247,7 +250,7 @@ binds {
     Mod+Shift+Alt+4 { move-workspace-to-index 4; }
     Mod+Shift+Alt+5 { move-workspace-to-index 5; }
 
-    Mod+Shift+Tab { focus-workspace-previous; }
+    // Mod+Shift+Tab { focus-workspace-previous; }
 
     Mod+Ctrl+Left  { consume-or-expel-window-left; }
     Mod+Ctrl+Right { consume-or-expel-window-right; }
@@ -262,7 +265,7 @@ binds {
     Mod+Ctrl+BracketRight { expand-column-to-available-width; }
 
     Mod+Alt+C { center-column; }
-    Mod+Ctrl+C { center-visible-columns; }
+    // Mod+Ctrl+C { center-visible-columns; }
 
     Mod+Minus { set-column-width "-5%"; }
     Mod+Equal { set-column-width "+5%"; }

@@ -16,7 +16,7 @@ in {
     dict
     discord
     # whatsie
-    telegram-desktop
+    unstable.telegram-desktop
     # obs-studio
     zathura
     libnotify

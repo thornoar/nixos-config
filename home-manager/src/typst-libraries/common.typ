@@ -5,7 +5,7 @@
 #let mfrac(a, b) = move(a, dy: -0.2em) + "/" + move(b, dy: 0.2em, dx: -0.1em)
 #let vphantom(size) = box(height: size, width: 0pt, [])
 #let hphantom(size) = box(height: 0pt, width: size, [])
-#let hh = h(.5mm)
+// #let hh = h(.5mm)
 
 // Colors
 #let palered = rgb("#ffc0c0")
@@ -15,6 +15,7 @@
 #let palemagenta = rgb("#ffc0ff")
 #let palecyan = rgb("#c0ffff")
 #let palegray = rgb("#f3f3f3")
+#let invisible = luma(100%, 0%)
 
 // Math
 #let circ = math.circle.stroked.tiny
@@ -22,8 +23,8 @@
 #let hss = h(2pt)
 #let lle = math.lt.eq.slant
 #let gge = math.gt.eq.slant
-#let liminf = $limits(op("lim inf"#hh))$
-#let limsup = $limits(op("lim sup"#hh))$
+#let liminf = $limits(op("lim inf"thin))$
+#let limsup = $limits(op("lim sup"thin))$
 #let dx = $#h(2pt) d x$
 #let dy = $#h(2pt) d y$
 #let dz = $#h(2pt) d z$
