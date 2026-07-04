@@ -40,6 +40,7 @@ function search_flac {
             echo "-- trying plain lyrics"
             syncedlyrics "$artist - $title" --plain-only -o "$pref.txt" > /dev/null
         fi
+        sleep .5
         ((iflac++))
     done
 }
@@ -99,6 +100,17 @@ function update_covers_indiv {
     done
 }
 
+function to_flac {
+    for file in ./**/*.mp3; do
+        pref="${file%*.mp3}"
+        ffmpeg -i "$file" "$pref.flac"
+    done
+    for file in ./**/*.m4a; do
+        pref="${file%*.m4a}"
+        ffmpeg -i "$file" "$pref.flac"
+    done
+}
+
 orphan=0
 search=0
 patch=0
@@ -106,7 +118,8 @@ cover=0
 update=0
 indiv=0
 msg=0
-while getopts "ospcuyh" option; do
+to=0
+while getopts "ospcuyht" option; do
     case "$option" in # (((((
         o) orphan=1 ;;
         s) search=1 ;;
@@ -115,6 +128,7 @@ while getopts "ospcuyh" option; do
         u) update=1 ;;
         y) indiv=1 ;;
         h) msg=1 ;;
+        t) to=1 ;;
         *) exit 1 ;;
     esac
 done
@@ -129,6 +143,7 @@ if [ $msg == 1 ]; then
     printf "  -u  write \`cover.jpg\` files to the music metadata\n"
     printf "  -y  used to process the covers of YM-downloaded songs\n"
     printf "  -h  show this help message\n"
+    printf "  -t  convert everything to FLAC\n"
     exit 0
 fi
 
@@ -154,4 +169,8 @@ fi
 
 if [ $indiv == 1 ]; then
     update_covers_indiv
+fi
+
+if [ $to == 1 ]; then
+    to_flac
 fi
