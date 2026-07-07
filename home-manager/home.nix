@@ -6,7 +6,7 @@
     tmux
     htop
     cheat
-    broot
+    old.broot
     mpd
     unstable.rmpc
     libqalculate
