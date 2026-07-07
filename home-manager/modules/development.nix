@@ -32,6 +32,7 @@
   xdg.configFile."nvim/ftdetect" = config.util.dotFileMut "nvim/ftdetect";
   xdg.configFile."nvim/syntax" = config.util.dotFileMut "nvim/syntax";
   xdg.configFile."nvim/UltiSnips" = config.util.dotFileMut "nvim/UltiSnips";
+  xdg.configFile."nvim/snippets" = config.util.dotFileMut "nvim/snippets";
   xdg.configFile."nvim/after" = config.util.dotFileMut "nvim/after";
   xdg.configFile."nvim/spell" = config.util.dotFileMut "nvim/spell";
   xdg.configFile."nvim/lua/setup" = config.util.dotFileMut "nvim/lua/setup";

@@ -66,7 +66,7 @@ require("lazy").setup({
     "tpope/vim-fugitive",
     "sagarrakshe/toggle-bool",
     "farmergreg/vim-lastplace",
-    "sirver/ultisnips",
+    -- "sirver/ultisnips",
     "neovimhaskell/haskell-vim",
     "ap/vim-css-color",
     "nanozuki/tabby.nvim",
@@ -83,7 +83,7 @@ require("lazy").setup({
     "navarasu/onedark.nvim",
     require("setup.gitsigns"),
     require("setup.urlview"),
-    require("setup.comment"),
+    -- require("setup.comment"),
     require("setup.metals"),
     require("setup.focus"),
     require("setup.trouble"),
@@ -100,6 +100,8 @@ require("lazy").setup({
     require("setup.twilight"),
     require("setup.nvim-biscuits"),
     require("setup.neoscroll"),
+    require("setup.mini"),
+    require("setup.luasnip"),
     -- require("setup.codecompanion"),
 }, lazy_config)
 

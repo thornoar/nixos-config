@@ -8,6 +8,7 @@ return {
     },
     config = function ()
         local cmp = require("cmp")
+        local luasnip = require("luasnip")
         cmp.setup({
             sources = {
                 { name = "nvim_lsp" },
@@ -42,14 +43,14 @@ return {
                 ["<C-Up>"] = cmp.mapping.scroll_docs(-1),
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-CR>"] = cmp.mapping(function(fallback)
-                    vim.fn["UltiSnips#ExpandSnippetOrJump"]()
-                end, { "i", "s" }),
+                -- ["<C-CR>"] = cmp.mapping(function(fallback)
+                --     vim.fn["UltiSnips#ExpandSnippetOrJump"]()
+                -- end, { "i", "s" }),
             },
             snippet = {
                 expand = function(args)
-                    -- luasnip.lsp_expand(args.body)
-                    vim.fn["UltiSnips#Anon"](args.body)
+                    luasnip.lsp_expand(args.body)
+                    -- vim.fn["UltiSnips#Anon"](args.body)
                 end,
             },
         })

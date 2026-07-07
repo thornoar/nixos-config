@@ -59,7 +59,7 @@
       NIXOS_CONFIG = "${PROJECTS}/nixos-config";
       MEDIA = "$HOME/media";
       DE = "generic";
-      NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
+      # NVIM_LISTEN_ADDRESS = "/tmp/nvimsocket";
       TEXINPUTS = ".:${XDG_DATA_HOME}/latex:$TEXINPUTS";
       EDITOR = "vim";
       VISUAL = EDITOR;
