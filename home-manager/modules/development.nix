@@ -13,8 +13,8 @@
       fd
       haskellPackages.fast-tags
       # haskellPackages.agda-language-server
-      # haskellPackages.haskell-debug-adapter
-      # haskellPackages.ghci-dap
+      haskellPackages.haskell-debug-adapter
+      haskellPackages.ghci-dap
       pyright
       haskell-language-server
       unstable.tinymist
