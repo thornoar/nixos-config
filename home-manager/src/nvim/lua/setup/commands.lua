@@ -89,7 +89,6 @@ end, {})
 
 vim.api.nvim_create_user_command("Detach", detach, {})
 
--- $autocommands
 vim.api.nvim_create_user_command('AutoSave', function()
     autosave = not autosave
     print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
@@ -110,48 +109,12 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
     end
 })
 
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = { "*.mls", "*.scala" },
-    callback = function ()
-        vim.keymap.set("n", "<C-CR>", function ()
-            vim.cmd("silent !touch %")
-            vim.cmd("silent edit")
-        end)
-    end
-})
-
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---     pattern = { "*.tex", "*.txt", "*.typ", "*.md" },
+-- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+--     pattern = { "*.mls", "*.scala" },
 --     callback = function ()
---         vim.o.wrap = true
---         vim.opt.spell = true
---         vim.opt.spelllang = { "en", "ru" }
+--         vim.keymap.set("n", "<C-CR>", function ()
+--             vim.cmd("silent !touch %")
+--             vim.cmd("silent edit")
+--         end)
 --     end
 -- })
-
-vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    pattern = "*.*",
-    callback = function ()
-        local ft = vim.bo.filetype
-
-        if ft == "haskell" or ft == "scala" or ft == "typst" or ft == "markdown" or ft == "tex" or ft == "nix" or ft == "coq" or ft == "clojure" or ft == "mlscript" or ft == "amy" then
-            vim.o.tabstop = 2
-            vim.o.shiftwidth = 2
-            vim.o.softtabstop = 2
-            vim.opt.spell = false
-            vim.o.wrap = false
-        else
-            vim.o.tabstop = 4
-            vim.o.shiftwidth = 4
-            vim.o.softtabstop = 4
-            vim.opt.spell = false
-            vim.o.wrap = false
-        end
-
-        if ft == "tex" or ft == "markdown" or ft == "typst" or ft == "text" then
-            vim.o.wrap = true
-            vim.opt.spell = true
-            vim.opt.spelllang = { "en", "ru" }
-        end
-    end
-})

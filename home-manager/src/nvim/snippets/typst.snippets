@@ -1,0 +1,33 @@
+# snippets for Typst
+
+snippet inline math mode
+    \$${0}\$
+
+snippet di display math
+    \$
+      ${0}
+    \$
+
+# snippet sg sage
+#     sage $1 sage$0
+#
+# snippet 'sage(.*)sage' sage
+#     `!p
+#     import os
+#     cmd = "sage -c \"print(" + match.group(1) + ")\""
+#     snip.rv = os.popen(cmd).read().strip().replace('*', ' ')
+#     `
+#
+# snippet spy sympyblock
+#     sympy $1 sympy$0
+#
+# priority 10000
+# snippet 'sympy(.*)sympy' sympy
+#     `!p
+#     from sympy import *
+#     x, y, z, t = symbols('x y z t')
+#     k, m, n = symbols('k m n', integer=True)
+#     f, g, h = symbols('f g h', cls=Function)
+#     expr = eval(match.group(1).replace('^', '**'))
+#     snip.rv = str(expr).replace("*", " ") # .replace("{", "(").replace("}", ")")
+#     `

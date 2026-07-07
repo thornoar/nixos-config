@@ -39,15 +39,6 @@ vim.o.laststatus = 3
 vim.o.fixendofline = false
 vim.o.fixeol = false
 
--- vim.g.vimtex_complete_enabled = 1
--- vim.g.vimtex_quickfix_enabled = 0
--- vim.g.vimtex_view_method = 'zathura'
--- -- vim.g.latex_view_general_viewer = 'zathura'
--- vim.g.vimtex_compiler_progname = 'nvr'
--- vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
--- vim.g.vimtex_mappings_prefix = '\\'
--- -- vim.cmd([[let g:vimtex_compiler_latexmk = {'callback': 1, 'continuous': 1, 'aux_dir': '.aux', 'executable': 'latexmk', 'options': ['-verbose', '-synctex=1', '-interaction=nonstopmode', '-file-line-error']}]])
-
 vim.cmd([[
     let tex_flavor="latex"
     " set shiftwidth=4 smarttab
@@ -65,13 +56,51 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
--- vim.api.nvim_create_autocmd("VimLeave", {
---     pattern = "*",
---     callback = function ()
---         vim.opt.guicursor = { "a:hor1" }
---     end
--- })
-
 vim.g.typst_embedded_languages = { "haskell", "c", "java" }
 
-vim.g.UltiSnipsEditSplit="horizontal"
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    pattern = "*.*",
+    callback = function ()
+        local ft = vim.bo.filetype
+
+        if ft == "asy" then
+            vim.o.commentstring = "//%s"
+        end
+
+        if
+            ft == "haskell" or
+            ft == "scala" or
+            ft == "typst" or
+            ft == "markdown" or
+			ft == "tex" or
+			ft == "nix" or
+			ft == "coq" or
+			ft == "clojure" or
+			ft == "mlscript" or
+			ft == "amy"
+        then
+            vim.o.tabstop = 2
+            vim.o.shiftwidth = 2
+            vim.o.softtabstop = 2
+            vim.opt.spell = false
+            vim.o.wrap = false
+        else
+            vim.o.tabstop = 4
+            vim.o.shiftwidth = 4
+            vim.o.softtabstop = 4
+            vim.opt.spell = false
+            vim.o.wrap = false
+        end
+
+        if
+            ft == "tex" or
+			ft == "markdown" or
+			ft == "typst" or
+			ft == "text"
+        then
+            vim.o.wrap = true
+            vim.opt.spell = true
+            vim.opt.spelllang = { "en", "ru" }
+        end
+    end
+})

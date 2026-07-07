@@ -5,6 +5,7 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "octaltree/cmp-look",
+        "saadparwaiz1/cmp_luasnip",
     },
     config = function ()
         local cmp = require("cmp")
@@ -14,6 +15,7 @@ return {
                 { name = "nvim_lsp" },
                 { name = "path" },
                 { name = "ultisnips" },
+                { name = 'luasnip', option = { use_show_condition = false } },
                 {
                     name = "look",
                     keyword_length = 2,
@@ -43,14 +45,10 @@ return {
                 ["<C-Up>"] = cmp.mapping.scroll_docs(-1),
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                -- ["<C-CR>"] = cmp.mapping(function(fallback)
-                --     vim.fn["UltiSnips#ExpandSnippetOrJump"]()
-                -- end, { "i", "s" }),
             },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
-                    -- vim.fn["UltiSnips#Anon"](args.body)
                 end,
             },
         })

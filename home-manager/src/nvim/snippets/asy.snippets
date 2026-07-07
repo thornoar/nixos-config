@@ -1,0 +1,64 @@
+# snippets for Asymptote
+
+snippet for for loops
+    for (int ${1:i} = 0; ${1} < ${2}; ++${1})
+    {
+        ${0}
+    }
+
+snippet z brackets
+    {
+        ${0}
+    }
+
+snippet if "if clause"
+    if (${1})
+    {
+        ${0}
+    }
+
+snippet else "else clause"
+    else
+    {
+        ${0}
+    }
+
+snippet if~else "if-else clause"
+    if (${1})
+    {
+        ${2}
+    }
+    else
+    {
+        ${3}
+    }
+
+snippet format "set output format"
+    settings.outformat = "${0}";
+
+snippet quick~function "quick function" b
+    ${1:real} ${2:f} (${3:real} x)
+    { return ${0};}
+
+snippet function "function" b
+    ${1:real} ${2:f} (${3})
+    {
+        ${0}
+    }
+
+snippet draw "draw command" w
+    draw(
+        ${0}
+    );
+
+snippet ar "arrow" w
+    arrow = Arrow(${0})
+
+snippet sh "SimpleHead" w
+    SimpleHead
+
+snippet th "TeXHead" w
+    TeXHead
+
+snippet label "Label" w
+    L = Label("${1}", position = ${2}, align = ${3})
