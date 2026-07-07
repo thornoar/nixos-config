@@ -18,7 +18,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    light
+    # light
     brightnessctl
   ];
 
@@ -89,9 +89,9 @@
     };
 
     ollama = {
-      package = pkgs.unstable.ollama;
+      package = pkgs.unstable.ollama-cuda;
       enable = true;
-      acceleration = "cuda";
+      # acceleration = "cuda";
     };
 
     openvpn.servers = let
@@ -167,7 +167,7 @@
     # dejavu_fonts
   ] ++ [ (pkgs.callPackage ./font-handwriting.nix { inherit pkgs; }) ];
 
-  programs.adb.enable = true;
+  # programs.adb.enable = true;
 
   security.pam.services.swaylock = {};
 

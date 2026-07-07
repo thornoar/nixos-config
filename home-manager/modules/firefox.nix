@@ -256,24 +256,23 @@ let
     };
   };
 in {
-  programs = {
-    firefox = {
-      enable = true;
-      profiles.laptop = baseProfile // {
-        id = 0;
-        name = "laptop";
-        isDefault = true;
-        settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.window.firefoxScale;
-        };
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    profiles.laptop = baseProfile // {
+      id = 0;
+      name = "laptop";
+      isDefault = true;
+      settings = baseSettings // {
+        "layout.css.devPixelsPerPx" = config.window.firefoxScale;
       };
-      profiles.laptop-clean = baseProfile // {
-        id = 3;
-        name = "laptop-clean";
-        isDefault = false;
-        settings = baseSettings // {
-          "layout.css.devPixelsPerPx" = config.window.firefoxScale;
-        };
+    };
+    profiles.laptop-clean = baseProfile // {
+      id = 3;
+      name = "laptop-clean";
+      isDefault = false;
+      settings = baseSettings // {
+        "layout.css.devPixelsPerPx" = config.window.firefoxScale;
       };
     };
   };

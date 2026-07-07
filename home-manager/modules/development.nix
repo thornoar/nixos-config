@@ -5,6 +5,7 @@
   programs.neovim = {
     enable = true;
     withPython3 = true;
+    withRuby = true;
     extraPython3Packages = ps: with ps; [ sympy pynvim ];
     extraPackages = with pkgs; [
       tree-sitter
@@ -22,8 +23,8 @@
       # java-language-server
       # clojure-lsp
       metals
-      nodePackages.typescript-language-server
-      nodePackages.bash-language-server
+      typescript-language-server
+      bash-language-server
       asm-lsp
       nixd
     ];
@@ -198,7 +199,7 @@
     wasmtime
 
     # Nix
-    nixfmt-classic
+    nixfmt
     # manix
     nix-output-monitor
     nvd

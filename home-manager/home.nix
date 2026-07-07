@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    neofetch
+    fastfetch
     tmux
     htop
     cheat
@@ -42,6 +42,7 @@
   home.homeDirectory = "/home/ramak";
   xdg.userDirs = {
     enable = true;
+    setSessionVariables = true;
     download = "${config.home.homeDirectory}/dls";
     desktop = "${config.home.homeDirectory}/dls";
     documents = "${config.home.homeDirectory}/dls";
@@ -103,7 +104,7 @@
   xdg.configFile."mpv/mpv.conf" = config.util.dotFileMut "mpv.conf";
 
   # Neofetch configuration
-  xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
+  # xdg.configFile."neofetch/config.conf" = config.util.dotFileMut "neofetch.conf";
 
   # # Khal configuration
   # xdg.configFile."khal/config" = config.util.dotFileMut "khal.config.ini";

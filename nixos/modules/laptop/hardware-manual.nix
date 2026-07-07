@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 {
   boot = {
     blacklistedKernelModules = [
@@ -44,13 +44,6 @@
   };
 
   services = {
-    # cron = {
-    #   enable = true;
-    #   systemCronJobs = [
-    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/sci"
-    #     "*/1 * * * * root ${pkgs.coreutils}/bin/echo disable > /sys/firmware/acpi/interrupts/gpe6F"
-    #   ];
-    # };
     upower.enable = true;
     thermald.enable = true;
     # auto-cpufreq = {
@@ -127,14 +120,15 @@
       modesetting.enable = true;
       open = false;
       prime = {
-        # offload = {
-        #   enable = true;
-        #   enableOffloadCmd = true;
-        # };
-        sync.enable = true;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        # sync.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       # acceptLicense = true;
     };
     # nvidiaOptimus.disable = true;

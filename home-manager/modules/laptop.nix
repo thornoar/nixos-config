@@ -13,6 +13,7 @@ in {
     graphicsmagick
     ffmpeg
     transmission_4
+    inkscape
     dict
     discord
     # whatsie
@@ -54,6 +55,7 @@ in {
     xspim
     # mars-mips
     libreoffice-still
+    android-tools
   ]);
 
   dconf.settings = {
@@ -74,6 +76,7 @@ in {
       package = pkgs.kdePackages.breeze-gtk;
     };
     colorScheme = "light";
+    gtk4.theme = config.gtk.theme;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 
@@ -238,7 +241,7 @@ in {
 
     pad=${ts config.window.terminalPaddingX}x${ts config.window.terminalPaddingY}
 
-    [colors]
+    [colors-dark]
     alpha=${ts config.window.terminalOpacity}
     alpha-mode=default # Can be `default`, `matching` or `all`
     background=${bc clr.bg0}
