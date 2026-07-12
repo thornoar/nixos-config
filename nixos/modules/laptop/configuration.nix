@@ -20,6 +20,7 @@
   environment.systemPackages = with pkgs; [
     # light
     brightnessctl
+    spice-gtk
   ];
 
   services = {
@@ -136,7 +137,12 @@
   # };
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
+  # security.wrappers.spice-client-glib-usb-acl-helper = {
+  #   source = "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
+  #   owner = "nixos";
+  # };
 
   # nixpkgs.config = {
   #   pulseaudio = true;

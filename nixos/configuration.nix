@@ -16,6 +16,7 @@
       "libvirtd"
       "adbusers"
       "kvm"
+      # "spice"
     ];
     homeMode = "0711";
   };
@@ -71,7 +72,7 @@
       LESSHISTFILE = "${XDG_CACHE_HOME}/less/history";
       CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
       XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
-      ASYMPTOTE_PDFVIEWER = "$HOME/.nix-profile/bin/zathura";
+      ASYMPTOTE_PDFVIEWER = "${pkgs.zathura}/bin/zathura";
       # SPECIALISATION = "default";
       NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
       NIX_PACKAGE_SEARCH_EXACT_COLOR = "cyan";

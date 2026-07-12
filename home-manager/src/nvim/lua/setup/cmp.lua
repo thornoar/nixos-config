@@ -1,7 +1,7 @@
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
-        "quangnguyen30192/cmp-nvim-ultisnips",
+        -- "quangnguyen30192/cmp-nvim-ultisnips",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "octaltree/cmp-look",

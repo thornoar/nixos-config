@@ -168,7 +168,7 @@ snippet sec* \section*
 # Sub Section
 snippet sub \subsection
 	\\subsection{${1:subsection name}}%
-	\\label{sub:${2:$1}}
+	\\label{sub:${2:label}}
 	${0}
 # Sub Section without number
 snippet sub* \subsection*
@@ -243,13 +243,13 @@ snippet fcite \footcite[]{}
 snippet ita italic text
 	\\textit{${1:${VISUAL:text}}}${0}
 snippet bf bold face text
-	\\textbf{${1:${VISUAL:text}}}${0}
+	\\textbf{${1:text}}${0}
 snippet under underline text
 	\\underline{${1:${VISUAL:text}}}${0}
 snippet over overline text
 	\\overline{${1:${VISUAL:text}}}${0}
 snippet emp emphasize text
-	\\emph{${1:${VISUAL:text}}}${0}
+	\\emph{${1:text}}${0}
 snippet sc small caps text
 	\\textsc{${1:${VISUAL:text}}}${0}
 #Choosing font
@@ -258,9 +258,9 @@ snippet sf sans serife text
 snippet rm roman font text
 	\\textrm{${1:${VISUAL:text}}}${0}
 snippet tt typewriter (monospace) text
-	\\texttt{${1:${VISUAL:text}}}${0}
+	\\texttt{${1:text}}${0}
 snippet tsub subscripted text
-	\\textsubscript{${1:${VISUAL:text}}}${0}
+	\\textsubscript{${1:text}}${0}
 snippet tsup superscripted text
 	\\textsuperscript{${1:${VISUAL:text}}}${0}
 #Math font
@@ -275,9 +275,8 @@ snippet ft \footnote
 	\\footnote{${1:${VISUAL:text}}}${0}
 snippet fig figure environment (includegraphics)
 	\\begin{figure}
-	\\begin{center}
-		\\includegraphics[scale=${1}]{Figures/${2}}
-	\\end{center}
+    \\centering
+    \\includegraphics[scale=${1}]{figures/${2}}
 	\\caption{${3}}
 	\\label{fig:${4}}
 	\\end{figure}

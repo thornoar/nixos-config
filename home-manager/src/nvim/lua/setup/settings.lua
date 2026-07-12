@@ -58,14 +58,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.g.typst_embedded_languages = { "haskell", "c", "java" }
 
+local autosave = true
+
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     pattern = "*.*",
     callback = function ()
         local ft = vim.bo.filetype
 
+        -- Comment settings
+
         if ft == "asy" then
             vim.o.commentstring = "//%s"
         end
+        if ft == "tex" then
+            vim.o.commentstring = "%%s"
+            vim.o.textwidth = 70
+        end
+
+        -- Tab settings
 
         if
             ft == "haskell" or
@@ -92,6 +102,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.wrap = false
         end
 
+        -- Spell settings
+
         if
             ft == "tex" or
 			ft == "markdown" or
@@ -101,6 +113,35 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.wrap = true
             vim.opt.spell = true
             vim.opt.spelllang = { "en", "ru" }
+        end
+
+        -- Autosave settings
+
+        if
+            ft == "tex" or
+			ft == "typst"
+        then
+            autosave = false
+        end
+    end
+})
+
+vim.api.nvim_create_user_command('AutoSave', function()
+    autosave = not autosave
+    print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
+end, {})
+-- local autosavepattern = {
+--     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
+--     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
+--     '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
+-- }
+vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
+    pattern = '*.*',
+    callback = function()
+        if autosave and
+        not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
+        vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
+            vim.cmd('silent write')
         end
     end
 })

@@ -75,7 +75,7 @@ in {
       name = "Breeze";
       package = pkgs.kdePackages.breeze-gtk;
     };
-    colorScheme = "light";
+    colorScheme = "dark";
     gtk4.theme = config.gtk.theme;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };

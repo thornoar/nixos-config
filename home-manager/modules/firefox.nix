@@ -240,6 +240,8 @@ let
   baseSettings = {
     "browser.startup.homepage" = "about:home";
     "browser.tabs.inTitlebar" = 0;
+    "browser.download.useDownloadDir" = true;
+    "widget.use-xdg-desktop-portal.file-picker" = 0;
     "browser.toolbars.bookmarks.visibility" = "never";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "signon.rememberSignons" = false;

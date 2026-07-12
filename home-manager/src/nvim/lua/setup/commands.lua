@@ -1,5 +1,3 @@
-local autosave = true
-
 -- $commands
 local compilefunc = {
     ['asy'] = function (name) return ('!asy -noV -nosafe ' .. name) end,
@@ -88,26 +86,6 @@ vim.api.nvim_create_user_command("SaveAndDetach", function ()
 end, {})
 
 vim.api.nvim_create_user_command("Detach", detach, {})
-
-vim.api.nvim_create_user_command('AutoSave', function()
-    autosave = not autosave
-    print('autosave is ' .. (autosave and 'enabled' or 'disabled'))
-end, {})
--- local autosavepattern = {
---     '*.asy', '*.md', '*.lua', '*.cpp', '*.py', '*.hs', '*.txt',
---     '*.r', '*.snippets', '*.nix', '*.hjson', '*.vim', '*.sh',
---     '*.html', '*.css', '*.c', '*.jl', '*.yml', '*.conf', '*.rs', '*.cabal'
--- }
-vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, {
-    pattern = '*.*',
-    callback = function()
-        if autosave and
-        not vim.bo[vim.api.nvim_win_get_buf(0)].readonly and
-        vim.bo[vim.api.nvim_win_get_buf(0)].buftype == '' then
-            vim.cmd('silent write')
-        end
-    end
-})
 
 -- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 --     pattern = { "*.mls", "*.scala" },
