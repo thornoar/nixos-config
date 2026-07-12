@@ -78,7 +78,6 @@
       NIX_PACKAGE_SEARCH_EXACT_COLOR = "cyan";
       NIX_PACKAGE_SEARCH_DIRECT_COLOR = "yellow";
       NIX_PACKAGE_SEARCH_INDIRECT_COLOR = "white";
-      # GTK_IM_MODULE = "fcitx";
       QT_IM_MODULE = "fcitx";
       XMODIFIERS = "@im=fcitx";
       SDL_IM_MODULE = "fcitx";

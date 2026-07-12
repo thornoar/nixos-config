@@ -92,6 +92,19 @@ in {
     style.name = "adwaita-dark";
   };
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
+      ];
+      themes.dark.theme = builtins.readFile ../src/fcitx5/theme.conf;
+    };
+  };
+
   # xdg-mime configuration
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = rec {
