@@ -110,8 +110,7 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
-// spawn-at-startup "onboot"
-
+spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "waybar"
 spawn-at-startup "wpaperd" "-d"
 

@@ -238,9 +238,10 @@ let
     youtube-no-translation
   ];
   baseSettings = {
-    "browser.startup.homepage" = "about:home";
     "browser.tabs.inTitlebar" = 0;
     "browser.download.useDownloadDir" = true;
+    "browser.startup.blankWindow" = true;
+    "browser.startup.homepage" = "about:blank";
     "widget.use-xdg-desktop-portal.file-picker" = 0;
     "browser.toolbars.bookmarks.visibility" = "never";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

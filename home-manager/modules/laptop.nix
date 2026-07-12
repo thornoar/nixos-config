@@ -68,6 +68,13 @@ in {
     # };
   };
 
+  home.pointerCursor = {
+    x11.enable = true;
+    gtk.enable = true;
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+  };
+
   gtk = {
     enable = true;
     font.name = config.misc.systemFont;
@@ -78,6 +85,11 @@ in {
     colorScheme = "dark";
     gtk4.theme = config.gtk.theme;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+  };
+
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
   };
 
   # xdg-mime configuration
@@ -399,4 +411,7 @@ in {
 
   # Yt-dlp configuration
   xdg.configFile."yt-dlp/config" = config.util.dotFileMut "yt-dlp/config";
+
+  # Fcitx5 configuration
+  xdg.configFile."fcitx5/config" = config.util.dotFileMut "fcitx5/config";
 }

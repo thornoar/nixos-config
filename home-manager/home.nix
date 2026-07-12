@@ -6,7 +6,7 @@
     tmux
     htop
     cheat
-    old.broot
+    broot
     mpd
     unstable.rmpc
     libqalculate
@@ -15,28 +15,6 @@
   ];
 
   home.preferXdgDirectories = true;
-
-  # services.mpd = {
-  #   enable = true;
-  #   dbFile = "/home/ramak/.local/share/mpd/tag_cache";
-  #   extraConfig = ''
-  #     # The music directory is by default the XDG directory, uncomment to amend and choose a different directory
-  #     music_directory     "/home/ramak/media/music"
-  #
-  #     # Uncomment to refresh the database whenever files in the music_directory are changed
-  #     auto_update         "yes"
-  #
-  #     # Uncomment to enable the functionalities
-  #     playlist_directory  "/home/ramak/media/music/Playlists"
-  #     state_file          "/home/ramak/.local/share/mpd/state"
-  #     sticker_file        "/home/ramak/.local/share/mpd/sticker.sql"
-  #
-  #     audio_output {
-  #       type "pipewire"
-  #       name "Pipewire Playback"
-  #     }
-  #   '';
-  # };
 
   home.username = "ramak";
   home.homeDirectory = "/home/ramak";
@@ -49,13 +27,6 @@
     pictures = "${config.home.homeDirectory}/media/pictures";
     music = "${config.home.homeDirectory}/media/music";
     videos = "${config.home.homeDirectory}/media/films";
-  };
-
-  home.pointerCursor = {
-    x11.enable = true;
-    gtk.enable = true;
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
   };
 
   home.sessionVariables = {

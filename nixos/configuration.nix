@@ -78,6 +78,13 @@
       NIX_PACKAGE_SEARCH_EXACT_COLOR = "cyan";
       NIX_PACKAGE_SEARCH_DIRECT_COLOR = "yellow";
       NIX_PACKAGE_SEARCH_INDIRECT_COLOR = "white";
+      # GTK_IM_MODULE = "fcitx";
+      QT_IM_MODULE = "fcitx";
+      XMODIFIERS = "@im=fcitx";
+      SDL_IM_MODULE = "fcitx";
+      GLFW_IM_MODULE = "ibus";
+      INPUT_METHOD = "fcitx";
+      # FCITX_USE_WAYLAND = "0";
     };
     systemPackages = with pkgs; [
       home-manager
@@ -147,6 +154,8 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
   };
+
+  
 
   programs.zsh = {
     enable = true;

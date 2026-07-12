@@ -70,6 +70,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         if ft == "asy" then
             vim.o.commentstring = "//%s"
         end
+        if ft == "hjson" then
+            vim.o.commentstring = "#%s"
+        end
         if ft == "tex" then
             vim.o.commentstring = "%%s"
             vim.o.textwidth = 70

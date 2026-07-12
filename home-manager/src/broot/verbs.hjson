@@ -6,7 +6,7 @@ verbs: [
     }
     {
         invocation: clip
-        external: "wl-copy -n \"{file}\""
+        external: "clip \"{file}\""
         leave_broot: false
     }
     {
@@ -14,21 +14,21 @@ verbs: [
         external: rm -rf {file}
         leave_broot: false
     }
-    {
-        invocation: "call {command}"
-        external: "sh -c \"nohup {command} \"{file}\" > /dev/null 2>&1 &\""
-        leave_broot: false
-    }
-    {
-        invocation: "cmd {command}"
-        external: "parsecmd {command} \"{file}\""
-        leave_broot: false
-    }
-    {
-        invocation: "acmd {command}"
-        external: "parsecmd \"{command} %\" \"{file}\""
-        leave_broot: false
-    }
+    # {
+    #     invocation: "call {command}"
+    #     external: "sh -c \"nohup {command} \"{file}\" > /dev/null 2>&1 &\""
+    #     leave_broot: false
+    # }
+    # {
+    #     invocation: "cmd {command}"
+    #     external: "parsecmd {command} \"{file}\""
+    #     leave_broot: false
+    # }
+    # {
+    #     invocation: "acmd {command}"
+    #     external: "parsecmd \"{command} %\" \"{file}\""
+    #     leave_broot: false
+    # }
     {
         key: ctrl-r
         internal: refresh
@@ -83,10 +83,6 @@ verbs: [
         from_shell: true
     }
     {
-        invocation: mpp
-        cmd: ":move_to_panel"
-    }
-    {
         key: down
         internal: ":line_down_no_cycle 1"
     }
@@ -110,18 +106,12 @@ verbs: [
     {
         key: alt-t
         invocation: terminal
-        external: "sh -c \"nohup $TERMINAL sh -c 'cd \"{directory}\"; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
-        leave_broot: false
-    }
-    {
-        key: alt-b
-        invocation: filemanager
-        external: "sh -c \"nohup $TERMINAL zsh -c 'cd \"{directory}\"; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
+        external: ["fork" "cd \"{directory}\"; $SHELL"]
         leave_broot: false
     }
     {
         key: ctrl-x
-        external: "sh -c \"nohup $TERMINAL zsh -c 'cd {directory}; nvim-server -f; br; $SHELL' > /dev/null 2>&1 &\" > /dev/null 2>&1"
+        external: ["fork" "cd \"{directory}\"; nvim-server -f; broot; $SHELL"]
         leave_broot: false
     }
     {
