@@ -427,4 +427,23 @@ in {
 
   # Fcitx5 configuration
   xdg.configFile."fcitx5/config" = config.util.dotFileMut "fcitx5/config";
+  xdg.configFile."fcitx5/conf/classicui.conf".text = ''
+    Vertical Candidate List=False
+    WheelForPaging=True
+    Font="${config.misc.systemFont} ${ts config.window.fontsize}"
+    MenuFont="${config.misc.systemFont} ${ts config.window.fontsize}"
+    TrayFont="${config.misc.systemFont} Bold ${ts config.window.fontsize}"
+    TrayOutlineColor=${clr.bg0}
+    TrayTextColor=${clr.primary}
+    PreferTextIcon=False
+    ShowLayoutNameInIcon=True
+    UseInputMethodLanguageToDisplayText=True
+    Theme=default
+    DarkTheme=default-dark
+    UseDarkTheme=True
+    UseAccentColor=True
+    PerScreenDPI=False
+    ForceWaylandDPI=0
+    EnableFractionalScale=True
+  '';
 }
