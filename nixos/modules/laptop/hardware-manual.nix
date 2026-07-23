@@ -139,13 +139,21 @@
   # hardware.printers = {
   #   ensurePrinters = [
   #     {
+  #       # name = "Xerox_WorkCentre_3025";
+  #       # location = "Home";
+  #       # deviceUri = "socket://192.168.0.34";
+  #       # model = "xerox/wc3025.ppd";
+  #       # ppdOptions = {
+  #       #   pageSize = "A4";
+  #       # };
   #       name = "Xerox_WorkCentre_3025";
   #       location = "Home";
-  #       deviceUri = "socket://192.168.0.38";
-  #       model = "xerox/wc3025.ppd";
-  #       ppdOptions = {
-  #         pageSize = "A4";
-  #       };
+  #       deviceUri = "ipp://192.168.3.1/ipp/print";
+  #       # deviceUri = "ipp://169.254.59.31/ipp/print";
+  #       model = "everywhere";
+  #       # ppdOptions = {
+  #       #   pageSize = "A4";
+  #       # };
   #     }
   #   ];
   #   ensureDefaultPrinter = "Xerox_WorkCentre_3025";

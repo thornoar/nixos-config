@@ -16,6 +16,8 @@
       "libvirtd"
       "adbusers"
       "kvm"
+      "scanner"
+      "lp"
       # "spice"
     ];
     homeMode = "0711";

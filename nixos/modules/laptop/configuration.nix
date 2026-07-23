@@ -115,29 +115,29 @@
       enable = true;
       drivers = with pkgs; [
         gutenprint
-        gutenprintBin
-        hplip
-        splix
-        foomatic-db-ppds
-        foomatic-db-nonfree
+        # gutenprintBin
+        # hplip
+        # splix
+        # foomatic-db-ppds
+        # foomatic-db-nonfree
         # (writeTextDir "share/cups/model/xerox/wc3025.ppd" (builtins.readFile ../../src/Xerox_WorkCentre_3025.ppd))
       ];
     };
 
-    # avahi = {
-    #   enable = true;
-    #   nssmdns4 = true;
-    #   openFirewall = true;
-    # };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
   };
 
 
 
-  # hardware.sane = {
-  #   enable = true;
-  #   netConf = "192.168.0.34";
-  #   openFirewall = true;
-  # };
+  hardware.sane = {
+    enable = true;
+    netConf = "192.168.3.1";
+    openFirewall = true;
+  };
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;

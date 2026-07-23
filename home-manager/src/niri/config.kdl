@@ -256,6 +256,7 @@ binds {
 
     // Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
     Mod+Backslash { switch-preset-column-width; }
+    Mod+Grave { switch-preset-column-width; }
     // Mod+Shift+Backslash { spawn "niri-hack" "shrink"; }
     Mod+Ctrl+Backslash { reset-window-height; }
     Mod+F { maximize-column; }

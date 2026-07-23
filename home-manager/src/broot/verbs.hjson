@@ -149,7 +149,7 @@ verbs: [
             alt-a
         ]
         apply_to: file
-        execution: "mpv \"{file}\" --no-audio-display"
+        execution: "mpv --no-audio-display --no-video {file}"
         leave_broot: false
     }
     {

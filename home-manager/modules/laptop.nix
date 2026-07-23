@@ -8,6 +8,7 @@ in {
   home.pointerCursor.size = 16;
 
   home.packages = (with pkgs; [
+    graphwar
     playerctl
     imagemagick
     graphicsmagick
@@ -101,7 +102,7 @@ in {
         fcitx5-mozc
         fcitx5-gtk
       ];
-      themes.dark.theme = builtins.readFile ../src/fcitx5/theme.conf;
+      # themes.dark.theme = builtins.readFile ../src/fcitx5/theme.conf;
     };
   };
 
@@ -117,6 +118,7 @@ in {
       "image/vnd.djvu+multipage" = [ "org.pwmt.zathura-pdf-mupdf.desktop" ];
       "image/svg+xml" = [ "swayimg.desktop" ];
       "image/jpeg" = [ "swayimg.desktop" ];
+      "image/webp" = [ "swayimg.desktop" ];
       "image/png" = [ "swayimg.desktop" ];
       "text/csv" = [ "sc-im.desktop" ];
       "text/html" = [ "firefox.desktop" ];

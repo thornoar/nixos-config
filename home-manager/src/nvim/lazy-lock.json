@@ -35,7 +35,6 @@
   "telescope-git-grep.nvim": { "branch": "main", "commit": "0286308494dad6299b84163d00a6f21dbbed21f7" },
   "telescope.nvim": { "branch": "master", "commit": "6312868392331c9c0f22725041f1ec2bef57c751" },
   "toggle-bool": { "branch": "master", "commit": "7bc8358d2de311805e6802f9df7ca876b76308a3" },
-  "trouble.nvim": { "branch": "main", "commit": "748ca2789044607f19786b1d837044544c55e80a" },
   "twilight.nvim": { "branch": "main", "commit": "8bb7fa7b918baab1ca81b977102ddb54afa63512" },
   "typst.vim": { "branch": "main", "commit": "1d5436c0f55490893892441c0eca55e6cdf4916c" },
   "ultimate-autopair.nvim": { "branch": "v0.6", "commit": "6b58234de921437836efe27714b2026ed2ee235a" },

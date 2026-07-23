@@ -3,6 +3,11 @@
 let
   bookmarks = [
     {
+      name = "gt | Google Translate";
+      url = "https://translate.google.com/?sl=en&tl=ru&op=translate";
+      keyword = "gt";
+    }
+    {
       name = "bao | Baopals";
       url = "https://www.baopals.com/";
       keyword = "bao";
