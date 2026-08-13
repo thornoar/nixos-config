@@ -62,7 +62,6 @@
       };
     };
 
-
     displayManager = {
       sddm.enable = true;
       sddm.wayland.enable = true;
@@ -97,20 +96,26 @@
       # acceleration = "cuda";
     };
 
-    openvpn.servers = let
-      createConfig = name: {
-        config = "config /home/ramak/projects/nixos-config/nixos/src/openvpn/${name}.ovpn";
-        # config = "config ${fname}";
-        updateResolvConf = true;
-        autoStart = false;
-      };
-      fname2attrs = name: { name = "server-" + name; value = createConfig name; };
-    in builtins.listToAttrs 
-      (lib.lists.forEach [
+    openvpn.servers =
+      let
+        createConfig = name: {
+          config = "config /home/ramak/projects/nixos-config/nixos/src/openvpn/${name}.ovpn";
+          # config = "config ${fname}";
+          updateResolvConf = true;
+          autoStart = false;
+        };
+        fname2attrs = name: {
+          name = "server-" + name;
+          value = createConfig name;
+        };
+      in
+      builtins.listToAttrs (
+        lib.lists.forEach [
           "us-1-protonvpn"
           "nl-1-protonvpn"
           "jp-1-protonvpn"
-        ] fname2attrs);
+        ] fname2attrs
+      );
 
     printing = {
       enable = true;
@@ -131,8 +136,6 @@
       openFirewall = true;
     };
   };
-
-
 
   hardware.sane = {
     enable = true;
@@ -165,27 +168,30 @@
 
   time.timeZone = "Europe/Belgrade";
 
-  fonts.packages = with pkgs; [
-    # noto-fonts
-    ipafont
-    kochi-substitute
-    newcomputermodern
-    hack-font
-    jetbrains-mono
-    # nerd-fonts.hack
-    nerd-fonts.jetbrains-mono
-    # dejavu_fonts
-  ] ++ [ (pkgs.callPackage ./font-handwriting.nix { inherit pkgs; }) ];
+  fonts.packages =
+    with pkgs;
+    [
+      # noto-fonts
+      ipafont
+      kochi-substitute
+      newcomputermodern
+      hack-font
+      jetbrains-mono
+      # nerd-fonts.hack
+      nerd-fonts.jetbrains-mono
+      # dejavu_fonts
+    ]
+    ++ [ (pkgs.callPackage ./font-handwriting.nix { inherit pkgs; }) ];
 
   # programs.adb.enable = true;
 
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 
   systemd.timers."refresh-nps-cache" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "daily";
-        Persistent = true;
+      Persistent = true;
       Unit = "refresh-nps-cache.service";
     };
   };
@@ -213,14 +219,22 @@
   #   "QT_STYLE_OVERRIDE" = pkgs.lib.mkForce "adwaita-dark";
   # };
 
-
   systemd.services."auto" = {
     enable = true;
-    wantedBy = ["multi-user.target"];
-    after = ["graphical-session.target"];
-    before = ["umount.target" "shutdown.target" "reboot.target" "halt.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "graphical-session.target" ];
+    before = [
+      "umount.target"
+      "shutdown.target"
+      "reboot.target"
+      "halt.target"
+    ];
     unitConfig = {
-      RequiresMountsFor = ["/home/ramak/media" "/home/ramak/media/music" "/home/ramak/media/films"];
+      RequiresMountsFor = [
+        "/home/ramak/media"
+        "/home/ramak/media/music"
+        "/home/ramak/media/films"
+      ];
     };
     serviceConfig = {
       Type = "simple";
