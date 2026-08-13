@@ -1,0 +1,84 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            e9:66:16:d6:12:3f:dd:3a:38:8f:53:aa:9b:00:63:15
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=HomeVPN-CA
+        Validity
+            Not Before: Aug 13 13:32:22 2026 GMT
+            Not After : Nov 15 13:32:22 2028 GMT
+        Subject: CN=ramak-laptop
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ac:e7:5d:c8:c2:17:ca:b2:46:e3:6c:a7:64:07:
+                    14:cc:d7:47:70:2e:53:b5:3e:4e:44:92:bd:be:0f:
+                    8c:d2:71:73:c8:51:53:b0:e5:21:3c:78:c6:3b:03:
+                    b0:d4:d6:fd:d4:21:ff:93:35:fc:54:97:8e:99:e1:
+                    59:7b:c8:84:7f:c8:22:bb:c1:a1:65:55:7c:67:ad:
+                    4c:ee:d5:f3:f8:c0:39:8c:ac:fe:3c:9b:a8:69:74:
+                    40:e4:5f:36:07:8e:40:ff:a8:41:a5:9c:64:76:bb:
+                    b0:c6:bb:a1:9b:b8:1e:d8:60:6d:7f:89:38:d2:dc:
+                    63:f5:07:18:a4:d3:97:1a:f1:cd:93:49:03:e9:ec:
+                    04:37:94:7e:69:6e:28:d6:59:18:46:5f:5f:86:76:
+                    d5:c3:7d:c9:61:6c:bc:ae:c5:81:42:c6:81:23:5f:
+                    9d:39:34:1c:eb:6e:23:94:6e:fe:0d:89:bd:34:06:
+                    6b:d2:b3:28:08:dd:0d:ab:0e:3d:1c:71:0f:47:59:
+                    aa:08:c2:d6:f5:27:c1:f7:42:f8:7a:1d:12:cd:0b:
+                    47:74:4b:15:9c:26:57:90:63:db:de:88:2a:22:b3:
+                    20:7d:dd:39:a4:02:8c:d8:6d:33:83:06:7e:2b:3f:
+                    ff:8a:cf:ec:c8:7f:9a:29:2a:92:5f:53:32:1a:5a:
+                    6a:05
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                DD:92:82:B5:9E:BA:95:7C:E4:DF:F4:16:4D:EF:4B:FE:66:9C:B0:D8
+            X509v3 Authority Key Identifier: 
+                keyid:E2:E0:19:5D:A6:C0:A7:BE:A3:0E:E4:9C:A2:41:C4:8D:5D:A7:F1:89
+                DirName:/CN=HomeVPN-CA
+                serial:08:03:42:99:6A:15:83:DC:1D:66:04:E9:62:3A:41:87:9A:1E:52:0D
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        87:8b:7a:73:60:45:c7:11:00:9d:48:d0:7f:c4:01:d0:9f:97:
+        29:73:12:7a:14:03:61:d1:a1:b3:57:c7:19:4d:da:df:f2:ae:
+        62:14:72:c9:a3:64:a7:2f:86:96:73:6b:b8:d0:10:a0:7b:29:
+        43:50:ce:11:b0:21:8a:eb:ba:9e:89:de:27:13:b2:6a:34:ee:
+        15:00:30:3d:37:5b:35:d9:14:00:59:b0:d4:39:9c:0a:15:8f:
+        41:28:6a:db:93:df:26:f2:1c:2e:f6:21:2e:26:5d:1c:b6:b9:
+        77:f6:3b:3c:45:28:4f:28:47:ba:ce:c7:d8:97:f7:d4:05:90:
+        46:95:38:2b:95:fb:23:6b:1a:61:d8:74:2e:47:d6:e3:1d:c3:
+        30:5f:8b:b9:a0:27:74:45:9a:56:fb:43:c7:86:f3:89:3c:95:
+        79:be:a6:a7:e1:54:0c:92:03:fc:5f:1b:99:9f:c5:b9:a8:6e:
+        8d:26:79:c5:58:b2:4d:29:e2:9f:c4:7d:af:b8:82:f3:88:96:
+        38:ba:61:75:de:be:72:70:36:7b:f8:42:93:f9:b2:1d:92:d2:
+        ca:b4:11:7c:d1:d2:d6:ef:1e:0c:28:76:e8:1c:54:67:5e:a4:
+        b5:32:fb:bc:1d:3b:89:b1:ef:15:4f:5d:f3:01:27:5e:cb:2c:
+        60:be:16:db
+-----BEGIN CERTIFICATE-----
+MIIDWTCCAkGgAwIBAgIRAOlmFtYSP906OI9TqpsAYxUwDQYJKoZIhvcNAQELBQAw
+FTETMBEGA1UEAwwKSG9tZVZQTi1DQTAeFw0yNjA4MTMxMzMyMjJaFw0yODExMTUx
+MzMyMjJaMBcxFTATBgNVBAMMDHJhbWFrLWxhcHRvcDCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAKznXcjCF8qyRuNsp2QHFMzXR3AuU7U+TkSSvb4PjNJx
+c8hRU7DlITx4xjsDsNTW/dQh/5M1/FSXjpnhWXvIhH/IIrvBoWVVfGetTO7V8/jA
+OYys/jybqGl0QORfNgeOQP+oQaWcZHa7sMa7oZu4HthgbX+JONLcY/UHGKTTlxrx
+zZNJA+nsBDeUfmluKNZZGEZfX4Z21cN9yWFsvK7FgULGgSNfnTk0HOtuI5Ru/g2J
+vTQGa9KzKAjdDasOPRxxD0dZqgjC1vUnwfdC+HodEs0LR3RLFZwmV5Bj296IKiKz
+IH3dOaQCjNhtM4MGfis//4rP7Mh/mikqkl9TMhpaagUCAwEAAaOBoTCBnjAJBgNV
+HRMEAjAAMB0GA1UdDgQWBBTdkoK1nrqVfOTf9BZN70v+Zpyw2DBQBgNVHSMESTBH
+gBTi4BldpsCnvqMO5JyiQcSNXafxiaEZpBcwFTETMBEGA1UEAwwKSG9tZVZQTi1D
+QYIUCANCmWoVg9wdZgTpYjpBh5oeUg0wEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYD
+VR0PBAQDAgeAMA0GCSqGSIb3DQEBCwUAA4IBAQCHi3pzYEXHEQCdSNB/xAHQn5cp
+cxJ6FANh0aGzV8cZTdrf8q5iFHLJo2SnL4aWc2u40BCgeylDUM4RsCGK67qeid4n
+E7JqNO4VADA9N1s12RQAWbDUOZwKFY9BKGrbk98m8hwu9iEuJl0ctrl39js8RShP
+KEe6zsfYl/fUBZBGlTgrlfsjaxph2HQuR9bjHcMwX4u5oCd0RZpW+0PHhvOJPJV5
+vqan4VQMkgP8XxuZn8W5qG6NJnnFWLJNKeKfxH2vuILziJY4umF13r5ycDZ7+EKT
++bIdktLKtBF80dLW7x4MKHboHFRnXqS1Mvu8HTuJse8VT13zASdeyyxgvhbb
+-----END CERTIFICATE-----

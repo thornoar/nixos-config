@@ -60,14 +60,14 @@
 
 // Shorthands
 
-#let plainstyle(head, ctr, breakable: true, ..args) = thmstyle(
+#let plainstyle(head, ctr: "shared", breakable: true, ..args) = thmstyle(
   ctr,
   head,
   breakable: breakable,
   // inset: (top: 0.1in),
   ..args
 )
-#let statestyle(head, ctr, breakable: false, ..args) = thmstyle(
+#let statestyle(head, ctr: "shared", breakable: false, ..args) = thmstyle(
   ctr,
   head,
   breakable: breakable,
@@ -75,7 +75,7 @@
   // inset: (top: 0.1in),
   ..args
 )
-#let proofstyle(head, ctr, breakable: true, ..args) = thmproof(
+#let proofstyle(head, ctr: "proof", breakable: true, ..args) = thmproof(
   ctr,
   head,
   breakable: breakable,

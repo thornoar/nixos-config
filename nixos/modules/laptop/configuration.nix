@@ -21,6 +21,7 @@
     # light
     brightnessctl
     spice-gtk
+    easyrsa
   ];
 
   services = {

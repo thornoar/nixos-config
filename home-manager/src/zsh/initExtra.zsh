@@ -55,6 +55,7 @@ alias -- adb='HOME="$XDG_DATA_HOME"/android adb'
 export PATH="$PATH:$HOME/media/sandbox/bin:$HOME/.local/share/cargo/bin"
 
 export ARCHVM="192.168.122.167"
+export ARCHSERVER="192.168.0.116"
 export DEBIANVM="192.168.122.127"
 export WIN10VM="192.168.122.61"
 export DESKTOP="192.168.0.28"
