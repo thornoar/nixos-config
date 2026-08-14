@@ -99,7 +99,7 @@
     openvpn.servers =
       let
         createConfig = name: {
-          config = "config /home/ramak/projects/nixos-config/nixos/src/openvpn/${name}.ovpn";
+          config = "config /root/nixos/openvpn/${name}.ovpn";
           # config = "config ${fname}";
           updateResolvConf = true;
           autoStart = false;
@@ -114,8 +114,16 @@
           "us-1-protonvpn"
           "nl-1-protonvpn"
           "jp-1-protonvpn"
+          # "sr-1-home"
         ] fname2attrs
       );
+      # // {
+      #   server-home = {
+      #     config = "config /root/nixos/openvpn/client/home/sr-1-home.conf";
+      #     updateResolvConf = true;
+      #     autoStart = false;
+      #   };
+      # };
 
     printing = {
       enable = true;

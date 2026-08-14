@@ -53,6 +53,7 @@ function getCountryName () {
         "fr") printf "France" ;;
         "ru") printf "Russia" ;;
         "th") printf "Thailand" ;;
+        "sr") printf "Serbia" ;;
         *) printf "%s" "$1" ;;
     esac
 }
@@ -185,22 +186,27 @@ if [[ "connect" =~ ^"$cmd" ]]; then
         if [ "$raw" -eq 0 ]; then
             printf "> Connecting to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
         fi
-        ip_before=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+        # ip_before=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+        ip_before=$(curl icanhazip.com -s)
         sudo systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
         if [ "$raw" -eq 0 ]; then
             printf "> Checking if IP was re-routed:\n"
         fi
         for _ in $(seq 10); do
-            ip_after=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+            # ip_after=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+            ip_after=$(curl icanhazip.com -s)
             if [ "$ip_before" == "$ip_after" ]; then
-                if [ "$raw" -eq 0 ]; then printf "# Not yet...\n"; fi
+                if [ "$raw" -eq 0 ]; then printf "# Still same IP...\n"; fi
+            elif [ -z "$ip_after" ] || [ "$ip_after" == "null" ]; then
+                if [ "$raw" -eq 0 ]; then printf "# Lost connection...\n"; fi
             else
                 if [ "$raw" -eq 0 ]; then
-                    printf "> Connected. Checking internet. \n"
+                    printf "> New IP is %s. Checking internet. \n" "$ip_after"
                 fi
                 unstable="0"
                 for _ in $(seq 3); do
-                    if [ "$(getip public -r)" == "$ip_after" ]; then
+                    # if [ "$(curl ipinfo.io -s | jq ".ip" --raw-output)" == "$ip_after" ]; then
+                    if [ "$(curl icanhazip.com -s)" == "$ip_after" ]; then
                         if [ "$raw" -eq 0 ]; then
                             printf "# Stable...\n"
                         fi
