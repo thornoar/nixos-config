@@ -27,10 +27,10 @@ trap interrupt_handler SIGINT
 
 cmd="$1"
 
-if [[ "private" =~ $cmd ]]; then
+if [[ "local" =~ $cmd ]]; then
     ip=$(ifconfig wlp46s0 | grep -i mask | awk '{print $2}'| cut -f2 -d:)
     if [ "$raw" -eq 0 ]; then
-        printf "# Private IP: \e[33m%s\e[0m.\n" "$ip"
+        printf "# Local IP: \e[33m%s\e[0m.\n" "$ip"
     else
         printf "%s\n" "$ip"
     fi

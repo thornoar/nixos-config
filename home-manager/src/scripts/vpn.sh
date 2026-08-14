@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 
+# Links:
+# https://publicvpnlist.com/
+
 POSITIONAL_ARGS=()
 provider=""
 branch=""
 country=""
 raw=0
+verify=1
 
 function printUsage {
-    printf "usage: vpn [ connect COUNTRY | disconnect | list | status | ip | set-password ]\n"
+    printf "usage: vpn [ connect COUNTRY | disconnect | list | status | ip | clean | log ]\n"
     printf "           [ -b|--branch BRANCH | -p|--provider PROVIDER ]\n"
-    printf "           [ -h|--help | -r|--raw ]\n"
+    printf "           [ -h|--help | -r|--raw | -s|--skip ]\n"
 }
 
 if [ -z "$1" ]; then
@@ -21,21 +25,34 @@ while [[ $# -gt 0 ]]; do
     case $1 in #(((
         -b|--branch) branch="$2"; shift; shift ;;
         -p|--provider) provider="$2"; shift; shift ;;
-        -c|--country) country="$2"; shift; shift ;;
         -r|--raw) raw=1; shift ;;
+        -s|--skip) verify=0; shift ;;
         -h|--help) printUsage; exit 0 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
     esac
 done
 set -- "${POSITIONAL_ARGS[@]}"
+cmd="$1"
+
+if [[ "log" =~ ^"$cmd" ]]; then
+    if test -f /tmp/curvpnlog; then
+        less /tmp/curvpnlog
+    fi
+    exit 0
+fi
+
+if [ "$USER" != "root" ]; then
+    echo "This command must run in privileged mode."
+    exit 1
+fi
 
 function interrupt_handler () {
     if [ "$raw" -eq 0 ]; then printf "\e[31mInterrupted by user.\e[0m\n"; fi
+    disconnectAll
+    cleanFiles
     exit 1
 }
 trap interrupt_handler SIGINT
-
-cmd="$1"
 
 if [ -z "$cmd" ]; then
     if [ "$raw" -eq 0 ]; then printf "! No command given.\n"; fi
@@ -43,7 +60,7 @@ if [ -z "$cmd" ]; then
 fi
 
 function getCountryName () {
-    case "$1" in # ((((((((((
+    case "$1" in #(((((((((((
         "us") printf "USA" ;;
         "nl") printf "Netherlands" ;;
         "jp") printf "Japan" ;;
@@ -54,50 +71,52 @@ function getCountryName () {
         "ru") printf "Russia" ;;
         "th") printf "Thailand" ;;
         "sr") printf "Serbia" ;;
+        "fn") printf "Finland" ;;
         *) printf "%s" "$1" ;;
     esac
 }
 
+function cleanFiles () {
+    file=""
+    if test -f /tmp/curvpnfile; then
+        file="-$(cat /tmp/curvpnfile)"
+    fi
+    rm -f /tmp/curvpnfile /tmp/curvpnpid
+    if test -f /tmp/curvpnlog; then
+        mv /tmp/curvpnlog "/tmp/$(date +"%Y-%m-%d-%H-%M")$file-vpnlog"
+    fi
+}
+
 function serverExists () {
-    systemctl list-unit-files "openvpn-server-$1.service" --quiet >/dev/null
+    test -f "/root/nixos/openvpn-$1.ovpn"
 }
 
 function serverActive () {
-    systemctl is-active "$1" --quiet >/dev/null
+    test -f /tmp/curvpnfile && [ "$(cat /tmp/curvpnfile)" == "$1" ]
 }
 
 function listServersUgly {
-    # output=$(systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}')
-    # grepcountry=""
-    # if [ -n "$country" ]; then
-    #     output=$(echo "$output" | grep "$country")
-    # fi
-    # grepprovider=""
-    # if [ -n "$provider" ]; then
-    #     output=$(echo "$output" | grep "$provider")
-    # fi
-    # grepbranch=""
-    # if [ -n "$branch" ]; then
-    #     output=$(echo "$output" | grep "$branch")
-    # fi
-    # echo "$output"
-    systemctl list-unit-files --quiet | grep "openvpn-server" $grepcountry $grepprovider $grepbranch | awk '{print $1}'
+    find /root/nixos/openvpn -maxdepth 1 -type f -printf "%f\n"
 }
 
 function getCountryBranchProvider () {
-    [[ $1 =~ openvpn-server-([a-z]*)-([0-9]*)-([a-z]*).service ]]
+    [[ $1 =~ ([a-z]*)-([0-9]*)-([a-z]*).ovpn ]]
 }
 
 function configureBranchAndProvider {
+    if [ -z "$country" ]; then
+        printf "! No country specified.\n"
+        exit 1
+    fi
     configurations=()
     if [ -z "$provider" ] || [ -z "$branch" ]; then
         pattern=""
         if [ -z "$branch" ] && [ -z "$provider" ]; then
-            pattern="openvpn-server-$country"
+            pattern="$country"
         elif [ -z "$provider" ]; then
-            pattern="openvpn-server-$country-$branch"
+            pattern="$country-$branch"
         else
-            pattern="openvpn-server-$country-\\([0-9]*\\)-$provider"
+            pattern="$country-\\([0-9]*\\)-$provider"
         fi
 
         found="0"
@@ -113,22 +132,22 @@ function configureBranchAndProvider {
                 fi
                 exit 1
             fi
-        done < <(systemctl list-unit-files --quiet | grep "$pattern" | awk '{print $1}')
+        done < <(find /root/nixos/openvpn -maxdepth 1 -type f -printf "%f\n" | grep "$pattern")
         if [ "$found" -eq 1 ]; then return 0; fi
         if [ "$raw" -eq 0 ]; then
             if [ -z "$branch" ] && [ -z "$provider" ]; then
-                printf "! Country \e[33m\"%s\"\e[0m not supported on any branch.\n" "$(getCountryName "$country")"
+                printf "! Country \e[33m%s\e[0m not supported on any branch.\n" "$(getCountryName "$country")"
             elif [ -z "$provider" ]; then
-                printf "! Country \e[33m\"%s\"\e[0m not supported on branch \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$branch"
+                printf "! Country \e[33m%s\e[0m not supported on branch \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$branch"
             else
-                printf "! Country \e[33m\"%s\"\e[0m not supported by \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$provider"
+                printf "! Country \e[33m%s\e[0m not supported by \e[33m\"%s\"\e[0m.\n" "$(getCountryName "$country")" "$provider"
             fi
         fi
         exit 1
     else
         if ! serverExists "$country-$branch-$provider"; then
             if [ "$raw" -eq 0 ]; then
-                printf "! Country \e[33m\"%s\"\e[0m not supported by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
+                printf "! Country \e[33m%s\e[0m not supported by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
             fi
             exit 1
         fi
@@ -145,129 +164,122 @@ function printServer () {
 }
 
 function listServersPretty {
-    for service in $(listServersUgly); do
-        if serverActive "$service"; then
-            printServer "$service" " (connected)"
+    for file in $(listServersUgly); do
+        if serverActive "$file"; then
+            printServer "$file" " (connected)"
         else
-            printServer "$service" ""
+            printServer "$file" ""
         fi
     done
 }
 
 function disconnectAll () {
-    for service in $(listServersUgly); do
-        if systemctl is-active "$service" --quiet; then
-            sudo systemctl stop "$service" || exit 1
-            if getCountryBranchProvider "$service"; then
-                printf "> Disconnected from \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
-            else
-                printf "> Disconnected from \e[35m%s\e[0m.\n" "$service"
-            fi
+    if test -f /tmp/curvpnfile && test -f /tmp/curvpnpid; then
+        file="$(cat /tmp/curvpnfile)"
+        kill -SIGTERM "$(cat /tmp/curvpnpid)" &> /dev/null
+        if getCountryBranchProvider "$file"; then
+            printf "> Disconnected from \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}"
+        else
+            printf "> Disconnected from \e[35m%s\e[0m.\n" "$file"
         fi
-    done
+    fi
 }
 
 if [[ "connect" =~ ^"$cmd" ]]; then
+    country="$2"
     configureBranchAndProvider "$country"
+    disconnectAll
     for config in "${configurations[@]}"; do
         if [[ $config =~ ([0-9]*)-([a-z]*) ]]; then
             branch="${BASH_REMATCH[1]}"
             provider="${BASH_REMATCH[2]}"
         else continue; fi
-        if serverActive "openvpn-server-$country-$branch-$provider.service"; then
-            if [ "$raw" -eq 0 ]; then
-                printf "! Already connected to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
-            else
-                printf "%s-%s-%s\n" "$country" "$branch" "$provider"
-            fi
-            exit 0
-        fi
-        disconnectAll
+
         if [ "$raw" -eq 0 ]; then
             printf "> Connecting to \e[33m%s\e[0m by \e[33m%s\e[0m on branch \e[33m%s\e[0m.\n" "$(getCountryName "$country")" "$provider" "$branch"
         fi
-        # ip_before=$(curl ipinfo.io -s | jq ".ip" --raw-output)
+
         ip_before=$(curl icanhazip.com -s)
-        sudo systemctl start "openvpn-server-$country-$branch-$provider.service" || exit 1
-        if [ "$raw" -eq 0 ]; then
-            printf "> Checking if IP was re-routed:\n"
-        fi
-        for _ in $(seq 10); do
-            # ip_after=$(curl ipinfo.io -s | jq ".ip" --raw-output)
-            ip_after=$(curl icanhazip.com -s)
-            if [ "$ip_before" == "$ip_after" ]; then
-                if [ "$raw" -eq 0 ]; then printf "# Still same IP...\n"; fi
-            elif [ -z "$ip_after" ] || [ "$ip_after" == "null" ]; then
-                if [ "$raw" -eq 0 ]; then printf "# Lost connection...\n"; fi
-            else
-                if [ "$raw" -eq 0 ]; then
-                    printf "> New IP is %s. Checking internet. \n" "$ip_after"
-                fi
-                unstable="0"
-                for _ in $(seq 3); do
-                    # if [ "$(curl ipinfo.io -s | jq ".ip" --raw-output)" == "$ip_after" ]; then
-                    if [ "$(curl icanhazip.com -s)" == "$ip_after" ]; then
-                        if [ "$raw" -eq 0 ]; then
-                            printf "# Stable...\n"
-                        fi
-                        sleep 0.5
-                    else
-                        unstable="1"
-                    fi
-                done
-                if [ "$unstable" -eq 1 ]; then break; else
-                    if [ "$raw" -eq 0 ]; then
-                        printf "> Internet connection stable.\n"
-                    else
-                        printf "%s-%s-%s\n" "$country" "$branch" "$provider"
-                    fi
-                fi
-                notify-send "VPN connection to $(getCountryName "$country") established"
-                exit 0
+
+        openvpn --config "/root/nixos/openvpn/$country-$branch-$provider.ovpn" > /tmp/curvpnlog &
+        pid="$!"
+        echo "$pid" > /tmp/curvpnpid
+        echo "$country-$branch-$provider.ovpn" > /tmp/curvpnfile
+
+        if [ "$verify" -eq 1 ]; then
+            if [ "$raw" -eq 0 ]; then
+                printf "> Checking if IP was re-routed:\n"
             fi
-            sleep 1.0
-        done
-        sudo systemctl stop "openvpn-server-$country-$branch-$provider.service" || exit 1
-        if [ "$raw" -eq 0 ]; then printf "! There was a problem connecting.\n"; fi
+            for _ in $(seq 10); do
+                ip_after=$(curl icanhazip.com -s)
+                if [ "$ip_before" == "$ip_after" ]; then
+                    if [ "$raw" -eq 0 ]; then printf "# Still same IP...\n"; fi
+                elif [[ "$ip_after" =~ [0-9]+.[0-9]+.[0-9]+.[0-9]+ ]]; then
+                    if [ "$raw" -eq 0 ]; then
+                        printf "> New IP is %s. Checking internet. \n" "$ip_after"
+                    fi
+                    unstable="0"
+                    for _ in $(seq 5); do
+                        if [ "$(curl icanhazip.com -s)" == "$ip_after" ]; then
+                            if [ "$raw" -eq 0 ]; then
+                                printf "# Stable...\n"
+                            fi
+                            sleep 0.5
+                        else
+                            unstable="1"
+                        fi
+                    done
+                    if [ "$unstable" -eq 1 ]; then break; else
+                        if [ "$raw" -eq 0 ]; then
+                            printf "> Internet connection stable.\n"
+                        else
+                            printf "%s-%s-%s\n" "$country" "$branch" "$provider"
+                        fi
+                    fi
+                    exit 0
+                else
+                    if [ "$raw" -eq 0 ]; then printf "# Lost connection...\n"; fi
+                fi
+                sleep 1.0
+            done
+
+            kill -SIGTERM "$pid" &> /dev/null
+            cleanFiles
+
+            if [ "$raw" -eq 0 ]; then printf "! There was a problem connecting.\n"; fi
+        else
+            exit 0
+        fi
     done
     exit 1
 elif [[ "disconnect" =~ ^"$cmd" ]]; then
     disconnectAll
+    cleanFiles
+elif [[ "clean" =~ ^"$cmd" ]]; then
+    cleanFiles
 elif [[ "list" =~ ^"$cmd" ]]; then
     if [ "$raw" -eq 0 ]; then listServersPretty; else listServersUgly; fi
 elif [[ "status" =~ ^"$cmd" ]]; then
-    connected=0
-    for service in $(listServersUgly); do
-        if systemctl is-active "$service" --quiet; then
-            if getCountryBranchProvider "$service"; then
-                if [ "$raw" -eq 0 ]; then
-                    printf "> Connection active in \e[33m%s\e[0m on branch \e[33m%s\e[0m by \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
-                else
-                    printf "%s-%s-%s\n" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
-                fi
+    if test -f /tmp/curvpnfile && test -f /tmp/curvpnpid; then
+        file="$(cat /tmp/curvpnfile)"
+        if [ "$raw" -eq 0 ]; then
+            if getCountryBranchProvider "$file"; then
+                printf "> Connection active in \e[33m%s\e[0m on branch \e[33m%s\e[0m by \e[33m%s\e[0m.\n" "$(getCountryName "${BASH_REMATCH[1]}")" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
             else
-                if [ "$raw" -eq 0 ]; then
-                    printf "> Connection active in \e[35m%s\e[0m.\n" "$service"
-                else
-                    printf "%s\n" "$service"
-                fi
+                printf "> Connection active with file \e[35m%s\e[0m.\n" "$file"
             fi
-            connected=1
-            break
+        else
+            printf "%s\n" "$file"
         fi
-    done
-
-    if [ "$connected" -eq 0 ]; then
+    else
         if [ "$raw" -eq 0 ]; then
             printf "> No connections active.\n"
-        else
-            printf "disconnected\n"
         fi
     fi
 elif [[ "ip" =~ ^"$cmd" ]]; then
-    if [ "$raw" -eq 0 ]; then getip public; else getip public --raw; fi
-elif [[ "set-password" =~ ^"$cmd" ]]; then
-    sudo -s "$(which vpn-change-passwords)"
+    if [ "$raw" -eq 0 ]; then getip public; else curl icanhazip.com; fi
+# elif [[ "set-password" =~ ^"$cmd" ]]; then
+#     sudo -s "$(which vpn-change-passwords)"
 else
     if [ "$raw" -eq 0 ]; then printf "! Unknown command: \e[33m%s\e[0m.\n" "$cmd"; fi
     exit 1
