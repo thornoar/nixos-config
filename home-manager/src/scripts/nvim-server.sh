@@ -8,7 +8,7 @@ rst=0
 all=0
 showhelp=0
 while getopts "fvdlrah" option; do
-    case "$option" in
+    case "$option" in # ((((((((
     f) fast=1 ;;
     v) verbose=1 ;;
     d) delete=1 ;;
@@ -24,7 +24,7 @@ function start {
     pipe="$1"
     nohup nvim --listen "$pipe" --headless > /dev/null 2>&1 0< /dev/null &
     nohup nvim --server "$pipe" --remote-send ":silent bdelete<CR>" > /dev/null 2>&1 0< /dev/null
-    if [ "$verbose" = 1 ]; then
+    if [ "$verbose" == 1 ]; then
         printf "> Created NVIM server at pipe \e[32m%s\e[34m.\e[0m\n" "$pipe"
     fi
 }
