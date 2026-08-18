@@ -90,33 +90,6 @@
           ];
         };
 
-        desktop = lib.nixosSystem {
-          system = platform;
-          inherit pkgs;
-          modules = [
-            ./nixos/configuration.nix
-            ./nixos/modules/desktop/configuration.nix
-            ./nixos/modules/desktop/hardware-configuration.nix
-            { _module.args = { sysname = "desktop"; inherit meta; }; }
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                users.ramak = { ... }: {
-                  imports = [
-                    ./home-manager/home.nix
-                    ./home-manager/modules/desktop.nix
-                    ./home-manager/modules/options/declaration.nix
-                    ./home-manager/modules/options/desktop.nix
-                  ];
-                };
-                extraSpecialArgs = { inherit pkgs; };
-              };
-            }
-            inputs.nix-index-database.nixosModules.nix-index
-          ];
-        };
-
         minimal = lib.nixosSystem {
           system = platform;
           modules = [

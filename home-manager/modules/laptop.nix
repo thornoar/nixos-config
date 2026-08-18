@@ -1,15 +1,14 @@
 { config, pkgs, lib, ... }:
 
 let
-  ts = builtins.toString;
   bc = lib.strings.removePrefix "#";
   clr = config.colors;
 in {
   home.pointerCursor.size = 16;
 
   home.packages = (with pkgs; [
-    graphwar
-    playerctl
+    # graphwar
+    # playerctl
     imagemagick
     graphicsmagick
     ffmpeg
@@ -17,7 +16,7 @@ in {
     inkscape
     dict
     discord
-    # whatsie
+    whatsie
     unstable.telegram-desktop
     # obs-studio
     zathura
@@ -25,18 +24,18 @@ in {
     tagainijisho
     xournalpp
     maestral
-    networkmanager-openvpn
+    # networkmanager-openvpn
     # sc-im
     mpv
-    gimp3
+    # gimp3
     pdftk
     # adbfs-rootless
     alsa-utils
-    pulseaudio
+    # pulseaudio
     acpi
-    lm_sensors
-    cl-wordle
-    graphviz
+    # lm_sensors
+    # cl-wordle
+    # graphviz
     libxkbcommon
     foot
     nps
@@ -45,7 +44,7 @@ in {
     wev
     flac
     # lrcget
-    libsixel
+    # libsixel
     net-tools
     python312Packages.syncedlyrics
     swayimg
@@ -53,10 +52,14 @@ in {
     poppler-utils
     # armips
     # qtspim
-    xspim
+    # xspim
     # mars-mips
     libreoffice-still
     android-tools
+    cheat
+    mpd
+    unstable.rmpc
+    onedrive
   ]);
 
   dconf.settings = {
@@ -102,7 +105,6 @@ in {
         fcitx5-mozc
         fcitx5-gtk
       ];
-      # themes.dark.theme = builtins.readFile ../src/fcitx5/theme.conf;
     };
   };
 
@@ -136,7 +138,7 @@ in {
     enable = true;
     settings.global = {
       origin = "top-center";
-      offset = "${builtins.toString (config.window.windowSpaceOuter + 10)}x${builtins.toString (config.window.windowSpaceOuter + 10)}";
+      offset = "${toString (config.window.windowSpaceOuter + 10)}x${toString (config.window.windowSpaceOuter + 10)}";
       progress_bar = false;
       frame_width = 1;
       gap_size = 2;
@@ -210,7 +212,7 @@ in {
 
     [font]
     name = ${config.misc.systemFont}
-    size = ${builtins.toString config.window.fontsize}
+    size = ${toString config.window.fontsize}
     color = #00000000
     shadow = #00000000
     background = #00000000
@@ -226,7 +228,7 @@ in {
   # Tofi configuration
   xdg.configFile."tofi/config".text = ''
     font = "${config.misc.systemFont}"
-    font-size = ${ts config.window.fontsize}
+    font-size = ${toString config.window.fontsize}
     text-color = ${clr.primary}
     prompt-color =${clr.primary} 
     placeholder-color = ${clr.bg3}
@@ -236,7 +238,7 @@ in {
     selection-background = ${clr.bg0}
     selection-match-color = ${clr.magenta0}
     width = ${
-      ts
+      toString
       (config.window.widthPixels / 2 - 2 * config.window.windowSpaceOuter)
     }
     height = 50%
@@ -245,31 +247,31 @@ in {
     outline-color =${clr.bg0} 
     border-width = 1
     border-color =${clr.primary} 
-    corner-radius = ${ts config.window.rounding}
-    # padding-top = ${ts (config.window.windowSpaceOuter / 2)}
-    # padding-bottom = ${ts (config.window.windowSpaceOuter / 2)}
-    # padding-left = ${ts config.window.windowSpaceOuter}
-    # padding-right = ${ts config.window.windowSpaceOuter}
+    corner-radius = ${toString config.window.rounding}
+    # padding-top = ${toString (config.window.windowSpaceOuter / 2)}
+    # padding-bottom = ${toString (config.window.windowSpaceOuter / 2)}
+    # padding-left = ${toString config.window.windowSpaceOuter}
+    # padding-right = ${toString config.window.windowSpaceOuter}
     padding-top = 5
     padding-bottom = 0
     padding-left = 10
     padding-right = 10
-    margin-top = ${ts config.window.windowSpaceOuter}
+    margin-top = ${toString config.window.windowSpaceOuter}
     margin-bottom = 0
-    margin-left = ${ts config.window.windowSpaceOuter}
-    margin-right = ${ts config.window.windowSpaceOuter}
+    margin-left = ${toString config.window.windowSpaceOuter}
+    margin-right = ${toString config.window.windowSpaceOuter}
 
   '' + builtins.readFile ../src/tofi.conf;
 
   # Foot configuration
   xdg.configFile."foot/foot.ini" = config.util.dotFileMut "foot/foot.ini";
   xdg.configFile."foot/share.ini".text = ''
-    font=${config.misc.systemFont}:size=${ts config.window.fontsize}, Noto Color Emoji
+    font=${config.misc.systemFont}:size=${toString config.window.fontsize}, Noto Color Emoji
 
-    pad=${ts config.window.terminalPaddingX}x${ts config.window.terminalPaddingY}
+    pad=${toString config.window.terminalPaddingX}x${toString config.window.terminalPaddingY}
 
     [colors-dark]
-    alpha=${ts config.window.terminalOpacity}
+    alpha=${toString config.window.terminalOpacity}
     alpha-mode=default # Can be `default`, `matching` or `all`
     background=${bc clr.bg0}
     foreground=${bc clr.primary}
@@ -333,8 +335,8 @@ in {
   # Waybar configuration
   xdg.configFile."waybar/shared.css".text = ''
     * {
-        font-size: ${ts config.window.fontsizeWaybar}pt;
-        border-radius: ${ts config.window.rounding}px;
+        font-size: ${toString config.window.fontsizeWaybar}pt;
+        border-radius: ${toString config.window.rounding}px;
         font-family: "${config.misc.systemFont}";
     }
   '';
@@ -343,10 +345,10 @@ in {
   xdg.configFile."waybar/config".text = ''
     {
         "layer": "top",
-        "margin-top": ${ts config.window.windowSpaceOuter},
+        "margin-top": ${toString config.window.windowSpaceOuter},
         "margin-bottom": 0,
-        "margin-left": ${ts config.window.windowSpaceOuter},
-        "margin-right": ${ts config.window.windowSpaceOuter},
+        "margin-left": ${toString config.window.windowSpaceOuter},
+        "margin-right": ${toString config.window.windowSpaceOuter},
         "layer": "top",
         "spacing": 0,
         "height": 24,
@@ -432,9 +434,9 @@ in {
   xdg.configFile."fcitx5/conf/classicui.conf".text = ''
     Vertical Candidate List=False
     WheelForPaging=True
-    Font="${config.misc.systemFont} ${ts config.window.fontsize}"
-    MenuFont="${config.misc.systemFont} ${ts config.window.fontsize}"
-    TrayFont="${config.misc.systemFont} Bold ${ts config.window.fontsize}"
+    Font="${config.misc.systemFont} ${toString config.window.fontsize}"
+    MenuFont="${config.misc.systemFont} ${toString config.window.fontsize}"
+    TrayFont="${config.misc.systemFont} Bold ${toString config.window.fontsize}"
     TrayOutlineColor=${clr.bg0}
     TrayTextColor=${clr.primary}
     PreferTextIcon=False

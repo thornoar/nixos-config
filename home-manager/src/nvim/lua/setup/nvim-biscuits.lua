@@ -1,9 +1,9 @@
 return {
     "code-biscuits/nvim-biscuits",
-    requires = {
-        "nvim-treesitter/nvim-treesitter",
-        -- run = ":TSUpdate"
-    },
+    -- requires = {
+    --     "nvim-treesitter/nvim-treesitter",
+    --     -- run = ":TSUpdate"
+    -- },
     config = function ()
         require("nvim-biscuits").setup({
             toggle_keybind = "<C-b>",

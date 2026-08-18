@@ -98,7 +98,7 @@ require("lazy").setup({
     require("setup.ollama"),
     require("setup.haskell-tools"),
     require("setup.twilight"),
-    require("setup.nvim-biscuits"),
+    -- require("setup.nvim-biscuits"),
     require("setup.neoscroll"),
     require("setup.mini"),
     require("setup.luasnip"),

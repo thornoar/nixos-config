@@ -18,6 +18,7 @@
       "kvm"
       "scanner"
       "lp"
+      "ollama"
       # "spice"
     ];
     homeMode = "0711";

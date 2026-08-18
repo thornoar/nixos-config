@@ -94,37 +94,7 @@
     ollama = {
       package = pkgs.unstable.ollama-cuda;
       enable = true;
-      # acceleration = "cuda";
     };
-
-    # openvpn.servers =
-    #   let
-    #     createConfig = name: {
-    #       config = "config /root/nixos/openvpn/${name}.ovpn";
-    #       # config = "config ${fname}";
-    #       updateResolvConf = true;
-    #       autoStart = false;
-    #     };
-    #     fname2attrs = name: {
-    #       name = "server-" + name;
-    #       value = createConfig name;
-    #     };
-    #   in
-    #   builtins.listToAttrs (
-    #     lib.lists.forEach [
-    #       "us-1-protonvpn"
-    #       "nl-1-protonvpn"
-    #       "jp-1-protonvpn"
-    #       # "sr-1-home"
-    #     ] fname2attrs
-    #   );
-      # // {
-      #   server-home = {
-      #     config = "config /root/nixos/openvpn/client/home/sr-1-home.conf";
-      #     updateResolvConf = true;
-      #     autoStart = false;
-      #   };
-      # };
 
     printing = {
       enable = true;
@@ -155,15 +125,6 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
-  # security.wrappers.spice-client-glib-usb-acl-helper = {
-  #   source = "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
-  #   owner = "nixos";
-  # };
-
-  # nixpkgs.config = {
-  #   pulseaudio = true;
-  #   allowUnfree = true;
-  # };
 
   programs = {
     steam = {
@@ -223,10 +184,6 @@
   systemd.user.extraConfig = ''
     DefaultTimeoutStopSec=5s
   '';
-
-  # environment.variables = {
-  #   "QT_STYLE_OVERRIDE" = pkgs.lib.mkForce "adwaita-dark";
-  # };
 
   systemd.services."auto" = {
     enable = true;

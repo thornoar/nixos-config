@@ -51,13 +51,13 @@
       (lib.filesystem.listFilesRecursive ../src/typst-libraries)
       (filename:
         let
-          strname = builtins.toString filename;
+          strname = toString filename;
           last = lib.lists.last (lib.strings.splitString "/" strname);
           base = lib.lists.head (lib.strings.splitString "." last);
         in [
           {
             name = "typst/packages/local/" + base + "/0.0.0/main.typ";
-            value = config.util.dotFileMut ("typst-libraries/" + builtins.baseNameOf filename);
+            value = config.util.dotFileMut ("typst-libraries/" + baseNameOf filename);
           }
           {
             name = "typst/packages/local/" + base + "/0.0.0/typst.toml";
@@ -121,7 +121,7 @@
       mutagen
       requests
       beautifulsoup4
-      # manim
+      manim
       # manim-slides
     ]))
     sage
@@ -158,11 +158,11 @@
     glibc.static
     cmake
     lld
-    llvmPackages.bintools-unwrapped
+    # llvmPackages.bintools-unwrapped
 
     # Lua
     lua5_1
-    luarocks
+    # luarocks
 
     # # Go
     # go
@@ -188,9 +188,9 @@
     # clojure
 
     # Scala
-    scala
-    scala-cli
-    sbt
+    # scala
+    # scala-cli
+    # sbt
 
     # Node packages
 

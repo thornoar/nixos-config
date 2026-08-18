@@ -5,13 +5,11 @@
     fastfetch
     tmux
     htop
-    cheat
     broot
-    mpd
-    unstable.rmpc
     libqalculate
     caligula
-    onedrive
+    speedtest-cli
+    traceroute
   ];
 
   home.preferXdgDirectories = true;
@@ -36,7 +34,7 @@
   };
 
   xdg.configFile."current-user-packages".text =
-    let packages = builtins.map (p: "${p.name}") config.home.packages;
+    let packages = map (p: "${p.name}") config.home.packages;
         sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
      in builtins.concatStringsSep "\n" sortedUnique;
 
@@ -217,11 +215,11 @@
             lib.strings.head (
               lib.strings.splitString "." (
                 lib.lists.last
-                (lib.strings.splitString "/" (builtins.toString filename))
+                (lib.strings.splitString "/" (toString filename))
               )
             )
           );
-          value = config.util.dotFileMut ("scripts/" + builtins.baseNameOf filename);
+          value = config.util.dotFileMut ("scripts/" + baseNameOf filename);
         }
       )
   );
