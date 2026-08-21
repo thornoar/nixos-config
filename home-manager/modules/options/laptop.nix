@@ -21,7 +21,7 @@
   };
 
   wallpaper = lib.mkForce {
-    dir = "Yuseiboushi";
+    dir = "Arcane";
     gamma = 0.9;
     contrast = 1.0;
   };

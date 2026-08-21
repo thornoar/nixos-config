@@ -156,6 +156,7 @@ binds {
     Mod+C { spawn-sh "niri-hack scratch T"; }
     Mod+V { spawn-sh "niri-hack scratch M"; }
     Mod+Slash { spawn-sh "niri-hack scratch M"; }
+    Mod+Period { spawn-sh "niri-hack scratch M"; }
     Mod+S { spawn-sh "niri-hack scratch S"; }
     Mod+Q { spawn-sh "niri-hack scratch Q"; }
 
@@ -167,9 +168,9 @@ binds {
     Mod+Shift+End        allow-when-locked=true { spawn "amixer" "sset" "Master" "toggle"; }
 
     // General playback controls
-    Mod+Ctrl+Space { spawn "playerctl" "play-pause"; }
-    Mod+Ctrl+Shift+Down { spawn "playerctl" "next"; }
-    Mod+Ctrl+Shift+Up { spawn "playerctl" "previous"; }
+    // Mod+Ctrl+Space { spawn "playerctl" "play-pause"; }
+    // Mod+Ctrl+Shift+Down { spawn "playerctl" "next"; }
+    // Mod+Ctrl+Shift+Up { spawn "playerctl" "previous"; }
 
     // Local playback control
     Mod+Space { spawn "rmpc" "togglepause"; }

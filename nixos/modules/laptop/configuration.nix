@@ -92,7 +92,7 @@
     };
 
     ollama = {
-      package = pkgs.unstable.ollama-cuda;
+      package = pkgs.ollama-cuda;
       enable = true;
     };
 
