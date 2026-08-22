@@ -3,10 +3,10 @@ return {
     dependencies = {
         {
           "nvim-treesitter/nvim-treesitter-textobjects",
-          branch = "main",
+          branch = "v0.10.0",
         },
     },
-    branch = "main",
+    branch = "v0.10.0",
     build = ":TSUpdate",
     config = function ()
         require("nvim-treesitter").setup({

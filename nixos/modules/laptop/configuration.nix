@@ -133,7 +133,26 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
+
     gamemode.enable = true;
+
+    msmtp = {
+      enable = true;
+      setSendmail = true;
+      defaults = {
+        auth = true;
+        port = 587;
+        tls = true;
+        tls_starttls = true;
+      };
+      accounts.default = rec {
+        host = "smtp.gmail.com";
+        port = 587;
+        user = "r.a.maksimovich@gmail.com";
+        from = user;
+        passwordeval = "cat /etc/nixos/secrets/msmtp-gmail-password";
+      };
+    };
   };
 
   time.timeZone = "Europe/Belgrade";

@@ -17,6 +17,7 @@ in {
     dict
     discord
     whatsie
+    signal-desktop
     unstable.telegram-desktop
     # obs-studio
     zathura
@@ -48,7 +49,7 @@ in {
     net-tools
     python312Packages.syncedlyrics
     swayimg
-    unstable.yt-dlp
+    # unstable.yt-dlp
     poppler-utils
     # armips
     # qtspim
@@ -60,6 +61,7 @@ in {
     mpd
     unstable.rmpc
     onedrive
+    mailutils
   ]);
 
   dconf.settings = {
