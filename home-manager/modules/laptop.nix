@@ -32,7 +32,7 @@ in {
     pdftk
     # adbfs-rootless
     alsa-utils
-    # pulseaudio
+    pulseaudio
     acpi
     # lm_sensors
     # cl-wordle
