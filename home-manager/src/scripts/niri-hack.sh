@@ -3,7 +3,7 @@
 cmd="$1"
 
 if [ "$cmd" = "scratch" ]; then
-    cur_wsp_name="$(niri msg -j workspaces | jq -r '.[] | select(.is_active == true).name')"
+    cur_wsp_name="$(niri msg -j workspaces | jq -r '.[] | select(.is_active == true and .output == "eDP-1").name')"
     if [ "$cur_wsp_name" = "$2" ]; then
         niri msg action focus-workspace "$(cat /tmp/wsphook)"
     else

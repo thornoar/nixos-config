@@ -3,10 +3,10 @@ return {
     dependencies = {
         {
           "nvim-treesitter/nvim-treesitter-textobjects",
-          branch = "v0.10.0",
+          branch = "main",
         },
     },
-    branch = "v0.10.0",
+    branch = "main",
     build = ":TSUpdate",
     config = function ()
         require("nvim-treesitter").setup({
@@ -21,7 +21,7 @@ return {
                 "typst", "html", "css",
                 "yaml", "latex"
             },
-            highlight = { enable = true },
+            highlight = { enable = false },
             indent = { enable = false },
             incremental_selection = {
                 enable = true,

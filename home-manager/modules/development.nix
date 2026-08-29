@@ -4,11 +4,12 @@
   programs.vim.enable = true;
   programs.neovim = {
     enable = true;
+    # package = pkgs.unstable.neovim;
     withPython3 = true;
     withRuby = true;
     extraPython3Packages = ps: with ps; [ sympy pynvim ];
     extraPackages = with pkgs; [
-      tree-sitter
+      # tree-sitter
       ripgrep
       fd
       haskellPackages.fast-tags
@@ -22,7 +23,7 @@
       rust-analyzer
       # java-language-server
       # clojure-lsp
-      metals
+      # metals
       typescript-language-server
       bash-language-server
       asm-lsp
@@ -31,7 +32,6 @@
   };
   xdg.configFile."nvim/ftdetect" = config.util.dotFileMut "nvim/ftdetect";
   xdg.configFile."nvim/syntax" = config.util.dotFileMut "nvim/syntax";
-  # xdg.configFile."nvim/UltiSnips" = config.util.dotFileMut "nvim/UltiSnips";
   xdg.configFile."nvim/snippets" = config.util.dotFileMut "nvim/snippets";
   xdg.configFile."nvim/after" = config.util.dotFileMut "nvim/after";
   xdg.configFile."nvim/spell" = config.util.dotFileMut "nvim/spell";

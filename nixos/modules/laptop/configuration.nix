@@ -155,7 +155,7 @@
     };
   };
 
-  time.timeZone = "Europe/Belgrade";
+  time.timeZone = "Asia/Hong_Kong";
 
   fonts.packages =
     with pkgs;

@@ -10,6 +10,7 @@
     wpaperd
     tofi
     wl-clipboard
+    wl-mirror
     warpd
     waybar
     xwayland-satellite

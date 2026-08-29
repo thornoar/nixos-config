@@ -91,7 +91,7 @@ require("lazy").setup({
     require("setup.copilot"),
     require("setup.ultimate-autopair"),
     require("setup.ibl"),
-    require("setup.treesitter"),
+    -- require("setup.treesitter"),
     require("setup.lsp"),
     require("setup.cmp"),
     require("setup.neodev"),

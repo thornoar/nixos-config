@@ -45,6 +45,16 @@ output "eDP-1" {
     position x=0 y=0
 }
 
+output "HDMI-A-1" {
+    mode "1920x1080"
+
+    // scale 2
+
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+    position x=0 y=0
+}
+
 layout {
     center-focused-column "never"
 
@@ -229,6 +239,8 @@ binds {
     // Mod+Page_Up      { spawn "niri-hack" "prev-wsp"; }
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up      { focus-workspace-up; }
+    Mod+Ctrl+Page_Down      { focus-monitor-left; }
+    Mod+Ctrl+Page_Up      { focus-monitor-right; }
     Mod+Alt+Page_Down { move-column-to-workspace-down; }
     Mod+Alt+Page_Up   { move-column-to-workspace-up; }
     Mod+Shift+Alt+Page_Down { move-workspace-down; }
