@@ -276,7 +276,7 @@ in {
       };
     };
     profiles.laptop-clean = baseProfile // {
-      id = 3;
+      id = 1;
       name = "laptop-clean";
       isDefault = false;
       settings = baseSettings // {

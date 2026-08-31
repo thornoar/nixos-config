@@ -42,13 +42,13 @@
 
   programs = { home-manager = { enable = true; }; };
 
-  # Bat
-  programs.bat = {
-    enable = true;
-    extraPackages = with pkgs.bat-extras; [
-      batman
-    ];
-  };
+  # # Bat
+  # programs.bat = {
+  #   enable = true;
+  #   extraPackages = with pkgs.bat-extras; [
+  #     batman
+  #   ];
+  # };
 
   # zsh configuration
   programs.zsh = {

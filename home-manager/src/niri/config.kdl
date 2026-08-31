@@ -96,6 +96,7 @@ window-rule {
     match app-id="firefox"
     match app-id="org.telegram.desktop"
     match app-id="discord"
+    match app-id="com.ktechpit.whatsie"
     default-column-width { proportion 1.0; }
 }
 

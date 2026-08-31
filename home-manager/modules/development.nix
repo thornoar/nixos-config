@@ -116,23 +116,23 @@
       ipython
       sympy
       numpy
-      ollama
-      openai
-      mutagen
-      requests
-      beautifulsoup4
+      # ollama
+      # openai
+      # mutagen
+      # requests
+      # beautifulsoup4
       manim
       # manim-slides
     ]))
     sage
     # manim
 
-    # R
-    (rWrapper.override {
-      packages = with rPackages; [
-        languageserver ggplot2 dplyr xts pracma latex2exp
-      ];
-    })
+    # # R
+    # (rWrapper.override {
+    #   packages = with rPackages; [
+    #     languageserver ggplot2 dplyr xts pracma latex2exp
+    #   ];
+    # })
 
     # Haskell
     (haskellPackages.ghcWithPackages (hspkgs: with hspkgs; [
@@ -206,12 +206,12 @@
     nvd
 
     # Proof assistants
-    coq
+    # coq
     # agda
     lean
 
     # Ocaml
-    ocaml
+    # ocaml
 
     # Other development tools
     libffi
@@ -232,6 +232,7 @@
     cloc
     bc
     zlib
+    gdb
     # github-copilot-cli
 
     codex

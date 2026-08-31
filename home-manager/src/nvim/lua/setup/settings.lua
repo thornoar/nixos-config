@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
-vim.g.typst_embedded_languages = { "haskell", "c", "java" }
+-- vim.g.typst_embedded_languages = { "haskell", "c", "java" }
 
 local autosave = true
 
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         end
         if ft == "tex" then
             vim.o.commentstring = "%%s"
-            vim.o.textwidth = 70
+            -- vim.o.textwidth = 70
         end
 
         -- Tab settings
@@ -95,14 +95,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.tabstop = 2
             vim.o.shiftwidth = 2
             vim.o.softtabstop = 2
-            vim.opt.spell = false
-            vim.o.wrap = false
         else
             vim.o.tabstop = 4
             vim.o.shiftwidth = 4
             vim.o.softtabstop = 4
-            vim.opt.spell = false
-            vim.o.wrap = false
         end
 
         -- Spell settings
@@ -116,6 +112,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.wrap = true
             vim.opt.spell = true
             vim.opt.spelllang = { "en", "ru" }
+        else
+            vim.o.wrap = false
+            vim.opt.spell = false
         end
 
         -- Autosave settings

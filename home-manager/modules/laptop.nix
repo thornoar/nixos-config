@@ -13,12 +13,12 @@ in {
     graphicsmagick
     ffmpeg
     transmission_4
-    inkscape
+    # inkscape
     dict
     discord
     whatsie
     signal-desktop
-    unstable.telegram-desktop
+    telegram-desktop
     # obs-studio
     zathura
     libnotify
