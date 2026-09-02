@@ -3,6 +3,16 @@
 let
   bookmarks = [
     {
+      name = "dg | Differential Geometry";
+      url = "https://www.math.hkust.edu.hk/~mafong/math4223/";
+      keyword = "dg";
+    }
+    {
+      name = "oc | Open Cantonese";
+      url = "https://opencantonese.org/books/cantonese-life-1";
+      keyword = "oc";
+    }
+    {
       name = "gt | Google Translate";
       url = "https://translate.google.com/?sl=en&tl=ru&op=translate";
       keyword = "gt";

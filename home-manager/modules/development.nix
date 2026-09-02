@@ -90,7 +90,7 @@
   home.file.".Rprofile" = config.util.dotFileMut "Rprofile";
 
   # GHCi configuration
-  xdg.configFile.".ghci" = config.util.dotFileMut "ghci";
+  home.file.".ghci" = config.util.dotFileMut "ghci";
 
   xdg.configFile."cabal/config" = config.util.dotFileMut "cabal/config";
 
