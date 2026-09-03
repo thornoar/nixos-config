@@ -190,13 +190,15 @@ binds {
     Mod+Shift+Down { spawn "rmpc" "next"; }
     Mod+Shift+Up { spawn "rmpc" "prev"; }
     Mod+Shift+Right { spawn "rmpc" "seek" "+5"; }
+    Mod+Ctrl+Shift+Right { spawn "rmpc" "seek" "+15"; }
     Mod+Shift+Left { spawn "rmpc" "seek" "-5"; }
+    Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
     Mod+Shift+S { spawn "rmpc" "next"; }
     Mod+Shift+W { spawn "rmpc" "prev"; }
     Mod+Shift+D { spawn "rmpc" "seek" "+5"; }
+    Mod+Ctrl+Shift+D { spawn "rmpc" "seek" "+15"; }
     Mod+Shift+A { spawn "rmpc" "seek" "-5"; }
-    Mod+Ctrl+Shift+Right { spawn "rmpc" "seek" "+15"; }
-    Mod+Ctrl+Shift+Left { spawn "rmpc" "seek" "-15"; }
+    Mod+Ctrl+Shift+A { spawn "rmpc" "seek" "-15"; }
     Mod+Shift+Delete { spawn "rmpc" "clear"; }
     Mod+Shift+Backslash { spawn "rmpc" "clear"; }
     Mod+Shift+Alt+Tab { spawn-sh "rmpc clear; rmpc addrandom album 1; rmpc single off; rmpc play"; }
