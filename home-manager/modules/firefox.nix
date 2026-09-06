@@ -3,6 +3,11 @@
 let
   bookmarks = [
     {
+      name = "fr | Sousou no Frieren Raw";
+      url = "https://soraraw.com/manga/frieren-frieren-at-the-funeral-sousou-no-furii-ren-sousou-no-frieren-6924";
+      keyword = "fr";
+    }
+    {
       name = "dg | Differential Geometry";
       url = "https://www.math.hkust.edu.hk/~mafong/math4223/";
       keyword = "dg";
@@ -241,7 +246,7 @@ let
         color: ${config.colors.white2} !important;
     }
     * {
-      border-radius: ${builtins.toString config.window.rounding} !important;
+      border-radius: ${toString config.window.rounding} !important;
       -moz-window-shadow: none !important;
     }
   '';
