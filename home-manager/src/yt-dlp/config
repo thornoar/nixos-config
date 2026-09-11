@@ -1,3 +1,4 @@
 --embed-thumbnail
 --embed-metadata
 --output "~/media/youtube/[%(id)s] %(uploader)s - %(title)s.%(ext)s"
+--js-runtimes node
