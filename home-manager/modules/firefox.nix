@@ -29,7 +29,7 @@ let
     }
     {
       name = "lrc | Lyrics Sync";
-      url = "https://mp3apps.net/appfiles/lrcfile/LyricsFileCreator.html";
+      url = "https://lrc.seinopsys.dev/";
       keyword = "lrc";
     }
     {
