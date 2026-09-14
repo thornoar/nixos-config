@@ -18,7 +18,7 @@
     status_update_interval_ms: 1000,
     select_current_song_on_change: true,
     album_art: (
-        method: None,
+        method: Sixel,
     ),
     keybinds: (
         clear: true,
@@ -99,7 +99,39 @@
     tabs: [
         (
             name: "Queue",
-            pane: Pane(Queue),
+            pane: Split(
+                direction: Horizontal,
+                panes: [
+                    (
+                        size: "65%",
+                        pane: Pane(Queue)
+                    ),
+                    (
+                        size: "35%",
+                        pane: Split(
+                            direction: Vertical,
+                            panes: [
+                                (
+                                    size: "50%",
+                                    pane: Pane(AlbumArt)
+                                ),
+                                (
+                                    size: "1",
+                                    pane: Pane(Empty())
+                                ),
+                                (
+                                    size: "50%",
+                                    pane: Pane(Lyrics)
+                                ),
+                                (
+                                    size: "1",
+                                    pane: Pane(Empty())
+                                ),
+                            ]
+                        )
+                    )
+                ]
+            )
         ),
         (
             name: "Directories",
@@ -112,10 +144,6 @@
         (
             name: "Search",
             pane: Pane(Search),
-        ),
-        (
-            name: "Lyrics",
-            pane: Pane(Lyrics),
         ),
     ],
 )

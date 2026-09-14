@@ -64,7 +64,7 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-repeat",
     "tpope/vim-fugitive",
-    "sagarrakshe/toggle-bool",
+    -- "sagarrakshe/toggle-bool",
     "farmergreg/vim-lastplace",
     -- "sirver/ultisnips",
     "neovimhaskell/haskell-vim",
@@ -102,6 +102,7 @@ require("lazy").setup({
     require("setup.neoscroll"),
     require("setup.mini"),
     require("setup.luasnip"),
+    require("setup.boolean-toggle"),
     -- require("setup.codecompanion"),
 }, lazy_config)
 
