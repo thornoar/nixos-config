@@ -161,7 +161,7 @@ binds {
     Mod+Shift+Return { spawn "switch-port"; }
     Mod+Ctrl+B { spawn "firefox"; }
     Mod+B { spawn "pkill" "-USR1" "waybar"; }
-    Super+Ctrl+A { spawn "swaylock"; }
+    Mod+Ctrl+A { spawn "swaylock"; }
 
     // Scratchpads
     Mod+C { spawn-sh "niri-hack scratch T"; }
@@ -205,14 +205,14 @@ binds {
     Mod+Shift+Tab { spawn-sh "rmpc clear; rmpc load \"$(ls $MEDIA/music/Playlists | shuf -n 1 | sed 's/\\..*//g')\"; rmpc single off; rmpc play"; }
 
     // Example brightness key mappings for brightnessctl.
-    Mod+Ctrl+Period allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
-    Mod+Ctrl+Comma allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+    Mod+Ctrl+Apostrophe allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
+    Mod+Ctrl+Semicolon allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
     Mod+Ctrl+C allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
     Mod+Ctrl+X allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
-    Mod+Alt+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "1+"; }
-    Mod+Alt+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "1-"; }
-    Mod+Ctrl+Shift+Period allow-when-locked=true { spawn "brightnessctl" "s" "100%"; }
-    Mod+Ctrl+Shift+Comma allow-when-locked=true { spawn "brightnessctl" "s" "1"; }
+    Mod+Alt+Shift+Apostrophe allow-when-locked=true { spawn "brightnessctl" "s" "1+"; }
+    Mod+Alt+Shift+Semicolon allow-when-locked=true { spawn "brightnessctl" "s" "1-"; }
+    Mod+Ctrl+Shift+Apostrophe allow-when-locked=true { spawn "brightnessctl" "s" "100%"; }
+    Mod+Ctrl+Shift+Semicolon allow-when-locked=true { spawn "brightnessctl" "s" "1"; }
 
     Mod+Escape repeat=false { toggle-overview; }
 
@@ -267,8 +267,8 @@ binds {
 
     // Mod+Shift+Tab { focus-workspace-previous; }
 
-    Mod+Ctrl+Left  { consume-or-expel-window-left; }
-    Mod+Ctrl+Right { consume-or-expel-window-right; }
+    Mod+Alt+Shift+Left  { consume-or-expel-window-left; }
+    Mod+Alt+Shift+Right { consume-or-expel-window-right; }
 
     // Mod+Backslash { spawn "niri-hack" "seq" "switch-preset-column-width" "focus-column-left"; }
     Mod+Backslash { switch-preset-column-width; }
@@ -289,8 +289,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+5%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+Shift+V { toggle-window-floating; }
-    Mod+Ctrl+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+F { toggle-window-floating; }
+    Mod+Ctrl+F { switch-focus-between-floating-and-tiling; }
 
     Mod+Ctrl+Home { toggle-column-tabbed-display; }
 

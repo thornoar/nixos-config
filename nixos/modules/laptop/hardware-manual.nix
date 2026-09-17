@@ -28,7 +28,7 @@
   };
 
   fileSystems."/home/ramak/media" = {
-    device = "/dev/disk/by-uuid/aa543ce3-5cbd-4251-a01c-59ebe4a97f92";
+    device = "/dev/disk/by-uuid/6bebfc06-9f08-45ca-b015-5d889dc7fed0";
     fsType = "ext4";
     options = [ "nofail" "rw" "user" "auto" "exec" ];
   };
