@@ -11,7 +11,7 @@ in {
     # playerctl
     imagemagick
     graphicsmagick
-    ffmpeg
+    unstable.ffmpeg
     transmission_4
     # inkscape
     dict

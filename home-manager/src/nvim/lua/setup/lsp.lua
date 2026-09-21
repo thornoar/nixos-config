@@ -28,9 +28,11 @@ return {
             callback = function(event)
                 local opts = { buffer = event.buf }
                 vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover({ border = myborder }) end, opts)
-                vim.keymap.set('n', '<M-C-CR>', function () vim.lsp.buf.references() end, opts)
+                vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
                 vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
-                vim.keymap.set('n', '<leader>ca', function () vim.lsp.buf.code_action() end, opts)
+                vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+                vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, opts)
+                -- vim.keymap.set('n', '<leader>cw', vim.lsp.buf.rename, opts)
             end
         })
 
