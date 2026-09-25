@@ -236,5 +236,7 @@
     # github-copilot-cli
 
     codex
+    # unstable.opencode
+    # gemini-cli
   ]);
 }

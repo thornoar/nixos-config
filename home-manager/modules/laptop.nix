@@ -19,6 +19,7 @@ in {
     whatsie
     signal-desktop
     telegram-desktop
+    proton-vpn
     # obs-studio
     zathura
     libnotify

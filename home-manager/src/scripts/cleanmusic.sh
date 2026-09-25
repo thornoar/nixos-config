@@ -111,6 +111,14 @@ function to_flac {
     done
 }
 
+function to_cover {
+    for file in ./**/*.jpg; do
+        dir="$(dirname "$file")"
+        echo "$dir"
+        mv "$file" "$dir/cover.jpg"
+    done
+}
+
 orphan=0
 search=0
 patch=0
@@ -119,7 +127,8 @@ update=0
 indiv=0
 msg=0
 to=0
-while getopts "ospcuyht" option; do
+to_cover=0
+while getopts "ospcuyhtq" option; do
     case "$option" in # (((((
         o) orphan=1 ;;
         s) search=1 ;;
@@ -129,6 +138,7 @@ while getopts "ospcuyht" option; do
         y) indiv=1 ;;
         h) msg=1 ;;
         t) to=1 ;;
+        q) to_cover=1 ;;
         *) exit 1 ;;
     esac
 done
@@ -144,6 +154,7 @@ if [ $msg == 1 ]; then
     printf "  -y  used to process the covers of YM-downloaded songs\n"
     printf "  -h  show this help message\n"
     printf "  -t  convert everything to FLAC\n"
+    printf "  -q  rename all JPG files to cover.jpg\n"
     exit 0
 fi
 
@@ -173,4 +184,8 @@ fi
 
 if [ $to == 1 ]; then
     to_flac
+fi
+
+if [ $to_cover == 1 ]; then
+    to_cover
 fi

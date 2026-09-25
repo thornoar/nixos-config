@@ -70,8 +70,6 @@ OverrideXkbOption=False
 CustomXkbOption=
 # Force Enabled Addons
 EnabledAddons=
-# Force Disabled Addons
-DisabledAddons=
 # Preload input method to be used by default
 PreloadInputMethod=True
 # Allow input method in the password field
@@ -80,4 +78,11 @@ AllowInputMethodForPassword=False
 ShowPreeditForPassword=False
 # Interval of saving user data in minutes
 AutoSavePeriod=30
+
+[Behavior/DisabledAddons]
+0=clipboard
+1=kimpanel
+2=notifications
+3=quickphrase
+4=xim
 
