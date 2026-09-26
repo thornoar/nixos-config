@@ -9,7 +9,7 @@ return {
 
         vim.keymap.set({"i"}, "<S-CR>", function() ls.expand() end, { silent = true })
         vim.keymap.set({"i", "s"}, "<C-'>", function() ls.jump(1) end, { silent = true })
-        vim.keymap.set({"i", "s"}, "<C-\">", function() ls.jump(-1) end, { silent = true })
+        vim.keymap.set({"i", "s"}, "<C-;>", function() ls.jump(-1) end, { silent = true })
 
         vim.keymap.set({"i", "s"}, "<C-e>", function()
             if ls.choice_active() then
