@@ -44,6 +44,11 @@
   xdg.configFile."nvim/init.lua" = config.util.dotFileMut "nvim/init.lua";
   xdg.configFile."nvim/lazy-lock.json" = config.util.dotFileMut "nvim/lazy-lock.json";
 
+  programs.antigravity-cli = {
+    enable = true;
+    package = pkgs.unstable.antigravity-cli;
+  };
+
   # Libraries configuration
   xdg.dataFile = builtins.listToAttrs (
     # Typst libraries
@@ -236,7 +241,11 @@
     # github-copilot-cli
 
     codex
+    qwen-code
+    pi-coding-agent
+    # claude-code
     # unstable.opencode
     # gemini-cli
+    # antigravity
   ]);
 }
