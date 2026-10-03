@@ -91,6 +91,7 @@ workspace "T"
 workspace "M"
 workspace "S"
 workspace "Q"
+workspace "P"
 
 window-rule {
     match app-id="firefox"
@@ -120,6 +121,11 @@ window-rule {
     open-on-workspace "Q"
     default-column-width { proportion 1.0; }
 }
+window-rule {
+    match title="^P$" at-startup=true
+    open-on-workspace "P"
+    default-column-width { proportion 1.0; }
+}
 
 spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "waybar"
@@ -129,6 +135,7 @@ spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title '
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'M' --app-id 'stratch' zsh -c 'sleep 1; rmpc; zsh'"
 spawn-sh-at-startup "foot --title 'S' --app-id 'stratch' zsh -c 'htop; zsh'"
 spawn-sh-at-startup "foot --title 'Q' --app-id 'stratch' zsh -c 'qalc; zsh'"
+spawn-sh-at-startup "foot --title 'P' --app-id 'stratch' zsh -c 'pshash --loop --impure --clip; zsh'"
 
 hotkey-overlay {
     skip-at-startup
@@ -170,6 +177,7 @@ binds {
     Mod+Period { spawn-sh "niri-hack scratch M"; }
     Mod+S { spawn-sh "niri-hack scratch S"; }
     Mod+Q { spawn-sh "niri-hack scratch Q"; }
+    Mod+P { spawn-sh "niri-hack scratch P"; }
 
     // Audio controls
     Mod+Shift+Page_Up allow-when-locked=true { spawn "amixer" "sset" "Master" "5%+"; }

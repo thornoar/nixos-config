@@ -48,6 +48,7 @@ in {
     # lrcget
     # libsixel
     net-tools
+    iftop
     python312Packages.syncedlyrics
     swayimg
     # unstable.yt-dlp
