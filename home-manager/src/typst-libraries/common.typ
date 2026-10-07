@@ -29,6 +29,8 @@
 #let dy = $#h(2pt) d y$
 #let dz = $#h(2pt) d z$
 #let dt = $#h(2pt) d t$
+#let du = $d u$
+#let dv = $d v$
 #let gen(it) = $lr(chevron.l it chevron.r)$
 #let st = $#h(0pt):#h(5pt)$
 #let wh = $#h(0pt),#h(5pt)$
