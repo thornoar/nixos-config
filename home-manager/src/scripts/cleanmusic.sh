@@ -35,12 +35,13 @@ function search_flac {
             title="$(metaflac --show-tag=TITLE "$file" | awk -F'=' '{print $2}')"
             echo "$iflac $artist - $title"
             syncedlyrics "$artist - $title" --synced-only -o "$pref.lrc" > /dev/null
+            sleep 1
         fi
         if test ! -f "$pref.lrc" -a ! -f "$pref.txt"; then
             echo "-- trying plain lyrics"
             syncedlyrics "$artist - $title" --plain-only -o "$pref.txt" > /dev/null
+            sleep 1
         fi
-        sleep .5
         ((iflac++))
     done
 }
