@@ -26,6 +26,7 @@ in {
     tagainijisho
     xournalpp
     maestral
+    inetutils
     # networkmanager-openvpn
     # sc-im
     mpv
@@ -64,6 +65,8 @@ in {
     unstable.rmpc
     onedrive
     mailutils
+    djvulibre
+    exiftool
   ]);
 
   dconf.settings = {

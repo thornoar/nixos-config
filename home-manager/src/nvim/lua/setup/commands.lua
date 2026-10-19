@@ -9,7 +9,7 @@ local compilefunc = {
     ['rust'] = function (name) return ('!rustc ' .. name .. ' -o rust.out && ./rust.out') end,
     ['haskell'] = function (name) return ('!runhaskell ' .. name) end,
     ['tex'] = function (name)
-        return '!latexmk -g -pdf -synctex=1 -interaction=nonstopmode -verbose -auxdir=./.aux ./' .. name
+        return '!latexmk -g -pdf -synctex=1 -interaction=nonstopmode -verbose ./' .. name
     end,
     ['typst'] = function (name) return ('!typst compile ' .. name) end,
     ['lua'] = function (name) return ('!lua ' .. name) end,

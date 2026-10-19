@@ -211,7 +211,7 @@ binds {
     Mod+Shift+Delete { spawn "rmpc" "clear"; }
     Mod+Shift+Backslash { spawn "rmpc" "clear"; }
     Mod+Shift+Alt+Tab { spawn-sh "rmpc clear; rmpc addrandom album 1; rmpc single off; rmpc play"; }
-    Mod+Shift+Tab { spawn-sh "rmpc clear; rmpc load \"$(ls $MEDIA/music/Playlists | shuf -n 1 | sed 's/\\..*//g')\"; rmpc single off; rmpc play"; }
+    Mod+Shift+Tab { spawn "chplst"; }
 
     // Example brightness key mappings for brightnessctl.
     Mod+Ctrl+Apostrophe allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }

@@ -188,6 +188,7 @@
         r: "${config.colors.blue0}"
         pdf: "${config.colors.red2}"
         epub: "${config.colors.red2}"
+        mobi: "${config.colors.red2}"
         djvu: "${config.colors.red2}"
         lock: "${config.colors.white0}"
         torrent: "${config.colors.green1}"
