@@ -241,9 +241,13 @@
     coursier
     cloc
     bc
-    zlib
+    # zlib
     gdb
     # github-copilot-cli
+    bison
+    flex
+    libz
+    rsbkb
 
     codex
     qwen-code
