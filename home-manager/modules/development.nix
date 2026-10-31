@@ -128,7 +128,7 @@
       numpy
       # ollama
       # openai
-      # mutagen
+      mutagen
       # requests
       # beautifulsoup4
       manim
@@ -166,6 +166,7 @@
     clang-tools
     glibc
     glibc.static
+    # minimal-bootstrap.musl-static
     cmake
     lld
     # llvmPackages.bintools-unwrapped
