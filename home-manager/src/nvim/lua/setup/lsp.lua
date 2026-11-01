@@ -4,7 +4,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
     },
     config = function ()
-            -- local myborder = { "|", " ", "|", "|" }
+        -- local myborder = { "|", " ", "|", "|" }
         local myborder = "single"
 
         vim.diagnostic.config({
@@ -19,24 +19,23 @@ return {
                 numhl = hl,
             }})
         end
-        -- vim.keymap.set('n', '<C-S-d>', function () vim.diagnostic.jump({ count = -1, float = true }) end)
-        vim.keymap.set('n', '<C-d>', function () vim.diagnostic.jump({ count = 1, float = true }) end)
-        -- vim.keymap.set('n', '<M-S-d>', function () vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
-        vim.keymap.set('n', '<M-d>', function () vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
-        vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP actions',
+        -- vim.keymap.set("n", "<C-S-d>", function () vim.diagnostic.jump({ count = -1, float = true }) end)
+        vim.keymap.set("n", "<C-d>", function () vim.diagnostic.jump({ count = 1, float = true }) end)
+        -- vim.keymap.set("n", "<M-S-d>", function () vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+        vim.keymap.set("n", "<M-d>", function () vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end)
+        vim.api.nvim_create_autocmd("LspAttach", {
             callback = function(event)
                 local opts = { buffer = event.buf }
-                vim.keymap.set('n', '<C-Space>', function () vim.lsp.buf.hover({ border = myborder }) end, opts)
-                vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
-                vim.keymap.set({ 'n', 'x' }, '<leader>cf', function () vim.lsp.buf.format({ async = true }) end, opts)
-                vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-                vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, opts)
-                -- vim.keymap.set('n', '<leader>cw', vim.lsp.buf.rename, opts)
+                vim.keymap.set("n", "<C-Space>", function () vim.lsp.buf.hover({ border = myborder }) end, opts)
+                vim.keymap.set("n", "<leader>r", vim.lsp.buf.references, opts)
+                vim.keymap.set({ "n", "x" }, "<leader>cf", function () vim.lsp.buf.format({ async = true }) end, opts)
+                vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, opts)
+                vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, opts)
+                -- vim.keymap.set("n", "<leader>cw", vim.lsp.buf.rename, opts)
             end
         })
 
-        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         vim.diagnostic.config({
             float = { border = myborder, },
@@ -149,6 +148,14 @@ return {
             }
         })
         vim.lsp.enable("mipsls")
+
+        vim.lsp.config("asy_ls", {
+            cmd = {"asy", "--lsp", "--nothreads"},
+            filetypes = {"asy"},
+            settings = {},
+            single_file_support = true,
+        })
+        vim.lsp.enable("asy_ls")
 
         vim.api.nvim_create_user_command('LA', 'LspStart', {})
         vim.api.nvim_create_user_command('LD', 'LspStop', {})
