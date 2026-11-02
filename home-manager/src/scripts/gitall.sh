@@ -8,6 +8,10 @@ dirty=0
 for dir in *; do
     printf "> Checking directory \e[32m%s\e[0m:\n" "$dir"
     cd "$dir" || exit
+    if test ! -d ./.git; then
+        cd .. || exit
+        continue
+    fi
     git status -s
     if git diff-index --quiet HEAD; then
         dirty=1
