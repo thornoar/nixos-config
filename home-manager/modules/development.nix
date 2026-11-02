@@ -28,6 +28,7 @@
       bash-language-server
       asm-lsp
       nixd
+      coqPackages.coq-lsp
     ];
   };
   xdg.configFile."nvim/ftdetect" = config.util.dotFileMut "nvim/ftdetect";
@@ -217,7 +218,7 @@
     nvd
 
     # Proof assistants
-    # coq
+    coq
     # agda
     lean
 
