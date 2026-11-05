@@ -51,7 +51,7 @@
 
   programs.opencode = {
     enable = true;
-    package = pkgs.unstable.opencode;
+    # package = pkgs.unstable.opencode;
   };
 
   # Libraries configuration
@@ -122,7 +122,7 @@
 
   home.packages = (with pkgs; [
     # Python
-    (python3.withPackages (ps: with ps; [
+    (unstable.python3.withPackages (ps: with ps; [
       ipython
       sympy
       numpy
@@ -135,7 +135,7 @@
       # manim-slides
     ]))
     sage
-    # manim
+    # unstable.manim
 
     # # R
     # (rWrapper.override {
