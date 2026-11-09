@@ -51,7 +51,7 @@
 
   programs.opencode = {
     enable = true;
-    # package = pkgs.unstable.opencode;
+    package = pkgs.unstable.opencode;
   };
 
   # Libraries configuration
