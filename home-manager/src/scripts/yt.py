@@ -21,6 +21,7 @@ parser.add_argument("-p", "--path", type = str, default = "~/media/youtube", hel
 parser.add_argument("-o", "--output", type = str, default = "%(uploader)s - %(title)s [%(id)s].%(ext)s", help = "the directory to save the videos to")
 parser.add_argument("-n", "--number", type = int, default = 100, help = "the number of search results to produce")
 parser.add_argument("-b", "--batch-file", type = str, default = "", help = "file to read links from")
+parser.add_argument("-f", "--flags", type = str, default = "", help = "additional flags for yt-dlp")
 args = parser.parse_args()
 
 # Creating the cache file if it doesn't exist
@@ -153,7 +154,7 @@ if (args.download):
 
     print(yt_dlp_format_flags)
 
-    yt_dlp_flags = "--output \"" + args.path + "/" + args.output + "\" " + yt_dlp_format_flags
+    yt_dlp_flags = args.flags + "--cookies-from-browser firefox --output \"" + args.path + "/" + args.output + "\" " + yt_dlp_format_flags
     if args.subs:
         yt_dlp_flags += "--write-subs --sub-lang en "
     if (len(args.batch_file) > 0):
@@ -163,4 +164,4 @@ if (args.download):
             os.system("yt-dlp " + yt_dlp_flags + link)
 else:
     for link in links:
-        os.system("mpv " + link)
+        os.system("mpv --ytdl-raw-options=cookies-from-browser=firefox " + link)

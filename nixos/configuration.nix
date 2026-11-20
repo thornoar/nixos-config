@@ -183,6 +183,8 @@
     enable = true;
   };
 
+  services.envfs.enable = true;
+
   services.locate.enable = true;
 
   environment.etc."current-system-packages".text =

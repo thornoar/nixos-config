@@ -220,6 +220,7 @@
     (coq.withPackages (ps: with ps; [
       stdlib
       mathcomp
+      mathcomp-analysis
       coq-lsp
     ]))
     # rocq-core
@@ -227,7 +228,7 @@
     # coq
     # coqPackages.stdlib
     # agda
-    lean
+    lean4
 
     # Ocaml
     # ocaml
@@ -252,15 +253,16 @@
     bc
     # zlib
     gdb
-    # github-copilot-cli
     bison
     flex
     libz
     rsbkb
+    ripgrep
 
     codex
     qwen-code
     pi-coding-agent
+    github-copilot-cli
     # claude-code
     # unstable.opencode
     # gemini-cli

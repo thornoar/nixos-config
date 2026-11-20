@@ -104,6 +104,7 @@ require("lazy").setup({
     require("setup.luasnip"),
     require("setup.boolean-toggle"),
     require("setup.coq-lsp"),
+    require("setup.lean"),
     -- require("setup.codecompanion"),
 }, lazy_config)
 

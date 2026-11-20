@@ -135,7 +135,7 @@ spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-terminal foot --title '
 spawn-sh-at-startup "ZDOTDIR=/home/ramak/.config/special-music foot --title 'M' --app-id 'stratch' zsh -c 'sleep 1; rmpc; zsh'"
 spawn-sh-at-startup "foot --title 'S' --app-id 'stratch' zsh -c 'htop; zsh'"
 spawn-sh-at-startup "foot --title 'Q' --app-id 'stratch' zsh -c 'amc; zsh'"
-spawn-sh-at-startup "foot --title 'P' --app-id 'stratch' zsh -c 'pshash --loop --impure --clip; zsh'"
+spawn-sh-at-startup "foot --title 'P' --app-id 'stratch' zsh -c 'pshash --loop --impure --clip --ask-repeat; zsh'"
 
 hotkey-overlay {
     skip-at-startup
@@ -164,7 +164,7 @@ binds {
     Mod+Control+T { spawn-sh "ZDOTDIR=/home/ramak/.config/special-terminal/ foot"; }
     Mod+X { spawn-sh "foot zsh -c 'nvim-server -f; br; zsh'"; }
     Mod+Return { spawn-sh "$(tofi-drun)"; }
-    Mod+Ctrl+Return { spawn-sh "$(echo -e 'reboot\npoweroff' | tofi)"; }
+    Mod+Ctrl+Return { spawn-sh "$(echo -e 'poweroff\nreboot' | tofi)"; }
     Mod+Shift+Return { spawn "switch-port"; }
     Mod+Ctrl+B { spawn "firefox"; }
     Mod+B { spawn "pkill" "-USR1" "waybar"; }
