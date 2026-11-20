@@ -21,15 +21,15 @@ return {
                 "typst", "html", "css",
                 "yaml", "latex"
             },
-            highlight = { enable = false },
+            highlight = { enable = true },
             indent = { enable = false },
             incremental_selection = {
                 enable = true,
                 keymaps = {
-                    init_selection = "<C-space>",
-                    node_incremental = "<C-space>",
-                    scope_incremental = "<C-s>",
-                    node_decremental = "<M-space>",
+                    -- init_selection = "<C-space>",
+                    -- node_incremental = "<C-space>",
+                    -- scope_incremental = "<C-s>",
+                    -- node_decremental = "<M-space>",
                 },
             },
             textobjects = {

@@ -9,7 +9,7 @@
     withRuby = true;
     extraPython3Packages = ps: with ps; [ sympy pynvim ];
     extraPackages = with pkgs; [
-      # tree-sitter
+      tree-sitter
       ripgrep
       fd
       haskellPackages.fast-tags
