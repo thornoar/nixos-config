@@ -82,6 +82,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 
         if
             ft == "haskell" or
+            ft == "lean" or
             ft == "scala" or
             ft == "typst" or
             ft == "markdown" or
