@@ -5,6 +5,6 @@ return {
     config = function ()
         vim.g.typst_syntax_highlight = true
         vim.g.typst_conceal = true
-        vim.g.typst_conceal_math = true
+        vim.g.typst_conceal_math = false
     end
 }

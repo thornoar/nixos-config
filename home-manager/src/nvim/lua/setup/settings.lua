@@ -77,6 +77,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
             vim.o.commentstring = "%%s"
             -- vim.o.textwidth = 70
         end
+        if ft == "lean" then
+            vim.o.commentstring = "--%s"
+            -- vim.o.textwidth = 70
+        end
 
         -- Tab settings
 
