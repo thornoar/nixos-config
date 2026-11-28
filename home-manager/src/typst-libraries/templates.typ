@@ -178,52 +178,48 @@
 
 #let assignment-title(
   title: [title],
+  name: "Roman Maksimovich, ID: 21098878",
   due: [date],
-  ext1: [],
-	ext2: [],
+  ext1: none,
+	ext2: none,
 	inset: (left: 8pt, bottom: 8pt),
 	fontsize: 14pt
 ) = {
-  let hasextra = ext1 != [] or ext2 != []
+  let hasright = ext1 != none or ext2 != none
+  let hasbottom = due != none or ext2 != none
   let fields = (
     (
       table.cell(
-        colspan: if (hasextra) { 2 } else { 1 }, inset: inset,
-        {
-          set text(20pt)
-          title; h(1fr)
-        }
+        colspan: if (hasright) { 2 } else { 1 },
+        inset: inset,
+        { set text(20pt); title; h(1fr) }
       ),
-      table.hline(),
-      { text(fontsize, "Roman Maksimovich, ID: 21098878"); h(1fr) }
+      table.hline(stroke: 1pt),
+      { text(fontsize, name); h(1fr) }
     ),
-    if (hasextra) {
-      (
-        {
-          set text(fontsize)
-          ext1
-          h(1fr)
-        }
-      )
-    } else { () },
-    {
+    if (hasright) {({
+      set text(fontsize)
+      ext1
+      h(1fr)
+    })} else { () },
+    if (due != none) {({
       text(fontsize, "Due date: " + due)
       h(1fr)
-    },
-    if (hasextra) {
-      (
-        {
-          set text(fontsize)
-          ext2
-          h(1fr)
-        }
-      )
-    } else { () },
+    })} else { () },
+    if (hasright and hasbottom) {({
+      set text(fontsize)
+      ext2
+      h(1fr)
+    })} else { () },
   ).flatten()
   table(
-    columns: if (hasextra) { 2 } else {1},
+    columns: if (hasright) { 2 } else {1},
     align: (left, left),
-    inset: (left: inset.left, bottom: 3pt),
+    inset: (
+      left: inset.left,
+      top: 6pt,
+      bottom: if (hasbottom) { 3pt } else { 2pt }
+    ),
     stroke: (left: 1pt, top: none, right: none, bottom: none),
     ..fields
   )
@@ -232,11 +228,14 @@
 #let assignment-title-rule(
   header: [header],
 	title: [title],
+	name: "Roman Maksimovich, ID: 21098878",
 	due: [date],
-	ext1: [],
-	ext2: [],
+	ext1: none,
+	ext2: none,
 	inset: (left: 8pt, bottom: 8pt),
-	fontsize: 14pt
+	fontsize: 14pt,
+  textsize: 12pt,
+  fontname: "Libertinus Serif"
 ) = doc => {
   set page(
     "a4",
@@ -250,8 +249,8 @@
     },
     numbering: "1"
   )
-  set text(size: 12pt)
-  assignment-title(title: title, due: due, ext1: ext1, ext2: ext2, inset: inset, fontsize: fontsize)
+  set text(size: textsize, font: fontname)
+  assignment-title(title: title, name: name, due: due, ext1: ext1, ext2: ext2, inset: inset, fontsize: fontsize)
 
   show: word-count
 

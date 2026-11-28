@@ -129,6 +129,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 			ft == "typst"
         then
             autosave = false
+        else
+            autosave = true
         end
     end
 })
